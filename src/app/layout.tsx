@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Mulish, Manrope } from "next/font/google";
-import { ELang } from "@/models/user/Enams";
+import { ELang } from "@/models/Lang";
 import "./globals.css";
 
 const mulish = Mulish({ subsets: [ "cyrillic", "latin" ], weight: [ "300", "400", "700" ] });
