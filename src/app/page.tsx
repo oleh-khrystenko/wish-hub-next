@@ -1,10 +1,6 @@
-import Link from "next/link";
+import { redirect } from "next/navigation";
+import { ELang } from "@/models/Lang";
 
-export default function Main() {
-    return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <Link href="/welcome">welcome</Link>
-            main page
-        </main>
-    );
+export default function RootPage() {
+    redirect(`/${ELang.UK}`);
 }

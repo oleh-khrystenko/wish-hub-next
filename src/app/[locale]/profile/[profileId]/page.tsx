@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ParamsOnlyClient } from "@/app/profile/[profileId]/ParamsOnlyClient";
+import { ParamsOnlyClient } from "@/app/[locale]/profile/[profileId]/ParamsOnlyClient";
 
 export default function Profile() {
 
