@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 import { IUser } from '@/models/User';
-import { EPrivacy } from "@/models/Privacy";
+import { EPrivacy } from "@/models/Settings";
 
 export interface IImage {
     id?: string;

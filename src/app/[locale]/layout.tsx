@@ -10,6 +10,21 @@ interface IProps {
     params: { locale: string };
 }
 
+const setInitialTheme = `
+    (function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.documentElement.classList.add(savedTheme);
+        } else {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const defaultTheme = prefersDark ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', defaultTheme);
+            document.documentElement.classList.add(defaultTheme);
+        }
+    })();
+`;
+
 export default function RootLayout({ children, params: { locale } }: Readonly<IProps>) {
     const t = useTranslations();
 
@@ -19,12 +34,13 @@ export default function RootLayout({ children, params: { locale } }: Readonly<IP
         <html lang={locale}>
             <head>
                 <title>Wish Hub</title>
-                <meta name="description" content={ description } />
+                <meta name="description" content={description} />
                 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+                <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
             </head>
 
-            <body className={ `${ mulish.className } ${ manrope.className }` }>
-                { children }
+            <body className={`${mulish.className} ${manrope.className}`}>
+                {children}
             </body>
         </html>
     );

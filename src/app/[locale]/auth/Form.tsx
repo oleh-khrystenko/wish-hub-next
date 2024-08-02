@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 // import { useRouter } from "next/router";
 import { CredentialResponse } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import { ELang } from "@/models/Lang";
+import { ELang } from "@/models/Settings";
 import { IUser } from "@/models/User";
 import Link from "next/link";
 import CustomSelect from "@/components/ui/CustomSelect";

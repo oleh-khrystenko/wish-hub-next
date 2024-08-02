@@ -1,0 +1,16 @@
+export enum ELang {
+    EN = 'en',
+    UK = 'uk',
+    RU = 'ru',
+}
+
+export enum ETheme {
+    LIGHT = 'light',
+    DARK = 'dark',
+}
+
+export enum EPrivacy {
+    ALL = 'all',
+    FRIENDS = 'friends',
+    NOBODY = 'nobody',
+}

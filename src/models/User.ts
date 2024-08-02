@@ -1,6 +1,5 @@
 import { Dayjs } from 'dayjs';
-import { ELang } from "@/models/Lang";
-import { EPrivacy } from "@/models/Privacy";
+import { EPrivacy, ELang } from "@/models/Settings";
 
 export interface ICandidate {
     email?: string;

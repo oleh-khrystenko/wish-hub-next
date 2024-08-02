@@ -1,6 +1,5 @@
 import { TCurrentAvatar, IUser } from '@/models/User';
-import { ELang } from '@/models/Lang';
-import { EPrivacy } from "@/models/Privacy";
+import { ELang, EPrivacy } from "@/models/Settings";
 
 export interface IForgotPassword {
     email: IUser['email'];
