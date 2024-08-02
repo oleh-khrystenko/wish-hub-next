@@ -1,11 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
-import { t } from 'i18next';
+// import { t } from 'i18next';
 // import { toast } from 'react-toastify';
 import api from '@/helpers/utils/api';
 import {
-    IGetUsers,
-    ISendAllUsersParams,
-    ISendUsersParams,
     IRegistration,
     IGoogleAuth,
     ILogin,
@@ -19,35 +16,17 @@ import {
     IAddFriend,
     IRemoveFriend,
     IDeleteMyUser,
-} from '@/store/users/types';
-import { IAuth, IUser } from "@/models/User";
+} from '@/stores/users/types';
+import { IUser, IAuth } from '@/models/User';
 import { encryptedData } from '@/helpers/utils/encryption-data';
-
-const getUsers = async (params: ISendUsersParams): Promise<AxiosResponse<IGetUsers>> => {
-    try {
-        return await api.get('/users', { params });
-    } catch (error: any) {
-        // toast(error.response?.data?.message || t('alerts.users-api.get-users.error', { type: 'api.getUsers' }), { type: 'error' })
-        throw error;
-    }
-}
-
-const getAllUsers = async (params: ISendAllUsersParams): Promise<AxiosResponse<IUser[]>> => {
-    try {
-        return await api.get('/all-users', { params });
-    } catch (error: any) {
-        // toast(error.response?.data?.message || t('alerts.users-api.get-all-users.error', { type: 'api.getAllUsers' }), { type: 'error' })
-        throw error;
-    }
-}
 
 const registration = async (data: IRegistration): Promise<AxiosResponse<IAuth>> => {
     try {
-        if (!process.env.REACT_APP_CRYPTO_JS_SECRET) {
-            return Promise.reject('REACT_APP_CRYPTO_JS_SECRET is not defined.');
+        if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
+            return Promise.reject('NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.');
         }
 
-        const encryptedPassword = encryptedData(data.password, process.env.REACT_APP_CRYPTO_JS_SECRET);
+        const encryptedPassword = encryptedData(data.password, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
         const response = await api.post('/registration', { ...data, password: encryptedPassword });
         localStorage.setItem('token', response.data.accessToken);
         return response;
@@ -67,7 +46,7 @@ const sendActivationLink = async (userId: IUser['id']): Promise<AxiosResponse<IU
         // toast(
         //     error.response?.data?.message || t('alerts.my-user-api.send-activation-link.error', { type: 'api' }),
         //     { type: 'error' },
-        // )
+        // );
         throw error;
     }
 };
@@ -88,11 +67,11 @@ const googleAuthorization = async (data: IGoogleAuth): Promise<AxiosResponse<IAu
 
 const login = async (data: ILogin): Promise<AxiosResponse<IAuth>> => {
     try {
-        if (!process.env.REACT_APP_CRYPTO_JS_SECRET) {
-            return Promise.reject('REACT_APP_CRYPTO_JS_SECRET is not defined.');
+        if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
+            return Promise.reject('NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.');
         }
 
-        const encryptedPassword = encryptedData(data.password, process.env.REACT_APP_CRYPTO_JS_SECRET);
+        const encryptedPassword = encryptedData(data.password, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
         const response = await api.post('/login', { ...data, password: encryptedPassword });
         localStorage.setItem('token', response.data.accessToken);
         return response;
@@ -124,15 +103,15 @@ const refresh = async (): Promise<AxiosResponse<IAuth>> => {
         const response = await axios.get(
             `${
                 process.env.NODE_ENV === 'development'
-                    ? process.env.REACT_APP_DEV_API_URL
-                    : process.env.REACT_APP_API_URL
+                    ? process.env.NEXT_PUBLIC_DEV_API_URL
+                    : process.env.NEXT_PUBLIC_API_URL
             }/refresh`,
             { withCredentials: true },
         );
         localStorage.setItem('token', response.data.accessToken);
         return response;
     } catch (error: any) {
-        console.log('my-user refresh error: ', error.response?.data?.message || t('alerts.my-user-api.refresh.error', { type: 'api' }));
+        // console.log('my-user refresh error: ', error.response?.data?.message || t('alerts.my-user-api.refresh.error', { type: 'api' }));
         localStorage.removeItem('token');
         localStorage.removeItem('selectedUserId');
         throw error;
@@ -160,11 +139,11 @@ const forgotPassword = async (data: IForgotPassword): Promise<void> => {
 
 const changeForgottenPassword = async (data: IChangeForgottenPassword): Promise<void> => {
     try {
-        if (!process.env.REACT_APP_CRYPTO_JS_SECRET) {
-            return Promise.reject('REACT_APP_CRYPTO_JS_SECRET is not defined.');
+        if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
+            return Promise.reject('NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.');
         }
 
-        const encryptedNewPassword = encryptedData(data.newPassword, process.env.REACT_APP_CRYPTO_JS_SECRET);
+        const encryptedNewPassword = encryptedData(data.newPassword, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
         await api.put('/change-forgotten-password', { ...data, newPassword: encryptedNewPassword });
         // toast(
         //     t('alerts.my-user-api.change-forgotten-password.success', { type: 'api' }),
@@ -181,12 +160,12 @@ const changeForgottenPassword = async (data: IChangeForgottenPassword): Promise<
 
 const changePassword = async (data: IChangePassword): Promise<void> => {
     try {
-        if (!process.env.REACT_APP_CRYPTO_JS_SECRET) {
-            return Promise.reject('REACT_APP_CRYPTO_JS_SECRET is not defined.');
+        if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
+            return Promise.reject('NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.');
         }
 
-        const encryptedOldPassword = encryptedData(data.oldPassword, process.env.REACT_APP_CRYPTO_JS_SECRET);
-        const encryptedNewPassword = encryptedData(data.newPassword, process.env.REACT_APP_CRYPTO_JS_SECRET);
+        const encryptedOldPassword = encryptedData(data.oldPassword, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
+        const encryptedNewPassword = encryptedData(data.newPassword, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
         await api.put('/change-password', {
             ...data,
             oldPassword: encryptedOldPassword,
@@ -246,7 +225,7 @@ const changeShowedInfo = async (data: IUserId): Promise<AxiosResponse<IUser>> =>
     try {
         return await api.put('/showed-info', data);
     } catch (error: any) {
-        console.log('my-user changeShowedInfo error: ', error.response?.data?.message || t('alerts.my-user-api.update-data.error', { type: 'api' }));
+        // console.log('my-user changeShowedInfo error: ', error.response?.data?.message || t('alerts.my-user-api.update-data.error', { type: 'api' }));
         throw error;
     }
 };
@@ -255,7 +234,7 @@ const changeFirsLoaded = async (data: IUserId): Promise<AxiosResponse<IUser>> =>
     try {
         return await api.put('/first-loaded', data);
     } catch (error: any) {
-        console.log('my-user changeFirsLoaded error: ', error.response?.data?.message || t('alerts.my-user-api.update-data.error', { type: 'api' }));
+        // console.log('my-user changeFirsLoaded error: ', error.response?.data?.message || t('alerts.my-user-api.update-data.error', { type: 'api' }));
         throw error;
     }
 };
@@ -327,11 +306,11 @@ const removeFriend = async (data: IRemoveFriend): Promise<AxiosResponse<IUser>> 
 
 const deleteMyUser = async (data: IDeleteMyUser): Promise<AxiosResponse<IUser['id']>> => {
     try {
-        if (!process.env.REACT_APP_CRYPTO_JS_SECRET) {
-            return Promise.reject('REACT_APP_CRYPTO_JS_SECRET is not defined.');
+        if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
+            return Promise.reject('NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.');
         }
 
-        const encryptedPassword = encryptedData(data.password, process.env.REACT_APP_CRYPTO_JS_SECRET);
+        const encryptedPassword = encryptedData(data.password, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
         const response = await api.post('/user/delete', { ...data, password: encryptedPassword });
         localStorage.removeItem('token');
         localStorage.removeItem('selectedUserId');
@@ -345,9 +324,7 @@ const deleteMyUser = async (data: IDeleteMyUser): Promise<AxiosResponse<IUser['i
     }
 };
 
-const usersApi = {
-    getUsers,
-    getAllUsers,
+const myUserApi = {
     registration,
     sendActivationLink,
     googleAuthorization,
@@ -368,4 +345,4 @@ const usersApi = {
     deleteMyUser,
 };
 
-export default usersApi;
+export default myUserApi;

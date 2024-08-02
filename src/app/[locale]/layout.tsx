@@ -23,7 +23,9 @@ export default function RootLayout({ children, params: { locale } }: Readonly<IP
                 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
             </head>
 
-            <body className={ `${ mulish.className } ${ manrope.className }` }>{ children}</body>
+            <body className={ `${ mulish.className } ${ manrope.className }` }>
+                { children }
+            </body>
         </html>
     );
 }

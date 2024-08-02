@@ -1,31 +1,6 @@
-import { IUser, TCurrentAvatar } from '@/models/User';
-import { ELang } from "@/models/Lang";
+import { TCurrentAvatar, IUser } from '@/models/User';
+import { ELang } from '@/models/Lang';
 import { EPrivacy } from "@/models/Privacy";
-
-export interface ISendAllUsersParams {
-    page: number;
-    limit: number;
-    search: string;
-}
-
-export enum EUserType {
-    ALL = 'all',
-    FRIENDS = 'friends',
-    FOLLOW_FROM = 'followFrom',
-    FOLLOW_TO = 'followTo',
-}
-
-export interface ISendUsersParams extends  ISendAllUsersParams {
-    myUserId: IUser['id'];
-    userType: EUserType;
-}
-
-export interface IGetUsers {
-    followFromCount: number;
-    users: IUser[];
-}
-
-
 
 export interface IForgotPassword {
     email: IUser['email'];

@@ -1,12 +1,12 @@
 import axios from 'axios';
 // import { t } from 'i18next';
 // import { toast } from 'react-toastify';
-import myUserApi from '@/store/users/api';
+import myUserApi from '@/stores/users/api';
 
 // Створення екземпляра axios з базовими налаштуваннями
 const api = axios.create({
     withCredentials: true,
-    baseURL: process.env.NODE_ENV === 'development' ? process.env.REACT_APP_DEV_API_URL : process.env.REACT_APP_API_URL,
+    baseURL: process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_DEV_API_URL : process.env.NEXT_PUBLIC_API_URL,
 });
 
 // Додавання токену до заголовків кожного запиту

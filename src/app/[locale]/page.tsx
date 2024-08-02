@@ -11,6 +11,7 @@ export default function Main() {
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <Link href={`/${activeLocale}/welcome`}>welcome</Link>
             main page
+            <br/>
             {t('main-page.you_can_send')}
             <CustomSelect />
         </main>
