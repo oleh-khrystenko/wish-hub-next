@@ -1,6 +1,10 @@
 'use client';
 
-import { FC, ChangeEvent, Ref, forwardRef, useState } from 'react'; // forwardRef потрібен для валідації в бібліотеці react-hook-form
+import { FC, ChangeEvent, Ref, forwardRef, useState } from 'react';
+import CloseEyeIcon from '@/components/icons/CloseEyeIcon';
+import EyeIcon from '@/components/icons/EyeIcon';
+import SearchIcon from '@/components/icons/SearchIcon';
+import InfoIcon from '@/components/icons/InfoIcon'; // forwardRef потрібен для валідації в бібліотеці react-hook-form
 
 interface IProps {
     id: string;
@@ -40,11 +44,12 @@ const Input: FC<IProps> = forwardRef<HTMLInputElement | HTMLTextAreaElement, IPr
     };
 
     return (
-        <div className="input">
-            <div className={ "wrap" + (type === 'multiline' ? " with-bg" : "") }>
+        <div className="mt-2 w-full">
+            <div className={ 'relative rounded-lg' + (type === 'multiline' ? ' bg-bg-dark' : '') }>
                 {
                     type === 'multiline'
                         ? <textarea
+                            className="relative z-10 py-1.6 px-2.5 w-full text-dark text-sm tablet-md:text-base appearance-none rounded-lg border-0 bg-transparent outline-none transition-slow min-h-20 resize-y textarea-scrollbar"
                             ref={ ref as Ref<HTMLTextAreaElement> }
                             id={ id }
                             name={ name }
@@ -54,7 +59,7 @@ const Input: FC<IProps> = forwardRef<HTMLInputElement | HTMLTextAreaElement, IPr
                             { ...props }
                         />
                         : <input
-                            className={ type === 'password' ? 'with-icon' : '' }
+                            className={ 'relative z-10 py-1.6 px-2.5 w-full text-dark text-sm tablet-md:text-base appearance-none rounded-lg border-0 bg-transparent outline-none transition-slow' + (type === 'password' ? ' pr-8' : '') }
                             ref={ ref as Ref<HTMLInputElement> }
                             id={ id }
                             name={ name }
@@ -69,48 +74,59 @@ const Input: FC<IProps> = forwardRef<HTMLInputElement | HTMLTextAreaElement, IPr
                 }
 
                 { type === 'password' && (
-                    <button type="button" onClick={ () => setShowPassword(prevState => !prevState) }>
-                        { showPassword ? '+' : '-' }
+                    <button
+                        className="absolute top-1/2 right-2.5 z-10 -translate-y-1/2"
+                        type="button"
+                        onClick={ () => setShowPassword(prevState => !prevState) }
+                    >
+                        { showPassword ? <CloseEyeIcon /> : <EyeIcon /> }
                     </button>
                 ) }
 
                 { type === 'search' && (
                     <>
                         { value && value.length > 0 ? (
-                            <button className="clear" type="button" onClick={ clear }>
+                            <button
+                                className="absolute top-1/2 right-2.5 z-10 -translate-y-1/2 rotate-45 text-3xl"
+                                type="button"
+                                onClick={ clear }
+                            >
                                 +
                             </button>
                         ) : (
                             <>
-                                <div className="search-icon default">
-                                    Search
+                                <div className="absolute top-1/2 right-2.5 z-10 -translate-y-1/2 flex items-center justify-center transition-slow">
+                                    <SearchIcon />
                                 </div>
 
-                                <div className="search-icon hovered">
-                                    Search
-                                </div>
+                                {/*<div className="search-icon hovered">*/ }
+                                {/*    Search*/ }
+                                {/*</div>*/ }
                             </>
                         ) }
                     </>
                 ) }
 
-                <label htmlFor={ id }>
+                <label
+                    className="absolute top-0 left-0 z-10 flex items-center justify-center gap-1 py-1.5 pr-2.5 text-light text-sm tablet-md:text-base cursor-text whitespace-nowrap transition-slow"
+                    htmlFor={ id }
+                >
                     { label }
                     { tooltip && tooltip.length > 0 && (
                         <span
-                            className="tooltip"
+                            className="h-0 overflow-hidden transition-slow"
                             data-tooltip-id={ id }
                             data-tooltip-content={ tooltip }
                         >
-                            Info
+                            <InfoIcon />
                         </span>
                     ) }
                 </label>
 
-                <div className="background"></div>
+                <div className="absolute bottom-0 left-0 z-10 w-full h-0.5 rounded-lg bg-primary pointer-events-none transition-slow"></div>
             </div>
 
-            { error && <p className="error">{ error }</p> }
+            { error && <p className="error-text">{ error }</p> }
         </div>
     );
 });

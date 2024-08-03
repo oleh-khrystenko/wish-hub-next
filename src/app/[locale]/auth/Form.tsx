@@ -177,6 +177,15 @@ function Form() {
                 error={ errors?.password?.message }
             />
 
+            <Input
+                { ...register("firstName") }
+                id="description"
+                name="description"
+                type="multiline"
+                label={ 'firstName' }
+                error={ errors?.firstName?.message }
+            />
+
             <button type="submit">submit </button>
         </form>
     );
