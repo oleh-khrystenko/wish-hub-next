@@ -20,14 +20,24 @@ import {
 import { IUser, IAuth } from '@/models/User';
 import { encryptedData } from '@/helpers/utils/encryption-data';
 
-const registration = async (data: IRegistration): Promise<AxiosResponse<IAuth>> => {
+const registration = async (
+    data: IRegistration
+): Promise<AxiosResponse<IAuth>> => {
     try {
         if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
-            return Promise.reject('NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.');
+            return Promise.reject(
+                'NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.'
+            );
         }
 
-        const encryptedPassword = encryptedData(data.password, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
-        const response = await api.post('/registration', { ...data, password: encryptedPassword });
+        const encryptedPassword = encryptedData(
+            data.password,
+            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+        );
+        const response = await api.post('/registration', {
+            ...data,
+            password: encryptedPassword,
+        });
         localStorage.setItem('token', response.data.accessToken);
         return response;
     } catch (error: any) {
@@ -39,9 +49,11 @@ const registration = async (data: IRegistration): Promise<AxiosResponse<IAuth>> 
     }
 };
 
-const sendActivationLink = async (userId: IUser['id']): Promise<AxiosResponse<IUser['email']>> => {
+const sendActivationLink = async (
+    userId: IUser['id']
+): Promise<AxiosResponse<IUser['email']>> => {
     try {
-        return await api.get(`/get-activation-link/${ userId }`);
+        return await api.get(`/get-activation-link/${userId}`);
     } catch (error: any) {
         // toast(
         //     error.response?.data?.message || t('alerts.my-user-api.send-activation-link.error', { type: 'api' }),
@@ -51,7 +63,9 @@ const sendActivationLink = async (userId: IUser['id']): Promise<AxiosResponse<IU
     }
 };
 
-const googleAuthorization = async (data: IGoogleAuth): Promise<AxiosResponse<IAuth>> => {
+const googleAuthorization = async (
+    data: IGoogleAuth
+): Promise<AxiosResponse<IAuth>> => {
     try {
         const response = await api.post('/google-auth', data);
         localStorage.setItem('token', response.data.accessToken);
@@ -68,11 +82,19 @@ const googleAuthorization = async (data: IGoogleAuth): Promise<AxiosResponse<IAu
 const login = async (data: ILogin): Promise<AxiosResponse<IAuth>> => {
     try {
         if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
-            return Promise.reject('NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.');
+            return Promise.reject(
+                'NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.'
+            );
         }
 
-        const encryptedPassword = encryptedData(data.password, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
-        const response = await api.post('/login', { ...data, password: encryptedPassword });
+        const encryptedPassword = encryptedData(
+            data.password,
+            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+        );
+        const response = await api.post('/login', {
+            ...data,
+            password: encryptedPassword,
+        });
         localStorage.setItem('token', response.data.accessToken);
         return response;
     } catch (error: any) {
@@ -106,7 +128,7 @@ const refresh = async (): Promise<AxiosResponse<IAuth>> => {
                     ? process.env.NEXT_PUBLIC_DEV_API_URL
                     : process.env.NEXT_PUBLIC_API_URL
             }/refresh`,
-            { withCredentials: true },
+            { withCredentials: true }
         );
         localStorage.setItem('token', response.data.accessToken);
         return response;
@@ -137,14 +159,24 @@ const forgotPassword = async (data: IForgotPassword): Promise<void> => {
     }
 };
 
-const changeForgottenPassword = async (data: IChangeForgottenPassword): Promise<void> => {
+const changeForgottenPassword = async (
+    data: IChangeForgottenPassword
+): Promise<void> => {
     try {
         if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
-            return Promise.reject('NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.');
+            return Promise.reject(
+                'NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.'
+            );
         }
 
-        const encryptedNewPassword = encryptedData(data.newPassword, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
-        await api.put('/change-forgotten-password', { ...data, newPassword: encryptedNewPassword });
+        const encryptedNewPassword = encryptedData(
+            data.newPassword,
+            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+        );
+        await api.put('/change-forgotten-password', {
+            ...data,
+            newPassword: encryptedNewPassword,
+        });
         // toast(
         //     t('alerts.my-user-api.change-forgotten-password.success', { type: 'api' }),
         //     { type: 'success' },
@@ -161,11 +193,19 @@ const changeForgottenPassword = async (data: IChangeForgottenPassword): Promise<
 const changePassword = async (data: IChangePassword): Promise<void> => {
     try {
         if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
-            return Promise.reject('NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.');
+            return Promise.reject(
+                'NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.'
+            );
         }
 
-        const encryptedOldPassword = encryptedData(data.oldPassword, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
-        const encryptedNewPassword = encryptedData(data.newPassword, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
+        const encryptedOldPassword = encryptedData(
+            data.oldPassword,
+            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+        );
+        const encryptedNewPassword = encryptedData(
+            data.newPassword,
+            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+        );
         await api.put('/change-password', {
             ...data,
             oldPassword: encryptedOldPassword,
@@ -197,7 +237,9 @@ const changeLang = async (data: IChangeLang): Promise<AxiosResponse<IUser>> => {
     }
 };
 
-const notificationSubscribe = async (data: INotificationSubscribe): Promise<AxiosResponse<IUser>> => {
+const notificationSubscribe = async (
+    data: INotificationSubscribe
+): Promise<AxiosResponse<IUser>> => {
     try {
         return await api.put('/notification-subscribe', data);
     } catch (error: any) {
@@ -209,7 +251,9 @@ const notificationSubscribe = async (data: INotificationSubscribe): Promise<Axio
     }
 };
 
-const notificationUnsubscribe = async (data: IUserId): Promise<AxiosResponse<IUser>> => {
+const notificationUnsubscribe = async (
+    data: IUserId
+): Promise<AxiosResponse<IUser>> => {
     try {
         return await api.put('/notification-unsubscribe', data);
     } catch (error: any) {
@@ -221,7 +265,9 @@ const notificationUnsubscribe = async (data: IUserId): Promise<AxiosResponse<IUs
     }
 };
 
-const changeShowedInfo = async (data: IUserId): Promise<AxiosResponse<IUser>> => {
+const changeShowedInfo = async (
+    data: IUserId
+): Promise<AxiosResponse<IUser>> => {
     try {
         return await api.put('/showed-info', data);
     } catch (error: any) {
@@ -230,7 +276,9 @@ const changeShowedInfo = async (data: IUserId): Promise<AxiosResponse<IUser>> =>
     }
 };
 
-const changeFirsLoaded = async (data: IUserId): Promise<AxiosResponse<IUser>> => {
+const changeFirsLoaded = async (
+    data: IUserId
+): Promise<AxiosResponse<IUser>> => {
     try {
         return await api.put('/first-loaded', data);
     } catch (error: any) {
@@ -240,16 +288,16 @@ const changeFirsLoaded = async (data: IUserId): Promise<AxiosResponse<IUser>> =>
 };
 
 const updateMyUser = async ({
-                                userId,
-                                firstName,
-                                lastName,
-                                avatar,
-                                showEmail,
-                                deliveryAddress,
-                                showDeliveryAddress,
-                                birthday,
-                                showBirthday,
-                            }: IUpdateMyUser): Promise<AxiosResponse<IUser>> => {
+    userId,
+    firstName,
+    lastName,
+    avatar,
+    showEmail,
+    deliveryAddress,
+    showDeliveryAddress,
+    birthday,
+    showBirthday,
+}: IUpdateMyUser): Promise<AxiosResponse<IUser>> => {
     const formData = new FormData();
     formData.append('userId', userId);
     formData.append('firstName', firstName);
@@ -257,20 +305,17 @@ const updateMyUser = async ({
     formData.append('avatar', avatar);
     formData.append('showEmail', showEmail);
     deliveryAddress && formData.append('deliveryAddress', deliveryAddress);
-    showDeliveryAddress && formData.append('showDeliveryAddress', showDeliveryAddress);
+    showDeliveryAddress &&
+        formData.append('showDeliveryAddress', showDeliveryAddress);
     birthday && formData.append('birthday', birthday);
     showBirthday && formData.append('showBirthday', showBirthday);
 
     try {
-        return await api.put(
-            '/user',
-            formData,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+        return await api.put('/user', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
             },
-        );
+        });
     } catch (error: any) {
         // toast(
         //     error.response?.data?.message || t('alerts.my-user-api.update-my-user.error', { type: 'api' }),
@@ -292,7 +337,9 @@ const addFriend = async (data: IAddFriend): Promise<AxiosResponse<IUser>> => {
     }
 };
 
-const removeFriend = async (data: IRemoveFriend): Promise<AxiosResponse<IUser>> => {
+const removeFriend = async (
+    data: IRemoveFriend
+): Promise<AxiosResponse<IUser>> => {
     try {
         return await api.delete('/friend', { data });
     } catch (error: any) {
@@ -304,14 +351,24 @@ const removeFriend = async (data: IRemoveFriend): Promise<AxiosResponse<IUser>> 
     }
 };
 
-const deleteMyUser = async (data: IDeleteMyUser): Promise<AxiosResponse<IUser['id']>> => {
+const deleteMyUser = async (
+    data: IDeleteMyUser
+): Promise<AxiosResponse<IUser['id']>> => {
     try {
         if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
-            return Promise.reject('NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.');
+            return Promise.reject(
+                'NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.'
+            );
         }
 
-        const encryptedPassword = encryptedData(data.password, process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET);
-        const response = await api.post('/user/delete', { ...data, password: encryptedPassword });
+        const encryptedPassword = encryptedData(
+            data.password,
+            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+        );
+        const response = await api.post('/user/delete', {
+            ...data,
+            password: encryptedPassword,
+        });
         localStorage.removeItem('token');
         localStorage.removeItem('selectedUserId');
         return response;

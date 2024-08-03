@@ -1,7 +1,7 @@
-import {create} from 'zustand';
-import { ICandidate, IUser } from "@/models/User";
-import { ILogin } from "@/stores/users/types";
-import myUserApi from "@/stores/users/api";
+import { create } from 'zustand';
+import { ICandidate, IUser } from '@/models/User';
+import { ILogin } from '@/stores/users/types';
+import myUserApi from '@/stores/users/api';
 
 interface IUsersStore {
     list: IUser[];
@@ -12,7 +12,7 @@ interface IUsersStore {
     login: (data: ILogin) => void;
 }
 
-export const useUsersStore = create<IUsersStore>(set => ({
+export const useUsersStore = create<IUsersStore>((set) => ({
     list: [],
     myUser: null,
     candidate: null,

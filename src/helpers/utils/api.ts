@@ -6,14 +6,17 @@ import myUserApi from '@/stores/users/api';
 // Створення екземпляра axios з базовими налаштуваннями
 const api = axios.create({
     withCredentials: true,
-    baseURL: process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_DEV_API_URL : process.env.NEXT_PUBLIC_API_URL,
+    baseURL:
+        process.env.NODE_ENV === 'development'
+            ? process.env.NEXT_PUBLIC_DEV_API_URL
+            : process.env.NEXT_PUBLIC_API_URL,
 });
 
 // Додавання токену до заголовків кожного запиту
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
-        config.headers.Authorization = `Bearer ${ token }`;
+        config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
 });
@@ -25,7 +28,11 @@ api.interceptors.response.use(
         const originalRequest = error.config;
 
         // Якщо помилка 401 і це не повторний запит
-        if (error.response.status === 401 && error.config && !error.config._isRetry) {
+        if (
+            error.response.status === 401 &&
+            error.config &&
+            !error.config._isRetry
+        ) {
             originalRequest._isRetry = true;
             try {
                 const response = await myUserApi.refresh();

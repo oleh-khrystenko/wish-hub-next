@@ -1,9 +1,12 @@
 import { Mulish, Manrope } from 'next/font/google';
 import { useTranslations } from 'next-intl';
-import "@/app/[locale]/globals.css";
+import '@/app/[locale]/globals.css';
 
-const mulish = Mulish({ subsets: ["cyrillic", "latin"], weight: ["300", "400", "700"] });
-const manrope = Manrope({ subsets: ["latin"], weight: ["700"] });
+const mulish = Mulish({
+    subsets: ['cyrillic', 'latin'],
+    weight: ['300', '400', '700'],
+});
+const manrope = Manrope({ subsets: ['latin'], weight: ['700'] });
 
 interface IProps {
     children: React.ReactNode;
@@ -25,10 +28,14 @@ const setInitialTheme = `
     })();
 `;
 
-export default function RootLayout({ children, params: { locale } }: Readonly<IProps>) {
+export default function RootLayout({
+    children,
+    params: { locale },
+}: Readonly<IProps>) {
     const t = useTranslations();
 
-    const description = t('meta-description') || "Wish Hub - робить ваші мрії реальністю!";
+    const description =
+        t('meta-description') || 'Wish Hub - робить ваші мрії реальністю!';
 
     return (
         <html lang={locale}>

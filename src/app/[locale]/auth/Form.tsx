@@ -1,17 +1,17 @@
 'use client';
 
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useLocale } from "next-intl";
-import { useUsersStore } from "@/stores/users";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useLocale } from 'next-intl';
+import { useUsersStore } from '@/stores/users';
+import { SubmitHandler, useForm } from 'react-hook-form';
 // import { useRouter } from "next/router";
-import { CredentialResponse } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
-import { ELang } from "@/models/Settings";
-import { IUser } from "@/models/User";
-import Link from "next/link";
-import CustomSelect from "@/components/ui/CustomSelect";
-import Input from "@/components/ui/Input";
+import { CredentialResponse } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
+import { ELang } from '@/models/Settings';
+import { IUser } from '@/models/User';
+import Link from 'next/link';
+import CustomSelect from '@/components/ui/CustomSelect';
+import Input from '@/components/ui/Input';
 
 interface IGoogleAuthCredentialResponse {
     email: IUser['email'];
@@ -22,13 +22,12 @@ interface IGoogleAuthCredentialResponse {
 }
 
 type TInputs = {
-    firstName: IUser['firstName']
-    email: IUser['email']
-    password: string
-}
+    firstName: IUser['firstName'];
+    email: IUser['email'];
+    password: string;
+};
 
 function Form() {
-
     const candidate = useUsersStore((state) => state.candidate);
     const login = useUsersStore((state) => state.login);
 
@@ -42,20 +41,22 @@ function Form() {
             firstName: candidate?.firstName || '',
             email: candidate?.email || '',
             password: '',
-        }
-    })
+        },
+    });
 
     // const router = useRouter();
 
     const activeLocale = useLocale();
 
-    const [ isRegistration, setIsRegistration ] = useState<boolean>(false);
-    const [ isForgotPassword, setIsForgotPassword ] = useState<boolean>(false);
-    const [ clickedOnSubmit, setClickedOnSubmit ] = useState<boolean>(false);
-    const [ repeatPassword, setRepeatPassword ] = useState<string>('');
-    const [ repeatPasswordError, setRepeatPasswordError ] = useState<string>('');
-    const [ checkedPrivacyPolicy, setCheckedPrivacyPolicy ] = useState<boolean>(false);
-    const [ checkedPrivacyPolicyError, setCheckedPrivacyPolicyError ] = useState<string>('');
+    const [isRegistration, setIsRegistration] = useState<boolean>(false);
+    const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
+    const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
+    const [repeatPassword, setRepeatPassword] = useState<string>('');
+    const [repeatPasswordError, setRepeatPasswordError] = useState<string>('');
+    const [checkedPrivacyPolicy, setCheckedPrivacyPolicy] =
+        useState<boolean>(false);
+    const [checkedPrivacyPolicyError, setCheckedPrivacyPolicyError] =
+        useState<string>('');
 
     // let title = t('auth-page.title.sing_in');
     // isRegistration && (title = t('auth-page.title.sing_up'));
@@ -74,9 +75,12 @@ function Form() {
             // return setCheckedPrivacyPolicyError(t('auth-page.privacy_policy_error'));
         }
 
-        if (!response.credential || checkedPrivacyPolicyError.length > 0) return;
+        if (!response.credential || checkedPrivacyPolicyError.length > 0)
+            return;
 
-        const decodedUserData: IGoogleAuthCredentialResponse = jwtDecode(response.credential);
+        const decodedUserData: IGoogleAuthCredentialResponse = jwtDecode(
+            response.credential
+        );
 
         // await dispatch(googleAuthorization({
         //     email: decodedUserData.email,
@@ -89,7 +93,11 @@ function Form() {
     };
 
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
-        return login({ ...data, email: data.email.trim(), lang: (activeLocale as ELang) });
+        return login({
+            ...data,
+            email: data.email.trim(),
+            lang: activeLocale as ELang,
+        });
         // setClickedOnSubmit(true);
         //
         // if (isForgotPassword) {
@@ -151,41 +159,38 @@ function Form() {
     // }, [ router ]);
 
     return (
-        <form onSubmit={ handleSubmit(onSubmit) }>
-            <Link href={ `/${ activeLocale }/welcome` }>welcome</Link>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Link href={`/${activeLocale}/welcome`}>welcome</Link>
             <CustomSelect />
             auth page
-            <br/>
-            <br/>
-            <br/>
+            <br />
+            <br />
+            <br />
             <Input
-                { ...register("email") }
+                {...register('email')}
                 id="email"
                 name="email"
                 type="text"
                 label="Email*"
-                error={ errors?.email?.message }
+                error={errors?.email?.message}
             />
-
             <Input
-                { ...register("password") }
+                {...register('password')}
                 id="password"
                 name="password"
                 type="password"
                 label="Password*"
                 // label={ t('auth-page.password') }
-                error={ errors?.password?.message }
+                error={errors?.password?.message}
             />
-
             <Input
-                { ...register("firstName") }
+                {...register('firstName')}
                 id="description"
                 name="description"
                 type="multiline"
-                label={ 'firstName' }
-                error={ errors?.firstName?.message }
+                label={'firstName'}
+                error={errors?.firstName?.message}
             />
-
             <button type="submit">submit </button>
         </form>
     );

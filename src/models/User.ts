@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import { EPrivacy, ELang } from "@/models/Settings";
+import { EPrivacy, ELang } from '@/models/Settings';
 
 export interface ICandidate {
     email?: string;
@@ -30,7 +30,7 @@ export interface IUser {
     followTo: string[];
 }
 
-export type TCurrentAvatar = (File | 'delete' | string);
+export type TCurrentAvatar = File | 'delete' | string;
 
 export interface IAuth {
     accessToken: string;

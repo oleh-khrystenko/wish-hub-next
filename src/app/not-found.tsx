@@ -5,12 +5,15 @@ export default function NotFound() {
         <html>
             <head>
                 <title>Wish Hub</title>
-                <meta name="description" content="Wish Hub - робить ваші мрії реальністю!" />
+                <meta
+                    name="description"
+                    content="Wish Hub - робить ваші мрії реальністю!"
+                />
                 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
             </head>
 
             <body className="text-center">
-                <h1 className="font-semibold p-10">404 - Page Not Found</h1>
+                <h1 className="p-10 font-semibold">404 - Page Not Found</h1>
             </body>
         </html>
     );

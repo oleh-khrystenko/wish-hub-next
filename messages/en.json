@@ -1,738 +1,738 @@
 {
-  "meta-description": "Wish Hub - makes your dreams come true!",
-  "wish": "Wish",
-  "logo": "Logo",
-  "wish_hub_icon": "Wish Hub icon",
-  "sing-in": "Sing In",
-  "sing-up": "Sing Up",
-  "logout": "Log out",
-  "first-name": "Name*",
-  "last-name": "Last name*",
-  "inactivated": {
-    "aim": "We aim for all users to be real.",
-    "check": "Check your email at:",
-    "activate": "and activate your account.",
-    "spam": "If you don't see the email, check your \"Spam\" folder.",
-    "click": "If you haven't received the email, click ",
-    "here": "here.",
-    "resend": "You can resend the email again in:",
-    "day": "If the account is not activated within a day of registration, it will be deleted."
-  },
-  "share-button": {
-    "share-text": "Wish Hub is a place where you can store your wishes and share them with your friends.",
-    "confirm": "Share",
-    "question-nobody": "Are you sure you want to share a wish that is hidden from everyone?",
-    "question-friends": "Are you sure you want to share a wish that is only open to your friends?"
-  },
-  "confirm-modal": {
-    "title": "Attention!",
-    "confirm": "Confirm",
-    "close": "Close"
-  },
-  "alerts": {
-    "auth-page": {
-      "google-login": {
-        "error": "GoogleLogin: Could not sign in with Google."
-      }
+    "meta-description": "Wish Hub - makes your dreams come true!",
+    "wish": "Wish",
+    "logo": "Logo",
+    "wish_hub_icon": "Wish Hub icon",
+    "sing-in": "Sing In",
+    "sing-up": "Sing Up",
+    "logout": "Log out",
+    "first-name": "Name*",
+    "last-name": "Last name*",
+    "inactivated": {
+        "aim": "We aim for all users to be real.",
+        "check": "Check your email at:",
+        "activate": "and activate your account.",
+        "spam": "If you don't see the email, check your \"Spam\" folder.",
+        "click": "If you haven't received the email, click ",
+        "here": "here.",
+        "resend": "You can resend the email again in:",
+        "day": "If the account is not activated within a day of registration, it will be deleted."
     },
     "share-button": {
-      "share": {
-        "wish_success": "You have successfully shared Your wish.",
-        "wish_hub_success": "You have successfully shared \"Wish Hub\".",
-        "error": "An error occurred while trying to activate the \"Share\" function.",
-        "console-error": "Sharing error: "
-      },
-      "clipboard": {
-        "wish_success": "The link to Your wish has been copied to the clipboard.",
-        "wish_hub_success": "The link to \"Wish Hub\" has been copied to the clipboard.",
-        "error": "An error occurred while trying to copy the link to the clipboard.",
-        "console-error": "Clipboard error: "
-      }
+        "share-text": "Wish Hub is a place where you can store your wishes and share them with your friends.",
+        "confirm": "Share",
+        "question-nobody": "Are you sure you want to share a wish that is hidden from everyone?",
+        "question-friends": "Are you sure you want to share a wish that is only open to your friends?"
     },
-    "my-user-api": {
-      "registration": {
-        "error": "{{type}}.registration: Failed to register."
-      },
-      "send-activation-link": {
-        "error": "{{type}}.sendActivationLink: Failed to send the activation link."
-      },
-      "google-authorization": {
-        "error": "{{type}}.googleAuthorization: Couldn't sign in with Google."
-      },
-      "login": {
-        "error": "{{type}}.login: Could not log in to the site."
-      },
-      "logout": {
-        "error": "{{type}}.logout: Failed to log out."
-      },
-      "refresh": {
-        "error": "{{type}}.refresh: Failed to update the session."
-      },
-      "forgot-password": {
-        "success": "The password reset email has been successfully sent to: {{email}}. Please log in with your new password.",
-        "error": "{{type}}.forgotPassword: Failed to send the password reset email to: {{email}}."
-      },
-      "change-forgotten-password": {
-        "success": "Password changed successfully. Please log in with your new password.",
-        "error": "{{type}}.changeForgottenPassword: Failed to change the password."
-      },
-      "change-password": {
-        "success": "Password changed successfully. Please log in with your new password.",
-        "error": "{{type}}.changePassword: Failed to change the password."
-      },
-      "change-lang": {
-        "error": "{{type}}.changeLang: Failed to change the interface language."
-      },
-      "notification-subscribe": {
-        "error": "{{type}}.notification: Failed to notification subscription."
-      },
-      "notification-unsubscribe": {
-        "error": "{{type}}.notification: Failed to notification unsubscription."
-      },
-      "update-data": {
-        "error": "{{type}}.changeShowedInfo: Failed to update data."
-      },
-      "update-my-user": {
-        "error": "{{type}}.updateMyUser: Failed to update the user."
-      },
-      "add-friend": {
-        "error": "{{type}}.addFriend: Failed to add the friend."
-      },
-      "remove-friend": {
-        "error": "{{type}}.removeFriend: Failed to remove the friend."
-      },
-      "delete-my-user": {
-        "error": "{{type}}.deleteMyUser: Failed to delete the user."
-      }
+    "confirm-modal": {
+        "title": "Attention!",
+        "confirm": "Confirm",
+        "close": "Close"
     },
-    "users-api": {
-      "get-users": {
-        "error": "{{type}}: Failed to get users."
-      },
-      "get-all-users": {
-        "error": "{{type}}: Failed to get all users."
-      }
+    "alerts": {
+        "auth-page": {
+            "google-login": {
+                "error": "GoogleLogin: Could not sign in with Google."
+            }
+        },
+        "share-button": {
+            "share": {
+                "wish_success": "You have successfully shared Your wish.",
+                "wish_hub_success": "You have successfully shared \"Wish Hub\".",
+                "error": "An error occurred while trying to activate the \"Share\" function.",
+                "console-error": "Sharing error: "
+            },
+            "clipboard": {
+                "wish_success": "The link to Your wish has been copied to the clipboard.",
+                "wish_hub_success": "The link to \"Wish Hub\" has been copied to the clipboard.",
+                "error": "An error occurred while trying to copy the link to the clipboard.",
+                "console-error": "Clipboard error: "
+            }
+        },
+        "my-user-api": {
+            "registration": {
+                "error": "{{type}}.registration: Failed to register."
+            },
+            "send-activation-link": {
+                "error": "{{type}}.sendActivationLink: Failed to send the activation link."
+            },
+            "google-authorization": {
+                "error": "{{type}}.googleAuthorization: Couldn't sign in with Google."
+            },
+            "login": {
+                "error": "{{type}}.login: Could not log in to the site."
+            },
+            "logout": {
+                "error": "{{type}}.logout: Failed to log out."
+            },
+            "refresh": {
+                "error": "{{type}}.refresh: Failed to update the session."
+            },
+            "forgot-password": {
+                "success": "The password reset email has been successfully sent to: {{email}}. Please log in with your new password.",
+                "error": "{{type}}.forgotPassword: Failed to send the password reset email to: {{email}}."
+            },
+            "change-forgotten-password": {
+                "success": "Password changed successfully. Please log in with your new password.",
+                "error": "{{type}}.changeForgottenPassword: Failed to change the password."
+            },
+            "change-password": {
+                "success": "Password changed successfully. Please log in with your new password.",
+                "error": "{{type}}.changePassword: Failed to change the password."
+            },
+            "change-lang": {
+                "error": "{{type}}.changeLang: Failed to change the interface language."
+            },
+            "notification-subscribe": {
+                "error": "{{type}}.notification: Failed to notification subscription."
+            },
+            "notification-unsubscribe": {
+                "error": "{{type}}.notification: Failed to notification unsubscription."
+            },
+            "update-data": {
+                "error": "{{type}}.changeShowedInfo: Failed to update data."
+            },
+            "update-my-user": {
+                "error": "{{type}}.updateMyUser: Failed to update the user."
+            },
+            "add-friend": {
+                "error": "{{type}}.addFriend: Failed to add the friend."
+            },
+            "remove-friend": {
+                "error": "{{type}}.removeFriend: Failed to remove the friend."
+            },
+            "delete-my-user": {
+                "error": "{{type}}.deleteMyUser: Failed to delete the user."
+            }
+        },
+        "users-api": {
+            "get-users": {
+                "error": "{{type}}: Failed to get users."
+            },
+            "get-all-users": {
+                "error": "{{type}}: Failed to get all users."
+            }
+        },
+        "wishes-api": {
+            "fetch-wish-data": {
+                "error": "{{type}}.fetchWishDataFromLink: Failed to get wish data from the link."
+            },
+            "create-wish": {
+                "error": "{{type}}.createWish: Failed to create a wish.",
+                "success": "The wish has been successfully created."
+            },
+            "update-wish": {
+                "error": "{{type}}.updateWish: Failed to update the wish.",
+                "success": "The wish has been successfully updated."
+            },
+            "get-wish": {
+                "error": "{{type}}.getWish: Failed to get the wish."
+            },
+            "book-wish": {
+                "error": "{{type}}.bookWish: Failed to book the wish.",
+                "success": "The wish has been successfully booked."
+            },
+            "cancel-book-wish": {
+                "error": "{{type}}.cancelBookWish: Failed to cancel the booking of the wish.",
+                "success": "The wish booking has been successfully canceled."
+            },
+            "done-wish": {
+                "error": "{{type}}.doneWish: Failed to mark the wish as done.",
+                "success": "The wish has been successfully marked as done."
+            },
+            "undone-wish": {
+                "error": "{{type}}.undoneWish: Failed to mark the wish as not done.",
+                "success": "The wish has been successfully marked as not done."
+            },
+            "like-wish": {
+                "error": "{{type}}.likeWish: Failed to like the wish."
+            },
+            "dislike-wish": {
+                "error": "{{type}}.dislikeWish: Failed to dislike the wish."
+            },
+            "delete-wish": {
+                "error": "{{type}}.deleteWish: Failed to delete the wish with ID {{wishId}}.",
+                "success": "The wish has been successfully deleted."
+            },
+            "get-wish-list": {
+                "error": "{{type}}.getWishList: Failed to get wish list."
+            },
+            "get-all-wishes": {
+                "error": "{{type}}.getAllWishes: Failed to get all wishes."
+            }
+        },
+        "interceptors-api": {
+            "response": {
+                "error": "Response interceptor: Failed to refresh the session."
+            }
+        }
     },
-    "wishes-api": {
-      "fetch-wish-data": {
-        "error": "{{type}}.fetchWishDataFromLink: Failed to get wish data from the link."
-      },
-      "create-wish": {
-        "error": "{{type}}.createWish: Failed to create a wish.",
-        "success": "The wish has been successfully created."
-      },
-      "update-wish": {
-        "error": "{{type}}.updateWish: Failed to update the wish.",
-        "success": "The wish has been successfully updated."
-      },
-      "get-wish": {
-        "error": "{{type}}.getWish: Failed to get the wish."
-      },
-      "book-wish": {
-        "error": "{{type}}.bookWish: Failed to book the wish.",
-        "success": "The wish has been successfully booked."
-      },
-      "cancel-book-wish": {
-        "error": "{{type}}.cancelBookWish: Failed to cancel the booking of the wish.",
-        "success": "The wish booking has been successfully canceled."
-      },
-      "done-wish": {
-        "error": "{{type}}.doneWish: Failed to mark the wish as done.",
-        "success": "The wish has been successfully marked as done."
-      },
-      "undone-wish": {
-        "error": "{{type}}.undoneWish: Failed to mark the wish as not done.",
-        "success": "The wish has been successfully marked as not done."
-      },
-      "like-wish": {
-        "error": "{{type}}.likeWish: Failed to like the wish."
-      },
-      "dislike-wish": {
-        "error": "{{type}}.dislikeWish: Failed to dislike the wish."
-      },
-      "delete-wish": {
-        "error": "{{type}}.deleteWish: Failed to delete the wish with ID {{wishId}}.",
-        "success": "The wish has been successfully deleted."
-      },
-      "get-wish-list": {
-        "error": "{{type}}.getWishList: Failed to get wish list."
-      },
-      "get-all-wishes": {
-        "error": "{{type}}.getAllWishes: Failed to get all wishes."
-      }
+    "encryption-error": "Could not be decrypted",
+    "avatar-error": {
+        "file-type": "The file must be in one of the following formats:",
+        "file-size": "The file size must not exceed {{size}} MB."
     },
-    "interceptors-api": {
-      "response": {
-        "error": "Response interceptor: Failed to refresh the session."
-      }
+    "images-error": {
+        "file-type": "One or more files are in an unsupported format. Supported formats:",
+        "file-size": "One or more files are larger than {{size}} MB.",
+        "file-count": "Unfortunately, it is not possible to save more than {{count}} images."
+    },
+    "validations": {
+        "only-whitespace": "The entered data cannot contain only spaces.",
+        "wish-name": {
+            "required": "It is impossible to create a desire without a name.",
+            "min": "Why is the name of the wish so short? Please come up with a name that is longer than {{min}} characters.",
+            "max": "The name of your wish is too long. Let's try to fit it into {{max}} characters."
+        },
+        "wish-price": {
+            "required": "The material desire that does not have its price cannot be fulfilled by Your universe.",
+            "pattern": "The price must be a positive integer and not start with \"0\".",
+            "max": "Let's try to fit in {{max}} characters."
+        },
+        "wish-description": {
+            "min": "What is this short wish description? Please come up with a description that is longer than {{min}} character.",
+            "max": "The name of Your wish contains: {{current}} characters. Let's try to fit it into {{max}} characters."
+        },
+        "email": {
+            "required": "This field is required so that we can identify You.",
+            "only-whitespace": "Email address cannot contain only spaces.",
+            "pattern": "This does not look like an email address. Please enter a valid email."
+        },
+        "password": {
+            "required": "This field is required to prevent anyone else from using Your data.",
+            "whitespaces": "The entered data cannot begin or end with a space.",
+            "min": "The password is too short. Please come up with a password that is longer than {{min}} characters.",
+            "max": "I think you overdid it. A long password is not always a good password. Try to keep it to {{max}} characters."
+        },
+        "first-name": {
+            "required": "You must have a name. Don't be shy :)",
+            "min": "We have never heard such a short first name. The minimum length of the field is {{min}} characters.",
+            "max": "We think you are making something up. The maximum length of the field is {{max}} characters."
+        },
+        "last-name": {
+            "min": "We have never heard such a short last name. The minimum length of the field is {{min}} characters.",
+            "max": "We think you are making something up. The maximum length of the field is {{max}} characters."
+        },
+        "delivery-address": {
+            "min": "Such a short address? The minimum length of the field is {{min}} characters.",
+            "max": "Is the address that long? The maximum length of the field is {{max}} characters."
+        }
+    },
+    "main-page": {
+        "you_can_send": "You can send your wish to: ",
+        "bd": "Birthday: {{birthday}}",
+        "interface_language": "Interface language",
+        "my-wishes": "My wishes",
+        "about": "About",
+        "instruction": "Instruction",
+        "contacts": "Contacts",
+        "users": "Users",
+        "update": "Update",
+        "all": "All",
+        "friends": "Friends",
+        "friend-requests": "Friend Requests",
+        "sent-friend-requests": "Sent Friend Requests",
+        "users-search": "Users Search",
+        "wishes-search": "Wishes Search",
+        "confirm-friendship": "Confirm friendship",
+        "add-friend": "Add friend",
+        "delete-your": "Delete your friend request",
+        "delete-user_s": "Delete user's friend request",
+        "delete-request": "",
+        "remove-friend": "Remove friend",
+        "at-user": "User",
+        "does_not_have_": "doesn't have any wishes available for viewing.",
+        "does_not_have_fulfilled": "doesn't have any fulfilled wishes available for viewing.",
+        "does_not_have_unfulfilled": "doesn't have any unfulfilled wishes available for viewing.",
+        "no_wishes_found": "According to the specified parameters, no wishes were found.",
+        "sort": {
+            "by-popularity": "Popular first",
+            "by-price-up": "Cheap first",
+            "by-price-down": "Expensive first",
+            "by-created-up": "Newest first",
+            "by-created-down": "Oldest first"
+        },
+        "wishes-example": {
+            "first": "Your gifts",
+            "second": "Your wishes",
+            "third": "Your goals",
+            "fourth": "Your dreams"
+        },
+        "create-wish": "Create Wish",
+        "unfulfilled": "Unfulfilled",
+        "fulfilled": {
+            "single": "Fulfilled",
+            "plural": "Fulfilled"
+        },
+        "title-personal": "Personal",
+        "title-wishes": "Wishes",
+        "of-user": "of User",
+        "reserved": "Reserved",
+        "material-wish": "Material Wish",
+        "non-material-wish": "Non-material Wish",
+        "wish-name": "Name of Your wish*.",
+        "wish-name-tooltip": "We hope you will create many wishes:) And to make them easy to distinguish, the name should not only be mandatory, but also unique.",
+        "wish-price": "Price*",
+        "wish-price-tooltip": "A material wish that does not have a price cannot be fulfilled by your universe. Enter an approximate or exact price.",
+        "where-to-buy": "Where to buy",
+        "where-to-buy-tooltip": "The name of the place, or better yet, the address, or even better yet, a link to where you can buy your wish.",
+        "wish-description": "Description of the wish",
+        "can-see": {
+            "title": "Privacy*",
+            "all": "Public",
+            "wish-all-tooltip": "The wish is available for viewing by all users and visitors of the Wish Hub platform.",
+            "friends": "For Friends",
+            "wish-friends-tooltip": "Only users with whom you have mutually added each other as friends will see the wish.",
+            "nobody": "Private",
+            "wish-nobody-tooltip": "Wishes with the \"Private\" and \"Friends Only\" privacy levels are encrypted. All data in these privacy levels is transmitted and stored in an encrypted form. This means that even site administrators cannot view this data.",
+            "share-tooltip": "In this list, wishes will be displayed according to their privacy level.",
+            "inactive-share-tooltip": "In this list, wishes will be displayed according to their privacy level. The \"Share\" button is inactive because you don't have any wishes with the \"Public\" privacy level.",
+            "email-all-tooltip": "Your email will be available for viewing by all users and visitors of the Wish Hub platform.",
+            "email-friends-tooltip": "Your email will be visible only to users with whom you have mutually added each other as friends.",
+            "email-nobody-tooltip": "Your email will not be visible to anyone.",
+            "delivery-address-all-tooltip": "Your address will be available for viewing by all users and visitors of the Wish Hub platform.",
+            "delivery-address-friends-tooltip": "Your address will be visible only to users with whom you have mutually added each other as friends.",
+            "delivery-address-nobody-tooltip": "Your address will not be visible to anyone.",
+            "birthday-all-tooltip": "Your birthday will be available for viewing by all users and visitors of the Wish Hub platform.",
+            "birthday-friends-tooltip": "Your birthday will be visible only to users with whom you have mutually added each other as friends.",
+            "birthday-nobody-tooltip": "Your birthday will not be visible to anyone."
+        },
+        "share-wishes": "Share your wish list",
+        "delete-wish": "Delete wish",
+        "are-you-sure": "Are You sure you want to delete this wish?",
+        "create": "Create",
+        "drag": "Click or drag images here to add them to your wish list.",
+        "click": "Click here to add an image to Your wish.",
+        "change": "You can also change the position of images by dragging them together.",
+        "size": "Maximum file size: {{size}} MB.",
+        "formats": "Allowed formats:",
+        "count": "Maximum number of files: {{count}} pcs.",
+        "delete-all-images": "Delete all images",
+        "you-must": "You must fulfill this wish by:",
+        "wish-must": "The wish must be fulfilled by:",
+        "coming-true": "The wish is already coming true",
+        "wish-fulfilled": "Wish fulfilled",
+        "edit-wish": "Edit wish",
+        "show-all-1": "Your wish is visible to",
+        "show-all-2": "all",
+        "show-all-3": "users.",
+        "show-friends-1": "Only",
+        "show-friends-2": "Your friends",
+        "show-friends-3": "can see Your wish.",
+        "show-nobody-1": "",
+        "show-nobody-2": "Nobody",
+        "show-nobody-3": "can see Your wish.",
+        "sure-fulfilled": "Are you sure that the wish \"{{name}}\" is fulfilled?",
+        "book-end-errors": {
+            "required": "This field is required.",
+            "past": "It is impossible to complete a task in the past.",
+            "max": {
+                "my": "If you are not sure that you will realize your wish within 10 years, then you should not generally limit yourself to a specific date.",
+                "another": "Do you think it's reasonable to promise to fulfill a wish in more than a year?"
+            },
+            "invalid": "The entered date is invalid."
+        },
+        "will-fulfill": "I will fulfill wish",
+        "confirm-intention": "Confirm intention",
+        "i-intend": "I intend to fulfill the wish \"{{name}}\" by:",
+        "including": "including*",
+        "after_you_confirm": "After you confirm your intention, no other users will be able to book this wish. You will have the opportunity to cancel your wish within three days.",
+        "by_declaring": "By declaring your intention to fulfill your wish, you take responsibility for its fulfillment. The Universe relies on you :) Constantly changing decisions can worsen your relationship with the Universe. Wish fulfillment affects your rating in the system.",
+        "cancel-execution": "Cancel execution",
+        "cancel-my-intention": "Cancel my intention",
+        "cancel-intention": "Are you sure you want to cancel your intention to fulfill the wish \"{{name}}\"?",
+        "determine-status": "Determine the status of execution",
+        "period-expired": "The period set by the performer for the realization of the wish \"{{name}}\" has expired.",
+        "is_your_wish": "Is Your wish fulfilled?",
+        "no": "No",
+        "yes": "Yes",
+        "edit-account": "Edit account",
+        "change-password": "Change password",
+        "old-password": "Old password*",
+        "new-password": "New password*",
+        "repeat-new-password": "Repeat new password*",
+        "repeat-password-error": "New passwords do not match.",
+        "phone": "Phone:",
+        "email": "Email address:",
+        "social-networks": "Social networks:",
+        "contact-us": "If you have any questions or suggestions, please contact us.",
+        "sadness": "Our sadness knows no bounds... We hope that you will give us another chance and to stay. If you have decided to leave us, please confirm your intention by entering the appropriate data.",
+        "delete-my-account": "Delete my account",
+        "stay": "Stay",
+        "email-not-match": "This email does not match the email of the account you are trying to delete.",
+        "fast_data_filling": "Quickly fill in the data",
+        "product-link": "Link to a product",
+        "product-link-tooltip": "Paste the link to the product from any online store and we will try to automatically fill in the wish data.",
+        "manually": "Fill in manually",
+        "continue": "Continue",
+        "non-unique-wish-name": "You already have a wish with that name."
+    },
+    "activation-link-expired-page": {
+        "expired": "Account activation period has expired.",
+        "utc": "The account will be deleted at 00:00 UTC.",
+        "again": "You can register with the same email again after the old account is deleted."
+    },
+    "auth-page": {
+        "title": {
+            "sing_in": "Sing In",
+            "sing_up": "Sing Up",
+            "forgot_password": "Forgotten your password?"
+        },
+        "or": "or",
+        "name": "Name*",
+        "password": "Password*",
+        "repeat_password": "Repeat password*",
+        "password_remembered": "Password remembered!",
+        "forgot_password": "Forgot my password",
+        "i_agree_to": "I agree to the Wish Hub website's",
+        "privacy_policy": "Privacy Policy.",
+        "wish_hub": "",
+        "privacy_policy_error": "We can't authorize you until you agree to our Privacy Policy.",
+        "passwords_error": "Passwords do not match.",
+        "recovery": "Recovery"
+    },
+    "change-forgotten-password-page": {
+        "title": "Password recovery",
+        "new_password": "New password*",
+        "repeat_new_password": "Repeat new password*",
+        "recovery": "Recovery"
+    },
+    "welcome-page": {
+        "wish_hub_makes": "Wish Hub - makes your dreams come true!",
+        "unique_platform": "This is a unique platform where your dreams come true. Create and share your wishes to make them come true.",
+        "birthday_wishlist": "Birthday wishlist",
+        "count_wishes": "14 wishes",
+        "bouquet_of": "Bouquet of yellow roses",
+        "i_love_roses": "I love roses, especially yellow ones! I'd love to receive them for my birthday.",
+        "teddy_bear": "Teddy Bear",
+        "childhood_dream": "My childhood dream! He is so cute!",
+        "vr_headset": "VR headset",
+        "i_will_be": "I will be so happy to get this VR",
+        "the_best_wireless": "The best wireless headphones! I want it!",
+        "take_first_step": "Take the first step towards realizing your dreams!",
+        "create_wish_lists": "On Wish Hub, you can create wish lists, share them with friends and family, and book others' wishes to make their holidays special.",
+        "with_wish_hub": "With Wish Hub, your gift will always be a hit!",
+        "save_time": "Save time and effort in choosing the perfect gift.",
+        "no_more": "No more disappointments or duplicate gifts.",
+        "create_wishes": "Create Wishes",
+        "add_your_dreams": "Add your dreams to the wish list so that your friends and family know what to give you for the holiday.",
+        "share_your_wishes": "Share your wishes",
+        "share_your_lists": "Share your lists with other users to increase the chances of your dreams coming true.",
+        "book_wishes": "Book Wishes",
+        "book_other_wishes": "Book other users' wishes to avoid duplicate gifts and ensure pleasant surprises.",
+        "benefits_of_being": "Benefits of Being a Wish Hub User",
+        "forget_hassle": "Forget the hassle of choosing gifts. Enjoy the joy of giving.",
+        "making_dreams": "Making dreams come true",
+        "your_dreams": "Your dreams will come true when you create and share your wishes.",
+        "time_saving": "Time-Saving",
+        "forget_the_long": "Forget the long hours of thinking and searching for the perfect gift.",
+        "easy_to_use": "Easy to Use",
+        "our_intuitive": "Our intuitive interface lets you quickly and easily create and view wish lists.",
+        "join_today": "Join Wish Hub Today!",
+        "sign_up_now": "Sign up now to start creating your wish lists and reserving gifts for your loved ones.",
+        "alts": {
+            "star_emoji": "Emoji of guy with starry eyes",
+            "arrow": "Arrow",
+            "love_smile": "Smiley face in love",
+            "pigtails_emoji": "Emoji of girl with pigtails",
+            "festive_smile": "Festive smiley face",
+            "winking_emoji": "Winking girl emoji",
+            "star_smile": "Starry-eyed smiley face",
+            "bearded_emoji": "Bearded man emoji",
+            "sunglasses_smile": "Smiley face with sunglasses",
+            "great_emoji": "'Great job!' emoji",
+            "party_popper_icon": "Party Popper Icon",
+            "checked_icon": "Checked Icon",
+            "bigger_gift": "Bigger gift",
+            "smaller_gift": "Smaller gift",
+            "star_icon": "Star icon",
+            "plus_icon": "Plus icon",
+            "chain_icon": "Chain icon",
+            "eye_icon": "Eye icon",
+            "lock_icon": "Lock icon",
+            "middle_gift": "Middle gift",
+            "love_emoji": "Emoji of guy in love",
+            "festive_emoji": "Emoji of festive girl"
+        }
+    },
+    "instruction-page": {
+        "title": "Instruction",
+        "app": {
+            "title": "How to add Wish Hub to your phone's home screen",
+            "second-title": "To get quick access to Wish Hub, create an app on your phone's home screen",
+            "not_again": "Do not show again",
+            "browser": "To add Wish Hub to your phone's home screen, you need to open this site in the {{browser}} browser.",
+            "browser_icon": "{{icon}} icon",
+            "menu": {
+                "Android": "Click on the three dots (menu) in the upper right corner.",
+                "iOS": "Click the \"Share\" icon (the square with the up arrow) at the bottom of the screen.",
+                "img": "Activating menu"
+            },
+            "add": {
+                "Android": "Select the \"Add to Home\" option.",
+                "iOS": "Scroll down and select \"To Home\".",
+                "img": "Add to the home screen"
+            },
+            "install": {
+                "Android": "Click \"Install\"",
+                "iOS": "Click \"Add\"",
+                "img": "Click Add"
+            },
+            "done": {
+                "text": "Done. Look for the \"Wish Hub\" application on your phone screen.",
+                "img": "\"Wish Hub\" on the phone screen"
+            }
+        },
+        "auth": {
+            "title": "Sing up/Sing in",
+            "intro": "There are several ways to log in or register:",
+            "google": {
+                "text-1": "The easiest way is to use a Google service.",
+                "text-2": "First, you need to agree to the terms and conditions.",
+                "text-3": "Then activate the corresponding Google button.",
+                "img": "Log in using the Google service"
+            },
+            "account": {
+                "text": "You must already have a Google account. If you are authorized on your device, you simply select the account you want to use in Wish Hub.",
+                "img": "Selecting a Google account"
+            },
+            "data": {
+                "text": "If you are not already logged in to gmail on your device, enter your information in the appropriate fields.",
+                "account-img": "Enter your account",
+                "password-img": "Enter your password"
+            },
+            "logged": {
+                "text": "Then the program will do everything for you. If you have already registered, you will simply log in to your account. If not, you will be automatically registered.",
+                "img": "Logged in to the Wish Hub"
+            },
+            "sing-up": {
+                "text-1": "If you do not want to use a Google account or do not have one, you will need to verify it in the Wish Hub web application.",
+                "text-2": "Fill in all the fields and agree to the terms of use.",
+                "img": "Registration"
+            },
+            "activation": {
+                "text-1": "Now go to your mail and find the email. If the email is not there, check your \"Spam\" folder. We don't use uncontrolled mailing. It's just that each email service is configured differently, and our email may accidentally end up in the \"Spam\" folder.",
+                "text-2": "Click the appropriate button in the email, or copy the link and paste it into the address bar of your browser.",
+                "img": "Account activation"
+            }
+        },
+        "next": {
+            "title": "Continued",
+            "text": "To be continued..."
+        }
+    },
+    "about-page": {
+        "title": "About Wish Hub",
+        "hello": "Hello! My name is Oleg. I am the founder of Wish Hub. This web-application is created just for you.",
+        "wish_hub_is": "Wish Hub is a unique platform that helps you learn about the wishes of your friends and loved ones. Our service makes gift selection easy and enjoyable by providing the ability to create wish lists, view them, and reserve items to avoid duplicate gifts.",
+        "our_mission": "Our mission is to build a community where people can share their dreams and receive exactly what they wish for.",
+        "sub-title": "Wishes",
+        "do_you_have": "Do you have desires? I'm sure you do. Are all your desires fulfilled? Probably not. How can we increase the likelihood of fulfilling our desires? Do other people's desires always come true? And how exactly do they come to fruition?",
+        "it_likely": "It's likely that in wealthier individuals, desires are fulfilled more frequently than in those with fewer financial resources. Do you believe this is directly linked to having money? Well, of course! If you have plenty of funds and you desire, let's say, a car, you can simply go to the dealership and make the purchase. It's straightforward. However, for those financially disadvantaged, acquiring such luxuries is out of the question. The economically challenged face a different reality and set of priorities. They must decide between buying necessities like groceries or saving for the future.",
+        "what_about": "What about non-material desires? They can't be bought with money. For instance, longing for genuine love or robust health. Or perhaps you aspire to attain a fit, athletic physique. You might argue that even these desires can be fulfilled with financial means. While this is technically true, paid love will never be as fulfilling as genuine affection, and medical facilities motivated primarily by profit may not prioritize your well-being. Maintaining good health and achieving personal fitness goals requires dedication and effort, where money plays a supporting role at best.",
+        "it_appears_to": "It appears to me that in wealthy individuals, desires are fulfilled more frequently not solely due to their financial status. Rather, their wealth often stems from the consistent fulfillment of their desires.",
+        "probably": "It's probably not a secret to anyone that the primary driving force behind desire fulfillment is our thoughts. The notion that \"thoughts materialize\" is not a new one.",
+        "what_other_factors": "What other factors influence the realization of our desires?",
+        "today_we": "Today, we're bombarded with messages urging us to discover our path, our purpose, our unique journey. These hints are everywhere, hard to overlook or brush aside. Yet, finding one's way in life is far from simple. Many embark on this quest for years on end, and from personal experience, I can attest: it's a journey worth undertaking.",
+        "but_what": "But what about our desires? They come in two forms: those that arise from within, and those imposed upon us from external sources. Consider statements like, \"I hate driving, but I need a car to commute to work. I dislike my job, but I have to pay off the car loan.\" Personal desires manifest effortlessly, like a natural extension of ourselves. Conversely, imposed desires exert a draining energy, constantly pulling us down with their enticing facades.",
+        "profound": "Yet, there's a profound truth here: our wishes carry an energetic weight, and within us lies the power of thought to lift this burden. It's a somewhat abstract concept, but one that resonates deeply with me.",
+        "let_delve": "Let's delve deeper into this notion. Our personal desires are straightforward—they materialize because our thoughts give them life. Our innermost desires align seamlessly with our capabilities, requiring no external intervention. But what about desires that aren't ours? They persist, sometimes with an intensity that borders on unbearable. This is where things get complex. If our present circumstances starkly contrast our aspirations, it's a lamentable situation. Picture a homeless person yearning for a castle—a chasm separates desire from reality. It's easier to relinquish desire altogether than to cling to futile dreams. Yet, what if our wish is within reach, albeit financially out of grasp? When desire burns fiercely, but resources fall short, it becomes evident: we need assistance, an infusion of additional energy. Brute force won't suffice; we require a subtler, more nuanced approach. Assistance may come, albeit with consequences. The question remains: where do we find this energy?",
+        "there_are_so": "There are so many things in this world that carry energy... Actually, scratch that. Absolutely everything in the material world possesses energy. Each item has its own unique energy. Let's take your device, the one you're using to read this text. Just imagine how many companies contributed to creating this technological wonder. And within each company, there were hundreds of employees involved. So, your computer, laptop, or smartphone has absorbed the energy of all those people who contributed to its creation. Add to that the energy of the programmers who dedicated their efforts to ensure this machine works smoothly. And that's not even considering the material components of your gadget. Even the apple you bought from the farmer's market carries its own energy. Think about the energy the farmer expended to pick it, bring it to market, and sell it to you. Let's not even mention the apples from the supermarket. And then, there's another element in this world that holds a calculated energy: money.",
+        "yes_money_it": "Yes, money is the most energetically charged material thing, and today, it's even electronic. It's easy to prove. Close your eyes. Now, vividly imagine your boss giving you a 20% raise. How does that feel? Now, imagine finding a winning lottery ticket and pocketing $100,000. Feel the difference? This illustrates, firstly, that money indeed carries energy, and secondly, that the amount directly correlates with the energy it holds. In the grand scheme of things, practically all your desires touch upon financial matters in one way or another. A loving spouse will love you regardless of financial circumstances, but the experience in a lavish mansion will undoubtedly be different from that in a one-bedroom apartment. While you can't buy health with money, even basic medical procedures come with a price tag. And getting in shape at a top-tier gym with a qualified trainer is far more enjoyable than doing calisthenics in the backyard. Thus, while money may not be the ultimate goal, it certainly makes life more enjoyable and manageable.",
+        "and_finally": "And finally, the most crucial aspect. How do we connect money and desires when we lack the energy? When someone gives you something for free, what emotions do you experience? Deep gratitude, right? You immediately feel the urge to reciprocate in some way. You start wishing them all the best in your thoughts. Well, guess what? Other people experience the same feelings in similar situations. And these impulses are even stronger if the gift is unexpected and, most importantly, valuable. The corresponding wishes can be quite diverse. Typically, it's what we value most for ourselves. And if the person who's giving us the gift is saving up for a house, and we're aware of it, our first instinct is to wish them to buy that house as soon as possible. 'I wish you finally get the house of your dreams! Just the way you want it!' Does this situation sound familiar to you?",
+        "you_know": "After all, you know, wealthy individuals consistently allocate a portion of their fortunes to charitable causes. Consider how this unfolds. It's likely that a wealthy individual would want their donation to, say, an orphanage, to be widely recognized. What do you think people's reactions would be upon learning about such a generous contribution? How might the staff at the orphanage respond? And what about the children who are old enough to grasp the situation? Naturally, they would feel immensely grateful! \"May your business thrive and flourish! May success be a constant companion! And may everything unfold as smoothly as possible!\"",
+        "this_web": "This web-application revolves entirely around your desires. Each wish carries a personal financial weight equivalent to the value attributed to it by the wisher. And if you wish to assist someone, the most impactful gesture you can make is to fulfill their wish by purchasing a gift, provided your means align with the weight of the wish."
+    },
+    "wish-page": {
+        "created-by": "Wish created by user:",
+        "price": "Price:",
+        "address": "Where to buy:",
+        "description": "Description:",
+        "empty": "This wish does not exist. It may have been deleted by the user."
+    },
+    "wish-list-page": {
+        "title": "The wish list is created by the user:"
+    },
+    "profile-page": {
+        "my-profile": "My profile",
+        "user-profile": "User profile",
+        "edit": "Edit",
+        "unknown": "Unknown",
+        "delivery-address": "Address of Delivery of Wishes",
+        "delivery-address-tooltip": "We advise you to indicate the city, the number of the carrier's branch, your phone number, your name and surname",
+        "birthday": "Birthday",
+        "birthday*": "Birthday*",
+        "when_your_birth": "When is Your birthday?",
+        "birthday-error": {
+            "min-date": "We have doubts that You are more than 120 years old.",
+            "disable-future": "It is impossible to be born in the future.",
+            "invalid-date": "The entered date is invalid."
+        },
+        "i_have_fulfilled": "I have fulfilled",
+        "i_did_not_fulfill": "I did not fulfill",
+        "wishes": "wishes.",
+        "wish": "wish.",
+        "wish_2_3_4": "wishes.",
+        "change-password-title": "Change password",
+        "wish-list-title": "Wish list",
+        "wishes-empty": "Wish list is empty.",
+        "cancel": "Cancel",
+        "delete-account": "Delete my account"
+    },
+    "privacy-policy-page": {
+        "title": "Privacy Policy",
+        "updated": "Last updated: April 02, 2024",
+        "intro": "This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.",
+        "we-use": "We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the",
+        "generator": "Privacy Policy Generator.",
+        "interpretation-definitions": "Interpretation and Definitions",
+        "interpretation": "Interpretation",
+        "interpretation-text": "The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.",
+        "definitions": "Definitions",
+        "definitions-intro": "For the purposes of this Privacy Policy:",
+        "account-strong": "Account",
+        "account": "means a unique account created for You to access our Service or parts of our Service.",
+        "affiliate-strong": "Affiliate",
+        "affiliate": "means an entity that controls, is controlled by or is under common control with a party, where \"control\" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.",
+        "company-strong": "Company",
+        "company": "(referred to as either \"the Company\", \"We\", \"Us\" or \"Our\" in this Agreement) refers to Wish Hub.",
+        "cookies-strong": "Cookies",
+        "cookies": "are small files that are placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history on that website among its many uses.",
+        "country-strong": "Country",
+        "country": "refers to: United States of America.",
+        "device-strong": "Device",
+        "device": "means any device that can access the Service such as a computer, a cellphone or a digital tablet.",
+        "personal-strong": "Personal Data",
+        "personal": "is any information that relates to an identified or identifiable individual.",
+        "service-strong": "Service",
+        "service": "refers to the Website.",
+        "provider-strong": "Service Provider",
+        "provider": "means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used.",
+        "third-party-strong": "Third-party Social Media Service",
+        "third-party": "refers to any website or any social network website through which a User can log in or create an account to use the Service.",
+        "usage-strong": "Usage Data",
+        "usage": "refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).",
+        "website-strong": "Website",
+        "website": "refers to Wish Hub, accessible from",
+        "you-strong": "You",
+        "you": "means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.",
+        "collecting": "Collecting and Using Your Personal Data",
+        "types": "Types of Data Collected",
+        "personal-data": "Personal Data",
+        "personal-info": "While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:",
+        "email": "Email address",
+        "full-name": "First name and last name",
+        "phone": "Phone number",
+        "address": "Address, State, Province, ZIP/Postal code, City",
+        "usage_data": "Usage Data",
+        "usage_data_title": "Usage Data",
+        "usage_data_is": "Usage Data is collected automatically when using the Service.",
+        "usage_data_may": "Usage Data may include information such as Your Device's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.",
+        "when_you_access": "When You access the Service by or through a mobile device, We may collect certain information automatically, including, but not limited to, the type of mobile device You use, Your mobile device unique ID, the IP address of Your mobile device, Your mobile operating system, the type of mobile Internet browser You use, unique device identifiers and other diagnostic data.",
+        "we_may_also": "We may also collect information that Your browser sends whenever You visit our Service or when You access the Service by or through a mobile device.",
+        "information_from_third-party": "Information from Third-Party Social Media Services",
+        "the_company_allows": "The Company allows You to create an account and log in to use the Service through the following Third-party Social Media Services:",
+        "if_you_decide": "If You decide to register through or otherwise grant us access to a Third-Party Social Media Service, We may collect Personal data that is already associated with Your Third-Party Social Media Service's account, such as Your name, Your email address, Your activities or Your contact list associated with that account.",
+        "you_may_also": "You may also have the option of sharing additional information with the Company through Your Third-Party Social Media Service's account. If You choose to provide such information and Personal Data, during registration or otherwise, You are giving the Company permission to use, share, and store it in a manner consistent with this Privacy Policy.",
+        "tracking_technologies": "Tracking Technologies and Cookies",
+        "we_use_cookies": "We use Cookies and similar tracking technologies to track the activity on Our Service and store certain information. Tracking technologies used are beacons, tags, and scripts to collect and track information and to improve and analyze Our Service. The technologies We use may include:",
+        "cookies_or_browser_cookies": "Cookies or Browser Cookies.",
+        "a_cookie_is": "A cookie is a small file placed on Your Device. You can instruct Your browser to refuse all Cookies or to indicate when a Cookie is being sent. However, if You do not accept Cookies, You may not be able to use some parts of our Service. Unless you have adjusted Your browser setting so that it will refuse Cookies, our Service may use Cookies.",
+        "web_beacons": "Web Beacons.",
+        "certain_sections_of": "Certain sections of our Service and our emails may contain small electronic files known as web beacons (also referred to as clear gifs, pixel tags, and single-pixel gifs) that permit the Company, for example, to count users who have visited those pages or opened an email and for other related website statistics (for example, recording the popularity of a certain section and verifying system and server integrity).",
+        "cookies_can_be": "Cookies can be \"Persistent\" or \"Session\" Cookies. Persistent Cookies remain on Your personal computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web browser. Learn more about cookies on the",
+        "privacy_policies_website": "Privacy Policies website",
+        "article": "article.",
+        "we_use_both": "We use both Session and Persistent Cookies for the purposes set out below:",
+        "necessary": "Necessary / Essential Cookies",
+        "session_cookies": "Type: Session Cookies",
+        "administered_1": "Administered by: Us",
+        "these_cookies_are": "Purpose: These Cookies are essential to provide You with services available through the Website and to enable You to use some of its features. They help to authenticate users and prevent fraudulent use of user accounts. Without these Cookies, the services that You have asked for cannot be provided, and We only use these Cookies to provide You with those services.",
+        "cookies_policy": "Cookies Policy / Notice Acceptance Cookies",
+        "persistent_cookies_1": "Type: Persistent Cookies",
+        "administered_2": "Administered by: Us",
+        "these_cookies_identify": "Purpose: These Cookies identify if users have accepted the use of cookies on the Website.",
+        "functionality_cookies": "Functionality Cookies",
+        "persistent_cookies_2": "Type: Persistent Cookies",
+        "administered_3": "Administered by: Us",
+        "these_cookies_allow": "Purpose: These Cookies allow us to remember choices You make when You use the Website, such as remembering your login details or language preference. The purpose of these Cookies is to provide You with a more personal experience and to avoid You having to re-enter your preferences every time You use the Website.",
+        "for_more_information": "For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy or the Cookies section of our Privacy Policy.",
+        "use_of_your": "Use of Your Personal Data",
+        "the_company_may": "The Company may use Personal Data for the following purposes:",
+        "to_provide_and": "To provide and maintain our Service,",
+        "including_to_monitor": "including to monitor the usage of our Service.",
+        "to_manage_your_account": "To manage Your Account:",
+        "to_manage_your_registration": "to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.",
+        "for_the_performance": "For the performance of a contract:",
+        "the_development": "the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.",
+        "to_contact_you": "To contact You:",
+        "by_email": "To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application's push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.",
+        "to_provide_you": "To provide You",
+        "with_news": "with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.",
+        "to_manage_your_requests": "To manage Your requests:",
+        "to_attend": "To attend and manage Your requests to Us.",
+        "for_business_transfers": "For business transfers:",
+        "we_may_use_1": "We may use Your information to evaluate or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Our assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which Personal Data held by Us about our Service users is among the assets transferred.",
+        "for_other_purposes": "For other purposes:",
+        "we_may_use_2": "We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.",
+        "we_may_share_1": "We may share Your personal information in the following situations:",
+        "with_service_providers": "With Service Providers:",
+        "we_may_share_2": "We may share Your personal information with Service Providers to monitor and analyze the use of our Service, to contact You.",
+        "for_business_transfers_2": "For business transfers:",
+        "we_may_share_3": "We may share or transfer Your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of Our business to another company.",
+        "with_affiliates": "With Affiliates:",
+        "we_may_share_4": "We may share Your information with Our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include Our parent company and any other subsidiaries, joint venture partners or other companies that We control or that are under common control with Us.",
+        "with_business_partners": "With business partners:",
+        "we_may_share_5": "We may share Your information with Our business partners to offer You certain products, services or promotions.",
+        "with_other_users": "With other users:",
+        "when_you_share": "when You share personal information or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside. If You interact with other users or register through a Third-Party Social Media Service, Your contacts on the Third-Party Social Media Service may see Your name, profile, pictures and description of Your activity. Similarly, other users will be able to view descriptions of Your activity, communicate with You and view Your profile.",
+        "with_your_consent": "With Your consent:",
+        "we_may_disclose": "We may disclose Your personal information for any other purpose with Your consent.",
+        "retention": "Retention of Your Personal Data",
+        "company_will_retain": "The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.",
+        "company_will_also": "The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.",
+        "transfer": "Transfer of Your Personal Data",
+        "your_information": "Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located. It means that this information may be transferred to — and maintained on — computers located outside of Your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from Your jurisdiction.",
+        "your_consent": "Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer.",
+        "company_will_take": "The Company will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy and no transfer of Your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of Your data and other personal information.",
+        "delete": "Delete Your Personal Data",
+        "you_have_the": "You have the right to delete or request that We assist in deleting the Personal Data that We have collected about You.",
+        "our_service_may": "Our Service may give You the ability to delete certain information about You from within the Service.",
+        "you_may_update": "You may update, amend, or delete Your information at any time by signing in to Your Account, if you have one, and visiting the account settings section that allows you to manage Your personal information. You may also contact Us to request access to, correct, or delete any personal information that You have provided to Us.",
+        "please_note": "Please note, however, that We may need to retain certain information when we have a legal obligation or lawful basis to do so.",
+        "disclosure": "Disclosure of Your Personal Data",
+        "business_transactions": "Business Transactions",
+        "if_the_company": "If the Company is involved in a merger, acquisition or asset sale, Your Personal Data may be transferred. We will provide notice before Your Personal Data is transferred and becomes subject to a different Privacy Policy.",
+        "law_enforcement": "Law enforcement",
+        "under_certain": "Under certain circumstances, the Company may be required to disclose Your Personal Data if required to do so by law or in response to valid requests by public authorities (e.g. a court or a government agency).",
+        "other_legal": "Other legal requirements",
+        "company_may_disclose": "The Company may disclose Your Personal Data in the good faith belief that such action is necessary to:",
+        "comply_with": "Comply with a legal obligation",
+        "protect_defend": "Protect and defend the rights or property of the Company",
+        "prevent_investigate": "Prevent or investigate possible wrongdoing in connection with the Service",
+        "protect_personal": "Protect the personal safety of Users of the Service or the public",
+        "protect_against": "Protect against legal liability",
+        "security": "Security of Your Personal Data",
+        "the_security_of": "The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.",
+        "children_privacy": "Children's Privacy",
+        "our_service_does": "Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under the age of 13. If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us. If We become aware that We have collected Personal Data from anyone under the age of 13 without verification of parental consent, We take steps to remove that information from Our servers.",
+        "if_we_need": "If We need to rely on consent as a legal basis for processing Your information and Your country requires consent from a parent, We may require Your parent's consent before We collect and use that information.",
+        "other_websites": "Links to Other Websites",
+        "our_service_may_contain": "Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You will be directed to that third party's site. We strongly advise You to review the Privacy Policy of every site You visit.",
+        "we_have_no": "We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.",
+        "changes": "Changes to this Privacy Policy",
+        "we_may_update": "We may update Our Privacy Policy from time to time. We will notify You of any changes by posting the new Privacy Policy on this page.",
+        "we_will_let": "We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming effective and update the \"Last updated\" date at the top of this Privacy Policy.",
+        "you_are_advised": "You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.",
+        "contact_us": "Contact Us",
+        "if_you_have": "If you have any questions about this Privacy Policy, You can contact us:",
+        "contact_email": "By email: wish.hub.net@gmail.com",
+        "agree": "I Agree"
+    },
+    "not-found-page": {
+        "title": "Page not found",
+        "text": "Oops! The page you were looking for does not exist.",
+        "sub-text": "You may have entered the page address incorrectly.",
+        "to-main": "To Main"
     }
-  },
-  "encryption-error": "Could not be decrypted",
-  "avatar-error": {
-    "file-type": "The file must be in one of the following formats:",
-    "file-size": "The file size must not exceed {{size}} MB."
-  },
-  "images-error": {
-    "file-type": "One or more files are in an unsupported format. Supported formats:",
-    "file-size": "One or more files are larger than {{size}} MB.",
-    "file-count": "Unfortunately, it is not possible to save more than {{count}} images."
-  },
-  "validations": {
-    "only-whitespace": "The entered data cannot contain only spaces.",
-    "wish-name": {
-      "required": "It is impossible to create a desire without a name.",
-      "min": "Why is the name of the wish so short? Please come up with a name that is longer than {{min}} characters.",
-      "max": "The name of your wish is too long. Let's try to fit it into {{max}} characters."
-    },
-    "wish-price": {
-      "required": "The material desire that does not have its price cannot be fulfilled by Your universe.",
-      "pattern": "The price must be a positive integer and not start with \"0\".",
-      "max": "Let's try to fit in {{max}} characters."
-    },
-    "wish-description": {
-      "min": "What is this short wish description? Please come up with a description that is longer than {{min}} character.",
-      "max": "The name of Your wish contains: {{current}} characters. Let's try to fit it into {{max}} characters."
-    },
-    "email": {
-      "required": "This field is required so that we can identify You.",
-      "only-whitespace": "Email address cannot contain only spaces.",
-      "pattern": "This does not look like an email address. Please enter a valid email."
-    },
-    "password": {
-      "required": "This field is required to prevent anyone else from using Your data.",
-      "whitespaces": "The entered data cannot begin or end with a space.",
-      "min": "The password is too short. Please come up with a password that is longer than {{min}} characters.",
-      "max": "I think you overdid it. A long password is not always a good password. Try to keep it to {{max}} characters."
-    },
-    "first-name": {
-      "required": "You must have a name. Don't be shy :)",
-      "min": "We have never heard such a short first name. The minimum length of the field is {{min}} characters.",
-      "max": "We think you are making something up. The maximum length of the field is {{max}} characters."
-    },
-    "last-name": {
-      "min": "We have never heard such a short last name. The minimum length of the field is {{min}} characters.",
-      "max": "We think you are making something up. The maximum length of the field is {{max}} characters."
-    },
-    "delivery-address": {
-      "min": "Such a short address? The minimum length of the field is {{min}} characters.",
-      "max": "Is the address that long? The maximum length of the field is {{max}} characters."
-    }
-  },
-  "main-page": {
-    "you_can_send": "You can send your wish to: ",
-    "bd": "Birthday: {{birthday}}",
-    "interface_language": "Interface language",
-    "my-wishes": "My wishes",
-    "about": "About",
-    "instruction": "Instruction",
-    "contacts": "Contacts",
-    "users": "Users",
-    "update": "Update",
-    "all": "All",
-    "friends": "Friends",
-    "friend-requests": "Friend Requests",
-    "sent-friend-requests": "Sent Friend Requests",
-    "users-search": "Users Search",
-    "wishes-search": "Wishes Search",
-    "confirm-friendship": "Confirm friendship",
-    "add-friend": "Add friend",
-    "delete-your": "Delete your friend request",
-    "delete-user_s": "Delete user's friend request",
-    "delete-request": "",
-    "remove-friend": "Remove friend",
-    "at-user": "User",
-    "does_not_have_": "doesn't have any wishes available for viewing.",
-    "does_not_have_fulfilled": "doesn't have any fulfilled wishes available for viewing.",
-    "does_not_have_unfulfilled": "doesn't have any unfulfilled wishes available for viewing.",
-    "no_wishes_found": "According to the specified parameters, no wishes were found.",
-    "sort": {
-      "by-popularity": "Popular first",
-      "by-price-up": "Cheap first",
-      "by-price-down": "Expensive first",
-      "by-created-up": "Newest first",
-      "by-created-down": "Oldest first"
-    },
-    "wishes-example": {
-      "first": "Your gifts",
-      "second": "Your wishes",
-      "third": "Your goals",
-      "fourth": "Your dreams"
-    },
-    "create-wish": "Create Wish",
-    "unfulfilled": "Unfulfilled",
-    "fulfilled": {
-      "single": "Fulfilled",
-      "plural": "Fulfilled"
-    },
-    "title-personal": "Personal",
-    "title-wishes": "Wishes",
-    "of-user": "of User",
-    "reserved": "Reserved",
-    "material-wish": "Material Wish",
-    "non-material-wish": "Non-material Wish",
-    "wish-name": "Name of Your wish*.",
-    "wish-name-tooltip": "We hope you will create many wishes:) And to make them easy to distinguish, the name should not only be mandatory, but also unique.",
-    "wish-price": "Price*",
-    "wish-price-tooltip": "A material wish that does not have a price cannot be fulfilled by your universe. Enter an approximate or exact price.",
-    "where-to-buy": "Where to buy",
-    "where-to-buy-tooltip": "The name of the place, or better yet, the address, or even better yet, a link to where you can buy your wish.",
-    "wish-description": "Description of the wish",
-    "can-see": {
-      "title": "Privacy*",
-      "all": "Public",
-      "wish-all-tooltip": "The wish is available for viewing by all users and visitors of the Wish Hub platform.",
-      "friends": "For Friends",
-      "wish-friends-tooltip": "Only users with whom you have mutually added each other as friends will see the wish.",
-      "nobody": "Private",
-      "wish-nobody-tooltip": "Wishes with the \"Private\" and \"Friends Only\" privacy levels are encrypted. All data in these privacy levels is transmitted and stored in an encrypted form. This means that even site administrators cannot view this data.",
-      "share-tooltip": "In this list, wishes will be displayed according to their privacy level.",
-      "inactive-share-tooltip": "In this list, wishes will be displayed according to their privacy level. The \"Share\" button is inactive because you don't have any wishes with the \"Public\" privacy level.",
-      "email-all-tooltip": "Your email will be available for viewing by all users and visitors of the Wish Hub platform.",
-      "email-friends-tooltip": "Your email will be visible only to users with whom you have mutually added each other as friends.",
-      "email-nobody-tooltip": "Your email will not be visible to anyone.",
-      "delivery-address-all-tooltip": "Your address will be available for viewing by all users and visitors of the Wish Hub platform.",
-      "delivery-address-friends-tooltip": "Your address will be visible only to users with whom you have mutually added each other as friends.",
-      "delivery-address-nobody-tooltip": "Your address will not be visible to anyone.",
-      "birthday-all-tooltip": "Your birthday will be available for viewing by all users and visitors of the Wish Hub platform.",
-      "birthday-friends-tooltip": "Your birthday will be visible only to users with whom you have mutually added each other as friends.",
-      "birthday-nobody-tooltip": "Your birthday will not be visible to anyone."
-    },
-    "share-wishes": "Share your wish list",
-    "delete-wish": "Delete wish",
-    "are-you-sure": "Are You sure you want to delete this wish?",
-    "create": "Create",
-    "drag": "Click or drag images here to add them to your wish list.",
-    "click": "Click here to add an image to Your wish.",
-    "change": "You can also change the position of images by dragging them together.",
-    "size": "Maximum file size: {{size}} MB.",
-    "formats": "Allowed formats:",
-    "count": "Maximum number of files: {{count}} pcs.",
-    "delete-all-images": "Delete all images",
-    "you-must": "You must fulfill this wish by:",
-    "wish-must": "The wish must be fulfilled by:",
-    "coming-true": "The wish is already coming true",
-    "wish-fulfilled": "Wish fulfilled",
-    "edit-wish": "Edit wish",
-    "show-all-1": "Your wish is visible to",
-    "show-all-2": "all",
-    "show-all-3": "users.",
-    "show-friends-1": "Only",
-    "show-friends-2": "Your friends",
-    "show-friends-3": "can see Your wish.",
-    "show-nobody-1": "",
-    "show-nobody-2": "Nobody",
-    "show-nobody-3": "can see Your wish.",
-    "sure-fulfilled": "Are you sure that the wish \"{{name}}\" is fulfilled?",
-    "book-end-errors": {
-      "required": "This field is required.",
-      "past": "It is impossible to complete a task in the past.",
-      "max": {
-        "my": "If you are not sure that you will realize your wish within 10 years, then you should not generally limit yourself to a specific date.",
-        "another": "Do you think it's reasonable to promise to fulfill a wish in more than a year?"
-      },
-      "invalid": "The entered date is invalid."
-    },
-    "will-fulfill": "I will fulfill wish",
-    "confirm-intention": "Confirm intention",
-    "i-intend": "I intend to fulfill the wish \"{{name}}\" by:",
-    "including": "including*",
-    "after_you_confirm": "After you confirm your intention, no other users will be able to book this wish. You will have the opportunity to cancel your wish within three days.",
-    "by_declaring": "By declaring your intention to fulfill your wish, you take responsibility for its fulfillment. The Universe relies on you :) Constantly changing decisions can worsen your relationship with the Universe. Wish fulfillment affects your rating in the system.",
-    "cancel-execution": "Cancel execution",
-    "cancel-my-intention": "Cancel my intention",
-    "cancel-intention": "Are you sure you want to cancel your intention to fulfill the wish \"{{name}}\"?",
-    "determine-status": "Determine the status of execution",
-    "period-expired": "The period set by the performer for the realization of the wish \"{{name}}\" has expired.",
-    "is_your_wish": "Is Your wish fulfilled?",
-    "no": "No",
-    "yes": "Yes",
-    "edit-account": "Edit account",
-    "change-password": "Change password",
-    "old-password": "Old password*",
-    "new-password": "New password*",
-    "repeat-new-password": "Repeat new password*",
-    "repeat-password-error": "New passwords do not match.",
-    "phone": "Phone:",
-    "email": "Email address:",
-    "social-networks": "Social networks:",
-    "contact-us": "If you have any questions or suggestions, please contact us.",
-    "sadness": "Our sadness knows no bounds... We hope that you will give us another chance and to stay. If you have decided to leave us, please confirm your intention by entering the appropriate data.",
-    "delete-my-account": "Delete my account",
-    "stay": "Stay",
-    "email-not-match": "This email does not match the email of the account you are trying to delete.",
-    "fast_data_filling": "Quickly fill in the data",
-    "product-link": "Link to a product",
-    "product-link-tooltip": "Paste the link to the product from any online store and we will try to automatically fill in the wish data.",
-    "manually": "Fill in manually",
-    "continue": "Continue",
-    "non-unique-wish-name": "You already have a wish with that name."
-  },
-  "activation-link-expired-page": {
-    "expired": "Account activation period has expired.",
-    "utc": "The account will be deleted at 00:00 UTC.",
-    "again": "You can register with the same email again after the old account is deleted."
-  },
-  "auth-page": {
-    "title": {
-      "sing_in": "Sing In",
-      "sing_up": "Sing Up",
-      "forgot_password": "Forgotten your password?"
-    },
-    "or": "or",
-    "name": "Name*",
-    "password": "Password*",
-    "repeat_password": "Repeat password*",
-    "password_remembered": "Password remembered!",
-    "forgot_password": "Forgot my password",
-    "i_agree_to": "I agree to the Wish Hub website's",
-    "privacy_policy": "Privacy Policy.",
-    "wish_hub": "",
-    "privacy_policy_error": "We can't authorize you until you agree to our Privacy Policy.",
-    "passwords_error": "Passwords do not match.",
-    "recovery": "Recovery"
-  },
-  "change-forgotten-password-page": {
-    "title": "Password recovery",
-    "new_password": "New password*",
-    "repeat_new_password": "Repeat new password*",
-    "recovery": "Recovery"
-  },
-  "welcome-page": {
-    "wish_hub_makes": "Wish Hub - makes your dreams come true!",
-    "unique_platform": "This is a unique platform where your dreams come true. Create and share your wishes to make them come true.",
-    "birthday_wishlist": "Birthday wishlist",
-    "count_wishes": "14 wishes",
-    "bouquet_of": "Bouquet of yellow roses",
-    "i_love_roses": "I love roses, especially yellow ones! I'd love to receive them for my birthday.",
-    "teddy_bear": "Teddy Bear",
-    "childhood_dream": "My childhood dream! He is so cute!",
-    "vr_headset": "VR headset",
-    "i_will_be": "I will be so happy to get this VR",
-    "the_best_wireless": "The best wireless headphones! I want it!",
-    "take_first_step": "Take the first step towards realizing your dreams!",
-    "create_wish_lists": "On Wish Hub, you can create wish lists, share them with friends and family, and book others' wishes to make their holidays special.",
-    "with_wish_hub": "With Wish Hub, your gift will always be a hit!",
-    "save_time": "Save time and effort in choosing the perfect gift.",
-    "no_more": "No more disappointments or duplicate gifts.",
-    "create_wishes": "Create Wishes",
-    "add_your_dreams": "Add your dreams to the wish list so that your friends and family know what to give you for the holiday.",
-    "share_your_wishes": "Share your wishes",
-    "share_your_lists": "Share your lists with other users to increase the chances of your dreams coming true.",
-    "book_wishes": "Book Wishes",
-    "book_other_wishes": "Book other users' wishes to avoid duplicate gifts and ensure pleasant surprises.",
-    "benefits_of_being": "Benefits of Being a Wish Hub User",
-    "forget_hassle": "Forget the hassle of choosing gifts. Enjoy the joy of giving.",
-    "making_dreams": "Making dreams come true",
-    "your_dreams": "Your dreams will come true when you create and share your wishes.",
-    "time_saving": "Time-Saving",
-    "forget_the_long": "Forget the long hours of thinking and searching for the perfect gift.",
-    "easy_to_use": "Easy to Use",
-    "our_intuitive": "Our intuitive interface lets you quickly and easily create and view wish lists.",
-    "join_today": "Join Wish Hub Today!",
-    "sign_up_now": "Sign up now to start creating your wish lists and reserving gifts for your loved ones.",
-    "alts": {
-      "star_emoji": "Emoji of guy with starry eyes",
-      "arrow": "Arrow",
-      "love_smile": "Smiley face in love",
-      "pigtails_emoji": "Emoji of girl with pigtails",
-      "festive_smile": "Festive smiley face",
-      "winking_emoji": "Winking girl emoji",
-      "star_smile": "Starry-eyed smiley face",
-      "bearded_emoji": "Bearded man emoji",
-      "sunglasses_smile": "Smiley face with sunglasses",
-      "great_emoji": "'Great job!' emoji",
-      "party_popper_icon": "Party Popper Icon",
-      "checked_icon": "Checked Icon",
-      "bigger_gift": "Bigger gift",
-      "smaller_gift": "Smaller gift",
-      "star_icon": "Star icon",
-      "plus_icon": "Plus icon",
-      "chain_icon": "Chain icon",
-      "eye_icon": "Eye icon",
-      "lock_icon": "Lock icon",
-      "middle_gift": "Middle gift",
-      "love_emoji": "Emoji of guy in love",
-      "festive_emoji": "Emoji of festive girl"
-    }
-  },
-  "instruction-page": {
-    "title": "Instruction",
-    "app": {
-      "title": "How to add Wish Hub to your phone's home screen",
-      "second-title": "To get quick access to Wish Hub, create an app on your phone's home screen",
-      "not_again": "Do not show again",
-      "browser": "To add Wish Hub to your phone's home screen, you need to open this site in the {{browser}} browser.",
-      "browser_icon": "{{icon}} icon",
-      "menu": {
-        "Android": "Click on the three dots (menu) in the upper right corner.",
-        "iOS": "Click the \"Share\" icon (the square with the up arrow) at the bottom of the screen.",
-        "img": "Activating menu"
-      },
-      "add": {
-        "Android": "Select the \"Add to Home\" option.",
-        "iOS": "Scroll down and select \"To Home\".",
-        "img": "Add to the home screen"
-      },
-      "install": {
-        "Android": "Click \"Install\"",
-        "iOS": "Click \"Add\"",
-        "img": "Click Add"
-      },
-      "done": {
-        "text": "Done. Look for the \"Wish Hub\" application on your phone screen.",
-        "img": "\"Wish Hub\" on the phone screen"
-      }
-    },
-    "auth": {
-      "title": "Sing up/Sing in",
-      "intro": "There are several ways to log in or register:",
-      "google": {
-        "text-1": "The easiest way is to use a Google service.",
-        "text-2": "First, you need to agree to the terms and conditions.",
-        "text-3": "Then activate the corresponding Google button.",
-        "img": "Log in using the Google service"
-      },
-      "account": {
-        "text": "You must already have a Google account. If you are authorized on your device, you simply select the account you want to use in Wish Hub.",
-        "img": "Selecting a Google account"
-      },
-      "data": {
-        "text": "If you are not already logged in to gmail on your device, enter your information in the appropriate fields.",
-        "account-img": "Enter your account",
-        "password-img": "Enter your password"
-      },
-      "logged": {
-        "text": "Then the program will do everything for you. If you have already registered, you will simply log in to your account. If not, you will be automatically registered.",
-        "img": "Logged in to the Wish Hub"
-      },
-      "sing-up": {
-        "text-1": "If you do not want to use a Google account or do not have one, you will need to verify it in the Wish Hub web application.",
-        "text-2": "Fill in all the fields and agree to the terms of use.",
-        "img": "Registration"
-      },
-      "activation": {
-        "text-1": "Now go to your mail and find the email. If the email is not there, check your \"Spam\" folder. We don't use uncontrolled mailing. It's just that each email service is configured differently, and our email may accidentally end up in the \"Spam\" folder.",
-        "text-2": "Click the appropriate button in the email, or copy the link and paste it into the address bar of your browser.",
-        "img": "Account activation"
-      }
-    },
-    "next": {
-      "title": "Continued",
-      "text": "To be continued..."
-    }
-  },
-  "about-page": {
-    "title": "About Wish Hub",
-    "hello": "Hello! My name is Oleg. I am the founder of Wish Hub. This web-application is created just for you.",
-    "wish_hub_is": "Wish Hub is a unique platform that helps you learn about the wishes of your friends and loved ones. Our service makes gift selection easy and enjoyable by providing the ability to create wish lists, view them, and reserve items to avoid duplicate gifts.",
-    "our_mission": "Our mission is to build a community where people can share their dreams and receive exactly what they wish for.",
-    "sub-title": "Wishes",
-    "do_you_have": "Do you have desires? I'm sure you do. Are all your desires fulfilled? Probably not. How can we increase the likelihood of fulfilling our desires? Do other people's desires always come true? And how exactly do they come to fruition?",
-    "it_likely": "It's likely that in wealthier individuals, desires are fulfilled more frequently than in those with fewer financial resources. Do you believe this is directly linked to having money? Well, of course! If you have plenty of funds and you desire, let's say, a car, you can simply go to the dealership and make the purchase. It's straightforward. However, for those financially disadvantaged, acquiring such luxuries is out of the question. The economically challenged face a different reality and set of priorities. They must decide between buying necessities like groceries or saving for the future.",
-    "what_about": "What about non-material desires? They can't be bought with money. For instance, longing for genuine love or robust health. Or perhaps you aspire to attain a fit, athletic physique. You might argue that even these desires can be fulfilled with financial means. While this is technically true, paid love will never be as fulfilling as genuine affection, and medical facilities motivated primarily by profit may not prioritize your well-being. Maintaining good health and achieving personal fitness goals requires dedication and effort, where money plays a supporting role at best.",
-    "it_appears_to": "It appears to me that in wealthy individuals, desires are fulfilled more frequently not solely due to their financial status. Rather, their wealth often stems from the consistent fulfillment of their desires.",
-    "probably": "It's probably not a secret to anyone that the primary driving force behind desire fulfillment is our thoughts. The notion that \"thoughts materialize\" is not a new one.",
-    "what_other_factors": "What other factors influence the realization of our desires?",
-    "today_we": "Today, we're bombarded with messages urging us to discover our path, our purpose, our unique journey. These hints are everywhere, hard to overlook or brush aside. Yet, finding one's way in life is far from simple. Many embark on this quest for years on end, and from personal experience, I can attest: it's a journey worth undertaking.",
-    "but_what": "But what about our desires? They come in two forms: those that arise from within, and those imposed upon us from external sources. Consider statements like, \"I hate driving, but I need a car to commute to work. I dislike my job, but I have to pay off the car loan.\" Personal desires manifest effortlessly, like a natural extension of ourselves. Conversely, imposed desires exert a draining energy, constantly pulling us down with their enticing facades.",
-    "profound": "Yet, there's a profound truth here: our wishes carry an energetic weight, and within us lies the power of thought to lift this burden. It's a somewhat abstract concept, but one that resonates deeply with me.",
-    "let_delve": "Let's delve deeper into this notion. Our personal desires are straightforward—they materialize because our thoughts give them life. Our innermost desires align seamlessly with our capabilities, requiring no external intervention. But what about desires that aren't ours? They persist, sometimes with an intensity that borders on unbearable. This is where things get complex. If our present circumstances starkly contrast our aspirations, it's a lamentable situation. Picture a homeless person yearning for a castle—a chasm separates desire from reality. It's easier to relinquish desire altogether than to cling to futile dreams. Yet, what if our wish is within reach, albeit financially out of grasp? When desire burns fiercely, but resources fall short, it becomes evident: we need assistance, an infusion of additional energy. Brute force won't suffice; we require a subtler, more nuanced approach. Assistance may come, albeit with consequences. The question remains: where do we find this energy?",
-    "there_are_so": "There are so many things in this world that carry energy... Actually, scratch that. Absolutely everything in the material world possesses energy. Each item has its own unique energy. Let's take your device, the one you're using to read this text. Just imagine how many companies contributed to creating this technological wonder. And within each company, there were hundreds of employees involved. So, your computer, laptop, or smartphone has absorbed the energy of all those people who contributed to its creation. Add to that the energy of the programmers who dedicated their efforts to ensure this machine works smoothly. And that's not even considering the material components of your gadget. Even the apple you bought from the farmer's market carries its own energy. Think about the energy the farmer expended to pick it, bring it to market, and sell it to you. Let's not even mention the apples from the supermarket. And then, there's another element in this world that holds a calculated energy: money.",
-    "yes_money_it": "Yes, money is the most energetically charged material thing, and today, it's even electronic. It's easy to prove. Close your eyes. Now, vividly imagine your boss giving you a 20% raise. How does that feel? Now, imagine finding a winning lottery ticket and pocketing $100,000. Feel the difference? This illustrates, firstly, that money indeed carries energy, and secondly, that the amount directly correlates with the energy it holds. In the grand scheme of things, practically all your desires touch upon financial matters in one way or another. A loving spouse will love you regardless of financial circumstances, but the experience in a lavish mansion will undoubtedly be different from that in a one-bedroom apartment. While you can't buy health with money, even basic medical procedures come with a price tag. And getting in shape at a top-tier gym with a qualified trainer is far more enjoyable than doing calisthenics in the backyard. Thus, while money may not be the ultimate goal, it certainly makes life more enjoyable and manageable.",
-    "and_finally": "And finally, the most crucial aspect. How do we connect money and desires when we lack the energy? When someone gives you something for free, what emotions do you experience? Deep gratitude, right? You immediately feel the urge to reciprocate in some way. You start wishing them all the best in your thoughts. Well, guess what? Other people experience the same feelings in similar situations. And these impulses are even stronger if the gift is unexpected and, most importantly, valuable. The corresponding wishes can be quite diverse. Typically, it's what we value most for ourselves. And if the person who's giving us the gift is saving up for a house, and we're aware of it, our first instinct is to wish them to buy that house as soon as possible. 'I wish you finally get the house of your dreams! Just the way you want it!' Does this situation sound familiar to you?",
-    "you_know": "After all, you know, wealthy individuals consistently allocate a portion of their fortunes to charitable causes. Consider how this unfolds. It's likely that a wealthy individual would want their donation to, say, an orphanage, to be widely recognized. What do you think people's reactions would be upon learning about such a generous contribution? How might the staff at the orphanage respond? And what about the children who are old enough to grasp the situation? Naturally, they would feel immensely grateful! \"May your business thrive and flourish! May success be a constant companion! And may everything unfold as smoothly as possible!\"",
-    "this_web": "This web-application revolves entirely around your desires. Each wish carries a personal financial weight equivalent to the value attributed to it by the wisher. And if you wish to assist someone, the most impactful gesture you can make is to fulfill their wish by purchasing a gift, provided your means align with the weight of the wish."
-  },
-  "wish-page": {
-    "created-by": "Wish created by user:",
-    "price": "Price:",
-    "address": "Where to buy:",
-    "description": "Description:",
-    "empty": "This wish does not exist. It may have been deleted by the user."
-  },
-  "wish-list-page": {
-    "title": "The wish list is created by the user:"
-  },
-  "profile-page": {
-    "my-profile": "My profile",
-    "user-profile": "User profile",
-    "edit": "Edit",
-    "unknown": "Unknown",
-    "delivery-address": "Address of Delivery of Wishes",
-    "delivery-address-tooltip": "We advise you to indicate the city, the number of the carrier's branch, your phone number, your name and surname",
-    "birthday": "Birthday",
-    "birthday*": "Birthday*",
-    "when_your_birth": "When is Your birthday?",
-    "birthday-error": {
-      "min-date": "We have doubts that You are more than 120 years old.",
-      "disable-future": "It is impossible to be born in the future.",
-      "invalid-date": "The entered date is invalid."
-    },
-    "i_have_fulfilled": "I have fulfilled",
-    "i_did_not_fulfill": "I did not fulfill",
-    "wishes": "wishes.",
-    "wish": "wish.",
-    "wish_2_3_4": "wishes.",
-    "change-password-title": "Change password",
-    "wish-list-title": "Wish list",
-    "wishes-empty": "Wish list is empty.",
-    "cancel": "Cancel",
-    "delete-account": "Delete my account"
-  },
-  "privacy-policy-page": {
-    "title": "Privacy Policy",
-    "updated": "Last updated: April 02, 2024",
-    "intro": "This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.",
-    "we-use": "We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the",
-    "generator": "Privacy Policy Generator.",
-    "interpretation-definitions": "Interpretation and Definitions",
-    "interpretation": "Interpretation",
-    "interpretation-text": "The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.",
-    "definitions": "Definitions",
-    "definitions-intro": "For the purposes of this Privacy Policy:",
-    "account-strong": "Account",
-    "account": "means a unique account created for You to access our Service or parts of our Service.",
-    "affiliate-strong": "Affiliate",
-    "affiliate": "means an entity that controls, is controlled by or is under common control with a party, where \"control\" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.",
-    "company-strong": "Company",
-    "company": "(referred to as either \"the Company\", \"We\", \"Us\" or \"Our\" in this Agreement) refers to Wish Hub.",
-    "cookies-strong": "Cookies",
-    "cookies": "are small files that are placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history on that website among its many uses.",
-    "country-strong": "Country",
-    "country": "refers to: United States of America.",
-    "device-strong": "Device",
-    "device": "means any device that can access the Service such as a computer, a cellphone or a digital tablet.",
-    "personal-strong": "Personal Data",
-    "personal": "is any information that relates to an identified or identifiable individual.",
-    "service-strong": "Service",
-    "service": "refers to the Website.",
-    "provider-strong": "Service Provider",
-    "provider": "means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used.",
-    "third-party-strong": "Third-party Social Media Service",
-    "third-party": "refers to any website or any social network website through which a User can log in or create an account to use the Service.",
-    "usage-strong": "Usage Data",
-    "usage": "refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).",
-    "website-strong": "Website",
-    "website": "refers to Wish Hub, accessible from",
-    "you-strong": "You",
-    "you": "means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.",
-    "collecting": "Collecting and Using Your Personal Data",
-    "types": "Types of Data Collected",
-    "personal-data": "Personal Data",
-    "personal-info": "While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:",
-    "email": "Email address",
-    "full-name": "First name and last name",
-    "phone": "Phone number",
-    "address": "Address, State, Province, ZIP/Postal code, City",
-    "usage_data": "Usage Data",
-    "usage_data_title": "Usage Data",
-    "usage_data_is": "Usage Data is collected automatically when using the Service.",
-    "usage_data_may": "Usage Data may include information such as Your Device's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.",
-    "when_you_access": "When You access the Service by or through a mobile device, We may collect certain information automatically, including, but not limited to, the type of mobile device You use, Your mobile device unique ID, the IP address of Your mobile device, Your mobile operating system, the type of mobile Internet browser You use, unique device identifiers and other diagnostic data.",
-    "we_may_also": "We may also collect information that Your browser sends whenever You visit our Service or when You access the Service by or through a mobile device.",
-    "information_from_third-party": "Information from Third-Party Social Media Services",
-    "the_company_allows": "The Company allows You to create an account and log in to use the Service through the following Third-party Social Media Services:",
-    "if_you_decide": "If You decide to register through or otherwise grant us access to a Third-Party Social Media Service, We may collect Personal data that is already associated with Your Third-Party Social Media Service's account, such as Your name, Your email address, Your activities or Your contact list associated with that account.",
-    "you_may_also": "You may also have the option of sharing additional information with the Company through Your Third-Party Social Media Service's account. If You choose to provide such information and Personal Data, during registration or otherwise, You are giving the Company permission to use, share, and store it in a manner consistent with this Privacy Policy.",
-    "tracking_technologies": "Tracking Technologies and Cookies",
-    "we_use_cookies": "We use Cookies and similar tracking technologies to track the activity on Our Service and store certain information. Tracking technologies used are beacons, tags, and scripts to collect and track information and to improve and analyze Our Service. The technologies We use may include:",
-    "cookies_or_browser_cookies": "Cookies or Browser Cookies.",
-    "a_cookie_is": "A cookie is a small file placed on Your Device. You can instruct Your browser to refuse all Cookies or to indicate when a Cookie is being sent. However, if You do not accept Cookies, You may not be able to use some parts of our Service. Unless you have adjusted Your browser setting so that it will refuse Cookies, our Service may use Cookies.",
-    "web_beacons": "Web Beacons.",
-    "certain_sections_of": "Certain sections of our Service and our emails may contain small electronic files known as web beacons (also referred to as clear gifs, pixel tags, and single-pixel gifs) that permit the Company, for example, to count users who have visited those pages or opened an email and for other related website statistics (for example, recording the popularity of a certain section and verifying system and server integrity).",
-    "cookies_can_be": "Cookies can be \"Persistent\" or \"Session\" Cookies. Persistent Cookies remain on Your personal computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web browser. Learn more about cookies on the",
-    "privacy_policies_website": "Privacy Policies website",
-    "article": "article.",
-    "we_use_both": "We use both Session and Persistent Cookies for the purposes set out below:",
-    "necessary": "Necessary / Essential Cookies",
-    "session_cookies": "Type: Session Cookies",
-    "administered_1": "Administered by: Us",
-    "these_cookies_are": "Purpose: These Cookies are essential to provide You with services available through the Website and to enable You to use some of its features. They help to authenticate users and prevent fraudulent use of user accounts. Without these Cookies, the services that You have asked for cannot be provided, and We only use these Cookies to provide You with those services.",
-    "cookies_policy": "Cookies Policy / Notice Acceptance Cookies",
-    "persistent_cookies_1": "Type: Persistent Cookies",
-    "administered_2": "Administered by: Us",
-    "these_cookies_identify": "Purpose: These Cookies identify if users have accepted the use of cookies on the Website.",
-    "functionality_cookies": "Functionality Cookies",
-    "persistent_cookies_2": "Type: Persistent Cookies",
-    "administered_3": "Administered by: Us",
-    "these_cookies_allow": "Purpose: These Cookies allow us to remember choices You make when You use the Website, such as remembering your login details or language preference. The purpose of these Cookies is to provide You with a more personal experience and to avoid You having to re-enter your preferences every time You use the Website.",
-    "for_more_information": "For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy or the Cookies section of our Privacy Policy.",
-    "use_of_your": "Use of Your Personal Data",
-    "the_company_may": "The Company may use Personal Data for the following purposes:",
-    "to_provide_and": "To provide and maintain our Service,",
-    "including_to_monitor": "including to monitor the usage of our Service.",
-    "to_manage_your_account": "To manage Your Account:",
-    "to_manage_your_registration": "to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.",
-    "for_the_performance": "For the performance of a contract:",
-    "the_development": "the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.",
-    "to_contact_you": "To contact You:",
-    "by_email": "To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application's push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.",
-    "to_provide_you": "To provide You",
-    "with_news": "with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.",
-    "to_manage_your_requests": "To manage Your requests:",
-    "to_attend": "To attend and manage Your requests to Us.",
-    "for_business_transfers": "For business transfers:",
-    "we_may_use_1": "We may use Your information to evaluate or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Our assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which Personal Data held by Us about our Service users is among the assets transferred.",
-    "for_other_purposes": "For other purposes:",
-    "we_may_use_2": "We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.",
-    "we_may_share_1": "We may share Your personal information in the following situations:",
-    "with_service_providers": "With Service Providers:",
-    "we_may_share_2": "We may share Your personal information with Service Providers to monitor and analyze the use of our Service, to contact You.",
-    "for_business_transfers_2": "For business transfers:",
-    "we_may_share_3": "We may share or transfer Your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of Our business to another company.",
-    "with_affiliates": "With Affiliates:",
-    "we_may_share_4": "We may share Your information with Our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include Our parent company and any other subsidiaries, joint venture partners or other companies that We control or that are under common control with Us.",
-    "with_business_partners": "With business partners:",
-    "we_may_share_5": "We may share Your information with Our business partners to offer You certain products, services or promotions.",
-    "with_other_users": "With other users:",
-    "when_you_share": "when You share personal information or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside. If You interact with other users or register through a Third-Party Social Media Service, Your contacts on the Third-Party Social Media Service may see Your name, profile, pictures and description of Your activity. Similarly, other users will be able to view descriptions of Your activity, communicate with You and view Your profile.",
-    "with_your_consent": "With Your consent:",
-    "we_may_disclose": "We may disclose Your personal information for any other purpose with Your consent.",
-    "retention": "Retention of Your Personal Data",
-    "company_will_retain": "The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.",
-    "company_will_also": "The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.",
-    "transfer": "Transfer of Your Personal Data",
-    "your_information": "Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located. It means that this information may be transferred to — and maintained on — computers located outside of Your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from Your jurisdiction.",
-    "your_consent": "Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer.",
-    "company_will_take": "The Company will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy and no transfer of Your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of Your data and other personal information.",
-    "delete": "Delete Your Personal Data",
-    "you_have_the": "You have the right to delete or request that We assist in deleting the Personal Data that We have collected about You.",
-    "our_service_may": "Our Service may give You the ability to delete certain information about You from within the Service.",
-    "you_may_update": "You may update, amend, or delete Your information at any time by signing in to Your Account, if you have one, and visiting the account settings section that allows you to manage Your personal information. You may also contact Us to request access to, correct, or delete any personal information that You have provided to Us.",
-    "please_note": "Please note, however, that We may need to retain certain information when we have a legal obligation or lawful basis to do so.",
-    "disclosure": "Disclosure of Your Personal Data",
-    "business_transactions": "Business Transactions",
-    "if_the_company": "If the Company is involved in a merger, acquisition or asset sale, Your Personal Data may be transferred. We will provide notice before Your Personal Data is transferred and becomes subject to a different Privacy Policy.",
-    "law_enforcement": "Law enforcement",
-    "under_certain": "Under certain circumstances, the Company may be required to disclose Your Personal Data if required to do so by law or in response to valid requests by public authorities (e.g. a court or a government agency).",
-    "other_legal": "Other legal requirements",
-    "company_may_disclose": "The Company may disclose Your Personal Data in the good faith belief that such action is necessary to:",
-    "comply_with": "Comply with a legal obligation",
-    "protect_defend": "Protect and defend the rights or property of the Company",
-    "prevent_investigate": "Prevent or investigate possible wrongdoing in connection with the Service",
-    "protect_personal": "Protect the personal safety of Users of the Service or the public",
-    "protect_against": "Protect against legal liability",
-    "security": "Security of Your Personal Data",
-    "the_security_of": "The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.",
-    "children_privacy": "Children's Privacy",
-    "our_service_does": "Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under the age of 13. If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us. If We become aware that We have collected Personal Data from anyone under the age of 13 without verification of parental consent, We take steps to remove that information from Our servers.",
-    "if_we_need": "If We need to rely on consent as a legal basis for processing Your information and Your country requires consent from a parent, We may require Your parent's consent before We collect and use that information.",
-    "other_websites": "Links to Other Websites",
-    "our_service_may_contain": "Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You will be directed to that third party's site. We strongly advise You to review the Privacy Policy of every site You visit.",
-    "we_have_no": "We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.",
-    "changes": "Changes to this Privacy Policy",
-    "we_may_update": "We may update Our Privacy Policy from time to time. We will notify You of any changes by posting the new Privacy Policy on this page.",
-    "we_will_let": "We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming effective and update the \"Last updated\" date at the top of this Privacy Policy.",
-    "you_are_advised": "You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.",
-    "contact_us": "Contact Us",
-    "if_you_have": "If you have any questions about this Privacy Policy, You can contact us:",
-    "contact_email": "By email: wish.hub.net@gmail.com",
-    "agree": "I Agree"
-  },
-  "not-found-page": {
-    "title": "Page not found",
-    "text": "Oops! The page you were looking for does not exist.",
-    "sub-text": "You may have entered the page address incorrectly.",
-    "to-main": "To Main"
-  }
 }

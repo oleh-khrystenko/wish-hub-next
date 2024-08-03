@@ -1,15 +1,15 @@
 import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
-import { ELang } from "@/models/Settings";
+import { ELang } from '@/models/Settings';
 
 // Can be imported from a shared config
-const locales = [ ELang.UK, ELang.EN, ELang.RU ];
+const locales = [ELang.UK, ELang.EN, ELang.RU];
 
 export default getRequestConfig(async ({ locale }) => {
     // Validate that the incoming `locale` parameter is valid
     if (!locales.includes(locale as any)) notFound();
 
     return {
-        messages: (await import(`../messages/${ locale }.json`)).default
+        messages: (await import(`../messages/${locale}.json`)).default,
     };
 });

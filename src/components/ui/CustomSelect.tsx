@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useTransition } from 'react';
-import { useRouter, usePathname } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useRouter, usePathname } from 'next/navigation';
+import { useLocale } from 'next-intl';
 
 function CustomSelect() {
     const [isPending, startTransition] = useTransition();
@@ -19,8 +19,12 @@ function CustomSelect() {
 
     return (
         <div>
-            <button type="button" onClick={() => handle('en')}>En</button>
-            <button type="button" onClick={() => handle('uk')}>UK</button>
+            <button type="button" onClick={() => handle('en')}>
+                En
+            </button>
+            <button type="button" onClick={() => handle('uk')}>
+                UK
+            </button>
         </div>
     );
 }

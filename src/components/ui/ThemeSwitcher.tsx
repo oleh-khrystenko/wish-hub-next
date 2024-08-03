@@ -22,7 +22,9 @@ const ThemeSwitcher = () => {
             document.documentElement.setAttribute('data-theme', savedTheme);
             document.documentElement.classList.add(savedTheme);
         } else {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const prefersDark = window.matchMedia(
+                '(prefers-color-scheme: dark)'
+            ).matches;
             const defaultTheme = prefersDark ? ETheme.DARK : ETheme.LIGHT;
             setTheme(defaultTheme);
             document.documentElement.setAttribute('data-theme', defaultTheme);
@@ -32,7 +34,9 @@ const ThemeSwitcher = () => {
 
     return (
         <button type="button" onClick={toggleTheme}>
-            {theme === ETheme.LIGHT ? 'Switch to Dark Theme' : 'Switch to Light Theme'}
+            {theme === ETheme.LIGHT
+                ? 'Switch to Dark Theme'
+                : 'Switch to Light Theme'}
         </button>
     );
 };

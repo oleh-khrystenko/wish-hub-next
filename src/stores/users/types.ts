@@ -1,5 +1,5 @@
 import { TCurrentAvatar, IUser } from '@/models/User';
-import { ELang, EPrivacy } from "@/models/Settings";
+import { ELang, EPrivacy } from '@/models/Settings';
 
 export interface IForgotPassword {
     email: IUser['email'];
@@ -40,7 +40,7 @@ export interface IChangePassword extends IUserId {
 }
 
 export interface IUpdateMyUser extends IUserId {
-    firstName: IUser['firstName']
+    firstName: IUser['firstName'];
     lastName?: IUser['lastName'];
     avatar: TCurrentAvatar;
     showEmail: EPrivacy;

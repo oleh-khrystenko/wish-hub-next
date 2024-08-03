@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 import { IUser } from '@/models/User';
-import { EPrivacy } from "@/models/Settings";
+import { EPrivacy } from '@/models/Settings';
 
 export interface IImage {
     id?: string;
@@ -9,7 +9,7 @@ export interface IImage {
     delete?: boolean;
 }
 
-export type TCurrentImage = (File | IImage);
+export type TCurrentImage = File | IImage;
 
 export interface IBooking {
     userId: IUser['id'];
@@ -69,6 +69,6 @@ export interface IWishCandidate {
     name: IWish['name'];
     image: string;
     url: string;
-    price: IWish['price'],
-    description: IWish['description'],
+    price: IWish['price'];
+    description: IWish['description'];
 }

@@ -1,11 +1,11 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
     darkMode: 'class',
     content: [
-        "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-        "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+        './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
         extend: {},
@@ -43,7 +43,7 @@ const config: Config = {
             'desktop-md': '1440px', // => @media (min-width: 1440px) { ... }
             'desktop-lg': '1600px', // => @media (min-width: 1600px) { ... }
             'desktop-xl': '1920px', // => @media (min-width: 1920px) { ... }
-        }
+        },
     },
     plugins: [],
 };
