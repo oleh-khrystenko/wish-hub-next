@@ -15,8 +15,8 @@
 }
 
 body {
-    color: var(--text);
     background: var(--bg);
+    color: var(--text);
 }
 
 h1,
@@ -34,12 +34,16 @@ h6 {
     }
 }
 
+.bg-gradient {
+    @apply bg-gradient-to-tl from-primary-light to-primary-dark via-primary;
+}
+
 .error-text {
     @apply mt-1 text-xs text-action;
 }
 
 .transition-slow {
-    @apply transition duration-300 ease-in-out;
+    @apply transition-all duration-300 ease-in-out;
 }
 
 .textarea-scrollbar::-webkit-scrollbar {
@@ -53,3 +57,79 @@ h6 {
 .textarea-scrollbar::-webkit-scrollbar-thumb {
     @apply rounded-full bg-dark;
 }
+
+/********************* For InputNew *********************/
+@layer components {
+    .input::-ms-clear {
+        @apply hidden;
+    }
+
+    .input::-webkit-search-cancel-button {
+        @apply appearance-none;
+    }
+
+    .input:-webkit-autofill,
+    .input:-webkit-autofill:hover,
+    .input:-webkit-autofill:focus,
+    .input:-webkit-autofill:active {
+        -webkit-box-shadow: inset 0 0 0 1000px transparent !important; /* Цвет фона */
+        -webkit-text-fill-color: #0b0b0b !important;
+        transition: background-color 600000s 0s, color 600000s 0s !important;
+    }
+
+    .input:focus ~ .input-icon,
+    .input:not(:placeholder-shown) ~ .input-icon,
+    .input:-webkit-autofill ~ .input-icon,
+    .input:-webkit-autofill:hover ~ .input-icon,
+    .input:-webkit-autofill:focus ~ .input-icon,
+    .input:-webkit-autofill:active ~ .input-icon {
+        color: #0b0b0b;
+    }
+
+    .input:focus ~ .input-icon svg,
+    .input:not(:placeholder-shown) ~ .input-icon svg,
+    .input:-webkit-autofill ~ .input-icon svg,
+    .input:-webkit-autofill:hover ~ .input-icon svg,
+    .input:-webkit-autofill:focus ~ .input-icon svg,
+    .input:-webkit-autofill:active ~ .input-icon svg {
+        fill: #0b0b0b;
+        color: #0b0b0b;
+    }
+
+    .input:focus ~ .search-icon svg,
+    .input:not(:placeholder-shown) ~ .search-icon svg,
+    .input:-webkit-autofill ~ .search-icon svg,
+    .input:-webkit-autofill:hover ~ .search-icon svg,
+    .input:-webkit-autofill:focus ~ .search-icon svg,
+    .input:-webkit-autofill:active ~ .search-icon svg {
+        stroke: #0b0b0b;
+    }
+
+    .input:focus ~ label,
+    .input:not(:placeholder-shown) ~ label,
+    .input:-webkit-autofill ~ label,
+    .input:-webkit-autofill:hover ~ label,
+    .input:-webkit-autofill:focus ~ label,
+    .input:-webkit-autofill:active ~ label {
+        @apply transform -translate-x-2.5 -translate-y-7 text-bg-dark dark:text-primary text-xs tablet-md:text-sm;
+    }
+
+    .input:focus ~ label .tooltip,
+    .input:not(:placeholder-shown) ~ label .tooltip,
+    .input:-webkit-autofill ~ label .tooltip,
+    .input:-webkit-autofill:hover ~ label .tooltip,
+    .input:-webkit-autofill:focus ~ label .tooltip,
+    .input:-webkit-autofill:active ~ label .tooltip {
+        @apply h-4;
+    }
+
+    .input:focus ~ .action-background,
+    .input:not(:placeholder-shown) ~ .action-background,
+    .input:-webkit-autofill ~ .action-background,
+    .input:-webkit-autofill:hover ~ .action-background,
+    .input:-webkit-autofill:focus ~ .action-background,
+    .input:-webkit-autofill:active ~ .action-background {
+        @apply h-full;
+    }
+}
+/********************* For InputNew *********************/

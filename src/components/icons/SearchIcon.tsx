@@ -4,14 +4,20 @@ import { FC } from 'react';
 
 interface IProps {
     classes?: string;
+    height?: string;
+    width?: string;
 }
 
-const SearchIcon: FC<IProps> = ({ classes = 'stroke-light' }) => {
+const SearchIcon: FC<IProps> = ({
+    classes = 'stroke-light',
+    height = '20px',
+    width = '20px',
+}) => {
     return (
         <svg
-            className={classes}
-            width="256px"
-            height="256px"
+            className={`${classes} transition-slow`}
+            height={height}
+            width={width}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +34,7 @@ const SearchIcon: FC<IProps> = ({ classes = 'stroke-light' }) => {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={classes}
+                    fill="none"
                 ></path>
             </g>
         </svg>

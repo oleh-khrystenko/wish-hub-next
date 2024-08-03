@@ -12,6 +12,7 @@ import { IUser } from '@/models/User';
 import Link from 'next/link';
 import CustomSelect from '@/components/ui/CustomSelect';
 import Input from '@/components/ui/Input';
+import Search from '@/components/ui/Search';
 
 interface IGoogleAuthCredentialResponse {
     email: IUser['email'];
@@ -158,6 +159,10 @@ function Form() {
     //     }
     // }, [ router ]);
 
+    const handle = (value: string) => {
+        console.log(value);
+    };
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Link href={`/${activeLocale}/welcome`}>welcome</Link>
@@ -172,8 +177,10 @@ function Form() {
                 name="email"
                 type="text"
                 label="Email*"
+                tooltip="Email*"
                 error={errors?.email?.message}
             />
+            <Search id="test" label="search test" changeSearchBar={handle} />
             <Input
                 {...register('password')}
                 id="password"

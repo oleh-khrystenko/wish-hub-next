@@ -53,16 +53,11 @@ const Input: FC<IProps> = forwardRef<
         };
 
         return (
-            <div className="mt-2 w-full">
-                <div
-                    className={
-                        'relative rounded-lg' +
-                        (type === 'multiline' ? ' bg-bg-dark' : '')
-                    }
-                >
+            <div className="mt-8 w-full">
+                <div className="relative rounded-md">
                     {type === 'multiline' ? (
                         <textarea
-                            className="py-1.6 bg-transparent transition-slow textarea-scrollbar relative z-10 min-h-20 w-full resize-y appearance-none rounded-lg border-0 px-2.5 text-sm text-dark outline-none tablet-md:text-base"
+                            className="input transition-slow textarea-scrollbar relative z-20 min-h-20 w-full resize-y appearance-none rounded-md border-0 bg-transparent px-2.5 py-2 text-sm text-dark outline-none placeholder:text-transparent tablet-md:text-base"
                             ref={ref as Ref<HTMLTextAreaElement>}
                             id={id}
                             name={name}
@@ -74,7 +69,7 @@ const Input: FC<IProps> = forwardRef<
                     ) : (
                         <input
                             className={
-                                'py-1.6 bg-transparent transition-slow relative z-10 w-full appearance-none rounded-lg border-0 px-2.5 text-sm text-dark outline-none tablet-md:text-base' +
+                                'input transition-slow relative z-20 w-full appearance-none rounded-md border-0 bg-transparent px-2.5 py-2 text-sm text-dark outline-none placeholder:text-transparent tablet-md:text-base' +
                                 (type === 'password' ? ' pr-8' : '')
                             }
                             ref={ref as Ref<HTMLInputElement>}
@@ -92,7 +87,7 @@ const Input: FC<IProps> = forwardRef<
 
                     {type === 'password' && (
                         <button
-                            className="absolute right-2.5 top-1/2 z-10 -translate-y-1/2"
+                            className="input-icon absolute right-2.5 top-1/2 z-20 -translate-y-1/2"
                             type="button"
                             onClick={() =>
                                 setShowPassword((prevState) => !prevState)
@@ -106,7 +101,7 @@ const Input: FC<IProps> = forwardRef<
                         <>
                             {value && value.length > 0 ? (
                                 <button
-                                    className="absolute right-2.5 top-1/2 z-10 -translate-y-1/2 rotate-45 text-3xl"
+                                    className="input-icon absolute right-2.5 top-1/2 z-20 -translate-y-1/2 rotate-45 text-3xl"
                                     type="button"
                                     onClick={clear}
                                 >
@@ -114,26 +109,22 @@ const Input: FC<IProps> = forwardRef<
                                 </button>
                             ) : (
                                 <>
-                                    <div className="transition-slow absolute right-2.5 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center">
+                                    <div className="search-icon transition-slow absolute right-2.5 top-1/2 z-20 flex -translate-y-1/2 items-center justify-center">
                                         <SearchIcon />
                                     </div>
-
-                                    {/*<div className="search-icon hovered">*/}
-                                    {/*    Search*/}
-                                    {/*</div>*/}
                                 </>
                             )}
                         </>
                     )}
 
                     <label
-                        className="transition-slow absolute left-0 top-0 z-10 flex cursor-text items-center justify-center gap-1 whitespace-nowrap py-1.5 pr-2.5 text-sm text-light tablet-md:text-base"
+                        className="transition-slow absolute left-0 top-0 z-10 flex cursor-text items-center justify-center gap-1 whitespace-nowrap py-1.5 pl-2.5 text-sm text-light tablet-md:text-base"
                         htmlFor={id}
                     >
                         {label}
                         {tooltip && tooltip.length > 0 && (
                             <span
-                                className="transition-slow h-0 overflow-hidden"
+                                className="tooltip transition-slow h-0 cursor-pointer overflow-hidden"
                                 data-tooltip-id={id}
                                 data-tooltip-content={tooltip}
                             >
@@ -142,7 +133,7 @@ const Input: FC<IProps> = forwardRef<
                         )}
                     </label>
 
-                    <div className="transition-slow pointer-events-none absolute bottom-0 left-0 z-10 h-0.5 w-full rounded-lg bg-primary"></div>
+                    <div className="action-background transition-slow bg-gradient pointer-events-none absolute bottom-0 left-0 z-10 h-0.5 w-full rounded-md"></div>
                 </div>
 
                 {error && <p className="error-text">{error}</p>}

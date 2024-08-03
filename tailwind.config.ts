@@ -21,6 +21,7 @@ const config: Config = {
             light: '#8c8c8c',
             'bg-dark': '#0b0b0b',
             'bg-light': '#c6c6c6',
+            transparent: 'transparent',
         },
         screens: {
             // Mobile sizes
