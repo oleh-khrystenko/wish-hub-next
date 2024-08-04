@@ -13,6 +13,7 @@ import Link from 'next/link';
 import UiSelect from '@/components/ui/UiSelect';
 import UiInput from '@/components/ui/UiInput';
 import UiSearch from '@/components/ui/UiSearch';
+import UiButton from '@/components/ui/UiButton';
 
 interface IGoogleAuthCredentialResponse {
     email: IUser['email'];
@@ -94,6 +95,8 @@ function Form() {
     };
 
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
+        // TODO: якщо часто натискати на відправку вилазе помилка Next.js
+        console.log('onSubmit: ', data);
         return login({
             ...data,
             email: data.email.trim(),
@@ -207,7 +210,14 @@ function Form() {
                 label={'firstName'}
                 error={errors?.firstName?.message}
             />
-            <button type="submit">submit </button>
+            <br />
+            <br />
+            <UiButton type="submit" variant="outline">
+                submit
+            </UiButton>
+            <UiButton variant="text">text</UiButton>
+            <UiButton variant="text-attention">text attention</UiButton>
+            <UiButton>solid</UiButton>
         </form>
     );
 }

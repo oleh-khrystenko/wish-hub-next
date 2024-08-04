@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const SearchIcon: FC<IProps> = ({
-    classes = 'stroke-main-light',
+    classes = 'stroke-zinc-500',
     height = '20px',
     width = '20px',
 }) => {

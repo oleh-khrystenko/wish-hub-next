@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const EyeIcon: FC<IProps> = ({
-    classes = 'fill-main-light',
+    classes = 'fill-zinc-500',
     height = '20px',
     width = '20px',
 }) => {

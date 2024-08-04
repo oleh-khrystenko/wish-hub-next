@@ -46,7 +46,9 @@ export default function RootLayout({
                 <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
             </head>
 
-            <body className={`${mulish.className} ${manrope.className}`}>
+            <body
+                className={`bg-zinc-200 dark:bg-zinc-900 ${mulish.className} ${manrope.className}`}
+            >
                 {children}
             </body>
         </html>
