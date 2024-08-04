@@ -2,7 +2,7 @@
 
 import { FC, ChangeEvent, useState, useRef, useEffect, useMemo } from 'react';
 import debounce from 'lodash.debounce';
-import Input from '@/components/ui/Input';
+import UiInput from '@/components/ui/UiInput';
 
 const useDebounce = (callback: () => void) => {
     const ref = useRef<() => void>();
@@ -27,7 +27,7 @@ interface Props {
     changeSearchBar: (value: string) => void;
 }
 
-const Search: FC<Props> = ({ id, label, value, changeSearchBar }) => {
+const UiSearch: FC<Props> = ({ id, label, value, changeSearchBar }) => {
     const [searchBar, setSearchBar] = useState('');
 
     const send = useDebounce(() => changeSearchBar(searchBar.trim()));
@@ -57,7 +57,7 @@ const Search: FC<Props> = ({ id, label, value, changeSearchBar }) => {
     }, [value]);
 
     return (
-        <Input
+        <UiInput
             id={id}
             name={id}
             type="search"
@@ -69,4 +69,4 @@ const Search: FC<Props> = ({ id, label, value, changeSearchBar }) => {
     );
 };
 
-export default Search;
+export default UiSearch;

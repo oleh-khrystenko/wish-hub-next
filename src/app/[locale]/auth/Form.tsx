@@ -10,9 +10,9 @@ import { jwtDecode } from 'jwt-decode';
 import { ELang } from '@/models/Settings';
 import { IUser } from '@/models/User';
 import Link from 'next/link';
-import CustomSelect from '@/components/ui/CustomSelect';
-import Input from '@/components/ui/Input';
-import Search from '@/components/ui/Search';
+import UiSelect from '@/components/ui/UiSelect';
+import UiInput from '@/components/ui/UiInput';
+import UiSearch from '@/components/ui/UiSearch';
 
 interface IGoogleAuthCredentialResponse {
     email: IUser['email'];
@@ -164,24 +164,33 @@ function Form() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className="max-w-2xl" onSubmit={handleSubmit(onSubmit)}>
             <Link href={`/${activeLocale}/welcome`}>welcome</Link>
-            <CustomSelect />
+            <UiSelect />
             auth page
             <br />
             <br />
             <br />
-            <Input
+            <UiInput
                 {...register('email')}
                 id="email"
                 name="email"
                 type="text"
                 label="Email*"
-                tooltip="Email*"
+                tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda excepturi laborum nam nobis officia qui sint vitae voluptates voluptatum?"
                 error={errors?.email?.message}
             />
-            <Search id="test" label="search test" changeSearchBar={handle} />
-            <Input
+            <UiSearch id="test" label="search test" changeSearchBar={handle} />
+            <p className="text-balance">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Corporis culpa cum, debitis dignissimos eos fuga minima nostrum
+                repellendus soluta voluptatem. Ad est, labore pariatur
+                perspiciatis reprehenderit sint voluptatibus! Minima mollitia
+                perferendis totam. Ab aliquam consequuntur dignissimos enim et
+                eum exercitationem, hic inventore ipsa iste maxime molestiae
+                mollitia nam, similique sunt?
+            </p>
+            <UiInput
                 {...register('password')}
                 id="password"
                 name="password"
@@ -190,7 +199,7 @@ function Form() {
                 // label={ t('auth-page.password') }
                 error={errors?.password?.message}
             />
-            <Input
+            <UiInput
                 {...register('firstName')}
                 id="description"
                 name="description"

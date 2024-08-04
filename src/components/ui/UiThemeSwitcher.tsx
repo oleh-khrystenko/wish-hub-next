@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { ETheme } from '@/models/Settings';
 
-const ThemeSwitcher = () => {
+const UiThemeSwitcher = () => {
     const [theme, setTheme] = useState<ETheme>(ETheme.DARK);
 
     const toggleTheme = () => {
@@ -41,4 +41,4 @@ const ThemeSwitcher = () => {
     );
 };
 
-export default ThemeSwitcher;
+export default UiThemeSwitcher;

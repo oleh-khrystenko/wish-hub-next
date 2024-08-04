@@ -4,7 +4,7 @@ import React, { useTransition } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
 
-function CustomSelect() {
+function UiSelect() {
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
     const activeLocale = useLocale();
@@ -29,4 +29,4 @@ function CustomSelect() {
     );
 }
 
-export default CustomSelect;
+export default UiSelect;

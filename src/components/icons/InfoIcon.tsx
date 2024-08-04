@@ -9,13 +9,13 @@ interface IProps {
 }
 
 const InfoIcon: FC<IProps> = ({
-    classes = 'stroke-light',
+    classes = 'stroke-main-light',
     height = '16px',
     width = '16px',
 }) => {
     return (
         <svg
-            className={`${classes} transition-slow`}
+            className={`${classes} transition-all duration-300 ease-in-out`}
             height={height}
             width={width}
             viewBox="-0.5 0 25 25"

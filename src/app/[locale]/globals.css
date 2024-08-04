@@ -4,19 +4,21 @@
 
 :root {
     --bg: #c6c6c6;
-    --title: #0b0b0b;
-    --text: #191919;
+    --bg-inverted: #0b0b0b;
+    --main: #191919;
+    --input-label: #0b0b0b;
 }
 
 [data-theme='dark'] {
     --bg: #0b0b0b;
-    --title: #c6c6c6;
-    --text: #8c8c8c;
+    --bg-inverted: #c6c6c6;
+    --main: #8c8c8c;
+    --input-label: #45f3ff;
 }
 
 body {
     background: var(--bg);
-    color: var(--text);
+    color: var(--main);
 }
 
 h1,
@@ -25,7 +27,7 @@ h3,
 h4,
 h5,
 h6 {
-    color: var(--title);
+    color: var(--bg-inverted);
 }
 
 @layer utilities {
@@ -34,45 +36,36 @@ h6 {
     }
 }
 
-.bg-gradient {
-    @apply bg-gradient-to-tl from-primary-light to-primary-dark via-primary;
-}
-
-.error-text {
-    @apply mt-1 text-xs text-action;
-}
-
-.transition-slow {
-    @apply transition-all duration-300 ease-in-out;
-}
-
 .textarea-scrollbar::-webkit-scrollbar {
-    @apply h-1 w-1;
+    height: 4px;
+    width: 4px;
 }
 
 .textarea-scrollbar::-webkit-scrollbar-track {
-    @apply my-1;
+    margin: 4px 0;
 }
 
 .textarea-scrollbar::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-dark;
+    border-radius: 9999px;
+    background: #777777;
 }
 
 /********************* For InputNew *********************/
 @layer components {
     .input::-ms-clear {
-        @apply hidden;
+        display: none;
     }
 
     .input::-webkit-search-cancel-button {
-        @apply appearance-none;
+        -webkit-appearance: none;
+        appearance: none;
     }
 
     .input:-webkit-autofill,
     .input:-webkit-autofill:hover,
     .input:-webkit-autofill:focus,
     .input:-webkit-autofill:active {
-        -webkit-box-shadow: inset 0 0 0 1000px transparent !important; /* Цвет фона */
+        -webkit-box-shadow: inset 0 0 0 1000px #45f3ff !important; /* Цвет фона */
         -webkit-text-fill-color: #0b0b0b !important;
         transition: background-color 600000s 0s, color 600000s 0s !important;
     }
@@ -111,7 +104,20 @@ h6 {
     .input:-webkit-autofill:hover ~ label,
     .input:-webkit-autofill:focus ~ label,
     .input:-webkit-autofill:active ~ label {
-        @apply transform -translate-x-2.5 -translate-y-7 text-bg-dark dark:text-primary text-xs tablet-md:text-sm;
+        transform: translate(-10px, -28px);
+        color: var(--input-label);
+        font-size: 12px;
+    }
+
+    @media only screen and (min-width: 768px) {
+        .input:focus ~ label,
+        .input:not(:placeholder-shown) ~ label,
+        .input:-webkit-autofill ~ label,
+        .input:-webkit-autofill:hover ~ label,
+        .input:-webkit-autofill:focus ~ label,
+        .input:-webkit-autofill:active ~ label  {
+            font-size: 14px;
+        }
     }
 
     .input:focus ~ label .tooltip,
@@ -120,16 +126,16 @@ h6 {
     .input:-webkit-autofill:hover ~ label .tooltip,
     .input:-webkit-autofill:focus ~ label .tooltip,
     .input:-webkit-autofill:active ~ label .tooltip {
-        @apply h-4;
+        height: 16px;
     }
 
-    .input:focus ~ .action-background,
-    .input:not(:placeholder-shown) ~ .action-background,
-    .input:-webkit-autofill ~ .action-background,
-    .input:-webkit-autofill:hover ~ .action-background,
-    .input:-webkit-autofill:focus ~ .action-background,
-    .input:-webkit-autofill:active ~ .action-background {
-        @apply h-full;
+    .input:focus ~ .input-bg,
+    .input:not(:placeholder-shown) ~ .input-bg,
+    .input:-webkit-autofill ~ .input-bg,
+    .input:-webkit-autofill:hover ~ .input-bg,
+    .input:-webkit-autofill:focus ~ .input-bg,
+    .input:-webkit-autofill:active ~ .input-bg {
+        height: 100%;
     }
 }
 /********************* For InputNew *********************/

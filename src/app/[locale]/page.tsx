@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
-import CustomSelect from '@/components/ui/CustomSelect';
+import UiSelect from '@/components/ui/UiSelect';
 
 export default function Main() {
     const t = useTranslations();
@@ -13,7 +13,7 @@ export default function Main() {
             main page
             <br />
             {t('main-page.you_can_send')}
-            <CustomSelect />
+            <UiSelect />
         </main>
     );
 }

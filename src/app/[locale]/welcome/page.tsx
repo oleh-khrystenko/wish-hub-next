@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import CustomSelect from '@/components/ui/CustomSelect';
+import UiSelect from '@/components/ui/UiSelect';
 import { useLocale, useTranslations } from 'next-intl';
 
 export default function Welcome() {
@@ -11,7 +11,7 @@ export default function Welcome() {
                 <Link href={`/${activeLocale}/auth`}>auth</Link>
                 welcome page
                 {t('main-page.you_can_send')}
-                <CustomSelect />
+                <UiSelect />
             </div>
         </main>
     );

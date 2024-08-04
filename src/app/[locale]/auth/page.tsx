@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import Form from '@/app/[locale]/auth/Form';
-import ThemeSwitcher from '@/components/ui/ThemeSwitcher';
+import UiThemeSwitcher from '@/components/ui/UiThemeSwitcher';
 
 export default function Auth() {
     const t = useTranslations();
@@ -10,7 +10,7 @@ export default function Auth() {
             {t('main-page.you_can_send')}
             <br />
             <br />
-            <ThemeSwitcher />
+            <UiThemeSwitcher />
             <br />
             <br />
             <p className="text-primary dark:text-action">

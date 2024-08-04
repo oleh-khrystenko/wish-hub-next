@@ -9,13 +9,13 @@ interface IProps {
 }
 
 const EyeIcon: FC<IProps> = ({
-    classes = 'fill-light',
+    classes = 'fill-main-light',
     height = '20px',
     width = '20px',
 }) => {
     return (
         <svg
-            className={`${classes} transition-slow`}
+            className={`${classes} transition-all duration-300 ease-in-out`}
             height={height}
             width={width}
             viewBox="0 0 24 24"

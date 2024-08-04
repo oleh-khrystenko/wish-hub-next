@@ -1,10 +1,11 @@
 'use client';
 
-import { ChangeEvent, FC, forwardRef, Ref, useState } from 'react';
+import { ChangeEvent, FC, forwardRef, Ref, useState } from 'react'; // forwardRef потрібен для валідації в бібліотеці react-hook-form
+import UiTooltip from '@/components/ui/UiTooltip';
 import CloseEyeIcon from '@/components/icons/CloseEyeIcon';
 import EyeIcon from '@/components/icons/EyeIcon';
 import SearchIcon from '@/components/icons/SearchIcon';
-import InfoIcon from '@/components/icons/InfoIcon'; // forwardRef потрібен для валідації в бібліотеці react-hook-form
+import InfoIcon from '@/components/icons/InfoIcon';
 
 interface IProps {
     id: string;
@@ -20,7 +21,7 @@ interface IProps {
     ) => void;
 }
 
-const Input: FC<IProps> = forwardRef<
+const UiInput: FC<IProps> = forwardRef<
     HTMLInputElement | HTMLTextAreaElement,
     IProps
 >(
@@ -54,10 +55,10 @@ const Input: FC<IProps> = forwardRef<
 
         return (
             <div className="mt-8 w-full">
-                <div className="relative rounded-md">
+                <div className="relative rounded-md pr-1">
                     {type === 'multiline' ? (
                         <textarea
-                            className="input transition-slow textarea-scrollbar relative z-20 min-h-20 w-full resize-y appearance-none rounded-md border-0 bg-transparent px-2.5 py-2 text-sm text-dark outline-none placeholder:text-transparent tablet-md:text-base"
+                            className="input textarea-scrollbar text-main-dark relative z-20 min-h-20 w-full resize-y appearance-none rounded-md border-0 bg-transparent px-2.5 py-2 text-sm outline-none transition-all duration-300 ease-in-out placeholder:text-transparent tablet-md:text-base"
                             ref={ref as Ref<HTMLTextAreaElement>}
                             id={id}
                             name={name}
@@ -69,7 +70,7 @@ const Input: FC<IProps> = forwardRef<
                     ) : (
                         <input
                             className={
-                                'input transition-slow relative z-20 w-full appearance-none rounded-md border-0 bg-transparent px-2.5 py-2 text-sm text-dark outline-none placeholder:text-transparent tablet-md:text-base' +
+                                'input text-main-dark relative z-20 w-full appearance-none rounded-md border-0 bg-transparent px-2.5 py-2 text-sm outline-none transition-all duration-300 ease-in-out placeholder:text-transparent tablet-md:text-base' +
                                 (type === 'password' ? ' pr-8' : '')
                             }
                             ref={ref as Ref<HTMLInputElement>}
@@ -109,7 +110,7 @@ const Input: FC<IProps> = forwardRef<
                                 </button>
                             ) : (
                                 <>
-                                    <div className="search-icon transition-slow absolute right-2.5 top-1/2 z-20 flex -translate-y-1/2 items-center justify-center">
+                                    <div className="search-icon absolute right-2.5 top-1/2 z-20 flex -translate-y-1/2 items-center justify-center transition-all duration-300 ease-in-out">
                                         <SearchIcon />
                                     </div>
                                 </>
@@ -118,30 +119,33 @@ const Input: FC<IProps> = forwardRef<
                     )}
 
                     <label
-                        className="transition-slow absolute left-0 top-0 z-10 flex cursor-text items-center justify-center gap-1 whitespace-nowrap py-1.5 pl-2.5 text-sm text-light tablet-md:text-base"
+                        className="absolute left-0 top-0 z-10 flex cursor-text items-center justify-center gap-1 whitespace-nowrap py-1.5 pl-2.5 text-sm text-light transition-all duration-300 ease-in-out tablet-md:text-base"
                         htmlFor={id}
                     >
                         {label}
                         {tooltip && tooltip.length > 0 && (
-                            <span
-                                className="tooltip transition-slow h-0 cursor-pointer overflow-hidden"
-                                data-tooltip-id={id}
-                                data-tooltip-content={tooltip}
-                            >
-                                <InfoIcon />
-                            </span>
+                            <>
+                                <span
+                                    className="tooltip h-0 cursor-pointer overflow-hidden transition-all duration-300 ease-in-out"
+                                    data-tooltip-id={id}
+                                    data-tooltip-content={tooltip}
+                                >
+                                    <InfoIcon />
+                                </span>
+                                <UiTooltip id={id} />
+                            </>
                         )}
                     </label>
 
-                    <div className="action-background transition-slow bg-gradient pointer-events-none absolute bottom-0 left-0 z-10 h-0.5 w-full rounded-md"></div>
+                    <div className="input-bg pointer-events-none absolute bottom-0 left-0 z-10 h-0.5 w-full rounded-md bg-gradient-to-tl from-primary-light via-primary to-primary-dark transition-all duration-300 ease-in-out"></div>
                 </div>
 
-                {error && <p className="error-text">{error}</p>}
+                {error && <p className="mt-1 text-xs text-action">{error}</p>}
             </div>
         );
     }
 );
 
-Input.displayName = 'Input';
+UiInput.displayName = 'UiInput';
 
-export default Input;
+export default UiInput;
