@@ -16,6 +16,15 @@ export default function Auth() {
     const singUpTitleT = t('auth-page.title.sing_up');
     const forgotPasswordTitleT = t('auth-page.title.forgot_password');
 
+    // Submit
+    const singInT = t('sing-in');
+    const singUpT = t('sing-up');
+    const forgotPasswordSubmitT = t('auth-page.recovery');
+
+    // Privacy Policy and Password Errors
+    const privacyPolicyErrorT = t('auth-page.privacy_policy_error');
+    const passwordsErrorT = t('auth-page.passwords_error');
+
     // Or
     const orT = t('auth-page.or');
 
@@ -48,13 +57,14 @@ export default function Auth() {
     const passwordT = t('auth-page.password');
     const repeatPasswordT = t('auth-page.repeat_password');
 
+    // Password Actions
     const passwordRememberedT = t('auth-page.password_remembered');
     const forgotPasswordT = t('auth-page.forgot_password');
 
-    // Submit
-    const singInT = t('sing-in');
-    const singUpT = t('sing-up');
-    const forgotPasswordSubmitT = t('auth-page.recovery');
+    // Privacy Policy
+    const agreeT = t('auth-page.i_agree_to');
+    const privacyPolicyT = t('auth-page.privacy_policy');
+    const wishHubT = t('auth-page.wish_hub');
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -68,6 +78,8 @@ export default function Auth() {
                 singInT={singInT}
                 singUpT={singUpT}
                 forgotPasswordSubmitT={forgotPasswordSubmitT}
+                privacyPolicyErrorT={privacyPolicyErrorT}
+                passwordsErrorT={passwordsErrorT}
                 orT={orT}
                 validationFirstNameRequiredT={validationFirstNameRequiredT}
                 validationFirstNameMinT={validationFirstNameMinT}
@@ -84,6 +96,9 @@ export default function Auth() {
                 repeatPasswordT={repeatPasswordT}
                 passwordRememberedT={passwordRememberedT}
                 forgotPasswordT={forgotPasswordT}
+                agreeT={agreeT}
+                privacyPolicyT={privacyPolicyT}
+                wishHubT={wishHubT}
             />
         </main>
     );

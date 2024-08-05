@@ -1,10 +1,9 @@
 'use client';
 
-import { ChangeEvent, FC, useState } from 'react';
-import { useLocale } from 'next-intl';
-import { useUsersStore } from '@/stores/users';
+import { ChangeEvent, FC, useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
-// import { useRouter } from "next/router";
+import { useLocale } from 'next-intl';
 import {
     CredentialResponse,
     GoogleLogin,
@@ -13,8 +12,10 @@ import {
 import { jwtDecode } from 'jwt-decode';
 import { ELang } from '@/models/Settings';
 import { IUser } from '@/models/User';
+import { useUsersStore } from '@/stores/users';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
+import UiCheckbox from '@/components/ui/UiCheckbox';
 import {
     accountFirstNameValidation,
     emailValidation,
@@ -28,6 +29,8 @@ interface IProps {
     singInT: string;
     singUpT: string;
     forgotPasswordSubmitT: string;
+    privacyPolicyErrorT: string;
+    passwordsErrorT: string;
     orT: string;
     validationFirstNameRequiredT: string;
     validationFirstNameMinT: string;
@@ -44,6 +47,9 @@ interface IProps {
     repeatPasswordT: string;
     passwordRememberedT: string;
     forgotPasswordT: string;
+    agreeT: string;
+    privacyPolicyT: string;
+    wishHubT: string;
 }
 
 interface IGoogleAuthCredentialResponse {
@@ -67,6 +73,8 @@ const Form: FC<IProps> = ({
     singInT,
     singUpT,
     forgotPasswordSubmitT,
+    privacyPolicyErrorT,
+    passwordsErrorT,
     orT,
     validationFirstNameRequiredT,
     validationFirstNameMinT,
@@ -83,6 +91,9 @@ const Form: FC<IProps> = ({
     repeatPasswordT,
     passwordRememberedT,
     forgotPasswordT,
+    agreeT,
+    privacyPolicyT,
+    wishHubT,
 }) => {
     const candidate = useUsersStore((state) => state.candidate);
     const login = useUsersStore((state) => state.login);
@@ -100,7 +111,7 @@ const Form: FC<IProps> = ({
         },
     });
 
-    // const router = useRouter();
+    const searchParams = useSearchParams();
 
     const activeLocale = useLocale();
 
@@ -128,7 +139,7 @@ const Form: FC<IProps> = ({
         if (checkedPrivacyPolicy) {
             setCheckedPrivacyPolicyError('');
         } else {
-            // return setCheckedPrivacyPolicyError(t('auth-page.privacy_policy_error'));
+            return setCheckedPrivacyPolicyError(privacyPolicyErrorT);
         }
 
         if (!response.credential || checkedPrivacyPolicyError.length > 0)
@@ -151,40 +162,43 @@ const Form: FC<IProps> = ({
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
         // TODO: якщо часто натискати на відправку вилазе помилка Next.js
         console.log('onSubmit: ', data);
-        return login({
-            ...data,
-            email: data.email.trim(),
-            lang: activeLocale as ELang,
-        });
-        // setClickedOnSubmit(true);
-        //
-        // if (isForgotPassword) {
-        //     // return dispatch(forgotPassword({ email: data.email.trim(), lang: getLang() }));
-        // }
-        //
-        // if (isRegistration) {
-        //     if (data.password === repeatPassword) {
-        //         setRepeatPasswordError('');
-        //     } else {
-        //         // return setRepeatPasswordError(t('auth-page.passwords_error'));
-        //     }
-        // }
-        //
-        // if (checkedPrivacyPolicy) {
-        //     setCheckedPrivacyPolicyError('');
-        // } else {
-        //     // return setCheckedPrivacyPolicyError(t('auth-page.privacy_policy_error'));
-        // }
-        //
-        // if (repeatPasswordError.length > 0 || checkedPrivacyPolicyError.length > 0) return;
-        //
-        // if (isRegistration && checkedPrivacyPolicy) {
-        //     // return dispatch(registration({ ...data, email: data.email.trim(), lang: getLang() }));
-        // }
-        //
-        // if (checkedPrivacyPolicy) {
-        //     return login({ ...data, email: data.email.trim(), lang: (activeLocale as ELang) });
-        // }
+        setClickedOnSubmit(true);
+
+        if (isForgotPassword) {
+            // return dispatch(forgotPassword({ email: data.email.trim(), lang: getLang() }));
+        }
+
+        if (isRegistration) {
+            if (data.password === repeatPassword) {
+                setRepeatPasswordError('');
+            } else {
+                return setRepeatPasswordError(passwordsErrorT);
+            }
+        }
+
+        if (checkedPrivacyPolicy) {
+            setCheckedPrivacyPolicyError('');
+        } else {
+            return setCheckedPrivacyPolicyError(privacyPolicyErrorT);
+        }
+
+        if (
+            repeatPasswordError.length > 0 ||
+            checkedPrivacyPolicyError.length > 0
+        )
+            return;
+
+        if (isRegistration && checkedPrivacyPolicy) {
+            // return dispatch(registration({ ...data, email: data.email.trim(), lang: getLang() }));
+        }
+
+        if (checkedPrivacyPolicy) {
+            return login({
+                ...data,
+                email: data.email.trim(),
+                lang: activeLocale as ELang,
+            });
+        }
     };
 
     const repeatPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -194,7 +208,9 @@ const Form: FC<IProps> = ({
         if (!clickedOnSubmit) return;
 
         const password = getValues('password');
-        // password === value ? setRepeatPasswordError('') : setRepeatPasswordError(t('auth-page.passwords_error'));
+        password === value
+            ? setRepeatPasswordError('')
+            : setRepeatPasswordError(passwordsErrorT);
     };
 
     const handleTogglePrivacyPolicy = (e: ChangeEvent<HTMLInputElement>) => {
@@ -203,22 +219,17 @@ const Form: FC<IProps> = ({
 
         if (!clickedOnSubmit) return;
 
-        // value
-        //     ? setCheckedPrivacyPolicyError('')
-        //     : setCheckedPrivacyPolicyError(t('auth-page.privacy_policy_error'));
+        value
+            ? setCheckedPrivacyPolicyError('')
+            : setCheckedPrivacyPolicyError(privacyPolicyErrorT);
     };
 
-    // useEffect(() => {
-    //     if (router.isReady) {
-    //         const { query } = router;
-    //         setIsRegistration(query.register !== undefined || query.agree !== undefined);
-    //         setCheckedPrivacyPolicy(query.agree !== undefined);
-    //     }
-    // }, [ router ]);
-
-    const handle = (value: string) => {
-        console.log(value);
-    };
+    useEffect(() => {
+        const register = searchParams.get('register');
+        const agree = searchParams.get('agree');
+        setIsRegistration(register !== null || agree !== null);
+        setCheckedPrivacyPolicy(agree !== null);
+    }, [searchParams]);
 
     return (
         <form
@@ -323,16 +334,18 @@ const Form: FC<IProps> = ({
 
             <div className="-mt-2.5 flex w-full flex-col items-center justify-center gap-2.5 mobile-sm:flex-row mobile-sm:justify-between mobile-sm:gap-5">
                 {!isForgotPassword && (
-                    <UiButton
-                        variant="text"
-                        onClick={() => setIsRegistration((state) => !state)}
-                    >
-                        {isRegistration ? singInT : singUpT}
-                    </UiButton>
+                    <div className="mobile-sm:-ml-4">
+                        <UiButton
+                            variant="text-btn"
+                            onClick={() => setIsRegistration((state) => !state)}
+                        >
+                            {isRegistration ? singInT : singUpT}
+                        </UiButton>
+                    </div>
                 )}
 
                 {!isRegistration && (
-                    <div className="mobile-sm:ml-auto">
+                    <div className="mobile-sm:-mr-4 mobile-sm:ml-auto">
                         <UiButton
                             variant="text-attention"
                             onClick={() =>
@@ -346,6 +359,30 @@ const Form: FC<IProps> = ({
                     </div>
                 )}
             </div>
+
+            {!isForgotPassword && (
+                <div className="auth-privacy-policy">
+                    <UiCheckbox
+                        id="privacy-policy"
+                        name="privacy-policy"
+                        value="privacy-policy"
+                        checked={checkedPrivacyPolicy}
+                        onChange={handleTogglePrivacyPolicy}
+                    >
+                        {agreeT}
+                        <UiButton href="privacy-policy" variant="text">
+                            {privacyPolicyT}
+                        </UiButton>
+                        {wishHubT}
+                    </UiCheckbox>
+
+                    {checkedPrivacyPolicyError.length > 0 && (
+                        <p className="mt-1 text-xs text-red-500">
+                            {checkedPrivacyPolicyError}
+                        </p>
+                    )}
+                </div>
+            )}
 
             <UiButton type="submit">{submit}</UiButton>
         </form>
