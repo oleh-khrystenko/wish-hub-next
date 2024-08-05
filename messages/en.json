@@ -51,114 +51,114 @@
         },
         "my-user-api": {
             "registration": {
-                "error": "{{type}}.registration: Failed to register."
+                "error": "{type}.registration: Failed to register."
             },
             "send-activation-link": {
-                "error": "{{type}}.sendActivationLink: Failed to send the activation link."
+                "error": "{type}.sendActivationLink: Failed to send the activation link."
             },
             "google-authorization": {
-                "error": "{{type}}.googleAuthorization: Couldn't sign in with Google."
+                "error": "{type}.googleAuthorization: Couldn't sign in with Google."
             },
             "login": {
-                "error": "{{type}}.login: Could not log in to the site."
+                "error": "{type}.login: Could not log in to the site."
             },
             "logout": {
-                "error": "{{type}}.logout: Failed to log out."
+                "error": "{type}.logout: Failed to log out."
             },
             "refresh": {
-                "error": "{{type}}.refresh: Failed to update the session."
+                "error": "{type}.refresh: Failed to update the session."
             },
             "forgot-password": {
-                "success": "The password reset email has been successfully sent to: {{email}}. Please log in with your new password.",
-                "error": "{{type}}.forgotPassword: Failed to send the password reset email to: {{email}}."
+                "success": "The password reset email has been successfully sent to: {email}. Please log in with your new password.",
+                "error": "{type}.forgotPassword: Failed to send the password reset email to: {email}."
             },
             "change-forgotten-password": {
                 "success": "Password changed successfully. Please log in with your new password.",
-                "error": "{{type}}.changeForgottenPassword: Failed to change the password."
+                "error": "{type}.changeForgottenPassword: Failed to change the password."
             },
             "change-password": {
                 "success": "Password changed successfully. Please log in with your new password.",
-                "error": "{{type}}.changePassword: Failed to change the password."
+                "error": "{type}.changePassword: Failed to change the password."
             },
             "change-lang": {
-                "error": "{{type}}.changeLang: Failed to change the interface language."
+                "error": "{type}.changeLang: Failed to change the interface language."
             },
             "notification-subscribe": {
-                "error": "{{type}}.notification: Failed to notification subscription."
+                "error": "{type}.notification: Failed to notification subscription."
             },
             "notification-unsubscribe": {
-                "error": "{{type}}.notification: Failed to notification unsubscription."
+                "error": "{type}.notification: Failed to notification unsubscription."
             },
             "update-data": {
-                "error": "{{type}}.changeShowedInfo: Failed to update data."
+                "error": "{type}.changeShowedInfo: Failed to update data."
             },
             "update-my-user": {
-                "error": "{{type}}.updateMyUser: Failed to update the user."
+                "error": "{type}.updateMyUser: Failed to update the user."
             },
             "add-friend": {
-                "error": "{{type}}.addFriend: Failed to add the friend."
+                "error": "{type}.addFriend: Failed to add the friend."
             },
             "remove-friend": {
-                "error": "{{type}}.removeFriend: Failed to remove the friend."
+                "error": "{type}.removeFriend: Failed to remove the friend."
             },
             "delete-my-user": {
-                "error": "{{type}}.deleteMyUser: Failed to delete the user."
+                "error": "{type}.deleteMyUser: Failed to delete the user."
             }
         },
         "users-api": {
             "get-users": {
-                "error": "{{type}}: Failed to get users."
+                "error": "{type}: Failed to get users."
             },
             "get-all-users": {
-                "error": "{{type}}: Failed to get all users."
+                "error": "{type}: Failed to get all users."
             }
         },
         "wishes-api": {
             "fetch-wish-data": {
-                "error": "{{type}}.fetchWishDataFromLink: Failed to get wish data from the link."
+                "error": "{type}.fetchWishDataFromLink: Failed to get wish data from the link."
             },
             "create-wish": {
-                "error": "{{type}}.createWish: Failed to create a wish.",
+                "error": "{type}.createWish: Failed to create a wish.",
                 "success": "The wish has been successfully created."
             },
             "update-wish": {
-                "error": "{{type}}.updateWish: Failed to update the wish.",
+                "error": "{type}.updateWish: Failed to update the wish.",
                 "success": "The wish has been successfully updated."
             },
             "get-wish": {
-                "error": "{{type}}.getWish: Failed to get the wish."
+                "error": "{type}.getWish: Failed to get the wish."
             },
             "book-wish": {
-                "error": "{{type}}.bookWish: Failed to book the wish.",
+                "error": "{type}.bookWish: Failed to book the wish.",
                 "success": "The wish has been successfully booked."
             },
             "cancel-book-wish": {
-                "error": "{{type}}.cancelBookWish: Failed to cancel the booking of the wish.",
+                "error": "{type}.cancelBookWish: Failed to cancel the booking of the wish.",
                 "success": "The wish booking has been successfully canceled."
             },
             "done-wish": {
-                "error": "{{type}}.doneWish: Failed to mark the wish as done.",
+                "error": "{type}.doneWish: Failed to mark the wish as done.",
                 "success": "The wish has been successfully marked as done."
             },
             "undone-wish": {
-                "error": "{{type}}.undoneWish: Failed to mark the wish as not done.",
+                "error": "{type}.undoneWish: Failed to mark the wish as not done.",
                 "success": "The wish has been successfully marked as not done."
             },
             "like-wish": {
-                "error": "{{type}}.likeWish: Failed to like the wish."
+                "error": "{type}.likeWish: Failed to like the wish."
             },
             "dislike-wish": {
-                "error": "{{type}}.dislikeWish: Failed to dislike the wish."
+                "error": "{type}.dislikeWish: Failed to dislike the wish."
             },
             "delete-wish": {
-                "error": "{{type}}.deleteWish: Failed to delete the wish with ID {{wishId}}.",
+                "error": "{type}.deleteWish: Failed to delete the wish with ID {wishId}.",
                 "success": "The wish has been successfully deleted."
             },
             "get-wish-list": {
-                "error": "{{type}}.getWishList: Failed to get wish list."
+                "error": "{type}.getWishList: Failed to get wish list."
             },
             "get-all-wishes": {
-                "error": "{{type}}.getAllWishes: Failed to get all wishes."
+                "error": "{type}.getAllWishes: Failed to get all wishes."
             }
         },
         "interceptors-api": {
@@ -170,28 +170,28 @@
     "encryption-error": "Could not be decrypted",
     "avatar-error": {
         "file-type": "The file must be in one of the following formats:",
-        "file-size": "The file size must not exceed {{size}} MB."
+        "file-size": "The file size must not exceed {size} MB."
     },
     "images-error": {
         "file-type": "One or more files are in an unsupported format. Supported formats:",
-        "file-size": "One or more files are larger than {{size}} MB.",
-        "file-count": "Unfortunately, it is not possible to save more than {{count}} images."
+        "file-size": "One or more files are larger than {size} MB.",
+        "file-count": "Unfortunately, it is not possible to save more than {count} images."
     },
     "validations": {
         "only-whitespace": "The entered data cannot contain only spaces.",
         "wish-name": {
             "required": "It is impossible to create a desire without a name.",
-            "min": "Why is the name of the wish so short? Please come up with a name that is longer than {{min}} characters.",
-            "max": "The name of your wish is too long. Let's try to fit it into {{max}} characters."
+            "min": "Why is the name of the wish so short? Please come up with a name that is longer than {min} characters.",
+            "max": "The name of your wish is too long. Let's try to fit it into {max} characters."
         },
         "wish-price": {
             "required": "The material desire that does not have its price cannot be fulfilled by Your universe.",
             "pattern": "The price must be a positive integer and not start with \"0\".",
-            "max": "Let's try to fit in {{max}} characters."
+            "max": "Let's try to fit in {max} characters."
         },
         "wish-description": {
-            "min": "What is this short wish description? Please come up with a description that is longer than {{min}} character.",
-            "max": "The name of Your wish contains: {{current}} characters. Let's try to fit it into {{max}} characters."
+            "min": "What is this short wish description? Please come up with a description that is longer than {min} character.",
+            "max": "The name of Your wish contains: {current} characters. Let's try to fit it into {max} characters."
         },
         "email": {
             "required": "This field is required so that we can identify You.",
@@ -201,26 +201,26 @@
         "password": {
             "required": "This field is required to prevent anyone else from using Your data.",
             "whitespaces": "The entered data cannot begin or end with a space.",
-            "min": "The password is too short. Please come up with a password that is longer than {{min}} characters.",
-            "max": "I think you overdid it. A long password is not always a good password. Try to keep it to {{max}} characters."
+            "min": "The password is too short. Please come up with a password that is longer than {min} characters.",
+            "max": "I think you overdid it. A long password is not always a good password. Try to keep it to {max} characters."
         },
         "first-name": {
             "required": "You must have a name. Don't be shy :)",
-            "min": "We have never heard such a short first name. The minimum length of the field is {{min}} characters.",
-            "max": "We think you are making something up. The maximum length of the field is {{max}} characters."
+            "min": "We have never heard such a short first name. The minimum length of the field is {min} characters.",
+            "max": "We think you are making something up. The maximum length of the field is {max} characters."
         },
         "last-name": {
-            "min": "We have never heard such a short last name. The minimum length of the field is {{min}} characters.",
-            "max": "We think you are making something up. The maximum length of the field is {{max}} characters."
+            "min": "We have never heard such a short last name. The minimum length of the field is {min} characters.",
+            "max": "We think you are making something up. The maximum length of the field is {max} characters."
         },
         "delivery-address": {
-            "min": "Such a short address? The minimum length of the field is {{min}} characters.",
-            "max": "Is the address that long? The maximum length of the field is {{max}} characters."
+            "min": "Such a short address? The minimum length of the field is {min} characters.",
+            "max": "Is the address that long? The maximum length of the field is {max} characters."
         }
     },
     "main-page": {
         "you_can_send": "You can send your wish to: ",
-        "bd": "Birthday: {{birthday}}",
+        "bd": "Birthday: {birthday}",
         "interface_language": "Interface language",
         "my-wishes": "My wishes",
         "about": "About",
@@ -304,9 +304,9 @@
         "drag": "Click or drag images here to add them to your wish list.",
         "click": "Click here to add an image to Your wish.",
         "change": "You can also change the position of images by dragging them together.",
-        "size": "Maximum file size: {{size}} MB.",
+        "size": "Maximum file size: {size} MB.",
         "formats": "Allowed formats:",
-        "count": "Maximum number of files: {{count}} pcs.",
+        "count": "Maximum number of files: {count} pcs.",
         "delete-all-images": "Delete all images",
         "you-must": "You must fulfill this wish by:",
         "wish-must": "The wish must be fulfilled by:",
@@ -322,7 +322,7 @@
         "show-nobody-1": "",
         "show-nobody-2": "Nobody",
         "show-nobody-3": "can see Your wish.",
-        "sure-fulfilled": "Are you sure that the wish \"{{name}}\" is fulfilled?",
+        "sure-fulfilled": "Are you sure that the wish \"{name}\" is fulfilled?",
         "book-end-errors": {
             "required": "This field is required.",
             "past": "It is impossible to complete a task in the past.",
@@ -334,15 +334,15 @@
         },
         "will-fulfill": "I will fulfill wish",
         "confirm-intention": "Confirm intention",
-        "i-intend": "I intend to fulfill the wish \"{{name}}\" by:",
+        "i-intend": "I intend to fulfill the wish \"{name}\" by:",
         "including": "including*",
         "after_you_confirm": "After you confirm your intention, no other users will be able to book this wish. You will have the opportunity to cancel your wish within three days.",
         "by_declaring": "By declaring your intention to fulfill your wish, you take responsibility for its fulfillment. The Universe relies on you :) Constantly changing decisions can worsen your relationship with the Universe. Wish fulfillment affects your rating in the system.",
         "cancel-execution": "Cancel execution",
         "cancel-my-intention": "Cancel my intention",
-        "cancel-intention": "Are you sure you want to cancel your intention to fulfill the wish \"{{name}}\"?",
+        "cancel-intention": "Are you sure you want to cancel your intention to fulfill the wish \"{name}\"?",
         "determine-status": "Determine the status of execution",
-        "period-expired": "The period set by the performer for the realization of the wish \"{{name}}\" has expired.",
+        "period-expired": "The period set by the performer for the realization of the wish \"{name}\" has expired.",
         "is_your_wish": "Is Your wish fulfilled?",
         "no": "No",
         "yes": "Yes",
@@ -461,8 +461,8 @@
             "title": "How to add Wish Hub to your phone's home screen",
             "second-title": "To get quick access to Wish Hub, create an app on your phone's home screen",
             "not_again": "Do not show again",
-            "browser": "To add Wish Hub to your phone's home screen, you need to open this site in the {{browser}} browser.",
-            "browser_icon": "{{icon}} icon",
+            "browser": "To add Wish Hub to your phone's home screen, you need to open this site in the {browser} browser.",
+            "browser_icon": "{icon} icon",
             "menu": {
                 "Android": "Click on the three dots (menu) in the upper right corner.",
                 "iOS": "Click the \"Share\" icon (the square with the up arrow) at the bottom of the screen.",

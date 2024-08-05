@@ -1,19 +1,50 @@
 'use client';
 
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { useLocale } from 'next-intl';
 import { useUsersStore } from '@/stores/users';
 import { SubmitHandler, useForm } from 'react-hook-form';
 // import { useRouter } from "next/router";
-import { CredentialResponse } from '@react-oauth/google';
+import {
+    CredentialResponse,
+    GoogleLogin,
+    GoogleOAuthProvider,
+} from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import { ELang } from '@/models/Settings';
 import { IUser } from '@/models/User';
-import Link from 'next/link';
-import UiSelect from '@/components/ui/UiSelect';
 import UiInput from '@/components/ui/UiInput';
-import UiSearch from '@/components/ui/UiSearch';
 import UiButton from '@/components/ui/UiButton';
+import {
+    accountFirstNameValidation,
+    emailValidation,
+    passwordValidation,
+} from '@/helpers/utils/validations';
+
+interface IProps {
+    titleT: string;
+    singUpTitleT: string;
+    forgotPasswordTitleT: string;
+    singInT: string;
+    singUpT: string;
+    forgotPasswordSubmitT: string;
+    orT: string;
+    validationFirstNameRequiredT: string;
+    validationFirstNameMinT: string;
+    validationFirstNameMaxT: string;
+    firstNameT: string;
+    validationEmailRequiredT: string;
+    validationOnlyWhitespacesT: string;
+    validationEmailPatternT: string;
+    validationPasswordRequiredT: string;
+    validationPasswordWhitespacesT: string;
+    validationPasswordMinT: string;
+    validationPasswordMaxT: string;
+    passwordT: string;
+    repeatPasswordT: string;
+    passwordRememberedT: string;
+    forgotPasswordT: string;
+}
 
 interface IGoogleAuthCredentialResponse {
     email: IUser['email'];
@@ -29,7 +60,30 @@ type TInputs = {
     password: string;
 };
 
-function Form() {
+const Form: FC<IProps> = ({
+    titleT,
+    singUpTitleT,
+    forgotPasswordTitleT,
+    singInT,
+    singUpT,
+    forgotPasswordSubmitT,
+    orT,
+    validationFirstNameRequiredT,
+    validationFirstNameMinT,
+    validationFirstNameMaxT,
+    firstNameT,
+    validationEmailRequiredT,
+    validationOnlyWhitespacesT,
+    validationEmailPatternT,
+    validationPasswordRequiredT,
+    validationPasswordWhitespacesT,
+    validationPasswordMinT,
+    validationPasswordMaxT,
+    passwordT,
+    repeatPasswordT,
+    passwordRememberedT,
+    forgotPasswordT,
+}) => {
     const candidate = useUsersStore((state) => state.candidate);
     const login = useUsersStore((state) => state.login);
 
@@ -60,13 +114,13 @@ function Form() {
     const [checkedPrivacyPolicyError, setCheckedPrivacyPolicyError] =
         useState<string>('');
 
-    // let title = t('auth-page.title.sing_in');
-    // isRegistration && (title = t('auth-page.title.sing_up'));
-    // isForgotPassword && (title = t('auth-page.title.forgot_password'));
-    //
-    // let submit = t('sing-in');
-    // isRegistration && (submit = t('sing-up'));
-    // isForgotPassword && (submit = t('auth-page.recovery'));
+    let title = titleT;
+    isRegistration && (title = singUpTitleT);
+    isForgotPassword && (title = forgotPasswordTitleT);
+
+    let submit = singInT;
+    isRegistration && (submit = singUpT);
+    isForgotPassword && (submit = forgotPasswordSubmitT);
 
     const handleGoogleLogin = async (response: CredentialResponse) => {
         setClickedOnSubmit(true);
@@ -167,59 +221,135 @@ function Form() {
     };
 
     return (
-        <form className="max-w-2xl" onSubmit={handleSubmit(onSubmit)}>
-            <Link href={`/${activeLocale}/welcome`}>welcome</Link>
-            <UiSelect />
-            auth page
-            <br />
-            <br />
-            <br />
+        <form
+            className="flex w-full flex-col gap-5 tablet-md:w-96"
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <h1 className="flex w-full items-center justify-evenly gap-2.5 text-center text-xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-2xl">
+                {title}
+            </h1>
+
+            {!isForgotPassword && (
+                <GoogleOAuthProvider
+                    clientId={
+                        process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+                            ? process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+                            : ''
+                    }
+                >
+                    <GoogleLogin
+                        text={isRegistration ? 'signup_with' : 'signin_with'}
+                        onSuccess={handleGoogleLogin}
+                        onError={() => {
+                            console.log('Google OAuth Login Failed');
+                            // toast(t('alerts.auth-page.google-login.error'), { type: 'error' });
+                        }}
+                    />
+                </GoogleOAuthProvider>
+            )}
+
+            <span className="flex w-full items-center justify-center gap-2.5 text-sm text-zinc-500 before:flex-1 before:border-b before:border-solid before:border-zinc-500 after:flex-1 after:border-t after:border-solid after:border-zinc-500">
+                {orT}
+            </span>
+
+            {isRegistration && (
+                <UiInput
+                    {...register(
+                        'firstName',
+                        accountFirstNameValidation(
+                            validationFirstNameRequiredT,
+                            validationFirstNameMinT,
+                            validationFirstNameMaxT
+                        )
+                    )}
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    label={firstNameT}
+                    error={errors?.firstName?.message}
+                />
+            )}
+
             <UiInput
-                {...register('email')}
+                {...register(
+                    'email',
+                    emailValidation(
+                        validationEmailRequiredT,
+                        validationOnlyWhitespacesT,
+                        validationEmailPatternT
+                    )
+                )}
                 id="email"
                 name="email"
                 type="text"
                 label="Email*"
-                tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda excepturi laborum nam nobis officia qui sint vitae voluptates voluptatum?"
                 error={errors?.email?.message}
             />
-            <UiSearch id="test" label="search test" changeSearchBar={handle} />
-            <p className="text-balance">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Corporis culpa cum, debitis dignissimos eos fuga minima nostrum
-                repellendus soluta voluptatem. Ad est, labore pariatur
-                perspiciatis reprehenderit sint voluptatibus! Minima mollitia
-                perferendis totam. Ab aliquam consequuntur dignissimos enim et
-                eum exercitationem, hic inventore ipsa iste maxime molestiae
-                mollitia nam, similique sunt?
-            </p>
-            <UiInput
-                {...register('password')}
-                id="password"
-                name="password"
-                type="password"
-                label="Password*"
-                // label={ t('auth-page.password') }
-                error={errors?.password?.message}
-            />
-            <UiInput
-                {...register('firstName')}
-                id="description"
-                name="description"
-                type="multiline"
-                label={'firstName'}
-                error={errors?.firstName?.message}
-            />
-            <br />
-            <br />
-            <UiButton type="submit" variant="outline">
-                submit
-            </UiButton>
-            <UiButton variant="text">text</UiButton>
-            <UiButton variant="text-attention">text attention</UiButton>
-            <UiButton>solid</UiButton>
+
+            {!isForgotPassword && (
+                <UiInput
+                    {...register(
+                        'password',
+                        passwordValidation(
+                            validationPasswordRequiredT,
+                            validationPasswordWhitespacesT,
+                            validationPasswordMinT,
+                            validationPasswordMaxT
+                        )
+                    )}
+                    id="password"
+                    name="password"
+                    type="password"
+                    label={passwordT}
+                    error={errors?.password?.message}
+                />
+            )}
+
+            {isRegistration && (
+                <UiInput
+                    id="repeat-password"
+                    name="repeat-password"
+                    type="password"
+                    label={repeatPasswordT}
+                    value={repeatPassword}
+                    error={repeatPasswordError}
+                    onChange={(event) =>
+                        repeatPasswordChange(
+                            event as ChangeEvent<HTMLInputElement>
+                        )
+                    }
+                />
+            )}
+
+            <div className="-mt-2.5 flex w-full flex-col items-center justify-center gap-2.5 mobile-sm:flex-row mobile-sm:justify-between mobile-sm:gap-5">
+                {!isForgotPassword && (
+                    <UiButton
+                        variant="text"
+                        onClick={() => setIsRegistration((state) => !state)}
+                    >
+                        {isRegistration ? singInT : singUpT}
+                    </UiButton>
+                )}
+
+                {!isRegistration && (
+                    <div className="mobile-sm:ml-auto">
+                        <UiButton
+                            variant="text-attention"
+                            onClick={() =>
+                                setIsForgotPassword((state) => !state)
+                            }
+                        >
+                            {isForgotPassword
+                                ? passwordRememberedT
+                                : forgotPasswordT}
+                        </UiButton>
+                    </div>
+                )}
+            </div>
+
+            <UiButton type="submit">{submit}</UiButton>
         </form>
     );
-}
+};
 
 export default Form;

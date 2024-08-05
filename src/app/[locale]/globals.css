@@ -48,6 +48,7 @@
     .input:-webkit-autofill:focus,
     .input:-webkit-autofill:active {
         -webkit-box-shadow: inset 0 0 0 1000px #67e8f9 !important; /* колір фона cyan-300 */
+        box-shadow: inset 0 0 0 1000px #67e8f9 !important; /* колір фона cyan-300 */
         -webkit-text-fill-color: #27272a !important; /* колір тексту zinc-800 */
         transition: background-color 600000s 0s, color 600000s 0s !important;
     }
