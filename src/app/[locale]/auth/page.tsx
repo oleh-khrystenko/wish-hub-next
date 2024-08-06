@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import Form from '@/app/[locale]/auth/Form';
+import ClientForm from '@/app/[locale]/auth/ClientForm';
 import UiThemeSwitcher from '@/components/ui/UiThemeSwitcher';
 import {
     NAME_MAX_LENGTH,
@@ -7,6 +7,7 @@ import {
     PASSWORD_MAX_LENGTH,
     PASSWORD_MIN_LENGTH,
 } from '@/helpers/utils/constants';
+import Header from '@/components/layouts/Header';
 
 export default function Auth() {
     const t = useTranslations();
@@ -68,10 +69,11 @@ export default function Auth() {
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
+            <Header />
             <UiThemeSwitcher />
             <br />
             <br />
-            <Form
+            <ClientForm
                 titleT={titleT}
                 singUpTitleT={singUpTitleT}
                 forgotPasswordTitleT={forgotPasswordTitleT}

@@ -13,6 +13,7 @@ import { jwtDecode } from 'jwt-decode';
 import { ELang } from '@/models/Settings';
 import { IUser } from '@/models/User';
 import { useUsersStore } from '@/stores/users';
+import usersApi from '@/stores/users/api';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 import UiCheckbox from '@/components/ui/UiCheckbox';
@@ -66,7 +67,7 @@ type TInputs = {
     password: string;
 };
 
-const Form: FC<IProps> = ({
+const ClientForm: FC<IProps> = ({
     titleT,
     singUpTitleT,
     forgotPasswordTitleT,
@@ -95,8 +96,12 @@ const Form: FC<IProps> = ({
     privacyPolicyT,
     wishHubT,
 }) => {
-    const candidate = useUsersStore((state) => state.candidate);
+    const registration = useUsersStore((state) => state.registration);
+    const googleAuthorization = useUsersStore(
+        (state) => state.googleAuthorization
+    );
     const login = useUsersStore((state) => state.login);
+    const candidate = useUsersStore((state) => state.candidate);
 
     const {
         register,
@@ -115,7 +120,7 @@ const Form: FC<IProps> = ({
 
     const activeLocale = useLocale();
 
-    const [isRegistration, setIsRegistration] = useState<boolean>(false);
+    const [isSingUp, setIsSingUp] = useState<boolean>(false);
     const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
     const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
     const [repeatPassword, setRepeatPassword] = useState<string>('');
@@ -126,11 +131,11 @@ const Form: FC<IProps> = ({
         useState<string>('');
 
     let title = titleT;
-    isRegistration && (title = singUpTitleT);
+    isSingUp && (title = singUpTitleT);
     isForgotPassword && (title = forgotPasswordTitleT);
 
     let submit = singInT;
-    isRegistration && (submit = singUpT);
+    isSingUp && (submit = singUpT);
     isForgotPassword && (submit = forgotPasswordSubmitT);
 
     const handleGoogleLogin = async (response: CredentialResponse) => {
@@ -149,26 +154,27 @@ const Form: FC<IProps> = ({
             response.credential
         );
 
-        // await dispatch(googleAuthorization({
-        //     email: decodedUserData.email,
-        //     lang: getLang(),
-        //     isActivated: decodedUserData.email_verified,
-        //     firstName: decodedUserData.given_name,
-        //     lastName: decodedUserData.family_name,
-        //     avatar: decodedUserData.picture,
-        // }));
+        googleAuthorization({
+            email: decodedUserData.email,
+            lang: activeLocale as ELang,
+            isActivated: decodedUserData.email_verified,
+            firstName: decodedUserData.given_name,
+            lastName: decodedUserData.family_name,
+            avatar: decodedUserData.picture,
+        });
     };
 
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
-        // TODO: якщо часто натискати на відправку вилазе помилка Next.js
-        console.log('onSubmit: ', data);
         setClickedOnSubmit(true);
 
         if (isForgotPassword) {
-            // return dispatch(forgotPassword({ email: data.email.trim(), lang: getLang() }));
+            return usersApi.forgotPassword({
+                email: data.email.trim(),
+                lang: activeLocale as ELang,
+            });
         }
 
-        if (isRegistration) {
+        if (isSingUp) {
             if (data.password === repeatPassword) {
                 setRepeatPasswordError('');
             } else {
@@ -188,8 +194,12 @@ const Form: FC<IProps> = ({
         )
             return;
 
-        if (isRegistration && checkedPrivacyPolicy) {
-            // return dispatch(registration({ ...data, email: data.email.trim(), lang: getLang() }));
+        if (isSingUp && checkedPrivacyPolicy) {
+            return registration({
+                ...data,
+                email: data.email.trim(),
+                lang: activeLocale as ELang,
+            });
         }
 
         if (checkedPrivacyPolicy) {
@@ -227,7 +237,7 @@ const Form: FC<IProps> = ({
     useEffect(() => {
         const register = searchParams.get('register');
         const agree = searchParams.get('agree');
-        setIsRegistration(register !== null || agree !== null);
+        setIsSingUp(register !== null || agree !== null);
         setCheckedPrivacyPolicy(agree !== null);
     }, [searchParams]);
 
@@ -241,29 +251,31 @@ const Form: FC<IProps> = ({
             </h1>
 
             {!isForgotPassword && (
-                <GoogleOAuthProvider
-                    clientId={
-                        process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
-                            ? process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
-                            : ''
-                    }
-                >
-                    <GoogleLogin
-                        text={isRegistration ? 'signup_with' : 'signin_with'}
-                        onSuccess={handleGoogleLogin}
-                        onError={() => {
-                            console.log('Google OAuth Login Failed');
-                            // toast(t('alerts.auth-page.google-login.error'), { type: 'error' });
-                        }}
-                    />
-                </GoogleOAuthProvider>
+                <div className="mx-auto">
+                    <GoogleOAuthProvider
+                        clientId={
+                            process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+                                ? process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+                                : ''
+                        }
+                    >
+                        <GoogleLogin
+                            text={isSingUp ? 'signup_with' : 'signin_with'}
+                            onSuccess={handleGoogleLogin}
+                            onError={() => {
+                                console.log('Google OAuth Login Failed');
+                                // toast(t('alerts.auth-page.google-login.error'), { type: 'error' });
+                            }}
+                        />
+                    </GoogleOAuthProvider>
+                </div>
             )}
 
             <span className="flex w-full items-center justify-center gap-2.5 text-sm text-zinc-500 before:flex-1 before:border-b before:border-solid before:border-zinc-500 after:flex-1 after:border-t after:border-solid after:border-zinc-500">
                 {orT}
             </span>
 
-            {isRegistration && (
+            {isSingUp && (
                 <UiInput
                     {...register(
                         'firstName',
@@ -316,7 +328,7 @@ const Form: FC<IProps> = ({
                 />
             )}
 
-            {isRegistration && (
+            {isSingUp && (
                 <UiInput
                     id="repeat-password"
                     name="repeat-password"
@@ -337,14 +349,14 @@ const Form: FC<IProps> = ({
                     <div className="mobile-sm:-ml-4">
                         <UiButton
                             variant="text-btn"
-                            onClick={() => setIsRegistration((state) => !state)}
+                            onClick={() => setIsSingUp((state) => !state)}
                         >
-                            {isRegistration ? singInT : singUpT}
+                            {isSingUp ? singInT : singUpT}
                         </UiButton>
                     </div>
                 )}
 
-                {!isRegistration && (
+                {!isSingUp && (
                     <div className="mobile-sm:-mr-4 mobile-sm:ml-auto">
                         <UiButton
                             variant="text-attention"
@@ -389,4 +401,4 @@ const Form: FC<IProps> = ({
     );
 };
 
-export default Form;
+export default ClientForm;

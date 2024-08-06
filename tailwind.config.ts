@@ -19,6 +19,26 @@ const config: Config = {
             width: {
                 0.75: '0.1875rem',
             },
+            keyframes: {
+                spinner: {
+                    '0%, 20%, 80%, 100%': { transform: 'scale(1)' },
+                    '50%': { transform: 'scale(1.5)' },
+                },
+            },
+            animation: {
+                'spinner-1': 'spinner 1.2s ease-in-out infinite 0s',
+                'spinner-2': 'spinner 1.2s ease-in-out infinite -0.1s',
+                'spinner-3': 'spinner 1.2s ease-in-out infinite -0.2s',
+                'spinner-4': 'spinner 1.2s ease-in-out infinite -0.3s',
+                'spinner-5': 'spinner 1.2s ease-in-out infinite -0.4s',
+                'spinner-6': 'spinner 1.2s ease-in-out infinite -0.5s',
+                'spinner-7': 'spinner 1.2s ease-in-out infinite -0.6s',
+                'spinner-8': 'spinner 1.2s ease-in-out infinite -0.7s',
+                'spinner-9': 'spinner 1.2s ease-in-out infinite -0.8s',
+                'spinner-10': 'spinner 1.2s ease-in-out infinite -0.9s',
+                'spinner-11': 'spinner 1.2s ease-in-out infinite -1s',
+                'spinner-12': 'spinner 1.2s ease-in-out infinite -1.1s',
+            },
         },
         screens: {
             // Mobile sizes

@@ -18,6 +18,17 @@
     }
 }
 
+/********************* Scrollbar *********************/
+body::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+}
+
+body::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background: var(--scroll-bar);
+}
+
 .textarea-scrollbar::-webkit-scrollbar {
     height: 4px;
     width: 4px;
@@ -31,8 +42,9 @@
     border-radius: 9999px;
     background: var(--scroll-bar);
 }
+/********************* Scrollbar *********************/
 
-/********************* For InputNew *********************/
+/********************* Input *********************/
 @layer components {
     .input::-ms-clear {
         display: none;
@@ -121,4 +133,4 @@
         height: 100%;
     }
 }
-/********************* For InputNew *********************/
+/********************* Input *********************/
