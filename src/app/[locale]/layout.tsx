@@ -1,4 +1,5 @@
-import { Mulish, Manrope } from 'next/font/google';
+import { ReactNode } from 'react';
+import { Mulish } from 'next/font/google';
 import { useTranslations } from 'next-intl';
 import '@/app/[locale]/globals.css';
 
@@ -6,10 +7,9 @@ const mulish = Mulish({
     subsets: ['cyrillic', 'latin'],
     weight: ['300', '400', '700'],
 });
-const manrope = Manrope({ subsets: ['latin'], weight: ['700'] });
 
 interface IProps {
-    children: React.ReactNode;
+    children: ReactNode;
     params: { locale: string };
 }
 
@@ -47,7 +47,7 @@ export default function RootLayout({
             </head>
 
             <body
-                className={`bg-zinc-200 dark:bg-zinc-900 ${mulish.className} ${manrope.className}`}
+                className={`${mulish.className} bg-zinc-200 dark:bg-zinc-900`}
             >
                 {children}
             </body>

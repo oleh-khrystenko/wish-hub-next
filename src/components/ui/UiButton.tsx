@@ -60,7 +60,7 @@ const UiButton: FC<IProps> = ({
 
     if (variant === 'solid') {
         spanClasses =
-            'flex text-zinc-800 px-4 py-2 before:-z-20 after:-z-10 before:absolute after:absolute before:inset-0 after:inset-0 before:rounded-md after:rounded-md before:duration-300 after:duration-300 before:ease-in-out after:ease-in-out before:transition-all after:transition-all before:bg-gradient-to-tl after:bg-gradient-to-br before:from-cyan-200 after:from-cyan-200 before:via-cyan-300 after:via-cyan-300 before:to-cyan-400 after:to-cyan-400 after:opacity-0 hover:after:opacity-100';
+            'flex text-zinc-800 px-4 py-2 before:-z-20 after:-z-10 before:absolute after:absolute before:inset-0 after:inset-0 before:rounded-md after:rounded-md before:duration-300 after:duration-300 before:ease-in-out after:ease-in-out before:transition-all after:transition-all before:bg-gradient-to-br after:bg-gradient-to-tl before:from-cyan-200 after:from-cyan-200 before:via-cyan-300 after:via-cyan-300 before:to-cyan-400 after:to-cyan-400 after:opacity-0 hover:after:opacity-100';
     }
 
     if (variant === 'outline') {

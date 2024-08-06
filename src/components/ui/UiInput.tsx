@@ -139,7 +139,7 @@ const UiInput: FC<IProps> = forwardRef<
                         )}
                     </label>
 
-                    <div className="input-bg pointer-events-none absolute bottom-0 left-0 z-10 h-0.5 w-full rounded-md bg-gradient-to-tl from-cyan-200 via-cyan-300 to-cyan-400 transition-all duration-300 ease-in-out"></div>
+                    <div className="input-bg pointer-events-none absolute bottom-0 left-0 z-10 h-0.5 w-full rounded-md bg-gradient-to-br from-cyan-200 via-cyan-300 to-cyan-400 transition-all duration-300 ease-in-out"></div>
                 </div>
 
                 {error && <p className="mt-1 text-xs text-red-500">{error}</p>}

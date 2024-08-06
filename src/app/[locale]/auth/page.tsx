@@ -8,6 +8,7 @@ import {
     PASSWORD_MIN_LENGTH,
 } from '@/helpers/utils/constants';
 import Header from '@/components/layouts/Header';
+import UiLogo from '@/components/ui/UiLogo';
 
 export default function Auth() {
     const t = useTranslations();
@@ -69,7 +70,7 @@ export default function Auth() {
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <Header />
+            <UiLogo />
             <UiThemeSwitcher />
             <br />
             <br />
