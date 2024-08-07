@@ -47,7 +47,7 @@ const UiButton: FC<IProps> = ({
     }
 
     let spanClasses =
-        'flex-inline px-1 text-cyan-400 dark:text-cyan-300 hover:text-cyan-500 dark:hover:text-cyan-400';
+        'flex-inline text-cyan-400 dark:text-cyan-300 hover:text-cyan-500 dark:hover:text-cyan-400';
 
     if (variant === 'text-btn') {
         spanClasses =

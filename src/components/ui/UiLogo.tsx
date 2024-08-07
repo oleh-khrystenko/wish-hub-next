@@ -17,7 +17,9 @@ const UiLogo: FC<IProps> = ({ href = '' }) => {
         <UiButton href={`/${activeLocale}/${href}`} variant="text-btn">
             <LogoIcon />
 
-            <span className={`${manrope.className} text-xl`}>Wish Hub</span>
+            <span className={`${manrope.className} text-xl tablet-md:text-4xl`}>
+                Wish Hub
+            </span>
         </UiButton>
     );
 };

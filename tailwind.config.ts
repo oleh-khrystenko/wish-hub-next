@@ -9,15 +9,15 @@ const config: Config = {
     ],
     theme: {
         extend: {
-            boxShadow: {
-                'checked-outline-light': '0 0 0 1px #e4e4e7', // zinc-200
-                'checked-outline-dark': '0 0 0 1px #18181b', // zinc-900
-            },
             height: {
                 0.75: '0.1875rem',
             },
             width: {
                 0.75: '0.1875rem',
+            },
+            boxShadow: {
+                'checked-outline-light': '0 0 0 1px #e4e4e7', // zinc-200
+                'checked-outline-dark': '0 0 0 1px #18181b', // zinc-900
             },
             keyframes: {
                 spinner: {

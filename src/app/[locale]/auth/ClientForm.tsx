@@ -243,7 +243,7 @@ const ClientForm: FC<IProps> = ({
 
     return (
         <form
-            className="flex w-full flex-col gap-5 tablet-md:w-96"
+            className="my-auto flex w-full max-w-lg flex-col gap-5"
             onSubmit={handleSubmit(onSubmit)}
         >
             <h1 className="flex w-full items-center justify-evenly gap-2.5 text-center text-xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-2xl">
@@ -373,7 +373,7 @@ const ClientForm: FC<IProps> = ({
             </div>
 
             {!isForgotPassword && (
-                <div className="auth-privacy-policy">
+                <div>
                     <UiCheckbox
                         id="privacy-policy"
                         name="privacy-policy"
@@ -382,9 +382,11 @@ const ClientForm: FC<IProps> = ({
                         onChange={handleTogglePrivacyPolicy}
                     >
                         {agreeT}
+                        &nbsp;
                         <UiButton href="privacy-policy" variant="text">
                             {privacyPolicyT}
                         </UiButton>
+                        &nbsp;
                         {wishHubT}
                     </UiCheckbox>
 
@@ -396,7 +398,9 @@ const ClientForm: FC<IProps> = ({
                 </div>
             )}
 
-            <UiButton type="submit">{submit}</UiButton>
+            <div className="mx-auto">
+                <UiButton type="submit">{submit}</UiButton>
+            </div>
         </form>
     );
 };

@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { ETheme } from '@/models/Settings';
+import SunIcon from '@/components/icons/SunIcon';
+import MoonIcon from '@/components/icons/MoonIcon';
+import UiSwitch from '@/components/ui/UiSwitch';
 
 const UiThemeSwitcher = () => {
     const [theme, setTheme] = useState<ETheme>(ETheme.DARK);
@@ -33,11 +36,17 @@ const UiThemeSwitcher = () => {
     }, []);
 
     return (
-        <button type="button" onClick={toggleTheme}>
-            {theme === ETheme.LIGHT
-                ? 'Switch to Dark Theme'
-                : 'Switch to Light Theme'}
-        </button>
+        <>
+            <UiSwitch
+                id="theme-switcher"
+                name="theme-switcher"
+                checked={theme === ETheme.LIGHT}
+                onChange={toggleTheme}
+            >
+                <SunIcon />
+                <MoonIcon />
+            </UiSwitch>
+        </>
     );
 };
 

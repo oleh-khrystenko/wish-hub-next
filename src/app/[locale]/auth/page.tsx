@@ -7,8 +7,8 @@ import {
     PASSWORD_MAX_LENGTH,
     PASSWORD_MIN_LENGTH,
 } from '@/helpers/utils/constants';
-import Header from '@/components/layouts/Header';
 import UiLogo from '@/components/ui/UiLogo';
+import UiLangSelect from '@/components/ui/UiLangSelect';
 
 export default function Auth() {
     const t = useTranslations();
@@ -69,11 +69,16 @@ export default function Auth() {
     const wishHubT = t('auth-page.wish_hub');
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <UiLogo />
-            <UiThemeSwitcher />
-            <br />
-            <br />
+        <main className="flex min-h-screen flex-col items-center gap-2 p-4 tablet-md:gap-8">
+            <header className="flex w-full max-w-lg flex-col items-center gap-2 tablet-md:gap-8">
+                <div className="flex w-full items-center justify-between gap-4">
+                    <UiThemeSwitcher />
+                    <UiLangSelect />
+                </div>
+
+                <UiLogo />
+            </header>
+
             <ClientForm
                 titleT={titleT}
                 singUpTitleT={singUpTitleT}

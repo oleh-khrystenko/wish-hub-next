@@ -1,17 +1,17 @@
 import { FC } from 'react';
 
 interface IProps {
-    height?: string;
-    width?: string;
+    classes?: string;
 }
 
-const LogoIcon: FC<IProps> = ({ height = '28px', width = '28px' }) => {
+const LogoIcon: FC<IProps> = ({
+    classes = 'h-8 w-8 tablet-md:h-14 tablet-md:w-14',
+}) => {
     return (
         <svg
+            className={classes}
             id="wish-hub-logo"
             data-name="Wish Hub Logo"
-            height={height}
-            width={width}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1062.32 1104.81"
         >

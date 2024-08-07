@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
-import UiSelect from '@/components/ui/UiSelect';
+import UiLangSelect from '@/components/ui/UiLangSelect';
 import Header from '@/components/layouts/Header';
 
 export default function Main() {
@@ -15,7 +15,7 @@ export default function Main() {
             main page
             <br />
             {t('main-page.you_can_send')}
-            <UiSelect />
+            <UiLangSelect />
         </main>
     );
 }
