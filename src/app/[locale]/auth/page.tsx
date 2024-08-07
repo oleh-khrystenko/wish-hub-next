@@ -9,6 +9,7 @@ import {
 } from '@/helpers/utils/constants';
 import UiLogo from '@/components/ui/UiLogo';
 import UiLangSelect from '@/components/ui/UiLangSelect';
+import RoutesGuard from '@/app/[locale]/RoutesGuard';
 
 export default function Auth() {
     const t = useTranslations();
@@ -26,6 +27,7 @@ export default function Auth() {
     // Privacy Policy and Password Errors
     const privacyPolicyErrorT = t('auth-page.privacy_policy_error');
     const passwordsErrorT = t('auth-page.passwords_error');
+    const googleErrorT = t('alerts.auth-page.google-login.error');
 
     // Or
     const orT = t('auth-page.or');
@@ -79,35 +81,40 @@ export default function Auth() {
                 <UiLogo />
             </header>
 
-            <ClientForm
-                titleT={titleT}
-                singUpTitleT={singUpTitleT}
-                forgotPasswordTitleT={forgotPasswordTitleT}
-                singInT={singInT}
-                singUpT={singUpT}
-                forgotPasswordSubmitT={forgotPasswordSubmitT}
-                privacyPolicyErrorT={privacyPolicyErrorT}
-                passwordsErrorT={passwordsErrorT}
-                orT={orT}
-                validationFirstNameRequiredT={validationFirstNameRequiredT}
-                validationFirstNameMinT={validationFirstNameMinT}
-                validationFirstNameMaxT={validationFirstNameMaxT}
-                firstNameT={firstNameT}
-                validationEmailRequiredT={validationEmailRequiredT}
-                validationOnlyWhitespacesT={validationOnlyWhitespacesT}
-                validationEmailPatternT={validationEmailPatternT}
-                validationPasswordRequiredT={validationPasswordRequiredT}
-                validationPasswordWhitespacesT={validationPasswordWhitespacesT}
-                validationPasswordMinT={validationPasswordMinT}
-                validationPasswordMaxT={validationPasswordMaxT}
-                passwordT={passwordT}
-                repeatPasswordT={repeatPasswordT}
-                passwordRememberedT={passwordRememberedT}
-                forgotPasswordT={forgotPasswordT}
-                agreeT={agreeT}
-                privacyPolicyT={privacyPolicyT}
-                wishHubT={wishHubT}
-            />
+            <RoutesGuard isUnauthenticated>
+                <ClientForm
+                    titleT={titleT}
+                    singUpTitleT={singUpTitleT}
+                    forgotPasswordTitleT={forgotPasswordTitleT}
+                    singInT={singInT}
+                    singUpT={singUpT}
+                    forgotPasswordSubmitT={forgotPasswordSubmitT}
+                    privacyPolicyErrorT={privacyPolicyErrorT}
+                    passwordsErrorT={passwordsErrorT}
+                    googleErrorT={googleErrorT}
+                    orT={orT}
+                    validationFirstNameRequiredT={validationFirstNameRequiredT}
+                    validationFirstNameMinT={validationFirstNameMinT}
+                    validationFirstNameMaxT={validationFirstNameMaxT}
+                    firstNameT={firstNameT}
+                    validationEmailRequiredT={validationEmailRequiredT}
+                    validationOnlyWhitespacesT={validationOnlyWhitespacesT}
+                    validationEmailPatternT={validationEmailPatternT}
+                    validationPasswordRequiredT={validationPasswordRequiredT}
+                    validationPasswordWhitespacesT={
+                        validationPasswordWhitespacesT
+                    }
+                    validationPasswordMinT={validationPasswordMinT}
+                    validationPasswordMaxT={validationPasswordMaxT}
+                    passwordT={passwordT}
+                    repeatPasswordT={repeatPasswordT}
+                    passwordRememberedT={passwordRememberedT}
+                    forgotPasswordT={forgotPasswordT}
+                    agreeT={agreeT}
+                    privacyPolicyT={privacyPolicyT}
+                    wishHubT={wishHubT}
+                />
+            </RoutesGuard>
         </main>
     );
 }

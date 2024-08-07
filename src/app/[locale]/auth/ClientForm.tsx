@@ -10,6 +10,7 @@ import {
     GoogleOAuthProvider,
 } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import { toast } from 'react-toastify';
 import { ELang } from '@/models/Settings';
 import { IUser } from '@/models/User';
 import { useUsersStore } from '@/stores/users';
@@ -32,6 +33,7 @@ interface IProps {
     forgotPasswordSubmitT: string;
     privacyPolicyErrorT: string;
     passwordsErrorT: string;
+    googleErrorT: string;
     orT: string;
     validationFirstNameRequiredT: string;
     validationFirstNameMinT: string;
@@ -76,6 +78,7 @@ const ClientForm: FC<IProps> = ({
     forgotPasswordSubmitT,
     privacyPolicyErrorT,
     passwordsErrorT,
+    googleErrorT,
     orT,
     validationFirstNameRequiredT,
     validationFirstNameMinT,
@@ -264,7 +267,7 @@ const ClientForm: FC<IProps> = ({
                             onSuccess={handleGoogleLogin}
                             onError={() => {
                                 console.log('Google OAuth Login Failed');
-                                // toast(t('alerts.auth-page.google-login.error'), { type: 'error' });
+                                toast(googleErrorT, { type: 'error' });
                             }}
                         />
                     </GoogleOAuthProvider>

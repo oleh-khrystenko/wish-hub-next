@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { toast } from 'react-toastify';
 import { ICandidate, IUser } from '@/models/User';
 import { IGoogleAuth, ILogin, IRegistration } from '@/stores/users/types';
 import usersApi from '@/stores/users/api';
@@ -93,6 +94,7 @@ export const useUsersStore = create<IUsersStore>((set) => ({
             }));
         } catch (error) {
             console.log('error: ', error);
+            toast('googleErrorT', { type: 'error' });
             set((state) => ({
                 ...state,
                 myUser: null,

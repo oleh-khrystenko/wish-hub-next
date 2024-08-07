@@ -3,11 +3,13 @@
 @tailwind utilities;
 
 :root {
+    --bg-second: #d4d4d8; /* zinc-300 */
     --scroll-bar: #a1a1aa; /* zinc-400 */
     --input-label: #0891b2; /* cyan-600 */
 }
 
 [data-theme='dark'] {
+    --bg-second: #27272a; /* zinc-800 */
     --scroll-bar: #52525b; /* zinc-600 */
     --input-label: #67e8f9; /* cyan-300 */
 }
@@ -134,3 +136,23 @@ body::-webkit-scrollbar-thumb {
     }
 }
 /********************* Input *********************/
+
+.Toastify__toast-container {
+    @media only screen and (min-width: 768px) {
+        width: 380px;
+    }
+
+    .Toastify__toast {
+        background-color: var(--bg-second);
+
+        .Toastify__close-button > svg {
+            width: 36px;
+            height: 40px;
+
+            @media only screen and (min-width: 768px) {
+                width: 22px;
+                height: 24px;
+            }
+        }
+    }
+}
