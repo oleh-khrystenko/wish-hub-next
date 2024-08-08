@@ -46,14 +46,12 @@ function UiLangSelect() {
     };
 
     return (
-        <div>
-            <UiSelect
-                options={options}
-                isPending={isPending}
-                value={activeLocale as ELang}
-                onChange={handleChangeLang}
-            />
-        </div>
+        <UiSelect
+            options={options}
+            isPending={isPending}
+            value={activeLocale as ELang}
+            onChange={handleChangeLang}
+        />
     );
 }
 

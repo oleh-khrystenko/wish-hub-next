@@ -53,7 +53,7 @@ const UiSelect: FC<IProps> = ({ options, isPending, value, onChange }) => {
             ref={containerRef}
         >
             <button
-                className="relative z-20 flex items-center justify-center gap-2 rounded-md bg-zinc-300 px-3 py-2 dark:bg-zinc-800"
+                className="relative z-20 flex items-center justify-center gap-2 rounded-md bg-zinc-300 px-4 py-2.5 dark:bg-zinc-800"
                 type="button"
                 onClick={handleClick}
             >
@@ -76,7 +76,7 @@ const UiSelect: FC<IProps> = ({ options, isPending, value, onChange }) => {
                     return (
                         <li key={option.value}>
                             <button
-                                className="flex items-center justify-center gap-2 px-3 py-2"
+                                className="flex items-center justify-center gap-2 px-4 py-2.5"
                                 type="button"
                                 onClick={() => handleOptionChange(option.value)}
                             >

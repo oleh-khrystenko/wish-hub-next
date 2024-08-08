@@ -18,6 +18,8 @@ const config: Config = {
             boxShadow: {
                 'checked-outline-light': '0 0 0 1px #e4e4e7', // zinc-200
                 'checked-outline-dark': '0 0 0 1px #18181b', // zinc-900
+                'checked-outline-light-tablet': '0 0 0 1px #d4d4d8', // zinc-300
+                'checked-outline-dark-tablet': '0 0 0 1px #27272a', // zinc-800
             },
             keyframes: {
                 spinner: {

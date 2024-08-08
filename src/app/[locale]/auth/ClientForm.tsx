@@ -246,7 +246,7 @@ const ClientForm: FC<IProps> = ({
 
     return (
         <form
-            className="my-auto flex w-full max-w-lg flex-col gap-5"
+            className="my-auto flex w-full max-w-lg flex-col gap-5 rounded-2xl px-0.5 tablet-md:bg-zinc-300 tablet-md:px-5 tablet-md:pb-5 tablet-md:pt-3 tablet-md:shadow-md tablet-md:dark:bg-zinc-800"
             onSubmit={handleSubmit(onSubmit)}
         >
             <h1 className="flex w-full items-center justify-evenly gap-2.5 text-center text-xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-2xl">
