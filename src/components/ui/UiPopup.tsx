@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, ReactNode, useState } from 'react';
-import OutsideClickHandler from "@/helpers/hocs/OutsideClickHandler";
+import OutsideClickHandler from '@/helpers/hocs/OutsideClickHandler';
 
 interface IProps {
     action: ReactNode;
@@ -12,20 +12,17 @@ const UiPopup: FC<IProps> = ({ action, children }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const handleActivate = () => {
-        setShow(prevState => !prevState);
+        setShow((prevState) => !prevState);
     };
 
     return (
         <OutsideClickHandler setShow={setShow}>
-            <button
-                type="button"
-                onClick={handleActivate}
-            >
+            <button type="button" onClick={handleActivate}>
                 {action}
             </button>
 
             {show && (
-                <div className="flex flex-col gap-4 rounded-md bg-zinc-400 dark:bg-zinc-500 p-4">
+                <div className="flex flex-col gap-4 rounded-md bg-zinc-400 p-4 dark:bg-zinc-500">
                     {children}
                 </div>
             )}

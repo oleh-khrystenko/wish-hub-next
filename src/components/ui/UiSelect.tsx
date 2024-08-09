@@ -3,7 +3,7 @@
 import { FC, ReactNode, useState } from 'react';
 import { ELang } from '@/models/Settings';
 import Loading from '@/components/layouts/Loading';
-import OutsideClickHandler from "@/helpers/hocs/OutsideClickHandler";
+import OutsideClickHandler from '@/helpers/hocs/OutsideClickHandler';
 
 export interface IOption {
     label: ReactNode;
@@ -21,7 +21,7 @@ const UiSelect: FC<IProps> = ({ options, isPending, value, onChange }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const handleClick = () => {
-        setShow(prevState => !prevState);
+        setShow((prevState) => !prevState);
     };
 
     const handleOptionChange = (value: IOption['value']) => {
@@ -60,7 +60,9 @@ const UiSelect: FC<IProps> = ({ options, isPending, value, onChange }) => {
                                 <button
                                     className="flex items-center justify-center gap-2 px-4 py-2.5"
                                     type="button"
-                                    onClick={() => handleOptionChange(option.value)}
+                                    onClick={() =>
+                                        handleOptionChange(option.value)
+                                    }
                                 >
                                     {option.label}
                                 </button>

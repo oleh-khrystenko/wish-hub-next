@@ -1,12 +1,12 @@
 'use client';
 
-import {FC} from "react";
+import { FC } from 'react';
 import Image from 'next/image';
 import { useUsersStore } from '@/stores/users';
 import getFullName from '@/helpers/utils/get-full-name';
 import AvatarIcon from '@/components/icons/AvatarIcon';
-import UiButton from "@/components/ui/UiButton";
-import UiPopup from "@/components/ui/UiPopup";
+import UiButton from '@/components/ui/UiButton';
+import UiPopup from '@/components/ui/UiPopup';
 
 interface IProps {
     singInT: string;
@@ -18,7 +18,7 @@ const UserSetting: FC<IProps> = ({ singInT, userNotFoundT }) => {
 
     const handleShowSetting = () => {
         console.log('handleShowSetting');
-    }
+    };
 
     return (
         <div className="flex items-center justify-center gap-4">
@@ -39,7 +39,7 @@ const UserSetting: FC<IProps> = ({ singInT, userNotFoundT }) => {
             <UiPopup
                 action={
                     <button type="button" onClick={handleShowSetting}>
-                        <div className="h-11 w-11 min-w-11 overflow-hidden rounded-full bg-zinc-500 dark:bg-zinc-600 flex items-center justify-center">
+                        <div className="flex h-11 w-11 min-w-11 items-center justify-center overflow-hidden rounded-full bg-zinc-500 dark:bg-zinc-600">
                             {myUser?.avatar ? (
                                 <Image
                                     src={myUser?.avatar}
@@ -59,6 +59,6 @@ const UserSetting: FC<IProps> = ({ singInT, userNotFoundT }) => {
             </UiPopup>
         </div>
     );
-}
+};
 
 export default UserSetting;
