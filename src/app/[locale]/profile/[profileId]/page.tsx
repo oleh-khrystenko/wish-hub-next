@@ -1,7 +1,7 @@
 import { ParamsOnlyClient } from '@/app/[locale]/profile/[profileId]/ParamsOnlyClient';
-import RoutesGuard from '@/components/auth/RoutesGuard';
+import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import TempNav from '@/app/[locale]/TempNav';
-import Refresh from '@/components/auth/Refresh';
+import Refresh from '@/helpers/hocs/Refresh';
 import Header from '@/components/layouts/Header';
 
 export default function Profile() {

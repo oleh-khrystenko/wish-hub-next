@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
 import Header from '@/components/layouts/Header';
 import TempNav from '@/app/[locale]/TempNav';
-import Refresh from '@/components/auth/Refresh';
+import Refresh from '@/helpers/hocs/Refresh';
 
 export default function Welcome() {
     const t = useTranslations();

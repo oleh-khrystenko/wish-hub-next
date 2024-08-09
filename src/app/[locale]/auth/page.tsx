@@ -9,9 +9,9 @@ import {
 } from '@/helpers/utils/constants';
 import WishHub from '@/components/ui/WishHub';
 import UiLangSelect from '@/components/ui/UiLangSelect';
-import RoutesGuard from '@/components/auth/RoutesGuard';
+import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import TempNav from '@/app/[locale]/TempNav';
-import Refresh from '@/components/auth/Refresh';
+import Refresh from '@/helpers/hocs/Refresh';
 
 export default function Auth() {
     const t = useTranslations();

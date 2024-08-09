@@ -1,6 +1,6 @@
 import TempNav from '@/app/[locale]/TempNav';
 import Header from '@/components/layouts/Header';
-import Refresh from '@/components/auth/Refresh';
+import Refresh from '@/helpers/hocs/Refresh';
 
 export default function WishList() {
     return (
