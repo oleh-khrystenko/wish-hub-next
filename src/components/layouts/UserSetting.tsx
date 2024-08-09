@@ -6,6 +6,7 @@ import { useUsersStore } from '@/stores/users';
 import getFullName from '@/helpers/utils/get-full-name';
 import AvatarIcon from '@/components/icons/AvatarIcon';
 import UiButton from "@/components/ui/UiButton";
+import UiPopup from "@/components/ui/UiPopup";
 
 interface IProps {
     singInT: string;
@@ -35,20 +36,27 @@ const UserSetting: FC<IProps> = ({ singInT, userNotFoundT }) => {
                 </div>
             </UiButton>
 
-            <button type="button" onClick={handleShowSetting}>
-                <div className="h-11 w-11 min-w-11 overflow-hidden rounded-full bg-zinc-500 dark:bg-zinc-600 flex items-center justify-center">
-                    {myUser?.avatar ? (
-                        <Image
-                            src={myUser?.avatar}
-                            alt={getFullName(myUser, userNotFoundT)}
-                            width={44}
-                            height={44}
-                        />
-                    ) : (
-                        <AvatarIcon />
-                    )}
-                </div>
-            </button>
+            <UiPopup
+                action={
+                    <button type="button" onClick={handleShowSetting}>
+                        <div className="h-11 w-11 min-w-11 overflow-hidden rounded-full bg-zinc-500 dark:bg-zinc-600 flex items-center justify-center">
+                            {myUser?.avatar ? (
+                                <Image
+                                    src={myUser?.avatar}
+                                    alt={getFullName(myUser, userNotFoundT)}
+                                    width={44}
+                                    height={44}
+                                />
+                            ) : (
+                                <AvatarIcon />
+                            )}
+                        </div>
+                    </button>
+                }
+            >
+                <UiButton>my wish</UiButton>
+                <UiButton>my profile</UiButton>
+            </UiPopup>
         </div>
     );
 }
