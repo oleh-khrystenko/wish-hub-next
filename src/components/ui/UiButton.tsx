@@ -54,7 +54,7 @@ const UiButton: FC<IProps> = ({
     }
 
     const tagProps: Record<string, any> = {
-        className: `${disabled ? 'opacity-50 pointer-events-none' : ''} ${classes} relative w-auto transition-all duration-150 ease-in-out`,
+        className: `${disabled && 'opacity-50 pointer-events-none'} ${classes} relative w-auto transition-all duration-150 ease-in-out`,
         tabIndex,
         onClick: onClick || handleClick,
     };

@@ -13,12 +13,12 @@ function TempNav() {
             </UiButton>
             <UiButton href="privacy-policy">privacy-policy</UiButton>
             <UiButton href="profile/66070a443872b1f2acbda515">profile</UiButton>
-            <UiButton href="welcome">welcome</UiButton>
+            <UiButton href="main">main</UiButton>
             <UiButton href="wish/66070a443872b1f2acbda515">wish</UiButton>
             <UiButton href="wish-list/66070a443872b1f2acbda515">
                 wish-list
             </UiButton>
-            <UiButton href="/">main</UiButton>
+            <UiButton href="/">welcome</UiButton>
         </div>
     );
 }

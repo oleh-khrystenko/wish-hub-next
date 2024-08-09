@@ -7,7 +7,7 @@ import {
     PASSWORD_MAX_LENGTH,
     PASSWORD_MIN_LENGTH,
 } from '@/helpers/utils/constants';
-import UiLogo from '@/components/ui/UiLogo';
+import WishHub from '@/components/ui/WishHub';
 import UiLangSelect from '@/components/ui/UiLangSelect';
 import RoutesGuard from '@/components/auth/RoutesGuard';
 import TempNav from '@/app/[locale]/TempNav';
@@ -80,7 +80,7 @@ export default function Auth() {
                     <UiLangSelect />
                 </div>
 
-                <UiLogo />
+                <WishHub withLogo isBig />
 
                 <TempNav />
             </header>
