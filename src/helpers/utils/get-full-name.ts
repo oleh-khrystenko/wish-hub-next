@@ -1,7 +1,7 @@
 import { IUser } from '@/models/User';
 
-const getFullName = (user: IUser | null) => {
-    if (!user) return 'user not found (need translate)';
+const getFullName = (user: IUser | null, text: string): string => {
+    if (!user) return text;
     return user?.firstName + (user?.lastName ? ` ${user?.lastName}` : '');
 };
 

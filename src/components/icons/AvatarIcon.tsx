@@ -8,8 +8,8 @@ interface IProps {
 
 const AvatarIcon: FC<IProps> = ({
     classes = 'fill-zinc-800 dark:fill-zinc-300',
-    height = '20px',
-    width = '20px',
+    height = '28px',
+    width = '28px',
 }) => {
     return (
         <svg
