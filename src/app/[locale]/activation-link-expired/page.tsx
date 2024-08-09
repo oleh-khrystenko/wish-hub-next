@@ -1,13 +1,20 @@
 import ClientLogout from '@/app/[locale]/activation-link-expired/ClientLogout';
-import RoutesGuard from '@/app/[locale]/RoutesGuard';
+import RoutesGuard from '@/components/auth/RoutesGuard';
+import TempNav from '@/app/[locale]/TempNav';
+import Refresh from '@/components/auth/Refresh';
+import Header from '@/components/layouts/Header';
 
 export default function ActivationLinkExpired() {
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24 text-zinc-800 dark:text-zinc-300">
-            <RoutesGuard>
-                <ClientLogout />
-            </RoutesGuard>
-            activation-link-expired page
+            <TempNav />
+            <Header />
+            <Refresh>
+                <RoutesGuard>
+                    <ClientLogout />
+                </RoutesGuard>
+            </Refresh>
+            activation-link-expired page wish RoutesGuard
         </main>
     );
 }

@@ -9,7 +9,9 @@ import {
 } from '@/helpers/utils/constants';
 import UiLogo from '@/components/ui/UiLogo';
 import UiLangSelect from '@/components/ui/UiLangSelect';
-import RoutesGuard from '@/app/[locale]/RoutesGuard';
+import RoutesGuard from '@/components/auth/RoutesGuard';
+import TempNav from '@/app/[locale]/TempNav';
+import Refresh from '@/components/auth/Refresh';
 
 export default function Auth() {
     const t = useTranslations();
@@ -79,42 +81,50 @@ export default function Auth() {
                 </div>
 
                 <UiLogo />
+
+                <TempNav />
             </header>
 
-            <RoutesGuard isUnauthenticated>
-                <ClientForm
-                    titleT={titleT}
-                    singUpTitleT={singUpTitleT}
-                    forgotPasswordTitleT={forgotPasswordTitleT}
-                    singInT={singInT}
-                    singUpT={singUpT}
-                    forgotPasswordSubmitT={forgotPasswordSubmitT}
-                    privacyPolicyErrorT={privacyPolicyErrorT}
-                    passwordsErrorT={passwordsErrorT}
-                    googleErrorT={googleErrorT}
-                    orT={orT}
-                    validationFirstNameRequiredT={validationFirstNameRequiredT}
-                    validationFirstNameMinT={validationFirstNameMinT}
-                    validationFirstNameMaxT={validationFirstNameMaxT}
-                    firstNameT={firstNameT}
-                    validationEmailRequiredT={validationEmailRequiredT}
-                    validationOnlyWhitespacesT={validationOnlyWhitespacesT}
-                    validationEmailPatternT={validationEmailPatternT}
-                    validationPasswordRequiredT={validationPasswordRequiredT}
-                    validationPasswordWhitespacesT={
-                        validationPasswordWhitespacesT
-                    }
-                    validationPasswordMinT={validationPasswordMinT}
-                    validationPasswordMaxT={validationPasswordMaxT}
-                    passwordT={passwordT}
-                    repeatPasswordT={repeatPasswordT}
-                    passwordRememberedT={passwordRememberedT}
-                    forgotPasswordT={forgotPasswordT}
-                    agreeT={agreeT}
-                    privacyPolicyT={privacyPolicyT}
-                    wishHubT={wishHubT}
-                />
-            </RoutesGuard>
+            <Refresh>
+                <RoutesGuard isUnauthenticated>
+                    <ClientForm
+                        titleT={titleT}
+                        singUpTitleT={singUpTitleT}
+                        forgotPasswordTitleT={forgotPasswordTitleT}
+                        singInT={singInT}
+                        singUpT={singUpT}
+                        forgotPasswordSubmitT={forgotPasswordSubmitT}
+                        privacyPolicyErrorT={privacyPolicyErrorT}
+                        passwordsErrorT={passwordsErrorT}
+                        googleErrorT={googleErrorT}
+                        orT={orT}
+                        validationFirstNameRequiredT={
+                            validationFirstNameRequiredT
+                        }
+                        validationFirstNameMinT={validationFirstNameMinT}
+                        validationFirstNameMaxT={validationFirstNameMaxT}
+                        firstNameT={firstNameT}
+                        validationEmailRequiredT={validationEmailRequiredT}
+                        validationOnlyWhitespacesT={validationOnlyWhitespacesT}
+                        validationEmailPatternT={validationEmailPatternT}
+                        validationPasswordRequiredT={
+                            validationPasswordRequiredT
+                        }
+                        validationPasswordWhitespacesT={
+                            validationPasswordWhitespacesT
+                        }
+                        validationPasswordMinT={validationPasswordMinT}
+                        validationPasswordMaxT={validationPasswordMaxT}
+                        passwordT={passwordT}
+                        repeatPasswordT={repeatPasswordT}
+                        passwordRememberedT={passwordRememberedT}
+                        forgotPasswordT={forgotPasswordT}
+                        agreeT={agreeT}
+                        privacyPolicyT={privacyPolicyT}
+                        wishHubT={wishHubT}
+                    />
+                </RoutesGuard>
+            </Refresh>
         </main>
     );
 }

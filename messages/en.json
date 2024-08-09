@@ -365,7 +365,8 @@
         "product-link-tooltip": "Paste the link to the product from any online store and we will try to automatically fill in the wish data.",
         "manually": "Fill in manually",
         "continue": "Continue",
-        "non-unique-wish-name": "You already have a wish with that name."
+        "non-unique-wish-name": "You already have a wish with that name.",
+        "private-wish-error": "You have to select at least one level of privacy you want."
     },
     "activation-link-expired-page": {
         "expired": "Account activation period has expired.",

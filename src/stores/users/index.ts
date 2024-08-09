@@ -13,7 +13,7 @@ interface IUsersStore {
     registration: (data: IRegistration) => void;
     googleAuthorization: (data: IGoogleAuth) => void;
     login: (data: ILogin) => void;
-    checkAuth: () => Promise<void>;
+    refresh: () => Promise<void>;
 }
 
 export const useUsersStore = create<IUsersStore>((set) => ({
@@ -84,7 +84,6 @@ export const useUsersStore = create<IUsersStore>((set) => ({
 
         try {
             const response = await usersApi.login(data);
-            console.log('response: ', response);
 
             set((state) => ({
                 ...state,
@@ -93,7 +92,6 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                 isLoading: false,
             }));
         } catch (error) {
-            console.log('error: ', error);
             toast('googleErrorT', { type: 'error' });
             set((state) => ({
                 ...state,
@@ -103,7 +101,7 @@ export const useUsersStore = create<IUsersStore>((set) => ({
             }));
         }
     },
-    checkAuth: async () => {
+    refresh: async () => {
         set((state) => ({
             ...state,
             myUser: null,
@@ -113,7 +111,6 @@ export const useUsersStore = create<IUsersStore>((set) => ({
 
         try {
             const response = await usersApi.refresh();
-            console.log('checkAuth response: ', response);
 
             set((state) => ({
                 ...state,
@@ -122,7 +119,6 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                 isLoading: false,
             }));
         } catch (error) {
-            console.log('checkAuth error: ', error);
             set((state) => ({
                 ...state,
                 myUser: null,
