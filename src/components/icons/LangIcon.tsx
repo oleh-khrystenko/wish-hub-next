@@ -2,20 +2,14 @@ import { FC } from 'react';
 
 interface IProps {
     classes?: string;
-    height?: string;
-    width?: string;
 }
 
 const LangIcon: FC<IProps> = ({
-    classes = 'stroke-zinc-800 dark:stroke-zinc-300',
-    height = '24px',
-    width = '24px',
+    classes = 'h-6 w-6 stroke-zinc-800 dark:stroke-zinc-300',
 }) => {
     return (
         <svg
             className={`${classes} transition-all duration-300 ease-in-out`}
-            height={height}
-            width={width}
             fill="none"
             strokeWidth="2"
             strokeLinecap="round"

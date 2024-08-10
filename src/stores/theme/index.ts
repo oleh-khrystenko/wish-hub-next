@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import {ETheme} from "@/models/Settings";
+import { ETheme } from '@/models/Settings';
 
 interface IThemeStore {
     theme: ETheme;
@@ -8,9 +8,5 @@ interface IThemeStore {
 
 export const useThemeStore = create<IThemeStore>((set) => ({
     theme: ETheme.DARK,
-    setTheme: (value) => {
-        set(() => ({
-            theme: value,
-        }));
-    }
+    setTheme: (value) => set({ theme: value }),
 }));

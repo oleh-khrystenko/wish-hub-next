@@ -2,20 +2,12 @@ import { FC } from 'react';
 
 interface IProps {
     classes?: string;
-    width?: string;
-    height?: string;
 }
 
-const EyeIcon: FC<IProps> = ({
-    classes = 'fill-zinc-500',
-    height = '20px',
-    width = '20px',
-}) => {
+const EyeIcon: FC<IProps> = ({ classes = 'h-5 w-5 fill-zinc-500' }) => {
     return (
         <svg
             className={`${classes} transition-all duration-300 ease-in-out`}
-            height={height}
-            width={width}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

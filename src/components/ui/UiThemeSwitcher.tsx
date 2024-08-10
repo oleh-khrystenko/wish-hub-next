@@ -2,10 +2,10 @@
 
 import { useEffect } from 'react';
 import { ETheme } from '@/models/Settings';
-import {useThemeStore} from "@/stores/theme";
+import { useThemeStore } from '@/stores/theme';
+import UiSwitch from '@/components/ui/UiSwitch';
 import SunIcon from '@/components/icons/SunIcon';
 import MoonIcon from '@/components/icons/MoonIcon';
-import UiSwitch from '@/components/ui/UiSwitch';
 
 const UiThemeSwitcher = () => {
     const theme = useThemeStore((state) => state.theme);

@@ -12,11 +12,11 @@ import UiLangSelect from '@/components/ui/UiLangSelect';
 import LangIcon from '@/components/icons/LangIcon';
 import LightDarkThemeIcon from '@/components/icons/LightDarkThemeIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
-import InfoIcon from "@/components/icons/InfoIcon";
-import ForumIcon from "@/components/icons/ForumIcon";
-import LogoutIcon from "@/components/icons/LogoutIcon";
-import PrivacyPolicyIcon from "@/components/icons/PrivacyPolicyIcon";
-import SocialNetworks from "@/components/layouts/SocialNetworks";
+import InfoIcon from '@/components/icons/InfoIcon';
+import ForumIcon from '@/components/icons/ForumIcon';
+import LogoutIcon from '@/components/icons/LogoutIcon';
+import PrivacyPolicyIcon from '@/components/icons/PrivacyPolicyIcon';
+import SocialNetworks from '@/components/layouts/SocialNetworks';
 
 interface IProps {
     singInT: string;
@@ -122,7 +122,7 @@ const UserSetting: FC<IProps> = ({
                                 variant="text"
                                 onClick={handleSelectMyWishes}
                             >
-                                <span className="flex items-center py-1.5 gap-2 text-lg text-zinc-800 dark:text-zinc-300">
+                                <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                     <LogoIcon classes="h-6 w-6" />
                                     {myWishesT}
                                 </span>
@@ -132,7 +132,7 @@ const UserSetting: FC<IProps> = ({
                                 variant="text"
                                 href={`/profile/${myUser?.id}`}
                             >
-                                <span className="flex items-center py-1.5 gap-2 text-lg text-zinc-800 dark:text-zinc-300">
+                                <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                     <AvatarIcon classes="w-5 h-5 mx-0.5 fill-zinc-800 dark:fill-zinc-300" />
                                     {myProfileT}
                                 </span>
@@ -153,50 +153,54 @@ const UserSetting: FC<IProps> = ({
                     </div>
                 </div>
 
-                <div className="flex flex-col items-stretch gap-2 px-2 py-2 tablet-md:px-4 tablet-md:py-2 border-t border-zinc-500 dark:border-zinc-600">
-                    {/*<UiButton href="instruction" variant="text">*/ }
-                    {/*    <YouTubeIcon*/ }
-                    {/*        backgroundColor={ StylesVariables.lightColor }*/ }
-                    {/*        playColor={ StylesVariables.backgroundColor }*/ }
-                    {/*    />*/ }
-                    {/*    { t('main-page.instruction') }*/ }
-                    {/*</UiButton>*/ }
+                <div className="flex flex-col items-stretch gap-2 border-t border-zinc-500 px-2 py-2 dark:border-zinc-600 tablet-md:px-4 tablet-md:py-2">
+                    {/*<UiButton href="instruction" variant="text">*/}
+                    {/*    <YouTubeIcon*/}
+                    {/*        backgroundColor={ StylesVariables.lightColor }*/}
+                    {/*        playColor={ StylesVariables.backgroundColor }*/}
+                    {/*    />*/}
+                    {/*    { t('main-page.instruction') }*/}
+                    {/*</UiButton>*/}
 
                     <UiButton href="about" variant="text">
-                        <span className="flex items-center py-1.5 gap-2 text-lg text-zinc-800 dark:text-zinc-300">
+                        <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <InfoIcon classes="h-6 w-6 stroke-zinc-700 dark:stroke-zinc-300" />
-                            { aboutT }
+                            {aboutT}
                             Wish Hub
                         </span>
                     </UiButton>
 
                     <UiButton href="about" variant="text">
-                        <span className="flex items-center py-1.5 gap-2 text-lg text-zinc-800 dark:text-zinc-300">
+                        <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <ForumIcon />
-                            { contactsT }
+                            {contactsT}
                         </span>
                     </UiButton>
                 </div>
 
-                <div className="flex flex-col items-stretch gap-2 px-2 pb-4 pt-2 tablet-md:px-4 tablet-md:py-2 border-t border-zinc-500 dark:border-zinc-600">
-                    { myUser && (
-                        <UiButton variant="text" type="button" onClick={ handleLogout }>
-                            <span className="flex items-center py-1.5 gap-2 text-lg text-zinc-800 dark:text-zinc-300">
+                <div className="flex flex-col items-stretch gap-2 border-t border-zinc-500 px-2 pb-4 pt-2 dark:border-zinc-600 tablet-md:px-4 tablet-md:py-2">
+                    {myUser && (
+                        <UiButton
+                            variant="text"
+                            type="button"
+                            onClick={handleLogout}
+                        >
+                            <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                 <LogoutIcon />
-                                { logoutT }
+                                {logoutT}
                             </span>
                         </UiButton>
-                    ) }
+                    )}
 
-                    <div className="mt-2 p-2 flex flex-col items-center gap-4 w-full bg-zinc-300 dark:bg-zinc-800 rounded-lg">
+                    <div className="mt-2 flex w-full flex-col items-center gap-4 rounded-lg bg-zinc-300 p-2 dark:bg-zinc-800">
                         <div className="flex items-center justify-evenly gap-4">
                             <SocialNetworks />
                         </div>
 
                         <UiButton href="privacy-policy" variant="text">
-                            <span className="flex items-center gap-2 text-xs underline text-zinc-800 dark:text-zinc-300">
+                            <span className="flex items-center gap-2 text-xs text-zinc-800 underline dark:text-zinc-300">
                                 <PrivacyPolicyIcon />
-                                { privacyPolicyT }
+                                {privacyPolicyT}
                             </span>
                         </UiButton>
                     </div>

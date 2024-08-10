@@ -1,14 +1,14 @@
-import {FC} from "react";
-import {useThemeStore} from "@/stores/theme";
-import InstagramIcon from "@/components/icons/InstagramIcon";
-import FacebookIcon from "@/components/icons/FacebookIcon";
-import YouTubeIcon from "@/components/icons/YouTubeIcon";
-import TikTokIcon from "@/components/icons/TikTokIcon";
-import TelegramIcon from "@/components/icons/TelegramIcon";
-import TikTokDarkIcon from "@/components/icons/TikTokDarkIcon";
+import { FC } from 'react';
+import { useThemeStore } from '@/stores/theme';
+import InstagramIcon from '@/components/icons/InstagramIcon';
+import FacebookIcon from '@/components/icons/FacebookIcon';
+import YouTubeIcon from '@/components/icons/YouTubeIcon';
+import TikTokIcon from '@/components/icons/TikTokIcon';
+import TikTokDarkIcon from '@/components/icons/TikTokDarkIcon';
+import TelegramIcon from '@/components/icons/TelegramIcon';
 // Іконки соціальних мереж взято з https://www.svgrepo.com/
 
-const SocialNetworks:FC = () => {
+const SocialNetworks: FC = () => {
     const theme = useThemeStore((state) => state.theme);
 
     return (
@@ -54,6 +54,6 @@ const SocialNetworks:FC = () => {
             </a>
         </>
     );
-}
+};
 
 export default SocialNetworks;

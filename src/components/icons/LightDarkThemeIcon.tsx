@@ -2,20 +2,14 @@ import { FC } from 'react';
 
 interface IProps {
     classes?: string;
-    height?: string;
-    width?: string;
 }
 
 const LightDarkThemeIcon: FC<IProps> = ({
-    classes = 'fill-zinc-800 dark:fill-zinc-300',
-    height = '28px',
-    width = '28px',
+    classes = 'h-7 w-7 fill-zinc-800 dark:fill-zinc-300',
 }) => {
     return (
         <svg
             className={`${classes} transition-all duration-300 ease-in-out`}
-            height={height}
-            width={width}
             version="1.0"
             viewBox="0 0 512.000000 512.000000"
             preserveAspectRatio="xMidYMid meet"

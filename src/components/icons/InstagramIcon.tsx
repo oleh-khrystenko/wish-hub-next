@@ -9,11 +9,36 @@ const InstagramIcon: FC = () => {
             xmlns="http://www.w3.org/2000/svg"
         >
             <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+            <g
+                id="SVGRepo_tracerCarrier"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            ></g>
             <g id="SVGRepo_iconCarrier">
-                <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#paint0_radial_87_7153)"></rect>
-                <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#paint1_radial_87_7153)"></rect>
-                <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#paint2_radial_87_7153)"></rect>
+                <rect
+                    x="2"
+                    y="2"
+                    width="28"
+                    height="28"
+                    rx="6"
+                    fill="url(#paint0_radial_87_7153)"
+                ></rect>
+                <rect
+                    x="2"
+                    y="2"
+                    width="28"
+                    height="28"
+                    rx="6"
+                    fill="url(#paint1_radial_87_7153)"
+                ></rect>
+                <rect
+                    x="2"
+                    y="2"
+                    width="28"
+                    height="28"
+                    rx="6"
+                    fill="url(#paint2_radial_87_7153)"
+                ></rect>
                 <path
                     d="M23 10.5C23 11.3284 22.3284 12 21.5 12C20.6716 12 20 11.3284 20 10.5C20 9.67157 20.6716 9 21.5 9C22.3284 9 23 9.67157 23 10.5Z"
                     fill="white"
@@ -54,7 +79,11 @@ const InstagramIcon: FC = () => {
                         <stop stopColor="#E0E8B7"></stop>
                         <stop offset="0.444662" stopColor="#FB8A2E"></stop>
                         <stop offset="0.71474" stopColor="#E2425C"></stop>
-                        <stop offset="1" stopColor="#E2425C" stopOpacity="0"></stop>
+                        <stop
+                            offset="1"
+                            stopColor="#E2425C"
+                            stopOpacity="0"
+                        ></stop>
                     </radialGradient>
                     <radialGradient
                         id="paint2_radial_87_7153"
@@ -66,7 +95,11 @@ const InstagramIcon: FC = () => {
                     >
                         <stop offset="0.156701" stopColor="#406ADC"></stop>
                         <stop offset="0.467799" stopColor="#6A45BE"></stop>
-                        <stop offset="1" stopColor="#6A45BE" stopOpacity="0"></stop>
+                        <stop
+                            offset="1"
+                            stopColor="#6A45BE"
+                            stopOpacity="0"
+                        ></stop>
                     </radialGradient>
                 </defs>
             </g>
