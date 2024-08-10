@@ -93,15 +93,15 @@ const UserSetting: FC<IProps> = ({
                     </div>
                 )}
 
-                <div className="flex flex-col items-stretch gap-4 px-2 pb-2 pt-4 tablet-md:px-4 tablet-md:py-2">
+                <div className="flex flex-col items-stretch gap-2 px-2 pb-2 pt-4 tablet-md:px-4 tablet-md:py-2">
                     {myUser && (
                         <>
                             <UiButton
                                 variant="text"
                                 onClick={handleSelectMyWishes}
                             >
-                                <LogoIcon classes="h-6 w-6 grayscale" />
-                                <span className="text-lg text-zinc-800 dark:text-zinc-300">
+                                <span className="flex items-center py-1.5 gap-2 text-lg text-zinc-800 dark:text-zinc-300">
+                                    <LogoIcon classes="h-6 w-6" />
                                     {myWishesT}
                                 </span>
                             </UiButton>
@@ -110,8 +110,8 @@ const UserSetting: FC<IProps> = ({
                                 variant="text"
                                 href={`/profile/${myUser?.id}`}
                             >
-                                <AvatarIcon height="24px" width="24px" />
-                                <span className="text-lg text-zinc-800 dark:text-zinc-300">
+                                <span className="flex items-center py-1.5 gap-2 text-lg text-zinc-800 dark:text-zinc-300">
+                                    <AvatarIcon classes="w-5 h-5 mx-0.5 fill-zinc-800 dark:fill-zinc-300" />
                                     {myProfileT}
                                 </span>
                             </UiButton>
