@@ -17,6 +17,10 @@ function Header() {
                 myProfileT={t('profile-page.my-profile')}
                 interfaceLanguageT={t('main-page.interface_language')}
                 themeT={t('main-page.theme')}
+                aboutT={t('main-page.about')}
+                contactsT={t('main-page.contacts')}
+                logoutT={t('logout')}
+                privacyPolicyT={t('privacy-policy-page.title')}
             />
         </header>
     );

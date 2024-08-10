@@ -22,7 +22,7 @@ const UiPopup: FC<IProps> = ({ action, children }) => {
             </button>
 
             {show && (
-                <div className="absolute right-0 top-full mt-0.5 flex flex-col rounded-md bg-zinc-400 dark:bg-zinc-700">
+                <div className="absolute right-0 top-full z-40 mt-0.5 flex flex-col rounded-xl bg-zinc-400 dark:bg-zinc-700">
                     {children}
                 </div>
             )}

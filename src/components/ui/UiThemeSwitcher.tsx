@@ -1,15 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ETheme } from '@/models/Settings';
+import {useThemeStore} from "@/stores/theme";
 import SunIcon from '@/components/icons/SunIcon';
 import MoonIcon from '@/components/icons/MoonIcon';
 import UiSwitch from '@/components/ui/UiSwitch';
 
 const UiThemeSwitcher = () => {
-    const [theme, setTheme] = useState<ETheme>(ETheme.DARK);
+    const theme = useThemeStore((state) => state.theme);
+    const setTheme = useThemeStore((state) => state.setTheme);
 
-    const toggleTheme = () => {
+    const handleToggleTheme = () => {
         const newTheme = theme === ETheme.LIGHT ? ETheme.DARK : ETheme.LIGHT;
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
@@ -41,7 +43,7 @@ const UiThemeSwitcher = () => {
                 id="theme-switcher"
                 name="theme-switcher"
                 checked={theme === ETheme.LIGHT}
-                onChange={toggleTheme}
+                onChange={handleToggleTheme}
             >
                 <SunIcon />
                 <MoonIcon />

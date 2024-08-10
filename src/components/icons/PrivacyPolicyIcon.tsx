@@ -1,0 +1,25 @@
+import { FC } from 'react';
+
+interface IProps {
+    classes?: string;
+}
+
+const PrivacyPolicyIcon: FC<IProps> = ({
+    classes = 'w-4 h-4 fill-zinc-800 dark:fill-zinc-300',
+}) => {
+    return (
+        <svg
+            className={`${classes} transition-all duration-300 ease-in-out`}
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+                <path d="M21.406,5.086l-9-4a1,1,0,0,0-.812,0l-9,4A1,1,0,0,0,2,6v.7a18.507,18.507,0,0,0,9.515,16.17,1,1,0,0,0,.97,0A18.507,18.507,0,0,0,22,6.7V6A1,1,0,0,0,21.406,5.086ZM20,6.7a16.507,16.507,0,0,1-8,14.141A16.507,16.507,0,0,1,4,6.7V6.65l8-3.556L20,6.65ZM11,10h2v8H11Zm0-4h2V8H11Z"></path>
+            </g>
+        </svg>
+    );
+};
+
+export default PrivacyPolicyIcon;
