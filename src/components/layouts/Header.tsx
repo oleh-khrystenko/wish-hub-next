@@ -12,6 +12,11 @@ function Header() {
             <UserSetting
                 singInT={t('sing-in')}
                 userNotFoundT={t('main-page.user_not_found')}
+                singUpT={t('sing-up')}
+                myWishesT={t('main-page.my-wishes')}
+                myProfileT={t('profile-page.my-profile')}
+                interfaceLanguageT={t('main-page.interface_language')}
+                themeT={t('main-page.theme')}
             />
         </header>
     );

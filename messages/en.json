@@ -367,7 +367,8 @@
         "continue": "Continue",
         "non-unique-wish-name": "You already have a wish with that name.",
         "private-wish-error": "You have to select at least one level of privacy you want.",
-        "user_not_found": "User not found"
+        "user_not_found": "User not found",
+        "theme": "Theme"
     },
     "activation-link-expired-page": {
         "expired": "Account activation period has expired.",
