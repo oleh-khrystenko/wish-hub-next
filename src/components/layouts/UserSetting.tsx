@@ -3,6 +3,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import { useUsersStore } from '@/stores/users';
+import { useThemeStore } from '@/stores/theme';
 import getFullName from '@/helpers/utils/get-full-name';
 import AvatarIcon from '@/components/icons/AvatarIcon';
 import UiButton from '@/components/ui/UiButton';
@@ -17,6 +18,10 @@ import ForumIcon from '@/components/icons/ForumIcon';
 import LogoutIcon from '@/components/icons/LogoutIcon';
 import PrivacyPolicyIcon from '@/components/icons/PrivacyPolicyIcon';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
+import UiShareButton from '@/components/ui/UiShareButton';
+import { ETheme } from '@/models/Settings';
+import LogoDarkIcon from '@/components/icons/LogoDarkIcon';
+import LogoLightIcon from '@/components/icons/LogoLightIcon';
 
 interface IProps {
     singInT: string;
@@ -27,6 +32,18 @@ interface IProps {
     interfaceLanguageT: string;
     themeT: string;
     aboutT: string;
+    shareTextT: string;
+    shareWishHubSuccessT: string;
+    shareWishSuccessT: string;
+    shareConsoleErrorT: string;
+    shareErrorT: string;
+    clipboardWishHubSuccessT: string;
+    clipboardWishSuccessT: string;
+    clipboardConsoleErrorT: string;
+    clipboardErrorT: string;
+    confirmT: string;
+    questionNobodyT: string;
+    questionFriendsT: string;
     contactsT: string;
     logoutT: string;
     privacyPolicyT: string;
@@ -41,11 +58,24 @@ const UserSetting: FC<IProps> = ({
     interfaceLanguageT,
     themeT,
     aboutT,
+    shareTextT,
+    shareWishHubSuccessT,
+    shareWishSuccessT,
+    shareConsoleErrorT,
+    shareErrorT,
+    clipboardWishHubSuccessT,
+    clipboardWishSuccessT,
+    clipboardConsoleErrorT,
+    clipboardErrorT,
+    confirmT,
+    questionNobodyT,
+    questionFriendsT,
     contactsT,
     logoutT,
     privacyPolicyT,
 }) => {
     const myUser = useUsersStore((state) => state.myUser);
+    const theme = useThemeStore((state) => state.theme);
 
     // SelectWish
     const handleSelectMyWishes = async () => {
@@ -123,7 +153,11 @@ const UserSetting: FC<IProps> = ({
                                 onClick={handleSelectMyWishes}
                             >
                                 <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
-                                    <LogoIcon classes="h-6 w-6" />
+                                    {theme === ETheme.DARK ? (
+                                        <LogoLightIcon classes="h-6 w-6" />
+                                    ) : (
+                                        <LogoDarkIcon classes="h-6 w-6" />
+                                    )}
                                     {myWishesT}
                                 </span>
                             </UiButton>
@@ -165,10 +199,29 @@ const UserSetting: FC<IProps> = ({
                     <UiButton href="about" variant="text">
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <InfoIcon classes="h-6 w-6 stroke-zinc-700 dark:stroke-zinc-300" />
-                            {aboutT}
-                            Wish Hub
+                            {aboutT} Wish Hub
                         </span>
                     </UiButton>
+
+                    <UiShareButton
+                        classes="flex-row-reverse mr-auto"
+                        shareTextT={shareTextT}
+                        shareWishHubSuccessT={shareWishHubSuccessT}
+                        shareWishSuccessT={shareWishSuccessT}
+                        shareConsoleErrorT={shareConsoleErrorT}
+                        shareErrorT={shareErrorT}
+                        clipboardWishHubSuccessT={clipboardWishHubSuccessT}
+                        clipboardWishSuccessT={clipboardWishSuccessT}
+                        clipboardConsoleErrorT={clipboardConsoleErrorT}
+                        clipboardErrorT={clipboardErrorT}
+                        confirmT={confirmT}
+                        questionNobodyT={questionNobodyT}
+                        questionFriendsT={questionFriendsT}
+                    >
+                        <span className="flex items-center gap-2 py-1.5 text-lg font-bold text-zinc-800 dark:text-zinc-300">
+                            {confirmT} Wish Hub
+                        </span>
+                    </UiShareButton>
 
                     <UiButton href="about" variant="text">
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">

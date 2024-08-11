@@ -5,7 +5,7 @@ interface IProps {
 }
 
 const LightDarkThemeIcon: FC<IProps> = ({
-    classes = 'h-7 w-7 fill-zinc-800 dark:fill-zinc-300',
+    classes = 'h-6 w-6 fill-zinc-800 dark:fill-zinc-300',
 }) => {
     return (
         <svg
