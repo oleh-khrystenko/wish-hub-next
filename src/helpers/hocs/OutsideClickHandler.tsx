@@ -3,11 +3,11 @@
 import { FC, ReactNode, useEffect, useRef } from 'react';
 
 interface IProps {
-    setShow: (value: boolean) => void;
+    hid: () => void;
     children: ReactNode;
 }
 
-const OutsideClickHandler: FC<IProps> = ({ setShow, children }) => {
+const OutsideClickHandler: FC<IProps> = ({ hid, children }) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -16,7 +16,7 @@ const OutsideClickHandler: FC<IProps> = ({ setShow, children }) => {
                 containerRef.current &&
                 !containerRef.current?.contains(e.target as Node)
             ) {
-                setShow(false);
+                hid();
             }
         };
 

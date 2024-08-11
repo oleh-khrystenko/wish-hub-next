@@ -1,7 +1,6 @@
 'use client';
 
-import { FC } from 'react';
-import Image from 'next/image';
+import { FC, useState } from 'react';
 import { useUsersStore } from '@/stores/users';
 import { useThemeStore } from '@/stores/theme';
 import getFullName from '@/helpers/utils/get-full-name';
@@ -21,6 +20,7 @@ import UiShareButton from '@/components/ui/UiShareButton';
 import { ETheme } from '@/models/Settings';
 import LogoDarkIcon from '@/components/icons/LogoDarkIcon';
 import LogoLightIcon from '@/components/icons/LogoLightIcon';
+import UiAvatar from '@/components/ui/UiAvatar';
 
 interface IProps {
     singInT: string;
@@ -80,7 +80,14 @@ const UserSetting: FC<IProps> = ({
     privacyPolicyT,
 }) => {
     const myUser = useUsersStore((state) => state.myUser);
+    const logout = useUsersStore((state) => state.logout);
     const theme = useThemeStore((state) => state.theme);
+
+    const [showPopup, setShowPopup] = useState<boolean>(false);
+
+    const handleShowPopup = () => {
+        setShowPopup((prevState) => !prevState);
+    };
 
     // SelectWish
     const handleSelectMyWishes = async () => {
@@ -103,9 +110,8 @@ const UserSetting: FC<IProps> = ({
     // Logout
     const handleLogout = async () => {
         console.log('handleLogout');
-        // setAnchor(null);
-        // hideHeader && hideHeader();
-        // await dispatch(logout());
+        await logout();
+        setShowPopup(false);
         // !logoutWithoutUpdate && await handleGetInitialAllWishes(dispatch);
     };
 
@@ -125,21 +131,17 @@ const UserSetting: FC<IProps> = ({
                 </div>
             </UiButton>
 
+            <UiAvatar
+                avatar={myUser?.avatar}
+                alt={getFullName(myUser, userNotFoundT)}
+                size={44}
+                handleClick={handleShowPopup}
+            />
+
             <UiPopup
-                action={
-                    <div className="flex h-11 w-11 min-w-11 items-center justify-center overflow-hidden rounded-full bg-zinc-500 dark:bg-zinc-600">
-                        {myUser?.avatar ? (
-                            <Image
-                                src={myUser?.avatar}
-                                alt={getFullName(myUser, userNotFoundT)}
-                                width={44}
-                                height={44}
-                            />
-                        ) : (
-                            <AvatarIcon />
-                        )}
-                    </div>
-                }
+                classes="pt-12"
+                show={showPopup}
+                hid={() => setShowPopup(false)}
             >
                 {!myUser && (
                     <div className="mx-4 mt-4 flex flex-col items-center justify-evenly gap-2 rounded-lg bg-zinc-600 p-2 mobile-xs:flex-row">

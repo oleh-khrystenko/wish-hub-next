@@ -13,6 +13,7 @@ interface IUsersStore {
     registration: (data: IRegistration) => void;
     googleAuthorization: (data: IGoogleAuth) => void;
     login: (data: ILogin) => void;
+    logout: () => void;
     refresh: () => Promise<void>;
 }
 
@@ -97,6 +98,33 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                 ...state,
                 myUser: null,
                 error: error instanceof Error ? error.message : 'error',
+                isLoading: false,
+            }));
+        }
+    },
+    logout: async () => {
+        set((state) => ({
+            ...state,
+            error: null,
+            isLoading: true,
+        }));
+
+        try {
+            await usersApi.logout();
+
+            set((state) => ({
+                ...state,
+                myUser: null,
+                error: null,
+                isLoading: false,
+            }));
+        } catch (error) {
+            set((state) => ({
+                ...state,
+                error:
+                    error instanceof Error
+                        ? error.message
+                        : 'Failed to log out.',
                 isLoading: false,
             }));
         }
