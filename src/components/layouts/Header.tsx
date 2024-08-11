@@ -38,6 +38,9 @@ function Header() {
                 )}
                 clipboardErrorT={t('alerts.share-button.clipboard.error')}
                 confirmT={t('share-button.confirm')}
+                titleModalT={t('confirm-modal.title')}
+                confirmModalT={t('confirm-modal.confirm')}
+                closeModalT={t('confirm-modal.close')}
                 questionNobodyT={t('share-button.question-nobody')}
                 questionFriendsT={t('share-button.question-friends')}
                 contactsT={t('main-page.contacts')}

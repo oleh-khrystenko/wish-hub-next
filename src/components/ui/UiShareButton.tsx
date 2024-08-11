@@ -2,10 +2,10 @@
 
 import { FC, ReactNode, useState } from 'react';
 import { toast } from 'react-toastify';
-// import ConfirmModal from '@/components/ConfirmModal';
 import { EPrivacy } from '@/models/Settings';
 import ShareIcon from '@/components/icons/ShareIcon';
 import { useLocale } from 'next-intl';
+import UiConfirmModal from '@/components/ui/UiConfirmModal';
 
 interface IProps {
     classes?: string;
@@ -21,7 +21,9 @@ interface IProps {
     clipboardWishSuccessT: string;
     clipboardConsoleErrorT: string;
     clipboardErrorT: string;
-    confirmT: string;
+    titleModalT: string;
+    confirmModalT: string;
+    closeModalT: string;
     questionNobodyT: string;
     questionFriendsT: string;
 }
@@ -40,7 +42,9 @@ const UiShareButton: FC<IProps> = ({
     clipboardWishSuccessT,
     clipboardConsoleErrorT,
     clipboardErrorT,
-    confirmT,
+    titleModalT,
+    confirmModalT,
+    closeModalT,
     questionNobodyT,
     questionFriendsT,
 }) => {
@@ -103,18 +107,20 @@ const UiShareButton: FC<IProps> = ({
                 <ShareIcon />
             </button>
 
-            {/*<ConfirmModal*/}
-            {/*    show={show}*/}
-            {/*    confirmText={confirmT}*/}
-            {/*    close={() => setShow(false)}*/}
-            {/*    confirm={shareContent}*/}
-            {/*>*/}
-            {/*    <p className="text-lg">*/}
-            {/*        {wishShow === EPrivacy.NOBODY*/}
-            {/*            ? questionNobodyT*/}
-            {/*            : questionFriendsT}*/}
-            {/*    </p>*/}
-            {/*</ConfirmModal>*/}
+            <UiConfirmModal
+                show={show}
+                confirm={shareContent}
+                hid={() => setShow(false)}
+                titleModalT={titleModalT}
+                confirmModalT={confirmModalT}
+                closeModalT={closeModalT}
+            >
+                {/*<p className="text-base font-bold text-zinc-300">*/}
+                {wishShow === EPrivacy.NOBODY
+                    ? questionNobodyT
+                    : questionFriendsT}
+                {/*</p>*/}
+            </UiConfirmModal>
         </>
     );
 };

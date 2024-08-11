@@ -12,7 +12,6 @@ import UiThemeSwitcher from '@/components/ui/UiThemeSwitcher';
 import UiLangSelect from '@/components/ui/UiLangSelect';
 import LangIcon from '@/components/icons/LangIcon';
 import LightDarkThemeIcon from '@/components/icons/LightDarkThemeIcon';
-import LogoIcon from '@/components/icons/LogoIcon';
 import InfoIcon from '@/components/icons/InfoIcon';
 import ForumIcon from '@/components/icons/ForumIcon';
 import LogoutIcon from '@/components/icons/LogoutIcon';
@@ -42,6 +41,9 @@ interface IProps {
     clipboardConsoleErrorT: string;
     clipboardErrorT: string;
     confirmT: string;
+    titleModalT: string;
+    confirmModalT: string;
+    closeModalT: string;
     questionNobodyT: string;
     questionFriendsT: string;
     contactsT: string;
@@ -68,6 +70,9 @@ const UserSetting: FC<IProps> = ({
     clipboardConsoleErrorT,
     clipboardErrorT,
     confirmT,
+    titleModalT,
+    confirmModalT,
+    closeModalT,
     questionNobodyT,
     questionFriendsT,
     contactsT,
@@ -214,7 +219,9 @@ const UserSetting: FC<IProps> = ({
                         clipboardWishSuccessT={clipboardWishSuccessT}
                         clipboardConsoleErrorT={clipboardConsoleErrorT}
                         clipboardErrorT={clipboardErrorT}
-                        confirmT={confirmT}
+                        titleModalT={titleModalT}
+                        confirmModalT={confirmModalT}
+                        closeModalT={closeModalT}
                         questionNobodyT={questionNobodyT}
                         questionFriendsT={questionFriendsT}
                     >
