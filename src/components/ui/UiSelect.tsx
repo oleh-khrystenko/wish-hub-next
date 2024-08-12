@@ -30,7 +30,7 @@ const UiSelect: FC<IProps> = ({ options, isPending, value, onChange }) => {
     };
 
     return (
-        <OutsideClickHandler hid={() => setShow(false)}>
+        <OutsideClickHandler hide={() => setShow(false)}>
             <div
                 className={`${show ? 'rounded-t-md' : 'rounded-md'} relative bg-zinc-300 transition-all duration-300 ease-in-out dark:bg-zinc-800`}
             >

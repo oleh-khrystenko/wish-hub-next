@@ -13,8 +13,8 @@ import { jwtDecode } from 'jwt-decode';
 import { toast } from 'react-toastify';
 import { ELang } from '@/models/Settings';
 import { IUser } from '@/models/User';
-import { useUsersStore } from '@/stores/users';
-import usersApi from '@/stores/users/api';
+import { useMyUserStore } from '@/stores/my-user';
+import myUserApi from '@/stores/my-user/api';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 import UiCheckbox from '@/components/ui/UiCheckbox';
@@ -99,12 +99,12 @@ const ClientForm: FC<IProps> = ({
     privacyPolicyT,
     wishHubT,
 }) => {
-    const registration = useUsersStore((state) => state.registration);
-    const googleAuthorization = useUsersStore(
+    const registration = useMyUserStore((state) => state.registration);
+    const googleAuthorization = useMyUserStore(
         (state) => state.googleAuthorization
     );
-    const login = useUsersStore((state) => state.login);
-    const candidate = useUsersStore((state) => state.candidate);
+    const login = useMyUserStore((state) => state.login);
+    const candidate = useMyUserStore((state) => state.candidate);
 
     const {
         register,
@@ -171,7 +171,7 @@ const ClientForm: FC<IProps> = ({
         setClickedOnSubmit(true);
 
         if (isForgotPassword) {
-            return usersApi.forgotPassword({
+            return myUserApi.forgotPassword({
                 email: data.email.trim(),
                 lang: activeLocale as ELang,
             });

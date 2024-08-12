@@ -110,7 +110,7 @@ const UiShareButton: FC<IProps> = ({
             <UiConfirmModal
                 show={show}
                 confirm={shareContent}
-                hid={() => setShow(false)}
+                hide={() => setShow(false)}
                 titleModalT={titleModalT}
                 confirmModalT={confirmModalT}
                 closeModalT={closeModalT}

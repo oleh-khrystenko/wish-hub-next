@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import { t } from 'i18next';
 // import { toast } from 'react-toastify';
-import usersApi from '@/stores/users/api';
+import myUserApi from '@/stores/my-user/api';
 
 // Створення екземпляра axios з базовими налаштуваннями
 const api = axios.create({
@@ -35,7 +35,7 @@ api.interceptors.response.use(
         ) {
             originalRequest._isRetry = true;
             try {
-                const response = await usersApi.refresh();
+                const response = await myUserApi.refresh();
                 localStorage.setItem('token', response.data.accessToken);
                 return api.request(originalRequest);
             } catch (error: any) {

@@ -5,7 +5,7 @@ import UiButton from '@/components/ui/UiButton';
 interface IProps {
     show: boolean;
     confirm: () => void;
-    hid: () => void;
+    hide: () => void;
     children: ReactNode;
     titleModalT: string;
     confirmModalT: string;
@@ -15,7 +15,7 @@ interface IProps {
 const UiConfirmModal: FC<IProps> = ({
     show,
     confirm,
-    hid,
+    hide,
     children,
     titleModalT,
     confirmModalT,
@@ -33,7 +33,7 @@ const UiConfirmModal: FC<IProps> = ({
                 <UiButton variant="text-attention" onClick={confirm}>
                     {confirmModalT}
                 </UiButton>
-                <UiButton onClick={hid}>{closeModalT}</UiButton>
+                <UiButton onClick={hide}>{closeModalT}</UiButton>
             </div>
         </UiModal>
     );

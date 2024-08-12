@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
-import Header from '@/components/layouts/Header';
+import Header from '@/components/layouts/header/Header';
 import TempNav from '@/app/[locale]/TempNav';
 import Refresh from '@/helpers/hocs/Refresh';
 

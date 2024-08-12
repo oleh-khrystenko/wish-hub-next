@@ -1,8 +1,8 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { useUsersStore } from '@/stores/users';
-import { useThemeStore } from '@/stores/theme';
+import { useMyUserStore } from '@/stores/my-user';
+import { useSettingStore } from '@/stores/theme';
 import getFullName from '@/helpers/utils/get-full-name';
 import AvatarIcon from '@/components/icons/AvatarIcon';
 import UiButton from '@/components/ui/UiButton';
@@ -79,9 +79,9 @@ const UserSetting: FC<IProps> = ({
     logoutT,
     privacyPolicyT,
 }) => {
-    const myUser = useUsersStore((state) => state.myUser);
-    const logout = useUsersStore((state) => state.logout);
-    const theme = useThemeStore((state) => state.theme);
+    const myUser = useMyUserStore((state) => state.myUser);
+    const logout = useMyUserStore((state) => state.logout);
+    const theme = useSettingStore((state) => state.theme);
 
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
@@ -141,7 +141,7 @@ const UserSetting: FC<IProps> = ({
             <UiPopup
                 classes="pt-12"
                 show={showPopup}
-                hid={() => setShowPopup(false)}
+                hide={() => setShowPopup(false)}
             >
                 {!myUser && (
                     <div className="mx-4 mt-4 flex flex-col items-center justify-evenly gap-2 rounded-lg bg-zinc-600 p-2 mobile-xs:flex-row">

@@ -1,158 +1,53 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
-import { ICandidate, IUser } from '@/models/User';
-import { IGoogleAuth, ILogin, IRegistration } from '@/stores/users/types';
+import { IUser } from '@/models/User';
 import usersApi from '@/stores/users/api';
+import { ISendUsersParams } from '@/stores/users/types';
+import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
 interface IUsersStore {
     list: IUser[];
-    myUser: IUser | null;
-    candidate: ICandidate | null;
+    search: string;
+    followFromCount: number;
+    page: number;
+    stopRequests: boolean;
     isLoading: boolean;
     error: string | null;
-    registration: (data: IRegistration) => void;
-    googleAuthorization: (data: IGoogleAuth) => void;
-    login: (data: ILogin) => void;
-    logout: () => void;
-    refresh: () => Promise<void>;
+    getUsers: (params: ISendUsersParams) => Promise<void>;
 }
 
 export const useUsersStore = create<IUsersStore>((set) => ({
     list: [],
-    myUser: null,
-    candidate: null,
-    error: null,
+    search: '',
+    followFromCount: 0,
+    page: 1,
+    stopRequests: false,
     isLoading: false,
-    registration: async (data) => {
-        set((state) => ({
-            ...state,
-            myUser: null,
-            error: null,
-            isLoading: true,
-        }));
+    error: null,
+    getUsers: async (params) => {
+        set({ isLoading: true, stopRequests: true, error: null });
 
         try {
-            const response = await usersApi.registration(data);
+            const response = await usersApi.getUsers(params);
 
             set((state) => ({
                 ...state,
-                myUser: response.data.user,
+                list: response.data.users,
+                followFromCount: response.data.followFromCount,
+                page: 2,
+                stopRequests:
+                    response.data.users.length !== USERS_PAGINATION_LIMIT,
+                isLoading: false,
                 error: null,
-                isLoading: false,
             }));
-        } catch (error) {
-            set((state) => ({
-                ...state,
-                myUser: null,
-                error: error instanceof Error ? error.message : 'error',
+        } catch (error: any) {
+            set({
                 isLoading: false,
-            }));
-        }
-    },
-    googleAuthorization: async (data) => {
-        set((state) => ({
-            ...state,
-            myUser: null,
-            error: null,
-            isLoading: true,
-        }));
-
-        try {
-            const response = await usersApi.googleAuthorization(data);
-
-            set((state) => ({
-                ...state,
-                myUser: response.data.user,
-                error: null,
-                isLoading: false,
-            }));
-        } catch (error) {
-            set((state) => ({
-                ...state,
-                myUser: null,
-                error: error instanceof Error ? error.message : 'error',
-                isLoading: false,
-            }));
-        }
-    },
-    login: async (data) => {
-        set((state) => ({
-            ...state,
-            myUser: null,
-            error: null,
-            isLoading: true,
-        }));
-
-        try {
-            const response = await usersApi.login(data);
-
-            set((state) => ({
-                ...state,
-                myUser: response.data.user,
-                error: null,
-                isLoading: false,
-            }));
-        } catch (error) {
-            toast('googleErrorT', { type: 'error' });
-            set((state) => ({
-                ...state,
-                myUser: null,
-                error: error instanceof Error ? error.message : 'error',
-                isLoading: false,
-            }));
-        }
-    },
-    logout: async () => {
-        set((state) => ({
-            ...state,
-            error: null,
-            isLoading: true,
-        }));
-
-        try {
-            await usersApi.logout();
-
-            set((state) => ({
-                ...state,
-                myUser: null,
-                error: null,
-                isLoading: false,
-            }));
-        } catch (error) {
-            set((state) => ({
-                ...state,
+                stopRequests: false,
                 error:
-                    error instanceof Error
-                        ? error.message
-                        : 'Failed to log out.',
-                isLoading: false,
-            }));
-        }
-    },
-    refresh: async () => {
-        set((state) => ({
-            ...state,
-            myUser: null,
-            error: null,
-            isLoading: true,
-        }));
-
-        try {
-            const response = await usersApi.refresh();
-
-            set((state) => ({
-                ...state,
-                myUser: response.data.user,
-                error: null,
-                isLoading: false,
-            }));
-        } catch (error) {
-            set((state) => ({
-                ...state,
-                myUser: null,
-                error: error instanceof Error ? error.message : 'error',
-                isLoading: false,
-            }));
+                    error.response?.data?.message ||
+                    toast.error('An error occurred'),
+            });
         }
     },
 }));

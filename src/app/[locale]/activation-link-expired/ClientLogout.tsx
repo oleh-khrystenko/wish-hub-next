@@ -3,10 +3,10 @@
 import { FC } from 'react';
 import { redirect } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import { useUsersStore } from '@/stores/users';
+import { useMyUserStore } from '@/stores/my-user';
 
 const ClientLogout: FC = () => {
-    const myUser = useUsersStore((state) => state.myUser);
+    const myUser = useMyUserStore((state) => state.myUser);
 
     const activeLocale = useLocale();
 

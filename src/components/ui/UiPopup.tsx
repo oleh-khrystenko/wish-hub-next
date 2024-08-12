@@ -6,16 +6,16 @@ import OutsideClickHandler from '@/helpers/hocs/OutsideClickHandler';
 interface IProps {
     classes: string;
     show: boolean;
-    hid: () => void;
+    hide: () => void;
     children: ReactNode;
 }
 
-const UiPopup: FC<IProps> = ({ classes, show, hid, children }) => {
+const UiPopup: FC<IProps> = ({ classes, show, hide, children }) => {
     return (
         <div
             className={`${classes} ${show ? 'max-h-svh max-w-xl' : 'max-h-0 max-w-0'} absolute right-0 top-0 z-40 overflow-hidden transition-all duration-300 ease-in-out`}
         >
-            <OutsideClickHandler hid={hid}>
+            <OutsideClickHandler hide={hide}>
                 <div className="flex flex-col rounded-xl bg-zinc-400 dark:bg-zinc-700">
                     {children}
                 </div>

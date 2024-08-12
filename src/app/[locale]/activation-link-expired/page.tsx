@@ -2,7 +2,7 @@ import ClientLogout from '@/app/[locale]/activation-link-expired/ClientLogout';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import TempNav from '@/app/[locale]/TempNav';
 import Refresh from '@/helpers/hocs/Refresh';
-import Header from '@/components/layouts/Header';
+import Header from '@/components/layouts/header/Header';
 
 export default function ActivationLinkExpired() {
     return (

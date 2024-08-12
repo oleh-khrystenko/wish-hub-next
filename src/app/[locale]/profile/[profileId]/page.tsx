@@ -2,7 +2,7 @@ import { ParamsOnlyClient } from '@/app/[locale]/profile/[profileId]/ParamsOnlyC
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import TempNav from '@/app/[locale]/TempNav';
 import Refresh from '@/helpers/hocs/Refresh';
-import Header from '@/components/layouts/Header';
+import Header from '@/components/layouts/header/Header';
 
 export default function Profile() {
     return (

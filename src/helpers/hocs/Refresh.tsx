@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
-import { useUsersStore } from '@/stores/users';
+import { useMyUserStore } from '@/stores/my-user';
 import Loading from '@/components/layouts/Loading';
 
 interface IProps {
@@ -11,7 +11,7 @@ interface IProps {
 const Refresh: FC<IProps> = ({ children }) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    const refresh = useUsersStore((state) => state.refresh);
+    const refresh = useMyUserStore((state) => state.refresh);
 
     const hasCheckedAuth = useRef(false);
 

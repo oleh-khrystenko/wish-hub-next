@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import UserSetting from '@/components/layouts/UserSetting';
+import UserSetting from '@/components/layouts/header/UserSetting';
 import WishHub from '@/components/ui/WishHub';
 
 function Header() {

@@ -4,7 +4,7 @@ import { FC, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { ToastContainer } from 'react-toastify';
-import { useUsersStore } from '@/stores/users';
+import { useMyUserStore } from '@/stores/my-user';
 import Loading from '@/components/layouts/Loading';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const RoutesGuard: FC<IProps> = ({ isUnauthenticated = false, children }) => {
-    const myUser = useUsersStore((state) => state.myUser);
+    const myUser = useMyUserStore((state) => state.myUser);
 
     const activeLocale = useLocale();
     const router = useRouter();
