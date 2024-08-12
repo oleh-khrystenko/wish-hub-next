@@ -8,7 +8,7 @@ interface IThemeStore {
     setShowBurgerMenu: (value: boolean) => void;
 }
 
-export const useSettingStore = create<IThemeStore>((set) => ({
+export const useSettingsStore = create<IThemeStore>((set) => ({
     theme: ETheme.DARK,
     showBurgerMenu: false,
     setTheme: (value) => set({ theme: value }),

@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react';
 import { useMyUserStore } from '@/stores/my-user';
-import { useSettingStore } from '@/stores/theme';
+import { useSettingsStore } from '@/stores/settings';
 import getFullName from '@/helpers/utils/get-full-name';
 import AvatarIcon from '@/components/icons/AvatarIcon';
 import UiButton from '@/components/ui/UiButton';
@@ -81,7 +81,7 @@ const UserSetting: FC<IProps> = ({
 }) => {
     const myUser = useMyUserStore((state) => state.myUser);
     const logout = useMyUserStore((state) => state.logout);
-    const theme = useSettingStore((state) => state.theme);
+    const theme = useSettingsStore((state) => state.theme);
 
     const [showPopup, setShowPopup] = useState<boolean>(false);
 

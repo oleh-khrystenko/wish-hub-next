@@ -2,14 +2,14 @@
 
 import { useEffect } from 'react';
 import { ETheme } from '@/models/Settings';
-import { useSettingStore } from '@/stores/theme';
+import { useSettingsStore } from '@/stores/settings';
 import UiSwitch from '@/components/ui/UiSwitch';
 import SunIcon from '@/components/icons/SunIcon';
 import MoonIcon from '@/components/icons/MoonIcon';
 
 const UiThemeSwitcher = () => {
-    const theme = useSettingStore((state) => state.theme);
-    const setTheme = useSettingStore((state) => state.setTheme);
+    const theme = useSettingsStore((state) => state.theme);
+    const setTheme = useSettingsStore((state) => state.setTheme);
 
     const handleToggleTheme = () => {
         const newTheme = theme === ETheme.LIGHT ? ETheme.DARK : ETheme.LIGHT;

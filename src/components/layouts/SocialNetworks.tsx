@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useSettingStore } from '@/stores/theme';
+import { useSettingsStore } from '@/stores/settings';
 import InstagramIcon from '@/components/icons/InstagramIcon';
 import FacebookIcon from '@/components/icons/FacebookIcon';
 import YouTubeIcon from '@/components/icons/YouTubeIcon';
@@ -9,7 +9,7 @@ import TelegramIcon from '@/components/icons/TelegramIcon';
 // Іконки соціальних мереж взято з https://www.svgrepo.com/
 
 const SocialNetworks: FC = () => {
-    const theme = useSettingStore((state) => state.theme);
+    const theme = useSettingsStore((state) => state.theme);
 
     return (
         <>
