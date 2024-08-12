@@ -2,7 +2,7 @@ import UiButton from '@/components/ui/UiButton';
 
 function TempNav() {
     return (
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
             <UiButton href="about">about</UiButton>
             <UiButton href="activation-link-expired">
                 activation link expired

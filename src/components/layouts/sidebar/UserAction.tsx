@@ -78,17 +78,20 @@ const UserAction: FC<IProps> = ({ user }) => {
     };
 
     return (
-        <li>
+        <li className="flex items-center gap-5 py-2">
             <UiAvatar
                 avatar={user.avatar}
                 alt={getFullName(user, 'ddddd')}
-                size={32}
+                size={40}
                 handleClick={handleClick}
             />
 
-            <div>
-                <span>{getFullName(user, 'ddddd')}</span>
-                <span>{getFullName(user, 'ddddd')}</span>
+            <div className="flex grow flex-col gap-0.5">
+                <span className="text-sm text-zinc-800 dark:text-zinc-300">
+                    {getFullName(user, 'ddddd')}
+                </span>
+
+                {params !== null && params}
             </div>
         </li>
     );

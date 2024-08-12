@@ -20,7 +20,13 @@ const UiAvatar: FC<IProps> = ({ avatar, alt, size, handleClick }) => {
             onClick={handleClick}
         >
             {avatar ? (
-                <Image src={avatar} alt={alt} height={size} width={size} />
+                <Image
+                    src={avatar}
+                    alt={alt}
+                    height={size}
+                    width={size}
+                    className={`${classes} object-cover`}
+                />
             ) : (
                 <AvatarIcon />
             )}

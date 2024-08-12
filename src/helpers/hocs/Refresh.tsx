@@ -13,12 +13,12 @@ const Refresh: FC<IProps> = ({ children }) => {
 
     const refresh = useMyUserStore((state) => state.refresh);
 
-    const hasCheckedAuth = useRef(false);
+    const refreshed = useRef(false);
 
     useEffect(() => {
         setIsLoading(true);
-        if (hasCheckedAuth.current) return;
-        hasCheckedAuth.current = true;
+        if (refreshed.current) return;
+        refreshed.current = true;
         refresh().finally(() => setIsLoading(false));
     }, []);
 
