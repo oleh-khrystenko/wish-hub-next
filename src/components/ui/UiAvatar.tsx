@@ -29,7 +29,7 @@ const UiAvatar: FC<IProps> = ({ avatar, alt, size, handleClick }) => {
                     className={`${classes} object-cover`}
                 />
             ) : (
-                <AvatarIcon />
+                <AvatarIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
             )}
         </button>
     );

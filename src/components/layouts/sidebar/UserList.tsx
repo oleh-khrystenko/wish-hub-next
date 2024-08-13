@@ -9,12 +9,16 @@ import { useMyUserStore } from '@/stores/my-user';
 import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import { EUserType, ISendUsersParams } from '@/stores/users/types';
 import UiSearch from '@/components/ui/UiSearch';
+import { useTranslations } from 'next-intl';
+import UiSelect, { IOption } from '@/components/ui/UiSelect';
 
 interface IProps {
-    userNotFoundT: string;
+    text?: string;
 }
 
-const UserList: FC<IProps> = ({ userNotFoundT }) => {
+const UserList: FC<IProps> = ({ text }) => {
+    const mainPageT = useTranslations('main-page');
+
     const myUser = useMyUserStore((state) => state.myUser);
     const getUsers = useUsersStore((state) => state.getUsers);
     const addUsers = useUsersStore((state) => state.addUsers);
@@ -23,6 +27,7 @@ const UserList: FC<IProps> = ({ userNotFoundT }) => {
     const users = useUsersStore((state) => state.list);
     const page = useUsersStore((state) => state.page);
     const search = useUsersStore((state) => state.search);
+    const followFromCount = useUsersStore((state) => state.followFromCount);
     const setSearch = useUsersStore((state) => state.setSearch);
     const stopRequests = useUsersStore((state) => state.stopRequests);
     const isLoading = useUsersStore((state) => state.isLoading);
@@ -38,6 +43,64 @@ const UserList: FC<IProps> = ({ userNotFoundT }) => {
     const [userType, setUserType] = useState<ISendUsersParams['userType']>(
         EUserType.ALL
     );
+
+    const selectOptions: IOption[] = [
+        {
+            label: (
+                <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                    {mainPageT('all')}
+                </span>
+            ),
+            value: EUserType.ALL,
+        },
+        {
+            label: (
+                <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                    {mainPageT('friends')}
+                </span>
+            ),
+            value: EUserType.FRIENDS,
+        },
+        {
+            label: (
+                <>
+                    <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                        {mainPageT('friend-requests')}
+                    </span>
+                    {followFromCount > 0 && (
+                        <span className="absolute right-2 top-1/2 z-40 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-md bg-zinc-400 text-xs font-bold text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
+                            {followFromCount}
+                        </span>
+                    )}
+                </>
+            ),
+            value: EUserType.FOLLOW_FROM,
+        },
+        {
+            label: (
+                <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                    {mainPageT('sent-friend-requests')}
+                </span>
+            ),
+            value: EUserType.FOLLOW_TO,
+        },
+    ];
+
+    const handleChangeUserType = (value: IOption['value']) => {
+        setUserType(value as EUserType);
+
+        if (!myUser || !userListRef.current) return;
+
+        userListRef.current.scrollTo(0, 0);
+
+        getUsers({
+            page: 1,
+            limit: USERS_PAGINATION_LIMIT,
+            myUserId: myUser.id,
+            userType: value as EUserType,
+            search,
+        });
+    };
 
     const handleChangeSearchBar = async (value: string) => {
         await setSearch(value);
@@ -117,22 +180,44 @@ const UserList: FC<IProps> = ({ userNotFoundT }) => {
 
     return (
         <>
-            <div>
-                <UiSearch
-                    id="user-search"
-                    label={'ddddddddddd'}
-                    changeSearchBar={handleChangeSearchBar}
-                />
-            </div>
+            {myUser && (
+                <div className="mt-4 flex items-center gap-4">
+                    <span className="text-base text-zinc-800 dark:text-zinc-300">
+                        {mainPageT('filter')}:
+                    </span>
 
-            <div className="grow overflow-y-auto pr-2" ref={userListRef}>
+                    <div className="relative w-full">
+                        <UiSelect
+                            options={selectOptions}
+                            value={userType as EUserType}
+                            onChange={handleChangeUserType}
+                        />
+
+                        {followFromCount > 0 && (
+                            <span className="absolute right-2 top-1/2 z-40 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-md bg-zinc-400 text-xs font-bold text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
+                                {followFromCount}
+                            </span>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            <UiSearch
+                id="user-search"
+                label={mainPageT('users-search')}
+                changeSearchBar={handleChangeSearchBar}
+            />
+
+            <div
+                className="relative mt-4 grow overflow-y-auto pr-2"
+                ref={userListRef}
+            >
                 <ul className="list">
                     {users.map((user) => (
                         <UserAction
                             key={user.id}
                             user={user}
                             updateUsers={updateUsers}
-                            userNotFoundT={userNotFoundT}
                         />
                     ))}
                 </ul>

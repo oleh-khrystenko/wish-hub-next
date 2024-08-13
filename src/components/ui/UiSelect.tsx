@@ -1,18 +1,17 @@
 'use client';
 
 import { FC, ReactNode, useState } from 'react';
-import { ELang } from '@/models/Settings';
 import Loading from '@/components/layouts/Loading';
 import OutsideClickHandler from '@/helpers/hocs/OutsideClickHandler';
 
 export interface IOption {
     label: ReactNode;
-    value: ELang;
+    value: string;
 }
 
 interface IProps {
     options: IOption[];
-    isPending: boolean;
+    isPending?: boolean;
     value: IOption['value'];
     onChange: (value: IOption['value']) => void;
 }
@@ -32,10 +31,10 @@ const UiSelect: FC<IProps> = ({ options, isPending, value, onChange }) => {
     return (
         <OutsideClickHandler hide={() => setShow(false)}>
             <div
-                className={`${show ? 'rounded-t-md' : 'rounded-md'} relative bg-zinc-300 transition-all duration-300 ease-in-out dark:bg-zinc-800`}
+                className={`${show ? 'rounded-t-md' : 'rounded-md'} relative bg-zinc-200 transition-all duration-300 ease-in-out dark:bg-zinc-950`}
             >
                 <button
-                    className="relative z-20 flex items-center justify-center gap-2 rounded-md bg-zinc-300 px-4 py-2.5 dark:bg-zinc-800"
+                    className="relative z-40 flex w-full items-center gap-2 rounded-md bg-zinc-200 px-4 py-2.5 dark:bg-zinc-950"
                     type="button"
                     onClick={handleClick}
                 >
@@ -50,7 +49,7 @@ const UiSelect: FC<IProps> = ({ options, isPending, value, onChange }) => {
                 </button>
 
                 <ul
-                    className={`${show ? 'translate-y-0 scale-y-100' : '-translate-y-1/2 scale-y-0'} absolute left-0 top-full z-10 w-full origin-top rounded-b-md bg-zinc-300 transition-all duration-300 ease-in-out dark:bg-zinc-800`}
+                    className={`${show ? 'scale-y-100' : 'scale-y-0'} absolute left-0 top-full z-30 w-full origin-top rounded-b-md bg-zinc-200 transition-all duration-300 ease-in-out dark:bg-zinc-950`}
                 >
                     {options.map((option) => {
                         if (option.value === value) return null;
@@ -58,7 +57,7 @@ const UiSelect: FC<IProps> = ({ options, isPending, value, onChange }) => {
                         return (
                             <li key={option.value}>
                                 <button
-                                    className="flex items-center justify-center gap-2 px-4 py-2.5"
+                                    className="relative flex w-full items-center gap-2 px-4 py-2.5"
                                     type="button"
                                     onClick={() =>
                                         handleOptionChange(option.value)

@@ -38,7 +38,7 @@ function UiLangSelect() {
     const activeLocale = useLocale();
     const pathname = usePathname();
 
-    const handleChangeLang = (value: ELang) => {
+    const handleChangeLang = (value: IOption['value']) => {
         startTransition(() => {
             const newPath = pathname.replace(`/${activeLocale}`, '');
             router.replace(`/${value}${newPath}`);
