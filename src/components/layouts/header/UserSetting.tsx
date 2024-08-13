@@ -4,7 +4,6 @@ import { FC, useState } from 'react';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import getFullName from '@/helpers/utils/get-full-name';
-import AvatarIcon from '@/components/icons/AvatarIcon';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import UiThemeSwitcher from '@/components/ui/UiThemeSwitcher';
@@ -21,6 +20,7 @@ import { ETheme } from '@/models/Settings';
 import LogoDarkIcon from '@/components/icons/LogoDarkIcon';
 import LogoLightIcon from '@/components/icons/LogoLightIcon';
 import UiAvatar from '@/components/ui/UiAvatar';
+import PersonIcon from '@/components/icons/PersonIcon';
 
 interface IProps {
     singInT: string;
@@ -109,7 +109,6 @@ const UserSetting: FC<IProps> = ({
 
     // Logout
     const handleLogout = async () => {
-        console.log('handleLogout');
         await logout();
         setShowPopup(false);
         // !logoutWithoutUpdate && await handleGetInitialAllWishes(dispatch);
@@ -174,7 +173,7 @@ const UserSetting: FC<IProps> = ({
                                 href={`/profile/${myUser?.id}`}
                             >
                                 <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
-                                    <AvatarIcon classes="w-5 h-5 mx-0.5 fill-zinc-800 dark:fill-zinc-300" />
+                                    <PersonIcon />
                                     {myProfileT}
                                 </span>
                             </UiButton>

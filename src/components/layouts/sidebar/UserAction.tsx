@@ -1,32 +1,59 @@
 'use client';
 
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import 'dayjs/locale/uk';
 import { IUser } from '@/models/User';
-import { EPrivacy } from '@/models/Settings';
+import { EPrivacy, ETheme } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import UiAvatar from '@/components/ui/UiAvatar';
 import getFullName from '@/helpers/utils/get-full-name';
 import useLocaleFormats from '@/helpers/hooks/useLocaleFormats';
+import ThreeDotsIcon from '@/components/icons/ThreeDotsIcon';
+import UiButton from '@/components/ui/UiButton';
+import UiPopup from '@/components/ui/UiPopup';
+import { EWhereRemove, IRemoveFriend } from '@/stores/my-user/types';
+import PersonIcon from '@/components/icons/PersonIcon';
+import PersonAddIcon from '@/components/icons/PersonAddIcon';
+import PersonRemoveIcon from '@/components/icons/PersonRemoveIcon';
+import { useRouter } from 'next/navigation';
 
 dayjs.extend(advancedFormat);
 
 interface IProps {
     user: IUser;
     updateUsers: () => void;
+    userProfileT: string;
 }
 
-const UserAction: FC<IProps> = ({ user, updateUsers }) => {
+const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
+    const addFriend = useMyUserStore((state) => state.addFriend);
+    const removeFriend = useMyUserStore((state) => state.removeFriend);
 
     const activeLocale = useLocale();
+    const router = useRouter();
 
     const { getMonthWithDate } = useLocaleFormats();
+
+    const [showPopup, setShowPopup] = useState<boolean>(false);
+
+    let borderColor = 'border-transparent';
+    myUser?.followTo.includes(user.id) &&
+        (borderColor = 'border-zinc-400 dark:border-zinc-700');
+    myUser?.followFrom.includes(user.id) &&
+        (borderColor = 'border-zinc-200 dark:border-zinc-600');
+    myUser?.friends.includes(user.id) &&
+        (borderColor = 'border-cyan-400 dark:border-cyan-700');
+
+    const showAddFriend =
+        myUser?.followFrom.includes(user.id) ||
+        (!myUser?.friends.includes(user.id) &&
+            !myUser?.followTo.includes(user.id));
 
     const params = useMemo(() => {
         const showBirthday =
@@ -78,26 +105,140 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
         return null;
     }, [user, myUser]);
 
-    const handleClick = () => {
-        console.log('handleClick');
+    const handleGoToProfilePage = () => {
+        router.push(`/${activeLocale}/profile/${user.id}`);
+    };
+
+    const handleSelectWish = async () => {
+        console.log('handleSelectWish');
+        // await handleGetInitialWishList(dispatch, myUser?.id, user.id);
+        // hideSidebar();
+    };
+
+    const handleShowPopup = () => {
+        setShowPopup((prevState) => !prevState);
+    };
+
+    const handleAddFriend = async () => {
+        if (myUser) {
+            await addFriend({ myId: myUser.id, friendId: user.id });
+            setShowPopup(false);
+            updateUsers();
+        } else {
+            router.push(`/${activeLocale}/auth`);
+        }
+    };
+
+    const handleRemoveFriend = async (
+        whereRemove: IRemoveFriend['whereRemove']
+    ) => {
+        if (myUser) {
+            await removeFriend({
+                myId: myUser.id,
+                friendId: user.id,
+                whereRemove,
+            });
+            setShowPopup(false);
+            updateUsers();
+        } else {
+            router.push(`/${activeLocale}/auth`);
+        }
     };
 
     return (
-        <li className="flex items-center gap-5 py-2">
+        <li
+            className={`${borderColor} relative flex items-center gap-2 rounded-md border border-dashed py-1 pl-3`}
+        >
             <UiAvatar
                 avatar={user.avatar}
                 alt={getFullName(user, mainPageT('user_not_found'))}
                 size={40}
-                handleClick={handleClick}
+                handleClick={handleGoToProfilePage}
             />
 
-            <div className="flex grow flex-col gap-0.5">
+            <button
+                type="button"
+                className="flex grow flex-col gap-0.5 rounded-md px-3 py-1 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-700"
+                onClick={handleSelectWish}
+            >
                 <span className="text-sm text-zinc-800 dark:text-zinc-300">
                     {getFullName(user, mainPageT('user_not_found'))}
                 </span>
 
                 {params !== null && params}
-            </div>
+            </button>
+
+            <UiButton variant="text" onClick={handleShowPopup}>
+                <ThreeDotsIcon classes="m-2 w-6 h-6 stroke-zinc-800 dark:stroke-zinc-300" />
+            </UiButton>
+
+            <UiPopup
+                classes="pt-12"
+                show={showPopup}
+                hide={() => setShowPopup(false)}
+            >
+                <div className="flex flex-col p-2">
+                    <UiButton href={`profile/${user.id}`} variant="text">
+                        <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
+                            <PersonIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                            {userProfileT}
+                        </span>
+                    </UiButton>
+                    {showAddFriend && (
+                        <UiButton variant="text" onClick={handleAddFriend}>
+                            <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
+                                <PersonAddIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                {myUser?.followFrom.includes(user.id)
+                                    ? mainPageT('confirm-friendship')
+                                    : mainPageT('add-friend')}
+                            </span>
+                        </UiButton>
+                    )}
+                    {(myUser?.friends.includes(user.id) ||
+                        myUser?.followTo.includes(user.id)) && (
+                        <UiButton
+                            variant="text"
+                            onClick={() =>
+                                handleRemoveFriend(EWhereRemove.FOLLOW_TO)
+                            }
+                        >
+                            <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
+                                <PersonRemoveIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                {mainPageT('delete-your')} <br />{' '}
+                                {mainPageT('delete-request')}
+                            </span>
+                        </UiButton>
+                    )}
+                    {(myUser?.friends.includes(user.id) ||
+                        myUser?.followFrom.includes(user.id)) && (
+                        <UiButton
+                            variant="text"
+                            onClick={() =>
+                                handleRemoveFriend(EWhereRemove.FOLLOW_FROM)
+                            }
+                        >
+                            <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
+                                <PersonRemoveIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                {mainPageT('delete-user_s')} <br />{' '}
+                                {mainPageT('delete-request')}
+                            </span>
+                        </UiButton>
+                    )}
+                    {myUser?.friends.includes(user.id) && (
+                        <UiButton
+                            variant="text"
+                            onClick={() =>
+                                handleRemoveFriend(EWhereRemove.FRIENDS)
+                            }
+                        >
+                            <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
+                                <PersonRemoveIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                {mainPageT('remove-friend')}
+                            </span>
+                        </UiButton>
+                    )}
+                </div>
+            </UiPopup>
         </li>
     );
 };

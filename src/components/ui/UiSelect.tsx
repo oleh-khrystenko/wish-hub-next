@@ -34,7 +34,7 @@ const UiSelect: FC<IProps> = ({ options, isPending, value, onChange }) => {
                 className={`${show ? 'rounded-t-md' : 'rounded-md'} relative bg-zinc-200 transition-all duration-300 ease-in-out dark:bg-zinc-950`}
             >
                 <button
-                    className="relative z-40 flex w-full items-center gap-2 rounded-md bg-zinc-200 px-4 py-2.5 dark:bg-zinc-950"
+                    className="relative z-40 flex w-full items-center gap-2 rounded-md bg-zinc-200 px-3 py-2.5 dark:bg-zinc-950"
                     type="button"
                     onClick={handleClick}
                 >
@@ -57,7 +57,7 @@ const UiSelect: FC<IProps> = ({ options, isPending, value, onChange }) => {
                         return (
                             <li key={option.value}>
                                 <button
-                                    className="relative flex w-full items-center gap-2 px-4 py-2.5"
+                                    className="relative flex w-full items-center gap-2 px-3 py-2.5"
                                     type="button"
                                     onClick={() =>
                                         handleOptionChange(option.value)

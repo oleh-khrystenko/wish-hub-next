@@ -13,10 +13,10 @@ import { useTranslations } from 'next-intl';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 
 interface IProps {
-    text?: string;
+    userProfileT: string;
 }
 
-const UserList: FC<IProps> = ({ text }) => {
+const UserList: FC<IProps> = ({ userProfileT }) => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -47,7 +47,7 @@ const UserList: FC<IProps> = ({ text }) => {
     const selectOptions: IOption[] = [
         {
             label: (
-                <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
                     {mainPageT('all')}
                 </span>
             ),
@@ -55,7 +55,7 @@ const UserList: FC<IProps> = ({ text }) => {
         },
         {
             label: (
-                <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
                     {mainPageT('friends')}
                 </span>
             ),
@@ -64,7 +64,7 @@ const UserList: FC<IProps> = ({ text }) => {
         {
             label: (
                 <>
-                    <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                    <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
                         {mainPageT('friend-requests')}
                     </span>
                     {followFromCount > 0 && (
@@ -78,7 +78,7 @@ const UserList: FC<IProps> = ({ text }) => {
         },
         {
             label: (
-                <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
                     {mainPageT('sent-friend-requests')}
                 </span>
             ),
@@ -181,7 +181,7 @@ const UserList: FC<IProps> = ({ text }) => {
     return (
         <>
             {myUser && (
-                <div className="mt-4 flex items-center gap-4">
+                <div className="mt-4 flex items-center gap-3">
                     <span className="text-base text-zinc-800 dark:text-zinc-300">
                         {mainPageT('filter')}:
                     </span>
@@ -212,12 +212,13 @@ const UserList: FC<IProps> = ({ text }) => {
                 className="relative mt-4 grow overflow-y-auto pr-2"
                 ref={userListRef}
             >
-                <ul className="list">
+                <ul className="flex flex-col gap-1">
                     {users.map((user) => (
                         <UserAction
                             key={user.id}
                             user={user}
                             updateUsers={updateUsers}
+                            userProfileT={userProfileT}
                         />
                     ))}
                 </ul>

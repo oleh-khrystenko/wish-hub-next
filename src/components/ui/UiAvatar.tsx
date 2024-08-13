@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
-import AvatarIcon from '@/components/icons/AvatarIcon';
 import { IUser } from '@/models/User';
+import PersonIcon from '@/components/icons/PersonIcon';
 
 interface IProps {
     avatar: IUser['avatar'];
@@ -29,7 +29,7 @@ const UiAvatar: FC<IProps> = ({ avatar, alt, size, handleClick }) => {
                     className={`${classes} object-cover`}
                 />
             ) : (
-                <AvatarIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                <PersonIcon classes="w-7 h-7 fill-zinc-800 dark:fill-zinc-300" />
             )}
         </button>
     );

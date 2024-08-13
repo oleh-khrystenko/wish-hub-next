@@ -1,7 +1,13 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
 import { ICandidate, IUser } from '@/models/User';
-import { IGoogleAuth, ILogin, IRegistration } from '@/stores/my-user/types';
+import {
+    IAddFriend,
+    IGoogleAuth,
+    ILogin,
+    IRegistration,
+    IRemoveFriend,
+} from '@/stores/my-user/types';
 import myUserApi from '@/stores/my-user/api';
 
 interface IMyUserStore {
@@ -14,6 +20,8 @@ interface IMyUserStore {
     login: (data: ILogin) => void;
     logout: () => void;
     refresh: () => Promise<void>;
+    addFriend: (data: IAddFriend) => Promise<void>;
+    removeFriend: (data: IRemoveFriend) => Promise<void>;
 }
 
 export const useMyUserStore = create<IMyUserStore>((set) => ({
@@ -141,6 +149,56 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             set((state) => ({
                 ...state,
                 myUser: response.data.user,
+                error: null,
+                isLoading: false,
+            }));
+        } catch (error) {
+            set((state) => ({
+                ...state,
+                myUser: null,
+                error: error instanceof Error ? error.message : 'error',
+                isLoading: false,
+            }));
+        }
+    },
+    addFriend: async (data) => {
+        set((state) => ({
+            ...state,
+            error: null,
+            isLoading: true,
+        }));
+
+        try {
+            const response = await myUserApi.addFriend(data);
+
+            set((state) => ({
+                ...state,
+                myUser: response.data,
+                error: null,
+                isLoading: false,
+            }));
+        } catch (error) {
+            set((state) => ({
+                ...state,
+                myUser: null,
+                error: error instanceof Error ? error.message : 'error',
+                isLoading: false,
+            }));
+        }
+    },
+    removeFriend: async (data) => {
+        set((state) => ({
+            ...state,
+            error: null,
+            isLoading: true,
+        }));
+
+        try {
+            const response = await myUserApi.removeFriend(data);
+
+            set((state) => ({
+                ...state,
+                myUser: response.data,
                 error: null,
                 isLoading: false,
             }));
