@@ -11,10 +11,10 @@ import { EUserType, ISendUsersParams } from '@/stores/users/types';
 import UiSearch from '@/components/ui/UiSearch';
 
 interface IProps {
-    text?: string;
+    userNotFoundT: string;
 }
 
-const UserList: FC<IProps> = ({ text }) => {
+const UserList: FC<IProps> = ({ userNotFoundT }) => {
     const myUser = useMyUserStore((state) => state.myUser);
     const getUsers = useUsersStore((state) => state.getUsers);
     const addUsers = useUsersStore((state) => state.addUsers);
@@ -132,6 +132,7 @@ const UserList: FC<IProps> = ({ text }) => {
                             key={user.id}
                             user={user}
                             updateUsers={updateUsers}
+                            userNotFoundT={userNotFoundT}
                         />
                     ))}
                 </ul>

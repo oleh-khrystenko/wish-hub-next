@@ -17,9 +17,10 @@ dayjs.extend(advancedFormat);
 interface IProps {
     user: IUser;
     updateUsers: () => void;
+    userNotFoundT: string;
 }
 
-const UserAction: FC<IProps> = ({ user }) => {
+const UserAction: FC<IProps> = ({ user, updateUsers, userNotFoundT }) => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -86,14 +87,14 @@ const UserAction: FC<IProps> = ({ user }) => {
         <li className="flex items-center gap-5 py-2">
             <UiAvatar
                 avatar={user.avatar}
-                alt={getFullName(user, mainPageT('user_not_found'))}
+                alt={getFullName(user, userNotFoundT)}
                 size={40}
                 handleClick={handleClick}
             />
 
             <div className="flex grow flex-col gap-0.5">
                 <span className="text-sm text-zinc-800 dark:text-zinc-300">
-                    {getFullName(user, mainPageT('user_not_found'))}
+                    {getFullName(user, userNotFoundT)}
                 </span>
 
                 {params !== null && params}

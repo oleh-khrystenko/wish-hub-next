@@ -1,7 +1,13 @@
-import { useTranslations } from 'next-intl';
+import {
+    NextIntlClientProvider,
+    useMessages,
+    useTranslations,
+} from 'next-intl';
+import pick from 'lodash.pick';
 import UserList from '@/components/layouts/sidebar/UserList';
 
 function Sidebar() {
+    const messages = useMessages();
     const t = useTranslations();
 
     return (
@@ -10,7 +16,9 @@ function Sidebar() {
                 {t('main-page.users')}
             </h2>
 
-            <UserList />
+            <NextIntlClientProvider messages={pick(messages, ['main-page'])}>
+                <UserList userNotFoundT={t('main-page.user_not_found')} />
+            </NextIntlClientProvider>
         </div>
     );
 }
