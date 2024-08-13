@@ -42,6 +42,11 @@ export default function RootLayout({
             <head>
                 <title>Wish Hub</title>
                 <meta name="description" content={description} />
+                <link
+                    rel="alternate"
+                    hrefLang={`${locale}-ua`}
+                    href={`https://wish-hub.net/${locale}`}
+                />
                 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
                 <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
             </head>

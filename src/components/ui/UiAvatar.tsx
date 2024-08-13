@@ -23,6 +23,7 @@ const UiAvatar: FC<IProps> = ({ avatar, alt, size, handleClick }) => {
                 <Image
                     src={avatar}
                     alt={alt}
+                    title={alt}
                     height={size}
                     width={size}
                     className={`${classes} object-cover`}

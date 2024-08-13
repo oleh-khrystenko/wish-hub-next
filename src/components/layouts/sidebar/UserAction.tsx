@@ -1,15 +1,18 @@
 'use client';
 
 import { FC, useMemo } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
 import 'dayjs/locale/uk';
-import UiAvatar from '@/components/ui/UiAvatar';
 import { IUser } from '@/models/User';
-import getFullName from '@/helpers/utils/get-full-name';
-import { useMyUserStore } from '@/stores/my-user';
 import { EPrivacy } from '@/models/Settings';
-import { useLocale } from 'next-intl';
+import { useMyUserStore } from '@/stores/my-user';
+import UiAvatar from '@/components/ui/UiAvatar';
+import getFullName from '@/helpers/utils/get-full-name';
 import useLocaleFormats from '@/helpers/hooks/useLocaleFormats';
+
+dayjs.extend(advancedFormat);
 
 interface IProps {
     user: IUser;
@@ -17,6 +20,8 @@ interface IProps {
 }
 
 const UserAction: FC<IProps> = ({ user }) => {
+    const mainPageT = useTranslations('main-page');
+
     const myUser = useMyUserStore((state) => state.myUser);
 
     const activeLocale = useLocale();
@@ -33,11 +38,11 @@ const UserAction: FC<IProps> = ({ user }) => {
         if (showBirthday) {
             return (
                 <span className="text-xs text-zinc-700 dark:text-zinc-400">
-                    {/*{t('main-page.bd', {*/}
-                    {/*    birthday: dayjs(user.birthday)*/}
-                    {/*        .locale(activeLocale)*/}
-                    {/*        .format(getMonthWithDate()),*/}
-                    {/*})}*/}
+                    {mainPageT('bd', {
+                        birthday: dayjs(user.birthday)
+                            .locale(activeLocale)
+                            .format(getMonthWithDate()),
+                    })}
                 </span>
             );
         }
@@ -81,14 +86,14 @@ const UserAction: FC<IProps> = ({ user }) => {
         <li className="flex items-center gap-5 py-2">
             <UiAvatar
                 avatar={user.avatar}
-                alt={getFullName(user, 'ddddd')}
+                alt={getFullName(user, mainPageT('user_not_found'))}
                 size={40}
                 handleClick={handleClick}
             />
 
             <div className="flex grow flex-col gap-0.5">
                 <span className="text-sm text-zinc-800 dark:text-zinc-300">
-                    {getFullName(user, 'ddddd')}
+                    {getFullName(user, mainPageT('user_not_found'))}
                 </span>
 
                 {params !== null && params}
