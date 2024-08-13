@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useMemo, useState } from 'react';
+import { FC, useMemo, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
@@ -40,7 +40,10 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
 
     const { getMonthWithDate } = useLocaleFormats();
 
+    const popupActionRef = useRef<HTMLDivElement>(null);
+
     const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [showPopupUp, setShowPopupUp] = useState<boolean>(false);
 
     let borderColor = 'border-transparent';
     myUser?.followTo.includes(user.id) &&
@@ -115,10 +118,6 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
         // hideSidebar();
     };
 
-    const handleShowPopup = () => {
-        setShowPopup((prevState) => !prevState);
-    };
-
     const handleAddFriend = async () => {
         if (myUser) {
             await addFriend({ myId: myUser.id, friendId: user.id });
@@ -145,9 +144,26 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
         }
     };
 
+    const handleShowPopup = () => {
+        if (popupActionRef.current) {
+            const windowHeight = window.innerHeight;
+            const threshold = windowHeight * (2 / 3);
+            const popupActionTop =
+                popupActionRef.current.getBoundingClientRect().top;
+
+            if (popupActionTop > threshold) {
+                setShowPopupUp(true);
+            } else {
+                setShowPopupUp(false);
+            }
+        }
+
+        setShowPopup(true);
+    };
+
     return (
         <li
-            className={`${borderColor} relative flex items-center gap-2 rounded-md border border-dashed py-1 pl-3`}
+            className={`${borderColor} flex items-center gap-2 rounded-md border border-dashed py-1 pl-3`}
         >
             <UiAvatar
                 avatar={user.avatar}
@@ -168,77 +184,80 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
                 {params !== null && params}
             </button>
 
-            <UiButton variant="text" onClick={handleShowPopup}>
-                <ThreeDotsIcon classes="m-2 w-6 h-6 stroke-zinc-800 dark:stroke-zinc-300" />
-            </UiButton>
+            <div className="relative" ref={popupActionRef}>
+                <UiButton variant="text" onClick={handleShowPopup}>
+                    <ThreeDotsIcon classes="m-2 w-6 h-6 stroke-zinc-800 dark:stroke-zinc-300" />
+                </UiButton>
 
-            <UiPopup
-                classes="pt-12"
-                show={showPopup}
-                hide={() => setShowPopup(false)}
-            >
-                <div className="flex flex-col p-2">
-                    <UiButton href={`profile/${user.id}`} variant="text">
-                        <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
-                            <PersonIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
-                            {userProfileT}
-                        </span>
-                    </UiButton>
-                    {showAddFriend && (
-                        <UiButton variant="text" onClick={handleAddFriend}>
+                <UiPopup
+                    classes={showPopupUp ? 'pb-10' : 'pt-10'}
+                    show={showPopup}
+                    showPopupUp={showPopupUp}
+                    hide={() => setShowPopup(false)}
+                >
+                    <div className="flex flex-col p-2">
+                        <UiButton href={`profile/${user.id}`} variant="text">
                             <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
-                                <PersonAddIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
-                                {myUser?.followFrom.includes(user.id)
-                                    ? mainPageT('confirm-friendship')
-                                    : mainPageT('add-friend')}
+                                <PersonIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                {userProfileT}
                             </span>
                         </UiButton>
-                    )}
-                    {(myUser?.friends.includes(user.id) ||
-                        myUser?.followTo.includes(user.id)) && (
-                        <UiButton
-                            variant="text"
-                            onClick={() =>
-                                handleRemoveFriend(EWhereRemove.FOLLOW_TO)
-                            }
-                        >
-                            <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
-                                <PersonRemoveIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
-                                {mainPageT('delete-your')} <br />{' '}
-                                {mainPageT('delete-request')}
-                            </span>
-                        </UiButton>
-                    )}
-                    {(myUser?.friends.includes(user.id) ||
-                        myUser?.followFrom.includes(user.id)) && (
-                        <UiButton
-                            variant="text"
-                            onClick={() =>
-                                handleRemoveFriend(EWhereRemove.FOLLOW_FROM)
-                            }
-                        >
-                            <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
-                                <PersonRemoveIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
-                                {mainPageT('delete-user_s')} <br />{' '}
-                                {mainPageT('delete-request')}
-                            </span>
-                        </UiButton>
-                    )}
-                    {myUser?.friends.includes(user.id) && (
-                        <UiButton
-                            variant="text"
-                            onClick={() =>
-                                handleRemoveFriend(EWhereRemove.FRIENDS)
-                            }
-                        >
-                            <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
-                                <PersonRemoveIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
-                                {mainPageT('remove-friend')}
-                            </span>
-                        </UiButton>
-                    )}
-                </div>
-            </UiPopup>
+                        {showAddFriend && (
+                            <UiButton variant="text" onClick={handleAddFriend}>
+                                <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
+                                    <PersonAddIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                    {myUser?.followFrom.includes(user.id)
+                                        ? mainPageT('confirm-friendship')
+                                        : mainPageT('add-friend')}
+                                </span>
+                            </UiButton>
+                        )}
+                        {(myUser?.friends.includes(user.id) ||
+                            myUser?.followTo.includes(user.id)) && (
+                            <UiButton
+                                variant="text"
+                                onClick={() =>
+                                    handleRemoveFriend(EWhereRemove.FOLLOW_TO)
+                                }
+                            >
+                                <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
+                                    <PersonRemoveIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                    {mainPageT('delete-your')} <br />{' '}
+                                    {mainPageT('delete-request')}
+                                </span>
+                            </UiButton>
+                        )}
+                        {(myUser?.friends.includes(user.id) ||
+                            myUser?.followFrom.includes(user.id)) && (
+                            <UiButton
+                                variant="text"
+                                onClick={() =>
+                                    handleRemoveFriend(EWhereRemove.FOLLOW_FROM)
+                                }
+                            >
+                                <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
+                                    <PersonRemoveIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                    {mainPageT('delete-user_s')} <br />{' '}
+                                    {mainPageT('delete-request')}
+                                </span>
+                            </UiButton>
+                        )}
+                        {myUser?.friends.includes(user.id) && (
+                            <UiButton
+                                variant="text"
+                                onClick={() =>
+                                    handleRemoveFriend(EWhereRemove.FRIENDS)
+                                }
+                            >
+                                <span className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800">
+                                    <PersonRemoveIcon classes="w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                    {mainPageT('remove-friend')}
+                                </span>
+                            </UiButton>
+                        )}
+                    </div>
+                </UiPopup>
+            </div>
         </li>
     );
 };
