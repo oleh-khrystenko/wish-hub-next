@@ -19,6 +19,7 @@ import PersonIcon from '@/components/icons/PersonIcon';
 import PersonAddIcon from '@/components/icons/PersonAddIcon';
 import PersonRemoveIcon from '@/components/icons/PersonRemoveIcon';
 import { useRouter } from 'next/navigation';
+import { useSettingsStore } from '@/stores/settings';
 
 dayjs.extend(advancedFormat);
 
@@ -34,6 +35,9 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
     const myUser = useMyUserStore((state) => state.myUser);
     const addFriend = useMyUserStore((state) => state.addFriend);
     const removeFriend = useMyUserStore((state) => state.removeFriend);
+    const setShowBurgerMenu = useSettingsStore(
+        (state) => state.setShowBurgerMenu
+    );
 
     const activeLocale = useLocale();
     const router = useRouter();
@@ -126,7 +130,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
     const handleSelectWish = async () => {
         console.log('handleSelectWish');
         // await handleGetInitialWishList(dispatch, myUser?.id, user.id);
-        // hideSidebar();
+        setShowBurgerMenu(false);
     };
 
     const handleAddFriend = async () => {

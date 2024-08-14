@@ -13,12 +13,12 @@ import myUserApi from '@/stores/my-user/api';
 interface IMyUserStore {
     myUser: IUser | null;
     candidate: ICandidate | null;
-    isLoading: boolean;
     error: string | null;
-    registration: (data: IRegistration) => void;
-    googleAuthorization: (data: IGoogleAuth) => void;
-    login: (data: ILogin) => void;
-    logout: () => void;
+    isLoading: boolean;
+    registration: (data: IRegistration) => Promise<void>;
+    googleAuthorization: (data: IGoogleAuth) => Promise<void>;
+    login: (data: ILogin) => Promise<void>;
+    logout: () => Promise<void>;
     refresh: () => Promise<void>;
     addFriend: (data: IAddFriend) => Promise<void>;
     removeFriend: (data: IRemoveFriend) => Promise<void>;

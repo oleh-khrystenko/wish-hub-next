@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 import { ETheme } from '@/models/Settings';
 
-interface IThemeStore {
+interface ISettingsStore {
     theme: ETheme;
     showBurgerMenu: boolean;
     setTheme: (value: ETheme) => void;
     setShowBurgerMenu: (value: boolean) => void;
 }
 
-export const useSettingsStore = create<IThemeStore>((set) => ({
+export const useSettingsStore = create<ISettingsStore>((set) => ({
     theme: ETheme.DARK,
     showBurgerMenu: false,
     setTheme: (value) => set({ theme: value }),
