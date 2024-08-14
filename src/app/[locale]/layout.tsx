@@ -44,8 +44,23 @@ export default function RootLayout({
                 <meta name="description" content={description} />
                 <link
                     rel="alternate"
-                    hrefLang={`${locale}-ua`}
-                    href={`https://wish-hub.net/${locale}`}
+                    hrefLang="x-default"
+                    href="https://wish-hub.net/uk"
+                />
+                <link
+                    rel="alternate"
+                    hrefLang="uk-ua"
+                    href="https://wish-hub.net/uk"
+                />
+                <link
+                    rel="alternate"
+                    hrefLang="en-ua"
+                    href="https://wish-hub.net/en"
+                />
+                <link
+                    rel="alternate"
+                    hrefLang="ru-ua"
+                    href="https://wish-hub.net/ru"
                 />
                 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
                 <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />

@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
@@ -41,9 +41,11 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
     const { getMonthWithDate } = useLocaleFormats();
 
     const popupActionRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLLIElement>(null);
 
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showPopupUp, setShowPopupUp] = useState<boolean>(false);
+    const [textWidth, setTextWidth] = useState<number>(0);
 
     let borderColor = 'border-transparent';
     myUser?.followTo.includes(user.id) &&
@@ -67,7 +69,10 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
                     myUser?.friends.includes(user.id)));
         if (showBirthday) {
             return (
-                <span className="text-xs text-zinc-700 dark:text-zinc-400">
+                <span
+                    className="truncate text-left text-xs text-zinc-700 dark:text-zinc-400"
+                    style={{ width: `${textWidth}px` }}
+                >
                     {mainPageT('bd', {
                         birthday: dayjs(user.birthday)
                             .locale(activeLocale)
@@ -85,7 +90,10 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
                     myUser?.friends.includes(user.id)));
         if (showDeliveryAddress) {
             return (
-                <span className="text-xs text-zinc-700 dark:text-zinc-400">
+                <span
+                    className="truncate text-left text-xs text-zinc-700 dark:text-zinc-400"
+                    style={{ width: `${textWidth}px` }}
+                >
                     {user.deliveryAddress}
                 </span>
             );
@@ -99,14 +107,17 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
                     myUser?.friends.includes(user.id)));
         if (showEmail) {
             return (
-                <span className="text-xs text-zinc-700 dark:text-zinc-400">
+                <span
+                    className="truncate text-left text-xs text-zinc-700 dark:text-zinc-400"
+                    style={{ width: `${textWidth}px` }}
+                >
                     {user.email}
                 </span>
             );
         }
 
         return null;
-    }, [user, myUser]);
+    }, [user, myUser, textWidth]);
 
     const handleGoToProfilePage = () => {
         router.push(`/${activeLocale}/profile/${user.id}`);
@@ -161,9 +172,27 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
         setShowPopup(true);
     };
 
+    useEffect(() => {
+        if (containerRef.current) {
+            const handleResize = () => {
+                const containerWidth: number =
+                    containerRef.current?.offsetWidth || 0;
+                setTextWidth(containerWidth - 2 - 12 - 40 - 40 - 16 - 24); // 2 - left and right border, 12 - left padding, 40 - avatar width, 40 - action width, 16 - two gaps between elements, 24 - left and right padding in content
+            };
+            handleResize();
+
+            window.addEventListener('resize', handleResize);
+
+            return () => {
+                window.removeEventListener('resize', handleResize);
+            };
+        }
+    }, []);
+
     return (
         <li
             className={`${borderColor} flex items-center gap-2 rounded-md border border-dashed py-1 pl-3`}
+            ref={containerRef}
         >
             <UiAvatar
                 avatar={user.avatar}
@@ -177,7 +206,10 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
                 className="flex grow flex-col gap-0.5 rounded-md px-3 py-1 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-700"
                 onClick={handleSelectWish}
             >
-                <span className="text-sm text-zinc-800 dark:text-zinc-300">
+                <span
+                    className="truncate text-left text-sm text-zinc-800 dark:text-zinc-300"
+                    style={{ width: `${textWidth}px` }}
+                >
                     {getFullName(user, mainPageT('user_not_found'))}
                 </span>
 

@@ -23,9 +23,9 @@ const UiConfirmModal: FC<IProps> = ({
 }) => {
     return (
         <UiModal show={show}>
-            <h3 className="mb-4 text-center text-2xl font-bold text-rose-500">
+            <span className="mb-4 text-center text-2xl font-bold text-rose-500">
                 {titleModalT}
-            </h3>
+            </span>
 
             {children}
 
