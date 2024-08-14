@@ -9,7 +9,7 @@ export default function Main() {
 
     return (
         <main className="flex h-svh flex-col p-1 tablet-md:gap-1">
-            <Refresh>
+            <Refresh refreshT={t('alerts.my-user-api.refresh.error')}>
                 <Header />
 
                 <div className="flex grow gap-2 overflow-hidden">

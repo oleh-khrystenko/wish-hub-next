@@ -26,10 +26,18 @@ dayjs.extend(advancedFormat);
 interface IProps {
     user: IUser;
     updateUsers: () => void;
+    addFriendErrorT: string;
+    removeFriendErrorT: string;
     userProfileT: string;
 }
 
-const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
+const UserAction: FC<IProps> = ({
+    user,
+    updateUsers,
+    addFriendErrorT,
+    removeFriendErrorT,
+    userProfileT,
+}) => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -135,7 +143,10 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
 
     const handleAddFriend = async () => {
         if (myUser) {
-            await addFriend({ myId: myUser.id, friendId: user.id });
+            await addFriend(
+                { myId: myUser.id, friendId: user.id },
+                addFriendErrorT
+            );
             setShowPopup(false);
             updateUsers();
         } else {
@@ -147,11 +158,14 @@ const UserAction: FC<IProps> = ({ user, updateUsers, userProfileT }) => {
         whereRemove: IRemoveFriend['whereRemove']
     ) => {
         if (myUser) {
-            await removeFriend({
-                myId: myUser.id,
-                friendId: user.id,
-                whereRemove,
-            });
+            await removeFriend(
+                {
+                    myId: myUser.id,
+                    friendId: user.id,
+                    whereRemove,
+                },
+                removeFriendErrorT
+            );
             setShowPopup(false);
             updateUsers();
         } else {

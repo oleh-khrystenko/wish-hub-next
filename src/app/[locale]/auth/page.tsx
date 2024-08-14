@@ -29,7 +29,7 @@ export default function Auth() {
                 <TempNav />
             </header>
 
-            <Refresh>
+            <Refresh refreshT={t('alerts.my-user-api.refresh.error')}>
                 <RoutesGuard isUnauthenticated>
                     <ClientForm
                         titleT={t('auth-page.title.sing_in')}
@@ -43,6 +43,13 @@ export default function Auth() {
                         privacyPolicyErrorT={t(
                             'auth-page.privacy_policy_error'
                         )}
+                        registrationErrorT={t(
+                            'alerts.my-user-api.registration.error'
+                        )}
+                        googleAuthErrorT={t(
+                            'alerts.my-user-api.google-authorization.error'
+                        )}
+                        loginErrorT={t('alerts.my-user-api.login.error')}
                         passwordsErrorT={t('auth-page.passwords_error')}
                         googleErrorT={t('alerts.auth-page.google-login.error')}
                         orT={t('auth-page.or')}

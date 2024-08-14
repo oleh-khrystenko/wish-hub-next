@@ -51,58 +51,58 @@
         },
         "my-user-api": {
             "registration": {
-                "error": "{type}.registration: Не вдалось зареєструватись."
+                "error": "registration: Не вдалось зареєструватись."
             },
             "send-activation-link": {
-                "error": "{type}.sendActivationLink: Не вдалось надіслати посилання активації."
+                "error": "sendActivationLink: Не вдалось надіслати посилання активації."
             },
             "google-authorization": {
-                "error": "{type}.googleAuthorization: Не вдалось увійти за допомогою Google."
+                "error": "googleAuthorization: Не вдалось увійти за допомогою Google."
             },
             "login": {
-                "error": "{type}.login: Не вдалось увійти на сайт."
+                "error": "login: Не вдалось увійти на сайт."
             },
             "logout": {
-                "error": "{type}.logout: Не вдалось вийти з аккаунту."
+                "error": "logout: Не вдалось вийти з аккаунту."
             },
             "refresh": {
-                "error": "{type}.refresh: Не вдалось оновити сесію."
+                "error": "refresh: Не вдалось оновити сесію."
             },
             "forgot-password": {
                 "success": "Лист з інструкцією для зміни пароля успішно відправлено на пошту: {email}. Будь ласка, увійдіть за допомогою нового паролю.",
-                "error": "{type}.forgotPassword: Не вдалось відправити лист з інструкцією для зміни пароля на пошту: {email}."
+                "error": "forgotPassword: Не вдалось відправити лист з інструкцією для зміни пароля на пошту: {email}."
             },
             "change-forgotten-password": {
                 "success": "Пароль успішно змінено. Будь ласка, увійдіть за допомогою нового паролю.",
-                "error": "{type}.changeForgottenPassword: Не вдалось змінити пароль."
+                "error": "changeForgottenPassword: Не вдалось змінити пароль."
             },
             "change-password": {
                 "success": "Пароль успішно змінено. Будь ласка, увійдіть за допомогою нового паролю.",
-                "error": "{type}.changePassword: Не вдалось змінити пароль."
+                "error": "changePassword: Не вдалось змінити пароль."
             },
             "change-lang": {
-                "error": "{type}.changeLang: Не вдалось змінити мову."
+                "error": "changeLang: Не вдалось змінити мову."
             },
             "notification-subscribe": {
-                "error": "{type}.notification: Не вдалося підписатися на сповіщення."
+                "error": "notification: Не вдалося підписатися на сповіщення."
             },
             "notification-unsubscribe": {
-                "error": "{type}.notification: Не вдалося відписатися від сповіщень."
+                "error": "notification: Не вдалося відписатися від сповіщень."
             },
             "update-data": {
-                "error": "{type}.changeFirsLoaded: Не вдалось оновити дані."
+                "error": "changeFirsLoaded: Не вдалось оновити дані."
             },
             "update-my-user": {
-                "error": "{type}.updateMyUser: Не вдалось оновити користувача."
+                "error": "updateMyUser: Не вдалось оновити користувача."
             },
             "add-friend": {
-                "error": "{type}.addFriend: Не вдалось додати друга."
+                "error": "addFriend: Не вдалось додати друга."
             },
             "remove-friend": {
-                "error": "{type}.removeFriend: Не вдалось видалити друга."
+                "error": "removeFriend: Не вдалось видалити друга."
             },
             "delete-my-user": {
-                "error": "{type}.deleteMyUser: Не вдалося видалити користувача."
+                "error": "deleteMyUser: Не вдалося видалити користувача."
             }
         },
         "users-api": {

@@ -51,58 +51,58 @@
         },
         "my-user-api": {
             "registration": {
-                "error": "{type}.registration: Failed to register."
+                "error": "registration: Failed to register."
             },
             "send-activation-link": {
-                "error": "{type}.sendActivationLink: Failed to send the activation link."
+                "error": "sendActivationLink: Failed to send the activation link."
             },
             "google-authorization": {
-                "error": "{type}.googleAuthorization: Couldn't sign in with Google."
+                "error": "googleAuthorization: Couldn't sign in with Google."
             },
             "login": {
-                "error": "{type}.login: Could not log in to the site."
+                "error": "login: Could not log in to the site."
             },
             "logout": {
-                "error": "{type}.logout: Failed to log out."
+                "error": "logout: Failed to log out."
             },
             "refresh": {
-                "error": "{type}.refresh: Failed to update the session."
+                "error": "refresh: Failed to update the session."
             },
             "forgot-password": {
                 "success": "The password reset email has been successfully sent to: {email}. Please log in with your new password.",
-                "error": "{type}.forgotPassword: Failed to send the password reset email to: {email}."
+                "error": "forgotPassword: Failed to send the password reset email to: {email}."
             },
             "change-forgotten-password": {
                 "success": "Password changed successfully. Please log in with your new password.",
-                "error": "{type}.changeForgottenPassword: Failed to change the password."
+                "error": "changeForgottenPassword: Failed to change the password."
             },
             "change-password": {
                 "success": "Password changed successfully. Please log in with your new password.",
-                "error": "{type}.changePassword: Failed to change the password."
+                "error": "changePassword: Failed to change the password."
             },
             "change-lang": {
-                "error": "{type}.changeLang: Failed to change the interface language."
+                "error": "changeLang: Failed to change the interface language."
             },
             "notification-subscribe": {
-                "error": "{type}.notification: Failed to notification subscription."
+                "error": "notification: Failed to notification subscription."
             },
             "notification-unsubscribe": {
-                "error": "{type}.notification: Failed to notification unsubscription."
+                "error": "notification: Failed to notification unsubscription."
             },
             "update-data": {
-                "error": "{type}.changeShowedInfo: Failed to update data."
+                "error": "changeShowedInfo: Failed to update data."
             },
             "update-my-user": {
-                "error": "{type}.updateMyUser: Failed to update the user."
+                "error": "updateMyUser: Failed to update the user."
             },
             "add-friend": {
-                "error": "{type}.addFriend: Failed to add the friend."
+                "error": "addFriend: Failed to add the friend."
             },
             "remove-friend": {
-                "error": "{type}.removeFriend: Failed to remove the friend."
+                "error": "removeFriend: Failed to remove the friend."
             },
             "delete-my-user": {
-                "error": "{type}.deleteMyUser: Failed to delete the user."
+                "error": "deleteMyUser: Failed to delete the user."
             }
         },
         "users-api": {

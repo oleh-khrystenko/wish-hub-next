@@ -17,7 +17,13 @@ function Sidebar() {
             </span>
 
             <NextIntlClientProvider messages={pick(messages, ['main-page'])}>
-                <UserList userProfileT={t('profile-page.user-profile')} />
+                <UserList
+                    addFriendErrorT={t('alerts.my-user-api.add-friend.error')}
+                    removeFriendErrorT={t(
+                        'alerts.my-user-api.remove-friend.error'
+                    )}
+                    userProfileT={t('profile-page.user-profile')}
+                />
             </NextIntlClientProvider>
         </div>
     );

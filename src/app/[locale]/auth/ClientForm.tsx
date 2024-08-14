@@ -32,6 +32,9 @@ interface IProps {
     singUpT: string;
     forgotPasswordSubmitT: string;
     privacyPolicyErrorT: string;
+    registrationErrorT: string;
+    googleAuthErrorT: string;
+    loginErrorT: string;
     passwordsErrorT: string;
     googleErrorT: string;
     orT: string;
@@ -77,6 +80,9 @@ const ClientForm: FC<IProps> = ({
     singUpT,
     forgotPasswordSubmitT,
     privacyPolicyErrorT,
+    registrationErrorT,
+    googleAuthErrorT,
+    loginErrorT,
     passwordsErrorT,
     googleErrorT,
     orT,
@@ -157,14 +163,17 @@ const ClientForm: FC<IProps> = ({
             response.credential
         );
 
-        googleAuthorization({
-            email: decodedUserData.email,
-            lang: activeLocale as ELang,
-            isActivated: decodedUserData.email_verified,
-            firstName: decodedUserData.given_name,
-            lastName: decodedUserData.family_name,
-            avatar: decodedUserData.picture,
-        });
+        await googleAuthorization(
+            {
+                email: decodedUserData.email,
+                lang: activeLocale as ELang,
+                isActivated: decodedUserData.email_verified,
+                firstName: decodedUserData.given_name,
+                lastName: decodedUserData.family_name,
+                avatar: decodedUserData.picture,
+            },
+            googleAuthErrorT
+        );
     };
 
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
@@ -198,19 +207,25 @@ const ClientForm: FC<IProps> = ({
             return;
 
         if (isSingUp && checkedPrivacyPolicy) {
-            return registration({
-                ...data,
-                email: data.email.trim(),
-                lang: activeLocale as ELang,
-            });
+            return registration(
+                {
+                    ...data,
+                    email: data.email.trim(),
+                    lang: activeLocale as ELang,
+                },
+                registrationErrorT
+            );
         }
 
         if (checkedPrivacyPolicy) {
-            return login({
-                ...data,
-                email: data.email.trim(),
-                lang: activeLocale as ELang,
-            });
+            return login(
+                {
+                    ...data,
+                    email: data.email.trim(),
+                    lang: activeLocale as ELang,
+                },
+                loginErrorT
+            );
         }
     };
 

@@ -18,103 +18,109 @@ import myUserApi from '@/stores/my-user/api';
 interface IMyUserStore {
     myUser: IUser | null;
     candidate: ICandidate | null;
-    error: string | null;
     isLoading: boolean;
-    registration: (data: IRegistration) => Promise<void>;
-    googleAuthorization: (data: IGoogleAuth) => Promise<void>;
-    login: (data: ILogin) => Promise<void>;
+    registration: (data: IRegistration, errorT: string) => Promise<void>;
+    googleAuthorization: (data: IGoogleAuth, errorT: string) => Promise<void>;
+    login: (data: ILogin, errorT: string) => Promise<void>;
     logout: (errorT: string) => Promise<void>;
-    refresh: () => Promise<void>;
+    refresh: (errorT: string) => Promise<void>;
     changePassword: (data: IChangePassword) => Promise<void>;
     changeLang: (data: IChangeLang) => Promise<void>;
     changeShowedInfo: (data: IUserId) => Promise<void>;
     changeFirsLoaded: (data: IUserId) => Promise<void>;
     updateMyUser: (data: IUpdateMyUser) => Promise<void>;
-    addFriend: (data: IAddFriend) => Promise<void>;
-    removeFriend: (data: IRemoveFriend) => Promise<void>;
+    addFriend: (data: IAddFriend, errorT: string) => Promise<void>;
+    removeFriend: (data: IRemoveFriend, errorT: string) => Promise<void>;
     deleteMyUser: (data: IDeleteMyUser) => Promise<void>;
 }
 
 export const useMyUserStore = create<IMyUserStore>((set) => ({
     myUser: null,
     candidate: null,
-    error: null,
     isLoading: false,
-    registration: async (data) => {
+    registration: async (data, errorT) => {
         set((state) => ({
             ...state,
             myUser: null,
-            error: null,
             isLoading: true,
         }));
 
         try {
             const response = await myUserApi.registration(data);
 
+            localStorage.setItem('token', response.data.accessToken);
+
             set((state) => ({
                 ...state,
                 myUser: response.data.user,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            toast(error.response?.data?.message || errorT, { type: 'error' });
             set((state) => ({
                 ...state,
                 myUser: null,
-                error: error instanceof Error ? error.message : 'error',
+            }));
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
             }));
         }
     },
-    googleAuthorization: async (data) => {
+    googleAuthorization: async (data, errorT) => {
         set((state) => ({
             ...state,
             myUser: null,
-            error: null,
             isLoading: true,
         }));
 
         try {
             const response = await myUserApi.googleAuthorization(data);
 
+            localStorage.setItem('token', response.data.accessToken);
+
             set((state) => ({
                 ...state,
                 myUser: response.data.user,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            toast(error.response?.data?.message || errorT, { type: 'error' });
             set((state) => ({
                 ...state,
                 myUser: null,
-                error: error instanceof Error ? error.message : 'error',
+            }));
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
             }));
         }
     },
-    login: async (data) => {
+    login: async (data, errorT) => {
         set((state) => ({
             ...state,
             myUser: null,
-            error: null,
             isLoading: true,
         }));
 
         try {
             const response = await myUserApi.login(data);
 
+            localStorage.setItem('token', response.data.accessToken);
+
             set((state) => ({
                 ...state,
                 myUser: response.data.user,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
-            toast('store login', { type: 'error' });
+        } catch (error: any) {
+            toast(error.response?.data?.message || errorT, { type: 'error' });
             set((state) => ({
                 ...state,
                 myUser: null,
-                error: error instanceof Error ? error.message : 'error',
+            }));
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
             }));
         }
@@ -127,6 +133,9 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
 
         try {
             await myUserApi.logout();
+
+            localStorage.removeItem('token');
+            localStorage.removeItem('selectedUserId');
 
             set((state) => ({
                 ...state,
@@ -141,28 +150,38 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         }
     },
-    refresh: async () => {
+    refresh: async (errorT) => {
         set((state) => ({
             ...state,
             myUser: null,
-            error: null,
             isLoading: true,
         }));
 
         try {
             const response = await myUserApi.refresh();
 
+            localStorage.setItem('token', response.data.accessToken);
+
             set((state) => ({
                 ...state,
                 myUser: response.data.user,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            console.log(
+                'my-user refresh error: ',
+                error.response?.data?.message || errorT
+            );
+
+            localStorage.removeItem('token');
+            localStorage.removeItem('selectedUserId');
+
             set((state) => ({
                 ...state,
                 myUser: null,
-                error: error instanceof Error ? error.message : 'error',
+            }));
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
             }));
         }
@@ -170,23 +189,31 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
     changePassword: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
         try {
             await myUserApi.changePassword(data);
 
+            localStorage.removeItem('token');
+
+            // toast(
+            //     t('alerts.my-user-api.change-password.success'),
+            //     { type: 'success' },
+            // );
+
             set((state) => ({
                 ...state,
                 myUser: null,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message || t('alerts.my-user-api.change-password.error'),
+            //     { type: 'error' },
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -194,7 +221,6 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
     changeLang: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -204,13 +230,15 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             set((state) => ({
                 ...state,
                 myUser: response.data,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message || t('alerts.my-user-api.change-lang.error'),
+            //     { type: 'error' },
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -218,7 +246,6 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
     changeShowedInfo: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -228,13 +255,12 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             set((state) => ({
                 ...state,
                 myUser: response.data,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            // console.log('my-user changeShowedInfo error: ', error.response?.data?.message || t('alerts.my-user-api.update-data.error'));
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -242,7 +268,6 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
     changeFirsLoaded: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -252,13 +277,12 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             set((state) => ({
                 ...state,
                 myUser: response.data,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            // console.log('my-user changeFirsLoaded error: ', error.response?.data?.message || t('alerts.my-user-api.update-data.error'));
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -266,7 +290,6 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
     updateMyUser: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -276,21 +299,22 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             set((state) => ({
                 ...state,
                 myUser: response.data,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message || t('alerts.my-user-api.update-my-user.error'),
+            //     { type: 'error' },
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
     },
-    addFriend: async (data) => {
+    addFriend: async (data, errorT) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -300,21 +324,19 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             set((state) => ({
                 ...state,
                 myUser: response.data,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
     },
-    removeFriend: async (data) => {
+    removeFriend: async (data, errorT) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -324,13 +346,12 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             set((state) => ({
                 ...state,
                 myUser: response.data,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -338,33 +359,35 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
     deleteMyUser: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
         try {
             const response = await myUserApi.deleteMyUser(data);
 
+            localStorage.removeItem('token');
+            localStorage.removeItem('selectedUserId');
+
             set((state) => {
                 if (state.myUser?.id === response.data) {
                     return {
                         ...state,
                         myUser: null,
-                        error: null,
-                        isLoading: false,
                     };
                 }
 
                 return {
                     ...state,
-                    error: 'user not deleted',
-                    isLoading: false,
                 };
             });
-        } catch (error) {
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message || t('alerts.my-user-api.delete-my-user.error'),
+            //     { type: 'error' },
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }

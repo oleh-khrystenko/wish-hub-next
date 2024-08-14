@@ -13,10 +13,16 @@ import { useTranslations } from 'next-intl';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 
 interface IProps {
+    addFriendErrorT: string;
+    removeFriendErrorT: string;
     userProfileT: string;
 }
 
-const UserList: FC<IProps> = ({ userProfileT }) => {
+const UserList: FC<IProps> = ({
+    addFriendErrorT,
+    removeFriendErrorT,
+    userProfileT,
+}) => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -218,6 +224,8 @@ const UserList: FC<IProps> = ({ userProfileT }) => {
                             key={user.id}
                             user={user}
                             updateUsers={updateUsers}
+                            addFriendErrorT={addFriendErrorT}
+                            removeFriendErrorT={removeFriendErrorT}
                             userProfileT={userProfileT}
                         />
                     ))}

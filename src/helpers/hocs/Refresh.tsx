@@ -7,10 +7,11 @@ import Loading from '@/components/layouts/Loading';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface IProps {
+    refreshT: string;
     children: ReactNode;
 }
 
-const Refresh: FC<IProps> = ({ children }) => {
+const Refresh: FC<IProps> = ({ refreshT, children }) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const refresh = useMyUserStore((state) => state.refresh);
@@ -21,7 +22,7 @@ const Refresh: FC<IProps> = ({ children }) => {
         setIsLoading(true);
         if (refreshed.current) return;
         refreshed.current = true;
-        refresh().finally(() => setIsLoading(false));
+        refresh(refreshT).finally(() => setIsLoading(false));
     }, []);
 
     if (isLoading) {

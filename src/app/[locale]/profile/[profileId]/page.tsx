@@ -9,9 +9,7 @@ export default function Profile() {
         <main className="flex min-h-screen flex-col items-center justify-between p-24 text-zinc-800 dark:text-zinc-300">
             <TempNav />
             <Header />
-            <Refresh>
-                <RoutesGuard>Profile page Guard</RoutesGuard>
-            </Refresh>
+            Profile page Guard
             <br />
             <ParamsOnlyClient />
         </main>

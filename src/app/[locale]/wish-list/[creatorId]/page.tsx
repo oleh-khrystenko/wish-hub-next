@@ -7,7 +7,7 @@ export default function Wish() {
         <main className="flex min-h-screen flex-col items-center justify-between p-24 text-zinc-800 dark:text-zinc-300">
             <TempNav />
             <Header />
-            <Refresh>Wish page</Refresh>
+            Wish page
         </main>
     );
 }
