@@ -23,7 +23,7 @@ interface IMyUserStore {
     registration: (data: IRegistration) => Promise<void>;
     googleAuthorization: (data: IGoogleAuth) => Promise<void>;
     login: (data: ILogin) => Promise<void>;
-    logout: () => Promise<void>;
+    logout: (errorT: string) => Promise<void>;
     refresh: () => Promise<void>;
     changePassword: (data: IChangePassword) => Promise<void>;
     changeLang: (data: IChangeLang) => Promise<void>;
@@ -110,7 +110,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 isLoading: false,
             }));
         } catch (error) {
-            toast('googleErrorT', { type: 'error' });
+            toast('store login', { type: 'error' });
             set((state) => ({
                 ...state,
                 myUser: null,
@@ -119,10 +119,9 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         }
     },
-    logout: async () => {
+    logout: async (errorT) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -132,16 +131,12 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             set((state) => ({
                 ...state,
                 myUser: null,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
             set((state) => ({
                 ...state,
-                error:
-                    error instanceof Error
-                        ? error.message
-                        : 'Failed to log out.',
                 isLoading: false,
             }));
         }

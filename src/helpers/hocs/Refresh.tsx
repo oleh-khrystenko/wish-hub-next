@@ -1,8 +1,10 @@
 'use client';
 
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 import { useMyUserStore } from '@/stores/my-user';
 import Loading from '@/components/layouts/Loading';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface IProps {
     children: ReactNode;
@@ -26,7 +28,16 @@ const Refresh: FC<IProps> = ({ children }) => {
         return <Loading />;
     }
 
-    return children;
+    return (
+        <>
+            {children}
+            <ToastContainer
+                bodyClassName={() =>
+                    'flex items-center text-sm font-bold text-zinc-800 dark:text-zinc-300'
+                }
+            />
+        </>
+    );
 };
 
 export default Refresh;

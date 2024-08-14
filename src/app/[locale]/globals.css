@@ -3,13 +3,15 @@
 @tailwind utilities;
 
 :root {
-    --bg-second: #d4d4d8; /* zinc-300 */
+    --bg-second: #cbd5e1; /* gray-300 */
+    --text: #27272a; /* zinc-800 */
     --scroll-bar: #a1a1aa; /* zinc-400 */
     --input-label: #0891b2; /* cyan-600 */
 }
 
 [data-theme='dark'] {
-    --bg-second: #27272a; /* zinc-800 */
+    --bg-second: #111827; /* gray-900 */
+    --text: #e4e4e7; /* zinc-200 */
     --scroll-bar: #52525b; /* zinc-600 */
     --input-label: #67e8f9; /* cyan-300 */
 }
@@ -38,11 +40,6 @@
 
 .textarea-scrollbar::-webkit-scrollbar-track {
     margin: 4px 0;
-}
-
-.textarea-scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 9999px;
-    background: var(--scroll-bar);
 }
 /********************* Scrollbar *********************/
 
@@ -145,13 +142,18 @@
     .Toastify__toast {
         background-color: var(--bg-second);
 
-        .Toastify__close-button > svg {
-            width: 36px;
-            height: 40px;
+        .Toastify__close-button {
+            opacity: 1;
 
-            @media only screen and (min-width: 768px) {
-                width: 22px;
-                height: 24px;
+            svg {
+                width: 36px;
+                height: 40px;
+                fill: var(--text);
+
+                @media only screen and (min-width: 768px) {
+                    width: 22px;
+                    height: 24px;
+                }
             }
         }
     }

@@ -1,6 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-// import { t } from 'i18next';
-// import { toast } from 'react-toastify';
 import api from '@/helpers/utils/api';
 import {
     IRegistration,
@@ -107,17 +105,9 @@ const login = async (data: ILogin): Promise<AxiosResponse<IAuth>> => {
 };
 
 const logout = async (): Promise<void> => {
-    try {
-        await api.post('/logout');
-        localStorage.removeItem('token');
-        localStorage.removeItem('selectedUserId');
-    } catch (error: any) {
-        // toast(
-        //     error.response?.data?.message || t('alerts.my-user-api.logout.error', { type: 'api' }),
-        //     { type: 'error' },
-        // );
-        throw error;
-    }
+    await api.post('/logout');
+    localStorage.removeItem('token');
+    localStorage.removeItem('selectedUserId');
 };
 
 const refresh = async (): Promise<AxiosResponse<IAuth>> => {

@@ -23,6 +23,7 @@ import UiAvatar from '@/components/ui/UiAvatar';
 import PersonIcon from '@/components/icons/PersonIcon';
 
 interface IProps {
+    logoutErrorT: string;
     singInT: string;
     userNotFoundT: string;
     singUpT: string;
@@ -52,6 +53,7 @@ interface IProps {
 }
 
 const UserSetting: FC<IProps> = ({
+    logoutErrorT,
     singInT,
     userNotFoundT,
     singUpT,
@@ -109,7 +111,7 @@ const UserSetting: FC<IProps> = ({
 
     // Logout
     const handleLogout = async () => {
-        await logout();
+        await logout(logoutErrorT);
         setShowPopup(false);
         // !logoutWithoutUpdate && await handleGetInitialAllWishes(dispatch);
     };

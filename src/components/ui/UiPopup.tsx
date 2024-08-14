@@ -5,7 +5,7 @@ import OutsideClickHandler from '@/helpers/hocs/OutsideClickHandler';
 
 interface IProps {
     classes: string;
-    showPopupUp: boolean;
+    showPopupUp?: boolean;
     show: boolean;
     hide: () => void;
     children: ReactNode;
