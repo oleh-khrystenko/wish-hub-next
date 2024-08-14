@@ -7,12 +7,14 @@ import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
 interface IUsersStore {
     list: IUser[];
+    selectUserId: IUser['id'] | null;
     search: string;
     followFromCount: number;
     page: number;
     stopRequests: boolean;
-    isLoading: boolean;
     error: string | null;
+    isLoading: boolean;
+    setSelectUserId: (id: IUser['id']) => void;
     setSearch: (value: string) => void;
     getUsers: (params: ISendUsersParams) => Promise<void>;
     addUsers: (params: ISendUsersParams) => Promise<void>;
@@ -22,15 +24,17 @@ interface IUsersStore {
 
 export const useUsersStore = create<IUsersStore>((set) => ({
     list: [],
+    selectUserId: null,
     search: '',
     followFromCount: 0,
     page: 1,
     stopRequests: false,
-    isLoading: false,
     error: null,
+    isLoading: false,
+    setSelectUserId: (id) => set({ selectUserId: id }),
     setSearch: (value) => set({ search: value }),
     getUsers: async (params) => {
-        set({ isLoading: true, stopRequests: true, error: null });
+        set({ stopRequests: true, error: null, isLoading: true });
 
         try {
             const response = await usersApi.getUsers(params);
@@ -42,21 +46,21 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                 page: 2,
                 stopRequests:
                     response.data.users.length !== USERS_PAGINATION_LIMIT,
-                isLoading: false,
                 error: null,
+                isLoading: false,
             }));
         } catch (error: any) {
             set({
-                isLoading: false,
                 stopRequests: false,
                 error:
                     error.response?.data?.message ||
                     toast.error('An error occurred'),
+                isLoading: false,
             });
         }
     },
     addUsers: async (params) => {
-        set({ isLoading: true, stopRequests: true, error: null });
+        set({ stopRequests: true, error: null, isLoading: true });
 
         try {
             const response = await usersApi.getUsers(params);
@@ -71,22 +75,22 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                     page: state.page + 1,
                     stopRequests:
                         response.data.users.length !== USERS_PAGINATION_LIMIT,
-                    isLoading: false,
                     error: null,
+                    isLoading: false,
                 };
             });
         } catch (error: any) {
             set({
-                isLoading: false,
                 stopRequests: false,
                 error:
                     error.response?.data?.message ||
                     toast.error('An error occurred'),
+                isLoading: false,
             });
         }
     },
     getAllUsers: async (params) => {
-        set({ isLoading: true, stopRequests: true, error: null });
+        set({ stopRequests: true, error: null, isLoading: true });
 
         try {
             const response = await usersApi.getAllUsers(params);
@@ -98,22 +102,22 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                     page: 2,
                     stopRequests:
                         response.data.length !== USERS_PAGINATION_LIMIT,
-                    isLoading: false,
                     error: null,
+                    isLoading: false,
                 };
             });
         } catch (error: any) {
             set({
-                isLoading: false,
                 stopRequests: false,
                 error:
                     error.response?.data?.message ||
                     toast.error('An error occurred'),
+                isLoading: false,
             });
         }
     },
     addAllUsers: async (params) => {
-        set({ isLoading: true, stopRequests: true, error: null });
+        set({ stopRequests: true, error: null, isLoading: true });
 
         try {
             const response = await usersApi.getAllUsers(params);
@@ -126,17 +130,17 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                     page: state.page + 1,
                     stopRequests:
                         response.data.length !== USERS_PAGINATION_LIMIT,
-                    isLoading: false,
                     error: null,
+                    isLoading: false,
                 };
             });
         } catch (error: any) {
             set({
-                isLoading: false,
                 stopRequests: false,
                 error:
                     error.response?.data?.message ||
                     toast.error('An error occurred'),
+                isLoading: false,
             });
         }
     },

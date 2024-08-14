@@ -3,10 +3,15 @@ import { toast } from 'react-toastify';
 import { ICandidate, IUser } from '@/models/User';
 import {
     IAddFriend,
+    IChangeLang,
+    IChangePassword,
+    IDeleteMyUser,
     IGoogleAuth,
     ILogin,
     IRegistration,
     IRemoveFriend,
+    IUpdateMyUser,
+    IUserId,
 } from '@/stores/my-user/types';
 import myUserApi from '@/stores/my-user/api';
 
@@ -20,8 +25,14 @@ interface IMyUserStore {
     login: (data: ILogin) => Promise<void>;
     logout: () => Promise<void>;
     refresh: () => Promise<void>;
+    changePassword: (data: IChangePassword) => Promise<void>;
+    changeLang: (data: IChangeLang) => Promise<void>;
+    changeShowedInfo: (data: IUserId) => Promise<void>;
+    changeFirsLoaded: (data: IUserId) => Promise<void>;
+    updateMyUser: (data: IUpdateMyUser) => Promise<void>;
     addFriend: (data: IAddFriend) => Promise<void>;
     removeFriend: (data: IRemoveFriend) => Promise<void>;
+    deleteMyUser: (data: IDeleteMyUser) => Promise<void>;
 }
 
 export const useMyUserStore = create<IMyUserStore>((set) => ({
@@ -161,6 +172,126 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         }
     },
+    changePassword: async (data) => {
+        set((state) => ({
+            ...state,
+            error: null,
+            isLoading: true,
+        }));
+
+        try {
+            await myUserApi.changePassword(data);
+
+            set((state) => ({
+                ...state,
+                myUser: null,
+                error: null,
+                isLoading: false,
+            }));
+        } catch (error) {
+            set((state) => ({
+                ...state,
+                error: error instanceof Error ? error.message : 'error',
+                isLoading: false,
+            }));
+        }
+    },
+    changeLang: async (data) => {
+        set((state) => ({
+            ...state,
+            error: null,
+            isLoading: true,
+        }));
+
+        try {
+            const response = await myUserApi.changeLang(data);
+
+            set((state) => ({
+                ...state,
+                myUser: response.data,
+                error: null,
+                isLoading: false,
+            }));
+        } catch (error) {
+            set((state) => ({
+                ...state,
+                error: error instanceof Error ? error.message : 'error',
+                isLoading: false,
+            }));
+        }
+    },
+    changeShowedInfo: async (data) => {
+        set((state) => ({
+            ...state,
+            error: null,
+            isLoading: true,
+        }));
+
+        try {
+            const response = await myUserApi.changeShowedInfo(data);
+
+            set((state) => ({
+                ...state,
+                myUser: response.data,
+                error: null,
+                isLoading: false,
+            }));
+        } catch (error) {
+            set((state) => ({
+                ...state,
+                error: error instanceof Error ? error.message : 'error',
+                isLoading: false,
+            }));
+        }
+    },
+    changeFirsLoaded: async (data) => {
+        set((state) => ({
+            ...state,
+            error: null,
+            isLoading: true,
+        }));
+
+        try {
+            const response = await myUserApi.changeFirsLoaded(data);
+
+            set((state) => ({
+                ...state,
+                myUser: response.data,
+                error: null,
+                isLoading: false,
+            }));
+        } catch (error) {
+            set((state) => ({
+                ...state,
+                error: error instanceof Error ? error.message : 'error',
+                isLoading: false,
+            }));
+        }
+    },
+    updateMyUser: async (data) => {
+        set((state) => ({
+            ...state,
+            error: null,
+            isLoading: true,
+        }));
+
+        try {
+            const response = await myUserApi.updateMyUser(data);
+
+            set((state) => ({
+                ...state,
+                myUser: response.data,
+                error: null,
+                isLoading: false,
+            }));
+        } catch (error) {
+            set((state) => ({
+                ...state,
+                error: error instanceof Error ? error.message : 'error',
+                isLoading: false,
+            }));
+        }
+    },
     addFriend: async (data) => {
         set((state) => ({
             ...state,
@@ -180,7 +311,6 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
         } catch (error) {
             set((state) => ({
                 ...state,
-                myUser: null,
                 error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
@@ -205,7 +335,40 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
         } catch (error) {
             set((state) => ({
                 ...state,
-                myUser: null,
+                error: error instanceof Error ? error.message : 'error',
+                isLoading: false,
+            }));
+        }
+    },
+    deleteMyUser: async (data) => {
+        set((state) => ({
+            ...state,
+            error: null,
+            isLoading: true,
+        }));
+
+        try {
+            const response = await myUserApi.deleteMyUser(data);
+
+            set((state) => {
+                if (state.myUser?.id === response.data) {
+                    return {
+                        ...state,
+                        myUser: null,
+                        error: null,
+                        isLoading: false,
+                    };
+                }
+
+                return {
+                    ...state,
+                    error: 'user not deleted',
+                    isLoading: false,
+                };
+            });
+        } catch (error) {
+            set((state) => ({
+                ...state,
                 error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
