@@ -19,7 +19,7 @@ const RoutesGuard: FC<IProps> = ({ isUnauthenticated = false, children }) => {
 
     useEffect(() => {
         if (isUnauthenticated ? myUser : !myUser) {
-            router.replace(`/${activeLocale}/`);
+            router.replace(`/${activeLocale}/main`);
         }
     }, [myUser, activeLocale, router, isUnauthenticated]);
 

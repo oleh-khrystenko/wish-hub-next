@@ -2,14 +2,14 @@
 
 import { FC } from 'react';
 import { Tooltip } from 'react-tooltip';
-import useScreenWidth from '@/helpers/hooks/useScreenWidth';
+import UseScreenWidth from '@/helpers/hooks/useScreenWidth';
 
 interface IProps {
     id: string;
 }
 
 const UiTooltip: FC<IProps> = ({ id }) => {
-    const screenWidth = useScreenWidth();
+    const screenWidth = UseScreenWidth();
 
     return (
         <Tooltip

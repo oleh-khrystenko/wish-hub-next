@@ -1,7 +1,7 @@
 import { useLocale } from 'next-intl';
 import { ELang } from '@/models/Settings';
 
-const useLocaleFormats = () => {
+const UseLocaleFormats = () => {
     const activeLocale = useLocale();
 
     const getMonthWithDate = (): 'MMMM Do' | 'DD MMMM' => {
@@ -29,4 +29,4 @@ const useLocaleFormats = () => {
     };
 };
 
-export default useLocaleFormats;
+export default UseLocaleFormats;

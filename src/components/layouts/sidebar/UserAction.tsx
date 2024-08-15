@@ -1,25 +1,26 @@
 'use client';
 
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import 'dayjs/locale/uk';
 import { IUser } from '@/models/User';
-import { EPrivacy, ETheme } from '@/models/Settings';
+import { EPrivacy } from '@/models/Settings';
+import { EWhereRemove, IRemoveFriend } from '@/stores/my-user/types';
 import { useMyUserStore } from '@/stores/my-user';
-import UiAvatar from '@/components/ui/UiAvatar';
+import { useSettingsStore } from '@/stores/settings';
+import UseLocaleFormats from '@/helpers/hooks/useLocaleFormats';
+import UseInitialWishes from '@/helpers/hooks/useInitialWishes';
 import getFullName from '@/helpers/utils/get-full-name';
-import useLocaleFormats from '@/helpers/hooks/useLocaleFormats';
-import ThreeDotsIcon from '@/components/icons/ThreeDotsIcon';
+import UiAvatar from '@/components/ui/UiAvatar';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
-import { EWhereRemove, IRemoveFriend } from '@/stores/my-user/types';
+import ThreeDotsIcon from '@/components/icons/ThreeDotsIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
 import PersonAddIcon from '@/components/icons/PersonAddIcon';
 import PersonRemoveIcon from '@/components/icons/PersonRemoveIcon';
-import { useRouter } from 'next/navigation';
-import { useSettingsStore } from '@/stores/settings';
 
 dayjs.extend(advancedFormat);
 
@@ -38,6 +39,16 @@ const UserAction: FC<IProps> = ({
     removeFriendErrorT,
     userProfileT,
 }) => {
+    const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [showPopupUp, setShowPopupUp] = useState<boolean>(false);
+    const [textWidth, setTextWidth] = useState<number>(0);
+
+    const popupActionRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLLIElement>(null);
+
+    const router = useRouter();
+
+    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -47,17 +58,8 @@ const UserAction: FC<IProps> = ({
         (state) => state.setShowBurgerMenu
     );
 
-    const activeLocale = useLocale();
-    const router = useRouter();
-
-    const { getMonthWithDate } = useLocaleFormats();
-
-    const popupActionRef = useRef<HTMLDivElement>(null);
-    const containerRef = useRef<HTMLLIElement>(null);
-
-    const [showPopup, setShowPopup] = useState<boolean>(false);
-    const [showPopupUp, setShowPopupUp] = useState<boolean>(false);
-    const [textWidth, setTextWidth] = useState<number>(0);
+    const { getMonthWithDate } = UseLocaleFormats();
+    const { getInitialWishList } = UseInitialWishes();
 
     let borderColor = 'border-transparent';
     myUser?.followTo.includes(user.id) &&
@@ -136,8 +138,7 @@ const UserAction: FC<IProps> = ({
     };
 
     const handleSelectWish = async () => {
-        console.log('handleSelectWish');
-        // await handleGetInitialWishList(dispatch, myUser?.id, user.id);
+        await getInitialWishList(myUser?.id, user.id);
         setShowBurgerMenu(false);
     };
 
@@ -195,7 +196,14 @@ const UserAction: FC<IProps> = ({
             const handleResize = () => {
                 const containerWidth: number =
                     containerRef.current?.offsetWidth || 0;
-                setTextWidth(containerWidth - 2 - 12 - 40 - 40 - 16 - 24); // 2 - left and right border, 12 - left padding, 40 - avatar width, 40 - action width, 16 - two gaps between elements, 24 - left and right padding in content
+
+                // 2 - left and right border,
+                // 12 - left padding,
+                // 40 - avatar width,
+                // 40 - action width,
+                // 16 - two gaps between elements,
+                // 24 - left and right padding in content
+                setTextWidth(containerWidth - 2 - 12 - 40 - 40 - 16 - 24);
             };
             handleResize();
 

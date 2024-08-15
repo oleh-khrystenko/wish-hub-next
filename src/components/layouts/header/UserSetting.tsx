@@ -1,25 +1,27 @@
 'use client';
 
 import { FC, useState } from 'react';
+import { EWishSort } from '@/models/Wish';
+import { ETheme } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
+import UseInitialWishes from '@/helpers/hooks/useInitialWishes';
 import getFullName from '@/helpers/utils/get-full-name';
+import SocialNetworks from '@/components/layouts/SocialNetworks';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import UiThemeSwitcher from '@/components/ui/UiThemeSwitcher';
 import UiLangSelect from '@/components/ui/UiLangSelect';
+import UiShareButton from '@/components/ui/UiShareButton';
+import UiAvatar from '@/components/ui/UiAvatar';
 import LangIcon from '@/components/icons/LangIcon';
 import LightDarkThemeIcon from '@/components/icons/LightDarkThemeIcon';
 import InfoIcon from '@/components/icons/InfoIcon';
 import ForumIcon from '@/components/icons/ForumIcon';
 import LogoutIcon from '@/components/icons/LogoutIcon';
 import PrivacyPolicyIcon from '@/components/icons/PrivacyPolicyIcon';
-import SocialNetworks from '@/components/layouts/SocialNetworks';
-import UiShareButton from '@/components/ui/UiShareButton';
-import { ETheme } from '@/models/Settings';
 import LogoDarkIcon from '@/components/icons/LogoDarkIcon';
 import LogoLightIcon from '@/components/icons/LogoLightIcon';
-import UiAvatar from '@/components/ui/UiAvatar';
 import PersonIcon from '@/components/icons/PersonIcon';
 
 interface IProps {
@@ -81,14 +83,19 @@ const UserSetting: FC<IProps> = ({
     logoutT,
     privacyPolicyT,
 }) => {
+    const [showPopup, setShowPopup] = useState<boolean>(false);
+
     const myUser = useMyUserStore((state) => state.myUser);
     const logout = useMyUserStore((state) => state.logout);
     const theme = useSettingsStore((state) => state.theme);
+    const setShowBurgerMenu = useSettingsStore(
+        (state) => state.setShowBurgerMenu
+    );
 
-    const [showPopup, setShowPopup] = useState<boolean>(false);
+    const { getInitialWishList } = UseInitialWishes();
 
     const handleShowPopup = () => {
-        setShowPopup((prevState) => !prevState);
+        setShowPopup(true);
     };
 
     // SelectWish
@@ -97,16 +104,12 @@ const UserSetting: FC<IProps> = ({
         // if (location.pathname.split('/')[1].length > 0) {
         //     return navigate('/?my-wishes');
         // }
-        // if (!myUser) return;
-        //
-        // await handleGetInitialWishList(
-        //     dispatch,
-        //     myUser.id,
-        //     myUser.id,
-        //     EWishSort.CREATED_DESC
-        // );
-        // setAnchor(null);
-        // hideHeader && hideHeader();
+
+        if (!myUser) return;
+
+        await getInitialWishList(myUser.id, myUser.id, EWishSort.CREATED_DESC);
+        setShowPopup(false);
+        setShowBurgerMenu(false);
     };
 
     // Logout

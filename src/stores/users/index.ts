@@ -13,7 +13,7 @@ interface IUsersStore {
     page: number;
     stopRequests: boolean;
     isLoading: boolean;
-    setSelectUserId: (id: IUser['id']) => void;
+    setSelectUserId: (id: IUser['id'] | null) => void;
     setSearch: (value: string) => void;
     getUsers: (params: ISendUsersParams, errorT: string) => Promise<void>;
     addUsers: (params: ISendUsersParams, errorT: string) => Promise<void>;
