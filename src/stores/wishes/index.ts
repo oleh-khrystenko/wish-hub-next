@@ -40,7 +40,6 @@ interface IWishesStore {
     sort: EWishSort;
     page: number;
     stopRequests: boolean;
-    error: string | null;
     isLoading: boolean;
     setWishStatus: (value: EWishStatus) => void;
     setWishesSearch: (value: string) => void;
@@ -74,7 +73,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     sort: EWishSort.POPULAR,
     page: 1,
     stopRequests: false,
-    error: null,
     isLoading: false,
     setWishStatus: (value) => set({ status: value }),
     setWishesSearch: (value) => set({ search: value }),
@@ -83,7 +81,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     fetchWishDataFromLink: async (params) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -93,14 +90,20 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             set((state) => ({
                 ...state,
                 wishCandidate: response.data,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.fetch-wish-data.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
             set((state) => ({
                 ...state,
                 wishCandidate: null,
-                error: error instanceof Error ? error.message : 'error',
+            }));
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
             }));
         }
@@ -108,7 +111,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     createWish: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -118,13 +120,16 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             set((state) => ({
                 ...state,
                 list: [response.data.wish, ...state.list],
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.create-wish.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -132,7 +137,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     updateWish: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -144,14 +148,19 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
                 return {
                     ...state,
-                    error: null,
-                    isLoading: false,
                 };
             });
-        } catch (error) {
+
+            // toast(t('alerts.wishes-api.update-wish.success'), { type: 'success' });
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.update-wish.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -159,7 +168,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     bookWish: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -171,14 +179,17 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
                 return {
                     ...state,
-                    error: null,
-                    isLoading: false,
                 };
             });
-        } catch (error) {
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.book-wish.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -186,7 +197,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     cancelBookWish: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -198,14 +208,21 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
                 return {
                     ...state,
-                    error: null,
-                    isLoading: false,
                 };
             });
-        } catch (error) {
+
+            // toast(t('alerts.wishes-api.cancel-book-wish.success'), {
+            //     type: 'success',
+            // });
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.cancel-book-wish.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -213,7 +230,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     doneWish: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -225,14 +241,19 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
                 return {
                     ...state,
-                    error: null,
-                    isLoading: false,
                 };
             });
-        } catch (error) {
+
+            // toast(t('alerts.wishes-api.done-wish.success'), { type: 'success' });
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.done-wish.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -240,7 +261,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     undoneWish: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -252,14 +272,19 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
                 return {
                     ...state,
-                    error: null,
-                    isLoading: false,
                 };
             });
-        } catch (error) {
+
+            // toast(t('alerts.wishes-api.undone-wish.success'), { type: 'success' });
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.undone-wish.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -267,7 +292,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     likeWish: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -279,14 +303,17 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
                 return {
                     ...state,
-                    error: null,
-                    isLoading: false,
                 };
             });
-        } catch (error) {
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.like-wish.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -294,7 +321,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     dislikeWish: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -306,14 +332,17 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
                 return {
                     ...state,
-                    error: null,
-                    isLoading: false,
                 };
             });
-        } catch (error) {
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.dislike-wish.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -321,7 +350,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     deleteWish: async (params) => {
         set((state) => ({
             ...state,
-            error: null,
             isLoading: true,
         }));
 
@@ -331,13 +359,18 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             set((state) => ({
                 ...state,
                 list: state.list.filter((wish) => wish.id !== response.data),
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+
+            // toast(t('alerts.wishes-api.delete-wish.success'), { type: 'success' });
+        } catch (error: any) {
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.delete-wish.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 isLoading: false,
             }));
         }
@@ -345,7 +378,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     getWishList: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             stopRequests: true,
             isLoading: true,
         }));
@@ -360,14 +392,21 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 page: 2,
                 stopRequests:
                     response.data.wishes.length !== WISHES_PAGINATION_LIMIT,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 stopRequests: false,
+            }));
+
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.get-wish-list.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
             }));
         }
@@ -375,7 +414,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     addWishList: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             stopRequests: true,
             isLoading: true,
         }));
@@ -389,14 +427,21 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 page: state.page + 1,
                 stopRequests:
                     response.data.wishes.length !== WISHES_PAGINATION_LIMIT,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 stopRequests: false,
+            }));
+
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.get-wish-list.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
             }));
         }
@@ -404,9 +449,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     getAllWishes: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             stopRequests: true,
-            isLoading: true,
         }));
 
         try {
@@ -417,14 +460,21 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 list: response.data,
                 page: 2,
                 stopRequests: response.data.length !== WISHES_PAGINATION_LIMIT,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 stopRequests: false,
+            }));
+
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.get-all-wishes.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
             }));
         }
@@ -432,9 +482,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     addAllWishes: async (data) => {
         set((state) => ({
             ...state,
-            error: null,
             stopRequests: true,
-            isLoading: true,
         }));
 
         try {
@@ -445,14 +493,21 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 list: [...state.list, ...response.data],
                 page: state.page + 1,
                 stopRequests: response.data.length !== WISHES_PAGINATION_LIMIT,
-                error: null,
-                isLoading: false,
             }));
-        } catch (error) {
+        } catch (error: any) {
             set((state) => ({
                 ...state,
-                error: error instanceof Error ? error.message : 'error',
                 stopRequests: false,
+            }));
+
+            // toast(
+            //     error.response?.data?.message ||
+            //         t('alerts.wishes-api.get-all-wishes.error', { type: 'api' }),
+            //     { type: 'error' }
+            // );
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
             }));
         }
