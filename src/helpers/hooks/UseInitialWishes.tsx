@@ -6,10 +6,10 @@ import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
 const UseInitialWishes = () => {
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
-    const setWishStatus = useWishesStore((state) => state.setWishStatus);
+    const setWishesStatus = useWishesStore((state) => state.setWishesStatus);
     const setWishesSearch = useWishesStore((state) => state.setWishesSearch);
     const setWishesSort = useWishesStore((state) => state.setWishesSort);
-    const setSelectUserId = useUsersStore((state) => state.setSelectUserId);
+    const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
     const getWishList = useWishesStore((state) => state.getWishList);
 
     const getInitialAllWishes = async () => {
@@ -19,10 +19,10 @@ const UseInitialWishes = () => {
             search: '',
             sort: EWishSort.POPULAR,
         });
-        setWishStatus(EWishStatus.ALL);
+        setWishesStatus(EWishStatus.ALL);
         setWishesSearch('');
         setWishesSort(EWishSort.POPULAR);
-        setSelectUserId(null);
+        setSelectedUserId(null);
         localStorage.removeItem('selectedUserId');
     };
 
@@ -40,10 +40,10 @@ const UseInitialWishes = () => {
             search: '',
             sort,
         });
-        setWishStatus(EWishStatus.ALL);
+        setWishesStatus(EWishStatus.ALL);
         setWishesSearch('');
         setWishesSort(sort);
-        setSelectUserId(userId);
+        setSelectedUserId(userId);
         localStorage.setItem('selectedUserId', userId);
     };
     return {

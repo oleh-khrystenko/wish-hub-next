@@ -14,7 +14,9 @@ import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import UiThemeSwitcher from '@/components/ui/UiThemeSwitcher';
 import UiLangSelect from '@/components/ui/UiLangSelect';
-import UiShareButton from '@/components/ui/UiShareButton';
+import UiShareButton, {
+    IUiShareButtonTranslations,
+} from '@/components/ui/UiShareButton';
 import UiAvatar from '@/components/ui/UiAvatar';
 import LangIcon from '@/components/icons/LangIcon';
 import LightDarkThemeIcon from '@/components/icons/LightDarkThemeIcon';
@@ -37,21 +39,8 @@ interface IProps {
     interfaceLanguageT: string;
     themeT: string;
     aboutT: string;
-    shareTextT: string;
-    shareWishHubSuccessT: string;
-    shareWishSuccessT: string;
-    shareConsoleErrorT: string;
-    shareErrorT: string;
-    clipboardWishHubSuccessT: string;
-    clipboardWishSuccessT: string;
-    clipboardConsoleErrorT: string;
-    clipboardErrorT: string;
+    uiShareButtonTranslations: IUiShareButtonTranslations;
     confirmT: string;
-    titleModalT: string;
-    confirmModalT: string;
-    closeModalT: string;
-    questionNobodyT: string;
-    questionFriendsT: string;
     contactsT: string;
     logoutT: string;
     privacyPolicyT: string;
@@ -68,21 +57,8 @@ const UserSetting: FC<IProps> = ({
     interfaceLanguageT,
     themeT,
     aboutT,
-    shareTextT,
-    shareWishHubSuccessT,
-    shareWishSuccessT,
-    shareConsoleErrorT,
-    shareErrorT,
-    clipboardWishHubSuccessT,
-    clipboardWishSuccessT,
-    clipboardConsoleErrorT,
-    clipboardErrorT,
+    uiShareButtonTranslations,
     confirmT,
-    titleModalT,
-    confirmModalT,
-    closeModalT,
-    questionNobodyT,
-    questionFriendsT,
     contactsT,
     logoutT,
     privacyPolicyT,
@@ -226,20 +202,7 @@ const UserSetting: FC<IProps> = ({
 
                     <UiShareButton
                         classes="flex-row-reverse mr-auto"
-                        shareTextT={shareTextT}
-                        shareWishHubSuccessT={shareWishHubSuccessT}
-                        shareWishSuccessT={shareWishSuccessT}
-                        shareConsoleErrorT={shareConsoleErrorT}
-                        shareErrorT={shareErrorT}
-                        clipboardWishHubSuccessT={clipboardWishHubSuccessT}
-                        clipboardWishSuccessT={clipboardWishSuccessT}
-                        clipboardConsoleErrorT={clipboardConsoleErrorT}
-                        clipboardErrorT={clipboardErrorT}
-                        titleModalT={titleModalT}
-                        confirmModalT={confirmModalT}
-                        closeModalT={closeModalT}
-                        questionNobodyT={questionNobodyT}
-                        questionFriendsT={questionFriendsT}
+                        uiShareButtonTranslations={uiShareButtonTranslations}
                     >
                         <span className="flex items-center gap-2 py-1.5 text-lg font-bold text-zinc-800 dark:text-zinc-300">
                             {confirmT} Wish Hub

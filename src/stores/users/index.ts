@@ -11,10 +11,10 @@ interface IUsersStore {
     search: string;
     followFromCount: number;
     stopRequests: boolean;
-    selectUserId: IUser['id'] | null;
+    selectedUserId: IUser['id'] | null;
     isLoading: boolean;
     setSearch: (value: string) => void;
-    setSelectUserId: (id: IUser['id'] | null) => void;
+    setSelectedUserId: (id: IUser['id'] | null) => void;
     getUsers: (params: ISendUsersParams, errorT: string) => Promise<void>;
     addUsers: (params: ISendUsersParams, errorT: string) => Promise<void>;
     getAllUsers: (params: ISendAllUsersParams, errorT: string) => Promise<void>;
@@ -27,10 +27,10 @@ export const useUsersStore = create<IUsersStore>((set) => ({
     search: '',
     followFromCount: 0,
     stopRequests: false,
-    selectUserId: null,
+    selectedUserId: null,
     isLoading: false,
     setSearch: (value) => set({ search: value }),
-    setSelectUserId: (id) => set({ selectUserId: id }),
+    setSelectedUserId: (id) => set({ selectedUserId: id }),
     getUsers: async (params, errorT) => {
         set((state) => ({
             ...state,

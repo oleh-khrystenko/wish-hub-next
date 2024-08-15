@@ -7,11 +7,7 @@ import ShareIcon from '@/components/icons/ShareIcon';
 import { useLocale } from 'next-intl';
 import UiConfirmModal from '@/components/ui/UiConfirmModal';
 
-interface IProps {
-    classes?: string;
-    link?: string;
-    wishShow?: EPrivacy;
-    children?: ReactNode;
+export interface IUiShareButtonTranslations {
     shareTextT: string;
     shareWishHubSuccessT: string;
     shareWishSuccessT: string;
@@ -28,29 +24,41 @@ interface IProps {
     questionFriendsT: string;
 }
 
+interface IProps {
+    classes?: string;
+    link?: string;
+    wishShow?: EPrivacy;
+    children?: ReactNode;
+    uiShareButtonTranslations: IUiShareButtonTranslations;
+}
+
 const UiShareButton: FC<IProps> = ({
     classes,
     link = '',
     wishShow,
     children,
-    shareTextT,
-    shareWishHubSuccessT,
-    shareWishSuccessT,
-    shareConsoleErrorT,
-    shareErrorT,
-    clipboardWishHubSuccessT,
-    clipboardWishSuccessT,
-    clipboardConsoleErrorT,
-    clipboardErrorT,
-    titleModalT,
-    confirmModalT,
-    closeModalT,
-    questionNobodyT,
-    questionFriendsT,
+    uiShareButtonTranslations,
 }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const activeLocale = useLocale();
+
+    const {
+        shareTextT,
+        shareWishHubSuccessT,
+        shareWishSuccessT,
+        shareConsoleErrorT,
+        shareErrorT,
+        clipboardWishHubSuccessT,
+        clipboardWishSuccessT,
+        clipboardConsoleErrorT,
+        clipboardErrorT,
+        titleModalT,
+        confirmModalT,
+        closeModalT,
+        questionNobodyT,
+        questionFriendsT,
+    } = uiShareButtonTranslations;
 
     const shareContent = () => {
         if (navigator.share) {
@@ -115,11 +123,9 @@ const UiShareButton: FC<IProps> = ({
                 confirmModalT={confirmModalT}
                 closeModalT={closeModalT}
             >
-                {/*<p className="text-base font-bold text-zinc-300">*/}
                 {wishShow === EPrivacy.NOBODY
                     ? questionNobodyT
                     : questionFriendsT}
-                {/*</p>*/}
             </UiConfirmModal>
         </>
     );

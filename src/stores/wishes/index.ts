@@ -41,7 +41,7 @@ interface IWishesStore {
     page: number;
     stopRequests: boolean;
     isLoading: boolean;
-    setWishStatus: (value: EWishStatus) => void;
+    setWishesStatus: (value: EWishStatus) => void;
     setWishesSearch: (value: string) => void;
     setWishesSort: (value: EWishSort) => void;
     resetWishCandidate: (value: IWishCandidate | null) => void;
@@ -74,7 +74,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     page: 1,
     stopRequests: false,
     isLoading: false,
-    setWishStatus: (value) => set({ status: value }),
+    setWishesStatus: (value) => set({ status: value }),
     setWishesSearch: (value) => set({ search: value }),
     setWishesSort: (value) => set({ sort: value }),
     resetWishCandidate: (value) => set({ wishCandidate: value }),
