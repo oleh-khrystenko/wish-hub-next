@@ -50,11 +50,12 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                     response.data.users.length !== USERS_PAGINATION_LIMIT,
             }));
         } catch (error: any) {
-            toast(error.response?.data?.message || errorT, { type: 'error' });
             set((state) => ({
                 ...state,
                 stopRequests: false,
             }));
+
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -84,11 +85,12 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                 };
             });
         } catch (error: any) {
-            toast(error.response?.data?.message || errorT, { type: 'error' });
             set((state) => ({
                 ...state,
                 stopRequests: false,
             }));
+
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -116,11 +118,12 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                 };
             });
         } catch (error: any) {
-            toast(error.response?.data?.message || errorT, { type: 'error' });
             set((state) => ({
                 ...state,
                 stopRequests: false,
             }));
+
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -149,11 +152,12 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                 };
             });
         } catch (error: any) {
-            toast(error.response?.data?.message || errorT, { type: 'error' });
             set((state) => ({
                 ...state,
                 stopRequests: false,
             }));
+
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,

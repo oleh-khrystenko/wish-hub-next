@@ -55,11 +55,12 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 myUser: response.data.user,
             }));
         } catch (error: any) {
-            toast(error.response?.data?.message || errorT, { type: 'error' });
             set((state) => ({
                 ...state,
                 myUser: null,
             }));
+
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -84,11 +85,12 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 myUser: response.data.user,
             }));
         } catch (error: any) {
-            toast(error.response?.data?.message || errorT, { type: 'error' });
             set((state) => ({
                 ...state,
                 myUser: null,
             }));
+
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -113,11 +115,12 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 myUser: response.data.user,
             }));
         } catch (error: any) {
-            toast(error.response?.data?.message || errorT, { type: 'error' });
             set((state) => ({
                 ...state,
                 myUser: null,
             }));
+
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -197,15 +200,15 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
 
             localStorage.removeItem('token');
 
-            // toast(
-            //     t('alerts.my-user-api.change-password.success'),
-            //     { type: 'success' },
-            // );
-
             set((state) => ({
                 ...state,
                 myUser: null,
             }));
+
+            // toast(
+            //     t('alerts.my-user-api.change-password.success'),
+            //     { type: 'success' },
+            // );
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message || t('alerts.my-user-api.change-password.error'),

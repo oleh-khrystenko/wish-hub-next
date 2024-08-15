@@ -92,15 +92,16 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 wishCandidate: response.data,
             }));
         } catch (error: any) {
+            set((state) => ({
+                ...state,
+                wishCandidate: null,
+            }));
+
             // toast(
             //     error.response?.data?.message ||
             //         t('alerts.wishes-api.fetch-wish-data.error'),
             //     { type: 'error' }
             // );
-            set((state) => ({
-                ...state,
-                wishCandidate: null,
-            }));
         } finally {
             set((state) => ({
                 ...state,
