@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl';
 import Refresh from '@/helpers/hocs/Refresh';
+import MainContent from '@/app/[locale]/main/MainContent';
 import Header from '@/components/layouts/header/Header';
 import Sidebar from '@/components/layouts/sidebar/Sidebar';
-import MainContent from '@/app/[locale]/main/MainContent';
 
 export default function Main() {
     const t = useTranslations();

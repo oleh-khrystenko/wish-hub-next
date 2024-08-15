@@ -7,14 +7,14 @@ import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
 interface IUsersStore {
     list: IUser[];
-    selectUserId: IUser['id'] | null;
+    page: number;
     search: string;
     followFromCount: number;
-    page: number;
     stopRequests: boolean;
+    selectUserId: IUser['id'] | null;
     isLoading: boolean;
-    setSelectUserId: (id: IUser['id'] | null) => void;
     setSearch: (value: string) => void;
+    setSelectUserId: (id: IUser['id'] | null) => void;
     getUsers: (params: ISendUsersParams, errorT: string) => Promise<void>;
     addUsers: (params: ISendUsersParams, errorT: string) => Promise<void>;
     getAllUsers: (params: ISendAllUsersParams, errorT: string) => Promise<void>;
@@ -23,14 +23,14 @@ interface IUsersStore {
 
 export const useUsersStore = create<IUsersStore>((set) => ({
     list: [],
-    selectUserId: null,
+    page: 1,
     search: '',
     followFromCount: 0,
-    page: 1,
     stopRequests: false,
+    selectUserId: null,
     isLoading: false,
-    setSelectUserId: (id) => set({ selectUserId: id }),
     setSearch: (value) => set({ search: value }),
+    setSelectUserId: (id) => set({ selectUserId: id }),
     getUsers: async (params, errorT) => {
         set((state) => ({
             ...state,

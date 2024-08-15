@@ -1,16 +1,16 @@
 'use client';
 
 import { FC, useRef, useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
+import { EUserType, ISendUsersParams } from '@/stores/users/types';
+import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import Loading from '@/components/layouts/Loading';
 import UserAction from '@/components/layouts/sidebar/UserAction';
-import { useMyUserStore } from '@/stores/my-user';
-import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
-import { EUserType, ISendUsersParams } from '@/stores/users/types';
-import UiSearch from '@/components/ui/UiSearch';
-import { useTranslations } from 'next-intl';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
+import UiSearch from '@/components/ui/UiSearch';
+import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
 interface IProps {
     getUsersErrorT: string;
@@ -27,32 +27,32 @@ const UserList: FC<IProps> = ({
     removeFriendErrorT,
     userProfileT,
 }) => {
-    const mainPageT = useTranslations('main-page');
+    const [firstLoad, setFirstLoad] = useState<boolean>(true);
+    const [userType, setUserType] = useState<ISendUsersParams['userType']>(
+        EUserType.ALL
+    );
 
-    const myUser = useMyUserStore((state) => state.myUser);
-    const getUsers = useUsersStore((state) => state.getUsers);
-    const addUsers = useUsersStore((state) => state.addUsers);
-    const getAllUsers = useUsersStore((state) => state.getAllUsers);
-    const addAllUsers = useUsersStore((state) => state.addAllUsers);
-    const users = useUsersStore((state) => state.list);
-    const page = useUsersStore((state) => state.page);
-    const search = useUsersStore((state) => state.search);
-    const followFromCount = useUsersStore((state) => state.followFromCount);
-    const setSearch = useUsersStore((state) => state.setSearch);
-    const stopRequests = useUsersStore((state) => state.stopRequests);
-    const isLoading = useUsersStore((state) => state.isLoading);
+    const userListRef = useRef<HTMLDivElement>(null);
+    const gotUser = useRef(false);
 
     const { ref, inView } = useInView({
         threshold: 0,
     });
 
-    const userListRef = useRef<HTMLDivElement>(null);
-    const gotUser = useRef(false);
+    const mainPageT = useTranslations('main-page');
 
-    const [firstLoad, setFirstLoad] = useState<boolean>(true);
-    const [userType, setUserType] = useState<ISendUsersParams['userType']>(
-        EUserType.ALL
-    );
+    const myUser = useMyUserStore((state) => state.myUser);
+    const users = useUsersStore((state) => state.list);
+    const page = useUsersStore((state) => state.page);
+    const search = useUsersStore((state) => state.search);
+    const followFromCount = useUsersStore((state) => state.followFromCount);
+    const stopRequests = useUsersStore((state) => state.stopRequests);
+    const isLoading = useUsersStore((state) => state.isLoading);
+    const setSearch = useUsersStore((state) => state.setSearch);
+    const getUsers = useUsersStore((state) => state.getUsers);
+    const addUsers = useUsersStore((state) => state.addUsers);
+    const getAllUsers = useUsersStore((state) => state.getAllUsers);
+    const addAllUsers = useUsersStore((state) => state.addAllUsers);
 
     const selectOptions: IOption[] = [
         {
