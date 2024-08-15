@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { Tooltip } from 'react-tooltip';
-import UseScreenWidth from '@/helpers/hooks/useScreenWidth';
+import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 
 interface IProps {
     id: string;

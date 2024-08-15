@@ -1,11 +1,13 @@
 'use client';
 
 import { FC, useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { useLocale } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
 import { ETheme } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
-import UseInitialWishes from '@/helpers/hooks/useInitialWishes';
+import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import getFullName from '@/helpers/utils/get-full-name';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
 import UiButton from '@/components/ui/UiButton';
@@ -25,6 +27,7 @@ import LogoLightIcon from '@/components/icons/LogoLightIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
 
 interface IProps {
+    logoutWithUpdate: boolean;
     logoutErrorT: string;
     singInT: string;
     userNotFoundT: string;
@@ -55,6 +58,7 @@ interface IProps {
 }
 
 const UserSetting: FC<IProps> = ({
+    logoutWithUpdate = false,
     logoutErrorT,
     singInT,
     userNotFoundT,
@@ -92,7 +96,12 @@ const UserSetting: FC<IProps> = ({
         (state) => state.setShowBurgerMenu
     );
 
-    const { getInitialWishList } = UseInitialWishes();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const activeLocale = useLocale();
+
+    const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
 
     const handleShowPopup = () => {
         setShowPopup(true);
@@ -100,10 +109,11 @@ const UserSetting: FC<IProps> = ({
 
     // SelectWish
     const handleSelectMyWishes = async () => {
-        console.log('handleSelectMyWishes');
-        // if (location.pathname.split('/')[1].length > 0) {
-        //     return navigate('/?my-wishes');
-        // }
+        if (pathname.split('/')[2] === 'main') {
+            router.push(`/${activeLocale}/main`);
+        } else {
+            return router.push(`/${activeLocale}/main?my-wishes`);
+        }
 
         if (!myUser) return;
 
@@ -115,8 +125,8 @@ const UserSetting: FC<IProps> = ({
     // Logout
     const handleLogout = async () => {
         await logout(logoutErrorT);
+        logoutWithUpdate && (await getInitialAllWishes());
         setShowPopup(false);
-        // !logoutWithoutUpdate && await handleGetInitialAllWishes(dispatch);
     };
 
     return (

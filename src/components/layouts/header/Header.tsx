@@ -10,6 +10,7 @@ function Header() {
             <WishHub />
 
             <UserSetting
+                logoutWithUpdate
                 logoutErrorT={t('alerts.my-user-api.logout.error')}
                 singInT={t('sing-in')}
                 userNotFoundT={t('main-page.user_not_found')}
