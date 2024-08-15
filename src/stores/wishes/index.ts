@@ -94,7 +94,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.fetch-wish-data.error', { type: 'api' }),
+            //         t('alerts.wishes-api.fetch-wish-data.error'),
             //     { type: 'error' }
             // );
             set((state) => ({
@@ -124,7 +124,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.create-wish.error', { type: 'api' }),
+            //         t('alerts.wishes-api.create-wish.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -155,7 +155,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.update-wish.error', { type: 'api' }),
+            //         t('alerts.wishes-api.update-wish.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -184,7 +184,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.book-wish.error', { type: 'api' }),
+            //         t('alerts.wishes-api.book-wish.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -217,7 +217,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.cancel-book-wish.error', { type: 'api' }),
+            //         t('alerts.wishes-api.cancel-book-wish.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -248,7 +248,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.done-wish.error', { type: 'api' }),
+            //         t('alerts.wishes-api.done-wish.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -279,7 +279,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.undone-wish.error', { type: 'api' }),
+            //         t('alerts.wishes-api.undone-wish.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -308,7 +308,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.like-wish.error', { type: 'api' }),
+            //         t('alerts.wishes-api.like-wish.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -337,7 +337,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.dislike-wish.error', { type: 'api' }),
+            //         t('alerts.wishes-api.dislike-wish.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -365,7 +365,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.delete-wish.error', { type: 'api' }),
+            //         t('alerts.wishes-api.delete-wish.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -401,7 +401,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.get-wish-list.error', { type: 'api' }),
+            //         t('alerts.wishes-api.get-wish-list.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -436,7 +436,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.get-wish-list.error', { type: 'api' }),
+            //         t('alerts.wishes-api.get-wish-list.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -469,7 +469,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.get-all-wishes.error', { type: 'api' }),
+            //         t('alerts.wishes-api.get-all-wishes.error'),
             //     { type: 'error' }
             // );
         } finally {
@@ -502,7 +502,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
             // toast(
             //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.get-all-wishes.error', { type: 'api' }),
+            //         t('alerts.wishes-api.get-all-wishes.error'),
             //     { type: 'error' }
             // );
         } finally {

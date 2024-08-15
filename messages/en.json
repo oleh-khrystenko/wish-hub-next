@@ -115,50 +115,50 @@
         },
         "wishes-api": {
             "fetch-wish-data": {
-                "error": "{type}.fetchWishDataFromLink: Failed to get wish data from the link."
+                "error": "fetchWishDataFromLink: Failed to get wish data from the link."
             },
             "create-wish": {
-                "error": "{type}.createWish: Failed to create a wish.",
+                "error": "createWish: Failed to create a wish.",
                 "success": "The wish has been successfully created."
             },
             "update-wish": {
-                "error": "{type}.updateWish: Failed to update the wish.",
+                "error": "updateWish: Failed to update the wish.",
                 "success": "The wish has been successfully updated."
             },
             "get-wish": {
-                "error": "{type}.getWish: Failed to get the wish."
+                "error": "getWish: Failed to get the wish."
             },
             "book-wish": {
-                "error": "{type}.bookWish: Failed to book the wish.",
+                "error": "bookWish: Failed to book the wish.",
                 "success": "The wish has been successfully booked."
             },
             "cancel-book-wish": {
-                "error": "{type}.cancelBookWish: Failed to cancel the booking of the wish.",
+                "error": "cancelBookWish: Failed to cancel the booking of the wish.",
                 "success": "The wish booking has been successfully canceled."
             },
             "done-wish": {
-                "error": "{type}.doneWish: Failed to mark the wish as done.",
+                "error": "doneWish: Failed to mark the wish as done.",
                 "success": "The wish has been successfully marked as done."
             },
             "undone-wish": {
-                "error": "{type}.undoneWish: Failed to mark the wish as not done.",
+                "error": "undoneWish: Failed to mark the wish as not done.",
                 "success": "The wish has been successfully marked as not done."
             },
             "like-wish": {
-                "error": "{type}.likeWish: Failed to like the wish."
+                "error": "likeWish: Failed to like the wish."
             },
             "dislike-wish": {
-                "error": "{type}.dislikeWish: Failed to dislike the wish."
+                "error": "dislikeWish: Failed to dislike the wish."
             },
             "delete-wish": {
-                "error": "{type}.deleteWish: Failed to delete the wish with ID {wishId}.",
+                "error": "deleteWish: Failed to delete the wish with ID {wishId}.",
                 "success": "The wish has been successfully deleted."
             },
             "get-wish-list": {
-                "error": "{type}.getWishList: Failed to get wish list."
+                "error": "getWishList: Failed to get wish list."
             },
             "get-all-wishes": {
-                "error": "{type}.getAllWishes: Failed to get all wishes."
+                "error": "getAllWishes: Failed to get all wishes."
             }
         },
         "interceptors-api": {

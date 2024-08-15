@@ -102,7 +102,7 @@ const getWish = async (params: ISendWish): Promise<AxiosResponse<IGetWish>> => {
     } catch (error: any) {
         // toast(
         //     error.response?.data?.message ||
-        //         t('alerts.wishes-api.get-wish.error', { type: 'api' }),
+        //         t('alerts.wishes-api.get-wish.error'),
         //     { type: 'error' }
         // );
         throw error;

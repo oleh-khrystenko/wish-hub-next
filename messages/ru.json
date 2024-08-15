@@ -115,50 +115,50 @@
         },
         "wishes-api": {
             "fetch-wish-data": {
-                "error": "{type}.fetchWishDataFromLink: Не вдалось отримати дані бажання за посиланням."
+                "error": "fetchWishDataFromLink: Не вдалось отримати дані бажання за посиланням."
             },
             "create-wish": {
-                "error": "{type}.createWish: Не вдалось створити бажання.",
+                "error": "createWish: Не вдалось створити бажання.",
                 "success": "Бажання успішно створено."
             },
             "update-wish": {
-                "error": "{type}.updateWish: Не вдалось оновити бажання.",
+                "error": "updateWish: Не вдалось оновити бажання.",
                 "success": "Бажання успішно оновлено."
             },
             "get-wish": {
-                "error": "{type}.getWish: Не вдалось отримати бажання."
+                "error": "getWish: Не вдалось отримати бажання."
             },
             "book-wish": {
-                "error": "{type}.bookWish: Не вдалось забронювати бажання.",
+                "error": "bookWish: Не вдалось забронювати бажання.",
                 "success": "Бажання успішно заброньовано."
             },
             "cancel-book-wish": {
-                "error": "{type}.cancelBookWish: Не вдалось скасувати бронювання бажання.",
+                "error": "cancelBookWish: Не вдалось скасувати бронювання бажання.",
                 "success": "Бронювання бажання успішно скасовано."
             },
             "done-wish": {
-                "error": "{type}.doneWish: Не вдалось позначити бажання виконаним.",
+                "error": "doneWish: Не вдалось позначити бажання виконаним.",
                 "success": "Бажання успішно позначено виконаним."
             },
             "undone-wish": {
-                "error": "{type}.undoneWish: Не вдалось позначити бажання не виконаним.",
+                "error": "undoneWish: Не вдалось позначити бажання не виконаним.",
                 "success": "Бажання успішно позначено не виконаним."
             },
             "like-wish": {
-                "error": "{type}.likeWish: Не вдалося вподобати бажання."
+                "error": "likeWish: Не вдалося вподобати бажання."
             },
             "dislike-wish": {
-                "error": "{type}.dislikeWish: Не вдалося не вподобати бажання."
+                "error": "dislikeWish: Не вдалося не вподобати бажання."
             },
             "delete-wish": {
-                "error": "{type}.deleteWish: Не вдалося видалити побажання з ідентифікатором {wishId}.",
+                "error": "deleteWish: Не вдалося видалити побажання з ідентифікатором {wishId}.",
                 "success": "Бажання успішно видалено."
             },
             "get-wish-list": {
-                "error": "{type}.getWishList: Не вдалось отримати список бажань."
+                "error": "getWishList: Не вдалось отримати список бажань."
             },
             "get-all-wishes": {
-                "error": "{type}.getAllWishes: Не вдалось отримати всі бажання."
+                "error": "getAllWishes: Не вдалось отримати всі бажання."
             }
         },
         "interceptors-api": {
