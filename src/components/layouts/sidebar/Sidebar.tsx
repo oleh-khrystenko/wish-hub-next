@@ -18,6 +18,10 @@ function Sidebar() {
 
             <NextIntlClientProvider messages={pick(messages, ['main-page'])}>
                 <UserList
+                    getUsersErrorT={t('alerts.users-api.get-users.error')}
+                    getAllUsersErrorT={t(
+                        'alerts.users-api.get-all-users.error'
+                    )}
                     addFriendErrorT={t('alerts.my-user-api.add-friend.error')}
                     removeFriendErrorT={t(
                         'alerts.my-user-api.remove-friend.error'

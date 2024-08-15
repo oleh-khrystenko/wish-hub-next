@@ -107,10 +107,10 @@
         },
         "users-api": {
             "get-users": {
-                "error": "{type}: Failed to get users."
+                "error": "getUsers: Failed to get users."
             },
             "get-all-users": {
-                "error": "{type}: Failed to get all users."
+                "error": "getAllUsers: Failed to get all users."
             }
         },
         "wishes-api": {

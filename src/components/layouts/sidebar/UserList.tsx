@@ -13,12 +13,16 @@ import { useTranslations } from 'next-intl';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 
 interface IProps {
+    getUsersErrorT: string;
+    getAllUsersErrorT: string;
     addFriendErrorT: string;
     removeFriendErrorT: string;
     userProfileT: string;
 }
 
 const UserList: FC<IProps> = ({
+    getUsersErrorT,
+    getAllUsersErrorT,
     addFriendErrorT,
     removeFriendErrorT,
     userProfileT,
@@ -92,56 +96,68 @@ const UserList: FC<IProps> = ({
         },
     ];
 
-    const handleChangeUserType = (value: IOption['value']) => {
+    const handleChangeUserType = async (value: IOption['value']) => {
         setUserType(value as EUserType);
 
         if (!myUser || !userListRef.current) return;
 
         userListRef.current.scrollTo(0, 0);
 
-        getUsers({
-            page: 1,
-            limit: USERS_PAGINATION_LIMIT,
-            myUserId: myUser.id,
-            userType: value as EUserType,
-            search,
-        });
+        await getUsers(
+            {
+                page: 1,
+                limit: USERS_PAGINATION_LIMIT,
+                myUserId: myUser.id,
+                userType: value as EUserType,
+                search,
+            },
+            getUsersErrorT
+        );
     };
 
     const handleChangeSearchBar = async (value: string) => {
-        await setSearch(value);
+        setSearch(value);
 
         if (!userListRef.current) return;
 
         userListRef.current.scrollTo(0, 0);
 
         if (!myUser) {
-            getAllUsers({
-                page: 1,
-                limit: USERS_PAGINATION_LIMIT,
-                search: value,
-            });
+            await getAllUsers(
+                {
+                    page: 1,
+                    limit: USERS_PAGINATION_LIMIT,
+                    search: value,
+                },
+                getAllUsersErrorT
+            );
         } else {
-            getUsers({
+            await getUsers(
+                {
+                    page: 1,
+                    limit: USERS_PAGINATION_LIMIT,
+                    myUserId: myUser.id,
+                    userType,
+                    search: value,
+                },
+                getUsersErrorT
+            );
+        }
+    };
+
+    const updateUsers = async () => {
+        if (!myUser) return;
+
+        await getUsers(
+            {
                 page: 1,
                 limit: USERS_PAGINATION_LIMIT,
                 myUserId: myUser.id,
                 userType,
-                search: value,
-            });
-        }
-    };
-
-    const updateUsers = () => {
-        if (!myUser) return;
-
-        // dispatch(getUsers({
-        //     page: 1,
-        //     limit: USERS_PAGINATION_LIMIT,
-        //     myUserId: myUser.id,
-        //     userType,
-        //     search: users.search
-        // }));
+                search,
+            },
+            getUsersErrorT
+        );
 
         if (!userListRef.current) return;
 
@@ -156,15 +172,21 @@ const UserList: FC<IProps> = ({
 
         if (!inView || stopRequests) return;
         if (myUser) {
-            addUsers({
-                page,
-                limit: USERS_PAGINATION_LIMIT,
-                myUserId: myUser.id,
-                userType,
-                search,
-            });
+            addUsers(
+                {
+                    page,
+                    limit: USERS_PAGINATION_LIMIT,
+                    myUserId: myUser.id,
+                    userType,
+                    search,
+                },
+                getUsersErrorT
+            ).finally();
         } else {
-            addAllUsers({ page, limit: USERS_PAGINATION_LIMIT, search });
+            addAllUsers(
+                { page, limit: USERS_PAGINATION_LIMIT, search },
+                getAllUsersErrorT
+            ).finally();
         }
     }, [inView]);
 
@@ -172,15 +194,21 @@ const UserList: FC<IProps> = ({
         if (gotUser.current) return;
         gotUser.current = true;
         if (myUser) {
-            getUsers({
-                page: 1,
-                limit: USERS_PAGINATION_LIMIT,
-                myUserId: myUser.id,
-                userType,
-                search,
-            });
+            getUsers(
+                {
+                    page: 1,
+                    limit: USERS_PAGINATION_LIMIT,
+                    myUserId: myUser.id,
+                    userType,
+                    search,
+                },
+                getUsersErrorT
+            ).finally();
         } else {
-            getAllUsers({ page: 1, limit: USERS_PAGINATION_LIMIT, search });
+            getAllUsers(
+                { page: 1, limit: USERS_PAGINATION_LIMIT, search },
+                getAllUsersErrorT
+            ).finally();
         }
     }, []);
 

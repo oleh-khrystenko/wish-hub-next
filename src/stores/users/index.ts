@@ -12,14 +12,13 @@ interface IUsersStore {
     followFromCount: number;
     page: number;
     stopRequests: boolean;
-    error: string | null;
     isLoading: boolean;
     setSelectUserId: (id: IUser['id']) => void;
     setSearch: (value: string) => void;
-    getUsers: (params: ISendUsersParams) => Promise<void>;
-    addUsers: (params: ISendUsersParams) => Promise<void>;
-    getAllUsers: (params: ISendAllUsersParams) => Promise<void>;
-    addAllUsers: (params: ISendAllUsersParams) => Promise<void>;
+    getUsers: (params: ISendUsersParams, errorT: string) => Promise<void>;
+    addUsers: (params: ISendUsersParams, errorT: string) => Promise<void>;
+    getAllUsers: (params: ISendAllUsersParams, errorT: string) => Promise<void>;
+    addAllUsers: (params: ISendAllUsersParams, errorT: string) => Promise<void>;
 }
 
 export const useUsersStore = create<IUsersStore>((set) => ({
@@ -29,12 +28,15 @@ export const useUsersStore = create<IUsersStore>((set) => ({
     followFromCount: 0,
     page: 1,
     stopRequests: false,
-    error: null,
     isLoading: false,
     setSelectUserId: (id) => set({ selectUserId: id }),
     setSearch: (value) => set({ search: value }),
-    getUsers: async (params) => {
-        set({ stopRequests: true, error: null, isLoading: true });
+    getUsers: async (params, errorT) => {
+        set((state) => ({
+            ...state,
+            stopRequests: true,
+            isLoading: true,
+        }));
 
         try {
             const response = await usersApi.getUsers(params);
@@ -46,28 +48,32 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                 page: 2,
                 stopRequests:
                     response.data.users.length !== USERS_PAGINATION_LIMIT,
-                error: null,
-                isLoading: false,
             }));
         } catch (error: any) {
-            set({
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+            set((state) => ({
+                ...state,
                 stopRequests: false,
-                error:
-                    error.response?.data?.message ||
-                    toast.error('An error occurred'),
+            }));
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
-            });
+            }));
         }
     },
-    addUsers: async (params) => {
-        set({ stopRequests: true, error: null, isLoading: true });
+    addUsers: async (params, errorT) => {
+        set((state) => ({
+            ...state,
+            stopRequests: true,
+            isLoading: true,
+        }));
 
         try {
             const response = await usersApi.getUsers(params);
 
             set((state) => {
                 const list = [...state.list, ...response.data.users];
-                // const list = state.list.push(...response.data.users);
                 return {
                     ...state,
                     list,
@@ -75,22 +81,27 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                     page: state.page + 1,
                     stopRequests:
                         response.data.users.length !== USERS_PAGINATION_LIMIT,
-                    error: null,
-                    isLoading: false,
                 };
             });
         } catch (error: any) {
-            set({
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+            set((state) => ({
+                ...state,
                 stopRequests: false,
-                error:
-                    error.response?.data?.message ||
-                    toast.error('An error occurred'),
+            }));
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
-            });
+            }));
         }
     },
-    getAllUsers: async (params) => {
-        set({ stopRequests: true, error: null, isLoading: true });
+    getAllUsers: async (params, errorT) => {
+        set((state) => ({
+            ...state,
+            stopRequests: true,
+            isLoading: true,
+        }));
 
         try {
             const response = await usersApi.getAllUsers(params);
@@ -102,22 +113,27 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                     page: 2,
                     stopRequests:
                         response.data.length !== USERS_PAGINATION_LIMIT,
-                    error: null,
-                    isLoading: false,
                 };
             });
         } catch (error: any) {
-            set({
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+            set((state) => ({
+                ...state,
                 stopRequests: false,
-                error:
-                    error.response?.data?.message ||
-                    toast.error('An error occurred'),
+            }));
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
-            });
+            }));
         }
     },
-    addAllUsers: async (params) => {
-        set({ stopRequests: true, error: null, isLoading: true });
+    addAllUsers: async (params, errorT) => {
+        set((state) => ({
+            ...state,
+            stopRequests: true,
+            isLoading: true,
+        }));
 
         try {
             const response = await usersApi.getAllUsers(params);
@@ -130,18 +146,19 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                     page: state.page + 1,
                     stopRequests:
                         response.data.length !== USERS_PAGINATION_LIMIT,
-                    error: null,
-                    isLoading: false,
                 };
             });
         } catch (error: any) {
-            set({
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+            set((state) => ({
+                ...state,
                 stopRequests: false,
-                error:
-                    error.response?.data?.message ||
-                    toast.error('An error occurred'),
+            }));
+        } finally {
+            set((state) => ({
+                ...state,
                 isLoading: false,
-            });
+            }));
         }
     },
 }));
