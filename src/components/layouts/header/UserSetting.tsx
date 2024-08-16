@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
 import { ETheme } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
@@ -28,38 +28,17 @@ import PersonIcon from '@/components/icons/PersonIcon';
 
 interface IProps {
     logoutWithUpdate: boolean;
-    logoutErrorT: string;
-    singInT: string;
-    userNotFoundT: string;
-    singUpT: string;
-    myWishesT: string;
-    myProfileT: string;
-    interfaceLanguageT: string;
-    themeT: string;
-    aboutT: string;
-    confirmT: string;
-    contactsT: string;
-    logoutT: string;
-    privacyPolicyT: string;
 }
 
-const UserSetting: FC<IProps> = ({
-    logoutWithUpdate = false,
-    logoutErrorT,
-    singInT,
-    userNotFoundT,
-    singUpT,
-    myWishesT,
-    myProfileT,
-    interfaceLanguageT,
-    themeT,
-    aboutT,
-    confirmT,
-    contactsT,
-    logoutT,
-    privacyPolicyT,
-}) => {
+const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
+
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const activeLocale = useLocale();
+    const alertsT = useTranslations('alerts');
+    const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
     const logout = useMyUserStore((state) => state.logout);
@@ -67,11 +46,6 @@ const UserSetting: FC<IProps> = ({
     const setShowBurgerMenu = useSettingsStore(
         (state) => state.setShowBurgerMenu
     );
-
-    const router = useRouter();
-    const pathname = usePathname();
-
-    const activeLocale = useLocale();
 
     const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
 
@@ -92,7 +66,7 @@ const UserSetting: FC<IProps> = ({
 
     // Logout
     const handleLogout = async () => {
-        await logout(logoutErrorT);
+        await logout(alertsT('my-user-api.logout.error'));
         logoutWithUpdate && (await getInitialAllWishes());
         setShowPopup(false);
     };
@@ -102,7 +76,7 @@ const UserSetting: FC<IProps> = ({
             <UiButton href="auth" variant="text">
                 <div className="flex flex-col items-end gap-1">
                     <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                        {getFullName(myUser, singInT)}
+                        {getFullName(myUser, mainPageT('sing-in'))}
                     </span>
 
                     {myUser?.email && (
@@ -115,7 +89,7 @@ const UserSetting: FC<IProps> = ({
 
             <UiAvatar
                 avatar={myUser?.avatar}
-                alt={getFullName(myUser, userNotFoundT)}
+                alt={getFullName(myUser, mainPageT('user_not_found'))}
                 size={44}
                 handleClick={() => setShowPopup(true)}
             />
@@ -128,9 +102,11 @@ const UserSetting: FC<IProps> = ({
                 {!myUser && (
                     <div className="mx-4 mt-4 flex flex-col items-center justify-evenly gap-2 rounded-lg bg-zinc-600 p-2 mobile-xs:flex-row">
                         <UiButton href="auth" variant="outline">
-                            {singInT}
+                            {mainPageT('sing-in')}
                         </UiButton>
-                        <UiButton href="auth?register">{singUpT}</UiButton>
+                        <UiButton href="auth?register">
+                            {mainPageT('sing-up')}
+                        </UiButton>
                     </div>
                 )}
 
@@ -147,7 +123,7 @@ const UserSetting: FC<IProps> = ({
                                     ) : (
                                         <LogoDarkIcon classes="h-6 w-6" />
                                     )}
-                                    {myWishesT}
+                                    {mainPageT('my-wishes')}
                                 </span>
                             </UiButton>
 
@@ -157,7 +133,7 @@ const UserSetting: FC<IProps> = ({
                             >
                                 <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                     <PersonIcon />
-                                    {myProfileT}
+                                    {mainPageT('my-profile')}
                                 </span>
                             </UiButton>
                         </>
@@ -165,13 +141,13 @@ const UserSetting: FC<IProps> = ({
 
                     <div className="flex items-center gap-2 whitespace-nowrap text-lg font-bold text-zinc-800 dark:text-zinc-300">
                         <LangIcon />
-                        {interfaceLanguageT}:
+                        {mainPageT('interface_language')}:
                         <UiLangSelect />
                     </div>
 
                     <div className="flex items-center gap-2 whitespace-nowrap text-lg font-bold text-zinc-800 dark:text-zinc-300">
                         <LightDarkThemeIcon />
-                        {themeT}:
+                        {mainPageT('theme')}:
                         <UiThemeSwitcher />
                     </div>
                 </div>
@@ -188,20 +164,20 @@ const UserSetting: FC<IProps> = ({
                     <UiButton href="about" variant="text">
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <InfoIcon classes="h-6 w-6 stroke-zinc-700 dark:stroke-zinc-300" />
-                            {aboutT} Wish Hub
+                            {mainPageT('about')} Wish Hub
                         </span>
                     </UiButton>
 
                     <UiShareButton classes="flex-row-reverse mr-auto">
                         <span className="flex items-center gap-2 py-1.5 text-lg font-bold text-zinc-800 dark:text-zinc-300">
-                            {confirmT} Wish Hub
+                            {mainPageT('confirm')} Wish Hub
                         </span>
                     </UiShareButton>
 
                     <UiButton href="about" variant="text">
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <ForumIcon />
-                            {contactsT}
+                            {mainPageT('contacts')}
                         </span>
                     </UiButton>
                 </div>
@@ -215,7 +191,7 @@ const UserSetting: FC<IProps> = ({
                         >
                             <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                 <LogoutIcon />
-                                {logoutT}
+                                {mainPageT('logout')}
                             </span>
                         </UiButton>
                     )}
@@ -228,7 +204,7 @@ const UserSetting: FC<IProps> = ({
                         <UiButton href="privacy-policy" variant="text">
                             <span className="flex items-center gap-2 text-xs text-zinc-800 underline dark:text-zinc-300">
                                 <PrivacyPolicyIcon />
-                                {privacyPolicyT}
+                                {mainPageT('privacy_policy_title')}
                             </span>
                         </UiButton>
                     </div>

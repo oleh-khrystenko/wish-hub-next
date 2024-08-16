@@ -3,7 +3,6 @@
     "wish": "Wish",
     "logo": "Logo",
     "wish_hub_icon": "Wish Hub icon",
-    "logout": "Log out",
     "last-name": "Last name*",
     "inactivated": {
         "aim": "We aim for all users to be real.",
@@ -211,6 +210,10 @@
         }
     },
     "main-page": {
+        "logout": "Log out",
+        "confirm": "Share",
+        "sing-in": "Sing In",
+        "sing-up": "Sing Up",
         "you_can_send": "You can send your wish to: ",
         "bd": "Birthday: {birthday}",
         "interface_language": "Interface language",
@@ -367,7 +370,9 @@
             "title": "Attention!",
             "confirm": "Confirm",
             "close": "Close"
-        }
+        },
+        "privacy_policy_title": "Privacy Policy",
+        "my-profile": "My profile"
     },
     "activation-link-expired-page": {
         "expired": "Account activation period has expired.",

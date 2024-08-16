@@ -16,7 +16,11 @@ export default function Main() {
     return (
         <main className="flex h-svh flex-col p-1 tablet-md:gap-1">
             <NextIntlClientProvider
-                messages={pick(messages, ['main-page', 'share-button'])}
+                messages={pick(messages, [
+                    'main-page',
+                    'share-button',
+                    'alerts',
+                ])}
             >
                 <Refresh refreshT={t('alerts.my-user-api.refresh.error')}>
                     <Header />
