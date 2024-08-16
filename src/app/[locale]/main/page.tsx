@@ -69,6 +69,19 @@ export default function Main() {
                         sortByPriceUpT={t('main-page.sort.by-price-up')}
                         sortByCreatedUpT={t('main-page.sort.by-created-up')}
                         sortByCreatedDownT={t('main-page.sort.by-created-down')}
+                        wishExampleFirstT={t('main-page.wish-example.first')}
+                        wishExampleSecondT={t('main-page.wish-example.second')}
+                        wishExampleThirdT={t('main-page.wish-example.third')}
+                        wishExampleFourthT={t('main-page.wish-example.fourth')}
+                        atUserT={t('main-page.at-user')}
+                        doesNotHaveAllT={t('main-page.does_not_have_all')}
+                        doesNotHaveFulfilledT={t(
+                            'main-page.does_not_have_fulfilled'
+                        )}
+                        doesNotHaveUnfulfilledT={t(
+                            'main-page.does_not_have_unfulfilled'
+                        )}
+                        noWishesFoundT={t('main-page.no_wishes_found')}
                     />
                 </div>
             </Refresh>

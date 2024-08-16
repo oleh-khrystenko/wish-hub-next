@@ -79,10 +79,6 @@ const UserSetting: FC<IProps> = ({
 
     const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
 
-    const handleShowPopup = () => {
-        setShowPopup(true);
-    };
-
     // SelectWish
     const handleSelectMyWishes = async () => {
         if (pathname.split('/')[2] === 'main') {
@@ -125,7 +121,7 @@ const UserSetting: FC<IProps> = ({
                 avatar={myUser?.avatar}
                 alt={getFullName(myUser, userNotFoundT)}
                 size={44}
-                handleClick={handleShowPopup}
+                handleClick={() => setShowPopup(true)}
             />
 
             <UiPopup

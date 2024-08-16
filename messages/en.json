@@ -242,7 +242,7 @@
         "delete-request": "",
         "remove-friend": "Remove friend",
         "at-user": "User",
-        "does_not_have_": "doesn't have any wishes available for viewing.",
+        "does_not_have_all": "doesn't have any wishes available for viewing.",
         "does_not_have_fulfilled": "doesn't have any fulfilled wishes available for viewing.",
         "does_not_have_unfulfilled": "doesn't have any unfulfilled wishes available for viewing.",
         "no_wishes_found": "According to the specified parameters, no wishes were found.",
@@ -253,7 +253,7 @@
             "by-created-up": "Newest first",
             "by-created-down": "Oldest first"
         },
-        "wishes-example": {
+        "wish-example": {
             "first": "Your gifts",
             "second": "Your wishes",
             "third": "Your goals",

@@ -26,6 +26,15 @@ interface IProps {
     sortByPriceUpT: string;
     sortByCreatedUpT: string;
     sortByCreatedDownT: string;
+    wishExampleFirstT: string;
+    wishExampleSecondT: string;
+    wishExampleThirdT: string;
+    wishExampleFourthT: string;
+    atUserT: string;
+    doesNotHaveAllT: string;
+    doesNotHaveFulfilledT: string;
+    doesNotHaveUnfulfilledT: string;
+    noWishesFoundT: string;
 }
 
 const MainContent: FC<IProps> = ({
@@ -47,15 +56,24 @@ const MainContent: FC<IProps> = ({
     sortByPriceUpT,
     sortByCreatedUpT,
     sortByCreatedDownT,
+    wishExampleFirstT,
+    wishExampleSecondT,
+    wishExampleThirdT,
+    wishExampleFourthT,
+    atUserT,
+    doesNotHaveAllT,
+    doesNotHaveFulfilledT,
+    doesNotHaveUnfulfilledT,
+    noWishesFoundT,
 }) => {
     const myUser = useMyUserStore((state) => state.myUser);
     const users = useUsersStore((state) => state.list);
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
-    const selectedUser = useMemo(
-        () => users.find((user) => user.id === selectedUserId),
-        [users, selectedUserId]
-    );
+    const selectedUserFullName = useMemo(() => {
+        const selectedUser = users.find((user) => user.id === selectedUserId);
+        return getFullName(selectedUser, userNotFoundT);
+    }, [users, selectedUserId]);
 
     return (
         <div className="grow overflow-y-auto px-5 pb-5 pt-2">
@@ -66,8 +84,7 @@ const MainContent: FC<IProps> = ({
                     </>
                 ) : (
                     <>
-                        {TitleWishesT} {ofUserT}{' '}
-                        {getFullName(selectedUser, userNotFoundT)}
+                        {TitleWishesT} {ofUserT} {selectedUserFullName}
                     </>
                 )}
             </span>
@@ -86,6 +103,16 @@ const MainContent: FC<IProps> = ({
                 sortByPriceUpT={sortByPriceUpT}
                 sortByCreatedUpT={sortByCreatedUpT}
                 sortByCreatedDownT={sortByCreatedDownT}
+                wishExampleFirstT={wishExampleFirstT}
+                wishExampleSecondT={wishExampleSecondT}
+                wishExampleThirdT={wishExampleThirdT}
+                wishExampleFourthT={wishExampleFourthT}
+                atUserT={atUserT}
+                selectedUserFullName={selectedUserFullName}
+                doesNotHaveAllT={doesNotHaveAllT}
+                doesNotHaveFulfilledT={doesNotHaveFulfilledT}
+                doesNotHaveUnfulfilledT={doesNotHaveUnfulfilledT}
+                noWishesFoundT={noWishesFoundT}
             />
         </div>
     );

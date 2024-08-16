@@ -10,7 +10,6 @@ import {
 import WishHub from '@/components/ui/WishHub';
 import UiLangSelect from '@/components/ui/UiLangSelect';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
-import TempNav from '@/app/[locale]/TempNav';
 import Refresh from '@/helpers/hocs/Refresh';
 
 export default function Auth() {
@@ -25,8 +24,6 @@ export default function Auth() {
                 </div>
 
                 <WishHub withLogo isBig />
-
-                <TempNav />
             </header>
 
             <Refresh refreshT={t('alerts.my-user-api.refresh.error')}>
