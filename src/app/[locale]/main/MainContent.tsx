@@ -5,14 +5,9 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import getFullName from '@/helpers/utils/get-full-name';
 import WishList from '@/components/layouts/wish-list/WishList';
-import { IUiShareButtonTranslations } from '@/components/ui/UiShareButton';
 import { useTranslations } from 'next-intl';
 
-interface IProps {
-    uiShareButtonTranslations: IUiShareButtonTranslations;
-}
-
-const MainContent: FC<IProps> = ({ uiShareButtonTranslations }) => {
+const MainContent: FC = () => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -40,10 +35,7 @@ const MainContent: FC<IProps> = ({ uiShareButtonTranslations }) => {
                 )}
             </span>
 
-            <WishList
-                uiShareButtonTranslations={uiShareButtonTranslations}
-                selectedUserFullName={selectedUserFullName}
-            />
+            <WishList selectedUserFullName={selectedUserFullName} />
         </div>
     );
 };

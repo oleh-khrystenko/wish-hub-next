@@ -23,7 +23,7 @@ const UiConfirmModal: FC<IProps> = ({
 }) => {
     return (
         <UiModal show={show}>
-            <span className="mb-4 text-center text-2xl font-bold text-rose-500">
+            <span className="mb-4 block text-center text-2xl font-bold text-rose-500">
                 {titleModalT}
             </span>
 

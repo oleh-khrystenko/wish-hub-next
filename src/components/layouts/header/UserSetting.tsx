@@ -14,9 +14,7 @@ import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import UiThemeSwitcher from '@/components/ui/UiThemeSwitcher';
 import UiLangSelect from '@/components/ui/UiLangSelect';
-import UiShareButton, {
-    IUiShareButtonTranslations,
-} from '@/components/ui/UiShareButton';
+import UiShareButton from '@/components/ui/UiShareButton';
 import UiAvatar from '@/components/ui/UiAvatar';
 import LangIcon from '@/components/icons/LangIcon';
 import LightDarkThemeIcon from '@/components/icons/LightDarkThemeIcon';
@@ -39,7 +37,6 @@ interface IProps {
     interfaceLanguageT: string;
     themeT: string;
     aboutT: string;
-    uiShareButtonTranslations: IUiShareButtonTranslations;
     confirmT: string;
     contactsT: string;
     logoutT: string;
@@ -57,7 +54,6 @@ const UserSetting: FC<IProps> = ({
     interfaceLanguageT,
     themeT,
     aboutT,
-    uiShareButtonTranslations,
     confirmT,
     contactsT,
     logoutT,
@@ -196,10 +192,7 @@ const UserSetting: FC<IProps> = ({
                         </span>
                     </UiButton>
 
-                    <UiShareButton
-                        classes="flex-row-reverse mr-auto"
-                        uiShareButtonTranslations={uiShareButtonTranslations}
-                    >
+                    <UiShareButton classes="flex-row-reverse mr-auto">
                         <span className="flex items-center gap-2 py-1.5 text-lg font-bold text-zinc-800 dark:text-zinc-300">
                             {confirmT} Wish Hub
                         </span>

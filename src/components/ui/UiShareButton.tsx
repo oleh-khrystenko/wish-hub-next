@@ -4,32 +4,14 @@ import { FC, ReactNode, useState } from 'react';
 import { toast } from 'react-toastify';
 import { EPrivacy } from '@/models/Settings';
 import ShareIcon from '@/components/icons/ShareIcon';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import UiConfirmModal from '@/components/ui/UiConfirmModal';
-
-export interface IUiShareButtonTranslations {
-    shareTextT: string;
-    shareWishHubSuccessT: string;
-    shareWishSuccessT: string;
-    shareConsoleErrorT: string;
-    shareErrorT: string;
-    clipboardWishHubSuccessT: string;
-    clipboardWishSuccessT: string;
-    clipboardConsoleErrorT: string;
-    clipboardErrorT: string;
-    titleModalT: string;
-    confirmModalT: string;
-    closeModalT: string;
-    questionNobodyT: string;
-    questionFriendsT: string;
-}
 
 interface IProps {
     classes?: string;
     link?: string;
     wishShow?: EPrivacy;
     children?: ReactNode;
-    uiShareButtonTranslations: IUiShareButtonTranslations;
 }
 
 const UiShareButton: FC<IProps> = ({
@@ -37,47 +19,34 @@ const UiShareButton: FC<IProps> = ({
     link = '',
     wishShow,
     children,
-    uiShareButtonTranslations,
 }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const activeLocale = useLocale();
-
-    const {
-        shareTextT,
-        shareWishHubSuccessT,
-        shareWishSuccessT,
-        shareConsoleErrorT,
-        shareErrorT,
-        clipboardWishHubSuccessT,
-        clipboardWishSuccessT,
-        clipboardConsoleErrorT,
-        clipboardErrorT,
-        titleModalT,
-        confirmModalT,
-        closeModalT,
-        questionNobodyT,
-        questionFriendsT,
-    } = uiShareButtonTranslations;
+    const shareButtonT = useTranslations('share-button');
+    const mainPageT = useTranslations('main-page');
 
     const shareContent = () => {
         if (navigator.share) {
             navigator
                 .share({
                     title: 'Wish Hub',
-                    text: shareTextT,
+                    text: shareButtonT('share-text'),
                     url: `https://wish-hub.net/${activeLocale}/${link}`,
                 })
                 .then(() =>
                     toast.success(
                         link === 'welcome'
-                            ? shareWishHubSuccessT
-                            : shareWishSuccessT
+                            ? shareButtonT('alerts.share.wish_hub_success')
+                            : shareButtonT('alerts.share.wish_success')
                     )
                 )
                 .catch((error) => {
-                    console.log(shareConsoleErrorT, error);
-                    toast.error(shareErrorT);
+                    console.log(
+                        shareButtonT('alerts.share.console-error'),
+                        error
+                    );
+                    toast.error(shareButtonT('alerts.share.error'));
                 });
         } else {
             navigator.clipboard
@@ -85,13 +54,16 @@ const UiShareButton: FC<IProps> = ({
                 .then(() =>
                     toast.success(
                         link === 'welcome'
-                            ? clipboardWishHubSuccessT
-                            : clipboardWishSuccessT
+                            ? shareButtonT('alerts.clipboard.wish_hub_success')
+                            : shareButtonT('alerts.clipboard.wish_success')
                     )
                 )
                 .catch((error) => {
-                    console.log(clipboardConsoleErrorT, error);
-                    toast.error(clipboardErrorT);
+                    console.log(
+                        shareButtonT('alerts.clipboard.console-error'),
+                        error
+                    );
+                    toast.error(shareButtonT('alerts.clipboard.error'));
                 });
         }
 
@@ -119,13 +91,13 @@ const UiShareButton: FC<IProps> = ({
                 show={show}
                 confirm={shareContent}
                 hide={() => setShow(false)}
-                titleModalT={titleModalT}
-                confirmModalT={confirmModalT}
-                closeModalT={closeModalT}
+                titleModalT={mainPageT('confirm-modal.title')}
+                confirmModalT={mainPageT('confirm-modal.confirm')}
+                closeModalT={mainPageT('confirm-modal.close')}
             >
                 {wishShow === EPrivacy.NOBODY
-                    ? questionNobodyT
-                    : questionFriendsT}
+                    ? shareButtonT('question-nobody')
+                    : shareButtonT('question-friends')}
             </UiConfirmModal>
         </>
     );

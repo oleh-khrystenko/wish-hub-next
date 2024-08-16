@@ -19,20 +19,8 @@
         "share-text": "Wish Hub - це місце, де ви можете зберігати свої бажання та ділитися ними з друзями.",
         "confirm": "Поділитись",
         "question-nobody": "Ви впевнені що хочете поділитись бажанням, яке приховане від усіх?",
-        "question-friends": "Ви впевнені що хочете поділитись бажанням, яке відкрите тільки для друзів?"
-    },
-    "confirm-modal": {
-        "title": "Увага!",
-        "confirm": "Підтвердити",
-        "close": "Закрити"
-    },
-    "alerts": {
-        "auth-page": {
-            "google-login": {
-                "error": "GoogleLogin: Не вдалось увійти за допомогою Google."
-            }
-        },
-        "share-button": {
+        "question-friends": "Ви впевнені що хочете поділитись бажанням, яке відкрите тільки для друзів?",
+        "alerts": {
             "share": {
                 "wish_success": "Ви успішно поділилися своїм бажанням.",
                 "wish_hub_success": "Ви успішно поділилися \"Wish Hub\".",
@@ -44,6 +32,13 @@
                 "wish_hub_success": "Посилання на \"Wish Hub\" було скопійовано в буфер обміну.",
                 "error": "Під час спроби скопіювати посилання виникла помилка.",
                 "console-error": "Clipboard error: "
+            }
+        }
+    },
+    "alerts": {
+        "auth-page": {
+            "google-login": {
+                "error": "GoogleLogin: Не вдалось увійти за допомогою Google."
             }
         },
         "my-user-api": {
@@ -367,7 +362,12 @@
         "non-unique-wish-name": "В тебе вже є бажання з такою назвою.",
         "private-wish-error": "Вы должны выбрать хотя бы один уровень приватности для желания.",
         "user_not_found": "Пользователь не найден",
-        "theme": "Тема"
+        "theme": "Тема",
+        "confirm-modal": {
+            "title": "Увага!",
+            "confirm": "Підтвердити",
+            "close": "Закрити"
+        }
     },
     "activation-link-expired-page": {
         "expired": "Термін активації акаунта закінчився.",

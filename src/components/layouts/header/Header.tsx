@@ -20,34 +20,6 @@ function Header() {
                 interfaceLanguageT={t('main-page.interface_language')}
                 themeT={t('main-page.theme')}
                 aboutT={t('main-page.about')}
-                uiShareButtonTranslations={{
-                    shareTextT: t('share-button.share-text'),
-                    shareWishHubSuccessT: t(
-                        'alerts.share-button.share.wish_hub_success'
-                    ),
-                    shareWishSuccessT: t(
-                        'alerts.share-button.share.wish_success'
-                    ),
-                    shareConsoleErrorT: t(
-                        'alerts.share-button.share.console-error'
-                    ),
-                    shareErrorT: t('alerts.share-button.share.error'),
-                    clipboardWishHubSuccessT: t(
-                        'alerts.share-button.clipboard.wish_hub_success'
-                    ),
-                    clipboardWishSuccessT: t(
-                        'alerts.share-button.clipboard.wish_success'
-                    ),
-                    clipboardConsoleErrorT: t(
-                        'alerts.share-button.clipboard.console-error'
-                    ),
-                    clipboardErrorT: t('alerts.share-button.clipboard.error'),
-                    titleModalT: t('confirm-modal.title'),
-                    confirmModalT: t('confirm-modal.confirm'),
-                    closeModalT: t('confirm-modal.close'),
-                    questionNobodyT: t('share-button.question-nobody'),
-                    questionFriendsT: t('share-button.question-friends'),
-                }}
                 confirmT={t('share-button.confirm')}
                 contactsT={t('main-page.contacts')}
                 logoutT={t('logout')}

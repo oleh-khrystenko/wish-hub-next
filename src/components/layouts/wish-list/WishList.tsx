@@ -10,9 +10,7 @@ import { useUsersStore } from '@/stores/users';
 import UiSearch from '@/components/ui/UiSearch';
 import InfoIcon from '@/components/icons/InfoIcon';
 import UiTooltip from '@/components/ui/UiTooltip';
-import UiShareButton, {
-    IUiShareButtonTranslations,
-} from '@/components/ui/UiShareButton';
+import UiShareButton from '@/components/ui/UiShareButton';
 import { EPrivacy } from '@/models/Settings';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -22,14 +20,10 @@ import LogoIcon from '@/components/icons/LogoIcon';
 import WishItem from '@/components/layouts/wish-list/WishItem';
 
 interface IProps {
-    uiShareButtonTranslations: IUiShareButtonTranslations;
     selectedUserFullName: string;
 }
 
-const WishList: FC<IProps> = ({
-    uiShareButtonTranslations,
-    selectedUserFullName,
-}) => {
+const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showWish, setShowWish] = useState<boolean>(false);
@@ -369,9 +363,6 @@ const WishList: FC<IProps> = ({
                         >
                             <UiShareButton
                                 link={`/${activeLocale}/wish-list/${selectedUserId}`}
-                                uiShareButtonTranslations={
-                                    uiShareButtonTranslations
-                                }
                             >
                                 <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-800 dark:text-zinc-300">
                                     {mainPageT('share-wishes')}

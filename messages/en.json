@@ -19,20 +19,8 @@
         "share-text": "Wish Hub is a place where you can store your wishes and share them with your friends.",
         "confirm": "Share",
         "question-nobody": "Are you sure you want to share a wish that is hidden from everyone?",
-        "question-friends": "Are you sure you want to share a wish that is only open to your friends?"
-    },
-    "confirm-modal": {
-        "title": "Attention!",
-        "confirm": "Confirm",
-        "close": "Close"
-    },
-    "alerts": {
-        "auth-page": {
-            "google-login": {
-                "error": "GoogleLogin: Could not sign in with Google."
-            }
-        },
-        "share-button": {
+        "question-friends": "Are you sure you want to share a wish that is only open to your friends?",
+        "alerts": {
             "share": {
                 "wish_success": "You have successfully shared Your wish.",
                 "wish_hub_success": "You have successfully shared \"Wish Hub\".",
@@ -44,6 +32,13 @@
                 "wish_hub_success": "The link to \"Wish Hub\" has been copied to the clipboard.",
                 "error": "An error occurred while trying to copy the link to the clipboard.",
                 "console-error": "Clipboard error: "
+            }
+        }
+    },
+    "alerts": {
+        "auth-page": {
+            "google-login": {
+                "error": "GoogleLogin: Could not sign in with Google."
             }
         },
         "my-user-api": {
@@ -367,7 +362,12 @@
         "non-unique-wish-name": "You already have a wish with that name.",
         "private-wish-error": "You have to select at least one level of privacy you want.",
         "user_not_found": "User not found",
-        "theme": "Theme"
+        "theme": "Theme",
+        "confirm-modal": {
+            "title": "Attention!",
+            "confirm": "Confirm",
+            "close": "Close"
+        }
     },
     "activation-link-expired-page": {
         "expired": "Account activation period has expired.",
