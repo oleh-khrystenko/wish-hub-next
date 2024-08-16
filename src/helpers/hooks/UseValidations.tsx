@@ -78,12 +78,6 @@ const UseValidations = () => {
                 min: WISH_DESCRIPTION_MIN_LENGTH - 1,
             }),
         },
-        maxLength: {
-            value: WISH_DESCRIPTION_MAX_LENGTH,
-            message: validationsT('wish-description.max', {
-                min: WISH_DESCRIPTION_MAX_LENGTH,
-            }),
-        },
     };
 
     // Email
