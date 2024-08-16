@@ -33,7 +33,7 @@ export default function Auth() {
                     'validations',
                 ])}
             >
-                <Refresh refreshT={t('alerts.my-user-api.refresh.error')}>
+                <Refresh>
                     <RoutesGuard isUnauthenticated>
                         <ClientForm />
                     </RoutesGuard>

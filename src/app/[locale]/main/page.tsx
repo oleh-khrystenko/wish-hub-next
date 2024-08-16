@@ -22,7 +22,7 @@ export default function Main() {
                     'alerts',
                 ])}
             >
-                <Refresh refreshT={t('alerts.my-user-api.refresh.error')}>
+                <Refresh>
                     <Header />
 
                     <div className="flex grow gap-1 overflow-hidden">

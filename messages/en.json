@@ -372,7 +372,8 @@
             "close": "Close"
         },
         "privacy_policy_title": "Privacy Policy",
-        "my-profile": "My profile"
+        "my-profile": "My profile",
+        "user-profile": "User profile"
     },
     "activation-link-expired-page": {
         "expired": "Account activation period has expired.",

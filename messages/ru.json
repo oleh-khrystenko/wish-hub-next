@@ -372,7 +372,8 @@
             "close": "Закрити"
         },
         "privacy_policy_title": "Політика конфіденційності",
-        "my-profile": "Мій профіль"
+        "my-profile": "Мій профіль",
+        "user-profile": "Профіль користувача"
     },
     "activation-link-expired-page": {
         "expired": "Термін активації акаунта закінчився.",

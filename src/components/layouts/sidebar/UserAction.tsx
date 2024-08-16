@@ -28,18 +28,9 @@ dayjs.extend(advancedFormat);
 interface IProps {
     user: IUser;
     updateUsers: () => void;
-    addFriendErrorT: string;
-    removeFriendErrorT: string;
-    userProfileT: string;
 }
 
-const UserAction: FC<IProps> = ({
-    user,
-    updateUsers,
-    addFriendErrorT,
-    removeFriendErrorT,
-    userProfileT,
-}) => {
+const UserAction: FC<IProps> = ({ user, updateUsers }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showPopupUp, setShowPopupUp] = useState<boolean>(false);
     const [textWidth, setTextWidth] = useState<number>(0);
@@ -51,6 +42,7 @@ const UserAction: FC<IProps> = ({
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
 
     const myUser = useMyUserStore((state) => state.myUser);
     const addFriend = useMyUserStore((state) => state.addFriend);
@@ -147,7 +139,7 @@ const UserAction: FC<IProps> = ({
         if (myUser) {
             await addFriend(
                 { myId: myUser.id, friendId: user.id },
-                addFriendErrorT
+                alertsT('my-user-api.add-friend.error')
             );
             setShowPopup(false);
             updateUsers();
@@ -166,7 +158,7 @@ const UserAction: FC<IProps> = ({
                     friendId: user.id,
                     whereRemove,
                 },
-                removeFriendErrorT
+                alertsT('my-user-api.remove-friend.error')
             );
             setShowPopup(false);
             updateUsers();
@@ -260,7 +252,7 @@ const UserAction: FC<IProps> = ({
                             className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                         >
                             <PersonIcon classes="w-5 min-w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
-                            {userProfileT}
+                            {mainPageT('user-profile')}
                         </Link>
                         {showAddFriend && (
                             <button

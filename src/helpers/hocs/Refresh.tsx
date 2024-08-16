@@ -1,28 +1,32 @@
 'use client';
 
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { ToastContainer } from 'react-toastify';
 import { useMyUserStore } from '@/stores/my-user';
 import Loading from '@/components/layouts/Loading';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface IProps {
-    refreshT: string;
     children: ReactNode;
 }
 
-const Refresh: FC<IProps> = ({ refreshT, children }) => {
+const Refresh: FC<IProps> = ({ children }) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    const refresh = useMyUserStore((state) => state.refresh);
-
     const refreshed = useRef(false);
+
+    const alertsT = useTranslations('alerts');
+
+    const refresh = useMyUserStore((state) => state.refresh);
 
     useEffect(() => {
         setIsLoading(true);
         if (refreshed.current) return;
         refreshed.current = true;
-        refresh(refreshT).finally(() => setIsLoading(false));
+        refresh(alertsT('my-user-api.refresh.error')).finally(() =>
+            setIsLoading(false)
+        );
     }, []);
 
     if (isLoading) {

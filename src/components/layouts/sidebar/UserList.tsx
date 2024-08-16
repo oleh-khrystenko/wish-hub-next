@@ -12,21 +12,7 @@ import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import UiSearch from '@/components/ui/UiSearch';
 import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
-interface IProps {
-    getUsersErrorT: string;
-    getAllUsersErrorT: string;
-    addFriendErrorT: string;
-    removeFriendErrorT: string;
-    userProfileT: string;
-}
-
-const UserList: FC<IProps> = ({
-    getUsersErrorT,
-    getAllUsersErrorT,
-    addFriendErrorT,
-    removeFriendErrorT,
-    userProfileT,
-}) => {
+const UserList: FC = () => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [userType, setUserType] = useState<ISendUsersParams['userType']>(
         EUserType.ALL
@@ -35,11 +21,12 @@ const UserList: FC<IProps> = ({
     const userListRef = useRef<HTMLDivElement>(null);
     const gotUser = useRef(false);
 
+    const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
+
     const { ref, inView } = useInView({
         threshold: 0,
     });
-
-    const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
     const users = useUsersStore((state) => state.list);
@@ -111,7 +98,7 @@ const UserList: FC<IProps> = ({
                 userType: value as EUserType,
                 search,
             },
-            getUsersErrorT
+            alertsT('users-api.get-users.error')
         );
     };
 
@@ -129,7 +116,7 @@ const UserList: FC<IProps> = ({
                     limit: USERS_PAGINATION_LIMIT,
                     search: value,
                 },
-                getAllUsersErrorT
+                alertsT('users-api.get-all-users.error')
             );
         } else {
             await getUsers(
@@ -140,7 +127,7 @@ const UserList: FC<IProps> = ({
                     userType,
                     search: value,
                 },
-                getUsersErrorT
+                alertsT('users-api.get-users.error')
             );
         }
     };
@@ -156,7 +143,7 @@ const UserList: FC<IProps> = ({
                 userType,
                 search,
             },
-            getUsersErrorT
+            alertsT('users-api.get-users.error')
         );
 
         if (!userListRef.current) return;
@@ -180,12 +167,12 @@ const UserList: FC<IProps> = ({
                     userType,
                     search,
                 },
-                getUsersErrorT
+                alertsT('users-api.get-users.error')
             ).finally();
         } else {
             addAllUsers(
                 { page, limit: USERS_PAGINATION_LIMIT, search },
-                getAllUsersErrorT
+                alertsT('users-api.get-all-users.error')
             ).finally();
         }
     }, [inView]);
@@ -202,12 +189,12 @@ const UserList: FC<IProps> = ({
                     userType,
                     search,
                 },
-                getUsersErrorT
+                alertsT('users-api.get-users.error')
             ).finally();
         } else {
             getAllUsers(
                 { page: 1, limit: USERS_PAGINATION_LIMIT, search },
-                getAllUsersErrorT
+                alertsT('users-api.get-all-users.error')
             ).finally();
         }
     }, []);
@@ -252,9 +239,6 @@ const UserList: FC<IProps> = ({
                             key={user.id}
                             user={user}
                             updateUsers={updateUsers}
-                            addFriendErrorT={addFriendErrorT}
-                            removeFriendErrorT={removeFriendErrorT}
-                            userProfileT={userProfileT}
                         />
                     ))}
                 </ul>
