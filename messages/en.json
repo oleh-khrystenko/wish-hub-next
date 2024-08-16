@@ -3,10 +3,7 @@
     "wish": "Wish",
     "logo": "Logo",
     "wish_hub_icon": "Wish Hub icon",
-    "sing-in": "Sing In",
-    "sing-up": "Sing Up",
     "logout": "Log out",
-    "first-name": "Name*",
     "last-name": "Last name*",
     "inactivated": {
         "aim": "We aim for all users to be real.",
@@ -378,6 +375,9 @@
         "again": "You can register with the same email again after the old account is deleted."
     },
     "auth-page": {
+        "sing-in": "Sing In",
+        "sing-up": "Sing Up",
+        "first-name": "Name*",
         "title": {
             "sing_in": "Sing In",
             "sing_up": "Sing Up",

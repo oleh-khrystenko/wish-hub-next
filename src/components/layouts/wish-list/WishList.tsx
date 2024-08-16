@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import { EWishSort, EWishStatus, IWish } from '@/models/Wish';
@@ -22,55 +22,13 @@ import LogoIcon from '@/components/icons/LogoIcon';
 import WishItem from '@/components/layouts/wish-list/WishItem';
 
 interface IProps {
-    allT: string;
-    unfulfilledT: string;
-    fulfilledT: string;
-    wishesSearchT: string;
     uiShareButtonTranslations: IUiShareButtonTranslations;
-    shareWishesT: string;
-    canSeeShareTooltipT: string;
-    canSeeInactiveShareTooltipT: string;
-    sortByPopularityT: string;
-    sortByPriceDownT: string;
-    sortByPriceUpT: string;
-    sortByCreatedUpT: string;
-    sortByCreatedDownT: string;
-    wishExampleFirstT: string;
-    wishExampleSecondT: string;
-    wishExampleThirdT: string;
-    wishExampleFourthT: string;
-    atUserT: string;
     selectedUserFullName: string;
-    doesNotHaveAllT: string;
-    doesNotHaveFulfilledT: string;
-    doesNotHaveUnfulfilledT: string;
-    noWishesFoundT: string;
 }
 
 const WishList: FC<IProps> = ({
-    allT,
-    unfulfilledT,
-    fulfilledT,
-    wishesSearchT,
     uiShareButtonTranslations,
-    shareWishesT,
-    canSeeShareTooltipT,
-    canSeeInactiveShareTooltipT,
-    sortByPopularityT,
-    sortByPriceDownT,
-    sortByPriceUpT,
-    sortByCreatedUpT,
-    sortByCreatedDownT,
-    wishExampleFirstT,
-    wishExampleSecondT,
-    wishExampleThirdT,
-    wishExampleFourthT,
-    atUserT,
     selectedUserFullName,
-    doesNotHaveAllT,
-    doesNotHaveFulfilledT,
-    doesNotHaveUnfulfilledT,
-    noWishesFoundT,
 }) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -84,6 +42,7 @@ const WishList: FC<IProps> = ({
     const wishListRef = useRef<HTMLUListElement>(null);
 
     const activeLocale = useLocale();
+    const mainPageT = useTranslations('main-page');
 
     const { ref, inView } = useInView({
         threshold: 0,
@@ -118,7 +77,7 @@ const WishList: FC<IProps> = ({
         {
             label: (
                 <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                    {allT}
+                    {mainPageT('title-personal')}
                 </span>
             ),
             value: EWishStatus.ALL,
@@ -126,7 +85,7 @@ const WishList: FC<IProps> = ({
         {
             label: (
                 <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                    {unfulfilledT}
+                    {mainPageT('unfulfilled')}
                 </span>
             ),
             value: EWishStatus.UNFULFILLED,
@@ -134,7 +93,7 @@ const WishList: FC<IProps> = ({
         {
             label: (
                 <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                    {fulfilledT}
+                    {mainPageT('fulfilled.plural')}
                 </span>
             ),
             value: EWishStatus.FULFILLED,
@@ -142,42 +101,50 @@ const WishList: FC<IProps> = ({
     ];
 
     let wishesSortText;
-    sort === EWishSort.POPULAR && (wishesSortText = sortByPopularityT);
-    sort === EWishSort.PRICE_DESC && (wishesSortText = sortByPriceDownT);
-    sort === EWishSort.PRICE_ASC && (wishesSortText = sortByPriceUpT);
-    sort === EWishSort.CREATED_DESC && (wishesSortText = sortByCreatedUpT);
-    sort === EWishSort.CREATED_ASC && (wishesSortText = sortByCreatedDownT);
+    sort === EWishSort.POPULAR &&
+        (wishesSortText = mainPageT('sort.by-popularity'));
+    sort === EWishSort.PRICE_DESC &&
+        (wishesSortText = mainPageT('sort.by-price-down'));
+    sort === EWishSort.PRICE_ASC &&
+        (wishesSortText = mainPageT('sort.by-price-up'));
+    sort === EWishSort.CREATED_DESC &&
+        (wishesSortText = mainPageT('sort.by-created-up'));
+    sort === EWishSort.CREATED_ASC &&
+        (wishesSortText = mainPageT('sort.by-created-down'));
 
     const wishesExample = [
         {
-            name: wishExampleFirstT,
+            name: mainPageT('wish-example.first'),
         },
         {
-            name: wishExampleSecondT,
+            name: mainPageT('wish-example.second'),
         },
         {
-            name: wishExampleThirdT,
+            name: mainPageT('wish-example.third'),
         },
         {
-            name: wishExampleFourthT,
+            name: mainPageT('wish-example.fourth'),
         },
     ];
 
     let doesNotHave;
-    status === EWishStatus.ALL && (doesNotHave = doesNotHaveAllT);
-    status === EWishStatus.FULFILLED && (doesNotHave = doesNotHaveFulfilledT);
+    status === EWishStatus.ALL &&
+        (doesNotHave = mainPageT('does_not_have_all'));
+    status === EWishStatus.FULFILLED &&
+        (doesNotHave = mainPageT('does_not_have_fulfilled'));
     status === EWishStatus.UNFULFILLED &&
-        (doesNotHave = doesNotHaveUnfulfilledT);
+        (doesNotHave = mainPageT('does_not_have_unfulfilled'));
     let emptyText;
     myUser?.id !== selectedUserId &&
         (emptyText = (
             <>
-                <span>{atUserT}</span>
+                <span>{mainPageT('at-user')}</span>
                 <span className="empty-name">{selectedUserFullName}</span>
                 <span>{doesNotHave}</span>
             </>
         ));
-    !selectedUserId && (emptyText = <span>{noWishesFoundT}</span>);
+    !selectedUserId &&
+        (emptyText = <span>{mainPageT('no_wishes_found')}</span>);
 
     const handleChangeWishStatus = async (value: IOption['value']) => {
         setWishesStatus(value as EWishStatus);
@@ -368,7 +335,7 @@ const WishList: FC<IProps> = ({
                 {/*** Search ***/}
                 <UiSearch
                     id="wishes-search"
-                    label={wishesSearchT}
+                    label={mainPageT('wishes-search')}
                     value={search}
                     changeSearchBar={handleChangeSearchBar}
                 />
@@ -383,8 +350,10 @@ const WishList: FC<IProps> = ({
                             data-tooltip-id="share-wishes"
                             data-tooltip-content={
                                 wishListIncludesShowAllWish
-                                    ? canSeeShareTooltipT
-                                    : canSeeInactiveShareTooltipT
+                                    ? mainPageT('can-see.share-tooltip')
+                                    : mainPageT(
+                                          'can-see.inactive-share-tooltip'
+                                      )
                             }
                         >
                             <InfoIcon />
@@ -405,7 +374,7 @@ const WishList: FC<IProps> = ({
                                 }
                             >
                                 <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-800 dark:text-zinc-300">
-                                    {shareWishesT}
+                                    {mainPageT('share-wishes')}
                                 </span>
                             </UiShareButton>
                         </div>
@@ -432,7 +401,7 @@ const WishList: FC<IProps> = ({
                                 type="button"
                                 onClick={() => handleSortBy(EWishSort.POPULAR)}
                             >
-                                {sortByPopularityT}
+                                {mainPageT('sort.by-popularity')}
                             </button>
 
                             <button
@@ -442,7 +411,7 @@ const WishList: FC<IProps> = ({
                                     handleSortBy(EWishSort.PRICE_DESC)
                                 }
                             >
-                                {sortByPriceDownT}
+                                {mainPageT('sort.by-price-down')}
                             </button>
 
                             <button
@@ -452,7 +421,7 @@ const WishList: FC<IProps> = ({
                                     handleSortBy(EWishSort.PRICE_ASC)
                                 }
                             >
-                                {sortByPriceUpT}
+                                {mainPageT('sort.by-price-up')}
                             </button>
 
                             <button
@@ -462,7 +431,7 @@ const WishList: FC<IProps> = ({
                                     handleSortBy(EWishSort.CREATED_DESC)
                                 }
                             >
-                                {sortByCreatedUpT}
+                                {mainPageT('sort.by-created-up')}
                             </button>
 
                             <button
@@ -472,7 +441,7 @@ const WishList: FC<IProps> = ({
                                     handleSortBy(EWishSort.CREATED_ASC)
                                 }
                             >
-                                {sortByCreatedDownT}
+                                {mainPageT('sort.by-created-down')}
                             </button>
                         </div>
                     </UiPopup>

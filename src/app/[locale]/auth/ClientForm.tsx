@@ -2,8 +2,8 @@
 
 import { ChangeEvent, FC, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useLocale } from 'next-intl';
 import {
     CredentialResponse,
     GoogleLogin,
@@ -15,48 +15,10 @@ import { ELang } from '@/models/Settings';
 import { IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
 import myUserApi from '@/stores/my-user/api';
+import useValidations from '@/helpers/hooks/UseValidations';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 import UiCheckbox from '@/components/ui/UiCheckbox';
-import {
-    accountFirstNameValidation,
-    emailValidation,
-    passwordValidation,
-} from '@/helpers/utils/validations';
-
-interface IProps {
-    titleT: string;
-    singUpTitleT: string;
-    forgotPasswordTitleT: string;
-    singInT: string;
-    singUpT: string;
-    forgotPasswordSubmitT: string;
-    privacyPolicyErrorT: string;
-    registrationErrorT: string;
-    googleAuthErrorT: string;
-    loginErrorT: string;
-    passwordsErrorT: string;
-    googleErrorT: string;
-    orT: string;
-    validationFirstNameRequiredT: string;
-    validationFirstNameMinT: string;
-    validationFirstNameMaxT: string;
-    firstNameT: string;
-    validationEmailRequiredT: string;
-    validationOnlyWhitespacesT: string;
-    validationEmailPatternT: string;
-    validationPasswordRequiredT: string;
-    validationPasswordWhitespacesT: string;
-    validationPasswordMinT: string;
-    validationPasswordMaxT: string;
-    passwordT: string;
-    repeatPasswordT: string;
-    passwordRememberedT: string;
-    forgotPasswordT: string;
-    agreeT: string;
-    privacyPolicyT: string;
-    wishHubT: string;
-}
 
 interface IGoogleAuthCredentialResponse {
     email: IUser['email'];
@@ -72,39 +34,23 @@ type TInputs = {
     password: string;
 };
 
-const ClientForm: FC<IProps> = ({
-    titleT,
-    singUpTitleT,
-    forgotPasswordTitleT,
-    singInT,
-    singUpT,
-    forgotPasswordSubmitT,
-    privacyPolicyErrorT,
-    registrationErrorT,
-    googleAuthErrorT,
-    loginErrorT,
-    passwordsErrorT,
-    googleErrorT,
-    orT,
-    validationFirstNameRequiredT,
-    validationFirstNameMinT,
-    validationFirstNameMaxT,
-    firstNameT,
-    validationEmailRequiredT,
-    validationOnlyWhitespacesT,
-    validationEmailPatternT,
-    validationPasswordRequiredT,
-    validationPasswordWhitespacesT,
-    validationPasswordMinT,
-    validationPasswordMaxT,
-    passwordT,
-    repeatPasswordT,
-    passwordRememberedT,
-    forgotPasswordT,
-    agreeT,
-    privacyPolicyT,
-    wishHubT,
-}) => {
+const ClientForm: FC = () => {
+    const [isSingUp, setIsSingUp] = useState<boolean>(false);
+    const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
+    const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
+    const [repeatPassword, setRepeatPassword] = useState<string>('');
+    const [repeatPasswordError, setRepeatPasswordError] = useState<string>('');
+    const [checkedPrivacyPolicy, setCheckedPrivacyPolicy] =
+        useState<boolean>(false);
+    const [checkedPrivacyPolicyError, setCheckedPrivacyPolicyError] =
+        useState<string>('');
+
+    const searchParams = useSearchParams();
+
+    const activeLocale = useLocale();
+    const authPageT = useTranslations('auth-page');
+    const alertsT = useTranslations('alerts');
+
     const registration = useMyUserStore((state) => state.registration);
     const googleAuthorization = useMyUserStore(
         (state) => state.googleAuthorization
@@ -125,27 +71,39 @@ const ClientForm: FC<IProps> = ({
         },
     });
 
-    const searchParams = useSearchParams();
+    const { accountFirstNameValidation, emailValidation, passwordValidation } =
+        useValidations();
 
-    const activeLocale = useLocale();
+    let title = authPageT('title.sing_in');
+    isSingUp && (title = authPageT('title.sing_up'));
+    isForgotPassword && (title = authPageT('title.forgot_password'));
 
-    const [isSingUp, setIsSingUp] = useState<boolean>(false);
-    const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
-    const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
-    const [repeatPassword, setRepeatPassword] = useState<string>('');
-    const [repeatPasswordError, setRepeatPasswordError] = useState<string>('');
-    const [checkedPrivacyPolicy, setCheckedPrivacyPolicy] =
-        useState<boolean>(false);
-    const [checkedPrivacyPolicyError, setCheckedPrivacyPolicyError] =
-        useState<string>('');
+    let submit = authPageT('sing-in');
+    isSingUp && (submit = authPageT('sing-up'));
+    isForgotPassword && (submit = authPageT('recovery'));
 
-    let title = titleT;
-    isSingUp && (title = singUpTitleT);
-    isForgotPassword && (title = forgotPasswordTitleT);
+    const repeatPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setRepeatPassword(value);
 
-    let submit = singInT;
-    isSingUp && (submit = singUpT);
-    isForgotPassword && (submit = forgotPasswordSubmitT);
+        if (!clickedOnSubmit) return;
+
+        const password = getValues('password');
+        password === value
+            ? setRepeatPasswordError('')
+            : setRepeatPasswordError(authPageT('passwords_error'));
+    };
+
+    const handleTogglePrivacyPolicy = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.checked;
+        setCheckedPrivacyPolicy(value);
+
+        if (!clickedOnSubmit) return;
+
+        value
+            ? setCheckedPrivacyPolicyError('')
+            : setCheckedPrivacyPolicyError(authPageT('privacy_policy_error'));
+    };
 
     const handleGoogleLogin = async (response: CredentialResponse) => {
         setClickedOnSubmit(true);
@@ -153,7 +111,9 @@ const ClientForm: FC<IProps> = ({
         if (checkedPrivacyPolicy) {
             setCheckedPrivacyPolicyError('');
         } else {
-            return setCheckedPrivacyPolicyError(privacyPolicyErrorT);
+            return setCheckedPrivacyPolicyError(
+                authPageT('privacy_policy_error')
+            );
         }
 
         if (!response.credential || checkedPrivacyPolicyError.length > 0)
@@ -172,7 +132,7 @@ const ClientForm: FC<IProps> = ({
                 lastName: decodedUserData.family_name,
                 avatar: decodedUserData.picture,
             },
-            googleAuthErrorT
+            alertsT('my-user-api.google-authorization.error')
         );
     };
 
@@ -190,14 +150,16 @@ const ClientForm: FC<IProps> = ({
             if (data.password === repeatPassword) {
                 setRepeatPasswordError('');
             } else {
-                return setRepeatPasswordError(passwordsErrorT);
+                return setRepeatPasswordError(authPageT('passwords_error'));
             }
         }
 
         if (checkedPrivacyPolicy) {
             setCheckedPrivacyPolicyError('');
         } else {
-            return setCheckedPrivacyPolicyError(privacyPolicyErrorT);
+            return setCheckedPrivacyPolicyError(
+                authPageT('privacy_policy_error')
+            );
         }
 
         if (
@@ -213,7 +175,7 @@ const ClientForm: FC<IProps> = ({
                     email: data.email.trim(),
                     lang: activeLocale as ELang,
                 },
-                registrationErrorT
+                alertsT('my-user-api.registration.error')
             );
         }
 
@@ -224,32 +186,9 @@ const ClientForm: FC<IProps> = ({
                     email: data.email.trim(),
                     lang: activeLocale as ELang,
                 },
-                loginErrorT
+                alertsT('my-user-api.login.error')
             );
         }
-    };
-
-    const repeatPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setRepeatPassword(value);
-
-        if (!clickedOnSubmit) return;
-
-        const password = getValues('password');
-        password === value
-            ? setRepeatPasswordError('')
-            : setRepeatPasswordError(passwordsErrorT);
-    };
-
-    const handleTogglePrivacyPolicy = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.checked;
-        setCheckedPrivacyPolicy(value);
-
-        if (!clickedOnSubmit) return;
-
-        value
-            ? setCheckedPrivacyPolicyError('')
-            : setCheckedPrivacyPolicyError(privacyPolicyErrorT);
     };
 
     useEffect(() => {
@@ -282,7 +221,9 @@ const ClientForm: FC<IProps> = ({
                             onSuccess={handleGoogleLogin}
                             onError={() => {
                                 console.log('Google OAuth Login Failed');
-                                toast(googleErrorT, { type: 'error' });
+                                toast(alertsT('auth-page.google-login.error'), {
+                                    type: 'error',
+                                });
                             }}
                         />
                     </GoogleOAuthProvider>
@@ -290,36 +231,22 @@ const ClientForm: FC<IProps> = ({
             )}
 
             <span className="flex w-full items-center justify-center gap-2.5 text-sm text-zinc-500 before:flex-1 before:border-b before:border-solid before:border-zinc-500 after:flex-1 after:border-t after:border-solid after:border-zinc-500">
-                {orT}
+                {authPageT('or')}
             </span>
 
             {isSingUp && (
                 <UiInput
-                    {...register(
-                        'firstName',
-                        accountFirstNameValidation(
-                            validationFirstNameRequiredT,
-                            validationFirstNameMinT,
-                            validationFirstNameMaxT
-                        )
-                    )}
+                    {...register('firstName', accountFirstNameValidation)}
                     id="firstName"
                     name="firstName"
                     type="text"
-                    label={firstNameT}
+                    label={authPageT('first-name')}
                     error={errors?.firstName?.message}
                 />
             )}
 
             <UiInput
-                {...register(
-                    'email',
-                    emailValidation(
-                        validationEmailRequiredT,
-                        validationOnlyWhitespacesT,
-                        validationEmailPatternT
-                    )
-                )}
+                {...register('email', emailValidation)}
                 id="email"
                 name="email"
                 type="text"
@@ -329,19 +256,11 @@ const ClientForm: FC<IProps> = ({
 
             {!isForgotPassword && (
                 <UiInput
-                    {...register(
-                        'password',
-                        passwordValidation(
-                            validationPasswordRequiredT,
-                            validationPasswordWhitespacesT,
-                            validationPasswordMinT,
-                            validationPasswordMaxT
-                        )
-                    )}
+                    {...register('password', passwordValidation)}
                     id="password"
                     name="password"
                     type="password"
-                    label={passwordT}
+                    label={authPageT('password')}
                     error={errors?.password?.message}
                 />
             )}
@@ -351,7 +270,7 @@ const ClientForm: FC<IProps> = ({
                     id="repeat-password"
                     name="repeat-password"
                     type="password"
-                    label={repeatPasswordT}
+                    label={authPageT('repeat_password')}
                     value={repeatPassword}
                     error={repeatPasswordError}
                     onChange={(event) =>
@@ -369,7 +288,9 @@ const ClientForm: FC<IProps> = ({
                             variant="text-btn"
                             onClick={() => setIsSingUp((state) => !state)}
                         >
-                            {isSingUp ? singInT : singUpT}
+                            {isSingUp
+                                ? authPageT('sing-in')
+                                : authPageT('sing-up')}
                         </UiButton>
                     </div>
                 )}
@@ -383,8 +304,8 @@ const ClientForm: FC<IProps> = ({
                             }
                         >
                             {isForgotPassword
-                                ? passwordRememberedT
-                                : forgotPasswordT}
+                                ? authPageT('password_remembered')
+                                : authPageT('forgot_password')}
                         </UiButton>
                     </div>
                 )}
@@ -399,13 +320,13 @@ const ClientForm: FC<IProps> = ({
                         checked={checkedPrivacyPolicy}
                         onChange={handleTogglePrivacyPolicy}
                     >
-                        {agreeT}
+                        {authPageT('i_agree_to')}
                         &nbsp;
                         <UiButton href="privacy-policy" variant="text">
-                            {privacyPolicyT}
+                            {authPageT('privacy_policy')}
                         </UiButton>
                         &nbsp;
-                        {wishHubT}
+                        {authPageT('wish_hub')}
                     </UiCheckbox>
 
                     {checkedPrivacyPolicyError.length > 0 && (
