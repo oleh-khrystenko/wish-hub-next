@@ -5,7 +5,7 @@
 :root {
     --bg-second: #cbd5e1; /* gray-300 */
     --text: #27272a; /* zinc-800 */
-    --scroll-bar: #d4d4d8; /* zinc-300 */
+    --scroll-bar: #a1a1aa; /* zinc-400 */
     --input-label: #0891b2; /* cyan-600 */
 }
 
@@ -45,6 +45,10 @@
 
 .textarea-scrollbar::-webkit-scrollbar-track {
     margin: 4px 0;
+}
+
+.wish-list-scrollbar::-webkit-scrollbar-track {
+    margin: 10px 0;
 }
 /********************* Scrollbar *********************/
 
@@ -139,6 +143,15 @@
 }
 /********************* Input *********************/
 
+/********************* Worn out *********************/
+@layer components {
+    .worn-out {
+        filter: url(#worn-out);
+    }
+}
+/********************* Input *********************/
+
+/********************* Toastify *********************/
 .Toastify__toast-container {
     @media only screen and (min-width: 768px) {
         width: 380px;
@@ -163,3 +176,4 @@
         }
     }
 }
+/********************* Toastify *********************/

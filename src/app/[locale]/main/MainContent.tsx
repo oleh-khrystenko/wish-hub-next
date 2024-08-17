@@ -20,8 +20,8 @@ const MainContent: FC = () => {
     }, [users, selectedUserId]);
 
     return (
-        <div className="grow overflow-y-auto px-5 pb-5 pt-2 tablet-md:w-3/5">
-            <span className="text-xl font-bold text-zinc-800 dark:text-zinc-300">
+        <div className="flex grow flex-col pb-5 pl-3 pr-5 pt-2 tablet-md:w-3/4">
+            <span className="pl-2.5 text-xl font-bold text-zinc-800 dark:text-zinc-300">
                 {myUser?.id === selectedUserId ? (
                     <>
                         {mainPageT('title-personal')}{' '}

@@ -65,7 +65,7 @@ const UserList: FC = () => {
                         {mainPageT('friend-requests')}
                     </span>
                     {followFromCount > 0 && (
-                        <span className="absolute right-2 top-1/2 z-40 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-md bg-zinc-400 text-xs font-bold text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
+                        <span className="absolute right-2 top-1/2 z-40 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-md bg-zinc-300 text-xs font-bold text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
                             {followFromCount}
                         </span>
                     )}
@@ -216,7 +216,7 @@ const UserList: FC = () => {
                         />
 
                         {followFromCount > 0 && (
-                            <span className="absolute right-2 top-1/2 z-40 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-md bg-zinc-400 text-xs font-bold text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
+                            <span className="absolute right-2 top-1/2 z-40 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-md bg-zinc-300 text-xs font-bold text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
                                 {followFromCount}
                             </span>
                         )}
@@ -231,7 +231,7 @@ const UserList: FC = () => {
             />
 
             <div
-                className="relative mt-4 grow overflow-y-auto pr-2"
+                className="relative mt-4 grow overflow-y-auto overflow-x-hidden pr-2"
                 ref={userListRef}
             >
                 <ul className="flex flex-col gap-1">

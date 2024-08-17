@@ -25,7 +25,7 @@ const UiPopup: FC<IProps> = ({
             className={`${classes} ${show ? 'max-h-svh max-w-xl' : 'max-h-0 max-w-0'} ${showPopupUp ? 'bottom-0' : 'top-0'} ${showPopupCenter ? 'left-1/2 -translate-x-1/2' : 'right-0'} absolute z-40 overflow-hidden transition-all duration-300 ease-in-out`}
         >
             <OutsideClickHandler hide={hide}>
-                <div className="flex flex-col rounded-xl bg-zinc-400 dark:bg-zinc-700">
+                <div className="flex flex-col rounded-xl bg-zinc-100 dark:bg-zinc-700">
                     {children}
                 </div>
             </OutsideClickHandler>

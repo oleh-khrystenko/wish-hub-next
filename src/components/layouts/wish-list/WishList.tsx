@@ -72,7 +72,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
         {
             label: (
                 <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                    {mainPageT('title-personal')}
+                    {mainPageT('all')}
                 </span>
             ),
             value: EWishStatus.ALL,
@@ -134,7 +134,9 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
         (emptyText = (
             <>
                 <span>{mainPageT('at-user')}</span>
-                <span className="empty-name">{selectedUserFullName}</span>
+                <span className="max-w-full truncate px-0.5 text-center text-xl italic text-zinc-700 dark:text-zinc-300">
+                    {selectedUserFullName}
+                </span>
                 <span>{doesNotHave}</span>
             </>
         ));
@@ -320,7 +322,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
     return (
         <>
-            <div className="flex w-full items-end gap-3">
+            <div className="flex w-full items-end gap-3 pl-2.5">
                 {/*** Filter ***/}
                 <div className="w-2/5">
                     <UiSelect
@@ -339,7 +341,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                 />
             </div>
 
-            <div className="mt-6 flex w-full items-center gap-3">
+            <div className="mt-6 flex w-full items-center gap-3 pl-2.5">
                 {/*** Share ***/}
                 {myUser?.id === selectedUserId && (
                     <div className="flex items-center gap-3">
@@ -445,17 +447,21 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
                 <ul
-                    className="grid grid-cols-3 gap-4 py-2.5 pl-4 pr-2.5"
+                    className="wish-list-scrollbar mt-6 grid grow grid-cols-3 gap-4 overflow-y-auto overflow-x-hidden p-2.5"
                     ref={wishListRef}
                 >
                     {myUser?.id === selectedUserId && (
-                        <li className="create-wish">
+                        <li className="relative flex items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-800">
                             <button
-                                className="create-wish-action"
+                                className="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border-2 border-dashed border-transparent transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-300"
                                 type="button"
                                 onClick={handleShowCreateWish}
                             >
-                                <CrossIcon />
+                                <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />
+
+                                <span className="text-xl font-bold text-zinc-700 group-hover:text-cyan-300 dark:text-zinc-400">
+                                    {mainPageT('create-wish')}
+                                </span>
                             </button>
                         </li>
                     )}
@@ -465,6 +471,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                             <WishItem
                                 key={wish.id + idx}
                                 wish={wish}
+                                id={idx}
                                 editWish={() => handleShowEditWish(wish.id)}
                                 showWish={() => handleShowWish(wish.id)}
                             />
@@ -473,27 +480,29 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                     {wishesExample.map((wish, idx) => {
                         if (wishes.length > idx) return null;
 
+                        let opacity = 'opacity-0';
+                        if (myUser?.id === selectedUserId) {
+                            idx === 0 && (opacity = 'opacity-50');
+                            idx === 1 && (opacity = 'opacity-40');
+                            idx === 2 && (opacity = 'opacity-30');
+                            idx === 3 && (opacity = 'opacity-20');
+                        }
+
                         return (
                             <li
                                 key={idx}
-                                className={
-                                    'wish-item' +
-                                    (myUser?.id !== selectedUserId
-                                        ? ' opacity'
-                                        : ` example_${idx}`)
-                                }
+                                className={`${opacity} flex min-h-96 w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-800`}
                                 onClick={() => handleShowEditWish(null)}
                             >
-                                <div className="wish-box">
-                                    <div className="wish-item-img">
-                                        <LogoIcon />
-                                    </div>
+                                <div className="relative w-full pt-[100%]">
+                                    <LogoIcon
+                                        classes="absolute inset-0 h-full w-full"
+                                        id={idx}
+                                    />
+                                </div>
 
-                                    <div className="wish-item-data">
-                                        <div className="wish-item-name">
-                                            {wish.name}
-                                        </div>
-                                    </div>
+                                <div className="w-full text-center text-lg font-bold text-zinc-800 dark:text-zinc-300">
+                                    {wish.name}
                                 </div>
                             </li>
                         );
@@ -508,8 +517,10 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                     ></li>
                 </ul>
             ) : (
-                <div className="empty-box">
-                    <p className="empty-text">{emptyText}</p>
+                <div className="flex h-full w-full items-center justify-center">
+                    <p className="flex w-full flex-col items-center text-center text-xl text-zinc-700 dark:text-zinc-300">
+                        {emptyText}
+                    </p>
                 </div>
             )}
         </>

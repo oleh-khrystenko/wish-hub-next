@@ -1,5 +1,4 @@
 import CryptoJS from 'crypto-js';
-// import { t } from 'i18next';
 import { IWish } from '@/models/Wish';
 import { EPrivacy } from '@/models/Settings';
 
@@ -12,7 +11,8 @@ export const decryptedData = (data: string, secret: string): string => {
             CryptoJS.enc.Utf8
         );
         if (!decrypted) {
-            // throw new Error(t('encryption-error'));
+            // TODO: add translation
+            throw new Error('Decryption failed');
         }
         return decrypted;
     } catch (error) {
