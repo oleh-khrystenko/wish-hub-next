@@ -1,6 +1,5 @@
 {
     "meta-description": "Wish Hub - makes your dreams come true!",
-    "wish": "Wish",
     "logo": "Logo",
     "wish_hub_icon": "Wish Hub icon",
     "last-name": "Last name*",
@@ -210,6 +209,7 @@
         }
     },
     "main-page": {
+        "wish": "Wish",
         "logout": "Log out",
         "confirm": "Share",
         "sing-in": "Sing In",

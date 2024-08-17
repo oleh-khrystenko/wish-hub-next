@@ -19,7 +19,7 @@ const UserList: FC = () => {
     );
 
     const userListRef = useRef<HTMLDivElement>(null);
-    const gotUser = useRef(false);
+    const gotUsers = useRef(false);
 
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
@@ -178,8 +178,9 @@ const UserList: FC = () => {
     }, [inView]);
 
     useEffect(() => {
-        if (gotUser.current) return;
-        gotUser.current = true;
+        if (gotUsers.current) return;
+        gotUsers.current = true;
+
         if (myUser) {
             getUsers(
                 {

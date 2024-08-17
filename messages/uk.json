@@ -1,6 +1,5 @@
 {
     "meta-description": "Wish Hub - робить ваші мрії реальністю!",
-    "wish": "Бажання",
     "logo": "Логотип",
     "wish_hub_icon": "Іконка Wish Hub",
     "last-name": "Прізвище*",
@@ -210,6 +209,7 @@
         }
     },
     "main-page": {
+        "wish": "Бажання",
         "logout": "Вийти з аккаунту",
         "confirm": "Поділитись",
         "sing-in": "Увійти",

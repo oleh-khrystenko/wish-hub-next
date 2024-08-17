@@ -7,19 +7,18 @@ interface IProps {
     avatar: IUser['avatar'];
     alt: string;
     size: number;
-    handleClick: () => void;
+    handleClick?: () => void;
 }
 
 const UiAvatar: FC<IProps> = ({ avatar, alt, size, handleClick }) => {
     return (
-        <button
-            type="button"
+        <div
             style={{
                 width: `${size}px`,
                 minWidth: `${size}px`,
                 height: `${size}px`,
             }}
-            className="flex items-center justify-center overflow-hidden rounded-full bg-zinc-500 dark:bg-zinc-600"
+            className="flex cursor-pointer items-center justify-center overflow-hidden rounded-full bg-zinc-500 dark:bg-zinc-600"
             onClick={handleClick}
         >
             {avatar ? (
@@ -27,6 +26,7 @@ const UiAvatar: FC<IProps> = ({ avatar, alt, size, handleClick }) => {
                     src={avatar}
                     alt={alt}
                     title={alt}
+                    priority={false}
                     height={size}
                     width={size}
                     style={{
@@ -39,7 +39,7 @@ const UiAvatar: FC<IProps> = ({ avatar, alt, size, handleClick }) => {
             ) : (
                 <PersonIcon classes="w-7 h-7 fill-zinc-800 dark:fill-zinc-300" />
             )}
-        </button>
+        </div>
     );
 };
 

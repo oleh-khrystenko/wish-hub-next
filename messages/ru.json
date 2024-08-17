@@ -1,6 +1,5 @@
 {
     "meta-description": "Wish Hub - делает ваши мечты реальностью!",
-    "wish": "Желание",
     "logo": "Логотип",
     "wish_hub_icon": "Іконка Wish Hub",
     "last-name": "Прізвище*",
@@ -210,6 +209,7 @@
         }
     },
     "main-page": {
+        "wish": "Желание",
         "logout": "Вийти из аккаунта",
         "confirm": "Поделиться",
         "sing-in": "Войти",

@@ -1,13 +1,17 @@
 'use client';
 
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { ETheme } from '@/models/Settings';
 import { useSettingsStore } from '@/stores/settings';
 import UiSwitch from '@/components/ui/UiSwitch';
 import SunIcon from '@/components/icons/SunIcon';
 import MoonIcon from '@/components/icons/MoonIcon';
 
-const UiThemeSwitcher = () => {
+interface IProps {
+    hide?: () => void;
+}
+
+const UiThemeSwitcher: FC<IProps> = ({ hide }) => {
     const theme = useSettingsStore((state) => state.theme);
     const setTheme = useSettingsStore((state) => state.setTheme);
 
@@ -18,6 +22,8 @@ const UiThemeSwitcher = () => {
         document.documentElement.setAttribute('data-theme', newTheme);
         document.documentElement.classList.remove(theme);
         document.documentElement.classList.add(newTheme);
+
+        hide && hide();
     };
 
     useEffect(() => {

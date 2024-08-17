@@ -148,7 +148,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                     <div className="flex items-center gap-2 whitespace-nowrap text-lg font-bold text-zinc-800 dark:text-zinc-300">
                         <LightDarkThemeIcon />
                         {mainPageT('theme')}:
-                        <UiThemeSwitcher />
+                        <UiThemeSwitcher hide={() => setShowPopup(false)} />
                     </div>
                 </div>
 

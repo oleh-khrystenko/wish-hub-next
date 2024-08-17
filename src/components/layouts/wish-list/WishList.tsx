@@ -34,6 +34,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     >(null);
 
     const wishListRef = useRef<HTMLUListElement>(null);
+    const gotWishes = useRef(false);
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -269,6 +270,9 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     }, [inView]);
 
     useEffect(() => {
+        if (gotWishes.current) return;
+        gotWishes.current = true;
+
         const isMyWishes = location.search === '?my-wishes'; // Випадок переходу зі сторінки профілю або зі сторінки списку бажань на власні бажання
         if (isMyWishes && myUser) {
             getWishList({
@@ -440,7 +444,10 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
             </div>
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
-                <ul className="wish-list" ref={wishListRef}>
+                <ul
+                    className="grid grid-cols-3 gap-4 py-2.5 pl-4 pr-2.5"
+                    ref={wishListRef}
+                >
                     {myUser?.id === selectedUserId && (
                         <li className="create-wish">
                             <button
@@ -492,13 +499,13 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                         );
                     })}
 
-                    <div
+                    <li
                         className="observable-element"
                         style={{
                             display: stopRequests ? 'none' : 'block',
                         }}
                         ref={ref}
-                    ></div>
+                    ></li>
                 </ul>
             ) : (
                 <div className="empty-box">
