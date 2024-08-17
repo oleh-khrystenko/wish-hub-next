@@ -64,6 +64,12 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
         setShowBurgerMenu(false);
     };
 
+    const handleHidePopup = () => {
+        setTimeout(() => {
+            setShowPopup(false);
+        }, 300);
+    };
+
     // Logout
     const handleLogout = async () => {
         await logout(alertsT('my-user-api.logout.error'));
@@ -148,7 +154,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                     <div className="flex items-center gap-2 whitespace-nowrap text-lg font-bold text-zinc-800 dark:text-zinc-300">
                         <LightDarkThemeIcon />
                         {mainPageT('theme')}:
-                        <UiThemeSwitcher hide={() => setShowPopup(false)} />
+                        <UiThemeSwitcher hide={handleHidePopup} />
                     </div>
                 </div>
 

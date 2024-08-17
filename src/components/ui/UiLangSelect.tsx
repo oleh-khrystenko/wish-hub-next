@@ -49,6 +49,7 @@ function UiLangSelect() {
         <UiSelect
             options={options}
             isPending={isPending}
+            withoutIcon
             value={activeLocale as ELang}
             onChange={handleChangeLang}
         />

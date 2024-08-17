@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { useMyUserStore } from '@/stores/my-user';
 import { useTranslations } from 'next-intl';
-import { addingWhiteSpaces } from '@/helpers/utils/formating-namber';
+import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
 import LikeAction from '@/components/ui/LikeAction';
 
 interface IProps {
