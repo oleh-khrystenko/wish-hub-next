@@ -1,28 +1,21 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
-import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import { EWishSort, EWishStatus, IWish } from '@/models/Wish';
-import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
-import { useWishesStore } from '@/stores/wishes';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
-import UiSearch from '@/components/ui/UiSearch';
-import InfoIcon from '@/components/icons/InfoIcon';
-import UiTooltip from '@/components/ui/UiTooltip';
-import UiShareButton from '@/components/ui/UiShareButton';
-import { EPrivacy } from '@/models/Settings';
-import UiButton from '@/components/ui/UiButton';
-import UiPopup from '@/components/ui/UiPopup';
-import SortIcon from '@/components/icons/SortIcon';
-import CrossIcon from '@/components/icons/CrossIcon';
-import LogoIcon from '@/components/icons/LogoIcon';
+import { useWishesStore } from '@/stores/wishes';
+import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
+import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
+import WishListActions from '@/components/layouts/wish-list/WishListActions';
 import WishItem from '@/components/layouts/wish-list/WishItem';
-import Loading from '@/components/layouts/Loading';
-import UiModal from '@/components/ui/UiModal';
-import DetailWish from '@/components/layouts/wish-list/DetailWish';
 import CreateWish from '@/components/layouts/wish-list/CreateWish';
 import EditWish from '@/components/layouts/wish-list/EditWish';
+import DetailWish from '@/components/layouts/wish-list/DetailWish';
+import Loading from '@/components/layouts/Loading';
+import UiModal from '@/components/ui/UiModal';
+import CrossIcon from '@/components/icons/CrossIcon';
+import LogoIcon from '@/components/icons/LogoIcon';
 
 interface IProps {
     selectedUserFullName: string;
@@ -30,7 +23,6 @@ interface IProps {
 
 const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
-    const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showWish, setShowWish] = useState<boolean>(false);
     const [showCreateWish, setShowCreateWish] = useState<boolean>(false);
     const [showEditWish, setShowEditWish] = useState<boolean>(false);
@@ -41,7 +33,6 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const wishListRef = useRef<HTMLUListElement>(null);
     const gotWishes = useRef(false);
 
-    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
 
     const { ref, inView } = useInView({
@@ -49,9 +40,11 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     });
 
     const myUser = useMyUserStore((state) => state.myUser);
+
     const users = useUsersStore((state) => state.list);
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
     const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
+
     const wishes = useWishesStore((state) => state.list);
     const page = useWishesStore((state) => state.page);
     const status = useWishesStore((state) => state.status);
@@ -59,8 +52,6 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
     const isLoading = useWishesStore((state) => state.isLoading);
-    const setWishesStatus = useWishesStore((state) => state.setWishesStatus);
-    const setWishesSearch = useWishesStore((state) => state.setWishesSearch);
     const setWishesSort = useWishesStore((state) => state.setWishesSort);
     const resetWishCandidate = useWishesStore(
         (state) => state.resetWishCandidate
@@ -75,54 +66,10 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
         [users, selectedUserId]
     );
 
-    const wishListIncludesShowAllWish = useMemo(
-        () => wishes.some((wish) => wish.show === EPrivacy.ALL),
-        [wishes]
-    );
-
     const detailWish = useMemo(
         () => wishes.find((wish) => wish.id === idOfSelectedWish),
         [wishes, idOfSelectedWish]
     );
-
-    const selectOptions: IOption[] = [
-        {
-            label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                    {mainPageT('all')}
-                </span>
-            ),
-            value: EWishStatus.ALL,
-        },
-        {
-            label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                    {mainPageT('unfulfilled')}
-                </span>
-            ),
-            value: EWishStatus.UNFULFILLED,
-        },
-        {
-            label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                    {mainPageT('fulfilled.plural')}
-                </span>
-            ),
-            value: EWishStatus.FULFILLED,
-        },
-    ];
-
-    let wishesSortText;
-    sort === EWishSort.POPULAR &&
-        (wishesSortText = mainPageT('sort.by-popularity'));
-    sort === EWishSort.PRICE_DESC &&
-        (wishesSortText = mainPageT('sort.by-price-down'));
-    sort === EWishSort.PRICE_ASC &&
-        (wishesSortText = mainPageT('sort.by-price-up'));
-    sort === EWishSort.CREATED_DESC &&
-        (wishesSortText = mainPageT('sort.by-created-up'));
-    sort === EWishSort.CREATED_ASC &&
-        (wishesSortText = mainPageT('sort.by-created-down'));
 
     const wishesExample = [
         {
@@ -159,82 +106,6 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
         ));
     !selectedUserId &&
         (emptyText = <span>{mainPageT('no_wishes_found')}</span>);
-
-    const handleChangeWishStatus = async (value: IOption['value']) => {
-        setWishesStatus(value as EWishStatus);
-
-        if (!myUser || !selectedUserId) return;
-
-        await getWishList({
-            myId: myUser.id,
-            userId: selectedUserId,
-            status: value as EWishStatus,
-            page: 1,
-            limit: WISHES_PAGINATION_LIMIT,
-            search,
-            sort,
-        });
-
-        if (!wishListRef.current) return;
-
-        wishListRef.current.scrollTo(0, 0);
-    };
-
-    const handleChangeSearchBar = async (value: string) => {
-        setWishesSearch(value);
-
-        if (selectedUserId) {
-            await getWishList({
-                myId: myUser?.id,
-                userId: selectedUserId,
-                status,
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search: value,
-                sort,
-            });
-        } else {
-            await getAllWishes({
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search: value,
-                sort,
-            });
-        }
-
-        if (!wishListRef.current) return;
-
-        wishListRef.current.scrollTo(0, 0);
-    };
-
-    const handleSortBy = async (value: EWishSort) => {
-        setWishesSort(value);
-
-        if (selectedUserId) {
-            await getWishList({
-                myId: myUser?.id,
-                userId: selectedUserId,
-                status,
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search,
-                sort: value,
-            });
-        } else {
-            await getAllWishes({
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search,
-                sort: value,
-            });
-        }
-
-        if (!wishListRef.current) return;
-
-        wishListRef.current.scrollTo(0, 0);
-
-        setShowPopup(false);
-    };
 
     const handleShowCreateWish = () => {
         console.log('handleShowCreateWish');
@@ -348,128 +219,9 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
     return (
         <>
-            <div className="flex w-full items-end gap-3 pl-2.5">
-                {/*** Filter ***/}
-                <div className="w-2/5">
-                    <UiSelect
-                        options={selectOptions}
-                        value={status}
-                        onChange={handleChangeWishStatus}
-                    />
-                </div>
+            <WishListFilter wishListRefCurrent={wishListRef.current} />
 
-                {/*** Search ***/}
-                <UiSearch
-                    id="wishes-search"
-                    label={mainPageT('wishes-search')}
-                    value={search}
-                    changeSearchBar={handleChangeSearchBar}
-                />
-            </div>
-
-            <div className="mt-6 flex w-full items-center gap-3 pl-2.5">
-                {/*** Share ***/}
-                {myUser?.id === selectedUserId && (
-                    <div className="flex items-center gap-3">
-                        <span
-                            className="tooltip"
-                            data-tooltip-id="share-wishes"
-                            data-tooltip-content={
-                                wishListIncludesShowAllWish
-                                    ? mainPageT('can-see.share-tooltip')
-                                    : mainPageT(
-                                          'can-see.inactive-share-tooltip'
-                                      )
-                            }
-                        >
-                            <InfoIcon />
-                        </span>
-                        <UiTooltip id="share-wishes" />
-
-                        <div
-                            className={
-                                wishListIncludesShowAllWish
-                                    ? ''
-                                    : 'pointer-events-none opacity-20'
-                            }
-                        >
-                            <UiShareButton
-                                link={`/${activeLocale}/wish-list/${selectedUserId}`}
-                            >
-                                <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-800 dark:text-zinc-300">
-                                    {mainPageT('share-wishes')}
-                                </span>
-                            </UiShareButton>
-                        </div>
-                    </div>
-                )}
-
-                {/*** Sort ***/}
-                <div className="relative ml-auto">
-                    <UiButton variant="text" onClick={() => setShowPopup(true)}>
-                        <span className="text-sm text-zinc-800 dark:text-zinc-300">
-                            {wishesSortText}
-                        </span>
-                        <SortIcon />
-                    </UiButton>
-
-                    <UiPopup
-                        classes="pt-10"
-                        show={showPopup}
-                        hide={() => setShowPopup(false)}
-                    >
-                        <div className="flex flex-col p-2">
-                            <button
-                                className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
-                                type="button"
-                                onClick={() => handleSortBy(EWishSort.POPULAR)}
-                            >
-                                {mainPageT('sort.by-popularity')}
-                            </button>
-
-                            <button
-                                className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
-                                type="button"
-                                onClick={() =>
-                                    handleSortBy(EWishSort.PRICE_DESC)
-                                }
-                            >
-                                {mainPageT('sort.by-price-down')}
-                            </button>
-
-                            <button
-                                className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
-                                type="button"
-                                onClick={() =>
-                                    handleSortBy(EWishSort.PRICE_ASC)
-                                }
-                            >
-                                {mainPageT('sort.by-price-up')}
-                            </button>
-
-                            <button
-                                className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
-                                type="button"
-                                onClick={() =>
-                                    handleSortBy(EWishSort.CREATED_DESC)
-                                }
-                            >
-                                {mainPageT('sort.by-created-up')}
-                            </button>
-
-                            <button
-                                className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
-                                type="button"
-                                onClick={() =>
-                                    handleSortBy(EWishSort.CREATED_ASC)
-                                }
-                            >
-                                {mainPageT('sort.by-created-down')}
-                            </button>
-                        </div>
-                    </UiPopup>
-                </div>
-            </div>
+            <WishListActions wishListRefCurrent={wishListRef.current} />
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
                 <ul

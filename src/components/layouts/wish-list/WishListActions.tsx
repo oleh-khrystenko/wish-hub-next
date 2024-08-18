@@ -1,0 +1,181 @@
+'use client';
+
+import React, { FC, useMemo, useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { EWishSort } from '@/models/Wish';
+import { EPrivacy } from '@/models/Settings';
+import { useMyUserStore } from '@/stores/my-user';
+import { useUsersStore } from '@/stores/users';
+import { useWishesStore } from '@/stores/wishes';
+import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
+import UiShareButton from '@/components/ui/UiShareButton';
+import UiTooltip from '@/components/ui/UiTooltip';
+import UiButton from '@/components/ui/UiButton';
+import UiPopup from '@/components/ui/UiPopup';
+import InfoIcon from '@/components/icons/InfoIcon';
+import SortIcon from '@/components/icons/SortIcon';
+
+interface IProps {
+    wishListRefCurrent: HTMLUListElement | null;
+}
+
+const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
+    const [showPopup, setShowPopup] = useState<boolean>(false);
+
+    const activeLocale = useLocale();
+    const mainPageT = useTranslations('main-page');
+
+    const myUser = useMyUserStore((state) => state.myUser);
+
+    const selectedUserId = useUsersStore((state) => state.selectedUserId);
+
+    const wishes = useWishesStore((state) => state.list);
+    const status = useWishesStore((state) => state.status);
+    const search = useWishesStore((state) => state.search);
+    const sort = useWishesStore((state) => state.sort);
+    const setWishesSort = useWishesStore((state) => state.setWishesSort);
+    const getWishList = useWishesStore((state) => state.getWishList);
+    const getAllWishes = useWishesStore((state) => state.getAllWishes);
+
+    const wishListIncludesShowAllWish = useMemo(
+        () => wishes.some((wish) => wish.show === EPrivacy.ALL),
+        [wishes]
+    );
+
+    let wishesSortText;
+    sort === EWishSort.POPULAR &&
+        (wishesSortText = mainPageT('sort.by-popularity'));
+    sort === EWishSort.PRICE_DESC &&
+        (wishesSortText = mainPageT('sort.by-price-down'));
+    sort === EWishSort.PRICE_ASC &&
+        (wishesSortText = mainPageT('sort.by-price-up'));
+    sort === EWishSort.CREATED_DESC &&
+        (wishesSortText = mainPageT('sort.by-created-up'));
+    sort === EWishSort.CREATED_ASC &&
+        (wishesSortText = mainPageT('sort.by-created-down'));
+
+    const handleSortBy = async (value: EWishSort) => {
+        setWishesSort(value);
+
+        if (selectedUserId) {
+            await getWishList({
+                myId: myUser?.id,
+                userId: selectedUserId,
+                status,
+                page: 1,
+                limit: WISHES_PAGINATION_LIMIT,
+                search,
+                sort: value,
+            });
+        } else {
+            await getAllWishes({
+                page: 1,
+                limit: WISHES_PAGINATION_LIMIT,
+                search,
+                sort: value,
+            });
+        }
+
+        if (!wishListRefCurrent) return;
+
+        wishListRefCurrent.scrollTo(0, 0);
+
+        setShowPopup(false);
+    };
+
+    return (
+        <div className="mt-6 flex w-full items-center gap-3 pl-2.5">
+            {myUser?.id === selectedUserId && (
+                <div className="flex items-center gap-3">
+                    <span
+                        className="tooltip"
+                        data-tooltip-id="share-wishes"
+                        data-tooltip-content={
+                            wishListIncludesShowAllWish
+                                ? mainPageT('can-see.share-tooltip')
+                                : mainPageT('can-see.inactive-share-tooltip')
+                        }
+                    >
+                        <InfoIcon />
+                    </span>
+                    <UiTooltip id="share-wishes" />
+
+                    <div
+                        className={
+                            wishListIncludesShowAllWish
+                                ? ''
+                                : 'pointer-events-none opacity-20'
+                        }
+                    >
+                        <UiShareButton
+                            link={`/${activeLocale}/wish-list/${selectedUserId}`}
+                        >
+                            <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-800 dark:text-zinc-300">
+                                {mainPageT('share-wishes')}
+                            </span>
+                        </UiShareButton>
+                    </div>
+                </div>
+            )}
+
+            <div className="relative ml-auto">
+                <UiButton variant="text" onClick={() => setShowPopup(true)}>
+                    <span className="text-sm text-zinc-800 dark:text-zinc-300">
+                        {wishesSortText}
+                    </span>
+                    <SortIcon />
+                </UiButton>
+
+                <UiPopup
+                    classes="pt-10"
+                    show={showPopup}
+                    hide={() => setShowPopup(false)}
+                >
+                    <div className="flex flex-col p-2">
+                        <button
+                            className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            type="button"
+                            onClick={() => handleSortBy(EWishSort.POPULAR)}
+                        >
+                            {mainPageT('sort.by-popularity')}
+                        </button>
+
+                        <button
+                            className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            type="button"
+                            onClick={() => handleSortBy(EWishSort.PRICE_DESC)}
+                        >
+                            {mainPageT('sort.by-price-down')}
+                        </button>
+
+                        <button
+                            className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            type="button"
+                            onClick={() => handleSortBy(EWishSort.PRICE_ASC)}
+                        >
+                            {mainPageT('sort.by-price-up')}
+                        </button>
+
+                        <button
+                            className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            type="button"
+                            onClick={() => handleSortBy(EWishSort.CREATED_DESC)}
+                        >
+                            {mainPageT('sort.by-created-up')}
+                        </button>
+
+                        <button
+                            className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            type="button"
+                            onClick={() => handleSortBy(EWishSort.CREATED_ASC)}
+                        >
+                            {mainPageT('sort.by-created-down')}
+                        </button>
+                    </div>
+                </UiPopup>
+            </div>
+        </div>
+    );
+};
+
+export default WishListActions;
