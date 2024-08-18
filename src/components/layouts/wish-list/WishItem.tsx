@@ -7,6 +7,7 @@ import { ECurrency, IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
+import isBookingExpired from '@/helpers/utils/is-booking-expired';
 import LikeAction from '@/components/layouts/LikeAction';
 import LogoIcon from '@/components/icons/LogoIcon';
 import EditIcon from '@/components/icons/EditIcon';
@@ -45,7 +46,7 @@ const WishItem: FC<IProps> = ({ wish, id, showWish, editWish }) => {
 
     return (
         <li
-            className={`${myUser && myUser.id === wish.booking?.userId ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
+            className={`${isBookingExpired(wish, myUser?.id) ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
             onClick={showWish}
         >
             <div
@@ -89,13 +90,17 @@ const WishItem: FC<IProps> = ({ wish, id, showWish, editWish }) => {
                     </svg>
 
                     {wish.booking?.end && (
-                        <span className="worn-out absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-12 rounded-md border-2 border-solid border-rose-500 px-2 py-1 text-2xl font-bold uppercase text-rose-500 backdrop-blur">
-                            {mainPageT('reserved')}
+                        <span className="worn-out absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-12 whitespace-nowrap rounded-md border-2 border-solid border-rose-500 px-2 py-1 text-2xl font-bold uppercase text-rose-500 backdrop-blur">
+                            {myUser?.id === wish.booking?.userId ? (
+                                <>{mainPageT('reserved_by_your')}</>
+                            ) : (
+                                <>{mainPageT('reserved')}</>
+                            )}
                         </span>
                     )}
 
                     {wish.executed && (
-                        <span className="worn-out absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-12 rounded-md border-2 border-solid border-cyan-300 px-2 py-1 text-2xl font-bold uppercase text-cyan-300 backdrop-blur">
+                        <span className="worn-out absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-12 whitespace-nowrap rounded-md border-2 border-solid border-cyan-300 px-2 py-1 text-2xl font-bold uppercase text-cyan-300 backdrop-blur">
                             {mainPageT('fulfilled.single')}
                         </span>
                     )}

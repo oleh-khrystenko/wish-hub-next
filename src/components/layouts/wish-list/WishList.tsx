@@ -323,7 +323,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
     return (
         <>
-            <div className="mt-6 flex w-full items-end gap-3 pl-2.5">
+            <div className="flex w-full items-end gap-3 pl-2.5">
                 {/*** Filter ***/}
                 <div className="w-2/5">
                     <UiSelect

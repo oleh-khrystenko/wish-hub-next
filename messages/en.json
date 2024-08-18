@@ -260,9 +260,10 @@
             "single": "Fulfilled",
             "plural": "Fulfilled"
         },
+        "reserved": "In progress",
+        "reserved_by_your": "Reserved by You",
         "my_wishes": "My Wishes",
         "wishes_of_user": "Wishes of User",
-        "reserved": "Reserved",
         "material-wish": "Material Wish",
         "non-material-wish": "Non-material Wish",
         "wish-name": "Name of Your wish*.",

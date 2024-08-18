@@ -257,12 +257,13 @@
         "create-wish": "Створити бажання",
         "unfulfilled": "Не виконані",
         "fulfilled": {
-            "single": "Виконане",
-            "plural": "Виконані"
+            "single": "Исполнено",
+            "plural": "Исполнены"
         },
+        "reserved": "Исполняется",
+        "reserved_by_your": "Забронировано Вами",
         "my_wishes": "Мои желания",
         "wishes_of_user": "Желания пользователя",
-        "reserved": "Заброньоване",
         "material-wish": "Матеріальне бажання",
         "non-material-wish": "Нематеріальне бажання",
         "wish-name": "Назва Вашого бажання*",
