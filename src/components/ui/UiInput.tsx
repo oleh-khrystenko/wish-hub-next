@@ -54,7 +54,7 @@ const UiInput: FC<IProps> = forwardRef<
         };
 
         return (
-            <div className="mt-8 w-full">
+            <div className="w-full">
                 <div
                     className={`relative rounded-md ${type === 'multiline' && 'bg-zinc-300 pr-1 dark:bg-zinc-800'}`}
                 >

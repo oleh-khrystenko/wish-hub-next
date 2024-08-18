@@ -23,16 +23,12 @@ const MainContent: FC = () => {
 
     return (
         <div className="flex grow flex-col pb-5 pl-3 pr-5 pt-2 tablet-md:w-3/4">
-            <span className="pl-2.5 text-xl font-bold text-zinc-800 dark:text-zinc-300">
+            <span className="min-h-7 max-w-full truncate pl-2.5 text-xl font-bold text-zinc-800 dark:text-zinc-300">
                 {myUser?.id === selectedUserId ? (
-                    <>
-                        {mainPageT('title-personal')}{' '}
-                        {mainPageT('title-wishes')}
-                    </>
+                    <>{mainPageT('my_wishes')}</>
                 ) : (
                     <>
-                        {mainPageT('Title-wishes')} {mainPageT('of-user')}{' '}
-                        {selectedUserFullName}
+                        {mainPageT('wishes_of_user')} {selectedUserFullName}
                     </>
                 )}
             </span>

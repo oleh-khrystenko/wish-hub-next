@@ -45,7 +45,7 @@ const WishItem: FC<IProps> = ({ wish, id, showWish, editWish }) => {
 
     return (
         <li
-            className={`${myUser && myUser.id === wish.booking?.userId ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-800'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
+            className={`${myUser && myUser.id === wish.booking?.userId ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
             onClick={showWish}
         >
             <div

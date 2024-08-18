@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
 import { ETheme } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
+import { useUsersStore } from '@/stores/users';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
@@ -42,6 +43,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
 
     const myUser = useMyUserStore((state) => state.myUser);
     const logout = useMyUserStore((state) => state.logout);
+    const selectedUserId = useUsersStore((state) => state.selectedUserId);
     const theme = useSettingsStore((state) => state.theme);
     const setShowBurgerMenu = useSettingsStore(
         (state) => state.setShowBurgerMenu
@@ -78,19 +80,40 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
 
     return (
         <div className="relative flex items-center justify-center gap-4">
-            <UiButton href="auth" variant="text">
-                <div className="flex flex-col items-end gap-1">
-                    <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                        {getFullName(myUser)}
-                    </span>
+            {myUser ? (
+                <>
+                    {myUser.id === selectedUserId ? (
+                        <div className="flex flex-col items-end gap-1">
+                            <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                                {getFullName(myUser)}
+                            </span>
 
-                    {myUser?.email && (
-                        <span className="text-xs text-zinc-700 dark:text-zinc-400">
-                            {myUser?.email}
-                        </span>
+                            {myUser?.email && (
+                                <span className="text-xs text-zinc-700 dark:text-zinc-400">
+                                    {myUser?.email}
+                                </span>
+                            )}
+                        </div>
+                    ) : (
+                        <UiButton variant="text" onClick={handleSelectMyWishes}>
+                            <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                                {theme === ETheme.DARK ? (
+                                    <LogoLightIcon classes="h-6 w-6" />
+                                ) : (
+                                    <LogoDarkIcon classes="h-6 w-6" />
+                                )}
+                                {mainPageT('my-wishes')}
+                            </span>
+                        </UiButton>
                     )}
-                </div>
-            </UiButton>
+                </>
+            ) : (
+                <UiButton href="auth" variant="text">
+                    <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                        {mainPageT('sing-in')}
+                    </span>
+                </UiButton>
+            )}
 
             <UiAvatar
                 avatar={myUser?.avatar}
@@ -105,7 +128,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                 hide={() => setShowPopup(false)}
             >
                 {!myUser && (
-                    <div className="mx-4 mt-4 flex flex-col items-center justify-evenly gap-2 rounded-lg bg-zinc-600 p-2 mobile-xs:flex-row">
+                    <div className="mx-4 mt-4 flex flex-col items-center justify-evenly gap-2 rounded-lg bg-zinc-300 p-2 dark:bg-zinc-800 mobile-xs:flex-row">
                         <UiButton href="auth" variant="outline">
                             {mainPageT('sing-in')}
                         </UiButton>

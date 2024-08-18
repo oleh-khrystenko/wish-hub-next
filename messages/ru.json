@@ -260,10 +260,8 @@
             "single": "Виконане",
             "plural": "Виконані"
         },
-        "title-personal": "Личные",
-        "title-wishes": "желания",
-        "Title-wishes": "Желания",
-        "of-user": "пользователя",
+        "my_wishes": "Мои желания",
+        "wishes_of_user": "Желания пользователя",
         "reserved": "Заброньоване",
         "material-wish": "Матеріальне бажання",
         "non-material-wish": "Нематеріальне бажання",

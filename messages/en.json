@@ -260,10 +260,8 @@
             "single": "Fulfilled",
             "plural": "Fulfilled"
         },
-        "title-personal": "Personal",
-        "title-wishes": "Wishes",
-        "Title-wishes": "Wishes",
-        "of-user": "of User",
+        "my_wishes": "My Wishes",
+        "wishes_of_user": "Wishes of User",
         "reserved": "Reserved",
         "material-wish": "Material Wish",
         "non-material-wish": "Non-material Wish",

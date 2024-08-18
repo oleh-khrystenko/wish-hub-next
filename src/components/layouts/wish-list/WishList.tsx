@@ -323,7 +323,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
     return (
         <>
-            <div className="flex w-full items-end gap-3 pl-2.5">
+            <div className="mt-6 flex w-full items-end gap-3 pl-2.5">
                 {/*** Filter ***/}
                 <div className="w-2/5">
                     <UiSelect
@@ -452,7 +452,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                     ref={wishListRef}
                 >
                     {myUser?.id === selectedUserId && (
-                        <li className="relative flex items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-800">
+                        <li className="relative flex items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
                             <button
                                 className="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border-2 border-dashed border-transparent transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-300"
                                 type="button"
@@ -492,7 +492,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                         return (
                             <li
                                 key={idx}
-                                className={`${opacity} flex min-h-96 w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-800`}
+                                className={`${opacity} flex min-h-96 w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-700`}
                                 onClick={() =>
                                     myUser?.id === selectedUserId &&
                                     handleShowCreateWish()

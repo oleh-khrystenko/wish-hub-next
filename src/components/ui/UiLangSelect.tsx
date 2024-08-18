@@ -10,23 +10,23 @@ import UiSelect, { IOption } from '@/components/ui/UiSelect';
 const options: IOption[] = [
     {
         label: (
-            <>
+            <div className="flex items-center gap-1.5">
                 <US title="United States" className="h-5 w-7" />
                 <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
                     Eng
                 </span>
-            </>
+            </div>
         ),
         value: ELang.EN,
     },
     {
         label: (
-            <>
+            <div className="flex items-center gap-1.5">
                 <UA title="Ukraine" className="h-5 w-7" />
                 <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
                     Укр
                 </span>
-            </>
+            </div>
         ),
         value: ELang.UK,
     },
@@ -48,6 +48,7 @@ function UiLangSelect() {
     return (
         <UiSelect
             options={options}
+            bg="bg-zinc-300 dark:bg-zinc-700"
             isPending={isPending}
             withoutIcon
             value={activeLocale as ELang}

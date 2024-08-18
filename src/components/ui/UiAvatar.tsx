@@ -18,7 +18,7 @@ const UiAvatar: FC<IProps> = ({ avatar, alt, size, handleClick }) => {
                 minWidth: `${size}px`,
                 height: `${size}px`,
             }}
-            className="flex cursor-pointer items-center justify-center overflow-hidden rounded-full bg-zinc-500 dark:bg-zinc-600"
+            className="flex cursor-pointer items-center justify-center overflow-hidden rounded-full bg-zinc-400 dark:bg-zinc-600"
             onClick={handleClick}
         >
             {avatar ? (

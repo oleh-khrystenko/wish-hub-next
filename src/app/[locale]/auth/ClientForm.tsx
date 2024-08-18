@@ -235,50 +235,58 @@ const ClientForm: FC = () => {
             </span>
 
             {isSingUp && (
-                <UiInput
-                    {...register('firstName', accountFirstNameValidation)}
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                    label={authPageT('first-name')}
-                    error={errors?.firstName?.message}
-                />
+                <div className="mt-2">
+                    <UiInput
+                        {...register('firstName', accountFirstNameValidation)}
+                        id="firstName"
+                        name="firstName"
+                        type="text"
+                        label={authPageT('first-name')}
+                        error={errors?.firstName?.message}
+                    />
+                </div>
             )}
 
-            <UiInput
-                {...register('email', emailValidation)}
-                id="email"
-                name="email"
-                type="text"
-                label="Email*"
-                error={errors?.email?.message}
-            />
+            <div className="mt-2">
+                <UiInput
+                    {...register('email', emailValidation)}
+                    id="email"
+                    name="email"
+                    type="text"
+                    label="Email*"
+                    error={errors?.email?.message}
+                />
+            </div>
 
             {!isForgotPassword && (
-                <UiInput
-                    {...register('password', passwordValidation)}
-                    id="password"
-                    name="password"
-                    type="password"
-                    label={authPageT('password')}
-                    error={errors?.password?.message}
-                />
+                <div className="mt-2">
+                    <UiInput
+                        {...register('password', passwordValidation)}
+                        id="password"
+                        name="password"
+                        type="password"
+                        label={authPageT('password')}
+                        error={errors?.password?.message}
+                    />
+                </div>
             )}
 
             {isSingUp && (
-                <UiInput
-                    id="repeat-password"
-                    name="repeat-password"
-                    type="password"
-                    label={authPageT('repeat_password')}
-                    value={repeatPassword}
-                    error={repeatPasswordError}
-                    onChange={(event) =>
-                        repeatPasswordChange(
-                            event as ChangeEvent<HTMLInputElement>
-                        )
-                    }
-                />
+                <div className="mt-2">
+                    <UiInput
+                        id="repeat-password"
+                        name="repeat-password"
+                        type="password"
+                        label={authPageT('repeat_password')}
+                        value={repeatPassword}
+                        error={repeatPasswordError}
+                        onChange={(event) =>
+                            repeatPasswordChange(
+                                event as ChangeEvent<HTMLInputElement>
+                            )
+                        }
+                    />
+                </div>
             )}
 
             <div className="-mt-2.5 flex w-full flex-col items-center justify-center gap-2.5 mobile-sm:flex-row mobile-sm:justify-between mobile-sm:gap-5">
