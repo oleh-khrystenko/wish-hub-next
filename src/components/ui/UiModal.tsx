@@ -34,7 +34,7 @@ const UiModal: FC<IProps> = ({ show, hide, children }) => {
                 onClick={() => hide && hide()}
             ></div>
 
-            <div className="relative max-w-5xl rounded-2xl bg-zinc-300 px-8 py-6 text-base font-bold text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
+            <div className="relative max-w-5xl rounded-2xl bg-zinc-300 px-8 py-6 dark:bg-zinc-800">
                 {hide && (
                     <div className="absolute right-2 top-1.5">
                         <UiButton variant="solid-gray" onClick={hide}>

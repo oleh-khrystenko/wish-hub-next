@@ -2,6 +2,8 @@
 
 import React, { FC, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import {
     ECurrency,
     IImage,
@@ -298,11 +300,13 @@ const CreateWish: FC<IProps> = ({ hide }) => {
             <UiTooltip id="name" />
 
             {/* DragNDrop */}
-            <DragNDrop
-                images={images}
-                setImages={setImages}
-                removeAllImages={removeAllImages}
-            />
+            <DndProvider backend={HTML5Backend}>
+                <DragNDrop
+                    images={images}
+                    setImages={setImages}
+                    removeAllImages={removeAllImages}
+                />
+            </DndProvider>
 
             <div className={'expander' + (material ? ' rolled-up' : '')}>
                 {/* price */}
