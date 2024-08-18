@@ -11,6 +11,7 @@ import { IUser } from '@/models/User';
 import { EPrivacy } from '@/models/Settings';
 import { EWhereRemove, IRemoveFriend } from '@/stores/my-user/types';
 import { useMyUserStore } from '@/stores/my-user';
+import { useUsersStore } from '@/stores/users';
 import { useSettingsStore } from '@/stores/settings';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
@@ -47,6 +48,9 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
     const myUser = useMyUserStore((state) => state.myUser);
     const addFriend = useMyUserStore((state) => state.addFriend);
     const removeFriend = useMyUserStore((state) => state.removeFriend);
+
+    const selectedUserId = useUsersStore((state) => state.selectedUserId);
+
     const setShowBurgerMenu = useSettingsStore(
         (state) => state.setShowBurgerMenu
     );
@@ -211,7 +215,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
 
     return (
         <li
-            className={`${borderColor} flex items-center gap-2 rounded-md border border-dashed py-1 pl-3`}
+            className={`${borderColor} ${user.id === selectedUserId ? 'bg-zinc-100 dark:bg-zinc-900' : ''} flex items-center gap-2 rounded-md border border-dashed py-1 pl-3`}
             ref={containerRef}
         >
             <UiAvatar

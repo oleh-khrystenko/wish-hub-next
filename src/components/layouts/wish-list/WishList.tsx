@@ -108,7 +108,6 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
         (emptyText = <span>{mainPageT('no_wishes_found')}</span>);
 
     const handleShowCreateWish = () => {
-        console.log('handleShowCreateWish');
         setShowCreateWish(true);
     };
     const handleHideCreateWish = () => {

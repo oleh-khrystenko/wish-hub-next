@@ -7,4 +7,5 @@ export interface IQuote {
     id: number;
     en: IQuoteContent;
     uk: IQuoteContent;
+    ru: IQuoteContent;
 }

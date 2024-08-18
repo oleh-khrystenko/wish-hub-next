@@ -4,7 +4,6 @@ import React, { FC, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
     ECurrency,
-    EWishStatus,
     IImage,
     IWish,
     TCurrentImage,
@@ -13,9 +12,9 @@ import {
 import FastWish from '@/components/layouts/wish-list/FastWish';
 import { useWishesStore } from '@/stores/wishes';
 import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
-import { EPrivacy } from '@/models/Settings';
+import { ELang, EPrivacy } from '@/models/Settings';
 import { useLocale, useTranslations } from 'next-intl';
-import { ICreateWish, IWishWithQuote } from '@/stores/wishes/types';
+import { ICreateWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
 import { toast } from 'react-toastify';
@@ -101,12 +100,12 @@ const CreateWish: FC<IProps> = ({ hide }) => {
         const nonUniqueName = wishes.some((wish) => {
             let wishName = wish.name;
             if (
-                process.env.REACT_APP_CRYPTO_JS_SECRET &&
+                process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET &&
                 wish.show !== EPrivacy.ALL
             ) {
                 wishName = decryptedData(
                     wish.name,
-                    process.env.REACT_APP_CRYPTO_JS_SECRET
+                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
                 );
             }
             return wishName === data.name.trim();
@@ -129,12 +128,12 @@ const CreateWish: FC<IProps> = ({ hide }) => {
             setShowError('');
         }
 
-        if (!myUser || !process.env.REACT_APP_CRYPTO_JS_SECRET) return;
+        if (!myUser || !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return;
 
         // name
         const encryptedName = encryptedData(
             data.name.trim(),
-            process.env.REACT_APP_CRYPTO_JS_SECRET
+            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
         );
 
         // price
@@ -143,7 +142,7 @@ const CreateWish: FC<IProps> = ({ hide }) => {
             : '';
         const encryptedPrice = encryptedData(
             priceWithoutWhiteSpaces,
-            process.env.REACT_APP_CRYPTO_JS_SECRET
+            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
         );
         const sendingPrice =
             show === EPrivacy.ALL ? priceWithoutWhiteSpaces : encryptedPrice;
@@ -151,7 +150,7 @@ const CreateWish: FC<IProps> = ({ hide }) => {
         // currency
         const encryptedCurrency = encryptedData(
             currency,
-            process.env.REACT_APP_CRYPTO_JS_SECRET
+            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
         );
         const sendingCurrency =
             show === EPrivacy.ALL ? currency : encryptedCurrency;
@@ -169,12 +168,12 @@ const CreateWish: FC<IProps> = ({ hide }) => {
         const encryptedAddresses =
             dataAddresses.length > 0
                 ? dataAddresses.map((address) =>
-                      process.env.REACT_APP_CRYPTO_JS_SECRET
+                      process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
                           ? {
                                 ...address,
                                 value: encryptedData(
                                     address.value,
-                                    process.env.REACT_APP_CRYPTO_JS_SECRET
+                                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
                                 ),
                             }
                           : address
@@ -187,7 +186,7 @@ const CreateWish: FC<IProps> = ({ hide }) => {
         const dataDescription = data.description ? data.description.trim() : '';
         const encryptedDescription = encryptedData(
             dataDescription,
-            process.env.REACT_APP_CRYPTO_JS_SECRET
+            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
         );
         const sendingDescription =
             show === EPrivacy.ALL ? dataDescription : encryptedDescription;
@@ -196,14 +195,14 @@ const CreateWish: FC<IProps> = ({ hide }) => {
         const encryptedImages = images.map((image) => {
             if (
                 image instanceof File ||
-                !process.env.REACT_APP_CRYPTO_JS_SECRET
+                !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
             )
                 return image;
 
             const encryptedImage = { ...image };
             encryptedImage.path = encryptedData(
                 image.path,
-                process.env.REACT_APP_CRYPTO_JS_SECRET
+                process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
             );
             return encryptedImage;
         });
@@ -223,22 +222,22 @@ const CreateWish: FC<IProps> = ({ hide }) => {
 
         try {
             const response = await createWish(wishData);
-            // const quote = (response.payload as IWishWithQuote).quote[
-            //     activeLocale
-            // ];
-            // toast(
-            //     <UiQuoteMessage
-            //         title={alertsT('alerts.wishes-api.create-wish.success')}
-            //         text={quote?.text}
-            //         author={quote?.author}
-            //     />,
-            //     { type: 'success' }
-            // );
+            if (!response) return;
+
+            const quote = response[activeLocale as ELang];
+            toast(
+                <UiQuoteMessage
+                    title={alertsT('wishes-api.create-wish.success')}
+                    text={quote?.text}
+                    author={quote?.author}
+                />,
+                { type: 'success' }
+            );
         } catch (e: any) {
             console.error(e);
         }
 
-        close();
+        hide();
     };
 
     const removeAllImages = () => {

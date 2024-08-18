@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import wishesApi from '@/stores/wishes/api';
 import { EWishSort, EWishStatus, IWish, IWishCandidate } from '@/models/Wish';
 import { IUser } from '@/models/User';
+import { IQuote } from '@/models/Quote';
 import {
     IActionWish,
     IBookWish,
@@ -46,7 +47,7 @@ interface IWishesStore {
     setWishesSort: (value: EWishSort) => void;
     resetWishCandidate: (value: IWishCandidate | null) => void;
     fetchWishDataFromLink: (params: { url: string }) => Promise<void>;
-    createWish: (data: ICreateWish) => Promise<void>;
+    createWish: (data: ICreateWish) => Promise<IQuote | void>;
     updateWish: (data: IUpdateWish) => Promise<void>;
     bookWish: (data: IBookWish) => Promise<void>;
     cancelBookWish: (data: IActionWish) => Promise<void>;
@@ -122,6 +123,8 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 ...state,
                 list: [response.data.wish, ...state.list],
             }));
+
+            return response.data.quote;
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
