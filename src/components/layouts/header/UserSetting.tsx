@@ -8,7 +8,7 @@ import { ETheme } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
-import getFullName from '@/helpers/utils/get-full-name';
+import UseFullName from '@/helpers/hooks/UseFullName';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -48,6 +48,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
     );
 
     const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
+    const { getFullName } = UseFullName();
 
     const handleSelectMyWishes = async () => {
         if (pathname.split('/')[2] === 'main') {
@@ -80,7 +81,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
             <UiButton href="auth" variant="text">
                 <div className="flex flex-col items-end gap-1">
                     <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                        {getFullName(myUser, mainPageT('sing-in'))}
+                        {getFullName(myUser)}
                     </span>
 
                     {myUser?.email && (
@@ -93,7 +94,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
 
             <UiAvatar
                 avatar={myUser?.avatar}
-                alt={getFullName(myUser, mainPageT('user_not_found'))}
+                alt={getFullName(myUser)}
                 size={44}
                 handleClick={() => setShowPopup(true)}
             />

@@ -1,11 +1,11 @@
 'use client';
 
 import { FC, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
-import getFullName from '@/helpers/utils/get-full-name';
+import UseFullName from '@/helpers/hooks/UseFullName';
 import WishList from '@/components/layouts/wish-list/WishList';
-import { useTranslations } from 'next-intl';
 
 const MainContent: FC = () => {
     const mainPageT = useTranslations('main-page');
@@ -14,9 +14,11 @@ const MainContent: FC = () => {
     const users = useUsersStore((state) => state.list);
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
+    const { getFullName } = UseFullName();
+
     const selectedUserFullName = useMemo(() => {
         const selectedUser = users.find((user) => user.id === selectedUserId);
-        return getFullName(selectedUser, mainPageT('user_not_found'));
+        return getFullName(selectedUser);
     }, [users, selectedUserId]);
 
     return (

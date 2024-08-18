@@ -14,7 +14,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
-import getFullName from '@/helpers/utils/get-full-name';
+import UseFullName from '@/helpers/hooks/UseFullName';
 import UiAvatar from '@/components/ui/UiAvatar';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -53,6 +53,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
 
     const { getMonthWithDate } = UseLocaleFormats();
     const { getInitialWishList } = UseInitialWishes();
+    const { getFullName } = UseFullName();
 
     let borderColor = 'border-transparent';
     myUser?.followTo.includes(user.id) &&
@@ -215,7 +216,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
         >
             <UiAvatar
                 avatar={user.avatar}
-                alt={getFullName(user, mainPageT('user_not_found'))}
+                alt={getFullName(user)}
                 size={40}
                 handleClick={handleGoToProfilePage}
             />
@@ -229,7 +230,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                     className="truncate text-left text-sm text-zinc-800 dark:text-zinc-300"
                     style={{ width: `${textWidth}px` }}
                 >
-                    {getFullName(user, mainPageT('user_not_found'))}
+                    {getFullName(user)}
                 </span>
 
                 {params !== null && params}

@@ -9,7 +9,6 @@ import {
     WISH_PRICE_MAX_LENGTH,
     DELIVERY_ADDRESS_MIN_LENGTH,
     DELIVERY_ADDRESS_MAX_LENGTH,
-    WISH_DESCRIPTION_MAX_LENGTH,
 } from '@/helpers/utils/constants';
 
 const UseValidations = () => {
