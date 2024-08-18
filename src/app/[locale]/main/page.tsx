@@ -15,6 +15,7 @@ export default function Main() {
                     'main-page',
                     'share-button',
                     'alerts',
+                    'validations', // it is a bad idea
                 ])}
             >
                 <Refresh>

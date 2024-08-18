@@ -162,11 +162,6 @@
         "file-type": "The file must be in one of the following formats:",
         "file-size": "The file size must not exceed {size} MB."
     },
-    "images-error": {
-        "file-type": "One or more files are in an unsupported format. Supported formats:",
-        "file-size": "One or more files are larger than {size} MB.",
-        "file-count": "Unfortunately, it is not possible to save more than {count} images."
-    },
     "validations": {
         "only-whitespace": "The entered data cannot contain only spaces.",
         "wish-name": {
@@ -372,7 +367,12 @@
         },
         "privacy_policy_title": "Privacy Policy",
         "my-profile": "My profile",
-        "user-profile": "User profile"
+        "user-profile": "User profile",
+        "images-error": {
+            "file-type": "One or more files are in an unsupported format. Supported formats:",
+            "file-size": "One or more files are larger than {size} MB.",
+            "file-count": "Unfortunately, it is not possible to save more than {count} images."
+        }
     },
     "activation-link-expired-page": {
         "expired": "Account activation period has expired.",

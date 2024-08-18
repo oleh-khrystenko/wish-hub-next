@@ -72,3 +72,10 @@ export interface IWishCandidate {
     price: IWish['price'];
     description: IWish['description'];
 }
+
+export type TWishFormInputs = {
+    name: IWish['name'];
+    price: IWish['price'];
+    addresses: IWish['addresses'];
+    description: IWish['description'];
+};
