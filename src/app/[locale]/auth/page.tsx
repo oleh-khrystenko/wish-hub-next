@@ -5,7 +5,7 @@ import {
 } from 'next-intl';
 import ClientForm from '@/app/[locale]/auth/ClientForm';
 import UiThemeSwitcher from '@/components/ui/UiThemeSwitcher';
-import WishHub from '@/components/ui/WishHub';
+import UiBrand from '@/components/ui/UiBrand';
 import UiLangSelect from '@/components/ui/UiLangSelect';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import Refresh from '@/helpers/hocs/Refresh';
@@ -23,7 +23,7 @@ export default function Auth() {
                     <UiLangSelect />
                 </div>
 
-                <WishHub withLogo isBig />
+                <UiBrand withLogo isBig />
             </header>
 
             <NextIntlClientProvider

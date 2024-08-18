@@ -7,7 +7,7 @@ import { ECurrency, IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
-import LikeAction from '@/components/ui/LikeAction';
+import LikeAction from '@/components/layouts/LikeAction';
 import LogoIcon from '@/components/icons/LogoIcon';
 import EditIcon from '@/components/icons/EditIcon';
 

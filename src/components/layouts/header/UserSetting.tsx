@@ -49,7 +49,6 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
 
     const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
 
-    // SelectWish
     const handleSelectMyWishes = async () => {
         if (pathname.split('/')[2] === 'main') {
             router.push(`/${activeLocale}/main`);
@@ -70,7 +69,6 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
         }, 300);
     };
 
-    // Logout
     const handleLogout = async () => {
         await logout(alertsT('my-user-api.logout.error'));
         logoutWithUpdate && (await getInitialAllWishes());

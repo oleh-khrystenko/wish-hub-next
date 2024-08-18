@@ -220,6 +220,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     };
 
     const handleShowCreateWish = () => {
+        console.log('handleShowCreateWish');
         setShowCreateWish(true);
     };
     const handleHideCreateWish = () => {
@@ -492,7 +493,10 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                             <li
                                 key={idx}
                                 className={`${opacity} flex min-h-96 w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-800`}
-                                onClick={() => handleShowEditWish(null)}
+                                onClick={() =>
+                                    myUser?.id === selectedUserId &&
+                                    handleShowCreateWish()
+                                }
                             >
                                 <div className="relative w-full pt-[100%]">
                                     <LogoIcon
