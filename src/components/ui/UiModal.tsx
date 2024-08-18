@@ -4,15 +4,15 @@ import CrossIcon from '@/components/icons/CrossIcon';
 
 interface IProps {
     show: boolean;
-    hid?: () => void;
+    hide?: () => void;
     children: ReactNode;
 }
 
-const UiModal: FC<IProps> = ({ show, hid, children }) => {
+const UiModal: FC<IProps> = ({ show, hide, children }) => {
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
-                hid && hid();
+                hide && hide();
             }
         };
 
@@ -23,7 +23,7 @@ const UiModal: FC<IProps> = ({ show, hid, children }) => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [show, hid]);
+    }, [show, hide]);
 
     return (
         <div
@@ -31,13 +31,13 @@ const UiModal: FC<IProps> = ({ show, hid, children }) => {
         >
             <div
                 className="absolute inset-0 -z-10 h-svh w-full bg-zinc-400 opacity-60 dark:bg-zinc-950"
-                onClick={() => hid && hid()}
+                onClick={() => hide && hide()}
             ></div>
 
             <div className="relative max-w-5xl rounded-2xl bg-zinc-300 px-8 py-6 text-base font-bold text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
-                {hid && (
+                {hide && (
                     <div className="absolute right-2 top-1.5">
-                        <UiButton variant="solid-gray" onClick={hid}>
+                        <UiButton variant="solid-gray" onClick={hide}>
                             <CrossIcon />
                         </UiButton>
                     </div>

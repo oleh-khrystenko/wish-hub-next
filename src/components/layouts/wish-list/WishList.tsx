@@ -18,6 +18,11 @@ import SortIcon from '@/components/icons/SortIcon';
 import CrossIcon from '@/components/icons/CrossIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
 import WishItem from '@/components/layouts/wish-list/WishItem';
+import Loading from '@/components/layouts/Loading';
+import UiModal from '@/components/ui/UiModal';
+import DetailWish from '@/components/layouts/wish-list/DetailWish';
+import CreateWish from '@/components/layouts/wish-list/CreateWish';
+import EditWish from '@/components/layouts/wish-list/EditWish';
 
 interface IProps {
     selectedUserFullName: string;
@@ -44,6 +49,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     });
 
     const myUser = useMyUserStore((state) => state.myUser);
+    const users = useUsersStore((state) => state.list);
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
     const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
     const wishes = useWishesStore((state) => state.list);
@@ -52,6 +58,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
+    const isLoading = useWishesStore((state) => state.isLoading);
     const setWishesStatus = useWishesStore((state) => state.setWishesStatus);
     const setWishesSearch = useWishesStore((state) => state.setWishesSearch);
     const setWishesSort = useWishesStore((state) => state.setWishesSort);
@@ -63,9 +70,19 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
     const addAllWishes = useWishesStore((state) => state.addAllWishes);
 
+    const selectedUser = useMemo(
+        () => users.find((user) => user.id === selectedUserId),
+        [users, selectedUserId]
+    );
+
     const wishListIncludesShowAllWish = useMemo(
         () => wishes.some((wish) => wish.show === EPrivacy.ALL),
         [wishes]
+    );
+
+    const detailWish = useMemo(
+        () => wishes.find((wish) => wish.id === idOfSelectedWish),
+        [wishes, idOfSelectedWish]
     );
 
     const selectOptions: IOption[] = [
@@ -245,80 +262,88 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     };
 
     useEffect(() => {
-        if (firstLoad) {
-            setFirstLoad(false);
-            return;
-        }
+        const fetchWishes = async () => {
+            if (firstLoad) {
+                setFirstLoad(false);
+                return;
+            }
 
-        if (!inView || stopRequests) return;
+            if (!inView || stopRequests) return;
 
-        if (selectedUserId) {
-            addWishList({
-                myId: myUser?.id,
-                userId: selectedUserId,
-                status,
-                page,
-                limit: WISHES_PAGINATION_LIMIT,
-                search,
-                sort,
-            });
-        } else {
-            addAllWishes({
-                page,
-                limit: WISHES_PAGINATION_LIMIT,
-                search,
-                sort,
-            });
-        }
+            if (selectedUserId) {
+                await addWishList({
+                    myId: myUser?.id,
+                    userId: selectedUserId,
+                    status,
+                    page,
+                    limit: WISHES_PAGINATION_LIMIT,
+                    search,
+                    sort,
+                });
+            } else {
+                await addAllWishes({
+                    page,
+                    limit: WISHES_PAGINATION_LIMIT,
+                    search,
+                    sort,
+                });
+            }
+        };
+
+        fetchWishes().finally();
     }, [inView]);
 
     useEffect(() => {
-        if (gotWishes.current) return;
-        gotWishes.current = true;
+        const fetchWishes = async () => {
+            if (gotWishes.current) return;
+            gotWishes.current = true;
 
-        const isMyWishes = location.search === '?my-wishes'; // Випадок переходу зі сторінки профілю або зі сторінки списку бажань на власні бажання
-        if (isMyWishes && myUser) {
-            getWishList({
-                myId: myUser.id,
-                userId: myUser.id,
-                status,
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search,
-                sort: EWishSort.CREATED_DESC,
-            });
-            setSelectedUserId(myUser.id);
-            setWishesSort(EWishSort.CREATED_DESC);
-            return;
-        }
-
-        const localSelectedUserId = localStorage.getItem('selectedUserId');
-        if (localSelectedUserId) {
-            getWishList({
-                myId: myUser?.id,
-                userId: localSelectedUserId,
-                status,
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search,
-                sort:
-                    myUser?.id === localSelectedUserId
-                        ? EWishSort.CREATED_DESC
-                        : sort,
-            });
-            setSelectedUserId(localSelectedUserId);
-            if (myUser?.id === localSelectedUserId) {
+            const isMyWishes = location.search === '?my-wishes'; // Випадок переходу зі сторінки профілю або зі сторінки списку бажань на власні бажання
+            if (isMyWishes && myUser) {
+                await getWishList({
+                    myId: myUser.id,
+                    userId: myUser.id,
+                    status,
+                    page: 1,
+                    limit: WISHES_PAGINATION_LIMIT,
+                    search,
+                    sort: EWishSort.CREATED_DESC,
+                });
+                setSelectedUserId(myUser.id);
                 setWishesSort(EWishSort.CREATED_DESC);
+                return;
             }
-        } else {
-            getAllWishes({
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search,
-                sort: EWishSort.POPULAR,
-            });
-            setWishesSort(EWishSort.POPULAR);
-        }
+
+            const localSelectedUserId = localStorage.getItem('selectedUserId');
+            if (localSelectedUserId) {
+                await getWishList({
+                    myId: myUser?.id,
+                    userId: localSelectedUserId,
+                    status,
+                    page: 1,
+                    limit: WISHES_PAGINATION_LIMIT,
+                    search,
+                    sort:
+                        myUser?.id === localSelectedUserId
+                            ? EWishSort.CREATED_DESC
+                            : sort,
+                });
+                setSelectedUserId(localSelectedUserId);
+                if (myUser?.id === localSelectedUserId) {
+                    setWishesSort(EWishSort.CREATED_DESC);
+                }
+            } else {
+                await getAllWishes({
+                    page: 1,
+                    limit: WISHES_PAGINATION_LIMIT,
+                    search,
+                    sort: EWishSort.POPULAR,
+                });
+                setWishesSort(EWishSort.POPULAR);
+            }
+        };
+
+        fetchWishes().finally();
     }, []);
 
     return (
@@ -527,6 +552,30 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                     </p>
                 </div>
             )}
+
+            {isLoading && <Loading isLocal />}
+
+            {detailWish && (
+                <UiModal show={showWish} hide={handleHideWish}>
+                    <DetailWish
+                        wish={detailWish}
+                        selectedUser={selectedUser}
+                        editWish={() => handleShowEditWish(idOfSelectedWish)}
+                        hide={handleHideWish}
+                    />
+                </UiModal>
+            )}
+
+            <UiModal show={showCreateWish} hide={handleHideCreateWish}>
+                <CreateWish hide={handleHideCreateWish} />
+            </UiModal>
+
+            <UiModal show={showEditWish} hide={handleHideEditWish}>
+                <EditWish
+                    idOfSelectedWish={idOfSelectedWish}
+                    hide={handleHideEditWish}
+                />
+            </UiModal>
         </>
     );
 };

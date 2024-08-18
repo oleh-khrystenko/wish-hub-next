@@ -22,7 +22,7 @@ const MainContent: FC = () => {
     }, [users, selectedUserId]);
 
     return (
-        <div className="flex grow flex-col pb-5 pl-3 pr-5 pt-2 tablet-md:w-3/4">
+        <div className="relative flex grow flex-col pb-5 pl-3 pr-5 pt-2 tablet-md:w-3/4">
             {selectedUserId && (
                 <span className="mb-6 min-h-7 max-w-full truncate pl-2.5 text-xl font-bold text-zinc-800 dark:text-zinc-300">
                     {myUser?.id === selectedUserId ? (
