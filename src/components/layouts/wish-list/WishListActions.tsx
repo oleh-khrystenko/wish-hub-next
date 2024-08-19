@@ -8,7 +8,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
-import UiShareButton from '@/components/layouts/UiShareButton';
+import ShareButton from '@/components/layouts/ShareButton';
 import UiTooltip from '@/components/ui/UiTooltip';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -107,13 +107,13 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                                 : 'pointer-events-none opacity-20'
                         }
                     >
-                        <UiShareButton
+                        <ShareButton
                             link={`/${activeLocale}/wish-list/${selectedUserId}`}
                         >
                             <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-800 dark:text-zinc-300">
                                 {mainPageT('share-wishes')}
                             </span>
-                        </UiShareButton>
+                        </ShareButton>
                     </div>
                 </div>
             )}

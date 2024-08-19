@@ -25,14 +25,14 @@ import { WISH_DESCRIPTION_MAX_LENGTH } from '@/helpers/utils/constants';
 import FastWish from '@/components/layouts/wish-list/FastWish';
 import Addresses from '@/components/layouts/wish-list/Addresses';
 import DragNDrop from '@/components/layouts/DragNDrop';
-import UiQuoteMessage from '@/components/layouts/UiQuoteMessage';
+import QuoteMessage from '@/components/layouts/QuoteMessage';
 import UiSwitch from '@/components/ui/UiSwitch';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
-import UiPrivacyChoices from '@/components/layouts/UiPrivacyChoices';
+import PrivacyChoices from '@/components/layouts/PrivacyChoices';
 import UiModal from '@/components/ui/UiModal';
-import UiConfirmModal from '@/components/layouts/UiConfirmModal';
+import ConfirmModal from '@/components/layouts/ConfirmModal';
 
 interface IProps {
     showModal: boolean;
@@ -248,7 +248,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
 
             const quote = response[activeLocale as ELang];
             toast(
-                <UiQuoteMessage
+                <QuoteMessage
                     title={alertsT('wishes-api.create-wish.success')}
                     text={quote?.text}
                     author={quote?.author}
@@ -467,7 +467,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                             </div>
 
                             {/* PrivacyChoices */}
-                            <UiPrivacyChoices
+                            <PrivacyChoices
                                 id="wish"
                                 tooltipContent={{
                                     all: mainPageT('can-see.wish-all-tooltip'),
@@ -494,7 +494,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                 )}
             </UiModal>
 
-            <UiConfirmModal
+            <ConfirmModal
                 show={showConfirm}
                 confirm={hideModals}
                 hide={() => setShowConfirm(false)}
@@ -505,7 +505,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                 <span className="text-zinc-700 dark:text-zinc-300">
                     {mainPageT('leave_wish_creation.text')}
                 </span>
-            </UiConfirmModal>
+            </ConfirmModal>
         </>
     );
 };

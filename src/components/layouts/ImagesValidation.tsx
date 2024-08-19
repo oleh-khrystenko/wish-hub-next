@@ -11,7 +11,7 @@ interface IProps {
     images: TCurrentImage[];
 }
 
-const UiImagesValidation: FC<IProps> = ({ images }) => {
+const ImagesValidation: FC<IProps> = ({ images }) => {
     const mainPageT = useTranslations('main-page');
 
     const extensionsValidation = images.some((image) => {
@@ -74,4 +74,4 @@ const UiImagesValidation: FC<IProps> = ({ images }) => {
     return null;
 };
 
-export default UiImagesValidation;
+export default ImagesValidation;

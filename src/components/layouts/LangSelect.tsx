@@ -32,7 +32,7 @@ const options: IOption[] = [
     },
 ];
 
-function UiLangSelect() {
+function LangSelect() {
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
     const activeLocale = useLocale();
@@ -57,4 +57,4 @@ function UiLangSelect() {
     );
 }
 
-export default UiLangSelect;
+export default LangSelect;

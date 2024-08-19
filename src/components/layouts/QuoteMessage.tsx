@@ -6,7 +6,7 @@ interface IProps {
     author: string;
 }
 
-const UiQuoteMessage: FC<IProps> = ({ title, text, author }) => {
+const QuoteMessage: FC<IProps> = ({ title, text, author }) => {
     return (
         <div className="flex flex-col gap-2 pb-4 pl-2 pr-4">
             <span className="whitespace-nowrap p-2 text-center text-base font-bold">
@@ -24,4 +24,4 @@ const UiQuoteMessage: FC<IProps> = ({ title, text, author }) => {
     );
 };
 
-export default UiQuoteMessage;
+export default QuoteMessage;

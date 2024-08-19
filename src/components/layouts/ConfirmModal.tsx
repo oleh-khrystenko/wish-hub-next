@@ -12,7 +12,7 @@ interface IProps {
     closeModalT: string;
 }
 
-const UiConfirmModal: FC<IProps> = ({
+const ConfirmModal: FC<IProps> = ({
     show,
     confirm,
     hide,
@@ -39,4 +39,4 @@ const UiConfirmModal: FC<IProps> = ({
     );
 };
 
-export default UiConfirmModal;
+export default ConfirmModal;

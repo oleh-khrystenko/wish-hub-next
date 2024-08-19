@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { EPrivacy } from '@/models/Settings';
 import ShareIcon from '@/components/icons/ShareIcon';
 import { useLocale, useTranslations } from 'next-intl';
-import UiConfirmModal from '@/components/layouts/UiConfirmModal';
+import ConfirmModal from '@/components/layouts/ConfirmModal';
 
 interface IProps {
     classes?: string;
@@ -14,7 +14,7 @@ interface IProps {
     children?: ReactNode;
 }
 
-const UiShareButton: FC<IProps> = ({
+const ShareButton: FC<IProps> = ({
     classes,
     link = '',
     wishShow,
@@ -87,7 +87,7 @@ const UiShareButton: FC<IProps> = ({
                 <ShareIcon />
             </button>
 
-            <UiConfirmModal
+            <ConfirmModal
                 show={show}
                 confirm={shareContent}
                 hide={() => setShow(false)}
@@ -98,9 +98,9 @@ const UiShareButton: FC<IProps> = ({
                 {wishShow === EPrivacy.NOBODY
                     ? shareButtonT('question-nobody')
                     : shareButtonT('question-friends')}
-            </UiConfirmModal>
+            </ConfirmModal>
         </>
     );
 };
 
-export default UiShareButton;
+export default ShareButton;

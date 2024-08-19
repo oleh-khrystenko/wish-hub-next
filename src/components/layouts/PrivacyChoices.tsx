@@ -17,7 +17,7 @@ interface IProps {
     onChange: (show: EPrivacy) => void;
 }
 
-const UiPrivacyChoices: FC<IProps> = ({
+const PrivacyChoices: FC<IProps> = ({
     id,
     tooltipContent,
     show,
@@ -105,4 +105,4 @@ const UiPrivacyChoices: FC<IProps> = ({
     );
 };
 
-export default UiPrivacyChoices;
+export default PrivacyChoices;

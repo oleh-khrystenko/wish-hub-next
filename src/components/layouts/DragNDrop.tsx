@@ -9,7 +9,7 @@ import {
     MAX_NUMBER_OF_IMAGES_PER_WISH,
 } from '@/helpers/utils/constants';
 import DraggableImage from '@/components/layouts/DraggableImage';
-import UiImagesValidation from '@/components/layouts/UiImagesValidation';
+import ImagesValidation from '@/components/layouts/ImagesValidation';
 
 interface IProps {
     images: TCurrentImage[];
@@ -122,7 +122,7 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
                 ))}
             </div>
 
-            <UiImagesValidation images={images} />
+            <ImagesValidation images={images} />
 
             {images.length > 0 && (
                 <button

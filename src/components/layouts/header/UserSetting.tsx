@@ -13,9 +13,9 @@ import UseFullName from '@/helpers/hooks/UseFullName';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
-import UiThemeSwitcher from '@/components/layouts/UiThemeSwitcher';
-import UiLangSelect from '@/components/layouts/UiLangSelect';
-import UiShareButton from '@/components/layouts/UiShareButton';
+import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
+import LangSelect from '@/components/layouts/LangSelect';
+import ShareButton from '@/components/layouts/ShareButton';
 import UiAvatar from '@/components/ui/UiAvatar';
 import LangIcon from '@/components/icons/LangIcon';
 import LightDarkThemeIcon from '@/components/icons/LightDarkThemeIcon';
@@ -170,13 +170,13 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                     <div className="flex items-center gap-2 whitespace-nowrap text-lg font-bold text-zinc-800 dark:text-zinc-300">
                         <LangIcon />
                         {mainPageT('interface_language')}:
-                        <UiLangSelect />
+                        <LangSelect />
                     </div>
 
                     <div className="flex items-center gap-2 whitespace-nowrap text-lg font-bold text-zinc-800 dark:text-zinc-300">
                         <LightDarkThemeIcon />
                         {mainPageT('theme')}:
-                        <UiThemeSwitcher hide={handleHidePopup} />
+                        <ThemeSwitcher hide={handleHidePopup} />
                     </div>
                 </div>
 
@@ -196,11 +196,11 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                         </span>
                     </UiButton>
 
-                    <UiShareButton classes="flex-row-reverse mr-auto">
+                    <ShareButton classes="flex-row-reverse mr-auto">
                         <span className="flex items-center gap-2 py-1.5 text-lg font-bold text-zinc-800 dark:text-zinc-300">
                             {mainPageT('confirm')} Wish Hub
                         </span>
-                    </UiShareButton>
+                    </ShareButton>
 
                     <UiButton href="about" variant="text">
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">

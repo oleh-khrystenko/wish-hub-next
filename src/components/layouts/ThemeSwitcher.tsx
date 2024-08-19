@@ -11,7 +11,7 @@ interface IProps {
     hide?: () => void;
 }
 
-const UiThemeSwitcher: FC<IProps> = ({ hide }) => {
+const ThemeSwitcher: FC<IProps> = ({ hide }) => {
     const theme = useSettingsStore((state) => state.theme);
     const setTheme = useSettingsStore((state) => state.setTheme);
 
@@ -58,4 +58,4 @@ const UiThemeSwitcher: FC<IProps> = ({ hide }) => {
     );
 };
 
-export default UiThemeSwitcher;
+export default ThemeSwitcher;
