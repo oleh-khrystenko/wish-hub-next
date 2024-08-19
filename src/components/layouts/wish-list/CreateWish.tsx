@@ -14,25 +14,25 @@ import {
     TCurrentImage,
     TWishFormInputs,
 } from '@/models/Wish';
-import FastWish from '@/components/layouts/wish-list/FastWish';
-import { useWishesStore } from '@/stores/wishes';
-import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
 import { ELang, EPrivacy } from '@/models/Settings';
 import { ICreateWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
+import { useWishesStore } from '@/stores/wishes';
+import UseValidations from '@/helpers/hooks/UseValidations';
+import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
-import UiQuoteMessage from '@/components/ui/UiQuoteMessage';
+import { WISH_DESCRIPTION_MAX_LENGTH } from '@/helpers/utils/constants';
+import FastWish from '@/components/layouts/wish-list/FastWish';
+import Addresses from '@/components/layouts/wish-list/Addresses';
+import DragNDrop from '@/components/layouts/DragNDrop';
+import UiQuoteMessage from '@/components/layouts/UiQuoteMessage';
 import UiSwitch from '@/components/ui/UiSwitch';
 import UiInput from '@/components/ui/UiInput';
-import UseValidations from '@/helpers/hooks/UseValidations';
-import { WISH_DESCRIPTION_MAX_LENGTH } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
-import Addresses from '@/components/layouts/wish-list/Addresses';
-import UiPrivacyChoices from '@/components/ui/UiPrivacyChoices';
-import DragNDrop from '@/components/layouts/DragNDrop';
+import UiPrivacyChoices from '@/components/layouts/UiPrivacyChoices';
 import UiModal from '@/components/ui/UiModal';
-import UiConfirmModal from '@/components/ui/UiConfirmModal';
+import UiConfirmModal from '@/components/layouts/UiConfirmModal';
 
 interface IProps {
     showModal: boolean;

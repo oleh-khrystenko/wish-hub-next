@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { EPrivacy } from '@/models/Settings';
 import ShareIcon from '@/components/icons/ShareIcon';
 import { useLocale, useTranslations } from 'next-intl';
-import UiConfirmModal from '@/components/ui/UiConfirmModal';
+import UiConfirmModal from '@/components/layouts/UiConfirmModal';
 
 interface IProps {
     classes?: string;

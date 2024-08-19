@@ -8,7 +8,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
-import UiShareButton from '@/components/ui/UiShareButton';
+import UiShareButton from '@/components/layouts/UiShareButton';
 import UiTooltip from '@/components/ui/UiTooltip';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';

@@ -4,9 +4,9 @@ import {
     NextIntlClientProvider,
 } from 'next-intl';
 import ClientForm from '@/app/[locale]/auth/ClientForm';
-import UiThemeSwitcher from '@/components/ui/UiThemeSwitcher';
+import UiThemeSwitcher from '@/components/layouts/UiThemeSwitcher';
 import UiBrand from '@/components/ui/UiBrand';
-import UiLangSelect from '@/components/ui/UiLangSelect';
+import UiLangSelect from '@/components/layouts/UiLangSelect';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import Refresh from '@/helpers/hocs/Refresh';
 import pick from 'lodash.pick';

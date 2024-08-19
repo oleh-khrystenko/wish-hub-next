@@ -9,7 +9,7 @@ import {
     MAX_NUMBER_OF_IMAGES_PER_WISH,
 } from '@/helpers/utils/constants';
 import DraggableImage from '@/components/layouts/DraggableImage';
-import UiImagesValidation from '@/components/ui/UiImagesValidation';
+import UiImagesValidation from '@/components/layouts/UiImagesValidation';
 
 interface IProps {
     images: TCurrentImage[];
