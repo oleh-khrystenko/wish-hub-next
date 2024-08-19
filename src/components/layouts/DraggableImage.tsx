@@ -50,7 +50,11 @@ const DraggableImage: FC<IProps> = ({
             className={`${isDragging ? 'border-red-500' : ''} relative flex h-20 w-20 cursor-pointer items-center justify-center rounded-md border border-dashed border-zinc-700 dark:border-zinc-300`}
         >
             <Image
-                src={URL.createObjectURL(image as Blob)}
+                src={
+                    image instanceof File
+                        ? URL.createObjectURL(image)
+                        : image.path
+                }
                 alt={`Image-${index}`}
                 title={`Image-${index}`}
                 priority={true}

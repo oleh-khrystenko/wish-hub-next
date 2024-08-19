@@ -373,7 +373,12 @@
             "file-size": "One or more files are larger than {size} MB.",
             "file-count": "Unfortunately, it is not possible to save more than {count} images."
         },
-        "creating_wish": "Creating wish"
+        "creating_wish": "Creating wish",
+        "leave_wish_creation": {
+            "text": "You have made changes to the wish creation form. Are you sure you want to close the window without saving?",
+            "confirm": "Close without saving",
+            "close": "Cancellation"
+        }
     },
     "activation-link-expired-page": {
         "expired": "Account activation period has expired.",

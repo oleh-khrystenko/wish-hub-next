@@ -1,9 +1,12 @@
 'use client';
 
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useRef, useLayoutEffect, useEffect } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
 import {
     ECurrency,
     IImage,
@@ -15,11 +18,9 @@ import FastWish from '@/components/layouts/wish-list/FastWish';
 import { useWishesStore } from '@/stores/wishes';
 import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
 import { ELang, EPrivacy } from '@/models/Settings';
-import { useLocale, useTranslations } from 'next-intl';
 import { ICreateWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
-import { toast } from 'react-toastify';
 import UiQuoteMessage from '@/components/ui/UiQuoteMessage';
 import UiSwitch from '@/components/ui/UiSwitch';
 import UiInput from '@/components/ui/UiInput';
@@ -31,6 +32,7 @@ import Addresses from '@/components/layouts/wish-list/Addresses';
 import UiPrivacyChoices from '@/components/ui/UiPrivacyChoices';
 import DragNDrop from '@/components/layouts/DragNDrop';
 import UiModal from '@/components/ui/UiModal';
+import UiConfirmModal from '@/components/ui/UiConfirmModal';
 
 interface IProps {
     showModal: boolean;
@@ -38,12 +40,16 @@ interface IProps {
 }
 
 const CreateWish: FC<IProps> = ({ showModal, hide }) => {
+    const [showConfirm, setShowConfirm] = useState<boolean>(false);
+    const [isDirty, setIsDirty] = useState<boolean>(false);
     const [isFastWish, setIsFastWish] = useState<boolean>(true);
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
     const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
     const [images, setImages] = useState<TCurrentImage[]>([]);
     const [material, setMaterial] = useState<ICreateWish['material']>(true);
+
+    const firstRender = useRef(false);
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -53,9 +59,9 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     const {
         control,
         register,
-        getValues,
         setValue,
         watch,
+        reset,
         setError,
         handleSubmit,
         formState: { errors },
@@ -64,6 +70,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     const myUser = useMyUserStore((state) => state.myUser);
 
     const wishes = useWishesStore((state) => state.list);
+    const wishCandidate = useWishesStore((state) => state.wishCandidate);
     const createWish = useWishesStore((state) => state.createWish);
 
     const {
@@ -98,6 +105,18 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             value: ECurrency.EUR,
         },
     ];
+
+    const hideModals = () => {
+        setIsFastWish(true);
+        setShowConfirm(false);
+        setIsDirty(false);
+        setMaterial(true);
+        setImages([]);
+        setCurrency(ECurrency.UAH);
+        setShow(null);
+        reset();
+        hide();
+    };
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
         const nonUniqueName = wishes.some((wish) => {
@@ -240,7 +259,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             console.error(e);
         }
 
-        hide();
+        hideModals();
     };
 
     const removeAllImages = () => {
@@ -255,163 +274,239 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
         );
     };
 
-    const changeShow = (value: EPrivacy) => {
+    const changeMaterial = (value: boolean) => {
+        setMaterial(value);
+        setIsDirty(true);
+    };
+
+    const changeImages = (value: TCurrentImage[]) => {
+        setImages(value);
+        setIsDirty(true);
+    };
+
+    const changeCurrency = (value: IWish['currency']) => {
+        setCurrency(value);
+        setIsDirty(true);
+    };
+
+    const changePrivacy = (value: EPrivacy) => {
         setShow(value);
         setShowError('');
+        setIsDirty(true);
     };
 
     const handleHideModal = () => {
-        hide();
-        setIsFastWish(true);
+        if (isDirty) {
+            return setShowConfirm(true);
+        }
+        hideModals();
     };
 
+    useLayoutEffect(() => {
+        wishCandidate?.name && setValue('name', wishCandidate.name);
+        wishCandidate?.image &&
+            setImages([
+                {
+                    path: wishCandidate.image,
+                    position: 0,
+                },
+            ]);
+        wishCandidate?.price && setValue('price', wishCandidate.price);
+        wishCandidate?.url &&
+            setValue('addresses', [
+                {
+                    id: uuidv4(),
+                    value: wishCandidate.url,
+                },
+            ]);
+        wishCandidate?.description &&
+            setValue('description', wishCandidate.description);
+    }, [wishCandidate, setValue]);
+
+    useEffect(() => {
+        if (firstRender.current) return;
+        firstRender.current = true;
+
+        const subscription = watch(() => setIsDirty(true));
+
+        return () => subscription.unsubscribe();
+    }, [watch]);
+
     return (
-        <UiModal show={showModal} hide={handleHideModal}>
-            {isFastWish ? (
-                <FastWish hide={() => setIsFastWish(false)} />
-            ) : (
-                <form
-                    className="flex max-h-full flex-col gap-4"
-                    onSubmit={handleSubmit(onSubmit)}
-                >
-                    <span className="whitespace-nowrap text-center text-lg font-bold text-zinc-700 dark:text-zinc-300">
-                        {mainPageT('create-wish')}
-                    </span>
+        <>
+            <UiModal show={showModal} hide={handleHideModal}>
+                {isFastWish ? (
+                    <FastWish hide={() => setIsFastWish(false)} />
+                ) : (
+                    <form
+                        className="flex max-h-full flex-col gap-4"
+                        onSubmit={handleSubmit(onSubmit)}
+                    >
+                        <span className="whitespace-nowrap text-center text-lg font-bold text-zinc-700 dark:text-zinc-300">
+                            {mainPageT('create-wish')}
+                        </span>
 
-                    <div className="-mr-3 flex h-auto max-h-[70svh] flex-col overflow-y-auto overflow-x-hidden pr-3">
-                        {/* material */}
-                        <div className="flex items-center justify-center gap-4">
-                            <button
-                                className={`${material ? 'text-cyan-300' : 'text-zinc-700 dark:text-zinc-300'} font-bold`}
-                                type="button"
-                                onClick={() => setMaterial(true)}
-                            >
-                                {mainPageT('material-wish')}
-                            </button>
-                            <UiSwitch
-                                id="material"
-                                name="material"
-                                checked={material}
-                                bg={material ? 'bg-cyan-300' : 'bg-rose-500'}
-                                onChange={(e) => setMaterial(e.target.checked)}
-                            />
-                            <button
-                                className={`${material ? 'text-zinc-700 dark:text-zinc-300' : 'text-rose-500'} font-bold`}
-                                type="button"
-                                onClick={() => setMaterial(false)}
-                            >
-                                {mainPageT('non-material-wish')}
-                            </button>
-                        </div>
-
-                        {/* name */}
-                        <div className="mt-5">
-                            <UiInput
-                                {...register('name', wishNameValidation)}
-                                id="name"
-                                name="name"
-                                type="text"
-                                label={mainPageT('wish-name')}
-                                tooltip={mainPageT('wish-name-tooltip')}
-                                error={errors?.name?.message}
-                            />
-                        </div>
-
-                        {/* DragNDrop */}
-                        <DndProvider backend={HTML5Backend}>
-                            <DragNDrop
-                                images={images}
-                                setImages={setImages}
-                                removeAllImages={removeAllImages}
-                            />
-                        </DndProvider>
-
-                        <div
-                            className={`${material ? 'flex' : 'hidden'} mt-5 flex-col gap-4 transition-all duration-300 ease-in-out`}
-                        >
-                            {/* price */}
-                            <div className="flex items-center gap-5">
-                                <UiInput
-                                    {...(material &&
-                                        register('price', wishPriceValidation))}
-                                    id="price"
-                                    name="price"
-                                    type="number"
-                                    label={mainPageT('wish-price')}
-                                    tooltip={mainPageT('wish-price-tooltip')}
-                                    error={errors?.price?.message}
-                                />
-
-                                <UiSelect
-                                    options={selectOptions}
-                                    value={currency}
-                                    onChange={(value) =>
-                                        setCurrency(value as IWish['currency'])
+                        <div className="-mr-3 flex h-auto max-h-[70svh] flex-col overflow-y-auto overflow-x-hidden pr-3">
+                            {/* material */}
+                            <div className="flex items-center justify-center gap-4">
+                                <button
+                                    className={`${material ? 'text-cyan-300' : 'text-zinc-700 dark:text-zinc-300'} font-bold`}
+                                    type="button"
+                                    onClick={() => changeMaterial(true)}
+                                >
+                                    {mainPageT('material-wish')}
+                                </button>
+                                <UiSwitch
+                                    id="material"
+                                    name="material"
+                                    checked={material}
+                                    bg={
+                                        material ? 'bg-cyan-300' : 'bg-rose-500'
                                     }
+                                    onChange={(e) =>
+                                        changeMaterial(e.target.checked)
+                                    }
+                                />
+                                <button
+                                    className={`${material ? 'text-zinc-700 dark:text-zinc-300' : 'text-rose-500'} font-bold`}
+                                    type="button"
+                                    onClick={() => changeMaterial(false)}
+                                >
+                                    {mainPageT('non-material-wish')}
+                                </button>
+                            </div>
+
+                            {/* name */}
+                            <div className="mt-5">
+                                <UiInput
+                                    {...register('name', wishNameValidation)}
+                                    id="name"
+                                    name="name"
+                                    type="text"
+                                    label={mainPageT('wish-name')}
+                                    tooltip={mainPageT('wish-name-tooltip')}
+                                    error={errors?.name?.message}
                                 />
                             </div>
 
-                            {/* addresses */}
-                            <Addresses
-                                control={control}
-                                watch={watch}
-                                register={register}
-                                errors={errors}
-                                material={material}
+                            {/* DragNDrop */}
+                            <DndProvider backend={HTML5Backend}>
+                                <DragNDrop
+                                    images={images}
+                                    setImages={changeImages}
+                                    removeAllImages={removeAllImages}
+                                />
+                            </DndProvider>
+
+                            <div
+                                className={`${material ? 'flex' : 'hidden'} mt-5 flex-col gap-4 transition-all duration-300 ease-in-out`}
+                            >
+                                {/* price */}
+                                <div className="flex items-center gap-5">
+                                    <UiInput
+                                        {...(material &&
+                                            register(
+                                                'price',
+                                                wishPriceValidation
+                                            ))}
+                                        id="price"
+                                        name="price"
+                                        type="number"
+                                        label={mainPageT('wish-price')}
+                                        tooltip={mainPageT(
+                                            'wish-price-tooltip'
+                                        )}
+                                        error={errors?.price?.message}
+                                    />
+
+                                    <UiSelect
+                                        options={selectOptions}
+                                        value={currency}
+                                        onChange={(value) =>
+                                            changeCurrency(
+                                                value as IWish['currency']
+                                            )
+                                        }
+                                    />
+                                </div>
+
+                                {/* addresses */}
+                                <Addresses
+                                    control={control}
+                                    watch={watch}
+                                    register={register}
+                                    errors={errors}
+                                    material={material}
+                                />
+                            </div>
+
+                            {/* description */}
+                            <div className="mt-7">
+                                <UiInput
+                                    {...register('description', {
+                                        ...wishDescriptionValidation,
+                                        maxLength: {
+                                            value: WISH_DESCRIPTION_MAX_LENGTH,
+                                            message: validationsT(
+                                                'wish-description.max',
+                                                {
+                                                    current:
+                                                        watch('description')
+                                                            ?.length,
+                                                    max: WISH_DESCRIPTION_MAX_LENGTH,
+                                                }
+                                            ),
+                                        },
+                                    })}
+                                    id="description"
+                                    name="description"
+                                    type="multiline"
+                                    label={mainPageT('wish-description')}
+                                    error={errors?.description?.message}
+                                />
+                            </div>
+
+                            {/* PrivacyChoices */}
+                            <UiPrivacyChoices
+                                id="wish"
+                                tooltipContent={{
+                                    all: mainPageT('can-see.wish-all-tooltip'),
+                                    friends: mainPageT(
+                                        'can-see.wish-friends-tooltip'
+                                    ),
+                                    nobody: mainPageT(
+                                        'can-see.wish-nobody-tooltip'
+                                    ),
+                                }}
+                                show={show}
+                                showError={showError}
+                                onChange={changePrivacy}
                             />
                         </div>
 
-                        {/* description */}
-                        <div className="mt-7">
-                            <UiInput
-                                {...register('description', {
-                                    ...wishDescriptionValidation,
-                                    maxLength: {
-                                        value: WISH_DESCRIPTION_MAX_LENGTH,
-                                        message: validationsT(
-                                            'wish-description.max',
-                                            {
-                                                current:
-                                                    watch('description')
-                                                        ?.length,
-                                                max: WISH_DESCRIPTION_MAX_LENGTH,
-                                            }
-                                        ),
-                                    },
-                                })}
-                                id="description"
-                                name="description"
-                                type="multiline"
-                                label={mainPageT('wish-description')}
-                                error={errors?.description?.message}
-                            />
+                        {/* actions */}
+                        <div className="ml-auto">
+                            <UiButton type="submit">
+                                {mainPageT('create')}
+                            </UiButton>
                         </div>
+                    </form>
+                )}
+            </UiModal>
 
-                        {/* PrivacyChoices */}
-                        <UiPrivacyChoices
-                            id="wish"
-                            tooltipContent={{
-                                all: mainPageT('can-see.wish-all-tooltip'),
-                                friends: mainPageT(
-                                    'can-see.wish-friends-tooltip'
-                                ),
-                                nobody: mainPageT(
-                                    'can-see.wish-nobody-tooltip'
-                                ),
-                            }}
-                            show={show}
-                            showError={showError}
-                            onChange={changeShow}
-                        />
-                    </div>
-
-                    {/* actions */}
-                    <div className="ml-auto">
-                        <UiButton type="submit">{mainPageT('create')}</UiButton>
-                    </div>
-                </form>
-            )}
-        </UiModal>
+            <UiConfirmModal
+                show={showConfirm}
+                confirm={hideModals}
+                hide={() => setShowConfirm(false)}
+                titleModalT={mainPageT('confirm-modal.title')}
+                confirmModalT={mainPageT('leave_wish_creation.confirm')}
+                closeModalT={mainPageT('leave_wish_creation.close')}
+            >
+                <span className="text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('leave_wish_creation.text')}
+                </span>
+            </UiConfirmModal>
+        </>
     );
 };
 

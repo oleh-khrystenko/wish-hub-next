@@ -56,7 +56,7 @@ const Addresses: FC<IProps> = ({
             addresses?.some((address) => address.value.length === 0) || false
         );
 
-        const subscription = watch((value, { name, type }) => {
+        const subscription = watch((value, { name }) => {
             if (name?.startsWith('addresses')) {
                 setIsEmptyAddress(
                     addresses?.some((address) => address.value.length === 0) ||
