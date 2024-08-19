@@ -27,7 +27,7 @@ const UiImagesValidation: FC<IProps> = ({ images }) => {
 
     if (extensionsValidation) {
         return (
-            <p className="error">
+            <p className="mt-1 text-xs text-red-500">
                 {mainPageT('images-error.file-type')}{' '}
                 {Object.keys(ALLOWED_FILE_EXTENSIONS).join(', ')}.
             </p>
@@ -46,7 +46,7 @@ const UiImagesValidation: FC<IProps> = ({ images }) => {
 
     if (sizeValidation) {
         return (
-            <p className="error">
+            <p className="mt-1 text-xs text-red-500">
                 {mainPageT('images-error.file-size', {
                     size: ALLOWED_MAX_FILE_SIZE_IN_MB,
                 })}
@@ -63,7 +63,7 @@ const UiImagesValidation: FC<IProps> = ({ images }) => {
 
     if (imagesLength > MAX_NUMBER_OF_IMAGES_PER_WISH) {
         return (
-            <p className="error">
+            <p className="mt-1 text-xs text-red-500">
                 {mainPageT('images-error.file-count', {
                     count: MAX_NUMBER_OF_IMAGES_PER_WISH,
                 })}

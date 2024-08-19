@@ -44,7 +44,7 @@ const UiSelect: FC<IProps> = ({
                 className={`${show ? 'rounded-t-md' : 'rounded-md'} ${bg} relative transition-all duration-300 ease-in-out`}
             >
                 <button
-                    className={`${bg} relative z-40 flex w-full items-center gap-2 rounded-md px-3 py-2.5`}
+                    className={`${bg} relative z-30 flex w-full items-center gap-2 rounded-md px-3 py-2.5`}
                     type="button"
                     onClick={handleClick}
                 >

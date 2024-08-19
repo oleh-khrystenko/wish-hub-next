@@ -48,7 +48,7 @@ const UiThemeSwitcher: FC<IProps> = ({ hide }) => {
             <UiSwitch
                 id="theme-switcher"
                 name="theme-switcher"
-                checked={theme === ETheme.LIGHT}
+                checked={theme === ETheme.DARK}
                 onChange={handleToggleTheme}
             >
                 <SunIcon />

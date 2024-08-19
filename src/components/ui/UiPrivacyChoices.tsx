@@ -31,13 +31,13 @@ const UiPrivacyChoices: FC<IProps> = ({
     };
 
     return (
-        <div className="privacy-choices">
-            <span className="privacy-choices-label">
+        <div className="mt-3 flex flex-col gap-2">
+            <span className="text-sm text-cyan-600 dark:text-cyan-300">
                 {mainPageT('can-see.title')}
             </span>
 
-            <div className="privacy-choices-actions">
-                <div className="privacy-choices-item">
+            <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1 pl-px">
                     <UiRadio
                         label={mainPageT('can-see.all')}
                         id={`${id}-all`}
@@ -48,7 +48,7 @@ const UiPrivacyChoices: FC<IProps> = ({
                     />
 
                     <span
-                        className="tooltip"
+                        className="cursor-pointer"
                         data-tooltip-id={`${id}-all`}
                         data-tooltip-content={tooltipContent.all}
                     >
@@ -57,7 +57,7 @@ const UiPrivacyChoices: FC<IProps> = ({
                     <UiTooltip id={`${id}-all`} />
                 </div>
 
-                <div className="privacy-choices-item">
+                <div className="flex items-center gap-1">
                     <UiRadio
                         label={mainPageT('can-see.friends')}
                         id={`${id}-friends`}
@@ -68,7 +68,7 @@ const UiPrivacyChoices: FC<IProps> = ({
                     />
 
                     <span
-                        className="tooltip"
+                        className="cursor-pointer"
                         data-tooltip-id={`${id}-friends`}
                         data-tooltip-content={tooltipContent.friends}
                     >
@@ -77,7 +77,7 @@ const UiPrivacyChoices: FC<IProps> = ({
                     <UiTooltip id={`${id}-friends`} />
                 </div>
 
-                <div className="privacy-choices-item">
+                <div className="flex items-center gap-1">
                     <UiRadio
                         label={mainPageT('can-see.nobody')}
                         id={`${id}-nobody`}
@@ -88,7 +88,7 @@ const UiPrivacyChoices: FC<IProps> = ({
                     />
 
                     <span
-                        className="tooltip"
+                        className="cursor-pointer"
                         data-tooltip-id={`${id}-nobody`}
                         data-tooltip-content={tooltipContent.nobody}
                     >
@@ -98,7 +98,9 @@ const UiPrivacyChoices: FC<IProps> = ({
                 </div>
             </div>
 
-            {showError && <p className="error">{showError}</p>}
+            {showError && (
+                <p className="mt-1 text-xs text-red-500">{showError}</p>
+            )}
         </div>
     );
 };

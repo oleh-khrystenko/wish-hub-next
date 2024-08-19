@@ -143,13 +143,17 @@
 }
 /********************* Input *********************/
 
-/********************* Worn out *********************/
+/********************* Custom classes *********************/
 @layer components {
     .worn-out {
         filter: url(#worn-out);
     }
+
+    .shadow-border:before {
+        box-shadow: 0 0 0 1px var(--input-label);
+    }
 }
-/********************* Input *********************/
+/********************* Custom classes *********************/
 
 /********************* Toastify *********************/
 .Toastify__toast-container {

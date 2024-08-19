@@ -48,7 +48,7 @@ function UiLangSelect() {
     return (
         <UiSelect
             options={options}
-            bg="bg-zinc-300 dark:bg-zinc-700"
+            bg="bg-zinc-300 dark:bg-zinc-800"
             isPending={isPending}
             withoutIcon
             value={activeLocale as ELang}

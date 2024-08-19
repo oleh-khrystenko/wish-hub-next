@@ -24,7 +24,6 @@ import UiQuoteMessage from '@/components/ui/UiQuoteMessage';
 import UiSwitch from '@/components/ui/UiSwitch';
 import UiInput from '@/components/ui/UiInput';
 import UseValidations from '@/helpers/hooks/UseValidations';
-import UiTooltip from '@/components/ui/UiTooltip';
 import { WISH_DESCRIPTION_MAX_LENGTH } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
@@ -281,11 +280,9 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
 
                     <div className="-mr-3 flex h-auto max-h-[70svh] flex-col overflow-y-auto overflow-x-hidden pr-3">
                         {/* material */}
-                        <div className="material">
+                        <div className="flex items-center justify-center gap-4">
                             <button
-                                className={
-                                    'yes' + (material ? ' primary-color' : '')
-                                }
+                                className={`${material ? 'text-cyan-300' : 'text-zinc-700 dark:text-zinc-300'} font-bold`}
                                 type="button"
                                 onClick={() => setMaterial(true)}
                             >
@@ -295,12 +292,11 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                                 id="material"
                                 name="material"
                                 checked={material}
+                                bg={material ? 'bg-cyan-300' : 'bg-rose-500'}
                                 onChange={(e) => setMaterial(e.target.checked)}
                             />
                             <button
-                                className={
-                                    'no' + (material ? '' : ' action-color')
-                                }
+                                className={`${material ? 'text-zinc-700 dark:text-zinc-300' : 'text-rose-500'} font-bold`}
                                 type="button"
                                 onClick={() => setMaterial(false)}
                             >
@@ -309,16 +305,17 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                         </div>
 
                         {/* name */}
-                        <UiInput
-                            {...register('name', wishNameValidation)}
-                            id="name"
-                            name="name"
-                            type="text"
-                            label={mainPageT('wish-name')}
-                            tooltip={mainPageT('wish-name-tooltip')}
-                            error={errors?.name?.message}
-                        />
-                        <UiTooltip id="name" />
+                        <div className="mt-5">
+                            <UiInput
+                                {...register('name', wishNameValidation)}
+                                id="name"
+                                name="name"
+                                type="text"
+                                label={mainPageT('wish-name')}
+                                tooltip={mainPageT('wish-name-tooltip')}
+                                error={errors?.name?.message}
+                            />
+                        </div>
 
                         {/* DragNDrop */}
                         <DndProvider backend={HTML5Backend}>
@@ -330,12 +327,10 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                         </DndProvider>
 
                         <div
-                            className={
-                                'expander' + (material ? ' rolled-up' : '')
-                            }
+                            className={`${material ? 'flex' : 'hidden'} mt-5 flex-col gap-4 transition-all duration-300 ease-in-out`}
                         >
                             {/* price */}
-                            <div className="price">
+                            <div className="flex items-center gap-5">
                                 <UiInput
                                     {...(material &&
                                         register('price', wishPriceValidation))}
@@ -346,24 +341,20 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                                     tooltip={mainPageT('wish-price-tooltip')}
                                     error={errors?.price?.message}
                                 />
-                                <div className="custom-mui-select">
-                                    <UiSelect
-                                        options={selectOptions}
-                                        value={currency}
-                                        onChange={(value) =>
-                                            setCurrency(
-                                                value as IWish['currency']
-                                            )
-                                        }
-                                    />
-                                </div>
+
+                                <UiSelect
+                                    options={selectOptions}
+                                    value={currency}
+                                    onChange={(value) =>
+                                        setCurrency(value as IWish['currency'])
+                                    }
+                                />
                             </div>
-                            <UiTooltip id="price" />
 
                             {/* addresses */}
                             <Addresses
                                 control={control}
-                                getValues={getValues}
+                                watch={watch}
                                 register={register}
                                 errors={errors}
                                 material={material}
@@ -371,27 +362,30 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                         </div>
 
                         {/* description */}
-                        <UiInput
-                            {...register('description', {
-                                ...wishDescriptionValidation,
-                                maxLength: {
-                                    value: WISH_DESCRIPTION_MAX_LENGTH,
-                                    message: validationsT(
-                                        'wish-description.max',
-                                        {
-                                            current:
-                                                watch('description')?.length,
-                                            max: WISH_DESCRIPTION_MAX_LENGTH,
-                                        }
-                                    ),
-                                },
-                            })}
-                            id="description"
-                            name="description"
-                            type="multiline"
-                            label={mainPageT('wish-description')}
-                            error={errors?.description?.message}
-                        />
+                        <div className="mt-7">
+                            <UiInput
+                                {...register('description', {
+                                    ...wishDescriptionValidation,
+                                    maxLength: {
+                                        value: WISH_DESCRIPTION_MAX_LENGTH,
+                                        message: validationsT(
+                                            'wish-description.max',
+                                            {
+                                                current:
+                                                    watch('description')
+                                                        ?.length,
+                                                max: WISH_DESCRIPTION_MAX_LENGTH,
+                                            }
+                                        ),
+                                    },
+                                })}
+                                id="description"
+                                name="description"
+                                type="multiline"
+                                label={mainPageT('wish-description')}
+                                error={errors?.description?.message}
+                            />
+                        </div>
 
                         {/* PrivacyChoices */}
                         <UiPrivacyChoices

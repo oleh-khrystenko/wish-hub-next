@@ -8,10 +8,19 @@ interface IProps {
     value: string;
     checked: boolean;
     label: string;
+    bg?: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const UiRadio: FC<IProps> = ({ id, name, value, checked, label, onChange }) => {
+const UiRadio: FC<IProps> = ({
+    id,
+    name,
+    value,
+    checked,
+    label,
+    bg = 'after:bg-zinc-300 dark:after:bg-zinc-800 before:bg-cyan-600 dark:before:bg-cyan-300',
+    onChange,
+}) => {
     return (
         <label className="flex cursor-pointer items-center space-x-2">
             <input
@@ -20,9 +29,9 @@ const UiRadio: FC<IProps> = ({ id, name, value, checked, label, onChange }) => {
                 value={value}
                 checked={checked}
                 onChange={onChange}
-                className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+                className={`${checked ? 'before:bg-cyan-300 after:scale-50' : 'after:scale-100'} ${bg} shadow-border relative h-5 w-5 cursor-pointer rounded-full before:absolute before:h-full before:w-full before:rounded-full before:transition-all before:duration-300 before:ease-in-out after:absolute after:h-full after:w-full after:rounded-full after:transition-all after:duration-300 after:ease-in-out`}
             />
-            <span className="text-gray-700">{label}</span>
+            <span className="text-zinc-700 dark:text-zinc-300">{label}</span>
         </label>
     );
 };

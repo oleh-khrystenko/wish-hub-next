@@ -1,13 +1,12 @@
-import React, { FC, useLayoutEffect } from 'react';
+import React, { FC, useRef, useState, useLayoutEffect, useEffect } from 'react';
 import {
     useFieldArray,
-    UseFormGetValues,
     Control,
     UseFormRegister,
     FieldErrors,
+    UseFormWatch,
 } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
-import UiTooltip from '@/components/ui/UiTooltip';
 import UiInput from '@/components/ui/UiInput';
 import { ICreateWish } from '@/stores/wishes/types';
 import { TWishFormInputs } from '@/models/Wish';
@@ -17,7 +16,7 @@ import UseValidations from '@/helpers/hooks/UseValidations';
 
 interface IProps {
     control: Control<TWishFormInputs>;
-    getValues: UseFormGetValues<TWishFormInputs>;
+    watch: UseFormWatch<TWishFormInputs>;
     register: UseFormRegister<TWishFormInputs>;
     errors: FieldErrors<TWishFormInputs>;
     material: ICreateWish['material'];
@@ -25,11 +24,15 @@ interface IProps {
 
 const Addresses: FC<IProps> = ({
     control,
-    getValues,
+    watch,
     errors,
     register,
     material,
 }) => {
+    const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
+
+    const appended = useRef(false);
+
     const mainPageT = useTranslations('main-page');
 
     const { append, remove } = useFieldArray({
@@ -37,20 +40,40 @@ const Addresses: FC<IProps> = ({
         name: 'addresses',
     });
 
-    const addresses = getValues('addresses');
+    const addresses = watch('addresses');
 
     const { onlyWhitespaceValidation } = UseValidations();
 
     useLayoutEffect(() => {
+        if (appended.current || isEmptyAddress) return;
+        appended.current = true;
+
         append({ id: uuidv4(), value: '' });
     }, []);
 
+    useEffect(() => {
+        setIsEmptyAddress(
+            addresses?.some((address) => address.value.length === 0) || false
+        );
+
+        const subscription = watch((value, { name, type }) => {
+            if (name?.startsWith('addresses')) {
+                setIsEmptyAddress(
+                    addresses?.some((address) => address.value.length === 0) ||
+                        false
+                );
+            }
+        });
+
+        return () => subscription.unsubscribe();
+    }, [watch, addresses]);
+
     return (
-        <div className="address">
+        <div className="mt-4 flex flex-col gap-7">
             {addresses &&
                 addresses.map((address, idx) => (
                     <div key={address.id}>
-                        <div className="address-field">
+                        <div className="flex items-center gap-4">
                             <UiInput
                                 {...(material &&
                                     register(
@@ -66,7 +89,7 @@ const Addresses: FC<IProps> = ({
 
                             {addresses.length > 1 && (
                                 <button
-                                    className="action-address"
+                                    className="rounded-md bg-rose-500 p-2"
                                     type="button"
                                     onClick={() => remove(idx)}
                                 >
@@ -74,26 +97,25 @@ const Addresses: FC<IProps> = ({
                                 </button>
                             )}
 
-                            {idx === addresses.length - 1 && (
-                                <button
-                                    className="action-address"
-                                    type="button"
-                                    onClick={() =>
-                                        append({ id: uuidv4(), value: '' })
-                                    }
-                                >
-                                    <CrossIcon />
-                                </button>
-                            )}
+                            {idx === addresses.length - 1 &&
+                                !isEmptyAddress && (
+                                    <button
+                                        className="rounded-md bg-[#90ff27] p-2"
+                                        type="button"
+                                        onClick={() =>
+                                            append({ id: uuidv4(), value: '' })
+                                        }
+                                    >
+                                        <CrossIcon classes="w-6 h-6 -rotate-45 stroke-zinc-700 dark:stroke-zinc-800" />
+                                    </button>
+                                )}
                         </div>
 
                         {errors?.addresses?.[idx]?.value && (
-                            <span className="error">
+                            <span className="mt-1 text-xs text-red-500">
                                 {errors?.addresses?.[idx]?.value?.message}
                             </span>
                         )}
-
-                        <UiTooltip id={`address-${idx}`} />
                     </div>
                 ))}
         </div>

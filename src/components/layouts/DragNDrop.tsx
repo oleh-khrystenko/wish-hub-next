@@ -76,7 +76,7 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
     return (
         <div className="flex flex-col gap-4">
             <div
-                className={`${isOver && canDrop ? 'highlight' : ''} mt-6 cursor-pointer rounded-md border-2 border-dashed border-zinc-300 px-10 py-6 dark:border-zinc-700`}
+                className={`${isOver && canDrop ? 'highlight' : ''} mt-6 cursor-pointer rounded-md border-2 border-dashed border-zinc-400 px-10 py-6 dark:border-zinc-700`}
                 ref={dropZoneRef}
                 onClick={handleDropZoneClick}
             >

@@ -19,7 +19,7 @@ const UiTooltip: FC<IProps> = ({ id }) => {
                 color: 'bg-light',
                 width: screenWidth > 411 ? '300px' : '200px',
                 fontSize: '14px',
-                zIndex: 9,
+                zIndex: 39,
                 whiteSpace: 'normal',
                 textWrap: 'balance',
                 borderRadius: '6px',
