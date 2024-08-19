@@ -2,15 +2,14 @@ import React, { FC, useCallback, useRef } from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { TCurrentImage } from '@/models/Wish';
 import {
     ALLOWED_FILE_EXTENSIONS,
     ALLOWED_MAX_FILE_SIZE_IN_MB,
     MAX_NUMBER_OF_IMAGES_PER_WISH,
 } from '@/helpers/utils/constants';
+import DraggableImage from '@/components/layouts/DraggableImage';
 import UiImagesValidation from '@/components/ui/UiImagesValidation';
-import CrossIcon from '@/components/icons/CrossIcon';
 
 interface IProps {
     images: TCurrentImage[];
@@ -61,6 +60,13 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
         setImages([...images, ...files]);
     };
 
+    const moveImage = (dragIndex: number, hoverIndex: number) => {
+        const updatedImages = [...images];
+        const [draggedImage] = updatedImages.splice(dragIndex, 1);
+        updatedImages.splice(hoverIndex, 0, draggedImage);
+        setImages(updatedImages);
+    };
+
     const handleRemoveImage = (index: number) => {
         const updatedImages = [...images];
         updatedImages.splice(index, 1);
@@ -70,7 +76,7 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
     return (
         <div className="flex flex-col gap-4">
             <div
-                className={`${isOver && canDrop ? 'highlight' : ''} mt-6 rounded-md border-2 border-dashed border-zinc-300 px-10 py-6 dark:border-zinc-700`}
+                className={`${isOver && canDrop ? 'highlight' : ''} mt-6 cursor-pointer rounded-md border-2 border-dashed border-zinc-300 px-10 py-6 dark:border-zinc-700`}
                 ref={dropZoneRef}
                 onClick={handleDropZoneClick}
             >
@@ -106,27 +112,13 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
 
             <div ref={imageListRef} className="flex flex-wrap gap-4">
                 {images.map((image, index) => (
-                    <div
+                    <DraggableImage
                         key={index}
-                        className={`${isDragging ? 'border-red-500' : ''} relative flex h-20 w-20 items-center justify-center rounded-md border border-dashed border-zinc-700 dark:border-zinc-300`}
-                    >
-                        <Image
-                            src={URL.createObjectURL(image as File)}
-                            alt={`${mainPageT('picture')}-${index}`}
-                            title={`${mainPageT('picture')}-${index}`}
-                            priority={true}
-                            fill
-                            sizes={'100%'}
-                            className="rounded-md object-contain"
-                        />
-                        <button
-                            type="button"
-                            className="absolute -right-1.5 -top-1.5 rounded bg-rose-500 p-1"
-                            onClick={() => handleRemoveImage(index)}
-                        >
-                            <CrossIcon classes="w-3 h-3 stroke-zinc-700 dark:stroke-zinc-800" />
-                        </button>
-                    </div>
+                        image={image}
+                        index={index}
+                        moveImage={moveImage}
+                        removeImage={handleRemoveImage}
+                    />
                 ))}
             </div>
 

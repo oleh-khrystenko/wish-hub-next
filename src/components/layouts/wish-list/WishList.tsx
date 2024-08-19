@@ -317,9 +317,10 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                 </UiModal>
             )}
 
-            <UiModal show={showCreateWish} hide={handleHideCreateWish}>
-                <CreateWish hide={handleHideCreateWish} />
-            </UiModal>
+            <CreateWish
+                showModal={showCreateWish}
+                hide={handleHideCreateWish}
+            />
 
             <UiModal show={showEditWish} hide={handleHideEditWish}>
                 <EditWish

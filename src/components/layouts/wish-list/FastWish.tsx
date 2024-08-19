@@ -31,13 +31,18 @@ const FastWish: FC<IProps> = ({ hide }) => {
     const { onlyWhitespaceValidation } = UseValidations();
 
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
-        await fetchWishDataFromLink(data);
+        data.url.length > 0 && (await fetchWishDataFromLink(data));
         hide();
     };
 
     return (
-        <form className="edit-wish" onSubmit={handleSubmit(onSubmit)}>
-            <span>{mainPageT('fast_data_filling')}</span>
+        <form
+            className="flex min-w-96 flex-col gap-5"
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <span className="whitespace-nowrap text-center text-lg font-bold text-zinc-700 dark:text-zinc-300">
+                {mainPageT('fast_data_filling')}
+            </span>
 
             <UiInput
                 {...register('url', onlyWhitespaceValidation)}
@@ -50,7 +55,7 @@ const FastWish: FC<IProps> = ({ hide }) => {
             />
             <UiTooltip id="url" />
 
-            <div className="actions">
+            <div className="ml-auto flex w-fit items-center gap-6">
                 <UiButton variant="text" onClick={hide}>
                     {mainPageT('manually')}
                 </UiButton>
