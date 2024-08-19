@@ -24,13 +24,13 @@ import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
 import { WISH_DESCRIPTION_MAX_LENGTH } from '@/helpers/utils/constants';
 import FastWish from '@/components/layouts/wish-list/FastWish';
 import Addresses from '@/components/layouts/wish-list/Addresses';
-import DragNDrop from '@/components/layouts/DragNDrop';
-import QuoteMessage from '@/components/layouts/QuoteMessage';
+import DragNDrop from '@/components/layouts/drag-n-drop/DragNDrop';
+import QuoteMessage from '@/components/layouts/wish-list/QuoteMessage';
 import UiSwitch from '@/components/ui/UiSwitch';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
-import PrivacyChoices from '@/components/layouts/PrivacyChoices';
+import PrivacyChoices from '@/components/layouts/wish-list/PrivacyChoices';
 import UiModal from '@/components/ui/UiModal';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 
