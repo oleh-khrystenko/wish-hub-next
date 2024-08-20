@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useRef } from 'react';
+import { FC, useCallback, useRef } from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
 import { useTranslations } from 'next-intl';
@@ -31,21 +31,14 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
         [images, setImages]
     );
 
-    const [{ isOver, canDrop }, drop] = useDrop({
+    const [, drop] = useDrop({
         accept: [NativeTypes.FILE],
         drop: (item: { files: TCurrentImage[] }) => onDrop(item.files),
-        collect: (monitor) => ({
-            isOver: monitor.isOver(),
-            canDrop: monitor.canDrop(),
-        }),
     });
 
-    const [{ isDragging }, drag] = useDrag({
+    const [, drag] = useDrag({
         type: 'image',
         item: { type: 'image' },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
     });
 
     drop(dropZoneRef);
@@ -76,16 +69,18 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
     return (
         <div className="flex flex-col gap-4">
             <div
-                className={`${isOver && canDrop ? 'highlight' : ''} mt-6 cursor-pointer rounded-md border-2 border-dashed border-zinc-400 px-10 py-6 dark:border-zinc-700`}
+                className="mt-6 cursor-pointer rounded-md border-2 border-dashed border-zinc-400 px-10 py-6 dark:border-zinc-700"
                 ref={dropZoneRef}
                 onClick={handleDropZoneClick}
             >
                 <p className="dap-4 flex flex-col items-center text-zinc-800 dark:text-zinc-300">
                     <span className="font-bold">{mainPageT('drag')}</span>
                     <span className="font-bold">{mainPageT('click')}</span>
+
                     <span className="mt-6 font-bold">
                         {mainPageT('change')}
                     </span>
+
                     <span className="mt-6 text-center text-sm font-light">
                         {mainPageT('size', {
                             size: ALLOWED_MAX_FILE_SIZE_IN_MB,

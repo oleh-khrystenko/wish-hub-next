@@ -1,8 +1,8 @@
-import React, { FC, useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import Image from 'next/image';
-import CrossIcon from '@/components/icons/CrossIcon';
 import { TCurrentImage } from '@/models/Wish';
+import CrossIcon from '@/components/icons/CrossIcon';
 
 interface IProps {
     image: TCurrentImage;
@@ -19,12 +19,9 @@ const DraggableImage: FC<IProps> = ({
 }) => {
     const ref = useRef<HTMLDivElement | null>(null);
 
-    const [{ isDragging }, drag] = useDrag({
+    const [, drag] = useDrag({
         type: 'image',
         item: { index },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
     });
 
     const [, drop] = useDrop({
@@ -47,7 +44,7 @@ const DraggableImage: FC<IProps> = ({
     return (
         <div
             ref={ref}
-            className={`${isDragging ? 'border-red-500' : ''} relative flex h-20 w-20 cursor-pointer items-center justify-center rounded-md border border-dashed border-zinc-700 dark:border-zinc-300`}
+            className="relative flex h-20 w-20 cursor-pointer items-center justify-center rounded-md border border-dashed border-zinc-700 dark:border-zinc-300"
         >
             <Image
                 src={
@@ -59,9 +56,10 @@ const DraggableImage: FC<IProps> = ({
                 title={`Image-${index}`}
                 priority={true}
                 fill
-                sizes={'90%'}
+                sizes={'100%'}
                 className="rounded-md object-contain"
             />
+
             <button
                 type="button"
                 className="absolute -right-1.5 -top-1.5 rounded bg-rose-500 p-1"
