@@ -37,7 +37,7 @@ const PrivacyChoices: FC<IProps> = ({
             </span>
 
             <div className="flex items-center gap-4">
-                <div className="flex items-center gap-1 pl-px">
+                <div className="flex items-center gap-1">
                     <UiRadio
                         label={mainPageT('can-see.all')}
                         id={`${id}-all`}

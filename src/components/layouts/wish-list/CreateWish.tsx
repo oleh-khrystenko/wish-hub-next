@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useState, useLayoutEffect, useEffect } from 'react';
+import React, { FC, useState, useLayoutEffect } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
@@ -41,8 +41,7 @@ interface IProps {
 
 const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     const [showConfirm, setShowConfirm] = useState<boolean>(false);
-    const [isDirty, setIsDirty] = useState<boolean>(false);
-    const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
+    const [changed, setChanged] = useState<boolean>(false);
     const [isFastWish, setIsFastWish] = useState<boolean>(true);
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
@@ -65,8 +64,6 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
         handleSubmit,
         formState: { errors },
     } = useForm<TWishFormInputs>();
-
-    const addresses = watch('addresses');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -110,7 +107,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     const hideModals = () => {
         setIsFastWish(true);
         setShowConfirm(false);
-        setIsDirty(false);
+        setChanged(false);
         setMaterial(true);
         setImages([]);
         setCurrency(ECurrency.UAH);
@@ -280,27 +277,27 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
 
     const changeMaterial = (value: boolean) => {
         setMaterial(value);
-        setIsDirty(true);
+        setChanged(true);
     };
 
     const changeImages = (value: TCurrentImage[]) => {
         setImages(value);
-        setIsDirty(true);
+        setChanged(true);
     };
 
     const changeCurrency = (value: IWish['currency']) => {
         setCurrency(value);
-        setIsDirty(true);
+        setChanged(true);
     };
 
     const changePrivacy = (value: EPrivacy) => {
         setShow(value);
         setShowError('');
-        setIsDirty(true);
+        setChanged(true);
     };
 
     const handleHideModal = () => {
-        if (isDirty) {
+        if (changed) {
             return setShowConfirm(true);
         }
         hideModals();
@@ -327,39 +324,16 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             setValue('description', wishCandidate.description);
     }, [wishCandidate, setValue]);
 
-    useEffect(() => {
-        setIsEmptyAddress(
-            addresses?.some((address) => address.value.length === 0) || false
-        );
-
-        const subscription = watch((value, { name }) => {
-            if (name?.startsWith('addresses')) {
-                setIsEmptyAddress(
-                    addresses?.some((address) => address.value.length === 0) ||
-                        false
-                );
-                if (value.addresses && !isDirty) {
-                    setIsDirty(
-                        value.addresses.some(
-                            (address) =>
-                                address?.value && address.value.length > 0
-                        ) || false
-                    );
-                }
-            }
-
-            if (
-                !isDirty &&
-                ((value.name && value.name.length > 0) ||
-                    (value.price && value.price.length > 0) ||
-                    (value.description && value.description.length > 0))
-            ) {
-                setIsDirty(true);
-            }
-        });
-
-        return () => subscription.unsubscribe();
-    }, [watch, addresses]);
+    const registerDescriptionOptions = {
+        ...wishDescriptionValidation,
+        maxLength: {
+            value: WISH_DESCRIPTION_MAX_LENGTH,
+            message: validationsT('wish-description.max', {
+                current: watch('description')?.length,
+                max: WISH_DESCRIPTION_MAX_LENGTH,
+            }),
+        },
+    };
 
     return (
         <>
@@ -415,6 +389,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                                     label={mainPageT('wish-name')}
                                     tooltip={mainPageT('wish-name-tooltip')}
                                     error={errors?.name?.message}
+                                    onChange={() => setChanged(true)}
                                 />
                             </div>
 
@@ -446,6 +421,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                                             'wish-price-tooltip'
                                         )}
                                         error={errors?.price?.message}
+                                        onChange={() => setChanged(true)}
                                     />
 
                                     <UiSelect
@@ -462,61 +438,54 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                                 {/* addresses */}
                                 <Addresses
                                     control={control}
+                                    watch={watch}
                                     register={register}
                                     errors={errors}
                                     material={material}
-                                    addresses={addresses}
-                                    isEmptyAddress={isEmptyAddress}
                                 />
                             </div>
 
                             {/* description */}
                             <div className="mt-7">
                                 <UiInput
-                                    {...register('description', {
-                                        ...wishDescriptionValidation,
-                                        maxLength: {
-                                            value: WISH_DESCRIPTION_MAX_LENGTH,
-                                            message: validationsT(
-                                                'wish-description.max',
-                                                {
-                                                    current:
-                                                        watch('description')
-                                                            ?.length,
-                                                    max: WISH_DESCRIPTION_MAX_LENGTH,
-                                                }
-                                            ),
-                                        },
-                                    })}
+                                    {...register(
+                                        'description',
+                                        registerDescriptionOptions
+                                    )}
                                     id="description"
                                     name="description"
                                     type="multiline"
                                     label={mainPageT('wish-description')}
                                     error={errors?.description?.message}
+                                    onChange={() => setChanged(true)}
                                 />
                             </div>
 
                             {/* PrivacyChoices */}
-                            <PrivacyChoices
-                                id="wish"
-                                tooltipContent={{
-                                    all: mainPageT('can-see.wish-all-tooltip'),
-                                    friends: mainPageT(
-                                        'can-see.wish-friends-tooltip'
-                                    ),
-                                    nobody: mainPageT(
-                                        'can-see.wish-nobody-tooltip'
-                                    ),
-                                }}
-                                show={show}
-                                showError={showError}
-                                onChange={changePrivacy}
-                            />
+                            <div className="pb-px pl-px">
+                                <PrivacyChoices
+                                    id="wish"
+                                    tooltipContent={{
+                                        all: mainPageT(
+                                            'can-see.wish-all-tooltip'
+                                        ),
+                                        friends: mainPageT(
+                                            'can-see.wish-friends-tooltip'
+                                        ),
+                                        nobody: mainPageT(
+                                            'can-see.wish-nobody-tooltip'
+                                        ),
+                                    }}
+                                    show={show}
+                                    showError={showError}
+                                    onChange={changePrivacy}
+                                />
+                            </div>
                         </div>
 
-                        {/* actions */}
+                        {/* submit */}
                         <div className="ml-auto">
-                            <UiButton type="submit" disabled={!isDirty}>
+                            <UiButton type="submit" disabled={!changed}>
                                 {mainPageT('create')}
                             </UiButton>
                         </div>

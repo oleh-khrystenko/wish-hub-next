@@ -37,7 +37,7 @@ interface IProps {
 }
 
 const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
-    const [isDirty, setIsDirty] = useState<boolean>(false);
+    const [changed, setChanged] = useState<boolean>(false);
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
     const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
@@ -105,7 +105,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
     const hideModals = () => {
         setShowConfirmDeleteWish(false);
         setShowConfirmLeave(false);
-        setIsDirty(false);
+        setChanged(false);
         setMaterial(true);
         setImages([]);
         setCurrency(ECurrency.UAH);
@@ -266,27 +266,27 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
 
     const changeMaterial = (value: boolean) => {
         setMaterial(value);
-        setIsDirty(true);
+        setChanged(true);
     };
 
     const changeImages = (value: TCurrentImage[]) => {
         setImages(value);
-        setIsDirty(true);
+        setChanged(true);
     };
 
     const changeCurrency = (value: IWish['currency']) => {
         setCurrency(value);
-        setIsDirty(true);
+        setChanged(true);
     };
 
     const changePrivacy = (value: EPrivacy) => {
         setShow(value);
         setShowError('');
-        setIsDirty(true);
+        setChanged(true);
     };
 
     const handleHideModal = () => {
-        if (isDirty) {
+        if (changed) {
             return setShowConfirmLeave(true);
         }
         hideModals();
@@ -398,22 +398,16 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
         );
     }, [idOfSelectedWish, wishes, setValue]);
 
-    useEffect(() => {
-        if (!isDirty) return;
-
-        const subscription = watch((_, { name }) => {
-            if (
-                name === 'name' ||
-                name === 'price' ||
-                name === 'description' ||
-                name?.startsWith('addresses')
-            ) {
-                setIsDirty(true);
-            }
-        });
-
-        return () => subscription.unsubscribe();
-    }, [watch]);
+    const registerDescriptionOptions = {
+        ...wishDescriptionValidation,
+        maxLength: {
+            value: WISH_DESCRIPTION_MAX_LENGTH,
+            message: validationsT('wish-description.max', {
+                current: watch('description')?.length,
+                max: WISH_DESCRIPTION_MAX_LENGTH,
+            }),
+        },
+    };
 
     return (
         <>
@@ -464,6 +458,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                                 label={mainPageT('wish-name')}
                                 tooltip={mainPageT('wish-name-tooltip')}
                                 error={errors?.name?.message}
+                                onChange={() => setChanged(true)}
                             />
                         </div>
 
@@ -490,6 +485,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                                     label={mainPageT('wish-price')}
                                     tooltip={mainPageT('wish-price-tooltip')}
                                     error={errors?.price?.message}
+                                    onChange={() => setChanged(true)}
                                 />
 
                                 <UiSelect
@@ -516,45 +512,37 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                         {/* description */}
                         <div className="mt-7">
                             <UiInput
-                                {...register('description', {
-                                    ...wishDescriptionValidation,
-                                    maxLength: {
-                                        value: WISH_DESCRIPTION_MAX_LENGTH,
-                                        message: validationsT(
-                                            'wish-description.max',
-                                            {
-                                                current:
-                                                    watch('description')
-                                                        ?.length,
-                                                max: WISH_DESCRIPTION_MAX_LENGTH,
-                                            }
-                                        ),
-                                    },
-                                })}
+                                {...register(
+                                    'description',
+                                    registerDescriptionOptions
+                                )}
                                 id="description"
                                 name="description"
                                 type="multiline"
                                 label={mainPageT('wish-description')}
                                 error={errors?.description?.message}
+                                onChange={() => setChanged(true)}
                             />
                         </div>
 
                         {/* PrivacyChoices */}
-                        <PrivacyChoices
-                            id="wish"
-                            tooltipContent={{
-                                all: mainPageT('can-see.wish-all-tooltip'),
-                                friends: mainPageT(
-                                    'can-see.wish-friends-tooltip'
-                                ),
-                                nobody: mainPageT(
-                                    'can-see.wish-nobody-tooltip'
-                                ),
-                            }}
-                            show={show}
-                            showError={showError}
-                            onChange={changePrivacy}
-                        />
+                        <div className="pb-px pl-px">
+                            <PrivacyChoices
+                                id="wish"
+                                tooltipContent={{
+                                    all: mainPageT('can-see.wish-all-tooltip'),
+                                    friends: mainPageT(
+                                        'can-see.wish-friends-tooltip'
+                                    ),
+                                    nobody: mainPageT(
+                                        'can-see.wish-nobody-tooltip'
+                                    ),
+                                }}
+                                show={show}
+                                showError={showError}
+                                onChange={changePrivacy}
+                            />
+                        </div>
                     </div>
 
                     {/* actions */}
@@ -566,7 +554,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                             {mainPageT('delete-wish')}
                         </UiButton>
 
-                        <UiButton type="submit" disabled={!isDirty}>
+                        <UiButton type="submit" disabled={!changed}>
                             {mainPageT('update')}
                         </UiButton>
                     </div>
