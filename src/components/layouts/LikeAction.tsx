@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, MouseEvent, useState, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import { IUser } from '@/models/User';
 import { IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
@@ -18,6 +19,8 @@ interface IProps {
 
 const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
+
+    const alertsT = useTranslations('alerts');
 
     const myUser = useMyUserStore((state) => state.myUser);
     const likeWish = useWishesStore((state) => state.likeWish);
@@ -43,9 +46,16 @@ const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
     const handleAction = (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         if (!myUser) return;
-        type === 'likes' && likeWish({ userId: myUser.id, wishId: wish.id });
+        type === 'likes' &&
+            likeWish(
+                { userId: myUser.id, wishId: wish.id },
+                alertsT('wishes-api.like-wish.error')
+            );
         type === 'dislikes' &&
-            dislikeWish({ userId: myUser.id, wishId: wish.id });
+            dislikeWish(
+                { userId: myUser.id, wishId: wish.id },
+                alertsT('wishes-api.dislike-wish.error')
+            );
     };
 
     const handleSelectWish = async (

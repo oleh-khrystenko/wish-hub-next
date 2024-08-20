@@ -17,6 +17,7 @@ export type TInputs = {
 
 const FastWish: FC<IProps> = ({ hide }) => {
     const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
 
     const {
         register,
@@ -31,7 +32,11 @@ const FastWish: FC<IProps> = ({ hide }) => {
     const { onlyWhitespaceValidation } = UseValidations();
 
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
-        data.url.length > 0 && (await fetchWishDataFromLink(data));
+        data.url.length > 0 &&
+            (await fetchWishDataFromLink(
+                data,
+                alertsT('wishes-api.fetch-wish-data.error')
+            ));
         hide();
     };
 

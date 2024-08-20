@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useState, useRef, useLayoutEffect, useEffect } from 'react';
+import React, { FC, useState, useLayoutEffect, useEffect, useRef } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
@@ -42,14 +42,13 @@ interface IProps {
 const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     const [showConfirm, setShowConfirm] = useState<boolean>(false);
     const [isDirty, setIsDirty] = useState<boolean>(false);
+    const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
     const [isFastWish, setIsFastWish] = useState<boolean>(true);
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
     const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
     const [images, setImages] = useState<TCurrentImage[]>([]);
     const [material, setMaterial] = useState<ICreateWish['material']>(true);
-
-    const firstRender = useRef(false);
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -66,6 +65,8 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
         handleSubmit,
         formState: { errors },
     } = useForm<TWishFormInputs>();
+
+    const addresses = watch('addresses');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -243,7 +244,10 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
         };
 
         try {
-            const response = await createWish(wishData);
+            const response = await createWish(
+                wishData,
+                alertsT('wishes-api.create-wish.error')
+            );
             if (!response) return;
 
             const quote = response[activeLocale as ELang];
@@ -323,14 +327,32 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             setValue('description', wishCandidate.description);
     }, [wishCandidate, setValue]);
 
+    // const firstRender = useRef(false);
     useEffect(() => {
-        if (firstRender.current) return;
-        firstRender.current = true;
+        // if (firstRender.current) return;
+        // firstRender.current = true;
 
-        const subscription = watch(() => setIsDirty(true));
+        setIsEmptyAddress(
+            addresses?.some((address) => address.value.length === 0) || false
+        );
+
+        const subscription = watch((_, { name }) => {
+            if (name?.startsWith('addresses')) {
+                console.log('addresses');
+                setIsEmptyAddress(
+                    addresses?.some((address) => address.value.length === 0) ||
+                        false
+                );
+                setIsDirty(true);
+            }
+
+            if (name === 'name' || name === 'price' || name === 'description') {
+                setIsDirty(true);
+            }
+        });
 
         return () => subscription.unsubscribe();
-    }, [watch]);
+    }, [watch, addresses]);
 
     return (
         <>
@@ -433,10 +455,11 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                                 {/* addresses */}
                                 <Addresses
                                     control={control}
-                                    watch={watch}
                                     register={register}
                                     errors={errors}
                                     material={material}
+                                    addresses={addresses}
+                                    isEmptyAddress={isEmptyAddress}
                                 />
                             </div>
 
@@ -486,7 +509,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
 
                         {/* actions */}
                         <div className="ml-auto">
-                            <UiButton type="submit">
+                            <UiButton type="submit" disabled={!isDirty}>
                                 {mainPageT('create')}
                             </UiButton>
                         </div>

@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState, useLayoutEffect, useEffect } from 'react';
+import React, { FC, useRef, useLayoutEffect, useEffect } from 'react';
 import {
     useFieldArray,
     Control,
@@ -16,21 +16,21 @@ import UseValidations from '@/helpers/hooks/UseValidations';
 
 interface IProps {
     control: Control<TWishFormInputs>;
-    watch: UseFormWatch<TWishFormInputs>;
     register: UseFormRegister<TWishFormInputs>;
     errors: FieldErrors<TWishFormInputs>;
     material: ICreateWish['material'];
+    addresses: ICreateWish['addresses'];
+    isEmptyAddress: boolean;
 }
 
 const Addresses: FC<IProps> = ({
     control,
-    watch,
     errors,
     register,
     material,
+    addresses,
+    isEmptyAddress,
 }) => {
-    const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
-
     const appended = useRef(false);
 
     const mainPageT = useTranslations('main-page');
@@ -40,8 +40,6 @@ const Addresses: FC<IProps> = ({
         name: 'addresses',
     });
 
-    const addresses = watch('addresses');
-
     const { onlyWhitespaceValidation } = UseValidations();
 
     useLayoutEffect(() => {
@@ -50,23 +48,6 @@ const Addresses: FC<IProps> = ({
 
         append({ id: uuidv4(), value: '' });
     }, []);
-
-    useEffect(() => {
-        setIsEmptyAddress(
-            addresses?.some((address) => address.value.length === 0) || false
-        );
-
-        const subscription = watch((_, { name }) => {
-            if (name?.startsWith('addresses')) {
-                setIsEmptyAddress(
-                    addresses?.some((address) => address.value.length === 0) ||
-                        false
-                );
-            }
-        });
-
-        return () => subscription.unsubscribe();
-    }, [watch, addresses]);
 
     return (
         <div className="mt-4 flex flex-col gap-7">

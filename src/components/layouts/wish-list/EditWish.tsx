@@ -50,6 +50,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
     const firstRender = useRef(false);
 
     const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
     const validationsT = useTranslations('validations');
 
     const {
@@ -239,7 +240,11 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
         };
 
         try {
-            await updateWish({ ...wishData, id: idOfSelectedWish });
+            await updateWish(
+                { ...wishData, id: idOfSelectedWish },
+                alertsT('wishes-api.update-wish.success'),
+                alertsT('wishes-api.update-wish.error')
+            );
         } catch (e: any) {
             console.error(e);
         }
@@ -290,7 +295,11 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
     const handleDeleteWish = async () => {
         if (!myUser || !idOfSelectedWish) return;
 
-        await deleteWish({ userId: myUser.id, wishId: idOfSelectedWish });
+        await deleteWish(
+            { userId: myUser.id, wishId: idOfSelectedWish },
+            alertsT('wishes-api.delete-wish.success'),
+            alertsT('wishes-api.delete-wish.error')
+        );
         close();
     };
 
@@ -390,10 +399,18 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
     }, [idOfSelectedWish, wishes, setValue]);
 
     useEffect(() => {
-        if (firstRender.current) return;
-        firstRender.current = true;
+        if (!isDirty) return;
 
-        const subscription = watch(() => setIsDirty(true));
+        const subscription = watch((_, { name }) => {
+            if (
+                name === 'name' ||
+                name === 'price' ||
+                name === 'description' ||
+                name?.startsWith('addresses')
+            ) {
+                setIsDirty(true);
+            }
+        });
 
         return () => subscription.unsubscribe();
     }, [watch]);
@@ -549,7 +566,9 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                             {mainPageT('delete-wish')}
                         </UiButton>
 
-                        <UiButton type="submit">{mainPageT('update')}</UiButton>
+                        <UiButton type="submit" disabled={!isDirty}>
+                            {mainPageT('update')}
+                        </UiButton>
                     </div>
                 </form>
             </UiModal>
