@@ -343,7 +343,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                         onSubmit={handleSubmit(onSubmit)}
                     >
                         <span className="whitespace-nowrap text-center text-lg font-bold text-zinc-700 dark:text-zinc-300">
-                            {mainPageT('create-wish')}
+                            {mainPageT('creating_wish')}
                         </span>
 
                         <div className="-mr-3 flex h-auto max-h-[70svh] flex-col overflow-y-auto overflow-x-hidden pr-3">
@@ -499,11 +499,11 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                 confirm={hideModals}
                 hide={() => setShowConfirm(false)}
                 titleModalT={mainPageT('confirm-modal.title')}
-                confirmModalT={mainPageT('leave_wish_creation.confirm')}
-                closeModalT={mainPageT('leave_wish_creation.close')}
+                confirmModalT={mainPageT('leave_with_changes.confirm')}
+                closeModalT={mainPageT('leave_with_changes.close')}
             >
                 <span className="text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('leave_wish_creation.text')}
+                    {mainPageT('leave_with_changes.text')}
                 </span>
             </ConfirmModal>
         </>

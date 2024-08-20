@@ -5,13 +5,17 @@ import { IQuote } from '@/models/Quote';
 export interface ICreateWish {
     userId: IUser['id'];
     material: IWish['material'];
-    show: IWish['show'];
-    currency?: IWish['currency'] | string;
     name: IWish['name'];
+    images: TCurrentImage[];
     price?: IWish['price'];
+    currency?: IWish['currency'] | string;
     addresses?: IWish['addresses'];
     description?: IWish['description'];
-    images: TCurrentImage[];
+    show: IWish['show'];
+}
+
+export interface IUpdateWish extends ICreateWish {
+    id: IWish['id'];
 }
 
 export interface IWishWithQuote {
@@ -19,8 +23,9 @@ export interface IWishWithQuote {
     quote: IQuote;
 }
 
-export interface IUpdateWish extends ICreateWish {
-    id: IWish['id'];
+export interface IDeleteWish {
+    userId: IUser['id'];
+    wishId: IWish['id'];
 }
 
 export interface ISendWish {

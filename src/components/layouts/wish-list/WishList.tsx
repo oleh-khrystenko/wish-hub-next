@@ -120,6 +120,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
         setShowEditWish(true);
     };
     const handleHideEditWish = () => {
+        setIdOfSelectedWish(null);
         setShowEditWish(false);
     };
 
@@ -322,12 +323,11 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                 hide={handleHideCreateWish}
             />
 
-            <UiModal show={showEditWish} hide={handleHideEditWish}>
-                <EditWish
-                    idOfSelectedWish={idOfSelectedWish}
-                    hide={handleHideEditWish}
-                />
-            </UiModal>
+            <EditWish
+                showModal={showEditWish}
+                idOfSelectedWish={idOfSelectedWish}
+                hide={handleHideEditWish}
+            />
         </>
     );
 };
