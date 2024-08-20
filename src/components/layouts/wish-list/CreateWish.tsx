@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useState, useLayoutEffect, useEffect, useRef } from 'react';
+import React, { FC, useState, useLayoutEffect, useEffect } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
@@ -327,26 +327,33 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             setValue('description', wishCandidate.description);
     }, [wishCandidate, setValue]);
 
-    // const firstRender = useRef(false);
     useEffect(() => {
-        // if (firstRender.current) return;
-        // firstRender.current = true;
-
         setIsEmptyAddress(
             addresses?.some((address) => address.value.length === 0) || false
         );
 
-        const subscription = watch((_, { name }) => {
+        const subscription = watch((value, { name }) => {
             if (name?.startsWith('addresses')) {
-                console.log('addresses');
                 setIsEmptyAddress(
                     addresses?.some((address) => address.value.length === 0) ||
                         false
                 );
-                setIsDirty(true);
+                if (value.addresses && !isDirty) {
+                    setIsDirty(
+                        value.addresses.some(
+                            (address) =>
+                                address?.value && address.value.length > 0
+                        ) || false
+                    );
+                }
             }
 
-            if (name === 'name' || name === 'price' || name === 'description') {
+            if (
+                !isDirty &&
+                ((value.name && value.name.length > 0) ||
+                    (value.price && value.price.length > 0) ||
+                    (value.description && value.description.length > 0))
+            ) {
                 setIsDirty(true);
             }
         });
