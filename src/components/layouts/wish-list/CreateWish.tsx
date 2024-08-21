@@ -1,6 +1,12 @@
 'use client';
 
-import React, { FC, useState, useLayoutEffect } from 'react';
+import React, {
+    FC,
+    useState,
+    useLayoutEffect,
+    useEffect,
+    ChangeEvent,
+} from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
@@ -40,6 +46,8 @@ interface IProps {
 }
 
 const CreateWish: FC<IProps> = ({ showModal, hide }) => {
+    const [descriptionLength, setDescriptionLength] = useState<number>(0);
+    const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
     const [showConfirm, setShowConfirm] = useState<boolean>(false);
     const [changed, setChanged] = useState<boolean>(false);
     const [isFastWish, setIsFastWish] = useState<boolean>(true);
@@ -48,6 +56,13 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
     const [images, setImages] = useState<TCurrentImage[]>([]);
     const [material, setMaterial] = useState<ICreateWish['material']>(true);
+    const [shouldTriggerValidation, setShouldTriggerValidation] = useState<{
+        type: keyof TWishFormInputs | null;
+        value: boolean;
+    }>({
+        type: null,
+        value: false,
+    });
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -60,10 +75,13 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
         setValue,
         watch,
         reset,
+        trigger,
         setError,
         handleSubmit,
         formState: { errors },
     } = useForm<TWishFormInputs>();
+
+    const watchingAddresses = watch('addresses');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -103,6 +121,17 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             value: ECurrency.EUR,
         },
     ];
+
+    const registerDescriptionOptions = {
+        ...wishDescriptionValidation,
+        maxLength: {
+            value: WISH_DESCRIPTION_MAX_LENGTH,
+            message: validationsT('wish-description.max', {
+                current: descriptionLength,
+                max: WISH_DESCRIPTION_MAX_LENGTH,
+            }),
+        },
+    };
 
     const hideModals = () => {
         setIsFastWish(true);
@@ -296,6 +325,24 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
         setChanged(true);
     };
 
+    const handleReactHookFormInputChange = async (
+        type: keyof TWishFormInputs,
+        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        !changed && setChanged(true);
+
+        const { value } = event.target;
+
+        type === 'description' && setDescriptionLength(value.length);
+
+        setValue(type, value);
+
+        setShouldTriggerValidation({
+            type,
+            value: true,
+        });
+    };
+
     const handleHideModal = () => {
         if (changed) {
             return setShowConfirm(true);
@@ -324,16 +371,39 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             setValue('description', wishCandidate.description);
     }, [wishCandidate, setValue]);
 
-    const registerDescriptionOptions = {
-        ...wishDescriptionValidation,
-        maxLength: {
-            value: WISH_DESCRIPTION_MAX_LENGTH,
-            message: validationsT('wish-description.max', {
-                current: watch('description')?.length,
-                max: WISH_DESCRIPTION_MAX_LENGTH,
-            }),
-        },
-    };
+    useEffect(() => {
+        setIsEmptyAddress(
+            watchingAddresses?.some((address) => address.value.length === 0) ||
+                false
+        );
+
+        const subscription = watch((_, { name }) => {
+            if (name?.startsWith('addresses')) {
+                setIsEmptyAddress(
+                    watchingAddresses?.some(
+                        (address) => address.value.length === 0
+                    ) || false
+                );
+            }
+        });
+
+        return () => subscription.unsubscribe();
+    }, [watch, watchingAddresses]);
+
+    useEffect(() => {
+        if (shouldTriggerValidation.value) {
+            const triggerValidation = async () => {
+                shouldTriggerValidation.type !== null &&
+                    (await trigger(shouldTriggerValidation.type));
+                setShouldTriggerValidation({
+                    type: shouldTriggerValidation.type,
+                    value: false,
+                });
+            };
+
+            triggerValidation().finally();
+        }
+    }, [shouldTriggerValidation.value, trigger]);
 
     return (
         <>
@@ -389,7 +459,12 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                                     label={mainPageT('wish-name')}
                                     tooltip={mainPageT('wish-name-tooltip')}
                                     error={errors?.name?.message}
-                                    onChange={() => setChanged(true)}
+                                    onChange={(event) =>
+                                        handleReactHookFormInputChange(
+                                            'name',
+                                            event
+                                        )
+                                    }
                                 />
                             </div>
 
@@ -421,7 +496,12 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                                             'wish-price-tooltip'
                                         )}
                                         error={errors?.price?.message}
-                                        onChange={() => setChanged(true)}
+                                        onChange={(event) =>
+                                            handleReactHookFormInputChange(
+                                                'price',
+                                                event
+                                            )
+                                        }
                                     />
 
                                     <UiSelect
@@ -438,10 +518,11 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                                 {/* addresses */}
                                 <Addresses
                                     control={control}
-                                    watch={watch}
                                     register={register}
                                     errors={errors}
                                     material={material}
+                                    isEmptyAddress={isEmptyAddress}
+                                    watchingAddresses={watchingAddresses}
                                 />
                             </div>
 
@@ -457,7 +538,12 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                                     type="multiline"
                                     label={mainPageT('wish-description')}
                                     error={errors?.description?.message}
-                                    onChange={() => setChanged(true)}
+                                    onChange={(event) =>
+                                        handleReactHookFormInputChange(
+                                            'description',
+                                            event
+                                        )
+                                    }
                                 />
                             </div>
 

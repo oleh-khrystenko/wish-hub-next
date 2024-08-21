@@ -1,10 +1,9 @@
-import React, { FC, useRef, useState, useLayoutEffect, useEffect } from 'react';
+import React, { FC, useRef, useLayoutEffect } from 'react';
 import {
     useFieldArray,
     Control,
     UseFormRegister,
     FieldErrors,
-    UseFormWatch,
 } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import UiInput from '@/components/ui/UiInput';
@@ -16,21 +15,21 @@ import UseValidations from '@/helpers/hooks/UseValidations';
 
 interface IProps {
     control: Control<TWishFormInputs>;
-    watch: UseFormWatch<TWishFormInputs>;
     register: UseFormRegister<TWishFormInputs>;
     errors: FieldErrors<TWishFormInputs>;
     material: ICreateWish['material'];
+    isEmptyAddress: boolean;
+    watchingAddresses?: TWishFormInputs['addresses'];
 }
 
 const Addresses: FC<IProps> = ({
     control,
-    watch,
     errors,
     register,
     material,
+    isEmptyAddress,
+    watchingAddresses,
 }) => {
-    const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
-
     const appended = useRef(false);
 
     const mainPageT = useTranslations('main-page');
@@ -39,8 +38,6 @@ const Addresses: FC<IProps> = ({
         control,
         name: 'addresses',
     });
-
-    const addresses = watch('addresses');
 
     const { onlyWhitespaceValidation } = UseValidations();
 
@@ -51,27 +48,10 @@ const Addresses: FC<IProps> = ({
         append({ id: uuidv4(), value: '' });
     }, []);
 
-    useEffect(() => {
-        setIsEmptyAddress(
-            addresses?.some((address) => address.value.length === 0) || false
-        );
-
-        const subscription = watch((_, { name }) => {
-            if (name?.startsWith('addresses')) {
-                setIsEmptyAddress(
-                    addresses?.some((address) => address.value.length === 0) ||
-                        false
-                );
-            }
-        });
-
-        return () => subscription.unsubscribe();
-    }, [watch, addresses]);
-
     return (
         <div className="mt-4 flex flex-col gap-7">
-            {addresses &&
-                addresses.map((address, idx) => (
+            {watchingAddresses &&
+                watchingAddresses.map((address, idx) => (
                     <div key={address.id}>
                         <div className="flex items-center gap-4">
                             <UiInput
@@ -87,7 +67,7 @@ const Addresses: FC<IProps> = ({
                                 tooltip={mainPageT('where-to-buy-tooltip')}
                             />
 
-                            {addresses.length > 1 && (
+                            {watchingAddresses.length > 1 && (
                                 <button
                                     className="rounded-md bg-rose-500 p-2"
                                     type="button"
@@ -97,7 +77,7 @@ const Addresses: FC<IProps> = ({
                                 </button>
                             )}
 
-                            {idx === addresses.length - 1 &&
+                            {idx === watchingAddresses.length - 1 &&
                                 !isEmptyAddress && (
                                     <button
                                         className="rounded-md bg-[#90ff27] p-2"
