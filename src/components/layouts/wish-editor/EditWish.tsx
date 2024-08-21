@@ -16,10 +16,10 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
-import UiButton from '@/components/ui/UiButton';
-import UiModal from '@/components/ui/UiModal';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import FormContent from '@/components/layouts/wish-editor/FormContent';
+import UiButton from '@/components/ui/UiButton';
+import UiModal from '@/components/ui/UiModal';
 
 interface IProps {
     showModal: boolean;
@@ -28,15 +28,15 @@ interface IProps {
 }
 
 const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
-    const [changed, setChanged] = useState<boolean>(false);
+    const [material, setMaterial] = useState<ICreateWish['material']>(true);
+    const [images, setImages] = useState<TCurrentImage[]>([]);
+    const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
-    const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
-    const [images, setImages] = useState<TCurrentImage[]>([]);
-    const [material, setMaterial] = useState<ICreateWish['material']>(true);
+    const [changed, setChanged] = useState<boolean>(false);
+    const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
     const [showConfirmDeleteWish, setShowConfirmDeleteWish] =
         useState<boolean>(false);
-    const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
@@ -59,13 +59,13 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
     const deleteWish = useWishesStore((state) => state.deleteWish);
 
     const hideModals = () => {
-        setShowConfirmDeleteWish(false);
-        setShowConfirmLeave(false);
-        setChanged(false);
         setMaterial(true);
         setImages([]);
         setCurrency(ECurrency.UAH);
         setShow(null);
+        setChanged(false);
+        setShowConfirmLeave(false);
+        setShowConfirmDeleteWish(false);
         hide();
     };
 
@@ -380,19 +380,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
             </UiModal>
 
             <ConfirmModal
-                show={showConfirmDeleteWish}
-                confirm={handleDeleteWish}
-                hide={() => setShowConfirmDeleteWish(false)}
-                titleModalT={mainPageT('confirm-modal.title')}
-                confirmModalT={mainPageT('delete')}
-                closeModalT={mainPageT('leave_with_changes.close')}
-            >
-                <span className="text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('are-you-sure')}
-                </span>
-            </ConfirmModal>
-
-            <ConfirmModal
                 show={showConfirmLeave}
                 confirm={hideModals}
                 hide={() => setShowConfirmLeave(false)}
@@ -402,6 +389,19 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
             >
                 <span className="text-zinc-700 dark:text-zinc-300">
                     {mainPageT('leave_with_changes.text')}
+                </span>
+            </ConfirmModal>
+
+            <ConfirmModal
+                show={showConfirmDeleteWish}
+                confirm={handleDeleteWish}
+                hide={() => setShowConfirmDeleteWish(false)}
+                titleModalT={mainPageT('confirm-modal.title')}
+                confirmModalT={mainPageT('delete')}
+                closeModalT={mainPageT('leave_with_changes.close')}
+            >
+                <span className="text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('are-you-sure')}
                 </span>
             </ConfirmModal>
         </>

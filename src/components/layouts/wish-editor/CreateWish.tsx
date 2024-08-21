@@ -20,10 +20,10 @@ import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
 import FastWish from '@/components/layouts/wish-editor/FastWish';
 import QuoteMessage from '@/components/layouts/wish-editor/QuoteMessage';
-import UiButton from '@/components/ui/UiButton';
-import UiModal from '@/components/ui/UiModal';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import FormContent from '@/components/layouts/wish-editor/FormContent';
+import UiButton from '@/components/ui/UiButton';
+import UiModal from '@/components/ui/UiModal';
 
 interface IProps {
     showModal: boolean;
@@ -31,14 +31,14 @@ interface IProps {
 }
 
 const CreateWish: FC<IProps> = ({ showModal, hide }) => {
-    const [showConfirm, setShowConfirm] = useState<boolean>(false);
-    const [changed, setChanged] = useState<boolean>(false);
     const [isFastWish, setIsFastWish] = useState<boolean>(true);
+    const [material, setMaterial] = useState<ICreateWish['material']>(true);
+    const [images, setImages] = useState<TCurrentImage[]>([]);
+    const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
-    const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
-    const [images, setImages] = useState<TCurrentImage[]>([]);
-    const [material, setMaterial] = useState<ICreateWish['material']>(true);
+    const [changed, setChanged] = useState<boolean>(false);
+    const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -63,13 +63,13 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     const createWish = useWishesStore((state) => state.createWish);
 
     const hideModals = () => {
-        setIsFastWish(true);
-        setShowConfirm(false);
-        setChanged(false);
         setMaterial(true);
         setImages([]);
         setCurrency(ECurrency.UAH);
         setShow(null);
+        setIsFastWish(true);
+        setChanged(false);
+        setShowConfirm(false);
         reset();
         hide();
     };

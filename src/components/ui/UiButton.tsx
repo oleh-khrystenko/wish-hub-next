@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, ReactNode, MouseEventHandler } from 'react';
+import { FC, ReactNode, MouseEventHandler } from 'react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 

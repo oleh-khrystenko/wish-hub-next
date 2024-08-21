@@ -1,4 +1,5 @@
-import React, { FC, useRef, useLayoutEffect } from 'react';
+import { FC, useRef, useLayoutEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import {
     useFieldArray,
     Control,
@@ -6,29 +7,28 @@ import {
     FieldErrors,
 } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
-import UiInput from '@/components/ui/UiInput';
-import { ICreateWish } from '@/stores/wishes/types';
 import { TWishFormInputs } from '@/models/Wish';
-import CrossIcon from '@/components/icons/CrossIcon';
-import { useTranslations } from 'next-intl';
+import { ICreateWish } from '@/stores/wishes/types';
 import UseValidations from '@/helpers/hooks/UseValidations';
+import UiInput from '@/components/ui/UiInput';
+import CrossIcon from '@/components/icons/CrossIcon';
 
 interface IProps {
-    control: Control<TWishFormInputs>;
     register: UseFormRegister<TWishFormInputs>;
+    control: Control<TWishFormInputs>;
     errors: FieldErrors<TWishFormInputs>;
     material: ICreateWish['material'];
-    isEmptyAddress: boolean;
     watchingAddresses?: TWishFormInputs['addresses'];
+    isEmptyAddress: boolean;
 }
 
 const Addresses: FC<IProps> = ({
+    register,
     control,
     errors,
-    register,
     material,
-    isEmptyAddress,
     watchingAddresses,
+    isEmptyAddress,
 }) => {
     const appended = useRef(false);
 

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { TCurrentImage } from '@/models/Wish';
 import { useTranslations } from 'next-intl';
 import {

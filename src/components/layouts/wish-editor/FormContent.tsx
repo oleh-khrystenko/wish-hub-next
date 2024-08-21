@@ -1,20 +1,6 @@
 'use client';
 
 import { ChangeEvent, FC, useEffect, useState, useRef } from 'react';
-import UiSwitch from '@/components/ui/UiSwitch';
-import UiInput from '@/components/ui/UiInput';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import DragNDrop from '@/components/layouts/drag-n-drop/DragNDrop';
-import UiSelect, { IOption } from '@/components/ui/UiSelect';
-import {
-    ECurrency,
-    IWish,
-    TCurrentImage,
-    TWishFormInputs,
-} from '@/models/Wish';
-import Addresses from '@/components/layouts/wish-editor/Addresses';
-import PrivacyChoices from '@/components/layouts/wish-editor/PrivacyChoices';
 import { useTranslations } from 'next-intl';
 import {
     Control,
@@ -24,9 +10,23 @@ import {
     UseFormWatch,
     UseFormTrigger,
 } from 'react-hook-form';
-import UseValidations from '@/helpers/hooks/UseValidations';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import {
+    ECurrency,
+    IWish,
+    TCurrentImage,
+    TWishFormInputs,
+} from '@/models/Wish';
 import { EPrivacy } from '@/models/Settings';
 import { ICreateWish } from '@/stores/wishes/types';
+import UseValidations from '@/helpers/hooks/UseValidations';
+import DragNDrop from '@/components/layouts/drag-n-drop/DragNDrop';
+import Addresses from '@/components/layouts/wish-editor/Addresses';
+import PrivacyChoices from '@/components/layouts/wish-editor/PrivacyChoices';
+import UiInput from '@/components/ui/UiInput';
+import UiSelect, { IOption } from '@/components/ui/UiSelect';
+import UiSwitch from '@/components/ui/UiSwitch';
 
 interface IProps {
     title: string;
@@ -43,7 +43,6 @@ interface IProps {
     removeAllImages: () => void;
     currency: IWish['currency'];
     setCurrency: (value: IWish['currency']) => void;
-    watchingAddresses?: TWishFormInputs['addresses'];
     show: ICreateWish['show'] | null;
     setShow: (value: ICreateWish['show']) => void;
     showError: string;
@@ -74,6 +73,7 @@ const FormContent: FC<IProps> = ({
     changed,
     setChanged,
 }) => {
+    const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
     const [descriptionLength, setDescriptionLength] = useState<number>(0);
     const [shouldTriggerValidation, setShouldTriggerValidation] = useState<{
         type: keyof TWishFormInputs | null;
@@ -82,7 +82,6 @@ const FormContent: FC<IProps> = ({
         type: null,
         value: false,
     });
-    const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
 
     const formContentContainer = useRef<HTMLDivElement>(null);
 
@@ -295,12 +294,12 @@ const FormContent: FC<IProps> = ({
 
                     {/* addresses */}
                     <Addresses
-                        control={control}
                         register={register}
+                        control={control}
                         errors={errors}
                         material={material}
-                        isEmptyAddress={isEmptyAddress}
                         watchingAddresses={watchingAddresses}
+                        isEmptyAddress={isEmptyAddress}
                     />
                 </div>
 

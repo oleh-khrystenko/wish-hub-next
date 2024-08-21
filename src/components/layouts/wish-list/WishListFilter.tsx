@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { EWishStatus } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';

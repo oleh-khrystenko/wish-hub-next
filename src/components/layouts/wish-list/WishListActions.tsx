@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
 import { EPrivacy } from '@/models/Settings';
