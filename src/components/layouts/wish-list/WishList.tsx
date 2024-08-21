@@ -11,7 +11,7 @@ import WishListActions from '@/components/layouts/wish-list/WishListActions';
 import WishItem from '@/components/layouts/wish-list/WishItem';
 import CreateWish from '@/components/layouts/wish-editor/CreateWish';
 import EditWish from '@/components/layouts/wish-editor/EditWish';
-import DetailWish from '@/components/layouts/wish-list/DetailWish';
+import DetailWish from '@/components/layouts/detail-wish/DetailWish';
 import Loading from '@/components/layouts/Loading';
 import UiModal from '@/components/ui/UiModal';
 import CrossIcon from '@/components/icons/CrossIcon';
