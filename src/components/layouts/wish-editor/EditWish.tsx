@@ -25,13 +25,13 @@ import { useWishesStore } from '@/stores/wishes';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
-import Addresses from '@/components/layouts/wish-list/Addresses';
+import Addresses from '@/components/layouts/wish-editor/Addresses';
 import DragNDrop from '@/components/layouts/drag-n-drop/DragNDrop';
 import UiSwitch from '@/components/ui/UiSwitch';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
-import PrivacyChoices from '@/components/layouts/wish-list/PrivacyChoices';
+import PrivacyChoices from '@/components/layouts/wish-editor/PrivacyChoices';
 import UiModal from '@/components/ui/UiModal';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 
