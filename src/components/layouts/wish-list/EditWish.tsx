@@ -25,7 +25,6 @@ import { useWishesStore } from '@/stores/wishes';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
-import { WISH_DESCRIPTION_MAX_LENGTH } from '@/helpers/utils/constants';
 import Addresses from '@/components/layouts/wish-list/Addresses';
 import DragNDrop from '@/components/layouts/drag-n-drop/DragNDrop';
 import UiSwitch from '@/components/ui/UiSwitch';
@@ -64,7 +63,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
 
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
-    const validationsT = useTranslations('validations');
 
     const {
         control,
@@ -117,17 +115,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
             value: ECurrency.EUR,
         },
     ];
-
-    const registerDescriptionOptions = {
-        ...wishDescriptionValidation,
-        maxLength: {
-            value: WISH_DESCRIPTION_MAX_LENGTH,
-            message: validationsT('wish-description.max', {
-                current: descriptionLength,
-                max: WISH_DESCRIPTION_MAX_LENGTH,
-            }),
-        },
-    };
 
     const hideModals = () => {
         setShowConfirmDeleteWish(false);
@@ -593,7 +580,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                             <UiInput
                                 {...register(
                                     'description',
-                                    registerDescriptionOptions
+                                    wishDescriptionValidation(descriptionLength)
                                 )}
                                 id="description"
                                 name="description"

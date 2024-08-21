@@ -9,6 +9,7 @@ import {
     WISH_PRICE_MAX_LENGTH,
     DELIVERY_ADDRESS_MIN_LENGTH,
     DELIVERY_ADDRESS_MAX_LENGTH,
+    WISH_DESCRIPTION_MAX_LENGTH,
 } from '@/helpers/utils/constants';
 
 const UseValidations = () => {
@@ -69,14 +70,23 @@ const UseValidations = () => {
     };
 
     // Wish description
-    const wishDescriptionValidation = {
-        ...onlyWhitespaceValidation,
-        minLength: {
-            value: WISH_DESCRIPTION_MIN_LENGTH,
-            message: validationsT('wish-description.min', {
-                min: WISH_DESCRIPTION_MIN_LENGTH - 1,
-            }),
-        },
+    const wishDescriptionValidation = (descriptionLength: number) => {
+        return {
+            ...onlyWhitespaceValidation,
+            minLength: {
+                value: WISH_DESCRIPTION_MIN_LENGTH,
+                message: validationsT('wish-description.min', {
+                    min: WISH_DESCRIPTION_MIN_LENGTH - 1,
+                }),
+            },
+            maxLength: {
+                value: WISH_DESCRIPTION_MAX_LENGTH,
+                message: validationsT('wish-description.max', {
+                    current: descriptionLength,
+                    max: WISH_DESCRIPTION_MAX_LENGTH,
+                }),
+            },
+        };
     };
 
     // Email
