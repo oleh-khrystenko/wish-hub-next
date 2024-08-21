@@ -78,7 +78,10 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
 
         if (!wishListRefCurrent) return;
 
-        wishListRefCurrent.scrollTo(0, 0);
+        wishListRefCurrent.scrollTo({
+            behavior: 'smooth',
+            top: 0,
+        });
 
         setShowPopup(false);
     };

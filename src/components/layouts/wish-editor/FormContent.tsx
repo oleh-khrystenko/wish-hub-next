@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState, useRef } from 'react';
 import UiSwitch from '@/components/ui/UiSwitch';
 import UiInput from '@/components/ui/UiInput';
 import { DndProvider } from 'react-dnd';
@@ -83,6 +83,8 @@ const FormContent: FC<IProps> = ({
         value: false,
     });
     const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
+
+    const formContentContainer = useRef<HTMLDivElement>(null);
 
     const watchingAddresses = watch('addresses');
 
@@ -194,13 +196,25 @@ const FormContent: FC<IProps> = ({
         }
     }, [shouldTriggerValidation.value, trigger]);
 
+    useEffect(() => {
+        if (showError.length > 0 && formContentContainer.current) {
+            formContentContainer.current.scrollTo({
+                behavior: 'smooth',
+                top: formContentContainer.current.scrollHeight,
+            });
+        }
+    }, [showError]);
+
     return (
         <>
             <span className="whitespace-nowrap text-center text-lg font-bold text-zinc-700 dark:text-zinc-300">
                 {mainPageT(title)}
             </span>
 
-            <div className="-mr-3 flex h-auto max-h-[70svh] flex-col overflow-y-auto overflow-x-hidden pr-3">
+            <div
+                className="-mr-3 flex h-auto max-h-[70svh] flex-col overflow-y-auto overflow-x-hidden pr-3"
+                ref={formContentContainer}
+            >
                 {/* material */}
                 <div className="flex items-center justify-center gap-4">
                     <button

@@ -73,7 +73,10 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
 
         if (!wishListRefCurrent) return;
 
-        wishListRefCurrent.scrollTo(0, 0);
+        wishListRefCurrent.scrollTo({
+            behavior: 'smooth',
+            top: 0,
+        });
     };
 
     const handleChangeSearchBar = async (value: string) => {
@@ -100,7 +103,10 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
 
         if (!wishListRefCurrent) return;
 
-        wishListRefCurrent.scrollTo(0, 0);
+        wishListRefCurrent.scrollTo({
+            behavior: 'smooth',
+            top: 0,
+        });
     };
 
     return (

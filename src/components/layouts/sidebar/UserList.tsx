@@ -88,7 +88,10 @@ const UserList: FC = () => {
 
         if (!myUser || !userListRef.current) return;
 
-        userListRef.current.scrollTo(0, 0);
+        userListRef.current.scrollTo({
+            behavior: 'smooth',
+            top: 0,
+        });
 
         await getUsers(
             {
@@ -107,7 +110,10 @@ const UserList: FC = () => {
 
         if (!userListRef.current) return;
 
-        userListRef.current.scrollTo(0, 0);
+        userListRef.current.scrollTo({
+            behavior: 'smooth',
+            top: 0,
+        });
 
         if (!myUser) {
             await getAllUsers(
@@ -148,7 +154,10 @@ const UserList: FC = () => {
 
         if (!userListRef.current) return;
 
-        userListRef.current.scrollTo(0, 0);
+        userListRef.current.scrollTo({
+            behavior: 'smooth',
+            top: 0,
+        });
     };
 
     useEffect(() => {

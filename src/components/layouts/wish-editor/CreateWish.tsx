@@ -278,7 +278,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                         onSubmit={handleSubmit(onSubmit)}
                     >
                         <FormContent
-                            title="editing_wish"
+                            title="creating_wish"
                             register={register}
                             control={control}
                             setValue={setValue}
