@@ -1,16 +1,8 @@
 'use client';
 
-import React, {
-    FC,
-    useState,
-    useLayoutEffect,
-    useEffect,
-    ChangeEvent,
-} from 'react';
+import { FC, useState, useLayoutEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import {
     ECurrency,
     IImage,
@@ -22,18 +14,12 @@ import { EPrivacy } from '@/models/Settings';
 import { ICreateWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
-import UseValidations from '@/helpers/hooks/UseValidations';
 import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
-import Addresses from '@/components/layouts/wish-editor/Addresses';
-import DragNDrop from '@/components/layouts/drag-n-drop/DragNDrop';
-import UiSwitch from '@/components/ui/UiSwitch';
-import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
-import UiSelect, { IOption } from '@/components/ui/UiSelect';
-import PrivacyChoices from '@/components/layouts/wish-editor/PrivacyChoices';
 import UiModal from '@/components/ui/UiModal';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
+import FormContent from '@/components/layouts/wish-editor/FormContent';
 
 interface IProps {
     showModal: boolean;
@@ -51,15 +37,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
     const [showConfirmDeleteWish, setShowConfirmDeleteWish] =
         useState<boolean>(false);
     const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
-    const [shouldTriggerValidation, setShouldTriggerValidation] = useState<{
-        type: keyof TWishFormInputs | null;
-        value: boolean;
-    }>({
-        type: null,
-        value: false,
-    });
-    const [descriptionLength, setDescriptionLength] = useState<number>(0);
-    const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
@@ -75,46 +52,11 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
         formState: { errors },
     } = useForm<TWishFormInputs>();
 
-    const watchingAddresses = watch('addresses');
-
     const myUser = useMyUserStore((state) => state.myUser);
 
     const wishes = useWishesStore((state) => state.list);
     const updateWish = useWishesStore((state) => state.updateWish);
     const deleteWish = useWishesStore((state) => state.deleteWish);
-
-    const {
-        wishNameValidation,
-        wishPriceValidation,
-        wishDescriptionValidation,
-    } = UseValidations();
-
-    const selectOptions: IOption[] = [
-        {
-            label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                    {ECurrency.UAH}
-                </span>
-            ),
-            value: ECurrency.UAH,
-        },
-        {
-            label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                    {ECurrency.USD}
-                </span>
-            ),
-            value: ECurrency.USD,
-        },
-        {
-            label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                    {ECurrency.EUR}
-                </span>
-            ),
-            value: ECurrency.EUR,
-        },
-    ];
 
     const hideModals = () => {
         setShowConfirmDeleteWish(false);
@@ -278,45 +220,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
         );
     };
 
-    const changeMaterial = (value: boolean) => {
-        setMaterial(value);
-        setChanged(true);
-    };
-
-    const changeImages = (value: TCurrentImage[]) => {
-        setImages(value);
-        setChanged(true);
-    };
-
-    const changeCurrency = (value: IWish['currency']) => {
-        setCurrency(value);
-        setChanged(true);
-    };
-
-    const changePrivacy = (value: EPrivacy) => {
-        setShow(value);
-        setShowError('');
-        setChanged(true);
-    };
-
-    const handleReactHookFormInputChange = async (
-        type: keyof TWishFormInputs,
-        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        !changed && setChanged(true);
-
-        const { value } = event.target;
-
-        type === 'description' && setDescriptionLength(value.length);
-
-        setValue(type, value);
-
-        setShouldTriggerValidation({
-            type,
-            value: true,
-        });
-    };
-
     const handleHideModal = () => {
         if (changed) {
             return setShowConfirmLeave(true);
@@ -430,40 +333,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
         );
     }, [idOfSelectedWish, wishes, setValue]);
 
-    useEffect(() => {
-        setIsEmptyAddress(
-            watchingAddresses?.some((address) => address.value.length === 0) ||
-                false
-        );
-
-        const subscription = watch((_, { name }) => {
-            if (name?.startsWith('addresses')) {
-                setIsEmptyAddress(
-                    watchingAddresses?.some(
-                        (address) => address.value.length === 0
-                    ) || false
-                );
-            }
-        });
-
-        return () => subscription.unsubscribe();
-    }, [watch, watchingAddresses]);
-
-    useEffect(() => {
-        if (shouldTriggerValidation.value) {
-            const triggerValidation = async () => {
-                shouldTriggerValidation.type !== null &&
-                    (await trigger(shouldTriggerValidation.type));
-                setShouldTriggerValidation({
-                    type: shouldTriggerValidation.type,
-                    value: false,
-                });
-            };
-
-            triggerValidation().finally();
-        }
-    }, [shouldTriggerValidation.value, trigger]);
-
     return (
         <>
             <UiModal show={showModal} hide={handleHideModal}>
@@ -471,150 +340,28 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                     className="flex max-h-full flex-col gap-4"
                     onSubmit={handleSubmit(onSubmit)}
                 >
-                    <span className="whitespace-nowrap text-center text-lg font-bold text-zinc-700 dark:text-zinc-300">
-                        {mainPageT('editing_wish')}
-                    </span>
-
-                    <div className="-mr-3 flex h-auto max-h-[70svh] flex-col overflow-y-auto overflow-x-hidden pr-3">
-                        {/* material */}
-                        <div className="flex items-center justify-center gap-4">
-                            <button
-                                className={`${material ? 'text-cyan-300' : 'text-zinc-700 dark:text-zinc-300'} font-bold`}
-                                type="button"
-                                onClick={() => changeMaterial(true)}
-                            >
-                                {mainPageT('material-wish')}
-                            </button>
-                            <UiSwitch
-                                id="material"
-                                name="material"
-                                checked={material}
-                                bg={material ? 'bg-cyan-300' : 'bg-rose-500'}
-                                onChange={(e) =>
-                                    changeMaterial(e.target.checked)
-                                }
-                            />
-                            <button
-                                className={`${material ? 'text-zinc-700 dark:text-zinc-300' : 'text-rose-500'} font-bold`}
-                                type="button"
-                                onClick={() => changeMaterial(false)}
-                            >
-                                {mainPageT('non-material-wish')}
-                            </button>
-                        </div>
-
-                        {/* name */}
-                        <div className="mt-5">
-                            <UiInput
-                                {...register('name', wishNameValidation)}
-                                id="name"
-                                name="name"
-                                type="text"
-                                label={mainPageT('wish-name')}
-                                tooltip={mainPageT('wish-name-tooltip')}
-                                error={errors?.name?.message}
-                                onChange={(event) =>
-                                    handleReactHookFormInputChange(
-                                        'name',
-                                        event
-                                    )
-                                }
-                            />
-                        </div>
-
-                        {/* DragNDrop */}
-                        <DndProvider backend={HTML5Backend}>
-                            <DragNDrop
-                                images={images}
-                                setImages={changeImages}
-                                removeAllImages={removeAllImages}
-                            />
-                        </DndProvider>
-
-                        <div
-                            className={`${material ? 'flex' : 'hidden'} mt-5 flex-col gap-4 transition-all duration-300 ease-in-out`}
-                        >
-                            {/* price */}
-                            <div className="flex items-center gap-5">
-                                <UiInput
-                                    {...(material &&
-                                        register('price', wishPriceValidation))}
-                                    id="price"
-                                    name="price"
-                                    type="number"
-                                    label={mainPageT('wish-price')}
-                                    tooltip={mainPageT('wish-price-tooltip')}
-                                    error={errors?.price?.message}
-                                    onChange={(event) =>
-                                        handleReactHookFormInputChange(
-                                            'price',
-                                            event
-                                        )
-                                    }
-                                />
-
-                                <UiSelect
-                                    options={selectOptions}
-                                    value={currency}
-                                    onChange={(value) =>
-                                        changeCurrency(
-                                            value as IWish['currency']
-                                        )
-                                    }
-                                />
-                            </div>
-
-                            {/* addresses */}
-                            <Addresses
-                                control={control}
-                                register={register}
-                                errors={errors}
-                                material={material}
-                                isEmptyAddress={isEmptyAddress}
-                                watchingAddresses={watchingAddresses}
-                            />
-                        </div>
-
-                        {/* description */}
-                        <div className="mt-7">
-                            <UiInput
-                                {...register(
-                                    'description',
-                                    wishDescriptionValidation(descriptionLength)
-                                )}
-                                id="description"
-                                name="description"
-                                type="multiline"
-                                label={mainPageT('wish-description')}
-                                error={errors?.description?.message}
-                                onChange={(event) =>
-                                    handleReactHookFormInputChange(
-                                        'description',
-                                        event
-                                    )
-                                }
-                            />
-                        </div>
-
-                        {/* PrivacyChoices */}
-                        <div className="pb-px pl-px">
-                            <PrivacyChoices
-                                id="wish"
-                                tooltipContent={{
-                                    all: mainPageT('can-see.wish-all-tooltip'),
-                                    friends: mainPageT(
-                                        'can-see.wish-friends-tooltip'
-                                    ),
-                                    nobody: mainPageT(
-                                        'can-see.wish-nobody-tooltip'
-                                    ),
-                                }}
-                                show={show}
-                                showError={showError}
-                                onChange={changePrivacy}
-                            />
-                        </div>
-                    </div>
+                    <FormContent
+                        title="editing_wish"
+                        register={register}
+                        control={control}
+                        setValue={setValue}
+                        watch={watch}
+                        trigger={trigger}
+                        errors={errors}
+                        material={material}
+                        setMaterial={setMaterial}
+                        images={images}
+                        setImages={setImages}
+                        removeAllImages={removeAllImages}
+                        currency={currency}
+                        setCurrency={setCurrency}
+                        show={show}
+                        setShow={setShow}
+                        showError={showError}
+                        setShowError={setShowError}
+                        changed={changed}
+                        setChanged={setChanged}
+                    />
 
                     {/* actions */}
                     <div className="ml-auto flex items-center gap-4">
