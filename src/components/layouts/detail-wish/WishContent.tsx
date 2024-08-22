@@ -61,7 +61,9 @@ const WishContent: FC<IProps> = ({ wish }) => {
     };
 
     return (
-        <>
+        <div
+            className={`${wish.images.length > 1 ? 'mt-[100px] tablet-md:mt-[120px] desktop-xs:mt-0' : ''} flex w-full flex-col gap-4 desktop-xs:col-span-5 desktop-xs:gap-6`}
+        >
             <div className="flex w-full items-center justify-between gap-3">
                 <span className="truncate text-xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-2xl">
                     {unencryptedData(wish.name, wish.show)}
@@ -75,7 +77,7 @@ const WishContent: FC<IProps> = ({ wish }) => {
                 )}
             </div>
 
-            <div className="flex h-auto w-full flex-col gap-4 desktop-xs:max-h-[78svh] desktop-xs:gap-6 desktop-xs:overflow-y-auto desktop-xs:pr-2">
+            <div className="flex h-auto w-full flex-col gap-4 desktop-xs:max-h-[70svh] desktop-xs:gap-6 desktop-xs:overflow-y-auto desktop-xs:pr-2">
                 {showRow && (
                     <div className="flex flex-col gap-4 desktop-xs:gap-5">
                         {myUser?.id === wish.userId && (
@@ -152,7 +154,7 @@ const WishContent: FC<IProps> = ({ wish }) => {
                     </p>
                 )}
             </div>
-        </>
+        </div>
     );
 };
 

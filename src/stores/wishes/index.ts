@@ -58,7 +58,7 @@ interface IWishesStore {
         successT: string,
         errorT: string
     ) => Promise<void>;
-    bookWish: (data: IBookWish) => Promise<void>;
+    bookWish: (data: IBookWish) => Promise<IQuote | void>;
     cancelBookWish: (data: IActionWish) => Promise<void>;
     doneWish: (data: IDoneWish) => Promise<void>;
     undoneWish: (data: IActionWish) => Promise<void>;
@@ -183,6 +183,8 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                     ...state,
                 };
             });
+
+            return response.data.quote;
         } catch (error: any) {
             // toast(
             //     error.response?.data?.message ||
