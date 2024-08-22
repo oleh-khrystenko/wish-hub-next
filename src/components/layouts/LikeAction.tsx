@@ -35,7 +35,7 @@ const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
 
     const iconColor = useMemo(() => {
         if (iLiked) {
-            if (type === 'likes') return 'fill-cyan-300';
+            if (type === 'likes') return 'fill-cyan-500 dark:fill-cyan-300';
 
             return 'fill-rose-500';
         }

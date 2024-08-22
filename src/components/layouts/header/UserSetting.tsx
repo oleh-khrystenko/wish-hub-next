@@ -196,7 +196,10 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                         </span>
                     </UiButton>
 
-                    <ShareButton classes="flex-row-reverse mr-auto">
+                    <ShareButton
+                        actionClasses="flex-row-reverse mr-auto"
+                        iconClasses="h-6 w-6 fill-zinc-800 dark:fill-zinc-300"
+                    >
                         <span className="flex items-center gap-2 py-1.5 text-lg font-bold text-zinc-800 dark:text-zinc-300">
                             {mainPageT('confirm')} Wish Hub
                         </span>

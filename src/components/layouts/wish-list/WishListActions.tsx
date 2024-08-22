@@ -89,20 +89,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     return (
         <div className="mt-6 flex w-full items-center gap-3 pl-2.5">
             {myUser?.id === selectedUserId && (
-                <div className="flex items-center gap-3">
-                    <span
-                        className="tooltip"
-                        data-tooltip-id="share-wishes"
-                        data-tooltip-content={
-                            wishListIncludesShowAllWish
-                                ? mainPageT('can-see.share-tooltip')
-                                : mainPageT('can-see.inactive-share-tooltip')
-                        }
-                    >
-                        <InfoIcon />
-                    </span>
-                    <UiTooltip id="share-wishes" />
-
+                <div className="flex items-center gap-1">
                     <div
                         className={
                             wishListIncludesShowAllWish
@@ -113,17 +100,30 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                         <ShareButton
                             link={`/${activeLocale}/wish-list/${selectedUserId}`}
                         >
-                            <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-800 dark:text-zinc-300">
+                            <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-700 dark:text-zinc-400">
                                 {mainPageT('share-wishes')}
                             </span>
                         </ShareButton>
                     </div>
+
+                    <span
+                        className="cursor-pointer"
+                        data-tooltip-id="share-wishes"
+                        data-tooltip-content={
+                            wishListIncludesShowAllWish
+                                ? mainPageT('can-see.share-tooltip')
+                                : mainPageT('can-see.inactive-share-tooltip')
+                        }
+                    >
+                        <InfoIcon />
+                    </span>
+                    <UiTooltip id="share-wishes" />
                 </div>
             )}
 
             <div className="relative ml-auto">
                 <UiButton variant="text" onClick={() => setShowPopup(true)}>
-                    <span className="text-sm text-zinc-800 dark:text-zinc-300">
+                    <span className="text-sm text-zinc-500 dark:text-zinc-400">
                         {wishesSortText}
                     </span>
                     <SortIcon />
@@ -136,7 +136,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                 >
                     <div className="flex flex-col p-2">
                         <button
-                            className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            className="whitespace-nowrap rounded-md px-3 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                             type="button"
                             onClick={() => handleSortBy(EWishSort.POPULAR)}
                         >
@@ -144,7 +144,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                         </button>
 
                         <button
-                            className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            className="whitespace-nowrap rounded-md px-3 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                             type="button"
                             onClick={() => handleSortBy(EWishSort.PRICE_DESC)}
                         >
@@ -152,7 +152,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                         </button>
 
                         <button
-                            className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            className="whitespace-nowrap rounded-md px-3 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                             type="button"
                             onClick={() => handleSortBy(EWishSort.PRICE_ASC)}
                         >
@@ -160,7 +160,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                         </button>
 
                         <button
-                            className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            className="whitespace-nowrap rounded-md px-3 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                             type="button"
                             onClick={() => handleSortBy(EWishSort.CREATED_DESC)}
                         >
@@ -168,7 +168,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                         </button>
 
                         <button
-                            className="rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            className="whitespace-nowrap rounded-md px-3 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                             type="button"
                             onClick={() => handleSortBy(EWishSort.CREATED_ASC)}
                         >

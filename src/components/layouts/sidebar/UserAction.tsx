@@ -254,18 +254,18 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                     <div className="flex flex-col p-2">
                         <Link
                             href={`/${activeLocale}/profile/${user.id}`}
-                            className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                         >
-                            <PersonIcon classes="w-5 min-w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                            <PersonIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
                             {mainPageT('user-profile')}
                         </Link>
                         {showAddFriend && (
                             <button
-                                className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                                className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                                 type="button"
                                 onClick={handleAddFriend}
                             >
-                                <PersonAddIcon classes="w-5 min-w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                <PersonAddIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
                                 {myUser?.followFrom.includes(user.id)
                                     ? mainPageT('confirm-friendship')
                                     : mainPageT('add-friend')}
@@ -274,13 +274,13 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                         {(myUser?.friends.includes(user.id) ||
                             myUser?.followTo.includes(user.id)) && (
                             <button
-                                className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                                className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                                 type="button"
                                 onClick={() =>
                                     handleRemoveFriend(EWhereRemove.FOLLOW_TO)
                                 }
                             >
-                                <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
                                 {mainPageT('delete-your')} <br />{' '}
                                 {mainPageT('delete-request')}
                             </button>
@@ -288,26 +288,26 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                         {(myUser?.friends.includes(user.id) ||
                             myUser?.followFrom.includes(user.id)) && (
                             <button
-                                className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                                className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                                 type="button"
                                 onClick={() =>
                                     handleRemoveFriend(EWhereRemove.FOLLOW_FROM)
                                 }
                             >
-                                <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
                                 {mainPageT('delete-user_s')} <br />{' '}
                                 {mainPageT('delete-request')}
                             </button>
                         )}
                         {myUser?.friends.includes(user.id) && (
                             <button
-                                className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-1 text-left text-sm font-bold text-zinc-800 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                                className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                                 type="button"
                                 onClick={() =>
                                     handleRemoveFriend(EWhereRemove.FRIENDS)
                                 }
                             >
-                                <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-800 dark:fill-zinc-300" />
+                                <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
                                 {mainPageT('remove-friend')}
                             </button>
                         )}

@@ -13,6 +13,7 @@ export default function Main() {
             <NextIntlClientProvider
                 messages={pick(messages, [
                     'main-page',
+                    'wish-page',
                     'share-button',
                     'alerts',
                     'validations',

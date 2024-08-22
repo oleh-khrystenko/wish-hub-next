@@ -4,7 +4,9 @@ interface IProps {
     classes?: string;
 }
 
-const MoonIcon: FC<IProps> = ({ classes = 'h-5 w-5 fill-cyan-300' }) => {
+const MoonIcon: FC<IProps> = ({
+    classes = 'h-5 w-5 fill-cyan-500 dark:fill-cyan-300',
+}) => {
     return (
         <svg
             className={`${classes} transition-all duration-300 ease-in-out`}

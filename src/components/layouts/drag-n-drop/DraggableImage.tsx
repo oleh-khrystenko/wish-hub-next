@@ -3,6 +3,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import Image from 'next/image';
 import { TCurrentImage } from '@/models/Wish';
 import CrossIcon from '@/components/icons/CrossIcon';
+import { useTranslations } from 'next-intl';
 
 interface IProps {
     image: TCurrentImage;
@@ -18,6 +19,8 @@ const DraggableImage: FC<IProps> = ({
     removeImage,
 }) => {
     const ref = useRef<HTMLDivElement | null>(null);
+
+    const mainPageT = useTranslations('main-page');
 
     const [, drag] = useDrag({
         type: 'image',
@@ -52,8 +55,8 @@ const DraggableImage: FC<IProps> = ({
                         ? URL.createObjectURL(image)
                         : image.path
                 }
-                alt={`Image-${index}`}
-                title={`Image-${index}`}
+                alt={`${mainPageT('picture')}-${index}`}
+                title={`${mainPageT('picture')}-${index}`}
                 priority={true}
                 fill
                 sizes={'100%'}

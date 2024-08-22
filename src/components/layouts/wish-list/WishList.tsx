@@ -231,13 +231,13 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                     {myUser?.id === selectedUserId && (
                         <li className="relative flex items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
                             <button
-                                className="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border-2 border-dashed border-transparent transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-300"
+                                className="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border-2 border-dashed border-transparent transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
                                 type="button"
                                 onClick={handleShowCreateWish}
                             >
-                                <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />
+                                <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-500 group-hover:dark:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />
 
-                                <span className="text-xl font-bold text-zinc-700 group-hover:text-cyan-300 dark:text-zinc-400">
+                                <span className="text-xl font-bold text-zinc-700 group-hover:text-cyan-500 dark:text-zinc-400 group-hover:dark:text-cyan-300">
                                     {mainPageT('create-wish')}
                                 </span>
                             </button>

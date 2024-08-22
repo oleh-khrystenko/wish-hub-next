@@ -8,14 +8,16 @@ import { useLocale, useTranslations } from 'next-intl';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 
 interface IProps {
-    classes?: string;
+    actionClasses?: string;
+    iconClasses?: string;
     link?: string;
     wishShow?: EPrivacy;
     children?: ReactNode;
 }
 
 const ShareButton: FC<IProps> = ({
-    classes,
+    actionClasses,
+    iconClasses,
     link = '',
     wishShow,
     children,
@@ -79,12 +81,12 @@ const ShareButton: FC<IProps> = ({
     return (
         <>
             <button
-                className={`${classes} flex items-center gap-2`}
+                className={`${actionClasses} flex items-center gap-2`}
                 type="button"
                 onClick={handleClick}
             >
+                <ShareIcon iconClasses={iconClasses} />
                 {children}
-                <ShareIcon />
             </button>
 
             <ConfirmModal

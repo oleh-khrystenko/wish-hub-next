@@ -32,7 +32,7 @@ const PrivacyChoices: FC<IProps> = ({
 
     return (
         <div className="mt-3 flex flex-col gap-2">
-            <span className="text-sm text-cyan-600 dark:text-cyan-300">
+            <span className="text-sm text-cyan-500 dark:text-cyan-300">
                 {mainPageT('can-see.title')}
             </span>
 

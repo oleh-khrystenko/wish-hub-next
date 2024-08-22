@@ -6,7 +6,7 @@
     --bg-second: #cbd5e1; /* gray-300 */
     --text: #27272a; /* zinc-800 */
     --scroll-bar: #a1a1aa; /* zinc-400 */
-    --input-label: #0891b2; /* cyan-600 */
+    --input-label: #06b6d4; /* cyan-500 */
 }
 
 [data-theme='dark'] {
@@ -20,6 +20,10 @@
     .text-balance {
         text-wrap: balance;
     }
+}
+
+.custom-max-height {
+    @apply max-h-[calc(100svh_-_32px)];
 }
 
 /********************* Scrollbar *********************/
@@ -151,6 +155,57 @@
 
     .shadow-border:before {
         box-shadow: 0 0 0 1px var(--input-label);
+    }
+
+    /* не можемо використати класи tailwind, бо їх перебивають дефолтні класи swiper */
+    .wish-swiper {
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+        }
+
+        .swiper-cube .swiper-cube-shadow:before {
+            background: var(--text);
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .swiper-button-prev {
+            margin-left: -10px;
+        }
+
+        .swiper-button-next {
+            margin-right: -10px;
+        }
+
+        .swiper-button-prev:after,
+        .swiper-button-next:after {
+            font-size: 20px;
+        }
+
+        .wish-swiper-nav {
+            padding: 4px;
+
+            .swiper-slide::before {
+                content: '';
+                position: absolute;
+                top: -4px;
+                right: -4px;
+                bottom: -4px;
+                left: -4px;
+                border: 2px solid transparent;
+                border-radius: 9px;
+            }
+
+            .swiper-slide-thumb-active::before {
+                border: 2px solid var(--input-label);
+            }
+        }
     }
 }
 /********************* Custom classes *********************/

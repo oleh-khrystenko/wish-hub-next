@@ -50,7 +50,7 @@ const WishItem: FC<IProps> = ({ wish, id, showWish, editWish }) => {
             onClick={showWish}
         >
             <div
-                className={`${wish.executed ? '-rotate-3 border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center gap-4 rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
+                className={`${wish.executed ? '-rotate-3 border-cyan-500 dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center gap-4 rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
             >
                 <div className="relative w-full pt-[100%]">
                     {wish.images?.length > 0 ? (
@@ -100,7 +100,7 @@ const WishItem: FC<IProps> = ({ wish, id, showWish, editWish }) => {
                     )}
 
                     {wish.executed && (
-                        <span className="worn-out absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-12 whitespace-nowrap rounded-md border-2 border-solid border-cyan-300 px-2 py-1 text-2xl font-bold uppercase text-cyan-300 backdrop-blur">
+                        <span className="worn-out absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-12 whitespace-nowrap rounded-md border-2 border-solid border-cyan-500 px-2 py-1 text-2xl font-bold uppercase text-cyan-300 backdrop-blur dark:border-cyan-300">
                             {mainPageT('fulfilled.single')}
                         </span>
                     )}

@@ -217,7 +217,7 @@ const FormContent: FC<IProps> = ({
                 {/* material */}
                 <div className="flex items-center justify-center gap-4">
                     <button
-                        className={`${material ? 'text-cyan-300' : 'text-zinc-700 dark:text-zinc-300'} font-bold`}
+                        className={`${material ? 'text-cyan-500 dark:text-cyan-300' : 'text-zinc-700 dark:text-zinc-300'} font-bold`}
                         type="button"
                         onClick={() => changeMaterial(true)}
                     >
@@ -227,7 +227,11 @@ const FormContent: FC<IProps> = ({
                         id="material"
                         name="material"
                         checked={material}
-                        bg={material ? 'bg-cyan-300' : 'bg-rose-500'}
+                        bg={
+                            material
+                                ? 'bg-cyan-500 dark:bg-cyan-300'
+                                : 'bg-rose-500'
+                        }
                         onChange={(e) => changeMaterial(e.target.checked)}
                     />
                     <button

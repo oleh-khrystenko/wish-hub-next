@@ -5,7 +5,7 @@ interface IProps {
 }
 
 const SortIcon: FC<IProps> = ({
-    classes = 'w-6 h-6 stroke-zinc-800 dark:stroke-zinc-300',
+    classes = 'w-6 h-6 stroke-cyan-500 dark:stroke-cyan-300',
 }) => {
     return (
         <svg
