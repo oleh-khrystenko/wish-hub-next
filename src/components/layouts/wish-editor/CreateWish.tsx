@@ -198,25 +198,21 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             images: show === EPrivacy.ALL ? images : encryptedImages,
         };
 
-        try {
-            const response = await createWish(
-                wishData,
-                alertsT('wishes-api.create-wish.error')
-            );
-            if (!response) return;
+        const response = await createWish(
+            wishData,
+            alertsT('wishes-api.create-wish.error')
+        );
+        if (!response) return;
 
-            const quote = response[activeLocale as ELang];
-            toast(
-                <QuoteMessage
-                    title={alertsT('wishes-api.create-wish.success')}
-                    text={quote?.text}
-                    author={quote?.author}
-                />,
-                { type: 'success' }
-            );
-        } catch (e: any) {
-            console.error(e);
-        }
+        const quote = response[activeLocale as ELang];
+        toast(
+            <QuoteMessage
+                title={alertsT('wishes-api.create-wish.success')}
+                text={quote?.text}
+                author={quote?.author}
+            />,
+            { type: 'success' }
+        );
 
         hideModals();
     };

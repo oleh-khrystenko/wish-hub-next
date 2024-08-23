@@ -1,4 +1,6 @@
 import { FC, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import dayjs, { Dayjs } from 'dayjs';
 import { IWish } from '@/models/Wish';
 import UiButton from '@/components/ui/UiButton';
@@ -20,9 +22,9 @@ interface IProps {
 }
 
 const BookWish: FC<IProps> = ({ wish, hide }) => {
-    const [show, setShow] = useState<boolean>(true);
+    const [show, setShow] = useState<boolean>(false);
+    const [bookEnd, setBookEnd] = useState<Date | null>(null);
     const [clickedOnBookWish, setClickedOnBookWish] = useState<boolean>(false);
-    const [bookEnd, setBookEnd] = useState<Dayjs | null>(null);
     const [bookEndError, setBookEndError] = useState<any | null>(null);
 
     const activeLocale = useLocale();
@@ -51,33 +53,38 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
         setShow(false);
     };
 
+    const handleChangeDate = (value: Date | null) => {
+        setBookEndError(null);
+        setBookEnd(value);
+    };
+
     const handleSubmit = async () => {
         setClickedOnBookWish(true);
 
         if (!myUser || !bookEnd || (bookEndError && bookEndError.length > 0))
             return;
 
-        try {
-            const response = await bookWish({
+        const response = await bookWish(
+            {
                 userId: myUser.id,
                 wishId: wish.id,
-                end: bookEnd.add(1, 'day').format(),
-            });
-            console.log('response: ', response);
-            // const quote = response[activeLocale as ELang];
-            // toast(
-            //     <QuoteMessage
-            //         title={alertsT('wishes-api.book-wish.success')}
-            //         text={quote?.text}
-            //         author={quote?.author}
-            //     />,
-            //     { type: 'success' }
-            // );
-        } catch (e: any) {
-            console.error(e);
-        }
+                end: dayjs(bookEnd).add(1, 'day').format(),
+            },
+            alertsT('wishes-api.book-wish.error')
+        );
+        if (!response) return;
 
-        close && close();
+        const quote = response[activeLocale as ELang];
+        toast(
+            <QuoteMessage
+                title={alertsT('wishes-api.book-wish.success')}
+                text={quote?.text}
+                author={quote?.author}
+            />,
+            { type: 'success' }
+        );
+
+        hide && hide();
     };
 
     return (
@@ -93,25 +100,30 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
                 confirmModalT={mainPageT('confirm-intention')}
                 closeModalT={mainPageT('leave_with_changes.close')}
             >
-                <p className="text-lg">
-                    {mainPageT('i-intend', {
-                        name: unencryptedData(wish.name, wish.show),
-                    })}
-                </p>
+                <div className="flex max-w-md flex-col gap-4">
+                    <p>
+                        {mainPageT('i-intend', {
+                            name: unencryptedData(wish.name, wish.show),
+                        })}
+                    </p>
 
-                <span>date-picker</span>
+                    <DatePicker
+                        selected={bookEnd}
+                        onChange={handleChangeDate}
+                    />
 
-                <p className="text book-wish-text">
-                    {mainPageT('after_you_confirm')}
-                    <span
-                        className="tooltip detail-wish-book-tooltip"
-                        data-tooltip-id="book-wish"
-                        data-tooltip-content={mainPageT('by_declaring')}
-                    >
-                        <InfoIcon />
-                    </span>
-                </p>
-                <UiTooltip id="book-wish" />
+                    <p>
+                        {mainPageT('after_you_confirm')}
+                        <span
+                            className="-mb-0.5 ml-1 inline-block cursor-pointer"
+                            data-tooltip-id="book-wish"
+                            data-tooltip-content={mainPageT('by_declaring')}
+                        >
+                            <InfoIcon />
+                        </span>
+                    </p>
+                    <UiTooltip id="book-wish" />
+                </div>
             </ConfirmModal>
         </>
     );

@@ -195,15 +195,11 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
             images: show === EPrivacy.ALL ? images : encryptedImages,
         };
 
-        try {
-            await updateWish(
-                { ...wishData, id: idOfSelectedWish },
-                alertsT('wishes-api.update-wish.success'),
-                alertsT('wishes-api.update-wish.error')
-            );
-        } catch (e: any) {
-            console.error(e);
-        }
+        await updateWish(
+            { ...wishData, id: idOfSelectedWish },
+            alertsT('wishes-api.update-wish.success'),
+            alertsT('wishes-api.update-wish.error')
+        );
 
         hideModals();
     };

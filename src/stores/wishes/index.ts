@@ -58,7 +58,7 @@ interface IWishesStore {
         successT: string,
         errorT: string
     ) => Promise<void>;
-    bookWish: (data: IBookWish) => Promise<IQuote | void>;
+    bookWish: (data: IBookWish, errorT: string) => Promise<IQuote | void>;
     cancelBookWish: (data: IActionWish) => Promise<void>;
     doneWish: (data: IDoneWish) => Promise<void>;
     undoneWish: (data: IActionWish) => Promise<void>;
@@ -167,7 +167,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
         }
     },
-    bookWish: async (data) => {
+    bookWish: async (data, errorT) => {
         set((state) => ({
             ...state,
             isLoading: true,
@@ -186,11 +186,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
             return response.data.quote;
         } catch (error: any) {
-            // toast(
-            //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.book-wish.error'),
-            //     { type: 'error' }
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
