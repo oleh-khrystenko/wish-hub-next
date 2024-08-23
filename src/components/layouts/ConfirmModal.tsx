@@ -30,7 +30,7 @@ const ConfirmModal: FC<IProps> = ({
                 {titleModalT || mainPageT('confirm-modal.title')}
             </span>
 
-            <span className="text-rose-700 dark:text-zinc-300">{children}</span>
+            <span className="text-zinc-700 dark:text-zinc-300">{children}</span>
 
             <div className="mt-6 flex items-center justify-end gap-4">
                 <UiButton variant="text-attention" onClick={confirm}>

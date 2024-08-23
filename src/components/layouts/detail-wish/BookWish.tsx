@@ -100,17 +100,20 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
                 confirmModalT={mainPageT('confirm-intention')}
                 closeModalT={mainPageT('leave_with_changes.close')}
             >
-                <div className="flex max-w-md flex-col gap-4">
+                <div className="flex max-w-md flex-col items-center gap-4">
                     <p>
                         {mainPageT('i-intend', {
                             name: unencryptedData(wish.name, wish.show),
                         })}
                     </p>
 
-                    <DatePicker
-                        selected={bookEnd}
-                        onChange={handleChangeDate}
-                    />
+                    <div className="wish-date-picker">
+                        <DatePicker
+                            placeholderText={mainPageT('including')}
+                            selected={bookEnd}
+                            onChange={handleChangeDate}
+                        />
+                    </div>
 
                     <p>
                         {mainPageT('after_you_confirm')}
