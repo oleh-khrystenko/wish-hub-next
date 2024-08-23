@@ -93,9 +93,6 @@ const ShareButton: FC<IProps> = ({
                 show={show}
                 confirm={shareContent}
                 hide={() => setShow(false)}
-                titleModalT={mainPageT('confirm-modal.title')}
-                confirmModalT={mainPageT('confirm-modal.confirm')}
-                closeModalT={mainPageT('confirm-modal.close')}
             >
                 {wishShow === EPrivacy.NOBODY
                     ? shareButtonT('question-nobody')

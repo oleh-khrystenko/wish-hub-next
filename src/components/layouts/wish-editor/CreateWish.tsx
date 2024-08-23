@@ -314,7 +314,6 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                 show={showConfirm}
                 confirm={hideModals}
                 hide={() => setShowConfirm(false)}
-                titleModalT={mainPageT('confirm-modal.title')}
                 confirmModalT={mainPageT('leave_with_changes.confirm')}
                 closeModalT={mainPageT('leave_with_changes.close')}
             >

@@ -383,7 +383,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                 show={showConfirmLeave}
                 confirm={hideModals}
                 hide={() => setShowConfirmLeave(false)}
-                titleModalT={mainPageT('confirm-modal.title')}
                 confirmModalT={mainPageT('leave_with_changes.confirm')}
                 closeModalT={mainPageT('leave_with_changes.close')}
             >
@@ -396,7 +395,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                 show={showConfirmDeleteWish}
                 confirm={handleDeleteWish}
                 hide={() => setShowConfirmDeleteWish(false)}
-                titleModalT={mainPageT('confirm-modal.title')}
                 confirmModalT={mainPageT('delete')}
                 closeModalT={mainPageT('leave_with_changes.close')}
             >

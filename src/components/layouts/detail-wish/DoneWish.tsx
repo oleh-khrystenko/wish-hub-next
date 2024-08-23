@@ -39,7 +39,6 @@ const DoneWish: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
                 show={show}
                 hide={() => setShow(false)}
                 confirm={handleSubmit}
-                titleModalT={mainPageT('confirm-modal.title')}
                 confirmModalT={mainPageT('wish-fulfilled')}
                 closeModalT={mainPageT('leave_with_changes.close')}
             >

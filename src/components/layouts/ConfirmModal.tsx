@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+import { useTranslations } from 'next-intl';
 import UiModal from '@/components/ui/UiModal';
 import UiButton from '@/components/ui/UiButton';
 
@@ -7,9 +8,9 @@ interface IProps {
     confirm: () => void;
     hide: () => void;
     children: ReactNode;
-    titleModalT: string;
-    confirmModalT: string;
-    closeModalT: string;
+    titleModalT?: string;
+    confirmModalT?: string;
+    closeModalT?: string;
 }
 
 const ConfirmModal: FC<IProps> = ({
@@ -21,19 +22,23 @@ const ConfirmModal: FC<IProps> = ({
     confirmModalT,
     closeModalT,
 }) => {
+    const mainPageT = useTranslations('main-page');
+
     return (
         <UiModal show={show}>
             <span className="mb-4 block text-center text-2xl font-bold text-rose-500">
-                {titleModalT}
+                {titleModalT || mainPageT('confirm-modal.title')}
             </span>
 
-            {children}
+            <span className="text-rose-700 dark:text-zinc-300">{children}</span>
 
             <div className="mt-6 flex items-center justify-end gap-4">
                 <UiButton variant="text-attention" onClick={confirm}>
-                    {confirmModalT}
+                    {confirmModalT || mainPageT('confirm-modal.confirm')}
                 </UiButton>
-                <UiButton onClick={hide}>{closeModalT}</UiButton>
+                <UiButton onClick={hide}>
+                    {closeModalT || mainPageT('confirm-modal.close')}
+                </UiButton>
             </div>
         </UiModal>
     );

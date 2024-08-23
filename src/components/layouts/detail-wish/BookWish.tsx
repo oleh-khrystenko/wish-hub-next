@@ -90,7 +90,6 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
                 show={show}
                 hide={handleHide}
                 confirm={handleSubmit}
-                titleModalT={mainPageT('confirm-modal.title')}
                 confirmModalT={mainPageT('confirm-intention')}
                 closeModalT={mainPageT('leave_with_changes.close')}
             >

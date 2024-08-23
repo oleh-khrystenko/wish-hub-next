@@ -36,7 +36,6 @@ const CancelBookWish: FC<IProps> = ({ wish, userId, hide }) => {
                 show={show}
                 confirm={handleSubmit}
                 hide={() => setShow(false)}
-                titleModalT={mainPageT('confirm-modal.title')}
                 confirmModalT={mainPageT('cancel-my-intention')}
                 closeModalT={mainPageT('leave_with_changes.close')}
             >
