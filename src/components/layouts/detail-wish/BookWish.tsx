@@ -146,13 +146,13 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
                             dateFormat={dateFormats[activeLocale as ELang]}
                             selected={bookEnd}
                             onChange={handleChangeDate}
-                            // minDate={new Date()}
-                            // maxDate={dayjs()
-                            //     .add(
-                            //         myUser?.id === wish.userId ? 10 : 1,
-                            //         'year'
-                            //     )
-                            //     .toDate()}
+                            minDate={new Date()}
+                            maxDate={dayjs()
+                                .add(
+                                    myUser?.id === wish.userId ? 10 : 1,
+                                    'year'
+                                )
+                                .toDate()}
                             showYearDropdown
                             showMonthDropdown
                             dropdownMode="scroll"
