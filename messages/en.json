@@ -380,7 +380,10 @@
             "text": "You have made changes to the wish creation form. Are you sure you want to close the window without saving?",
             "confirm": "Close without saving",
             "close": "Cancellation"
-        }
+        },
+        "enter_date": "Enter the date",
+        "enter_date_one": "You can select only future dates within one year.",
+        "enter_date_ten": "You can select only future dates within ten years."
     },
     "activation-link-expired-page": {
         "expired": "Account activation period has expired.",

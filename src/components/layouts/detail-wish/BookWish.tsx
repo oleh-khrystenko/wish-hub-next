@@ -1,6 +1,9 @@
 import { FC, useState } from 'react';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { uk } from 'date-fns/locale/uk';
+import { enUS } from 'date-fns/locale/en-US';
+import { ru } from 'date-fns/locale/ru';
 import dayjs, { Dayjs } from 'dayjs';
 import { IWish } from '@/models/Wish';
 import UiButton from '@/components/ui/UiButton';
@@ -15,6 +18,16 @@ import UiTooltip from '@/components/ui/UiTooltip';
 import InfoIcon from '@/components/icons/InfoIcon';
 import { ELang } from '@/models/Settings';
 import { useRouter } from 'next/navigation';
+
+registerLocale(ELang.UK, uk);
+registerLocale(ELang.EN, enUS);
+registerLocale(ELang.RU, ru);
+
+const dateFormats: Record<ELang, string> = {
+    [ELang.UK]: 'dd.MM.yyyy',
+    [ELang.EN]: 'MM/dd/yyyy',
+    [ELang.RU]: 'dd.MM.yyyy',
+};
 
 interface IProps {
     wish: IWish;
@@ -101,17 +114,49 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
                 closeModalT={mainPageT('leave_with_changes.close')}
             >
                 <div className="flex max-w-md flex-col items-center gap-4">
-                    <p>
+                    <p className="w-full">
                         {mainPageT('i-intend', {
                             name: unencryptedData(wish.name, wish.show),
                         })}
                     </p>
 
                     <div className="wish-date-picker">
+                        <div className="mb-0.5 flex items-center gap-1 pl-2">
+                            <span className="text-xs text-cyan-500 dark:text-cyan-300">
+                                {mainPageT('enter_date')}
+                            </span>
+
+                            <span
+                                className="cursor-pointer"
+                                data-tooltip-id="book-wish-date"
+                                data-tooltip-content={mainPageT(
+                                    myUser?.id === wish.userId
+                                        ? 'enter_date_ten'
+                                        : 'enter_date_one'
+                                )}
+                            >
+                                <InfoIcon />
+                            </span>
+                            <UiTooltip id="book-wish-date" />
+                        </div>
+
                         <DatePicker
                             placeholderText={mainPageT('including')}
+                            locale={activeLocale}
+                            dateFormat={dateFormats[activeLocale as ELang]}
                             selected={bookEnd}
                             onChange={handleChangeDate}
+                            // minDate={new Date()}
+                            // maxDate={dayjs()
+                            //     .add(
+                            //         myUser?.id === wish.userId ? 10 : 1,
+                            //         'year'
+                            //     )
+                            //     .toDate()}
+                            showYearDropdown
+                            showMonthDropdown
+                            dropdownMode="scroll"
+                            isClearable
                         />
                     </div>
 
