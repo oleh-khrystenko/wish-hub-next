@@ -1,11 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import DatePicker, { registerLocale } from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { uk } from 'date-fns/locale/uk';
-import { enUS } from 'date-fns/locale/en-US';
-import { ru } from 'date-fns/locale/ru';
 import dayjs from 'dayjs';
 import { toast } from 'react-toastify';
 import { IWish } from '@/models/Wish';
@@ -16,19 +11,10 @@ import { isAfter, isBefore } from '@/helpers/utils/date-validators';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import QuoteMessage from '@/components/layouts/wish-editor/QuoteMessage';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
+import UiDatePicker from '@/components/ui/UiDatePicker';
 import UiButton from '@/components/ui/UiButton';
 import UiTooltip from '@/components/ui/UiTooltip';
 import InfoIcon from '@/components/icons/InfoIcon';
-
-registerLocale(ELang.UK, uk);
-registerLocale(ELang.EN, enUS);
-registerLocale(ELang.RU, ru);
-
-const dateFormats: Record<ELang, string> = {
-    [ELang.UK]: 'dd.MM.yyyy',
-    [ELang.EN]: 'MM/dd/yyyy',
-    [ELang.RU]: 'dd.MM.yyyy',
-};
 
 interface IProps {
     wish: IWish;
@@ -136,31 +122,12 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
                         })}
                     </p>
 
-                    <div className="wish-date-picker flex flex-col items-center">
-                        <div className="flex flex-col gap-0.5">
-                            <span className="pl-2 text-xs text-cyan-500 dark:text-cyan-300">
-                                {mainPageT('enter_date')}*
-                            </span>
-
-                            <DatePicker
-                                placeholderText={mainPageT('including')}
-                                locale={activeLocale}
-                                dateFormat={dateFormats[activeLocale as ELang]}
-                                selected={bookEnd}
-                                onChange={handleChangeDate}
-                                showYearDropdown
-                                showMonthDropdown
-                                dropdownMode="scroll"
-                                isClearable
-                            />
-                        </div>
-
-                        {clickedOnSubmit && bookEndError.length > 0 && (
-                            <p className="mt-1 text-xs text-red-500">
-                                {bookEndError}
-                            </p>
-                        )}
-                    </div>
+                    <UiDatePicker
+                        bookEnd={bookEnd}
+                        bookEndError={bookEndError}
+                        clickedOnSubmit={clickedOnSubmit}
+                        handleChangeDate={handleChangeDate}
+                    />
 
                     <p>
                         {mainPageT('after_you_confirm')}
