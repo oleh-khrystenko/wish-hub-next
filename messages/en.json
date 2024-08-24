@@ -321,13 +321,12 @@
             "max": {
                 "my": "If you are not sure that you will realize your wish within 10 years, then you should not generally limit yourself to a specific date.",
                 "another": "Do you think it's reasonable to promise to fulfill a wish in more than a year?"
-            },
-            "invalid": "The entered date is invalid."
+            }
         },
         "will-fulfill": "I will fulfill wish",
         "confirm-intention": "Confirm intention",
         "i-intend": "I intend to fulfill the wish \"{name}\" by:",
-        "including": "including*",
+        "including": "including",
         "after_you_confirm": "After you confirm your intention, no other users will be able to book this wish. You will have the opportunity to cancel your wish within three days.",
         "by_declaring": "By declaring your intention to fulfill your wish, you take responsibility for its fulfillment. The Universe relies on you :) Constantly changing decisions can worsen your relationship with the Universe. Wish fulfillment affects your rating in the system.",
         "cancel-execution": "Cancel execution",
@@ -381,9 +380,7 @@
             "confirm": "Close without saving",
             "close": "Cancellation"
         },
-        "enter_date": "Enter the date",
-        "enter_date_one": "You can select only future dates within one year.",
-        "enter_date_ten": "You can select only future dates within ten years."
+        "enter_date": "Enter the date"
     },
     "activation-link-expired-page": {
         "expired": "Account activation period has expired.",

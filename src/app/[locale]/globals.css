@@ -425,6 +425,23 @@
             color: var(--bg-accent);
             stroke: var(--bg-accent);
         }
+
+        .react-datepicker__close-icon::after {
+            background-image: url('/icons/cross-icon.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-color: #a1a1aa;
+            border-radius: 6px;
+            background-position: center;
+            display: inline-block;
+            content: '';
+            width: 24px;
+            height: 24px;
+        }
+
+        .react-datepicker__close-icon {
+            background: none;
+        }
     }
 }
 /********************* Custom classes *********************/

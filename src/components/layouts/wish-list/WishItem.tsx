@@ -7,7 +7,7 @@ import { ECurrency, IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
-import isBookingExpired from '@/helpers/utils/is-booking-expired';
+import { isBookingExpired } from '@/helpers/utils/date-validators';
 import LikeAction from '@/components/layouts/LikeAction';
 import LogoIcon from '@/components/icons/LogoIcon';
 import EditIcon from '@/components/icons/EditIcon';

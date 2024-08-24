@@ -8,7 +8,7 @@ import { IUser } from '@/models/User';
 import WishSwiper from '@/components/layouts/detail-wish/WishSwiper';
 import WishContent from '@/components/layouts/detail-wish/WishContent';
 import { useMyUserStore } from '@/stores/my-user';
-import isBookingExpired from '@/helpers/utils/is-booking-expired';
+import { isBookingExpired } from '@/helpers/utils/date-validators';
 import LikeAction from '@/components/layouts/LikeAction';
 import UiButton from '@/components/ui/UiButton';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';

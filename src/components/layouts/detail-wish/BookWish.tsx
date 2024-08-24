@@ -1,23 +1,24 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { uk } from 'date-fns/locale/uk';
 import { enUS } from 'date-fns/locale/en-US';
 import { ru } from 'date-fns/locale/ru';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import { toast } from 'react-toastify';
 import { IWish } from '@/models/Wish';
-import UiButton from '@/components/ui/UiButton';
-import { useLocale, useTranslations } from 'next-intl';
+import { ELang } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
+import { useWishesStore } from '@/stores/wishes';
+import { isAfter, isBefore } from '@/helpers/utils/date-validators';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import QuoteMessage from '@/components/layouts/wish-editor/QuoteMessage';
-import { toast } from 'react-toastify';
-import { useWishesStore } from '@/stores/wishes';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
+import UiButton from '@/components/ui/UiButton';
 import UiTooltip from '@/components/ui/UiTooltip';
 import InfoIcon from '@/components/icons/InfoIcon';
-import { ELang } from '@/models/Settings';
-import { useRouter } from 'next/navigation';
 
 registerLocale(ELang.UK, uk);
 registerLocale(ELang.EN, enUS);
@@ -37,19 +38,18 @@ interface IProps {
 const BookWish: FC<IProps> = ({ wish, hide }) => {
     const [show, setShow] = useState<boolean>(false);
     const [bookEnd, setBookEnd] = useState<Date | null>(null);
-    const [clickedOnBookWish, setClickedOnBookWish] = useState<boolean>(false);
-    const [bookEndError, setBookEndError] = useState<any | null>(null);
-
-    const activeLocale = useLocale();
+    const [bookEndError, setBookEndError] = useState<string>('');
+    const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
 
     const router = useRouter();
+
+    const activeLocale = useLocale();
+    const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
     const bookWish = useWishesStore((state) => state.bookWish);
-
-    const mainPageT = useTranslations('main-page');
-    const alertsT = useTranslations('alerts');
 
     const handleBookWish = () => {
         if (myUser) {
@@ -61,21 +61,20 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
 
     const handleHide = () => {
         setBookEnd(null);
-        setBookEndError(null);
-        setClickedOnBookWish(false);
+        setBookEndError('');
+        setClickedOnSubmit(false);
         setShow(false);
     };
 
     const handleChangeDate = (value: Date | null) => {
-        setBookEndError(null);
+        setBookEndError('');
         setBookEnd(value);
     };
 
     const handleSubmit = async () => {
-        setClickedOnBookWish(true);
+        setClickedOnSubmit(true);
 
-        if (!myUser || !bookEnd || (bookEndError && bookEndError.length > 0))
-            return;
+        if (!myUser || !bookEnd || bookEndError.length > 0) return;
 
         const response = await bookWish(
             {
@@ -97,8 +96,25 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
             { type: 'success' }
         );
 
+        handleHide();
         hide && hide();
     };
+
+    useEffect(() => {
+        if (bookEnd === null) {
+            setBookEndError(mainPageT('book-end-errors.required'));
+        } else if (isBefore(bookEnd, -1)) {
+            setBookEndError(mainPageT('book-end-errors.past'));
+        } else if (isAfter(bookEnd, myUser?.id === wish.userId ? 10 : 1)) {
+            setBookEndError(
+                mainPageT(
+                    `book-end-errors.max.${myUser?.id === wish.userId ? 'my' : 'another'}`
+                )
+            );
+        } else {
+            setBookEndError('');
+        }
+    }, [clickedOnSubmit, bookEnd, bookEndError]);
 
     return (
         <>
@@ -120,44 +136,30 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
                         })}
                     </p>
 
-                    <div className="wish-date-picker">
-                        <div className="mb-0.5 flex items-center gap-1 pl-2">
-                            <span className="text-xs text-cyan-500 dark:text-cyan-300">
-                                {mainPageT('enter_date')}
+                    <div className="wish-date-picker flex flex-col items-center">
+                        <div className="flex flex-col gap-0.5">
+                            <span className="pl-2 text-xs text-cyan-500 dark:text-cyan-300">
+                                {mainPageT('enter_date')}*
                             </span>
 
-                            <span
-                                className="cursor-pointer"
-                                data-tooltip-id="book-wish-date"
-                                data-tooltip-content={mainPageT(
-                                    myUser?.id === wish.userId
-                                        ? 'enter_date_ten'
-                                        : 'enter_date_one'
-                                )}
-                            >
-                                <InfoIcon />
-                            </span>
-                            <UiTooltip id="book-wish-date" />
+                            <DatePicker
+                                placeholderText={mainPageT('including')}
+                                locale={activeLocale}
+                                dateFormat={dateFormats[activeLocale as ELang]}
+                                selected={bookEnd}
+                                onChange={handleChangeDate}
+                                showYearDropdown
+                                showMonthDropdown
+                                dropdownMode="scroll"
+                                isClearable
+                            />
                         </div>
 
-                        <DatePicker
-                            placeholderText={mainPageT('including')}
-                            locale={activeLocale}
-                            dateFormat={dateFormats[activeLocale as ELang]}
-                            selected={bookEnd}
-                            onChange={handleChangeDate}
-                            minDate={new Date()}
-                            maxDate={dayjs()
-                                .add(
-                                    myUser?.id === wish.userId ? 10 : 1,
-                                    'year'
-                                )
-                                .toDate()}
-                            showYearDropdown
-                            showMonthDropdown
-                            dropdownMode="scroll"
-                            isClearable
-                        />
+                        {clickedOnSubmit && bookEndError.length > 0 && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {bookEndError}
+                            </p>
+                        )}
                     </div>
 
                     <p>
