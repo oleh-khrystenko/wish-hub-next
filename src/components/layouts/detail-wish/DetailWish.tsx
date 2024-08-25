@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState, useRef, useEffect } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import { IWish } from '@/models/Wish';
@@ -26,6 +26,9 @@ interface IProps {
 }
 
 const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
+    const [bodyHeight, setBodyHeight] = useState<number>(0);
+    const footRef = useRef<HTMLDivElement>(null);
+
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -36,6 +39,12 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
 
     const showDeliveryAddress =
         selectedUser?.deliveryAddress && myUser?.id === wish.booking?.userId;
+
+    useEffect(() => {
+        const footHeight = footRef.current?.clientHeight || 0;
+
+        setBodyHeight(window.innerHeight - footHeight - 32);
+    }, [footRef.current]);
 
     // бажання належить тому хто створював його
     // && бажання можна скасувати за 3 дні до початку
@@ -74,13 +83,19 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
 
     return (
         <>
-            <div className="custom-max-height -mr-1.5 grid h-auto w-full grid-cols-1 overflow-y-auto tablet-md:max-h-[88svh] desktop-xs:mr-0 desktop-xs:max-h-fit desktop-xs:grid-cols-8 desktop-xs:gap-6">
+            <div
+                style={{ height: `${bodyHeight}px` }}
+                className="-mr-1.5 grid w-full grid-cols-1 overflow-y-auto tablet-md:max-h-[88svh] desktop-xs:mr-0 desktop-xs:max-h-fit desktop-xs:grid-cols-8 desktop-xs:gap-6"
+            >
                 {wish.images.length > 0 && <WishSwiper wish={wish} />}
 
                 <WishContent wish={wish} />
             </div>
 
-            <div className="w-full px-4 pt-5 tablet-md:px-5 tablet-lg:px-8">
+            <div
+                className="w-full px-4 pt-5 tablet-md:px-5 tablet-lg:px-8"
+                ref={footRef}
+            >
                 {showDeliveryAddress && (
                     <p className="text-right text-zinc-600 dark:text-zinc-400">
                         {mainPageT('you_can_send')}
