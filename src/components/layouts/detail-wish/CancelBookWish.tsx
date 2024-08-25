@@ -28,9 +28,14 @@ const CancelBookWish: FC<IProps> = ({ wish, userId, hide }) => {
 
     return (
         <>
-            <UiButton variant="text" onClick={() => setShow(true)}>
-                {mainPageT('cancel-execution')}
-            </UiButton>
+            <div className="-mr-4 ml-auto">
+                <UiButton
+                    variant="text-attention"
+                    onClick={() => setShow(true)}
+                >
+                    {mainPageT('cancel-execution')}
+                </UiButton>
+            </div>
 
             <ConfirmModal
                 show={show}

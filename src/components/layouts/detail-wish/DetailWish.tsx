@@ -46,6 +46,10 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
         setBodyHeight(window.innerHeight - footHeight - 32);
     }, [footRef.current]);
 
+    // я забронював або створив бажання
+    const myUserBookedOrCreatedWish =
+        myUser?.id === wish.booking?.userId || myUser?.id === wish.userId;
+
     // бажання належить тому хто створював його
     // && бажання можна скасувати за 3 дні до початку
     // && термін виконання ще не минув
@@ -104,22 +108,23 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
                 )}
 
                 <div className="flex w-full flex-col gap-3 tablet-lg:flex-row tablet-lg:items-center tablet-lg:justify-between tablet-lg:gap-5">
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center justify-center gap-1">
                         <LikeAction wish={wish} type="likes" hide={hide} />
 
                         <LikeAction wish={wish} type="dislikes" hide={hide} />
                     </div>
 
-                    <div className="flex flex-col tablet-md:flex-row tablet-md:items-center tablet-md:gap-5">
+                    <div className="flex flex-col gap-1 tablet-md:flex-row tablet-md:items-center tablet-md:gap-5">
                         {wish.booking?.end && (
-                            <p className="flex items-center gap-1 text-zinc-700 dark:text-zinc-300">
-                                {myUser?.id === wish.booking?.userId ||
-                                myUser?.id === wish.userId ? (
+                            <p className="flex flex-wrap items-center justify-end gap-1 text-zinc-700 dark:text-zinc-300">
+                                {myUserBookedOrCreatedWish ? (
                                     <>
-                                        {myUser?.id === wish.booking?.userId
-                                            ? mainPageT('you-must')
-                                            : mainPageT('wish-must')}
                                         <span>
+                                            {myUser?.id === wish.booking?.userId
+                                                ? mainPageT('you-must')
+                                                : mainPageT('wish-must')}
+                                        </span>
+                                        <span className="font-bold">
                                             {dayjs(wish.booking?.end)
                                                 .locale(activeLocale)
                                                 .format(getFullDate())}
