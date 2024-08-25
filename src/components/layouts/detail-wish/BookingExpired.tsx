@@ -19,6 +19,7 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
     const [show, setShow] = useState<boolean>(true);
 
     const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
 
     const undoneWish = useWishesStore((state) => state.undoneWish);
     const doneWish = useWishesStore((state) => state.doneWish);
@@ -26,14 +27,22 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
     const handleUndone = async () => {
         if (!userId) return;
 
-        await undoneWish({ userId, wishId: wish.id });
+        await undoneWish(
+            { userId, wishId: wish.id },
+            alertsT('wishes-api.undone-wish.success'),
+            alertsT('wishes-api.undone-wish.error')
+        );
         hide();
     };
 
     const handleDone = async () => {
         if (!userId) return;
 
-        await doneWish({ userId, wishId: wish.id, whoseWish });
+        await doneWish(
+            { userId, wishId: wish.id, whoseWish },
+            alertsT('wishes-api.done-wish.success'),
+            alertsT('wishes-api.done-wish.error')
+        );
         hide();
     };
 
@@ -44,11 +53,11 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
             </UiButton>
 
             <UiModal show={show} hide={() => setShow(false)}>
-                <h3 className="title attention">
+                <span className="block text-center text-2xl font-bold text-rose-500">
                     {mainPageT('confirm-modal.title')}
-                </h3>
+                </span>
 
-                <p className="text-lg">
+                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
                     {mainPageT('period-expired', {
                         name: unencryptedData(wish.name, wish.show),
                     })}
@@ -57,12 +66,14 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
                     {mainPageT('is_your_wish')}
                 </p>
 
-                <div className="modal-actions detail-wish-expired-actions">
+                <div className="mt-6 flex items-center justify-end gap-5">
+                    <UiButton variant="text-attention" onClick={handleDone}>
+                        {mainPageT('yes')}
+                    </UiButton>
+
                     <UiButton onClick={handleUndone}>
                         {mainPageT('no')}
                     </UiButton>
-
-                    <UiButton onClick={handleDone}>{mainPageT('yes')}</UiButton>
                 </div>
             </UiModal>
         </>

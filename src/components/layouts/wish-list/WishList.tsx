@@ -225,7 +225,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
                 <ul
-                    className="wish-list-scrollbar mt-6 grid grow grid-cols-3 gap-4 overflow-y-auto overflow-x-hidden p-2.5"
+                    className="wish-list-scrollbar mt-6 grid grow grid-cols-2 gap-4 overflow-y-auto overflow-x-hidden p-2.5 tablet-xl:grid-cols-3"
                     ref={wishListRef}
                 >
                     {myUser?.id === selectedUserId && (
@@ -308,7 +308,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
             {isLoading && <Loading isLocal />}
 
             {detailWish && (
-                <UiModal show={showWish} hide={handleHideWish}>
+                <UiModal show={showWish} px="px-0 pr-1" hide={handleHideWish}>
                     <DetailWish
                         wish={detailWish}
                         selectedUser={selectedUser}

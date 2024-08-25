@@ -37,17 +37,28 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
     const showDeliveryAddress =
         selectedUser?.deliveryAddress && myUser?.id === wish.booking?.userId;
 
+    // бажання належить тому хто створював його
+    // && бажання можна скасувати за 3 дні до початку
+    // && термін виконання ще не минув
     const showCancelBookWish =
-        myUser?.id === wish.booking?.userId && // бажання належить тому хто створював його
-        !dayjs().isAfter(dayjs(wish.booking?.start).add(3, 'days')) && // бажання можна скасувати за 3 дні до початку
-        !dayjs(wish.booking?.end).isSameOrBefore(dayjs()); // термін виконання ще не минув
+        myUser?.id === wish.booking?.userId &&
+        !dayjs().isAfter(dayjs(wish.booking?.start).add(3, 'days')) &&
+        !dayjs(wish.booking?.end).isSameOrBefore(dayjs());
 
+    // бажання належить користувачу
+    // && бажання не виконане
+    // && термін виконання ще не минув
     const showDoneWish =
-        myUser?.id === wish.userId && // бажання належить користувачу
-        !wish.executed && // бажання не виконане
-        !isBookingExpired(wish, myUser?.id); // термін виконання ще не минув
+        myUser?.id === wish.userId &&
+        !wish.executed &&
+        !isBookingExpired(wish, myUser?.id);
 
-    const showEditWish = myUser?.id === wish.userId && !wish.booking?.end; // бажання належить користувачу і не заброньовано
+    // бажання належить користувачу і не заброньовано
+    const showEditWish = myUser?.id === wish.userId && !wish.booking?.end;
+
+    // бажання належить користувачу і термін виконання минув
+    const showBookingExpired =
+        myUser?.id === wish.userId && isBookingExpired(wish, myUser?.id);
 
     // МОЖЛИВІ КЕЙСИ
     // Моє бажання / не моє
@@ -63,15 +74,15 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
 
     return (
         <>
-            <div className="custom-max-height -mr-1.5 grid h-auto w-full grid-cols-1 overflow-y-auto pr-1.5 tablet-md:max-h-[88svh] desktop-xs:mr-0 desktop-xs:max-h-fit desktop-xs:grid-cols-8 desktop-xs:gap-6 desktop-xs:pr-0">
-                <WishSwiper wish={wish} />
+            <div className="custom-max-height -mr-1.5 grid h-auto w-full grid-cols-1 overflow-y-auto tablet-md:max-h-[88svh] desktop-xs:mr-0 desktop-xs:max-h-fit desktop-xs:grid-cols-8 desktop-xs:gap-6">
+                {wish.images.length > 0 && <WishSwiper wish={wish} />}
 
                 <WishContent wish={wish} />
             </div>
 
-            <div className="w-full pt-5">
+            <div className="w-full px-4 pt-5 tablet-md:px-5 tablet-lg:px-8">
                 {showDeliveryAddress && (
-                    <p className="text-center text-zinc-600 dark:text-zinc-400">
+                    <p className="text-right text-zinc-600 dark:text-zinc-400">
                         {mainPageT('you_can_send')}
                         {selectedUser.deliveryAddress}
                     </p>
@@ -86,7 +97,7 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
 
                     <div className="flex flex-col tablet-md:flex-row tablet-md:items-center tablet-md:gap-5">
                         {wish.booking?.end && (
-                            <p className="detail-wish-actions-booked">
+                            <p className="flex items-center gap-1 text-zinc-700 dark:text-zinc-300">
                                 {myUser?.id === wish.booking?.userId ||
                                 myUser?.id === wish.userId ? (
                                     <>
@@ -134,7 +145,7 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
                         )}
 
                         {/* Booking Expired */}
-                        {isBookingExpired(wish, myUser?.id) && (
+                        {showBookingExpired && (
                             <BookingExpired
                                 wish={wish}
                                 userId={myUser?.id}

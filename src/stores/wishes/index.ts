@@ -60,8 +60,16 @@ interface IWishesStore {
     ) => Promise<void>;
     bookWish: (data: IBookWish, errorT: string) => Promise<IQuote | void>;
     cancelBookWish: (data: IActionWish) => Promise<void>;
-    doneWish: (data: IDoneWish) => Promise<void>;
-    undoneWish: (data: IActionWish) => Promise<void>;
+    doneWish: (
+        data: IDoneWish,
+        successT: string,
+        errorT: string
+    ) => Promise<void>;
+    undoneWish: (
+        data: IActionWish,
+        successT: string,
+        errorT: string
+    ) => Promise<void>;
     likeWish: (data: IActionWish, errorT: string) => Promise<void>;
     dislikeWish: (data: IActionWish, errorT: string) => Promise<void>;
     deleteWish: (
@@ -227,7 +235,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
         }
     },
-    doneWish: async (data) => {
+    doneWish: async (data, successT, errorT) => {
         set((state) => ({
             ...state,
             isLoading: true,
@@ -244,13 +252,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 };
             });
 
-            // toast(t('alerts.wishes-api.done-wish.success'), { type: 'success' });
+            toast(successT, { type: 'success' });
         } catch (error: any) {
-            // toast(
-            //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.done-wish.error'),
-            //     { type: 'error' }
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -258,7 +262,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
         }
     },
-    undoneWish: async (data) => {
+    undoneWish: async (data, successT, errorT) => {
         set((state) => ({
             ...state,
             isLoading: true,
@@ -275,13 +279,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 };
             });
 
-            // toast(t('alerts.wishes-api.undone-wish.success'), { type: 'success' });
+            toast(successT, { type: 'success' });
         } catch (error: any) {
-            // toast(
-            //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.undone-wish.error'),
-            //     { type: 'error' }
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,

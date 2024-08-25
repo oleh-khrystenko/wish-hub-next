@@ -35,7 +35,7 @@
 }
 
 .custom-max-height {
-    @apply max-h-[calc(100svh_-_32px)];
+    @apply max-h-[calc(100svh_-_224px)];
 }
 
 /********************* Scrollbar *********************/
