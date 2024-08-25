@@ -32,7 +32,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
     const selectOptions: IOption[] = [
         {
             label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
                     {mainPageT('all')}
                 </span>
             ),
@@ -40,7 +40,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
         },
         {
             label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
                     {mainPageT('unfulfilled')}
                 </span>
             ),
@@ -48,7 +48,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
         },
         {
             label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
                     {mainPageT('fulfilled.plural')}
                 </span>
             ),
@@ -111,7 +111,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
 
     return (
         <div className="flex w-full items-end gap-3 pl-2.5">
-            <div className="w-2/5">
+            <div className="w-1/2 tablet-md:w-2/5">
                 <UiSelect
                     options={selectOptions}
                     value={status}

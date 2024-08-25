@@ -212,7 +212,7 @@ const UserList: FC = () => {
     return (
         <>
             {myUser && (
-                <div className="mt-4 flex items-center gap-3">
+                <div className="mb-6 flex items-center gap-3">
                     <span className="text-base text-zinc-800 dark:text-zinc-300">
                         {mainPageT('filter')}:
                     </span>

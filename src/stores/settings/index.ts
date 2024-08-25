@@ -3,14 +3,14 @@ import { ETheme } from '@/models/Settings';
 
 interface ISettingsStore {
     theme: ETheme;
-    showBurgerMenu: boolean;
+    activatedBurgerMenu: boolean;
     setTheme: (value: ETheme) => void;
-    setShowBurgerMenu: (value: boolean) => void;
+    setActivatedBurgerMenu: (value: boolean) => void;
 }
 
 export const useSettingsStore = create<ISettingsStore>((set) => ({
     theme: ETheme.DARK,
-    showBurgerMenu: false,
+    activatedBurgerMenu: false,
     setTheme: (value) => set({ theme: value }),
-    setShowBurgerMenu: (value) => set({ showBurgerMenu: value }),
+    setActivatedBurgerMenu: (value) => set({ activatedBurgerMenu: value }),
 }));

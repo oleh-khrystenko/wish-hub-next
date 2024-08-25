@@ -25,7 +25,7 @@ const ConfirmModal: FC<IProps> = ({
     const mainPageT = useTranslations('main-page');
 
     return (
-        <UiModal show={show}>
+        <UiModal show={show} rounded="rounded-2xl">
             <span className="mb-4 block text-center text-2xl font-bold text-rose-500">
                 {titleModalT || mainPageT('confirm-modal.title')}
             </span>

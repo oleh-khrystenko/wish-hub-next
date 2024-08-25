@@ -73,16 +73,19 @@ const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
     return (
         <div className="flex items-center">
             <button
-                className={`${type === 'dislikes' ? '-scale-100' : ''} p-2`}
+                className={`${type === 'dislikes' ? '-scale-100' : ''} p-1 tablet-md:p-2`}
                 type="button"
                 onClick={handleAction}
             >
-                <LikeIcon classes={`${iconColor} w-6 h-6`} solid={iLiked} />
+                <LikeIcon
+                    classes={`${iconColor} w-5 h-5 tablet-md:w-6 tablet-md:h-6`}
+                    solid={iLiked}
+                />
             </button>
 
             <div className="relative">
                 <button
-                    className="flex min-w-10 items-center p-2 text-base text-zinc-700 dark:text-zinc-400"
+                    className="min-w-8 items-center p-1 text-base text-zinc-700 dark:text-zinc-400 tablet-md:min-w-10 tablet-md:p-2"
                     type="button"
                     onClick={() => setShowPopup(true)}
                 >

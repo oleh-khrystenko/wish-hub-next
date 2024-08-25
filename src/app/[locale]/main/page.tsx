@@ -9,7 +9,7 @@ export default function Main() {
     const messages = useMessages();
 
     return (
-        <main className="flex h-svh flex-col p-1 tablet-md:gap-1">
+        <main className="flex h-svh flex-col tablet-md:gap-1 tablet-md:p-1">
             <NextIntlClientProvider
                 messages={pick(messages, [
                     'main-page',

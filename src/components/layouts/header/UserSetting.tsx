@@ -1,10 +1,10 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
-import { ETheme } from '@/models/Settings';
+import { EPrivacy, ETheme } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useSettingsStore } from '@/stores/settings';
@@ -45,8 +45,8 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
     const logout = useMyUserStore((state) => state.logout);
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
     const theme = useSettingsStore((state) => state.theme);
-    const setShowBurgerMenu = useSettingsStore(
-        (state) => state.setShowBurgerMenu
+    const setActivatedBurgerMenu = useSettingsStore(
+        (state) => state.setActivatedBurgerMenu
     );
 
     const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
@@ -63,7 +63,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
 
         await getInitialWishList(myUser.id, myUser.id, EWishSort.CREATED_DESC);
         setShowPopup(false);
-        setShowBurgerMenu(false);
+        setActivatedBurgerMenu(false);
     };
 
     const handleHidePopup = () => {
@@ -79,7 +79,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
     };
 
     return (
-        <div className="relative flex items-center justify-center gap-4">
+        <div className="relative ml-auto flex items-center justify-center gap-4">
             {myUser ? (
                 <>
                     {myUser.id === selectedUserId ? (
@@ -197,7 +197,8 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                     </UiButton>
 
                     <ShareButton
-                        actionClasses="flex-row-reverse mr-auto"
+                        wishShow={EPrivacy.NOBODY}
+                        actionClasses="mr-auto"
                         iconClasses="h-6 w-6 fill-zinc-800 dark:fill-zinc-300"
                     >
                         <span className="flex items-center gap-2 py-1.5 text-lg font-bold text-zinc-800 dark:text-zinc-300">

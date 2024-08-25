@@ -225,7 +225,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
                 <ul
-                    className="wish-list-scrollbar mt-6 grid grow grid-cols-2 gap-4 overflow-y-auto overflow-x-hidden p-2.5 tablet-xl:grid-cols-3"
+                    className="wish-list-scrollbar mt-6 grid grow grid-cols-2 gap-1.5 overflow-y-auto overflow-x-hidden p-2.5 tablet-xl:grid-cols-3 tablet-xl:gap-4"
                     ref={wishListRef}
                 >
                     {myUser?.id === selectedUserId && (
