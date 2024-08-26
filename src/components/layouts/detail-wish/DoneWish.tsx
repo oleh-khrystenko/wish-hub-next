@@ -19,21 +19,28 @@ const DoneWish: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
 
     const doneWish = useWishesStore((state) => state.doneWish);
 
     const handleSubmit = async () => {
         if (!userId) return;
 
-        await doneWish({ userId, wishId: wish.id, whoseWish });
+        await doneWish(
+            { userId, wishId: wish.id, whoseWish },
+            alertsT('wishes-api.done-wish.success'),
+            alertsT('wishes-api.done-wish.error')
+        );
         hide();
     };
 
     return (
         <>
-            <UiButton variant="text" onClick={() => setShow(true)}>
-                {mainPageT('wish-fulfilled')}
-            </UiButton>
+            <div className="-mr-4 ml-auto">
+                <UiButton variant="text-btn" onClick={() => setShow(true)}>
+                    {mainPageT('wish-fulfilled')}
+                </UiButton>
+            </div>
 
             <ConfirmModal
                 show={show}

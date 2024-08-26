@@ -5,18 +5,19 @@ import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import { IWish } from '@/models/Wish';
 import { IUser } from '@/models/User';
-import WishSwiper from '@/components/layouts/detail-wish/WishSwiper';
-import WishContent from '@/components/layouts/detail-wish/WishContent';
+import { EWhoseWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { isBookingExpired } from '@/helpers/utils/date-validators';
-import LikeAction from '@/components/layouts/LikeAction';
-import UiButton from '@/components/ui/UiButton';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
-import { EWhoseWish } from '@/stores/wishes/types';
+import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
+import WishSwiper from '@/components/layouts/detail-wish/WishSwiper';
+import WishContent from '@/components/layouts/detail-wish/WishContent';
+import LikeAction from '@/components/layouts/LikeAction';
 import BookWish from '@/components/layouts/detail-wish/BookWish';
 import CancelBookWish from '@/components/layouts/detail-wish/CancelBookWish';
 import DoneWish from '@/components/layouts/detail-wish/DoneWish';
 import BookingExpired from '@/components/layouts/detail-wish/BookingExpired';
+import UiButton from '@/components/ui/UiButton';
 
 interface IProps {
     wish: IWish;
@@ -36,6 +37,7 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
     const activeLocale = useLocale();
 
     const { getFullDate } = UseLocaleFormats();
+    const screenWidth = UseScreenWidth();
 
     const showDeliveryAddress =
         selectedUser?.deliveryAddress && myUser?.id === wish.booking?.userId;
@@ -88,8 +90,10 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
     return (
         <>
             <div
-                style={{ height: `${bodyHeight}px` }}
-                className="-mr-1.5 grid w-full grid-cols-1 overflow-y-auto tablet-md:max-h-[88svh] desktop-xs:mr-0 desktop-xs:max-h-fit desktop-xs:grid-cols-8 desktop-xs:gap-6"
+                style={{
+                    height: screenWidth < 768 ? `${bodyHeight}px` : 'auto',
+                }}
+                className="-mr-1.5 grid w-full grid-cols-1 overflow-y-auto tablet-md:max-h-[76svh] desktop-xs:mr-0 desktop-xs:max-h-fit desktop-xs:grid-cols-8 desktop-xs:gap-0"
             >
                 {wish.images.length > 0 && <WishSwiper wish={wish} />}
 
@@ -116,7 +120,9 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
 
                     <div className="flex flex-col gap-1 tablet-md:flex-row tablet-md:items-center tablet-md:gap-5">
                         {wish.booking?.end && (
-                            <p className="flex flex-wrap items-center justify-end gap-1 text-zinc-700 dark:text-zinc-300">
+                            <p
+                                className={`${isBookingExpired(wish, myUser?.id) ? 'text-rose-500' : 'text-zinc-700 dark:text-zinc-300'} flex flex-wrap items-center justify-end gap-1`}
+                            >
                                 {myUserBookedOrCreatedWish ? (
                                     <>
                                         <span>
@@ -180,9 +186,11 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
 
                         {/* Edit Wish */}
                         {showEditWish && (
-                            <UiButton onClick={handleEditWish}>
-                                {mainPageT('edit-wish')}
-                            </UiButton>
+                            <div className="ml-auto mt-3 w-fit">
+                                <UiButton onClick={handleEditWish}>
+                                    {mainPageT('edit-wish')}
+                                </UiButton>
+                            </div>
                         )}
                     </div>
                 </div>

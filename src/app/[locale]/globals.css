@@ -176,21 +176,6 @@
             background: var(--text);
         }
 
-        .swiper-slide img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .swiper-button-prev {
-            margin-left: -10px;
-        }
-
-        .swiper-button-next {
-            margin-right: -10px;
-        }
-
         .swiper-button-prev:after,
         .swiper-button-next:after {
             font-size: 20px;
@@ -207,7 +192,7 @@
                 bottom: -4px;
                 left: -4px;
                 border: 2px solid transparent;
-                border-radius: 9px;
+                border-radius: 8px;
             }
 
             .swiper-slide-thumb-active::before {

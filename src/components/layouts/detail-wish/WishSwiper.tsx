@@ -29,8 +29,12 @@ const WishSwiper: FC<IProps> = ({ wish }) => {
     screenWidth >= 390 && (slidesPerView = 4);
     screenWidth >= 600 && (slidesPerView = 5);
 
+    const handleZoomImg = () => {
+        console.log('Zoom image');
+    };
+
     return (
-        <div className="wish-swiper relative mx-auto mb-2.5 h-60 min-h-60 w-[276px] min-w-[276px] px-4 mobile-xs:h-[280px] mobile-xs:min-h-[280px] mobile-xs:w-[280px] mobile-xs:min-w-[280px] mobile-sm:h-[310px] mobile-sm:min-h-[310px] mobile-sm:w-[310px] mobile-sm:min-w-[310px] mobile-md:h-[332px] mobile-md:min-h-[332px] mobile-md:w-[332px] mobile-md:min-w-[332px] mobile-lg:h-[350px] mobile-lg:min-h-[350px] mobile-lg:w-[350px] mobile-lg:min-w-[350px] mobile-2xl:h-[440px] mobile-2xl:min-h-[440px] mobile-2xl:w-[440px] mobile-2xl:min-w-[440px] tablet-sm:h-[520px] tablet-sm:min-h-[520px] tablet-sm:w-[520px] tablet-sm:min-w-[520px] tablet-md:mb-0 tablet-md:h-[345px] tablet-md:min-h-[345px] tablet-md:w-[345px] tablet-md:min-w-[345px] tablet-md:px-5 tablet-lg:px-8 desktop-xs:col-span-3 desktop-sm:mx-0">
+        <div className="wish-swiper relative mx-auto mb-2.5 h-[282px] min-h-[282px] w-[282px] min-w-[282px] mobile-xs:h-[322px] mobile-xs:min-h-[322px] mobile-xs:w-[322px] mobile-xs:min-w-[322px] mobile-sm:h-[352px] mobile-sm:min-h-[352px] mobile-sm:w-[352px] mobile-sm:min-w-[352px] mobile-md:h-[374px] mobile-md:min-h-[374px] mobile-md:w-[374px] mobile-md:min-w-[374px] mobile-lg:h-[392px] mobile-lg:min-h-[392px] mobile-lg:w-[392px] mobile-lg:min-w-[392px] mobile-2xl:h-[482px] mobile-2xl:min-h-[482px] mobile-2xl:w-[482px] mobile-2xl:min-w-[482px] tablet-sm:h-[562px] tablet-sm:min-h-[562px] tablet-sm:w-[562px] tablet-sm:min-w-[562px] tablet-md:mb-0 tablet-md:h-[626px] tablet-md:min-h-[626px] tablet-md:w-[626px] tablet-md:min-w-[626px] desktop-xs:col-span-3 desktop-xs:h-[384px] desktop-xs:min-h-[384px] desktop-xs:w-[384px] desktop-xs:min-w-[384px] desktop-xs:pl-8 desktop-sm:mx-0">
             <Swiper
                 className="h-full"
                 style={
@@ -47,6 +51,7 @@ const WishSwiper: FC<IProps> = ({ wish }) => {
                 thumbs={{ swiper: thumbsSwiper }}
                 navigation={wish.images.length > 1}
                 modules={[EffectCube, FreeMode, Navigation, Thumbs]}
+                onClick={handleZoomImg}
             >
                 {wish.images.map((image) => (
                     <SwiperSlide key={image.id}>

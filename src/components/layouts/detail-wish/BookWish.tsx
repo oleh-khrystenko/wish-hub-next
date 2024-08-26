@@ -104,9 +104,11 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
 
     return (
         <>
-            <UiButton variant="text" onClick={handleBookWish}>
-                {mainPageT('will-fulfill')}
-            </UiButton>
+            <div className="-mr-4 ml-auto">
+                <UiButton variant="text-btn" onClick={handleBookWish}>
+                    {mainPageT('will-fulfill')}
+                </UiButton>
+            </div>
 
             <ConfirmModal
                 show={show}

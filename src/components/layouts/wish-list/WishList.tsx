@@ -308,7 +308,11 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
             {isLoading && <Loading isLocal />}
 
             {detailWish && (
-                <UiModal show={showWish} px="px-0 pr-1" hide={handleHideWish}>
+                <UiModal
+                    show={showWish}
+                    px="px-0 pr-1 tablet-md:pr-2 tablet-lg:pr-3 desktop-xs:pr-0"
+                    hide={handleHideWish}
+                >
                     <DetailWish
                         wish={detailWish}
                         selectedUser={selectedUser}
