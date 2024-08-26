@@ -109,15 +109,19 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
                 ref={imageListRef}
                 className="flex flex-wrap gap-2 mobile-md:gap-3 mobile-lg:gap-4"
             >
-                {images.map((image, index) => (
-                    <DraggableImage
-                        key={index}
-                        image={image}
-                        index={index}
-                        moveImage={moveImage}
-                        removeImage={handleRemoveImage}
-                    />
-                ))}
+                {images.map((image, index) => {
+                    if (!(image instanceof File) && image.delete) return null;
+
+                    return (
+                        <DraggableImage
+                            key={index}
+                            image={image}
+                            index={index}
+                            moveImage={moveImage}
+                            removeImage={handleRemoveImage}
+                        />
+                    );
+                })}
             </div>
 
             <ImagesValidation images={images} />

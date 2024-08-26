@@ -237,9 +237,15 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     };
 
     useLayoutEffect(() => {
-        wishCandidate?.name && setValue('name', wishCandidate.name);
+        if (
+            wishCandidate?.name ||
+            wishCandidate?.image ||
+            wishCandidate?.price ||
+            wishCandidate?.url ||
+            wishCandidate?.description
+        ) {
+            setValue('name', wishCandidate.name);
 
-        wishCandidate?.image &&
             setImages([
                 {
                     path: wishCandidate.image,
@@ -247,9 +253,8 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                 },
             ]);
 
-        wishCandidate?.price && setValue('price', wishCandidate.price);
+            setValue('price', wishCandidate.price);
 
-        wishCandidate?.url &&
             setValue('addresses', [
                 {
                     id: uuidv4(),
@@ -257,10 +262,10 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                 },
             ]);
 
-        wishCandidate?.description &&
             setValue('description', wishCandidate.description);
 
-        setChanged(true);
+            setChanged(true);
+        }
     }, [wishCandidate, setValue]);
 
     return (

@@ -214,6 +214,8 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                     return updatedImage;
                 })
         );
+
+        setChanged(true);
     };
 
     const handleHideModal = () => {
