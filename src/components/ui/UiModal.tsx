@@ -42,7 +42,7 @@ const UiModal: FC<IProps> = ({
                 ></div>
 
                 <div
-                    className={`${px} ${rounded} relative h-fit w-fit bg-zinc-300 py-4 dark:bg-zinc-800 tablet-md:h-fit tablet-md:max-w-2xl tablet-md:rounded-2xl tablet-md:py-5 tablet-lg:max-w-4xl tablet-lg:py-6 tablet-xl:max-w-5xl`}
+                    className={`${px} ${rounded} relative h-fit w-full bg-zinc-300 py-4 dark:bg-zinc-800 tablet-md:h-fit tablet-md:w-fit tablet-md:max-w-2xl tablet-md:rounded-2xl tablet-md:py-5 tablet-lg:max-w-4xl tablet-lg:py-6 tablet-xl:max-w-5xl`}
                 >
                     {hide && (
                         <div className="absolute right-2 top-1.5 z-10 tablet-md:-right-3 tablet-md:-top-3">

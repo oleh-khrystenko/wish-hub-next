@@ -211,13 +211,13 @@ const FormContent: FC<IProps> = ({
             </span>
 
             <div
-                className="-mr-3 flex h-auto max-h-[70svh] flex-col overflow-y-auto overflow-x-hidden pr-3"
+                className="custom-max-height -mr-3 flex h-auto flex-col overflow-y-auto overflow-x-hidden pr-3 tablet-md:max-h-[70svh]"
                 ref={formContentContainer}
             >
                 {/* material */}
                 <div className="flex items-center justify-center gap-4">
                     <button
-                        className={`${material ? 'text-cyan-500 dark:text-cyan-300' : 'text-zinc-700 dark:text-zinc-300'} font-bold`}
+                        className={`${material ? 'text-cyan-500 dark:text-cyan-300' : 'text-zinc-700 dark:text-zinc-300'} text-sm font-bold tablet-md:text-base`}
                         type="button"
                         onClick={() => changeMaterial(true)}
                     >
@@ -235,7 +235,7 @@ const FormContent: FC<IProps> = ({
                         onChange={(e) => changeMaterial(e.target.checked)}
                     />
                     <button
-                        className={`${material ? 'text-zinc-700 dark:text-zinc-300' : 'text-rose-500'} font-bold`}
+                        className={`${material ? 'text-zinc-700 dark:text-zinc-300' : 'text-rose-500'} text-sm font-bold tablet-md:text-base`}
                         type="button"
                         onClick={() => changeMaterial(false)}
                     >
@@ -244,7 +244,7 @@ const FormContent: FC<IProps> = ({
                 </div>
 
                 {/* name */}
-                <div className="mt-5">
+                <div className="mt-7">
                     <UiInput
                         {...register('name', wishNameValidation)}
                         id="name"

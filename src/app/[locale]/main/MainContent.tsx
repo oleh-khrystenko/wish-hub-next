@@ -40,13 +40,13 @@ const MainContent: FC = () => {
                     onClick={() => setActivatedBurgerMenu(!activatedBurgerMenu)}
                 >
                     <div
-                        className={`${activatedBurgerMenu ? 'w-1/2 -translate-x-0.5 translate-y-1.5 -rotate-45' : ''} h-0.5 w-full rounded-full bg-zinc-700 transition-all duration-300 ease-in-out dark:bg-zinc-300`}
+                        className={`${activatedBurgerMenu ? 'w-1/2 -translate-x-0.5 translate-y-1.5 -rotate-45' : 'w-full'} h-0.5 rounded-full bg-zinc-700 transition-all duration-300 ease-in-out dark:bg-zinc-300`}
                     ></div>
 
                     <div className="h-0.5 w-full rounded-full bg-zinc-700 transition-all duration-300 ease-in-out dark:bg-zinc-300"></div>
 
                     <div
-                        className={`${activatedBurgerMenu ? 'w-1/2 -translate-x-0.5 -translate-y-1.5 rotate-45' : ''} h-0.5 w-full rounded-full bg-zinc-700 transition-all duration-300 ease-in-out dark:bg-zinc-300`}
+                        className={`${activatedBurgerMenu ? 'w-1/2 -translate-x-0.5 -translate-y-1.5 rotate-45' : 'w-full'} h-0.5 rounded-full bg-zinc-700 transition-all duration-300 ease-in-out dark:bg-zinc-300`}
                     ></div>
                 </button>
 

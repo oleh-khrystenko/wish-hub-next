@@ -69,11 +69,11 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
     return (
         <div className="flex flex-col gap-4">
             <div
-                className="mt-6 cursor-pointer rounded-md border-2 border-dashed border-zinc-400 px-10 py-6 dark:border-zinc-700"
+                className="mt-6 cursor-pointer rounded-md border-2 border-dashed border-zinc-400 px-4 py-2 dark:border-zinc-700 tablet-md:px-10 tablet-md:py-6"
                 ref={dropZoneRef}
                 onClick={handleDropZoneClick}
             >
-                <p className="dap-4 flex flex-col items-center text-zinc-800 dark:text-zinc-300">
+                <p className="dap-4 flex flex-col items-center text-center text-sm text-zinc-800 dark:text-zinc-300 tablet-md:text-base">
                     <span className="font-bold">{mainPageT('drag')}</span>
                     <span className="font-bold">{mainPageT('click')}</span>
 
@@ -81,7 +81,7 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
                         {mainPageT('change')}
                     </span>
 
-                    <span className="mt-6 text-center text-sm font-light">
+                    <span className="mt-6 text-center text-xs font-light tablet-md:text-sm">
                         {mainPageT('size', {
                             size: ALLOWED_MAX_FILE_SIZE_IN_MB,
                         })}
@@ -105,7 +105,10 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
                 />
             </div>
 
-            <div ref={imageListRef} className="flex flex-wrap gap-4">
+            <div
+                ref={imageListRef}
+                className="flex flex-wrap gap-2 mobile-md:gap-3 mobile-lg:gap-4"
+            >
                 {images.map((image, index) => (
                     <DraggableImage
                         key={index}

@@ -265,7 +265,11 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
 
     return (
         <>
-            <UiModal show={showModal} hide={handleHideModal}>
+            <UiModal
+                show={showModal}
+                rounded={isFastWish ? 'rounded-2xl' : ''}
+                hide={handleHideModal}
+            >
                 {isFastWish ? (
                     <FastWish hide={() => setIsFastWish(false)} />
                 ) : (

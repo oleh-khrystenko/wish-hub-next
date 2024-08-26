@@ -34,6 +34,10 @@
     }
 }
 
+.custom-max-height {
+    @apply max-h-[calc(100svh_-_132px)];
+}
+
 /********************* Scrollbar *********************/
 *::-webkit-scrollbar {
     height: 6px;

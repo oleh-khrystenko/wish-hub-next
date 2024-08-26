@@ -42,7 +42,7 @@ const FastWish: FC<IProps> = ({ hide }) => {
 
     return (
         <form
-            className="flex min-w-96 flex-col gap-5"
+            className="flex flex-col gap-5 tablet-md:min-w-96"
             onSubmit={handleSubmit(onSubmit)}
         >
             <span className="whitespace-nowrap text-center text-lg font-bold text-zinc-700 dark:text-zinc-300">
@@ -60,7 +60,7 @@ const FastWish: FC<IProps> = ({ hide }) => {
             />
             <UiTooltip id="url" />
 
-            <div className="ml-auto flex w-fit items-center gap-6">
+            <div className="ml-auto flex w-fit flex-col items-center gap-6 mobile-xs:flex-row">
                 <UiButton variant="text" onClick={hide}>
                     {mainPageT('manually')}
                 </UiButton>

@@ -32,7 +32,7 @@ const ConfirmModal: FC<IProps> = ({
 
             <span className="text-zinc-700 dark:text-zinc-300">{children}</span>
 
-            <div className="mt-6 flex items-center justify-end gap-4">
+            <div className="mt-6 flex flex-col items-end justify-end gap-4 mobile-xs:flex-row mobile-xs:items-center">
                 <UiButton variant="text-attention" onClick={confirm}>
                     {confirmModalT || mainPageT('confirm-modal.confirm')}
                 </UiButton>
