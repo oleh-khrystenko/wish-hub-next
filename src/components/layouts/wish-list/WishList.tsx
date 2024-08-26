@@ -66,10 +66,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
         [users, selectedUserId]
     );
 
-    const detailWish = useMemo(
-        () => wishes.find((wish) => wish.id === idOfSelectedWish),
-        [wishes, idOfSelectedWish]
-    );
+    const detailWish = wishes.find((wish) => wish.id === idOfSelectedWish);
 
     const wishesExample = [
         {
