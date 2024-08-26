@@ -23,7 +23,11 @@ export default function Auth() {
                     <LangSelect />
                 </div>
 
-                <UiBrand withLogo isBig />
+                <UiBrand
+                    withLogo
+                    isBig
+                    sizeLoading="h-16 min-h-16 w-16 min-w-16"
+                />
             </header>
 
             <NextIntlClientProvider
