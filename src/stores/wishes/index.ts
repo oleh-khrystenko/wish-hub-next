@@ -59,7 +59,11 @@ interface IWishesStore {
         errorT: string
     ) => Promise<void>;
     bookWish: (data: IBookWish, errorT: string) => Promise<IQuote | void>;
-    cancelBookWish: (data: IActionWish) => Promise<void>;
+    cancelBookWish: (
+        data: IActionWish,
+        successT: string,
+        errorT: string
+    ) => Promise<void>;
     doneWish: (
         data: IDoneWish,
         successT: string,
@@ -77,10 +81,10 @@ interface IWishesStore {
         successT: string,
         errorT: string
     ) => Promise<void>;
-    getWishList: (data: ISendWishList) => Promise<void>;
-    addWishList: (data: ISendWishList) => Promise<void>;
-    getAllWishes: (data: ISendAllWishes) => Promise<void>;
-    addAllWishes: (data: ISendAllWishes) => Promise<void>;
+    getWishList: (data: ISendWishList, errorT: string) => Promise<void>;
+    addWishList: (data: ISendWishList, errorT: string) => Promise<void>;
+    getAllWishes: (data: ISendAllWishes, errorT: string) => Promise<void>;
+    addAllWishes: (data: ISendAllWishes, errorT: string) => Promise<void>;
 }
 
 export const useWishesStore = create<IWishesStore>((set) => ({
@@ -202,7 +206,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
         }
     },
-    cancelBookWish: async (data) => {
+    cancelBookWish: async (data, successT, errorT) => {
         set((state) => ({
             ...state,
             isLoading: true,
@@ -219,15 +223,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 };
             });
 
-            // toast(t('alerts.wishes-api.cancel-book-wish.success'), {
-            //     type: 'success',
-            // });
+            toast(successT, { type: 'success' });
         } catch (error: any) {
-            // toast(
-            //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.cancel-book-wish.error'),
-            //     { type: 'error' }
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -363,7 +361,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
         }
     },
-    getWishList: async (data) => {
+    getWishList: async (data, errorT) => {
         set((state) => ({
             ...state,
             stopRequests: true,
@@ -387,11 +385,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 stopRequests: false,
             }));
 
-            // toast(
-            //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.get-wish-list.error'),
-            //     { type: 'error' }
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -399,7 +393,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
         }
     },
-    addWishList: async (data) => {
+    addWishList: async (data, errorT) => {
         set((state) => ({
             ...state,
             stopRequests: true,
@@ -422,11 +416,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 stopRequests: false,
             }));
 
-            // toast(
-            //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.get-wish-list.error'),
-            //     { type: 'error' }
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -434,7 +424,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
         }
     },
-    getAllWishes: async (data) => {
+    getAllWishes: async (data, errorT) => {
         set((state) => ({
             ...state,
             stopRequests: true,
@@ -455,11 +445,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 stopRequests: false,
             }));
 
-            // toast(
-            //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.get-all-wishes.error'),
-            //     { type: 'error' }
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -467,7 +453,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
         }
     },
-    addAllWishes: async (data) => {
+    addAllWishes: async (data, errorT) => {
         set((state) => ({
             ...state,
             stopRequests: true,
@@ -488,11 +474,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 stopRequests: false,
             }));
 
-            // toast(
-            //     error.response?.data?.message ||
-            //         t('alerts.wishes-api.get-all-wishes.error'),
-            //     { type: 'error' }
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,

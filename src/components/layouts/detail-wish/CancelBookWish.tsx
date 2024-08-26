@@ -17,12 +17,17 @@ const CancelBookWish: FC<IProps> = ({ wish, userId, hide }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
 
     const cancelBookWish = useWishesStore((state) => state.cancelBookWish);
 
     const handleSubmit = async () => {
         if (!userId) return;
-        await cancelBookWish({ userId, wishId: wish.id });
+        await cancelBookWish(
+            { userId, wishId: wish.id },
+            alertsT('wishes-api.cancel-book-wish.success'),
+            alertsT('wishes-api.cancel-book-wish.error')
+        );
         hide();
     };
 

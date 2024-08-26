@@ -34,6 +34,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const gotWishes = useRef(false);
 
     const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
 
     const { ref, inView } = useInView({
         threshold: 0,
@@ -139,22 +140,28 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
             if (!inView || stopRequests) return;
 
             if (selectedUserId) {
-                await addWishList({
-                    myId: myUser?.id,
-                    userId: selectedUserId,
-                    status,
-                    page,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    search,
-                    sort,
-                });
+                await addWishList(
+                    {
+                        myId: myUser?.id,
+                        userId: selectedUserId,
+                        status,
+                        page,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort,
+                    },
+                    alertsT('wishes-api.get-wish-list.error')
+                );
             } else {
-                await addAllWishes({
-                    page,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    search,
-                    sort,
-                });
+                await addAllWishes(
+                    {
+                        page,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort,
+                    },
+                    alertsT('wishes-api.get-all-wishes.error')
+                );
             }
         };
 
@@ -168,15 +175,18 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
             const isMyWishes = location.search === '?my-wishes'; // Випадок переходу зі сторінки профілю або зі сторінки списку бажань на власні бажання
             if (isMyWishes && myUser) {
-                await getWishList({
-                    myId: myUser.id,
-                    userId: myUser.id,
-                    status,
-                    page: 1,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    search,
-                    sort: EWishSort.CREATED_DESC,
-                });
+                await getWishList(
+                    {
+                        myId: myUser.id,
+                        userId: myUser.id,
+                        status,
+                        page: 1,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort: EWishSort.CREATED_DESC,
+                    },
+                    alertsT('wishes-api.get-wish-list.error')
+                );
                 setSelectedUserId(myUser.id);
                 setWishesSort(EWishSort.CREATED_DESC);
                 return;
@@ -184,29 +194,35 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
             const localSelectedUserId = localStorage.getItem('selectedUserId');
             if (localSelectedUserId) {
-                await getWishList({
-                    myId: myUser?.id,
-                    userId: localSelectedUserId,
-                    status,
-                    page: 1,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    search,
-                    sort:
-                        myUser?.id === localSelectedUserId
-                            ? EWishSort.CREATED_DESC
-                            : sort,
-                });
+                await getWishList(
+                    {
+                        myId: myUser?.id,
+                        userId: localSelectedUserId,
+                        status,
+                        page: 1,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort:
+                            myUser?.id === localSelectedUserId
+                                ? EWishSort.CREATED_DESC
+                                : sort,
+                    },
+                    alertsT('wishes-api.get-wish-list.error')
+                );
                 setSelectedUserId(localSelectedUserId);
                 if (myUser?.id === localSelectedUserId) {
                     setWishesSort(EWishSort.CREATED_DESC);
                 }
             } else {
-                await getAllWishes({
-                    page: 1,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    search,
-                    sort: EWishSort.POPULAR,
-                });
+                await getAllWishes(
+                    {
+                        page: 1,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort: EWishSort.POPULAR,
+                    },
+                    alertsT('wishes-api.get-all-wishes.error')
+                );
                 setWishesSort(EWishSort.POPULAR);
             }
         };

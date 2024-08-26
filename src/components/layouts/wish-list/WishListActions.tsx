@@ -24,6 +24,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -58,22 +59,28 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
         setWishesSort(value);
 
         if (selectedUserId) {
-            await getWishList({
-                myId: myUser?.id,
-                userId: selectedUserId,
-                status,
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search,
-                sort: value,
-            });
+            await getWishList(
+                {
+                    myId: myUser?.id,
+                    userId: selectedUserId,
+                    status,
+                    page: 1,
+                    limit: WISHES_PAGINATION_LIMIT,
+                    search,
+                    sort: value,
+                },
+                alertsT('wishes-api.get-wish-list.error')
+            );
         } else {
-            await getAllWishes({
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search,
-                sort: value,
-            });
+            await getAllWishes(
+                {
+                    page: 1,
+                    limit: WISHES_PAGINATION_LIMIT,
+                    search,
+                    sort: value,
+                },
+                alertsT('wishes-api.get-all-wishes.error')
+            );
         }
 
         if (!wishListRefCurrent) return;

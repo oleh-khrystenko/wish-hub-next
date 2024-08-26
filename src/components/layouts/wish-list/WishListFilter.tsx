@@ -16,6 +16,7 @@ interface IProps {
 
 const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
     const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -61,15 +62,18 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
 
         if (!myUser || !selectedUserId) return;
 
-        await getWishList({
-            myId: myUser.id,
-            userId: selectedUserId,
-            status: value as EWishStatus,
-            page: 1,
-            limit: WISHES_PAGINATION_LIMIT,
-            search,
-            sort,
-        });
+        await getWishList(
+            {
+                myId: myUser.id,
+                userId: selectedUserId,
+                status: value as EWishStatus,
+                page: 1,
+                limit: WISHES_PAGINATION_LIMIT,
+                search,
+                sort,
+            },
+            alertsT('wishes-api.get-wish-list.error')
+        );
 
         if (!wishListRefCurrent) return;
 
@@ -83,22 +87,28 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
         setWishesSearch(value);
 
         if (selectedUserId) {
-            await getWishList({
-                myId: myUser?.id,
-                userId: selectedUserId,
-                status,
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search: value,
-                sort,
-            });
+            await getWishList(
+                {
+                    myId: myUser?.id,
+                    userId: selectedUserId,
+                    status,
+                    page: 1,
+                    limit: WISHES_PAGINATION_LIMIT,
+                    search: value,
+                    sort,
+                },
+                alertsT('wishes-api.get-wish-list.error')
+            );
         } else {
-            await getAllWishes({
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search: value,
-                sort,
-            });
+            await getAllWishes(
+                {
+                    page: 1,
+                    limit: WISHES_PAGINATION_LIMIT,
+                    search: value,
+                    sort,
+                },
+                alertsT('wishes-api.get-all-wishes.error')
+            );
         }
 
         if (!wishListRefCurrent) return;
