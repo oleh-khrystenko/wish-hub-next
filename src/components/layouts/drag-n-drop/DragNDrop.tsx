@@ -62,7 +62,14 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
 
     const handleRemoveImage = (index: number) => {
         const updatedImages = [...images];
-        updatedImages.splice(index, 1);
+        if (updatedImages[index] instanceof File) {
+            updatedImages.splice(index, 1);
+        } else {
+            updatedImages[index] = {
+                ...updatedImages[index],
+                delete: true,
+            };
+        }
         setImages(updatedImages);
     };
 
