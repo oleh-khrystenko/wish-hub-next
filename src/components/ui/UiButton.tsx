@@ -1,8 +1,9 @@
 'use client';
 
-import { FC, ReactNode, MouseEventHandler } from 'react';
+import { FC, ReactNode, MouseEventHandler, useState } from 'react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
+import Loading from '@/components/layouts/Loading';
 
 interface IProps {
     href?: string;
@@ -15,6 +16,8 @@ interface IProps {
         | 'solid'
         | 'solid-gray'
         | 'outline';
+    sizeLoading?: string;
+    bgLoading?: string;
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
     onClick?: (event: any) => void;
@@ -26,11 +29,15 @@ const UiButton: FC<IProps> = ({
     target,
     tabIndex = 0,
     variant = 'solid',
+    sizeLoading = 'h-6 min-h-6 w-6 min-w-6',
+    bgLoading = 'bg-zinc-300 dark:bg-zinc-800',
     disabled,
     type = 'button',
     onClick,
     children,
 }) => {
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
         disabled && event.preventDefault();
     };
@@ -60,22 +67,26 @@ const UiButton: FC<IProps> = ({
 
     if (variant === 'outline') {
         classes =
-            'flex text-zinc-800 px-4 py-1.5 dark:text-zinc-300 border-2 border-zinc-800 dark:border-zinc-300 rounded-md hover:text-cyan-500 dark:hover:text-cyan-300 hover:border-cyan-500 dark:hover:border-cyan-300';
+            'flex text-zinc-800 px-4 overflow-hidden py-1.5 dark:text-zinc-300 border-2 border-zinc-800 dark:border-zinc-300 rounded-md hover:text-cyan-500 dark:hover:text-cyan-300 hover:border-cyan-500 dark:hover:border-cyan-300';
     }
 
     const tagProps: Record<string, any> = {
         className: `${disabled ? 'opacity-50 pointer-events-none ' : ''}${classes} items-center justify-start relative w-auto transition-all duration-150 ease-in-out`,
         tabIndex,
+    };
+
+    const btnProps: Record<string, any> = {
+        ...tagProps,
         onClick: onClick || handleClick,
     };
 
-    const linkTagProps: Record<string, any> = {
+    const linkProps: Record<string, any> = {
         ...tagProps,
     };
 
     if (target === '_blank') {
-        linkTagProps.target = target;
-        linkTagProps.rel = 'noopener noreferrer external nofollow';
+        linkProps.target = target;
+        linkProps.rel = 'noopener noreferrer external nofollow';
     }
 
     const spanClasses =
@@ -83,14 +94,22 @@ const UiButton: FC<IProps> = ({
 
     if (href) {
         return (
-            <Link href={`/${activeLocale}/${href}`} {...linkTagProps}>
+            <Link
+                href={`/${activeLocale}/${href}`}
+                onClick={() => setIsLoading(true)}
+                {...linkProps}
+            >
                 <span className={spanClasses}>{children}</span>
+
+                {isLoading && (
+                    <Loading isLocal size={sizeLoading} bg={bgLoading} />
+                )}
             </Link>
         );
     }
 
     return (
-        <button type={type} disabled={disabled} {...tagProps}>
+        <button type={type} disabled={disabled} {...btnProps}>
             <span className={spanClasses}>{children}</span>
         </button>
     );

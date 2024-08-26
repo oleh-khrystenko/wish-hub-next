@@ -3,7 +3,7 @@ import { FC } from 'react';
 const YouTubeIcon: FC = () => {
     return (
         <svg
-            className="h-7 w-7 transition-all duration-300 ease-in-out"
+            className="h-6 w-6 transition-all duration-300 ease-in-out"
             viewBox="0 0 16 16"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

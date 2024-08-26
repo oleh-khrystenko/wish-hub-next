@@ -1,6 +1,7 @@
 import UiButton from '@/components/ui/UiButton';
 
 function TempNav() {
+    // TODO: Remove this component
     return (
         <div className="flex flex-wrap items-center gap-2">
             <UiButton href="about">about</UiButton>

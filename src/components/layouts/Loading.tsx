@@ -5,15 +5,17 @@ import { FC } from 'react';
 interface IProps {
     isLocal?: boolean;
     size?: string;
+    bg?: string;
 }
 
 const Loading: FC<IProps> = ({
     isLocal,
     size = 'h-20 min-h-20 w-20 min-w-20',
+    bg = 'bg-zinc-300 dark:bg-zinc-800',
 }) => {
     return (
         <div
-            className={`${isLocal ? 'absolute h-full' : 'fixed h-svh'} inset-0 z-50 flex w-full items-center justify-center bg-zinc-300 p-5 dark:bg-zinc-800`}
+            className={`${isLocal ? 'absolute h-full' : 'fixed h-svh p-5'} ${bg} inset-0 z-50 flex w-full items-center justify-center`}
         >
             <div className={`${size} relative inline-block`}>
                 <div className="absolute left-[82.5%] top-[46.25%] h-[7.5%] w-[7.5%] animate-spinner-1 rounded-full bg-cyan-500 dark:bg-cyan-300"></div>

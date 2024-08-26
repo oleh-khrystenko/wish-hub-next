@@ -16,6 +16,7 @@ import { useSettingsStore } from '@/stores/settings';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
+import Loading from '@/components/layouts/Loading';
 import UiAvatar from '@/components/ui/UiAvatar';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -35,6 +36,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showPopupUp, setShowPopupUp] = useState<boolean>(false);
     const [textWidth, setTextWidth] = useState<number>(0);
+    const [isLoading, setIsLoading] = useState(false);
 
     const popupActionRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLLIElement>(null);
@@ -254,10 +256,19 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                     <div className="flex flex-col p-2">
                         <Link
                             href={`/${activeLocale}/profile/${user.id}`}
-                            className="flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            className="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            onClick={() => setIsLoading(true)}
                         >
                             <PersonIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
                             {mainPageT('user-profile')}
+
+                            {isLoading && (
+                                <Loading
+                                    isLocal
+                                    size="h-6 min-h-6 w-6 min-w-6"
+                                    bg="bg-zinc-100 dark:bg-zinc-700"
+                                />
+                            )}
                         </Link>
                         {showAddFriend && (
                             <button

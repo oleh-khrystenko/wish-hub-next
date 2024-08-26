@@ -26,6 +26,7 @@ import PrivacyPolicyIcon from '@/components/icons/PrivacyPolicyIcon';
 import LogoDarkIcon from '@/components/icons/LogoDarkIcon';
 import LogoLightIcon from '@/components/icons/LogoLightIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
+// import YouTubeIcon from '@/components/icons/YouTubeIcon';
 
 interface IProps {
     logoutWithUpdate: boolean;
@@ -158,6 +159,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                             <UiButton
                                 variant="text"
                                 href={`/profile/${myUser?.id}`}
+                                bgLoading="bg-zinc-100 dark:bg-zinc-700"
                             >
                                 <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                     <PersonIcon />
@@ -181,15 +183,22 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                 </div>
 
                 <div className="flex flex-col items-stretch gap-2 border-t border-zinc-500 px-2 py-2 dark:border-zinc-600 tablet-md:px-4 tablet-md:py-2">
-                    {/*<UiButton href="instruction" variant="text">*/}
-                    {/*    <YouTubeIcon*/}
-                    {/*        backgroundColor={ StylesVariables.lightColor }*/}
-                    {/*        playColor={ StylesVariables.backgroundColor }*/}
-                    {/*    />*/}
-                    {/*    { t('main-page.instruction') }*/}
+                    {/*<UiButton*/}
+                    {/*    href="instruction"*/}
+                    {/*    variant="text"*/}
+                    {/*    bgLoading="bg-zinc-100 dark:bg-zinc-700"*/}
+                    {/*>*/}
+                    {/*    <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">*/}
+                    {/*        <YouTubeIcon />*/}
+                    {/*        {mainPageT('instruction')}*/}
+                    {/*    </span>*/}
                     {/*</UiButton>*/}
 
-                    <UiButton href="about" variant="text">
+                    <UiButton
+                        href="about"
+                        variant="text"
+                        bgLoading="bg-zinc-100 dark:bg-zinc-700"
+                    >
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <InfoIcon classes="h-6 w-6 stroke-zinc-700 dark:stroke-zinc-300" />
                             {mainPageT('about')} Wish Hub
@@ -206,7 +215,11 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                         </span>
                     </ShareButton>
 
-                    <UiButton href="about" variant="text">
+                    <UiButton
+                        href="about"
+                        variant="text"
+                        bgLoading="bg-zinc-100 dark:bg-zinc-700"
+                    >
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <ForumIcon />
                             {mainPageT('contacts')}
