@@ -44,23 +44,23 @@ const UiSelect: FC<IProps> = ({
                 className={`${show ? 'rounded-t-md' : 'rounded-md'} ${bg} relative transition-all duration-300 ease-in-out`}
             >
                 <button
-                    className={`${bg} relative z-10 flex w-full items-center gap-2 rounded-md px-3 py-2.5`}
+                    className={`${bg} relative z-10 flex w-full items-center gap-2 overflow-hidden rounded-md px-3 py-2.5`}
                     type="button"
                     onClick={handleClick}
                 >
-                    {isPending ? (
-                        <Loading isLocal size="h-10 min-h-10 w-10 min-w-10" />
-                    ) : (
-                        <span className="flex w-full items-center justify-between">
-                            {options.find((option) => option.value === value)
-                                ?.label || options[0].label}
+                    <span className="flex w-full items-center justify-between">
+                        {options.find((option) => option.value === value)
+                            ?.label || options[0].label}
 
-                            {!withoutIcon && (
-                                <ArrowChevronIcon
-                                    classes={`${show ? 'rotate-180' : ''} h-3 w-3 fill-zinc-800 dark:fill-zinc-300`}
-                                />
-                            )}
-                        </span>
+                        {!withoutIcon && (
+                            <ArrowChevronIcon
+                                classes={`${show ? 'rotate-180' : ''} h-3 w-3 fill-zinc-800 dark:fill-zinc-300`}
+                            />
+                        )}
+                    </span>
+
+                    {isPending && (
+                        <Loading isLocal size="h-10 min-h-10 w-10 min-w-10" />
                     )}
                 </button>
 
