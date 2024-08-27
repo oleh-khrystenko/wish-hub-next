@@ -103,10 +103,30 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     page: 1,
     stopRequests: false,
     isLoading: false,
-    setWishesStatus: (value) => set({ status: value }),
-    setWishesSearch: (value) => set({ search: value }),
-    setWishesSort: (value) => set({ sort: value }),
-    resetWishCandidate: () => set({ wishCandidate: null }),
+    setWishesStatus: (value) => {
+        set((state) => ({
+            ...state,
+            status: value,
+        }));
+    },
+    setWishesSearch: (value) => {
+        set((state) => ({
+            ...state,
+            search: value,
+        }));
+    },
+    setWishesSort: (value) => {
+        set((state) => ({
+            ...state,
+            sort: value,
+        }));
+    },
+    resetWishCandidate: () => {
+        set((state) => ({
+            ...state,
+            wishCandidate: null,
+        }));
+    },
     fetchWishDataFromLink: async (params, errorT) => {
         try {
             const response = await wishesApi.fetchWishDataFromLink(params);

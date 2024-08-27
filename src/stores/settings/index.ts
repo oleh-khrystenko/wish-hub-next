@@ -11,6 +11,16 @@ interface ISettingsStore {
 export const useSettingsStore = create<ISettingsStore>((set) => ({
     theme: ETheme.DARK,
     activatedBurgerMenu: false,
-    setTheme: (value) => set({ theme: value }),
-    setActivatedBurgerMenu: (value) => set({ activatedBurgerMenu: value }),
+    setTheme: (value) => {
+        set((state) => ({
+            ...state,
+            theme: value,
+        }));
+    },
+    setActivatedBurgerMenu: (value) => {
+        set((state) => ({
+            ...state,
+            activatedBurgerMenu: value,
+        }));
+    },
 }));

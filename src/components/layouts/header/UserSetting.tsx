@@ -48,6 +48,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
     const logout = useMyUserStore((state) => state.logout);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
+    const setProfileId = useUsersStore((state) => state.setProfileId);
 
     const theme = useSettingsStore((state) => state.theme);
     const setActivatedBurgerMenu = useSettingsStore(
@@ -72,7 +73,8 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
     };
 
     const handleSelectMyUser = async () => {
-        console.log('handleSelectMyUser', myUser?.id);
+        if (!myUser) return;
+        setProfileId(myUser.id);
     };
 
     const handleHidePopup = () => {

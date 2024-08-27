@@ -60,6 +60,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
     const removeFriend = useMyUserStore((state) => state.removeFriend);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
+    const setProfileId = useUsersStore((state) => state.setProfileId);
 
     const setActivatedBurgerMenu = useSettingsStore(
         (state) => state.setActivatedBurgerMenu
@@ -143,6 +144,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
 
     const handleGoToProfilePage = () => {
         setIsLoadingNav(true);
+        setProfileId(user.id);
         router.push(`/${activeLocale}/profile`);
     };
 

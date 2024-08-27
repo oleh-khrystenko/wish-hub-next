@@ -84,7 +84,7 @@ const UiButton: FC<IProps> = ({
 
     const linkProps: Record<string, any> = {
         ...tagProps,
-        onClick: onLinkClick || handleLinkClick,
+        onClick: handleLinkClick,
     };
 
     const btnProps: Record<string, any> = {
