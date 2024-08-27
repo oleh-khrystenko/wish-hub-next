@@ -288,11 +288,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         }
     },
     likeWish: async (data, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await wishesApi.likeWish(data);
 
@@ -305,19 +300,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     dislikeWish: async (data, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await wishesApi.dislikeWish(data);
 
@@ -330,11 +315,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     deleteWish: async (params, successT, errorT) => {

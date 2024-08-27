@@ -90,7 +90,7 @@ const WishItem: FC<IProps> = ({ wish, id, showWish, editWish }) => {
                     </svg>
 
                     {wish.booking?.end && (
-                        <span className="worn-out absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-[38deg] whitespace-nowrap rounded-md border-2 border-solid border-rose-500 px-1 text-xs font-bold uppercase text-rose-500 backdrop-blur desktop-sm:px-2 desktop-sm:py-1 desktop-sm:text-2xl">
+                        <span className="worn-out absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-[38deg] whitespace-nowrap rounded-md border-2 border-solid border-rose-500 px-1 text-xs font-bold uppercase text-rose-500 backdrop-blur mobile-xs:-rotate-[26deg] mobile-sm:-rotate-12 mobile-md:px-2 mobile-md:py-0.5 mobile-xl:text-sm tablet-sm:px-2 tablet-sm:py-1 tablet-sm:text-base tablet-md:text-xl desktop-md:text-2xl">
                             {myUser?.id === wish.booking?.userId ? (
                                 <>{mainPageT('reserved_by_your')}</>
                             ) : (
@@ -100,7 +100,7 @@ const WishItem: FC<IProps> = ({ wish, id, showWish, editWish }) => {
                     )}
 
                     {wish.executed && (
-                        <span className="worn-out absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-[38deg] whitespace-nowrap rounded-md border-2 border-solid border-cyan-500 px-1 text-xs font-bold uppercase text-cyan-300 backdrop-blur dark:border-cyan-300 desktop-sm:px-2 desktop-sm:py-1 desktop-sm:text-2xl">
+                        <span className="worn-out absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-[38deg] whitespace-nowrap rounded-md border-2 border-solid border-cyan-500 px-1 text-xs font-bold uppercase text-cyan-300 backdrop-blur dark:border-cyan-300 mobile-xs:-rotate-[26deg] mobile-sm:-rotate-12 mobile-md:px-2 mobile-md:py-0.5 mobile-xl:text-sm tablet-sm:px-2 tablet-sm:py-1 tablet-sm:text-base tablet-md:text-xl desktop-md:text-2xl">
                             {mainPageT('fulfilled.single')}
                         </span>
                     )}

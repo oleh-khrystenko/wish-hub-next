@@ -9,16 +9,24 @@ import { useWishesStore } from '@/stores/wishes';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UiPopup from '@/components/ui/UiPopup';
 import UiAvatar from '@/components/ui/UiAvatar';
+import UiLoading from '@/components/ui/UiLoading';
 import LikeIcon from '@/components/icons/LikeIcon';
 
 interface IProps {
     wish: IWish;
     type: 'likes' | 'dislikes';
+    bgLoading?: string;
     hide?: () => void;
 }
 
-const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
+const LikeAction: FC<IProps> = ({
+    wish,
+    type,
+    bgLoading = 'bg-zinc-200 dark:bg-zinc-900',
+    hide,
+}) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const alertsT = useTranslations('alerts');
 
@@ -43,19 +51,25 @@ const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
         return 'fill-zinc-800 dark:fill-zinc-300';
     }, [type, iLiked]);
 
-    const handleAction = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleAction = async (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
+
         if (!myUser) return;
+
+        setIsLoading(true);
+
         type === 'likes' &&
-            likeWish(
+            (await likeWish(
                 { userId: myUser.id, wishId: wish.id },
                 alertsT('wishes-api.like-wish.error')
-            );
+            ));
         type === 'dislikes' &&
-            dislikeWish(
+            (await dislikeWish(
                 { userId: myUser.id, wishId: wish.id },
                 alertsT('wishes-api.dislike-wish.error')
-            );
+            ));
+
+        setIsLoading(false);
     };
 
     const handleSelectWish = async (
@@ -71,7 +85,7 @@ const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
     };
 
     return (
-        <div className="flex items-center">
+        <div className="relative flex items-center">
             <button
                 className={`${type === 'dislikes' ? '-scale-100' : ''} p-1 tablet-md:p-2`}
                 type="button"
@@ -129,6 +143,14 @@ const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
                     </UiPopup>
                 )}
             </div>
+
+            {isLoading && (
+                <UiLoading
+                    isLocal
+                    size="h-10 min-h-10 w-10 min-w-10"
+                    bg={bgLoading}
+                />
+            )}
         </div>
     );
 };

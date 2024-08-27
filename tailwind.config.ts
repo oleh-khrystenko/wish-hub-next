@@ -63,6 +63,7 @@ const config: Config = {
             'desktop-md': '1440px', // @media (min-width: 1440px)
             'desktop-lg': '1600px', // @media (min-width: 1600px)
             'desktop-xl': '1920px', // @media (min-width: 1920px)
+            'desktop-2xl': '2560px', // @media (min-width: 2560px)
         },
     },
     plugins: [],
