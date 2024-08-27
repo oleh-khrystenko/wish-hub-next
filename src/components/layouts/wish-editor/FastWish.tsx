@@ -8,6 +8,7 @@ import { useWishesStore } from '@/stores/wishes';
 import { useTranslations } from 'next-intl';
 
 interface IProps {
+    setIsLoading: (value: boolean) => void;
     hide: () => void;
 }
 
@@ -15,7 +16,7 @@ export type TInputs = {
     url: string;
 };
 
-const FastWish: FC<IProps> = ({ hide }) => {
+const FastWish: FC<IProps> = ({ setIsLoading, hide }) => {
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
 
@@ -32,11 +33,16 @@ const FastWish: FC<IProps> = ({ hide }) => {
     const { onlyWhitespaceValidation } = UseValidations();
 
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
+        setIsLoading(true);
+
         data.url.length > 0 &&
             (await fetchWishDataFromLink(
                 data,
                 alertsT('wishes-api.fetch-wish-data.error')
             ));
+
+        setIsLoading(false);
+
         hide();
     };
 

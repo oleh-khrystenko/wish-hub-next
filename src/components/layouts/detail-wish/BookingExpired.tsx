@@ -7,6 +7,7 @@ import { useWishesStore } from '@/stores/wishes';
 import UiButton from '@/components/ui/UiButton';
 import UiModal from '@/components/ui/UiModal';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
+import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {
     wish: IWish;
@@ -17,6 +18,7 @@ interface IProps {
 
 const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
     const [show, setShow] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
@@ -27,22 +29,32 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
     const handleUndone = async () => {
         if (!userId) return;
 
+        setIsLoading(true);
+
         await undoneWish(
             { userId, wishId: wish.id },
             alertsT('wishes-api.undone-wish.success'),
             alertsT('wishes-api.undone-wish.error')
         );
+
+        setIsLoading(false);
+
         hide();
     };
 
     const handleDone = async () => {
         if (!userId) return;
 
+        setIsLoading(true);
+
         await doneWish(
             { userId, wishId: wish.id, whoseWish },
             alertsT('wishes-api.done-wish.success'),
             alertsT('wishes-api.done-wish.error')
         );
+
+        setIsLoading(false);
+
         hide();
     };
 
@@ -52,7 +64,10 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
                 {mainPageT('determine-status')}
             </UiButton>
 
-            <UiModal show={show} hide={() => setShow(false)}>
+            <UiModal
+                show={show}
+                hide={isLoading ? undefined : () => setShow(false)}
+            >
                 <span className="block text-center text-2xl font-bold text-rose-500">
                     {mainPageT('confirm-modal.title')}
                 </span>
@@ -75,6 +90,13 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
                         {mainPageT('no')}
                     </UiButton>
                 </div>
+
+                {isLoading && (
+                    <UiLoading
+                        isLocal
+                        bg="bg-zinc-300 dark:bg-zinc-800 rounded-2xl"
+                    />
+                )}
             </UiModal>
         </>
     );

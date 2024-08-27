@@ -131,7 +131,7 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
                     <div className="flex flex-col gap-1 tablet-md:flex-row tablet-md:items-center tablet-md:gap-5">
                         {wish.booking?.end && (
                             <p
-                                className={`${isBookingExpired(wish, myUser?.id) ? 'text-rose-500' : 'text-zinc-700 dark:text-zinc-300'} flex flex-wrap items-center justify-end gap-1`}
+                                className={`${isBookingExpired(wish, myUser?.id) ? 'text-rose-500' : 'text-zinc-500 dark:text-zinc-400'} flex flex-wrap items-center justify-end gap-1`}
                             >
                                 {myUserBookedOrCreatedWish ? (
                                     <>

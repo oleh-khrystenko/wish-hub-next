@@ -7,6 +7,7 @@ import { useWishesStore } from '@/stores/wishes';
 import UiButton from '@/components/ui/UiButton';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
+import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {
     wish: IWish;
@@ -17,6 +18,7 @@ interface IProps {
 
 const DoneWish: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
     const [show, setShow] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
@@ -26,11 +28,16 @@ const DoneWish: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
     const handleSubmit = async () => {
         if (!userId) return;
 
+        setIsLoading(true);
+
         await doneWish(
             { userId, wishId: wish.id, whoseWish },
             alertsT('wishes-api.done-wish.success'),
             alertsT('wishes-api.done-wish.error')
         );
+
+        setIsLoading(false);
+
         hide();
     };
 
@@ -54,6 +61,13 @@ const DoneWish: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
                         name: unencryptedData(wish.name, wish.show),
                     })}
                 </p>
+
+                {isLoading && (
+                    <UiLoading
+                        isLocal
+                        bg="bg-zinc-300 dark:bg-zinc-800 rounded-2xl"
+                    />
+                )}
             </ConfirmModal>
         </>
     );

@@ -24,6 +24,7 @@ import ConfirmModal from '@/components/layouts/ConfirmModal';
 import FormContent from '@/components/layouts/wish-editor/FormContent';
 import UiButton from '@/components/ui/UiButton';
 import UiModal from '@/components/ui/UiModal';
+import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {
     showModal: boolean;
@@ -39,6 +40,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     const [showError, setShowError] = useState<string>('');
     const [changed, setChanged] = useState<boolean>(false);
     const [showConfirm, setShowConfirm] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -107,6 +109,8 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
         }
 
         if (!myUser || !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return;
+
+        setIsLoading(true);
 
         // name
         const encryptedName = encryptedData(
@@ -202,17 +206,19 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             wishData,
             alertsT('wishes-api.create-wish.error')
         );
-        if (!response) return;
+        if (response) {
+            const quote = response[activeLocale as ELang];
+            toast(
+                <QuoteMessage
+                    title={alertsT('wishes-api.create-wish.success')}
+                    text={quote?.text}
+                    author={quote?.author}
+                />,
+                { type: 'success' }
+            );
+        }
 
-        const quote = response[activeLocale as ELang];
-        toast(
-            <QuoteMessage
-                title={alertsT('wishes-api.create-wish.success')}
-                text={quote?.text}
-                author={quote?.author}
-            />,
-            { type: 'success' }
-        );
+        setIsLoading(false);
 
         hideModals();
     };
@@ -273,10 +279,13 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             <UiModal
                 show={showModal}
                 rounded={isFastWish ? 'rounded-2xl' : ''}
-                hide={handleHideModal}
+                hide={isLoading ? undefined : handleHideModal}
             >
                 {isFastWish ? (
-                    <FastWish hide={() => setIsFastWish(false)} />
+                    <FastWish
+                        setIsLoading={setIsLoading}
+                        hide={() => setIsFastWish(false)}
+                    />
                 ) : (
                     <form
                         className="flex max-h-full flex-col gap-4"
@@ -312,6 +321,13 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                             </UiButton>
                         </div>
                     </form>
+                )}
+
+                {isLoading && (
+                    <UiLoading
+                        isLocal
+                        bg="bg-zinc-300 dark:bg-zinc-800 rounded-2xl"
+                    />
                 )}
             </UiModal>
 

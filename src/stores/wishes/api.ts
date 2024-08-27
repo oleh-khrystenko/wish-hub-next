@@ -13,6 +13,7 @@ import {
     ISendWishList,
     ISendAllWishes,
     IGetWishList,
+    IDeleteWish,
 } from '@/stores/wishes/types';
 import { IUser } from '@/models/User';
 import { TCurrentImage, IWish, IWishCandidate } from '@/models/Wish';
@@ -143,10 +144,9 @@ const dislikeWish = async (
     return await api.put('/wish/dislike', data);
 };
 
-const deleteWish = async (params: {
-    userId: IUser['id'];
-    wishId: IWish['id'];
-}): Promise<AxiosResponse<IWish['id']>> => {
+const deleteWish = async (
+    params: IDeleteWish
+): Promise<AxiosResponse<IWish['id']>> => {
     return await api.delete('/wish', { params });
 };
 

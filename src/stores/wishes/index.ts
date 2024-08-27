@@ -53,7 +53,7 @@ interface IWishesStore {
     setWishesStatus: (value: EWishStatus) => void;
     setWishesSearch: (value: string) => void;
     setWishesSort: (value: EWishSort) => void;
-    resetWishCandidate: (value: IWishCandidate | null) => void;
+    resetWishCandidate: () => void;
     fetchWishDataFromLink: (
         params: { url: string },
         errorT: string
@@ -106,13 +106,8 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     setWishesStatus: (value) => set({ status: value }),
     setWishesSearch: (value) => set({ search: value }),
     setWishesSort: (value) => set({ sort: value }),
-    resetWishCandidate: (value) => set({ wishCandidate: value }),
+    resetWishCandidate: () => set({ wishCandidate: null }),
     fetchWishDataFromLink: async (params, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await wishesApi.fetchWishDataFromLink(params);
 
@@ -127,19 +122,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     createWish: async (data, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await wishesApi.createWish(data);
 
@@ -151,19 +136,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             return response.data.quote;
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     updateWish: async (data, successT, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await wishesApi.updateWish(data);
 
@@ -175,19 +150,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             toast(successT, { type: 'success' });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     bookWish: async (data, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await wishesApi.bookWish(data);
 
@@ -199,19 +164,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             return response.data.quote;
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     cancelBookWish: async (data, successT, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await wishesApi.cancelBookWish(data);
 
@@ -223,19 +178,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             toast(successT, { type: 'success' });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     doneWish: async (data, successT, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await wishesApi.doneWish(data);
 
@@ -247,19 +192,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             toast(successT, { type: 'success' });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     undoneWish: async (data, successT, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await wishesApi.undoneWish(data);
 
@@ -271,11 +206,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             toast(successT, { type: 'success' });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     likeWish: async (data, errorT) => {
@@ -303,11 +233,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         }
     },
     deleteWish: async (params, successT, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await wishesApi.deleteWish(params);
 
@@ -319,11 +244,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             toast(successT, { type: 'success' });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     getWishList: async (data, errorT) => {

@@ -15,6 +15,7 @@ import UiDatePicker from '@/components/ui/UiDatePicker';
 import UiButton from '@/components/ui/UiButton';
 import UiTooltip from '@/components/ui/UiTooltip';
 import InfoIcon from '@/components/icons/InfoIcon';
+import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {
     wish: IWish;
@@ -26,6 +27,7 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
     const [bookEnd, setBookEnd] = useState<Date | null>(null);
     const [bookEndError, setBookEndError] = useState<string>('');
     const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const router = useRouter();
 
@@ -62,6 +64,8 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
 
         if (!myUser || !bookEnd || bookEndError.length > 0) return;
 
+        setIsLoading(true);
+
         const response = await bookWish(
             {
                 userId: myUser.id,
@@ -70,17 +74,20 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
             },
             alertsT('wishes-api.book-wish.error')
         );
-        if (!response) return;
 
-        const quote = response[activeLocale as ELang];
-        toast(
-            <QuoteMessage
-                title={alertsT('wishes-api.book-wish.success')}
-                text={quote?.text}
-                author={quote?.author}
-            />,
-            { type: 'success' }
-        );
+        setIsLoading(false);
+
+        if (response) {
+            const quote = response[activeLocale as ELang];
+            toast(
+                <QuoteMessage
+                    title={alertsT('wishes-api.book-wish.success')}
+                    text={quote?.text}
+                    author={quote?.author}
+                />,
+                { type: 'success' }
+            );
+        }
 
         handleHide();
         hide && hide();
@@ -143,6 +150,13 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
                     </p>
                     <UiTooltip id="book-wish" />
                 </div>
+
+                {isLoading && (
+                    <UiLoading
+                        isLocal
+                        bg="bg-zinc-300 dark:bg-zinc-800 rounded-2xl"
+                    />
+                )}
             </ConfirmModal>
         </>
     );

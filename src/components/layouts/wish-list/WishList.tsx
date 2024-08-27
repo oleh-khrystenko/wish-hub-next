@@ -110,7 +110,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     };
     const handleHideCreateWish = () => {
         setShowCreateWish(false);
-        resetWishCandidate(null);
+        resetWishCandidate();
     };
 
     const handleShowEditWish = (id: IWish['id'] | null) => {
