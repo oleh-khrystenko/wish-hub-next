@@ -196,7 +196,7 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
 
                         {/* Edit Wish */}
                         {showEditWish && (
-                            <div className="ml-auto mt-3 w-fit">
+                            <div className="ml-auto mt-3 w-fit tablet-md:mt-0">
                                 <UiButton onClick={handleEditWish}>
                                     {mainPageT('edit-wish')}
                                 </UiButton>

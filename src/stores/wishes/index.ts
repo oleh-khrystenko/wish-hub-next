@@ -22,16 +22,22 @@ const replaceWish = (
     },
     newWish: IWish
 ) => {
-    // Змінити бажання та покласти його там де було
     // Знаходимо індекс бажання в списку за його ідентифікатором
     const index = state.list.findIndex(
         (currentWish) => currentWish.id === newWish.id
     );
+
     // Перевіряємо, чи було знайдено бажання
     if (index !== -1) {
-        // Оновлюємо дані бажання
-        state.list[index] = newWish;
+        // Оновлюємо масив з новим бажанням
+        const updatedList = [...state.list];
+        updatedList[index] = newWish;
+
+        // Оновлюємо стан з новим масивом
+        return { list: updatedList };
     }
+
+    return {};
 };
 
 interface IWishesStore {
@@ -161,13 +167,10 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         try {
             const response = await wishesApi.updateWish(data);
 
-            set((state) => {
-                replaceWish(state, response.data);
-
-                return {
-                    ...state,
-                };
-            });
+            set((state) => ({
+                ...state,
+                ...replaceWish(state, response.data),
+            }));
 
             toast(successT, { type: 'success' });
         } catch (error: any) {
@@ -188,13 +191,10 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         try {
             const response = await wishesApi.bookWish(data);
 
-            set((state) => {
-                replaceWish(state, response.data.wish);
-
-                return {
-                    ...state,
-                };
-            });
+            set((state) => ({
+                ...state,
+                ...replaceWish(state, response.data.wish),
+            }));
 
             return response.data.quote;
         } catch (error: any) {
@@ -215,13 +215,10 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         try {
             const response = await wishesApi.cancelBookWish(data);
 
-            set((state) => {
-                replaceWish(state, response.data);
-
-                return {
-                    ...state,
-                };
-            });
+            set((state) => ({
+                ...state,
+                ...replaceWish(state, response.data),
+            }));
 
             toast(successT, { type: 'success' });
         } catch (error: any) {
@@ -242,13 +239,10 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         try {
             const response = await wishesApi.doneWish(data);
 
-            set((state) => {
-                replaceWish(state, response.data.bookedWish);
-
-                return {
-                    ...state,
-                };
-            });
+            set((state) => ({
+                ...state,
+                ...replaceWish(state, response.data.bookedWish),
+            }));
 
             toast(successT, { type: 'success' });
         } catch (error: any) {
@@ -269,13 +263,10 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         try {
             const response = await wishesApi.undoneWish(data);
 
-            set((state) => {
-                replaceWish(state, response.data.bookedWish);
-
-                return {
-                    ...state,
-                };
-            });
+            set((state) => ({
+                ...state,
+                ...replaceWish(state, response.data.bookedWish),
+            }));
 
             toast(successT, { type: 'success' });
         } catch (error: any) {
@@ -291,13 +282,10 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         try {
             const response = await wishesApi.likeWish(data);
 
-            set((state) => {
-                replaceWish(state, response.data);
-
-                return {
-                    ...state,
-                };
-            });
+            set((state) => ({
+                ...state,
+                ...replaceWish(state, response.data),
+            }));
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
         }
@@ -306,13 +294,10 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         try {
             const response = await wishesApi.dislikeWish(data);
 
-            set((state) => {
-                replaceWish(state, response.data);
-
-                return {
-                    ...state,
-                };
-            });
+            set((state) => ({
+                ...state,
+                ...replaceWish(state, response.data),
+            }));
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
         }

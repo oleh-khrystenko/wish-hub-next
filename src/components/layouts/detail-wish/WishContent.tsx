@@ -62,7 +62,7 @@ const WishContent: FC<IProps> = ({ wish }) => {
 
     return (
         <div
-            className={`${wish.images.length > 1 ? 'mt-[100px] tablet-md:mt-[120px] desktop-xs:mt-0' : ''} ${wish.images.length === 0 ? 'mt-8 tablet-md:mt-0' : ''} flex w-full flex-col gap-4 pl-4 pr-3 tablet-md:pl-5 tablet-lg:pl-8 tablet-lg:pr-5 desktop-xs:col-span-5 desktop-xs:gap-6 desktop-xs:pr-8`}
+            className={`${wish.images.length > 1 ? 'mt-[100px] tablet-md:mt-[120px] desktop-xs:mt-0' : ''} ${wish.images.length === 0 ? 'mt-8 tablet-md:mt-0 desktop-xs:col-span-8' : 'desktop-xs:col-span-5'} flex w-full flex-col gap-4 pl-4 pr-3 tablet-md:pl-5 tablet-lg:pl-8 tablet-lg:pr-5 desktop-xs:gap-6 desktop-xs:pr-8`}
         >
             <div className="flex w-full items-center justify-between gap-3">
                 <span className="truncate text-xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-2xl">
