@@ -48,7 +48,7 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
 
     return (
         <>
-            <UiButton variant="text" onClick={() => setShow(true)}>
+            <UiButton variant="text" onBtnClick={() => setShow(true)}>
                 {mainPageT('determine-status')}
             </UiButton>
 
@@ -67,11 +67,11 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
                 </p>
 
                 <div className="mt-6 flex items-center justify-end gap-5">
-                    <UiButton variant="text-attention" onClick={handleDone}>
+                    <UiButton variant="text-attention" onBtnClick={handleDone}>
                         {mainPageT('yes')}
                     </UiButton>
 
-                    <UiButton onClick={handleUndone}>
+                    <UiButton onBtnClick={handleUndone}>
                         {mainPageT('no')}
                     </UiButton>
                 </div>

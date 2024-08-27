@@ -61,7 +61,7 @@ const FastWish: FC<IProps> = ({ hide }) => {
             <UiTooltip id="url" />
 
             <div className="ml-auto flex w-fit flex-col items-center gap-6 mobile-xs:flex-row">
-                <UiButton variant="text" onClick={hide}>
+                <UiButton variant="text" onBtnClick={hide}>
                     {mainPageT('manually')}
                 </UiButton>
 

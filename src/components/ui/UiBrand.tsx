@@ -44,7 +44,7 @@ const UiBrand: FC<IProps> = ({
     );
 
     return isMainPage ? (
-        <UiButton variant="text-btn" onClick={() => getInitialAllWishes()}>
+        <UiButton variant="text-btn" onBtnClick={() => getInitialAllWishes()}>
             {children}
         </UiButton>
     ) : (

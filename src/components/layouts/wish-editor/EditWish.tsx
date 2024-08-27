@@ -365,7 +365,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                     <div className="ml-auto flex items-center gap-4">
                         <UiButton
                             variant="text-attention"
-                            onClick={() => setShowConfirmDeleteWish(true)}
+                            onBtnClick={() => setShowConfirmDeleteWish(true)}
                         >
                             {mainPageT('delete-wish')}
                         </UiButton>

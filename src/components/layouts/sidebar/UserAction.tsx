@@ -243,7 +243,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
             </button>
 
             <div className="relative" ref={popupActionRef}>
-                <UiButton variant="text" onClick={handleShowPopup}>
+                <UiButton variant="text" onBtnClick={handleShowPopup}>
                     <ThreeDotsIcon classes="m-2 w-6 h-6 stroke-zinc-800 dark:stroke-zinc-300" />
                 </UiButton>
 

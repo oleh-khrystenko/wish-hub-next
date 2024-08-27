@@ -36,7 +36,7 @@ const CancelBookWish: FC<IProps> = ({ wish, userId, hide }) => {
             <div className="-mr-4 ml-auto">
                 <UiButton
                     variant="text-attention"
-                    onClick={() => setShow(true)}
+                    onBtnClick={() => setShow(true)}
                 >
                     {mainPageT('cancel-execution')}
                 </UiButton>

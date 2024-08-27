@@ -37,7 +37,7 @@ const DoneWish: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
     return (
         <>
             <div className="-mr-4 ml-auto">
-                <UiButton variant="text-btn" onClick={() => setShow(true)}>
+                <UiButton variant="text-btn" onBtnClick={() => setShow(true)}>
                     {mainPageT('wish-fulfilled')}
                 </UiButton>
             </div>

@@ -20,7 +20,8 @@ interface IProps {
     bgLoading?: string;
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
-    onClick?: (event: any) => void;
+    onLinkClick?: () => void;
+    onBtnClick?: (event: any) => void;
     children: ReactNode;
 }
 
@@ -33,12 +34,18 @@ const UiButton: FC<IProps> = ({
     bgLoading = 'bg-zinc-300 dark:bg-zinc-800',
     disabled,
     type = 'button',
-    onClick,
+    onLinkClick,
+    onBtnClick,
     children,
 }) => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
+    const handleLinkClick = () => {
+        setIsLoading(true);
+        onLinkClick && onLinkClick();
+    };
+
+    const handleBtnClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
         disabled && event.preventDefault();
     };
 
@@ -75,13 +82,14 @@ const UiButton: FC<IProps> = ({
         tabIndex,
     };
 
-    const btnProps: Record<string, any> = {
-        ...tagProps,
-        onClick: onClick || handleClick,
-    };
-
     const linkProps: Record<string, any> = {
         ...tagProps,
+        onClick: onLinkClick || handleLinkClick,
+    };
+
+    const btnProps: Record<string, any> = {
+        ...tagProps,
+        onClick: onBtnClick || handleBtnClick,
     };
 
     if (target === '_blank') {
@@ -94,11 +102,7 @@ const UiButton: FC<IProps> = ({
 
     if (href) {
         return (
-            <Link
-                href={`/${activeLocale}/${href}`}
-                onClick={() => setIsLoading(true)}
-                {...linkProps}
-            >
+            <Link href={`/${activeLocale}/${href}`} {...linkProps}>
                 <span className={spanClasses}>{children}</span>
 
                 {isLoading && (

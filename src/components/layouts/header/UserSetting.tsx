@@ -67,6 +67,10 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
         setActivatedBurgerMenu(false);
     };
 
+    const handleSelectMyUser = async () => {
+        console.log('handleSelectMyUser', myUser?.id);
+    };
+
     const handleHidePopup = () => {
         setTimeout(() => {
             setShowPopup(false);
@@ -96,7 +100,10 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                             )}
                         </div>
                     ) : (
-                        <UiButton variant="text" onClick={handleSelectMyWishes}>
+                        <UiButton
+                            variant="text"
+                            onBtnClick={handleSelectMyWishes}
+                        >
                             <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                 {theme === ETheme.DARK ? (
                                     <LogoLightIcon classes="h-6 w-6" />
@@ -144,7 +151,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                         <>
                             <UiButton
                                 variant="text"
-                                onClick={handleSelectMyWishes}
+                                onBtnClick={handleSelectMyWishes}
                             >
                                 <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                     {theme === ETheme.DARK ? (
@@ -157,9 +164,10 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                             </UiButton>
 
                             <UiButton
+                                href="/profile"
                                 variant="text"
-                                href={`/profile/${myUser?.id}`}
                                 bgLoading="bg-zinc-100 dark:bg-zinc-700"
+                                onLinkClick={handleSelectMyUser}
                             >
                                 <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                     <PersonIcon />
@@ -232,7 +240,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                         <UiButton
                             variant="text"
                             type="button"
-                            onClick={handleLogout}
+                            onBtnClick={handleLogout}
                         >
                             <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                 <LogoutIcon />

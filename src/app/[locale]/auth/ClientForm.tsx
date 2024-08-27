@@ -294,7 +294,7 @@ const ClientForm: FC = () => {
                     <div className="mobile-sm:-ml-4">
                         <UiButton
                             variant="text-btn"
-                            onClick={() => setIsSingUp((state) => !state)}
+                            onBtnClick={() => setIsSingUp((state) => !state)}
                         >
                             {isSingUp
                                 ? authPageT('sing-in')
@@ -307,7 +307,7 @@ const ClientForm: FC = () => {
                     <div className="mobile-sm:-mr-4 mobile-sm:ml-auto">
                         <UiButton
                             variant="text-attention"
-                            onClick={() =>
+                            onBtnClick={() =>
                                 setIsForgotPassword((state) => !state)
                             }
                         >

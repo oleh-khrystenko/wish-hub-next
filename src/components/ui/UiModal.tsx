@@ -46,7 +46,7 @@ const UiModal: FC<IProps> = ({
                 >
                     {hide && (
                         <div className="absolute right-2 top-1.5 z-10 tablet-md:-right-3 tablet-md:-top-3">
-                            <UiButton variant="solid-gray" onClick={hide}>
+                            <UiButton variant="solid-gray" onBtnClick={hide}>
                                 <CrossIcon />
                             </UiButton>
                         </div>

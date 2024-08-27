@@ -129,7 +129,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
             )}
 
             <div className="relative ml-auto">
-                <UiButton variant="text" onClick={() => setShowPopup(true)}>
+                <UiButton variant="text" onBtnClick={() => setShowPopup(true)}>
                     <span className="whitespace-nowrap text-xs text-zinc-500 dark:text-zinc-400 tablet-md:text-sm">
                         {wishesSortText}
                     </span>
