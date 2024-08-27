@@ -12,7 +12,6 @@ interface IUsersStore {
     followFromCount: number;
     stopRequests: boolean;
     selectedUserId: IUser['id'] | null;
-    isLoading: boolean;
     setSearch: (value: string) => void;
     setSelectedUserId: (id: IUser['id'] | null) => void;
     getUsers: (params: ISendUsersParams, errorT: string) => Promise<void>;
@@ -28,14 +27,12 @@ export const useUsersStore = create<IUsersStore>((set) => ({
     followFromCount: 0,
     stopRequests: false,
     selectedUserId: null,
-    isLoading: false,
     setSearch: (value) => set({ search: value }),
     setSelectedUserId: (id) => set({ selectedUserId: id }),
     getUsers: async (params, errorT) => {
         set((state) => ({
             ...state,
             stopRequests: true,
-            isLoading: true,
         }));
 
         try {
@@ -56,18 +53,12 @@ export const useUsersStore = create<IUsersStore>((set) => ({
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     addUsers: async (params, errorT) => {
         set((state) => ({
             ...state,
             stopRequests: true,
-            isLoading: true,
         }));
 
         try {
@@ -91,18 +82,12 @@ export const useUsersStore = create<IUsersStore>((set) => ({
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     getAllUsers: async (params, errorT) => {
         set((state) => ({
             ...state,
             stopRequests: true,
-            isLoading: true,
         }));
 
         try {
@@ -124,18 +109,12 @@ export const useUsersStore = create<IUsersStore>((set) => ({
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     addAllUsers: async (params, errorT) => {
         set((state) => ({
             ...state,
             stopRequests: true,
-            isLoading: true,
         }));
 
         try {
@@ -158,11 +137,6 @@ export const useUsersStore = create<IUsersStore>((set) => ({
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
 }));

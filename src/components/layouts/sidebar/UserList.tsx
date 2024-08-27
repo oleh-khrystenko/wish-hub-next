@@ -13,10 +13,12 @@ import UiSearch from '@/components/ui/UiSearch';
 import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
 const UserList: FC = () => {
-    const [firstLoad, setFirstLoad] = useState<boolean>(true);
+    const [firstLoaded, setFirstLoaded] = useState<boolean>(false);
     const [userType, setUserType] = useState<ISendUsersParams['userType']>(
         EUserType.ALL
     );
+    const [isLoadingGet, setIsLoadingGet] = useState<boolean>(false);
+    const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
     const userListRef = useRef<HTMLDivElement>(null);
     const gotUsers = useRef(false);
@@ -34,7 +36,6 @@ const UserList: FC = () => {
     const search = useUsersStore((state) => state.search);
     const followFromCount = useUsersStore((state) => state.followFromCount);
     const stopRequests = useUsersStore((state) => state.stopRequests);
-    const isLoading = useUsersStore((state) => state.isLoading);
     const setSearch = useUsersStore((state) => state.setSearch);
     const getUsers = useUsersStore((state) => state.getUsers);
     const addUsers = useUsersStore((state) => state.addUsers);
@@ -86,12 +87,9 @@ const UserList: FC = () => {
     const handleChangeUserType = async (value: IOption['value']) => {
         setUserType(value as EUserType);
 
-        if (!myUser || !userListRef.current) return;
+        if (!myUser) return;
 
-        userListRef.current.scrollTo({
-            behavior: 'smooth',
-            top: 0,
-        });
+        setIsLoadingGet(true);
 
         await getUsers(
             {
@@ -103,28 +101,23 @@ const UserList: FC = () => {
             },
             alertsT('users-api.get-users.error')
         );
+
+        if (userListRef.current) {
+            userListRef.current.scrollTo({
+                behavior: 'smooth',
+                top: 0,
+            });
+        }
+
+        setIsLoadingGet(false);
     };
 
     const handleChangeSearchBar = async (value: string) => {
         setSearch(value);
 
-        if (!userListRef.current) return;
+        setIsLoadingGet(true);
 
-        userListRef.current.scrollTo({
-            behavior: 'smooth',
-            top: 0,
-        });
-
-        if (!myUser) {
-            await getAllUsers(
-                {
-                    page: 1,
-                    limit: USERS_PAGINATION_LIMIT,
-                    search: value,
-                },
-                alertsT('users-api.get-all-users.error')
-            );
-        } else {
+        if (myUser) {
             await getUsers(
                 {
                     page: 1,
@@ -135,11 +128,31 @@ const UserList: FC = () => {
                 },
                 alertsT('users-api.get-users.error')
             );
+        } else {
+            await getAllUsers(
+                {
+                    page: 1,
+                    limit: USERS_PAGINATION_LIMIT,
+                    search: value,
+                },
+                alertsT('users-api.get-all-users.error')
+            );
         }
+
+        if (userListRef.current) {
+            userListRef.current.scrollTo({
+                behavior: 'smooth',
+                top: 0,
+            });
+        }
+
+        setIsLoadingGet(false);
     };
 
     const updateUsers = async () => {
         if (!myUser) return;
+
+        setIsLoadingGet(true);
 
         await getUsers(
             {
@@ -152,61 +165,78 @@ const UserList: FC = () => {
             alertsT('users-api.get-users.error')
         );
 
-        if (!userListRef.current) return;
+        if (userListRef.current) {
+            userListRef.current.scrollTo({
+                behavior: 'smooth',
+                top: 0,
+            });
+        }
 
-        userListRef.current.scrollTo({
-            behavior: 'smooth',
-            top: 0,
-        });
+        setIsLoadingGet(false);
     };
 
     useEffect(() => {
-        if (firstLoad) {
-            setFirstLoad(false);
-            return;
-        }
+        if (!firstLoaded) return;
 
         if (!inView || stopRequests) return;
-        if (myUser) {
-            addUsers(
-                {
-                    page,
-                    limit: USERS_PAGINATION_LIMIT,
-                    myUserId: myUser.id,
-                    userType,
-                    search,
-                },
-                alertsT('users-api.get-users.error')
-            ).finally();
-        } else {
-            addAllUsers(
-                { page, limit: USERS_PAGINATION_LIMIT, search },
-                alertsT('users-api.get-all-users.error')
-            ).finally();
-        }
+
+        const fetchUsers = async () => {
+            setIsLoadingAdd(true);
+
+            if (myUser) {
+                await addUsers(
+                    {
+                        page,
+                        limit: USERS_PAGINATION_LIMIT,
+                        myUserId: myUser.id,
+                        userType,
+                        search,
+                    },
+                    alertsT('users-api.get-users.error')
+                );
+            } else {
+                await addAllUsers(
+                    { page, limit: USERS_PAGINATION_LIMIT, search },
+                    alertsT('users-api.get-all-users.error')
+                );
+            }
+
+            setIsLoadingAdd(false);
+        };
+
+        fetchUsers().finally();
     }, [inView]);
 
     useEffect(() => {
         if (gotUsers.current) return;
         gotUsers.current = true;
 
-        if (myUser) {
-            getUsers(
-                {
-                    page: 1,
-                    limit: USERS_PAGINATION_LIMIT,
-                    myUserId: myUser.id,
-                    userType,
-                    search,
-                },
-                alertsT('users-api.get-users.error')
-            ).finally();
-        } else {
-            getAllUsers(
-                { page: 1, limit: USERS_PAGINATION_LIMIT, search },
-                alertsT('users-api.get-all-users.error')
-            ).finally();
-        }
+        const fetchUsers = async () => {
+            setIsLoadingGet(true);
+
+            if (myUser) {
+                await getUsers(
+                    {
+                        page: 1,
+                        limit: USERS_PAGINATION_LIMIT,
+                        myUserId: myUser.id,
+                        userType,
+                        search,
+                    },
+                    alertsT('users-api.get-users.error')
+                );
+            } else {
+                await getAllUsers(
+                    { page: 1, limit: USERS_PAGINATION_LIMIT, search },
+                    alertsT('users-api.get-all-users.error')
+                );
+            }
+
+            setFirstLoaded(true);
+            setIsLoadingGet(false);
+        };
+
+        fetchUsers().finally();
     }, []);
 
     return (
@@ -259,8 +289,18 @@ const UserList: FC = () => {
                     ref={ref}
                 ></div>
 
-                {isLoading && (
+                {isLoadingGet && (
                     <UiLoading isLocal bg="bg-zinc-300 dark:bg-zinc-800" />
+                )}
+
+                {isLoadingAdd && (
+                    <div className="relative mt-2 h-10 w-full">
+                        <UiLoading
+                            isLocal
+                            size="h-10 min-h-10 w-10 min-w-10"
+                            bg="bg-zinc-300 dark:bg-zinc-800"
+                        />
+                    </div>
                 )}
             </div>
         </>
