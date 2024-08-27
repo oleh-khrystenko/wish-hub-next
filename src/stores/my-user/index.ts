@@ -25,7 +25,7 @@ interface IMyUserStore {
     logout: (errorT: string) => Promise<void>;
     refresh: (errorT: string) => Promise<void>;
     changePassword: (data: IChangePassword) => Promise<void>;
-    changeLang: (data: IChangeLang) => Promise<void>;
+    changeLang: (data: IChangeLang, errorT: string) => Promise<void>;
     changeShowedInfo: (data: IUserId) => Promise<void>;
     changeFirsLoaded: (data: IUserId) => Promise<void>;
     updateMyUser: (data: IUpdateMyUser) => Promise<void>;
@@ -221,7 +221,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         }
     },
-    changeLang: async (data) => {
+    changeLang: async (data, errorT) => {
         set((state) => ({
             ...state,
             isLoading: true,
@@ -235,10 +235,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 myUser: response.data,
             }));
         } catch (error: any) {
-            // toast(
-            //     error.response?.data?.message || t('alerts.my-user-api.change-lang.error'),
-            //     { type: 'error' },
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -316,11 +313,6 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
         }
     },
     addFriend: async (data, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await myUserApi.addFriend(data);
 
@@ -330,19 +322,9 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     removeFriend: async (data, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
         try {
             const response = await myUserApi.removeFriend(data);
 
@@ -352,11 +334,6 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     deleteMyUser: async (data) => {

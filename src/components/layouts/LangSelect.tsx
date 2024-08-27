@@ -2,9 +2,10 @@
 
 import { useTransition } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { UA, US } from 'country-flag-icons/react/3x2';
 import { ELang } from '@/models/Settings';
+import { useMyUserStore } from '@/stores/my-user';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 
 const options: IOption[] = [
@@ -34,12 +35,25 @@ const options: IOption[] = [
 
 function LangSelect() {
     const [isPending, startTransition] = useTransition();
+
     const router = useRouter();
-    const activeLocale = useLocale();
     const pathname = usePathname();
 
+    const activeLocale = useLocale();
+    const alertsT = useTranslations('alerts');
+
+    const myUser = useMyUserStore((state) => state.myUser);
+    const changeLang = useMyUserStore((state) => state.changeLang);
+
     const handleChangeLang = (value: IOption['value']) => {
-        startTransition(() => {
+        startTransition(async () => {
+            if (myUser) {
+                await changeLang(
+                    { userId: myUser.id, lang: value as ELang },
+                    alertsT('my-user-api.change-lang.error')
+                );
+            }
+
             const newPath = pathname.replace(`/${activeLocale}`, '');
             router.replace(`/${value}${newPath}`);
         });

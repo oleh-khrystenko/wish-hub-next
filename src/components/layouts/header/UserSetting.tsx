@@ -26,6 +26,7 @@ import PrivacyPolicyIcon from '@/components/icons/PrivacyPolicyIcon';
 import LogoDarkIcon from '@/components/icons/LogoDarkIcon';
 import LogoLightIcon from '@/components/icons/LogoLightIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
+import UiLoading from '@/components/ui/UiLoading';
 // import YouTubeIcon from '@/components/icons/YouTubeIcon';
 
 interface IProps {
@@ -43,8 +44,11 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
+    const isLoading = useMyUserStore((state) => state.isLoading);
     const logout = useMyUserStore((state) => state.logout);
+
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
+
     const theme = useSettingsStore((state) => state.theme);
     const setActivatedBurgerMenu = useSettingsStore(
         (state) => state.setActivatedBurgerMenu
@@ -263,6 +267,8 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                     </div>
                 </div>
             </UiPopup>
+
+            {isLoading && <UiLoading />}
         </div>
     );
 };
