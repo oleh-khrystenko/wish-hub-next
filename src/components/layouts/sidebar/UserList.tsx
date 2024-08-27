@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import { EUserType, ISendUsersParams } from '@/stores/users/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
-import Loading from '@/components/layouts/Loading';
+import UiLoading from '@/components/ui/UiLoading';
 import UserAction from '@/components/layouts/sidebar/UserAction';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import UiSearch from '@/components/ui/UiSearch';
@@ -259,7 +259,9 @@ const UserList: FC = () => {
                     ref={ref}
                 ></div>
 
-                {isLoading && <Loading isLocal />}
+                {isLoading && (
+                    <UiLoading isLocal bg="bg-zinc-300 dark:bg-zinc-800" />
+                )}
             </div>
         </>
     );

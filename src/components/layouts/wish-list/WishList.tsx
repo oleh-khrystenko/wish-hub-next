@@ -12,7 +12,7 @@ import WishItem from '@/components/layouts/wish-list/WishItem';
 import CreateWish from '@/components/layouts/wish-editor/CreateWish';
 import EditWish from '@/components/layouts/wish-editor/EditWish';
 import DetailWish from '@/components/layouts/detail-wish/DetailWish';
-import Loading from '@/components/layouts/Loading';
+import UiLoading from '@/components/ui/UiLoading';
 import UiModal from '@/components/ui/UiModal';
 import CrossIcon from '@/components/icons/CrossIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
@@ -318,7 +318,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                 </div>
             )}
 
-            {isLoading && <Loading isLocal />}
+            {isLoading && <UiLoading isLocal />}
 
             {detailWish && (
                 <UiModal

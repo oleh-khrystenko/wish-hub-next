@@ -3,9 +3,9 @@
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { ToastContainer } from 'react-toastify';
-import { useMyUserStore } from '@/stores/my-user';
-import Loading from '@/components/layouts/Loading';
 import 'react-toastify/dist/ReactToastify.css';
+import { useMyUserStore } from '@/stores/my-user';
+import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {
     children: ReactNode;
@@ -30,7 +30,7 @@ const Refresh: FC<IProps> = ({ children }) => {
     }, []);
 
     if (isLoading) {
-        return <Loading />;
+        return <UiLoading />;
     }
 
     return (

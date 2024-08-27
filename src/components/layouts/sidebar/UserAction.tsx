@@ -16,7 +16,7 @@ import { useSettingsStore } from '@/stores/settings';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
-import Loading from '@/components/layouts/Loading';
+import UiLoading from '@/components/ui/UiLoading';
 import UiAvatar from '@/components/ui/UiAvatar';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -263,7 +263,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                             {mainPageT('user-profile')}
 
                             {isLoading && (
-                                <Loading
+                                <UiLoading
                                     isLocal
                                     size="h-6 min-h-6 w-6 min-w-6"
                                     bg="bg-zinc-100 dark:bg-zinc-700"

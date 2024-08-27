@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, ReactNode, useState } from 'react';
-import Loading from '@/components/layouts/Loading';
+import UiLoading from '@/components/ui/UiLoading';
 import OutsideClickHandler from '@/helpers/hocs/OutsideClickHandler';
 import ArrowChevronIcon from '@/components/icons/ArrowChevronIcon';
 
@@ -60,7 +60,11 @@ const UiSelect: FC<IProps> = ({
                     </span>
 
                     {isPending && (
-                        <Loading isLocal size="h-10 min-h-10 w-10 min-w-10" />
+                        <UiLoading
+                            isLocal
+                            size="h-10 min-h-10 w-10 min-w-10"
+                            bg={bg}
+                        />
                     )}
                 </button>
 

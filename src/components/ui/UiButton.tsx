@@ -3,7 +3,7 @@
 import { FC, ReactNode, MouseEventHandler, useState } from 'react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
-import Loading from '@/components/layouts/Loading';
+import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {
     href?: string;
@@ -102,7 +102,7 @@ const UiButton: FC<IProps> = ({
                 <span className={spanClasses}>{children}</span>
 
                 {isLoading && (
-                    <Loading isLocal size={sizeLoading} bg={bgLoading} />
+                    <UiLoading isLocal size={sizeLoading} bg={bgLoading} />
                 )}
             </Link>
         );
