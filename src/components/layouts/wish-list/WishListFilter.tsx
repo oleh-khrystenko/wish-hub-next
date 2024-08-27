@@ -11,10 +11,10 @@ import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import UiSearch from '@/components/ui/UiSearch';
 
 interface IProps {
-    wishListRefCurrent: HTMLUListElement | null;
+    wishListWrapRefCurrent: HTMLDivElement | null;
 }
 
-const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
+const WishListFilter: FC<IProps> = ({ wishListWrapRefCurrent }) => {
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
 
@@ -75,9 +75,9 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
             alertsT('wishes-api.get-wish-list.error')
         );
 
-        if (!wishListRefCurrent) return;
+        if (!wishListWrapRefCurrent) return;
 
-        wishListRefCurrent.scrollTo({
+        wishListWrapRefCurrent.scrollTo({
             behavior: 'smooth',
             top: 0,
         });
@@ -111,9 +111,9 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
             );
         }
 
-        if (!wishListRefCurrent) return;
+        if (!wishListWrapRefCurrent) return;
 
-        wishListRefCurrent.scrollTo({
+        wishListWrapRefCurrent.scrollTo({
             behavior: 'smooth',
             top: 0,
         });

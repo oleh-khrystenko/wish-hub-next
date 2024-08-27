@@ -16,10 +16,10 @@ import InfoIcon from '@/components/icons/InfoIcon';
 import SortIcon from '@/components/icons/SortIcon';
 
 interface IProps {
-    wishListRefCurrent: HTMLUListElement | null;
+    wishListWrapRefCurrent: HTMLDivElement | null;
 }
 
-const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
+const WishListActions: FC<IProps> = ({ wishListWrapRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
     const activeLocale = useLocale();
@@ -83,9 +83,9 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
             );
         }
 
-        if (!wishListRefCurrent) return;
+        if (!wishListWrapRefCurrent) return;
 
-        wishListRefCurrent.scrollTo({
+        wishListWrapRefCurrent.scrollTo({
             behavior: 'smooth',
             top: 0,
         });

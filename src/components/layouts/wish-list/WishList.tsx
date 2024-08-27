@@ -29,8 +29,9 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const [idOfSelectedWish, setIdOfSelectedWish] = useState<
         IWish['id'] | null
     >(null);
+    const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
-    const wishListRef = useRef<HTMLUListElement>(null);
+    const wishListWrapRef = useRef<HTMLDivElement>(null);
     const gotWishes = useRef(false);
 
     const mainPageT = useTranslations('main-page');
@@ -139,6 +140,8 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
             if (!inView || stopRequests) return;
 
+            setIsLoadingAdd(true);
+
             if (selectedUserId) {
                 await addWishList(
                     {
@@ -163,6 +166,8 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                     alertsT('wishes-api.get-all-wishes.error')
                 );
             }
+
+            setIsLoadingAdd(false);
         };
 
         fetchWishes().finally();
@@ -232,84 +237,92 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
     return (
         <>
-            <WishListFilter wishListRefCurrent={wishListRef.current} />
+            <WishListFilter wishListWrapRefCurrent={wishListWrapRef.current} />
 
-            <WishListActions wishListRefCurrent={wishListRef.current} />
+            <WishListActions wishListWrapRefCurrent={wishListWrapRef.current} />
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
-                <ul
-                    className="wish-list-scrollbar desktop-2xl:grid-cols-5 mt-6 grid grow grid-cols-2 gap-1.5 overflow-y-auto overflow-x-hidden p-2.5 tablet-xl:grid-cols-3 tablet-xl:gap-4 desktop-xl:grid-cols-4"
-                    ref={wishListRef}
+                <div
+                    className="wish-list-scrollbar mt-6 overflow-y-auto overflow-x-hidden p-2.5 tablet-xl:gap-4"
+                    ref={wishListWrapRef}
                 >
-                    {myUser?.id === selectedUserId && (
-                        <li className="relative flex items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
-                            <button
-                                className="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border-2 border-dashed border-transparent transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
-                                type="button"
-                                onClick={handleShowCreateWish}
-                            >
-                                <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-500 group-hover:dark:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />
+                    <ul className="desktop-2xl:grid-cols-5 grid grow grid-cols-2 gap-1.5 tablet-xl:grid-cols-3 desktop-xl:grid-cols-4">
+                        {myUser?.id === selectedUserId && (
+                            <li className="relative flex items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
+                                <button
+                                    className="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border-2 border-dashed border-transparent transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
+                                    type="button"
+                                    onClick={handleShowCreateWish}
+                                >
+                                    <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-500 group-hover:dark:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />
 
-                                <span className="text-xl font-bold text-zinc-700 group-hover:text-cyan-500 dark:text-zinc-400 group-hover:dark:text-cyan-300">
-                                    {mainPageT('create-wish')}
-                                </span>
-                            </button>
-                        </li>
-                    )}
-
-                    {wishes.length > 0 &&
-                        wishes.map((wish, idx) => (
-                            <WishItem
-                                key={wish.id + idx}
-                                wish={wish}
-                                id={idx}
-                                editWish={() => handleShowEditWish(wish.id)}
-                                showWish={() => handleShowWish(wish.id)}
-                            />
-                        ))}
-
-                    {wishesExample.map((wish, idx) => {
-                        if (wishes.length > idx) return null;
-
-                        let opacity = 'opacity-0';
-                        if (myUser?.id === selectedUserId) {
-                            idx === 0 && (opacity = 'opacity-50');
-                            idx === 1 && (opacity = 'opacity-40');
-                            idx === 2 && (opacity = 'opacity-30');
-                            idx === 3 && (opacity = 'opacity-20');
-                        }
-
-                        return (
-                            <li
-                                key={idx}
-                                className={`${opacity} flex min-h-96 w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-700`}
-                                onClick={() =>
-                                    myUser?.id === selectedUserId &&
-                                    handleShowCreateWish()
-                                }
-                            >
-                                <div className="relative w-full pt-[100%]">
-                                    <LogoIcon
-                                        classes="absolute inset-0 h-full w-full"
-                                        id={idx}
-                                    />
-                                </div>
-
-                                <div className="w-full text-center text-lg font-bold text-zinc-800 dark:text-zinc-300">
-                                    {wish.name}
-                                </div>
+                                    <span className="text-xl font-bold text-zinc-700 group-hover:text-cyan-500 dark:text-zinc-400 group-hover:dark:text-cyan-300">
+                                        {mainPageT('create-wish')}
+                                    </span>
+                                </button>
                             </li>
-                        );
-                    })}
+                        )}
 
-                    <li
-                        className="observable-element"
-                        style={{
-                            display: stopRequests ? 'none' : 'block',
-                        }}
-                        ref={ref}
-                    ></li>
-                </ul>
+                        {wishes.length > 0 &&
+                            wishes.map((wish, idx) => (
+                                <WishItem
+                                    key={wish.id + idx}
+                                    wish={wish}
+                                    id={idx}
+                                    editWish={() => handleShowEditWish(wish.id)}
+                                    showWish={() => handleShowWish(wish.id)}
+                                />
+                            ))}
+
+                        {wishesExample.map((wish, idx) => {
+                            if (wishes.length > idx) return null;
+
+                            let opacity = 'opacity-0';
+                            if (myUser?.id === selectedUserId) {
+                                idx === 0 && (opacity = 'opacity-50');
+                                idx === 1 && (opacity = 'opacity-40');
+                                idx === 2 && (opacity = 'opacity-30');
+                                idx === 3 && (opacity = 'opacity-20');
+                            }
+
+                            return (
+                                <li
+                                    key={idx}
+                                    className={`${opacity} flex min-h-96 w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-700`}
+                                    onClick={() =>
+                                        myUser?.id === selectedUserId &&
+                                        handleShowCreateWish()
+                                    }
+                                >
+                                    <div className="relative w-full pt-[100%]">
+                                        <LogoIcon
+                                            classes="absolute inset-0 h-full w-full"
+                                            id={idx}
+                                        />
+                                    </div>
+
+                                    <div className="w-full text-center text-lg font-bold text-zinc-800 dark:text-zinc-300">
+                                        {wish.name}
+                                    </div>
+                                </li>
+                            );
+                        })}
+
+                        <li
+                            className="observable-element"
+                            style={{
+                                display: stopRequests ? 'none' : 'block',
+                            }}
+                            ref={ref}
+                        ></li>
+                    </ul>
+
+                    {isLoadingAdd && (
+                        <div className="relative mt-5 h-20 w-full">
+                            <UiLoading isLocal />
+                        </div>
+                    )}
+                </div>
             ) : (
                 <div className="flex h-full w-full items-center justify-center">
                     <p className="flex w-full flex-col items-center text-center text-xl text-zinc-700 dark:text-zinc-300">

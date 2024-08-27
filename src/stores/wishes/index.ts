@@ -282,7 +282,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         set((state) => ({
             ...state,
             stopRequests: true,
-            isLoading: true,
         }));
 
         try {
@@ -302,17 +301,13 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
     getAllWishes: async (data, errorT) => {
         set((state) => ({
             ...state,
             stopRequests: true,
+            isLoading: true,
         }));
 
         try {
@@ -360,11 +355,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
         }
     },
 }));
