@@ -4,10 +4,29 @@ import { IUser } from '@/models/User';
 import UiLoading from '@/components/ui/UiLoading';
 import PersonIcon from '@/components/icons/PersonIcon';
 
+type TSizeOfTailwind =
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 14
+    | 16
+    | 20
+    | 24
+    | 28
+    | 32
+    | 36
+    | 40;
+
 interface IProps {
     avatar: IUser['avatar'];
     alt: string;
-    size: number;
+    size: TSizeOfTailwind;
     isLoading?: boolean;
     bgLoading?: string;
     handleClick?: () => void;
@@ -21,16 +40,9 @@ const UiAvatar: FC<IProps> = ({
     bgLoading = 'bg-zinc-200 dark:bg-zinc-900',
     handleClick,
 }) => {
-    const sizeLoading = `h-${size / 4} min-h-${size / 4} w-${size / 4} min-w-${size / 4}`;
-
     return (
         <div
-            style={{
-                width: `${size}px`,
-                minWidth: `${size}px`,
-                height: `${size}px`,
-            }}
-            className="relative flex cursor-pointer items-center justify-center overflow-hidden rounded-full bg-zinc-400 dark:bg-zinc-600"
+            className={`w-${size} min-w-${size} h-${size} relative flex cursor-pointer items-center justify-center overflow-hidden rounded-full bg-zinc-400 dark:bg-zinc-600`}
             onClick={handleClick}
         >
             {avatar ? (
@@ -41,19 +53,18 @@ const UiAvatar: FC<IProps> = ({
                     priority={false}
                     height={size}
                     width={size}
-                    style={{
-                        width: `${size}px`,
-                        minWidth: `${size}px`,
-                        height: `${size}px`,
-                    }}
-                    className="object-cover"
+                    className={`w-${size} min-w-${size} h-${size} object-cover`}
                 />
             ) : (
                 <PersonIcon classes="w-7 h-7 fill-zinc-800 dark:fill-zinc-300" />
             )}
 
             {isLoading && (
-                <UiLoading isLocal size={sizeLoading} bg={bgLoading} />
+                <UiLoading
+                    isLocal
+                    size={`h-${size} min-h-${size} w-${size} min-w-${size}`}
+                    bg={bgLoading}
+                />
             )}
         </div>
     );

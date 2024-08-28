@@ -126,7 +126,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
             <UiAvatar
                 avatar={myUser?.avatar}
                 alt={getFullName(myUser)}
-                size={44}
+                size={11}
                 handleClick={() => setShowPopup(true)}
             />
 
