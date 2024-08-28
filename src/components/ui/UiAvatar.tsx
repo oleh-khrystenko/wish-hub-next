@@ -51,8 +51,8 @@ const UiAvatar: FC<IProps> = ({
                     alt={alt}
                     title={alt}
                     priority={false}
-                    height={size}
-                    width={size}
+                    height={size * 4}
+                    width={size * 4}
                     className={`w-${size} min-w-${size} h-${size} object-cover`}
                 />
             ) : (

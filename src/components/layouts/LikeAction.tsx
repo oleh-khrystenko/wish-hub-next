@@ -72,6 +72,11 @@ const LikeAction: FC<IProps> = ({
         setIsLoading(false);
     };
 
+    const handleShowPopup = (e: MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+        setShowPopup(true);
+    };
+
     const handleSelectWish = async (
         e: MouseEvent<HTMLButtonElement>,
         userId: IUser['id']
@@ -101,7 +106,7 @@ const LikeAction: FC<IProps> = ({
                 <button
                     className="min-w-8 items-center p-1 text-base text-zinc-700 dark:text-zinc-400 tablet-md:min-w-10 tablet-md:p-2"
                     type="button"
-                    onClick={() => setShowPopup(true)}
+                    onClick={handleShowPopup}
                 >
                     {wish[type]?.length}
                 </button>
