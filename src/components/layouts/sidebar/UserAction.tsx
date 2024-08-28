@@ -60,7 +60,6 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
     const removeFriend = useMyUserStore((state) => state.removeFriend);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
-    const setProfileId = useUsersStore((state) => state.setProfileId);
 
     const setActivatedBurgerMenu = useSettingsStore(
         (state) => state.setActivatedBurgerMenu
@@ -144,8 +143,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
 
     const handleGoToProfilePage = () => {
         setIsLoadingNav(true);
-        setProfileId(user.id);
-        router.push(`/${activeLocale}/profile`);
+        router.push(`/${activeLocale}/profile/${user.id}`);
     };
 
     const handleSelectWish = async () => {
@@ -249,6 +247,12 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                 avatar={user.avatar}
                 alt={getFullName(user)}
                 size={40}
+                isLoading={isLoadingNav}
+                bgLoading={
+                    user.id === selectedUserId
+                        ? 'bg-zinc-100 dark:bg-zinc-900'
+                        : 'bg-zinc-300 dark:bg-zinc-800'
+                }
                 handleClick={handleGoToProfilePage}
             />
 

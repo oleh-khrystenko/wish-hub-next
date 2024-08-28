@@ -1,10 +1,10 @@
 'use client';
 
 import { FC } from 'react';
-import { useUsersStore } from '@/stores/users';
+import { useParams } from 'next/navigation';
 
 const ProfileContent: FC = () => {
-    const profileId = useUsersStore((state) => state.profileId);
+    const { profileId } = useParams<{ profileId: string }>();
 
     return (
         <div className="text-zinc-700 dark:text-zinc-300">

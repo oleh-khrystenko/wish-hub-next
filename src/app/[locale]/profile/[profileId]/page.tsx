@@ -1,7 +1,7 @@
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import Refresh from '@/helpers/hocs/Refresh';
-import ProfileContent from '@/app/[locale]/profile/ProfileContent';
+import ProfileContent from '@/app/[locale]/profile/[profileId]/ProfileContent';
 import Header from '@/components/layouts/header/Header';
 
 export default function Profile() {

@@ -48,7 +48,6 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
     const logout = useMyUserStore((state) => state.logout);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
-    const setProfileId = useUsersStore((state) => state.setProfileId);
 
     const theme = useSettingsStore((state) => state.theme);
     const setActivatedBurgerMenu = useSettingsStore(
@@ -70,11 +69,6 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
         await getInitialWishList(myUser.id, myUser.id, EWishSort.CREATED_DESC);
         setShowPopup(false);
         setActivatedBurgerMenu(false);
-    };
-
-    const handleSelectMyUser = async () => {
-        if (!myUser) return;
-        setProfileId(myUser.id);
     };
 
     const handleHidePopup = () => {
@@ -170,10 +164,9 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
                             </UiButton>
 
                             <UiButton
-                                href="/profile"
+                                href={`/profile/${myUser.id}`}
                                 variant="text"
                                 bgLoading="bg-zinc-100 dark:bg-zinc-700"
-                                onLinkClick={handleSelectMyUser}
                             >
                                 <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                     <PersonIcon />
