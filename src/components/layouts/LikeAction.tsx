@@ -134,7 +134,8 @@ const LikeAction: FC<IProps> = ({
                                             <UiAvatar
                                                 avatar={like.userAvatar}
                                                 alt={like.userFullName}
-                                                size={6}
+                                                size={24}
+                                                sizeTailwind="w-6 min-w-6 h-6 min-h-6"
                                             />
 
                                             <span className="w-full max-w-36 truncate text-left text-xs text-zinc-800 dark:text-zinc-300">

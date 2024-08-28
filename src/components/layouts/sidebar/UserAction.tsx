@@ -246,7 +246,8 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
             <UiAvatar
                 avatar={user.avatar}
                 alt={getFullName(user)}
-                size={10}
+                size={40}
+                sizeTailwind="w-10 min-w-10 h-10 min-h-10"
                 isLoading={isLoadingNav}
                 bgLoading={
                     user.id === selectedUserId

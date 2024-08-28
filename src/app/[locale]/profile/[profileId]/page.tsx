@@ -8,9 +8,10 @@ export default function Profile() {
     const messages = useMessages();
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between text-zinc-800 dark:text-zinc-300">
+        <main className="mx-auto min-h-screen max-w-7xl p-1">
             <NextIntlClientProvider
                 messages={pick(messages, [
+                    'profile-page',
                     'main-page',
                     'share-button',
                     'alerts',

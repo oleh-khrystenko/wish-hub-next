@@ -1,9 +1,11 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import Link from 'next/link';
 import { Manrope } from 'next/font/google';
+import { useLocale } from 'next-intl';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
-import UiButton from '@/components/ui/UiButton';
+import UiLoading from '@/components/ui/UiLoading';
 import LogoIcon from '@/components/icons/LogoIcon';
 
 const manrope = Manrope({ subsets: ['latin'], weight: ['700'] });
@@ -25,7 +27,19 @@ const UiBrand: FC<IProps> = ({
     withLogo = false,
     isBig = false,
 }) => {
+    const [isLoading, setIsLoading] = useState(false);
+
     const { getInitialAllWishes } = UseInitialWishes();
+
+    const activeLocale = useLocale();
+
+    const handleBtnClick = async () => {
+        setIsLoading(true);
+        await getInitialAllWishes();
+        setIsLoading(false);
+    };
+
+    const handleLinkClick = () => setIsLoading(true);
 
     const children = (
         <>
@@ -36,26 +50,33 @@ const UiBrand: FC<IProps> = ({
             )}
 
             <span
-                className={`${manrope.className} ${isBig ? 'tablet-md:text-4xl' : 'tablet-md:text-2xl'} text-xl`}
+                className={`${manrope.className} ${isBig ? 'tablet-md:text-4xl' : 'tablet-md:text-2xl'} whitespace-nowrap text-xl font-bold`}
             >
                 Wish Hub
             </span>
+
+            {isLoading && (
+                <UiLoading isLocal size={sizeLoading} bg={bgLoading} />
+            )}
         </>
     );
 
     return isMainPage ? (
-        <UiButton variant="text-btn" onBtnClick={() => getInitialAllWishes()}>
-            {children}
-        </UiButton>
-    ) : (
-        <UiButton
-            href={href}
-            variant="text-btn"
-            sizeLoading={sizeLoading}
-            bgLoading={bgLoading}
+        <button
+            className="relative flex items-center gap-2 px-4 py-2 text-cyan-400 dark:text-cyan-300"
+            type="button"
+            onClick={handleBtnClick}
         >
             {children}
-        </UiButton>
+        </button>
+    ) : (
+        <Link
+            href={`/${activeLocale}/${href}`}
+            className="relative flex items-center gap-2 px-4 py-2 text-cyan-400 dark:text-cyan-300"
+            onClick={handleLinkClick}
+        >
+            {children}
+        </Link>
     );
 };
 

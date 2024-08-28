@@ -20,7 +20,7 @@ export default function Main() {
                 ])}
             >
                 <Refresh>
-                    <Header />
+                    <Header isMainPage />
 
                     <div className="flex grow overflow-hidden">
                         <Sidebar />

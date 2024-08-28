@@ -30,10 +30,10 @@ import UiLoading from '@/components/ui/UiLoading';
 // import YouTubeIcon from '@/components/icons/YouTubeIcon';
 
 interface IProps {
-    logoutWithUpdate: boolean;
+    isMainPage?: boolean;
 }
 
-const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
+const UserSetting: FC<IProps> = ({ isMainPage }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
     const router = useRouter();
@@ -79,7 +79,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
 
     const handleLogout = async () => {
         await logout(alertsT('my-user-api.logout.error'));
-        logoutWithUpdate && (await getInitialAllWishes());
+        isMainPage && (await getInitialAllWishes());
         setShowPopup(false);
     };
 
@@ -87,7 +87,7 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
         <div className="relative ml-auto flex items-center justify-center gap-4">
             {myUser ? (
                 <>
-                    {myUser.id === selectedUserId ? (
+                    {myUser.id === selectedUserId || !isMainPage ? (
                         <div className="flex flex-col items-end gap-1">
                             <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
                                 {getFullName(myUser)}
@@ -126,7 +126,8 @@ const UserSetting: FC<IProps> = ({ logoutWithUpdate = false }) => {
             <UiAvatar
                 avatar={myUser?.avatar}
                 alt={getFullName(myUser)}
-                size={11}
+                size={44}
+                sizeTailwind="w-11 min-w-11 h-11 min-h-11"
                 handleClick={() => setShowPopup(true)}
             />
 
