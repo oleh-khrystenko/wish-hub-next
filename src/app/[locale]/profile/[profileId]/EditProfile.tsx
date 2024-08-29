@@ -1,21 +1,21 @@
 import { FC, ChangeEvent, useState, useEffect, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
 import { TCurrentAvatar, IUser } from '@/models/User';
 import { EPrivacy } from '@/models/Settings';
-import { ALLOWED_FILE_EXTENSIONS } from '@/helpers/utils/constants';
-import UiInput from '@/components/ui/UiInput';
-import PrivacyChoices from '@/components/layouts/wish-editor/PrivacyChoices';
-import UiButton from '@/components/ui/UiButton';
-import { useTranslations } from 'next-intl';
-import { useMyUserStore } from '@/stores/my-user';
 import { IUpdateMyUser } from '@/stores/my-user/types';
+import { useMyUserStore } from '@/stores/my-user';
 import UseValidations from '@/helpers/hooks/UseValidations';
-import CrossIcon from '@/components/icons/CrossIcon';
-import UiAvatar from '@/components/ui/UiAvatar';
-import AvatarValidation from '@/app/[locale]/profile/[profileId]/AvatarValidation';
-import UiDatePicker from '@/components/ui/UiDatePicker';
 import { isAfter, isBefore } from '@/helpers/utils/date-validators';
+import { ALLOWED_FILE_EXTENSIONS } from '@/helpers/utils/constants';
+import AvatarValidation from '@/app/[locale]/profile/[profileId]/AvatarValidation';
+import PrivacyChoices from '@/components/layouts/wish-editor/PrivacyChoices';
+import UiInput from '@/components/ui/UiInput';
+import UiButton from '@/components/ui/UiButton';
+import UiAvatar from '@/components/ui/UiAvatar';
+import UiDatePicker from '@/components/ui/UiDatePicker';
+import CrossIcon from '@/components/icons/CrossIcon';
 
 interface IProps {
     cancel: () => void;
@@ -28,7 +28,6 @@ type Inputs = {
 };
 
 const EditProfile: FC<IProps> = ({ cancel }) => {
-    const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
     const [avatar, setAvatar] = useState<TCurrentAvatar>('');
     const [showEmail, setShowEmail] = useState<EPrivacy>(EPrivacy.ALL);
     const [showDeliveryAddress, setShowDeliveryAddress] = useState<EPrivacy>(
@@ -37,6 +36,7 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
     const [birthday, setBirthday] = useState<Date | null>(null);
     const [birthdayError, setBirthdayError] = useState<string>('');
     const [showBirthday, setShowBirthday] = useState<EPrivacy>(EPrivacy.ALL);
+    const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -157,97 +157,105 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
                 error={errors?.lastName?.message}
             />
 
-            <div className="flex flex-col gap-6 tablet-md:flex-row tablet-md:items-center">
-                <div className="flex items-center gap-4 p-0.5">
-                    <div className="relative h-fit w-fit rounded-full border border-dashed border-zinc-500 p-1">
-                        <label htmlFor="avatar">
-                            <input
-                                className="hidden"
-                                id="avatar"
-                                ref={inputRef}
-                                accept={Object.values(
-                                    ALLOWED_FILE_EXTENSIONS
-                                ).join(',')}
-                                type="file"
-                                onChange={handleChangeAvatar}
-                            />
-                            <UiAvatar
-                                avatar={showAvatar}
-                                alt={`${myUser?.firstName} ${myUser?.lastName}`}
-                                size={144}
-                                sizeTailwind="w-36 min-w-36 h-36 min-h-36"
-                                sizeIcon="w-28 h-28"
-                            />
-                        </label>
+            <div className="flex w-full flex-col gap-6 desktop-xs:flex-row desktop-xs:items-center">
+                <div className="flex grow flex-col gap-6 tablet-md:flex-row">
+                    <div className="flex items-center gap-4 p-0.5 tablet-md:w-40 tablet-md:flex-col tablet-md:items-start tablet-md:gap-2">
+                        <div className="relative h-fit w-fit rounded-full border border-dashed border-zinc-500 p-1">
+                            <label htmlFor="avatar">
+                                <input
+                                    className="hidden"
+                                    id="avatar"
+                                    ref={inputRef}
+                                    accept={Object.values(
+                                        ALLOWED_FILE_EXTENSIONS
+                                    ).join(',')}
+                                    type="file"
+                                    onChange={handleChangeAvatar}
+                                />
+                                <UiAvatar
+                                    avatar={showAvatar}
+                                    alt={`${myUser?.firstName} ${myUser?.lastName}`}
+                                    size={144}
+                                    sizeTailwind="w-36 min-w-36 h-36 min-h-36"
+                                    sizeIcon="w-28 h-28"
+                                />
+                            </label>
 
-                        {(avatar instanceof File ||
-                            (avatar.length > 0 && avatar !== 'delete')) && (
-                            <button
-                                className="absolute right-1.5 top-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-rose-500"
-                                type="button"
-                                onClick={removeAvatar}
-                            >
-                                <CrossIcon classes="w-5 h-5 stroke-zinc-700" />
-                            </button>
-                        )}
+                            {(avatar instanceof File ||
+                                (avatar.length > 0 && avatar !== 'delete')) && (
+                                <button
+                                    className="absolute right-1.5 top-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-rose-500"
+                                    type="button"
+                                    onClick={removeAvatar}
+                                >
+                                    <CrossIcon classes="w-5 h-5 stroke-zinc-700" />
+                                </button>
+                            )}
+                        </div>
+
+                        <AvatarValidation avatar={avatar} />
                     </div>
 
-                    <AvatarValidation avatar={avatar} />
-                </div>
+                    <div className="grow rounded-md border border-dashed border-zinc-500 px-5 py-2">
+                        <p className="truncate text-base text-zinc-700 dark:text-zinc-400 tablet-md:text-lg">
+                            {myUser?.email}
+                        </p>
 
-                <div className="grow rounded-md border border-dashed border-zinc-500 px-4 py-2">
-                    <p className="truncate text-base text-zinc-700 dark:text-zinc-400 tablet-md:text-lg">
-                        {myUser?.email}
-                    </p>
-
-                    {/* Privacy Choices Email */}
-                    <PrivacyChoices
-                        id="email"
-                        bgRadio="after:bg-zinc-200 dark:after:bg-zinc-900"
-                        tooltipContent={{
-                            all: mainPageT('can-see.email-all-tooltip'),
-                            friends: mainPageT('can-see.email-friends-tooltip'),
-                            nobody: mainPageT('can-see.email-nobody-tooltip'),
-                        }}
-                        show={showEmail}
-                        onChange={setShowEmail}
-                    />
-                </div>
-            </div>
-
-            <div className="flex flex-col gap-6 rounded-md border border-dashed border-zinc-500 px-4 py-2 tablet-md:flex-row tablet-md:items-center">
-                <UiDatePicker
-                    label={profilePageT('birthday*')}
-                    placeholder={profilePageT('when_your_birth')}
-                    selectedDate={birthday}
-                    selectedDateError={birthdayError}
-                    clickedOnSubmit={clickedOnSubmit}
-                    changeDate={handleChangeDate}
-                />
-
-                {/* Privacy Choices Birthday */}
-                {birthday && (
-                    <div className="-mt-3">
+                        {/* Privacy Choices Email */}
                         <PrivacyChoices
-                            id="birthday"
+                            id="email"
                             bgRadio="after:bg-zinc-200 dark:after:bg-zinc-900"
                             tooltipContent={{
-                                all: mainPageT('can-see.birthday-all-tooltip'),
+                                all: mainPageT('can-see.email-all-tooltip'),
                                 friends: mainPageT(
-                                    'can-see.birthday-friends-tooltip'
+                                    'can-see.email-friends-tooltip'
                                 ),
                                 nobody: mainPageT(
-                                    'can-see.birthday-nobody-tooltip'
+                                    'can-see.email-nobody-tooltip'
                                 ),
                             }}
-                            show={showBirthday}
-                            onChange={setShowBirthday}
+                            show={showEmail}
+                            onChange={setShowEmail}
                         />
                     </div>
-                )}
+                </div>
+
+                <div className="flex grow flex-col gap-6 rounded-md border border-dashed border-zinc-500 px-5 py-2">
+                    <UiDatePicker
+                        label={profilePageT('birthday*')}
+                        placeholder={profilePageT('when_your_birth')}
+                        selectedDate={birthday}
+                        selectedDateError={birthdayError}
+                        clickedOnSubmit={clickedOnSubmit}
+                        changeDate={handleChangeDate}
+                    />
+
+                    {/* Privacy Choices Birthday */}
+                    {birthday && (
+                        <div className="-mt-3">
+                            <PrivacyChoices
+                                id="birthday"
+                                bgRadio="after:bg-zinc-200 dark:after:bg-zinc-900"
+                                tooltipContent={{
+                                    all: mainPageT(
+                                        'can-see.birthday-all-tooltip'
+                                    ),
+                                    friends: mainPageT(
+                                        'can-see.birthday-friends-tooltip'
+                                    ),
+                                    nobody: mainPageT(
+                                        'can-see.birthday-nobody-tooltip'
+                                    ),
+                                }}
+                                show={showBirthday}
+                                onChange={setShowBirthday}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
 
-            <div className="rounded-md border border-dashed border-zinc-500 px-4 pb-2 pt-5">
+            <div className="rounded-md border border-dashed border-zinc-500 px-5 pb-2 pt-5">
                 <UiInput
                     {...register(
                         'deliveryAddress',

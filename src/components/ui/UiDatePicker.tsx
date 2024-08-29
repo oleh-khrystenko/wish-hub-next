@@ -37,8 +37,8 @@ const UiDatePicker: FC<IProps> = ({
     const activeLocale = useLocale();
 
     return (
-        <div className="wish-date-picker flex flex-col items-center">
-            <div className="flex flex-col gap-0.5">
+        <div className="wish-date-picker flex min-w-64 flex-col items-center">
+            <div className="flex w-full flex-col gap-0.5">
                 {label && label.length > 0 && (
                     <span className="pl-2 text-xs text-cyan-500 dark:text-cyan-300">
                         {label}
