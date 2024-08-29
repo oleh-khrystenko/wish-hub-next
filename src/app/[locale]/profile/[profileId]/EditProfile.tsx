@@ -157,9 +157,9 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
                 error={errors?.lastName?.message}
             />
 
-            <div className="flex items-center gap-6">
-                <div>
-                    <div className="relative h-fit rounded-full border border-dashed border-zinc-500 p-0.5">
+            <div className="flex flex-col gap-6 tablet-md:flex-row tablet-md:items-center">
+                <div className="flex items-center gap-4 p-0.5">
+                    <div className="relative h-fit w-fit rounded-full border border-dashed border-zinc-500 p-1">
                         <label htmlFor="avatar">
                             <input
                                 className="hidden"
@@ -174,20 +174,20 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
                             <UiAvatar
                                 avatar={showAvatar}
                                 alt={`${myUser?.firstName} ${myUser?.lastName}`}
-                                size={64}
-                                sizeTailwind="w-16 min-w-16 h-16 min-h-16"
-                                sizeIcon="w-11 h-11"
+                                size={144}
+                                sizeTailwind="w-36 min-w-36 h-36 min-h-36"
+                                sizeIcon="w-28 h-28"
                             />
                         </label>
 
                         {(avatar instanceof File ||
                             (avatar.length > 0 && avatar !== 'delete')) && (
                             <button
-                                className="absolute right-0.5 top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500"
+                                className="absolute right-1.5 top-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-rose-500"
                                 type="button"
                                 onClick={removeAvatar}
                             >
-                                <CrossIcon classes="w-3 h-3 stroke-zinc-700" />
+                                <CrossIcon classes="w-5 h-5 stroke-zinc-700" />
                             </button>
                         )}
                     </div>
@@ -196,9 +196,9 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
                 </div>
 
                 <div className="grow rounded-md border border-dashed border-zinc-500 px-4 py-2">
-                    <span className="text-base text-zinc-700 dark:text-zinc-400 tablet-md:text-lg">
+                    <p className="truncate text-base text-zinc-700 dark:text-zinc-400 tablet-md:text-lg">
                         {myUser?.email}
-                    </span>
+                    </p>
 
                     {/* Privacy Choices Email */}
                     <PrivacyChoices
@@ -215,7 +215,7 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
                 </div>
             </div>
 
-            <div className="flex items-center gap-6 rounded-md border border-dashed border-zinc-500 px-4 py-2">
+            <div className="flex flex-col gap-6 rounded-md border border-dashed border-zinc-500 px-4 py-2 tablet-md:flex-row tablet-md:items-center">
                 <UiDatePicker
                     label={profilePageT('birthday*')}
                     placeholder={profilePageT('when_your_birth')}

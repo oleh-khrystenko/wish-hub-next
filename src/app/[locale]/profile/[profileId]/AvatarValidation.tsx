@@ -22,7 +22,7 @@ const AvatarValidation: FC<IProps> = ({ avatar }) => {
     const fileExtension = avatar.type.split('/')[1];
     if (!Object.keys(ALLOWED_FILE_EXTENSIONS).includes(fileExtension)) {
         return (
-            <p className="error">
+            <p className="mt-1 text-xs text-red-500">
                 {profilePageT('avatar-error.file-type')}{' '}
                 {Object.keys(ALLOWED_FILE_EXTENSIONS).join(', ')}.
             </p>
@@ -33,7 +33,7 @@ const AvatarValidation: FC<IProps> = ({ avatar }) => {
 
     if (avatar.size > ALLOWED_MAX_FILE_SIZE_IN_MB * 1024 * 1024) {
         return (
-            <p className="error">
+            <p className="mt-1 text-xs text-red-500">
                 {profilePageT('avatar-error.file-size', {
                     size: ALLOWED_MAX_FILE_SIZE_IN_MB,
                 })}

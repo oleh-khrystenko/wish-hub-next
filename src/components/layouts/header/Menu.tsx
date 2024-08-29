@@ -84,19 +84,19 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
     };
 
     return (
-        <div className="relative ml-auto flex items-center justify-center gap-4">
+        <div className="relative ml-auto flex items-center justify-center gap-1 mobile-sm:gap-4">
             {myUser ? (
                 <>
                     {myUser.id === selectedUserId || !isMainPage ? (
-                        <div className="flex flex-col items-end gap-1">
-                            <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                        <div className="flex max-w-20 flex-col items-end gap-1 mobile-xs:max-w-32 mobile-sm:max-w-36 mobile-md:max-w-40 mobile-lg:max-w-44 tablet-sm:max-w-56">
+                            <p className="w-full truncate text-right text-sm font-bold text-zinc-800 dark:text-zinc-300">
                                 {getFullName(myUser)}
-                            </span>
+                            </p>
 
                             {myUser?.email && (
-                                <span className="text-xs text-zinc-700 dark:text-zinc-400">
+                                <p className="w-full truncate text-right text-xs text-zinc-700 dark:text-zinc-400">
                                     {myUser?.email}
-                                </span>
+                                </p>
                             )}
                         </div>
                     ) : (

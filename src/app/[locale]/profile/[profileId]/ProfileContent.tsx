@@ -22,13 +22,13 @@ const ProfileContent: FC = () => {
     };
 
     return (
-        <div>
-            <div className="mt-6 flex items-center justify-between gap-3">
-                <span className="text-2xl font-bold text-zinc-700 dark:text-zinc-300">
+        <div className="px-3 pb-5 pt-4">
+            <div className="flex items-center justify-between gap-3">
+                <p className="text-2xl font-bold text-zinc-700 dark:text-zinc-300">
                     {profilePageT(
                         profileId === myUser?.id ? 'my-profile' : 'user-profile'
                     )}
-                </span>
+                </p>
 
                 {!showEdit && profileId === myUser?.id && (
                     <UiButton onBtnClick={handleEditAccount}>
@@ -39,7 +39,7 @@ const ProfileContent: FC = () => {
                 )}
             </div>
 
-            {!showEdit ? (
+            {showEdit ? (
                 <EditProfile cancel={() => setShowEdit(false)} />
             ) : (
                 <div>DetailProfile</div>
