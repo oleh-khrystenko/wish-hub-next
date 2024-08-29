@@ -60,13 +60,9 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
         accountDeliveryAddressValidation,
     } = UseValidations();
 
-    const showAvatar = () => {
-        if (avatar instanceof File) {
-            return URL.createObjectURL(avatar);
-        }
-
-        return avatar || '';
-    };
+    let showAvatar: string | undefined = avatar as string;
+    avatar instanceof File && (showAvatar = URL.createObjectURL(avatar));
+    avatar === 'delete' && (showAvatar = undefined);
 
     const handleChangeDate = (value: Date | null) => {
         setBirthdayError('');
@@ -176,10 +172,11 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
                                 onChange={handleChangeAvatar}
                             />
                             <UiAvatar
-                                avatar={showAvatar()}
+                                avatar={showAvatar}
                                 alt={`${myUser?.firstName} ${myUser?.lastName}`}
                                 size={64}
                                 sizeTailwind="w-16 min-w-16 h-16 min-h-16"
+                                sizeIcon="w-11 h-11"
                             />
                         </label>
 

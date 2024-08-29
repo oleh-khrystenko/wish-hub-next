@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { useSettingsStore } from '@/stores/settings';
-import UserSetting from '@/components/layouts/header/UserSetting';
+import Menu from '@/components/layouts/header/Menu';
 import UiBrand from '@/components/ui/UiBrand';
 
 interface IProps {
@@ -26,7 +26,7 @@ const Header: FC<IProps> = ({ isMainPage }) => {
                 />
             </div>
 
-            <UserSetting isMainPage={isMainPage} />
+            <Menu isMainPage={isMainPage} />
         </header>
     );
 };

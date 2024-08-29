@@ -7,8 +7,9 @@ import PersonIcon from '@/components/icons/PersonIcon';
 interface IProps {
     avatar: IUser['avatar'];
     alt: string;
-    size: number;
-    sizeTailwind: string;
+    size?: number;
+    sizeTailwind?: string;
+    sizeIcon?: string;
     isLoading?: boolean;
     bgLoading?: string;
     handleClick?: () => void;
@@ -19,6 +20,7 @@ const UiAvatar: FC<IProps> = ({
     alt,
     size = 44,
     sizeTailwind = 'w-11 min-w-11 h-11 min-h-11',
+    sizeIcon = 'w-7 h-7',
     isLoading,
     bgLoading = 'bg-zinc-200 dark:bg-zinc-900',
     handleClick,
@@ -39,7 +41,9 @@ const UiAvatar: FC<IProps> = ({
                     className={`${sizeTailwind} object-cover`}
                 />
             ) : (
-                <PersonIcon classes="w-7 h-7 fill-zinc-800 dark:fill-zinc-300" />
+                <PersonIcon
+                    classes={`${sizeIcon} fill-zinc-800 dark:fill-zinc-300`}
+                />
             )}
 
             {isLoading && (

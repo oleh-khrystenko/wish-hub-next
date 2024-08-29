@@ -33,7 +33,7 @@ interface IProps {
     isMainPage?: boolean;
 }
 
-const UserSetting: FC<IProps> = ({ isMainPage }) => {
+const Menu: FC<IProps> = ({ isMainPage }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
     const router = useRouter();
@@ -126,8 +126,6 @@ const UserSetting: FC<IProps> = ({ isMainPage }) => {
             <UiAvatar
                 avatar={myUser?.avatar}
                 alt={getFullName(myUser)}
-                size={44}
-                sizeTailwind="w-11 min-w-11 h-11 min-h-11"
                 handleClick={() => setShowPopup(true)}
             />
 
@@ -269,4 +267,4 @@ const UserSetting: FC<IProps> = ({ isMainPage }) => {
     );
 };
 
-export default UserSetting;
+export default Menu;
