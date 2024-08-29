@@ -7,11 +7,17 @@ import { IUser } from '@/models/User';
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
 
-export const isBefore = (date: Date | Dayjs, days: number) =>
-    dayjs(date).isSameOrBefore(dayjs().add(days, 'day'));
+export const isBefore = (
+    checkingDate: Date | Dayjs,
+    number: number,
+    numberType: 'day' | 'year'
+) => dayjs(checkingDate).isSameOrBefore(dayjs().add(number, numberType));
 
-export const isAfter = (date: Date | Dayjs, years: number) =>
-    dayjs(date).isSameOrAfter(dayjs().add(years, 'year'));
+export const isAfter = (
+    checkingDate: Date | Dayjs,
+    number: number,
+    numberType: 'day' | 'year'
+) => dayjs(checkingDate).isSameOrAfter(dayjs().add(number, numberType));
 
 export const isBookingExpired = (
     wish: IWish,
@@ -21,6 +27,6 @@ export const isBookingExpired = (
     return (
         !!wish.booking?.userId &&
         (myUserId === wish.userId || myUserId === wish.booking?.userId) &&
-        isBefore(wish.booking?.end, 0)
+        isBefore(wish.booking?.end, 0, 'day')
     );
 };

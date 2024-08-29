@@ -178,7 +178,7 @@ const UseValidations = () => {
     };
 
     // Account delivery address
-    const accountDeliveryAddress = {
+    const accountDeliveryAddressValidation = {
         ...onlyWhitespaceValidation,
         minLength: {
             value: DELIVERY_ADDRESS_MIN_LENGTH,
@@ -203,7 +203,7 @@ const UseValidations = () => {
         passwordValidation,
         accountFirstNameValidation,
         accountLastNameValidation,
-        accountDeliveryAddress,
+        accountDeliveryAddressValidation,
     };
 };
 

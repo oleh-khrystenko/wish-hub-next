@@ -7,6 +7,7 @@ import UiRadio from '@/components/ui/UiRadio';
 
 interface IProps {
     id: string;
+    bgRadio?: string;
     tooltipContent: {
         all: string;
         friends: string;
@@ -19,6 +20,7 @@ interface IProps {
 
 const PrivacyChoices: FC<IProps> = ({
     id,
+    bgRadio = 'after:bg-zinc-300 dark:after:bg-zinc-800',
     tooltipContent,
     show,
     showError,
@@ -39,8 +41,9 @@ const PrivacyChoices: FC<IProps> = ({
             <div className="flex flex-col items-start gap-4 tablet-md:flex-row tablet-md:items-center">
                 <div className="flex items-center gap-1">
                     <UiRadio
-                        label={mainPageT('can-see.all')}
                         id={`${id}-all`}
+                        label={mainPageT('can-see.all')}
+                        bg={bgRadio}
                         name="show"
                         checked={show === EPrivacy.ALL}
                         value={EPrivacy.ALL}
@@ -59,8 +62,9 @@ const PrivacyChoices: FC<IProps> = ({
 
                 <div className="flex items-center gap-1">
                     <UiRadio
-                        label={mainPageT('can-see.friends')}
                         id={`${id}-friends`}
+                        label={mainPageT('can-see.friends')}
+                        bg={bgRadio}
                         name="show"
                         checked={show === EPrivacy.FRIENDS}
                         value={EPrivacy.FRIENDS}
@@ -79,8 +83,9 @@ const PrivacyChoices: FC<IProps> = ({
 
                 <div className="flex items-center gap-1">
                     <UiRadio
-                        label={mainPageT('can-see.nobody')}
                         id={`${id}-nobody`}
+                        label={mainPageT('can-see.nobody')}
+                        bg={bgRadio}
                         name="show"
                         checked={show === EPrivacy.NOBODY}
                         value={EPrivacy.NOBODY}

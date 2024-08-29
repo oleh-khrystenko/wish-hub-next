@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { uk } from 'date-fns/locale/uk';
 import { enUS } from 'date-fns/locale/en-US';
@@ -18,34 +18,39 @@ const dateFormats: Record<ELang, string> = {
 };
 
 interface IProps {
-    bookEnd: Date | null;
-    bookEndError: string;
+    label?: string;
+    placeholder?: string;
+    selectedDate: Date | null;
+    selectedDateError: string;
     clickedOnSubmit: boolean;
-    handleChangeDate: (date: Date | null) => void;
+    changeDate: (date: Date | null) => void;
 }
 
 const UiDatePicker: FC<IProps> = ({
-    bookEnd,
-    bookEndError,
+    label,
+    placeholder,
+    selectedDate,
+    selectedDateError,
     clickedOnSubmit,
-    handleChangeDate,
+    changeDate,
 }) => {
     const activeLocale = useLocale();
-    const mainPageT = useTranslations('main-page');
 
     return (
         <div className="wish-date-picker flex flex-col items-center">
             <div className="flex flex-col gap-0.5">
-                <span className="pl-2 text-xs text-cyan-500 dark:text-cyan-300">
-                    {mainPageT('enter_date')}*
-                </span>
+                {label && label.length > 0 && (
+                    <span className="pl-2 text-xs text-cyan-500 dark:text-cyan-300">
+                        {label}
+                    </span>
+                )}
 
                 <DatePicker
-                    placeholderText={mainPageT('including')}
+                    placeholderText={placeholder}
                     locale={activeLocale}
                     dateFormat={dateFormats[activeLocale as ELang]}
-                    selected={bookEnd}
-                    onChange={handleChangeDate}
+                    selected={selectedDate}
+                    onChange={changeDate}
                     showYearDropdown
                     showMonthDropdown
                     dropdownMode="scroll"
@@ -53,8 +58,8 @@ const UiDatePicker: FC<IProps> = ({
                 />
             </div>
 
-            {clickedOnSubmit && bookEndError.length > 0 && (
-                <p className="mt-1 text-xs text-red-500">{bookEndError}</p>
+            {clickedOnSubmit && selectedDateError.length > 0 && (
+                <p className="mt-1 text-xs text-red-500">{selectedDateError}</p>
             )}
         </div>
     );

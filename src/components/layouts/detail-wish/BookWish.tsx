@@ -96,9 +96,11 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
     useEffect(() => {
         if (bookEnd === null) {
             setBookEndError(mainPageT('book-end-errors.required'));
-        } else if (isBefore(bookEnd, -1)) {
+        } else if (isBefore(bookEnd, -1, 'day')) {
             setBookEndError(mainPageT('book-end-errors.past'));
-        } else if (isAfter(bookEnd, myUser?.id === wish.userId ? 10 : 1)) {
+        } else if (
+            isAfter(bookEnd, myUser?.id === wish.userId ? 10 : 1, 'year')
+        ) {
             setBookEndError(
                 mainPageT(
                     `book-end-errors.max.${myUser?.id === wish.userId ? 'my' : 'another'}`
@@ -132,10 +134,12 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
                     </p>
 
                     <UiDatePicker
-                        bookEnd={bookEnd}
-                        bookEndError={bookEndError}
+                        label={`${mainPageT('enter_date')}*`}
+                        placeholder={mainPageT('including')}
+                        selectedDate={bookEnd}
+                        selectedDateError={bookEndError}
                         clickedOnSubmit={clickedOnSubmit}
-                        handleChangeDate={handleChangeDate}
+                        changeDate={handleChangeDate}
                     />
 
                     <p>

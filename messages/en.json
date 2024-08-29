@@ -2,7 +2,6 @@
     "meta-description": "Wish Hub - makes your dreams come true!",
     "logo": "Logo",
     "wish_hub_icon": "Wish Hub icon",
-    "last-name": "Last name*",
     "inactivated": {
         "aim": "We aim for all users to be real.",
         "check": "Check your email at:",
@@ -158,10 +157,6 @@
         }
     },
     "encryption-error": "Could not be decrypted",
-    "avatar-error": {
-        "file-type": "The file must be in one of the following formats:",
-        "file-size": "The file size must not exceed {size} MB."
-    },
     "validations": {
         "only-whitespace": "The entered data cannot contain only spaces.",
         "wish-name": {
@@ -583,8 +578,7 @@
         "when_your_birth": "When is Your birthday?",
         "birthday-error": {
             "min-date": "We have doubts that You are more than 120 years old.",
-            "disable-future": "It is impossible to be born in the future.",
-            "invalid-date": "The entered date is invalid."
+            "disable-future": "It is impossible to be born in the future."
         },
         "i_have_fulfilled": "I have fulfilled",
         "i_did_not_fulfill": "I did not fulfill",
@@ -595,7 +589,13 @@
         "wish-list-title": "Wish list",
         "wishes-empty": "Wish list is empty.",
         "cancel": "Cancel",
-        "delete-account": "Delete my account"
+        "delete-account": "Delete my account",
+        "first-name": "Name*",
+        "last-name": "Last name*",
+        "avatar-error": {
+            "file-type": "The file must be in one of the following formats:",
+            "file-size": "The file size must not exceed {size} MB."
+        }
     },
     "privacy-policy-page": {
         "title": "Privacy Policy",

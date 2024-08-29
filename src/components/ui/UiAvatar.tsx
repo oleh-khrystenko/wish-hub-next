@@ -17,8 +17,8 @@ interface IProps {
 const UiAvatar: FC<IProps> = ({
     avatar,
     alt,
-    size,
-    sizeTailwind,
+    size = 44,
+    sizeTailwind = 'w-11 min-w-11 h-11 min-h-11',
     isLoading,
     bgLoading = 'bg-zinc-200 dark:bg-zinc-900',
     handleClick,
