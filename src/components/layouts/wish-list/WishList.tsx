@@ -5,6 +5,7 @@ import { EWishSort, EWishStatus, IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
+import { useSettingsStore } from '@/stores/settings';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
 import WishListActions from '@/components/layouts/wish-list/WishListActions';
@@ -31,7 +32,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     >(null);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
-    const wishListWrapRef = useRef<HTMLDivElement>(null);
+    const wishListRef = useRef<HTMLDivElement>(null);
     const gotWishes = useRef(false);
 
     const mainPageT = useTranslations('main-page');
@@ -62,6 +63,10 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const addWishList = useWishesStore((state) => state.addWishList);
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
     const addAllWishes = useWishesStore((state) => state.addAllWishes);
+
+    const setActivatedBurgerMenu = useSettingsStore(
+        (state) => state.setActivatedBurgerMenu
+    );
 
     const selectedUser = useMemo(
         () => users.find((user) => user.id === selectedUserId),
@@ -178,6 +183,8 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
             if (gotWishes.current) return;
             gotWishes.current = true;
 
+            setActivatedBurgerMenu(false);
+
             const isMyWishes = location.search === '?my-wishes'; // Випадок переходу зі сторінки профілю або зі сторінки списку бажань на власні бажання
             if (isMyWishes && myUser) {
                 await getWishList(
@@ -237,16 +244,20 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
     return (
         <>
-            <WishListFilter wishListWrapRefCurrent={wishListWrapRef.current} />
+            <div className="pl-2.5">
+                <WishListFilter wishListRefCurrent={wishListRef.current} />
+            </div>
 
-            <WishListActions wishListWrapRefCurrent={wishListWrapRef.current} />
+            <div className="pl-2.5">
+                <WishListActions wishListRefCurrent={wishListRef.current} />
+            </div>
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
                 <div
-                    className="wish-list-scrollbar mt-6 overflow-y-auto overflow-x-hidden p-2.5 tablet-xl:gap-4"
-                    ref={wishListWrapRef}
+                    className="wish-list-scrollbar mt-6 grow overflow-y-auto overflow-x-hidden p-2.5"
+                    ref={wishListRef}
                 >
-                    <ul className="desktop-2xl:grid-cols-5 grid grow grid-cols-2 gap-1.5 tablet-xl:grid-cols-3 desktop-xl:grid-cols-4">
+                    <ul className="grid grid-cols-2 gap-1.5 tablet-xl:grid-cols-3 tablet-xl:gap-4 desktop-xl:grid-cols-4 desktop-2xl:grid-cols-5">
                         {myUser?.id === selectedUserId && (
                             <li className="relative flex items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
                                 <button
@@ -309,7 +320,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                         })}
 
                         <li
-                            className="observable-element"
+                            className="h-px w-full"
                             style={{
                                 display: stopRequests ? 'none' : 'block',
                             }}

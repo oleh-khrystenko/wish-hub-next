@@ -16,10 +16,11 @@ import InfoIcon from '@/components/icons/InfoIcon';
 import SortIcon from '@/components/icons/SortIcon';
 
 interface IProps {
-    wishListWrapRefCurrent: HTMLDivElement | null;
+    withoutShare?: boolean;
+    wishListRefCurrent: HTMLDivElement | null;
 }
 
-const WishListActions: FC<IProps> = ({ wishListWrapRefCurrent }) => {
+const WishListActions: FC<IProps> = ({ withoutShare, wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
     const activeLocale = useLocale();
@@ -83,9 +84,9 @@ const WishListActions: FC<IProps> = ({ wishListWrapRefCurrent }) => {
             );
         }
 
-        if (!wishListWrapRefCurrent) return;
+        if (!wishListRefCurrent) return;
 
-        wishListWrapRefCurrent.scrollTo({
+        wishListRefCurrent.scrollTo({
             behavior: 'smooth',
             top: 0,
         });
@@ -94,8 +95,8 @@ const WishListActions: FC<IProps> = ({ wishListWrapRefCurrent }) => {
     };
 
     return (
-        <div className="mt-6 flex w-full flex-col gap-3 pl-2.5 tablet-md:flex-row tablet-md:items-center">
-            {myUser?.id === selectedUserId && (
+        <div className="mt-6 flex w-full flex-col gap-3 tablet-md:flex-row tablet-md:items-center">
+            {myUser?.id === selectedUserId && !withoutShare && (
                 <div className="flex items-center gap-1">
                     <div
                         className={

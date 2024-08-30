@@ -11,10 +11,10 @@ import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import UiSearch from '@/components/ui/UiSearch';
 
 interface IProps {
-    wishListWrapRefCurrent: HTMLDivElement | null;
+    wishListRefCurrent: HTMLDivElement | null;
 }
 
-const WishListFilter: FC<IProps> = ({ wishListWrapRefCurrent }) => {
+const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
 
@@ -75,9 +75,9 @@ const WishListFilter: FC<IProps> = ({ wishListWrapRefCurrent }) => {
             alertsT('wishes-api.get-wish-list.error')
         );
 
-        if (!wishListWrapRefCurrent) return;
+        if (!wishListRefCurrent) return;
 
-        wishListWrapRefCurrent.scrollTo({
+        wishListRefCurrent.scrollTo({
             behavior: 'smooth',
             top: 0,
         });
@@ -111,16 +111,16 @@ const WishListFilter: FC<IProps> = ({ wishListWrapRefCurrent }) => {
             );
         }
 
-        if (!wishListWrapRefCurrent) return;
+        if (!wishListRefCurrent) return;
 
-        wishListWrapRefCurrent.scrollTo({
+        wishListRefCurrent.scrollTo({
             behavior: 'smooth',
             top: 0,
         });
     };
 
     return (
-        <div className="flex w-full items-end gap-3 pl-2.5">
+        <div className="flex w-full items-end gap-3">
             <div className="w-1/2 tablet-md:w-2/5">
                 <UiSelect
                     options={selectOptions}

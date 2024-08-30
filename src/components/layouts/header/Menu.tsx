@@ -145,7 +145,7 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                     </div>
                 )}
 
-                <div className="flex flex-col items-stretch gap-2 px-2 pb-2 pt-4 tablet-md:px-4 tablet-md:py-2">
+                <div className="flex flex-col items-stretch gap-2 px-4 pb-2 pt-4 tablet-md:py-2">
                     {myUser && (
                         <>
                             <UiButton
@@ -188,7 +188,7 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                     </div>
                 </div>
 
-                <div className="flex flex-col items-stretch gap-2 border-t border-zinc-500 px-2 py-2 dark:border-zinc-600 tablet-md:px-4 tablet-md:py-2">
+                <div className="flex flex-col items-stretch gap-2 border-t border-zinc-500 px-4 py-2 dark:border-zinc-600">
                     {/*<UiButton*/}
                     {/*    href="instruction"*/}
                     {/*    variant="text"*/}
@@ -233,7 +233,7 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                     </UiButton>
                 </div>
 
-                <div className="flex flex-col items-stretch gap-2 border-t border-zinc-500 px-2 pb-4 pt-2 dark:border-zinc-600 tablet-md:px-4 tablet-md:py-2">
+                <div className="flex flex-col items-stretch gap-2 border-t border-zinc-500 p-4 dark:border-zinc-600">
                     {myUser && (
                         <UiButton
                             variant="text"
@@ -247,7 +247,7 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                         </UiButton>
                     )}
 
-                    <div className="mt-2 flex w-full flex-col items-center gap-4 rounded-lg bg-zinc-300 p-2 dark:bg-zinc-800">
+                    <div className="flex w-full flex-col items-center gap-4 rounded-lg bg-zinc-300 p-2 dark:bg-zinc-800">
                         <div className="flex items-center justify-evenly gap-4">
                             <SocialNetworks />
                         </div>
