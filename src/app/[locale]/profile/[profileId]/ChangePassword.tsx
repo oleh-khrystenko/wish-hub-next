@@ -23,6 +23,7 @@ const ChangePassword: FC<IProps> = ({ userId, cancel }) => {
     const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
+    const profilePageT = useTranslations('profile-page');
     const alertsT = useTranslations('alerts');
 
     const {
@@ -73,6 +74,10 @@ const ChangePassword: FC<IProps> = ({ userId, cancel }) => {
             className="mt-6 flex flex-col gap-6 rounded-md border border-dashed border-zinc-500 px-5 pb-2 pt-6"
             onSubmit={handleSubmit(onSubmit)}
         >
+            <p className="text-2xl font-bold text-zinc-700 dark:text-zinc-300">
+                {profilePageT('change-password-title')}
+            </p>
+
             {myUser?.hasPassword && (
                 <UiInput
                     {...register('oldPassword', passwordValidation)}
@@ -83,6 +88,7 @@ const ChangePassword: FC<IProps> = ({ userId, cancel }) => {
                     error={errors?.oldPassword?.message}
                 />
             )}
+
             <UiInput
                 {...register('newPassword', passwordValidation)}
                 id="newPassword"
@@ -91,6 +97,7 @@ const ChangePassword: FC<IProps> = ({ userId, cancel }) => {
                 label={mainPageT('new-password')}
                 error={errors?.newPassword?.message}
             />
+
             <UiInput
                 id="repeat-new-password"
                 name="repeat-new-password"
