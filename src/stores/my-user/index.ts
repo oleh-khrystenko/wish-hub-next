@@ -24,11 +24,15 @@ interface IMyUserStore {
     login: (data: ILogin, errorT: string) => Promise<void>;
     logout: (errorT: string) => Promise<void>;
     refresh: (errorT: string) => Promise<void>;
-    changePassword: (data: IChangePassword) => Promise<void>;
+    changePassword: (
+        data: IChangePassword,
+        successT: string,
+        errorT: string
+    ) => Promise<void>;
     changeLang: (data: IChangeLang, errorT: string) => Promise<void>;
     changeShowedInfo: (data: IUserId) => Promise<void>;
     changeFirsLoaded: (data: IUserId) => Promise<void>;
-    updateMyUser: (data: IUpdateMyUser) => Promise<void>;
+    updateMyUser: (data: IUpdateMyUser, errorT: string) => Promise<void>;
     addFriend: (data: IAddFriend, errorT: string) => Promise<void>;
     removeFriend: (data: IRemoveFriend, errorT: string) => Promise<void>;
     deleteMyUser: (data: IDeleteMyUser) => Promise<void>;
@@ -189,7 +193,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         }
     },
-    changePassword: async (data) => {
+    changePassword: async (data, successT, errorT) => {
         set((state) => ({
             ...state,
             isLoading: true,
@@ -205,15 +209,9 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 myUser: null,
             }));
 
-            // toast(
-            //     t('alerts.my-user-api.change-password.success'),
-            //     { type: 'success' },
-            // );
+            toast(successT, { type: 'success' });
         } catch (error: any) {
-            // toast(
-            //     error.response?.data?.message || t('alerts.my-user-api.change-password.error'),
-            //     { type: 'error' },
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
@@ -287,7 +285,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         }
     },
-    updateMyUser: async (data) => {
+    updateMyUser: async (data, errorT) => {
         set((state) => ({
             ...state,
             isLoading: true,
@@ -301,10 +299,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 myUser: response.data,
             }));
         } catch (error: any) {
-            // toast(
-            //     error.response?.data?.message || t('alerts.my-user-api.update-my-user.error'),
-            //     { type: 'error' },
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,

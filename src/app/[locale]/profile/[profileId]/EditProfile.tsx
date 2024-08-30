@@ -42,6 +42,7 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
 
     const mainPageT = useTranslations('main-page');
     const profilePageT = useTranslations('profile-page');
+    const alertsT = useTranslations('alerts');
 
     const {
         register,
@@ -103,7 +104,10 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
             updateMyUserData.birthday = dayjs(birthday).format();
             updateMyUserData.showBirthday = showBirthday;
         }
-        await updateMyUser(updateMyUserData);
+        await updateMyUser(
+            updateMyUserData,
+            alertsT('my-user-api.update-my-user.error')
+        );
 
         cancel();
     };
@@ -255,7 +259,7 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
                 </div>
             </div>
 
-            <div className="rounded-md border border-dashed border-zinc-500 px-5 pb-2 pt-5">
+            <div className="rounded-md border border-dashed border-zinc-500 px-5 pb-2 pt-6">
                 <UiInput
                     {...register(
                         'deliveryAddress',

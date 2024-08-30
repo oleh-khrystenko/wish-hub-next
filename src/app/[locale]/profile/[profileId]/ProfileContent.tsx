@@ -9,6 +9,7 @@ import { useWishesStore } from '@/stores/wishes';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import EditProfile from '@/app/[locale]/profile/[profileId]/EditProfile';
+import ChangePassword from '@/app/[locale]/profile/[profileId]/ChangePassword';
 import DetailProfile from '@/app/[locale]/profile/[profileId]/DetailProfile';
 import UiButton from '@/components/ui/UiButton';
 import EditIcon from '@/components/icons/EditIcon';
@@ -86,7 +87,16 @@ const ProfileContent: FC = () => {
             </div>
 
             {showEdit ? (
-                <EditProfile cancel={() => setShowEdit(false)} />
+                <>
+                    <EditProfile cancel={() => setShowEdit(false)} />
+
+                    {profileId === myUser?.id && (
+                        <ChangePassword
+                            userId={myUser?.id}
+                            cancel={() => setShowEdit(false)}
+                        />
+                    )}
+                </>
             ) : (
                 <DetailProfile />
             )}
