@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
@@ -9,7 +10,6 @@ import UiButton from '@/components/ui/UiButton';
 
 interface IProps {
     userId?: IUser['id'];
-    cancel: () => void;
 }
 
 type Inputs = {
@@ -17,10 +17,14 @@ type Inputs = {
     newPassword: string;
 };
 
-const ChangePassword: FC<IProps> = ({ userId, cancel }) => {
+const ChangePassword: FC<IProps> = ({ userId }) => {
     const [repeatPassword, setRepeatPassword] = useState<string>('');
     const [repeatPasswordError, setRepeatPasswordError] = useState<string>('');
     const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
+
+    const router = useRouter();
+
+    const activeLocale = useLocale();
 
     const mainPageT = useTranslations('main-page');
     const profilePageT = useTranslations('profile-page');
@@ -54,7 +58,7 @@ const ChangePassword: FC<IProps> = ({ userId, cancel }) => {
             alertsT('my-user-api.change-password.error')
         );
 
-        cancel();
+        router.replace(`/${activeLocale}/auth`);
     };
 
     const repeatPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {

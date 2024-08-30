@@ -14,8 +14,9 @@ interface IProps {
 const RoutesGuard: FC<IProps> = ({ isUnauthenticated = false, children }) => {
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const activeLocale = useLocale();
     const router = useRouter();
+
+    const activeLocale = useLocale();
 
     useEffect(() => {
         if (isUnauthenticated ? myUser : !myUser) {

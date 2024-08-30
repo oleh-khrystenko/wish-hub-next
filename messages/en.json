@@ -91,6 +91,7 @@
                 "error": "removeFriend: Failed to remove the friend."
             },
             "delete-my-user": {
+                "success": "The user has been successfully deleted.",
                 "error": "deleteMyUser: Failed to delete the user."
             }
         },
@@ -595,7 +596,8 @@
         "avatar-error": {
             "file-type": "The file must be in one of the following formats:",
             "file-size": "The file size must not exceed {size} MB."
-        }
+        },
+        "password": "Password*"
     },
     "privacy-policy-page": {
         "title": "Privacy Policy",

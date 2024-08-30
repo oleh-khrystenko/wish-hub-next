@@ -1,23 +1,28 @@
 'use client';
 
-import { FC, useState, useRef, useEffect } from 'react';
+import { FC, useState, useRef, useMemo, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useInView } from 'react-intersection-observer';
+import { IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
+import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import EditProfile from '@/app/[locale]/profile/[profileId]/EditProfile';
 import ChangePassword from '@/app/[locale]/profile/[profileId]/ChangePassword';
 import DetailProfile from '@/app/[locale]/profile/[profileId]/DetailProfile';
-import UiButton from '@/components/ui/UiButton';
-import EditIcon from '@/components/icons/EditIcon';
+import DeleteMyUserConfirmModal from '@/app/[locale]/profile/[profileId]/DeleteMyUserConfirmModal';
 import WishItem from '@/components/layouts/wish-list/WishItem';
 import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
 import WishListActions from '@/components/layouts/wish-list/WishListActions';
-import { IWish } from '@/models/Wish';
+import DetailWish from '@/components/layouts/detail-wish/DetailWish';
+import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
+import UiModal from '@/components/ui/UiModal';
+import EditIcon from '@/components/icons/EditIcon';
 
 const ProfileContent: FC = () => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -25,6 +30,8 @@ const ProfileContent: FC = () => {
     const [idOfSelectedWish, setIdOfSelectedWish] = useState<
         IWish['id'] | null
     >(null);
+    const [showConfirmDeleteMyUser, setShowConfirmDeleteMyUser] =
+        useState<boolean>(false);
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
@@ -41,6 +48,9 @@ const ProfileContent: FC = () => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
+    const users = useUsersStore((state) => state.list);
+    const selectedUserId = useUsersStore((state) => state.selectedUserId);
+
     const wishes = useWishesStore((state) => state.list);
     const wishesCreator = useWishesStore((state) => state.creator);
     const status = useWishesStore((state) => state.status);
@@ -51,6 +61,15 @@ const ProfileContent: FC = () => {
     const addWishList = useWishesStore((state) => state.addWishList);
 
     const { getInitialWishList } = UseInitialWishes();
+
+    const selectedUser = useMemo(
+        () => users.find((user) => user.id === selectedUserId),
+        [users, selectedUserId]
+    );
+    const detailWish = useMemo(
+        () => wishes.find((wish) => wish.id === idOfSelectedWish),
+        [wishes, idOfSelectedWish]
+    );
 
     const handleEditAccount = () => {
         setShowEdit(true);
@@ -122,10 +141,21 @@ const ProfileContent: FC = () => {
                     <EditProfile cancel={() => setShowEdit(false)} />
 
                     {profileId === myUser?.id && (
-                        <ChangePassword
-                            userId={myUser?.id}
-                            cancel={() => setShowEdit(false)}
-                        />
+                        <>
+                            <ChangePassword userId={myUser?.id} />
+
+                            <div className="ml-auto mt-6 w-fit">
+                                <UiButton
+                                    type="button"
+                                    variant="text-attention"
+                                    onBtnClick={() =>
+                                        setShowConfirmDeleteMyUser(true)
+                                    }
+                                >
+                                    {profilePageT('delete-account')}
+                                </UiButton>
+                            </div>
+                        </>
                     )}
                 </>
             ) : (
@@ -134,7 +164,9 @@ const ProfileContent: FC = () => {
 
             {!showEdit && (
                 <>
-                    <p>{profilePageT('wish-list-title')}</p>
+                    <p className="my-6 text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
+                        {profilePageT('wish-list-title')}
+                    </p>
 
                     {wishesCreator && wishesCreator.wishList.length > 4 && (
                         <>
@@ -151,7 +183,7 @@ const ProfileContent: FC = () => {
 
                     {wishes.length > 0 ? (
                         <div className="mt-6" ref={wishListRef}>
-                            <ul className="grid grid-cols-2 gap-1.5 tablet-xl:grid-cols-3 tablet-xl:gap-4 desktop-xl:grid-cols-4 desktop-2xl:grid-cols-5">
+                            <ul className="grid grid-cols-2 gap-1.5 tablet-xl:grid-cols-3 tablet-xl:gap-4 desktop-xs:grid-cols-4">
                                 {wishes.map((wish, idx) => (
                                     <WishItem
                                         key={wish.id + idx}
@@ -185,6 +217,33 @@ const ProfileContent: FC = () => {
                     )}
                 </>
             )}
+
+            {detailWish && (
+                <UiModal
+                    show={showWish}
+                    px="px-0 pr-1 tablet-md:pr-2 tablet-lg:pr-3 desktop-xs:pr-0"
+                    hide={handleHideWish}
+                >
+                    <DetailWish
+                        wish={detailWish}
+                        selectedUser={selectedUser}
+                        hide={handleHideWish}
+                    />
+                </UiModal>
+            )}
+
+            <GoogleOAuthProvider
+                clientId={
+                    process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+                        ? process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+                        : ''
+                }
+            >
+                <DeleteMyUserConfirmModal
+                    show={showConfirmDeleteMyUser}
+                    hid={() => setShowConfirmDeleteMyUser(false)}
+                />
+            </GoogleOAuthProvider>
         </div>
     );
 };

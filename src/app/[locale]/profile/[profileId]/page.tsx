@@ -13,6 +13,7 @@ export default function Profile() {
                 messages={pick(messages, [
                     'profile-page',
                     'main-page',
+                    'wish-page',
                     'share-button',
                     'alerts',
                     'validations',

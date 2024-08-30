@@ -68,8 +68,11 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
         !wish.executed &&
         !isBookingExpired(wish, myUser?.id);
 
-    // бажання належить користувачу і не заброньовано
-    const showEditWish = myUser?.id === wish.userId && !wish.booking?.end;
+    // бажання можна редагувати
+    // && бажання належить користувачу
+    // && бажання не заброньовано
+    const showEditWish =
+        editWish && myUser?.id === wish.userId && !wish.booking?.end;
 
     // бажання належить користувачу і термін виконання минув
     const showBookingExpired =

@@ -35,7 +35,11 @@ interface IMyUserStore {
     updateMyUser: (data: IUpdateMyUser, errorT: string) => Promise<void>;
     addFriend: (data: IAddFriend, errorT: string) => Promise<void>;
     removeFriend: (data: IRemoveFriend, errorT: string) => Promise<void>;
-    deleteMyUser: (data: IDeleteMyUser) => Promise<void>;
+    deleteMyUser: (
+        data: IDeleteMyUser,
+        successT: string,
+        errorT: string
+    ) => Promise<void>;
 }
 
 export const useMyUserStore = create<IMyUserStore>((set) => ({
@@ -331,7 +335,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             toast(error.response?.data?.message || errorT, { type: 'error' });
         }
     },
-    deleteMyUser: async (data) => {
+    deleteMyUser: async (data, successT, errorT) => {
         set((state) => ({
             ...state,
             isLoading: true,
@@ -355,11 +359,10 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                     ...state,
                 };
             });
+
+            toast(successT, { type: 'success' });
         } catch (error: any) {
-            // toast(
-            //     error.response?.data?.message || t('alerts.my-user-api.delete-my-user.error'),
-            //     { type: 'error' },
-            // );
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             set((state) => ({
                 ...state,
