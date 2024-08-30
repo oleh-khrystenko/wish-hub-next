@@ -7,6 +7,7 @@ import PersonIcon from '@/components/icons/PersonIcon';
 interface IProps {
     avatar: IUser['avatar'];
     alt: string;
+    priority?: boolean;
     size?: number;
     sizeTailwind?: string;
     sizeIcon?: string;
@@ -18,6 +19,7 @@ interface IProps {
 const UiAvatar: FC<IProps> = ({
     avatar,
     alt,
+    priority,
     size = 44,
     sizeTailwind = 'w-11 min-w-11 h-11 min-h-11',
     sizeIcon = 'w-7 h-7',
@@ -35,7 +37,7 @@ const UiAvatar: FC<IProps> = ({
                     src={avatar}
                     alt={alt}
                     title={alt}
-                    priority={false}
+                    priority={priority}
                     height={size}
                     width={size}
                     className={`${sizeTailwind} object-cover`}

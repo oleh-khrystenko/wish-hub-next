@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import 'dayjs/locale/uk';
+import 'dayjs/locale/ru';
 import { IUser } from '@/models/User';
 import { EPrivacy } from '@/models/Settings';
 import { EWhereRemove, IRemoveFriend } from '@/stores/my-user/types';

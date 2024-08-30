@@ -9,9 +9,7 @@
     --bg-accent: #e4e4e7; /* zinc-200 */
     --bg-accent-hover: #d4d4d8; /* zinc-300 */
     --text: #27272a; /* zinc-800 */
-    --text-second: #a1a1aa; /* zinc-400 */
     --text-accent: #3f3f46; /* zinc-700 */
-    --text-disabled: #71717a; /* zinc-500 */
     --scroll-bar: #a1a1aa; /* zinc-400 */
 }
 
@@ -22,9 +20,7 @@
     --bg-accent: #3f3f46; /* zinc-700 */
     --bg-accent-hover: #52525b; /* zinc-600 */
     --text: #e4e4e7; /* zinc-200 */
-    --text-second: #a1a1aa; /* zinc-400 */
     --text-accent: #d1d5db; /* zinc-300 */
-    --text-disabled: #71717a; /* zinc-500 */
     --scroll-bar: #52525b; /* zinc-600 */
 }
 
@@ -229,7 +225,7 @@
                 }
 
                 &::placeholder {
-                    color: var(--text-second);
+                    color: #a1a1aa; /* zinc-400 */
                 }
 
                 &::-ms-clear {
@@ -271,7 +267,7 @@
 
         .react-datepicker__header {
             background-color: var(--bg-accent);
-            border-bottom: 1px solid var(--text-second);
+            border-bottom: 1px solid #a1a1aa; /* zinc-400 */
         }
 
         .react-datepicker__navigation {
@@ -393,11 +389,11 @@
         }
 
         .react-datepicker__day--outside-month {
-            color: var(--text-second);
+            color: #a1a1aa; /* zinc-400 */
         }
 
         .react-datepicker__day--disabled {
-            color: var(--text-disabled);
+            color: #71717a; /* zinc-500 */
         }
 
         .react-datepicker__day--keyboard-selected {
@@ -415,7 +411,7 @@
             background-image: url('/icons/cross-icon.svg');
             background-size: contain;
             background-repeat: no-repeat;
-            background-color: #f43f5e;
+            background-color: #f43f5e; /* rose-500 */
             border-radius: 6px;
             background-position: center;
             display: inline-block;
