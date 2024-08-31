@@ -568,6 +568,7 @@
         "title": "The wish list is created by the user:"
     },
     "profile-page": {
+        "profile": "profile",
         "my-profile": "My profile",
         "user-profile": "User profile",
         "edit": "Edit",

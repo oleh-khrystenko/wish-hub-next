@@ -19,10 +19,12 @@ import WishItem from '@/components/layouts/wish-list/WishItem';
 import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
 import WishListActions from '@/components/layouts/wish-list/WishListActions';
 import DetailWish from '@/components/layouts/detail-wish/DetailWish';
+import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
 import UiModal from '@/components/ui/UiModal';
 import EditIcon from '@/components/icons/EditIcon';
+import PersonIcon from '@/components/icons/PersonIcon';
 
 const ProfileContent: FC = () => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -61,6 +63,14 @@ const ProfileContent: FC = () => {
     const addWishList = useWishesStore((state) => state.addWishList);
 
     const { getInitialWishList } = UseInitialWishes();
+
+    const pages = [
+        {
+            href: 'profile',
+            icon: PersonIcon,
+            name: profilePageT('profile'),
+        },
+    ];
 
     const selectedUser = useMemo(
         () => users.find((user) => user.id === selectedUserId),
@@ -119,131 +129,139 @@ const ProfileContent: FC = () => {
     }, [profileId]);
 
     return (
-        <div className="px-3 pb-5 pt-4">
-            <div className="flex items-center justify-between gap-2 mobile-xs:gap-3">
-                <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                    {profilePageT(
-                        profileId === myUser?.id ? 'my-profile' : 'user-profile'
-                    )}
-                </p>
+        <div className="pt-3">
+            <Breadcrumbs pages={pages} />
 
-                {!showEdit && profileId === myUser?.id && (
-                    <UiButton onBtnClick={handleEditAccount}>
-                        {profilePageT('edit')}
-
-                        <EditIcon classes="w-5 h-5 fill-zinc-800" />
-                    </UiButton>
-                )}
-            </div>
-
-            {showEdit ? (
-                <>
-                    <EditProfile cancel={() => setShowEdit(false)} />
-
-                    {profileId === myUser?.id && (
-                        <>
-                            <ChangePassword userId={myUser?.id} />
-
-                            <div className="ml-auto mt-6 w-fit">
-                                <UiButton
-                                    type="button"
-                                    variant="text-attention"
-                                    onBtnClick={() =>
-                                        setShowConfirmDeleteMyUser(true)
-                                    }
-                                >
-                                    {profilePageT('delete-account')}
-                                </UiButton>
-                            </div>
-                        </>
-                    )}
-                </>
-            ) : (
-                <DetailProfile />
-            )}
-
-            {!showEdit && (
-                <>
-                    <p className="my-6 text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                        {profilePageT('wish-list-title')}
+            <div className="mt-3 px-3 pb-5">
+                <div className="flex items-center justify-between gap-2 mobile-xs:gap-3">
+                    <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
+                        {profilePageT(
+                            profileId === myUser?.id
+                                ? 'my-profile'
+                                : 'user-profile'
+                        )}
                     </p>
 
-                    {wishesCreator && wishesCreator.wishList.length > 4 && (
-                        <>
-                            <WishListFilter
-                                wishListRefCurrent={wishListRef.current}
-                            />
+                    {!showEdit && profileId === myUser?.id && (
+                        <UiButton onBtnClick={handleEditAccount}>
+                            {profilePageT('edit')}
 
-                            <WishListActions
-                                withoutShare
-                                wishListRefCurrent={wishListRef.current}
-                            />
-                        </>
+                            <EditIcon classes="w-5 h-5 fill-zinc-800" />
+                        </UiButton>
                     )}
+                </div>
 
-                    {wishes.length > 0 ? (
-                        <div className="mt-6" ref={wishListRef}>
-                            <ul className="grid grid-cols-2 gap-1.5 tablet-xl:grid-cols-3 tablet-xl:gap-4 desktop-xs:grid-cols-4">
-                                {wishes.map((wish, idx) => (
-                                    <WishItem
-                                        key={wish.id + idx}
-                                        wish={wish}
-                                        id={idx}
-                                        showWish={() => handleShowWish(wish.id)}
-                                    />
-                                ))}
+                {showEdit ? (
+                    <>
+                        <EditProfile cancel={() => setShowEdit(false)} />
 
-                                <div
-                                    className="h-px w-full"
-                                    style={{
-                                        display: stopRequests
-                                            ? 'none'
-                                            : 'block',
-                                    }}
-                                    ref={ref}
-                                ></div>
-                            </ul>
+                        {profileId === myUser?.id && (
+                            <>
+                                <ChangePassword userId={myUser?.id} />
 
-                            {isLoadingAdd && (
-                                <div className="relative mt-5 h-20 w-full">
-                                    <UiLoading isLocal />
+                                <div className="ml-auto mt-6 w-fit">
+                                    <UiButton
+                                        type="button"
+                                        variant="text-attention"
+                                        onBtnClick={() =>
+                                            setShowConfirmDeleteMyUser(true)
+                                        }
+                                    >
+                                        {profilePageT('delete-account')}
+                                    </UiButton>
                                 </div>
-                            )}
-                        </div>
-                    ) : (
-                        <p className="profile-wishes-empty">
-                            {profilePageT('wishes-empty')}
+                            </>
+                        )}
+                    </>
+                ) : (
+                    <DetailProfile />
+                )}
+
+                {!showEdit && (
+                    <>
+                        <p className="my-6 text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
+                            {profilePageT('wish-list-title')}
                         </p>
-                    )}
-                </>
-            )}
 
-            {detailWish && (
-                <UiModal
-                    show={showWish}
-                    px="px-0 pr-1 tablet-md:pr-2 tablet-lg:pr-3 desktop-xs:pr-0"
-                    hide={handleHideWish}
-                >
-                    <DetailWish
-                        wish={detailWish}
-                        selectedUser={selectedUser}
+                        {wishesCreator && wishesCreator.wishList.length > 4 && (
+                            <>
+                                <WishListFilter
+                                    wishListRefCurrent={wishListRef.current}
+                                />
+
+                                <WishListActions
+                                    withoutShare
+                                    wishListRefCurrent={wishListRef.current}
+                                />
+                            </>
+                        )}
+
+                        {wishes.length > 0 ? (
+                            <div className="mt-6" ref={wishListRef}>
+                                <ul className="grid grid-cols-2 gap-1.5 tablet-xl:grid-cols-3 tablet-xl:gap-4 desktop-xs:grid-cols-4">
+                                    {wishes.map((wish, idx) => (
+                                        <WishItem
+                                            key={wish.id + idx}
+                                            wish={wish}
+                                            id={idx}
+                                            showWish={() =>
+                                                handleShowWish(wish.id)
+                                            }
+                                        />
+                                    ))}
+
+                                    <div
+                                        className="h-px w-full"
+                                        style={{
+                                            display: stopRequests
+                                                ? 'none'
+                                                : 'block',
+                                        }}
+                                        ref={ref}
+                                    ></div>
+                                </ul>
+
+                                {isLoadingAdd && (
+                                    <div className="relative mt-5 h-20 w-full">
+                                        <UiLoading isLocal />
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <p className="profile-wishes-empty">
+                                {profilePageT('wishes-empty')}
+                            </p>
+                        )}
+                    </>
+                )}
+
+                {detailWish && (
+                    <UiModal
+                        show={showWish}
+                        px="px-0 pr-1 tablet-md:pr-2 tablet-lg:pr-3 desktop-xs:pr-0"
                         hide={handleHideWish}
-                    />
-                </UiModal>
-            )}
+                    >
+                        <DetailWish
+                            wish={detailWish}
+                            selectedUser={selectedUser}
+                            hide={handleHideWish}
+                        />
+                    </UiModal>
+                )}
 
-            <GoogleOAuthProvider
-                clientId={
-                    process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
-                        ? process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
-                        : ''
-                }
-            >
-                <DeleteMyUserConfirmModal
-                    show={showConfirmDeleteMyUser}
-                    hid={() => setShowConfirmDeleteMyUser(false)}
-                />
-            </GoogleOAuthProvider>
+                <GoogleOAuthProvider
+                    clientId={
+                        process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+                            ? process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+                            : ''
+                    }
+                >
+                    <DeleteMyUserConfirmModal
+                        show={showConfirmDeleteMyUser}
+                        hid={() => setShowConfirmDeleteMyUser(false)}
+                    />
+                </GoogleOAuthProvider>
+            </div>
         </div>
     );
 };

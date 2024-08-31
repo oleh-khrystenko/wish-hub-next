@@ -6,16 +6,18 @@ interface IProps {
     isLocal?: boolean;
     size?: string;
     bg?: string;
+    wrapClasses?: string;
 }
 
 const UiLoading: FC<IProps> = ({
     isLocal,
     size = 'h-20 min-h-20 w-20 min-w-20',
     bg = 'bg-zinc-200 dark:bg-zinc-900',
+    wrapClasses = 'inset-0 w-full',
 }) => {
     return (
         <div
-            className={`${isLocal ? 'absolute h-full' : 'fixed h-svh'} ${bg} inset-0 z-50 flex w-full items-center justify-center`}
+            className={`${isLocal ? 'absolute h-full' : 'fixed h-svh'} ${bg} ${wrapClasses} z-50 flex items-center justify-center`}
         >
             <div className={`${size} relative inline-block`}>
                 <div className="absolute left-[82.5%] top-[46.25%] h-[7.5%] w-[7.5%] animate-spinner-1 rounded-full bg-cyan-500 dark:bg-cyan-300"></div>
