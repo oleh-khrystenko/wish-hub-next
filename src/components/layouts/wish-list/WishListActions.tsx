@@ -105,9 +105,7 @@ const WishListActions: FC<IProps> = ({ withoutShare, wishListRefCurrent }) => {
                                 : 'pointer-events-none opacity-20'
                         }
                     >
-                        <ShareButton
-                            link={`/${activeLocale}/wish-list/${selectedUserId}`}
-                        >
+                        <ShareButton link={`wish-list/${selectedUserId}`}>
                             <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-700 dark:text-zinc-400">
                                 {mainPageT('share-wishes')}
                             </span>

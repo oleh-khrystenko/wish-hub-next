@@ -26,7 +26,6 @@ const ShareButton: FC<IProps> = ({
 
     const activeLocale = useLocale();
     const shareButtonT = useTranslations('share-button');
-    const mainPageT = useTranslations('main-page');
 
     const shareContent = () => {
         if (navigator.share) {

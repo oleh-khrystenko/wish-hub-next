@@ -212,7 +212,7 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                     </UiButton>
 
                     <ShareButton
-                        wishShow={EPrivacy.NOBODY}
+                        link="main"
                         actionClasses="mr-auto"
                         iconClasses="h-6 w-6 fill-zinc-800 dark:fill-zinc-300"
                     >

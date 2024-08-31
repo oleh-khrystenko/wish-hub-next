@@ -376,7 +376,8 @@
             "confirm": "Close without saving",
             "close": "Cancellation"
         },
-        "enter_date": "Enter the date"
+        "enter_date": "Enter the date",
+        "wish-list-page-title": "The wish list is created by the user:"
     },
     "activation-link-expired-page": {
         "expired": "Account activation period has expired.",
@@ -563,9 +564,6 @@
         "address": "Where to buy:",
         "description": "Description:",
         "empty": "This wish does not exist. It may have been deleted by the user."
-    },
-    "wish-list-page": {
-        "title": "The wish list is created by the user:"
     },
     "profile-page": {
         "profile": "profile",
