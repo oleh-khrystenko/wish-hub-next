@@ -26,7 +26,7 @@ import UiModal from '@/components/ui/UiModal';
 import EditIcon from '@/components/icons/EditIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
 
-const ProfileContent: FC = () => {
+const Content: FC = () => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
     const [showWish, setShowWish] = useState<boolean>(false);
     const [idOfSelectedWish, setIdOfSelectedWish] = useState<
@@ -266,4 +266,4 @@ const ProfileContent: FC = () => {
     );
 };
 
-export default ProfileContent;
+export default Content;

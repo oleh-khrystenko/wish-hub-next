@@ -1,9 +1,9 @@
 import { useMessages, NextIntlClientProvider } from 'next-intl';
+import pick from 'lodash.pick';
 import Refresh from '@/helpers/hocs/Refresh';
-import MainContent from '@/app/[locale]/main/MainContent';
+import Content from '@/app/[locale]/main/Content';
 import Header from '@/components/layouts/header/Header';
 import Sidebar from '@/components/layouts/sidebar/Sidebar';
-import pick from 'lodash.pick';
 
 export default function Main() {
     const messages = useMessages();
@@ -25,7 +25,7 @@ export default function Main() {
                     <div className="flex grow overflow-hidden">
                         <Sidebar />
 
-                        <MainContent />
+                        <Content />
                     </div>
                 </Refresh>
             </NextIntlClientProvider>

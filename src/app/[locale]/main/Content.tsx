@@ -9,7 +9,7 @@ import WishList from '@/components/layouts/wish-list/WishList';
 import UiBrand from '@/components/ui/UiBrand';
 import { useSettingsStore } from '@/stores/settings';
 
-const MainContent: FC = () => {
+const Content: FC = () => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -77,4 +77,4 @@ const MainContent: FC = () => {
     );
 };
 
-export default MainContent;
+export default Content;
