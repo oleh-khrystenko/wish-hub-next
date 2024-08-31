@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { useGoogleLogin } from '@react-oauth/google';
 import { IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
@@ -63,17 +64,27 @@ const DeleteMyUserConfirmModal: FC<IProps> = ({ show, hid }) => {
                 setConfirmDeleteMyUserError(mainPageT('email-not-match'));
                 return;
             }
-            await deleteMyUser(
-                {
+
+            try {
+                await deleteMyUser({
                     email: data.email,
                     password: '',
                     userId: myUser.id,
-                },
-                alertsT('my-user-api.delete-my-user.success'),
-                alertsT('my-user-api.delete-my-user.error')
-            );
+                });
 
-            router.replace(`/${activeLocale}/auth`);
+                sessionStorage.setItem(
+                    'notification',
+                    alertsT('my-user-api.delete-my-user.success')
+                );
+
+                router.replace(`/${activeLocale}/auth`);
+            } catch (error: any) {
+                toast(
+                    error.response?.data?.message ||
+                        alertsT('my-user-api.delete-my-user.error'),
+                    { type: 'error' }
+                );
+            }
         },
     });
 
@@ -88,13 +99,22 @@ const DeleteMyUserConfirmModal: FC<IProps> = ({ show, hid }) => {
                 setConfirmDeleteMyUserError('');
             }
 
-            await deleteMyUser(
-                { ...data, userId: myUser.id },
-                alertsT('my-user-api.delete-my-user.success'),
-                alertsT('my-user-api.delete-my-user.error')
-            );
+            try {
+                await deleteMyUser({ ...data, userId: myUser.id });
 
-            router.replace(`/${activeLocale}/auth`);
+                sessionStorage.setItem(
+                    'notification',
+                    alertsT('my-user-api.delete-my-user.success')
+                );
+
+                router.replace(`/${activeLocale}/auth`);
+            } catch (error: any) {
+                toast(
+                    error.response?.data?.message ||
+                        alertsT('my-user-api.delete-my-user.error'),
+                    { type: 'error' }
+                );
+            }
         } else {
             getDataFromGoogle();
         }

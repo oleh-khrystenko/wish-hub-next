@@ -91,7 +91,7 @@
                 "error": "removeFriend: Failed to remove the friend."
             },
             "delete-my-user": {
-                "success": "The user has been successfully deleted.",
+                "success": "Your account has been successfully deleted.",
                 "error": "deleteMyUser: Failed to delete the user."
             }
         },
@@ -203,8 +203,8 @@
         "picture": "picture",
         "logout": "Log out",
         "confirm": "Share",
-        "sing-in": "Sing In",
-        "sing-up": "Sing Up",
+        "sign-in": "Sign In",
+        "sign-up": "Sign Up",
         "you_can_send": "You can send your wish to: ",
         "bd": "Birthday: {birthday}",
         "interface_language": "Interface language",
@@ -384,12 +384,12 @@
         "again": "You can register with the same email again after the old account is deleted."
     },
     "auth-page": {
-        "sing-in": "Sing In",
-        "sing-up": "Sing Up",
+        "sign-in": "Sign In",
+        "sign-up": "Sign Up",
         "first-name": "Name*",
         "title": {
-            "sing_in": "Sing In",
-            "sing_up": "Sing Up",
+            "sing_in": "Sign In",
+            "sing_up": "Sign Up",
             "forgot_password": "Forgotten your password?"
         },
         "or": "or",
@@ -498,7 +498,7 @@
             }
         },
         "auth": {
-            "title": "Sing up/Sing in",
+            "title": "Sign up/Sign in",
             "intro": "There are several ways to log in or register:",
             "google": {
                 "text-1": "The easiest way is to use a Google service.",
@@ -519,7 +519,7 @@
                 "text": "Then the program will do everything for you. If you have already registered, you will simply log in to your account. If not, you will be automatically registered.",
                 "img": "Logged in to the Wish Hub"
             },
-            "sing-up": {
+            "sign-up": {
                 "text-1": "If you do not want to use a Google account or do not have one, you will need to verify it in the Wish Hub web application.",
                 "text-2": "Fill in all the fields and agree to the terms of use.",
                 "img": "Registration"

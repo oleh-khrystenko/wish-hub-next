@@ -118,7 +118,7 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
             ) : (
                 <UiButton href="auth" variant="text">
                     <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
-                        {mainPageT('sing-in')}
+                        {mainPageT('sign-in')}
                     </span>
                 </UiButton>
             )}
@@ -137,10 +137,10 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                 {!myUser && (
                     <div className="mx-4 mt-4 flex flex-col items-center justify-evenly gap-2 rounded-lg bg-zinc-300 p-2 dark:bg-zinc-800 mobile-xs:flex-row">
                         <UiButton href="auth" variant="outline">
-                            {mainPageT('sing-in')}
+                            {mainPageT('sign-in')}
                         </UiButton>
                         <UiButton href="auth?register">
-                            {mainPageT('sing-up')}
+                            {mainPageT('sign-up')}
                         </UiButton>
                     </div>
                 )}

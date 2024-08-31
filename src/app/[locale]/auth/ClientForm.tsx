@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, FC, useState, useEffect } from 'react';
+import { ChangeEvent, FC, useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -45,6 +45,9 @@ const ClientForm: FC = () => {
     const [checkedPrivacyPolicyError, setCheckedPrivacyPolicyError] =
         useState<string>('');
 
+    const isTimerExecuted = useRef(false);
+    const timerRef = useRef<any | null>(null);
+
     const searchParams = useSearchParams();
 
     const activeLocale = useLocale();
@@ -78,8 +81,8 @@ const ClientForm: FC = () => {
     isSingUp && (title = authPageT('title.sing_up'));
     isForgotPassword && (title = authPageT('title.forgot_password'));
 
-    let submit = authPageT('sing-in');
-    isSingUp && (submit = authPageT('sing-up'));
+    let submit = authPageT('sign-in');
+    isSingUp && (submit = authPageT('sign-up'));
     isForgotPassword && (submit = authPageT('recovery'));
 
     const repeatPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -198,6 +201,26 @@ const ClientForm: FC = () => {
         setCheckedPrivacyPolicy(agree !== null);
     }, [searchParams]);
 
+    useEffect(() => {
+        const notification = sessionStorage.getItem('notification');
+
+        if (notification) {
+            toast(notification, { type: 'success' });
+
+            timerRef.current = setTimeout(() => {
+                isTimerExecuted.current = true;
+                sessionStorage.removeItem('notification');
+            }, 3000);
+        }
+
+        return () => {
+            if (timerRef.current && isTimerExecuted.current) {
+                clearTimeout(timerRef.current);
+                sessionStorage.removeItem('notification');
+            }
+        };
+    }, []);
+
     return (
         <form
             className="my-auto flex w-full max-w-lg flex-col gap-5 rounded-2xl px-0.5 tablet-md:bg-zinc-300 tablet-md:px-5 tablet-md:pb-5 tablet-md:pt-3 tablet-md:shadow-md tablet-md:dark:bg-zinc-800"
@@ -297,8 +320,8 @@ const ClientForm: FC = () => {
                             onBtnClick={() => setIsSingUp((state) => !state)}
                         >
                             {isSingUp
-                                ? authPageT('sing-in')
-                                : authPageT('sing-up')}
+                                ? authPageT('sign-in')
+                                : authPageT('sign-up')}
                         </UiButton>
                     </div>
                 )}

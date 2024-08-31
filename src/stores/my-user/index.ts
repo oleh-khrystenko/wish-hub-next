@@ -24,22 +24,14 @@ interface IMyUserStore {
     login: (data: ILogin, errorT: string) => Promise<void>;
     logout: (errorT: string) => Promise<void>;
     refresh: (errorT: string) => Promise<void>;
-    changePassword: (
-        data: IChangePassword,
-        successT: string,
-        errorT: string
-    ) => Promise<void>;
+    changePassword: (data: IChangePassword) => Promise<void>;
     changeLang: (data: IChangeLang, errorT: string) => Promise<void>;
     changeShowedInfo: (data: IUserId) => Promise<void>;
     changeFirsLoaded: (data: IUserId) => Promise<void>;
     updateMyUser: (data: IUpdateMyUser, errorT: string) => Promise<void>;
     addFriend: (data: IAddFriend, errorT: string) => Promise<void>;
     removeFriend: (data: IRemoveFriend, errorT: string) => Promise<void>;
-    deleteMyUser: (
-        data: IDeleteMyUser,
-        successT: string,
-        errorT: string
-    ) => Promise<void>;
+    deleteMyUser: (data: IDeleteMyUser) => Promise<void>;
 }
 
 export const useMyUserStore = create<IMyUserStore>((set) => ({
@@ -197,7 +189,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         }
     },
-    changePassword: async (data, successT, errorT) => {
+    changePassword: async (data) => {
         set((state) => ({
             ...state,
             isLoading: true,
@@ -212,10 +204,8 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 ...state,
                 myUser: null,
             }));
-
-            toast(successT, { type: 'success' });
         } catch (error: any) {
-            toast(error.response?.data?.message || errorT, { type: 'error' });
+            throw error;
         } finally {
             set((state) => ({
                 ...state,
@@ -335,7 +325,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             toast(error.response?.data?.message || errorT, { type: 'error' });
         }
     },
-    deleteMyUser: async (data, successT, errorT) => {
+    deleteMyUser: async (data) => {
         set((state) => ({
             ...state,
             isLoading: true,
@@ -359,10 +349,8 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                     ...state,
                 };
             });
-
-            toast(successT, { type: 'success' });
         } catch (error: any) {
-            toast(error.response?.data?.message || errorT, { type: 'error' });
+            throw error;
         } finally {
             set((state) => ({
                 ...state,

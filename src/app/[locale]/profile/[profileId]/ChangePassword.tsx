@@ -2,6 +2,7 @@ import { ChangeEvent, FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
 import UseValidations from '@/helpers/hooks/UseValidations';
@@ -19,6 +20,7 @@ type Inputs = {
 
 const ChangePassword: FC<IProps> = ({ userId }) => {
     const [repeatPassword, setRepeatPassword] = useState<string>('');
+    const [oldPasswordError, setOldPasswordError] = useState<string>('');
     const [repeatPasswordError, setRepeatPasswordError] = useState<string>('');
     const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
 
@@ -52,13 +54,29 @@ const ChangePassword: FC<IProps> = ({ userId }) => {
         }
 
         if (!userId || repeatPasswordError.length > 0) return;
-        await changePassword(
-            { userId, ...data },
-            alertsT('my-user-api.change-password.success'),
-            alertsT('my-user-api.change-password.error')
-        );
+        try {
+            await changePassword({ userId, ...data });
 
-        router.replace(`/${activeLocale}/auth`);
+            sessionStorage.setItem(
+                'notification',
+                alertsT('my-user-api.change-password.success')
+            );
+
+            router.replace(`/${activeLocale}/auth`);
+        } catch (error: any) {
+            const separatedError = error.response?.data?.message.split('//');
+
+            if (separatedError[0].split('.')[3] === 'isPassEquals') {
+                setOldPasswordError(separatedError[1]);
+            } else {
+                setOldPasswordError('');
+                toast(
+                    error.response?.data?.message ||
+                        alertsT('my-user-api.change-password.error'),
+                    { type: 'error' }
+                );
+            }
+        }
     };
 
     const repeatPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +107,7 @@ const ChangePassword: FC<IProps> = ({ userId }) => {
                     name="oldPassword"
                     type="password"
                     label={mainPageT('old-password')}
-                    error={errors?.oldPassword?.message}
+                    error={oldPasswordError}
                 />
             )}
 
