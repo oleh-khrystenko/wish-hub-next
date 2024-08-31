@@ -145,7 +145,7 @@ const UiInput: FC<IProps> = forwardRef<
                     </div>
 
                     {error && (
-                        <p className="mt-1 text-xs text-red-500">{error}</p>
+                        <p className="mt-1 text-xs text-rose-500">{error}</p>
                     )}
                 </div>
 

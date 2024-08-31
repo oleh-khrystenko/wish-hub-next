@@ -26,9 +26,9 @@ const ConfirmModal: FC<IProps> = ({
 
     return (
         <UiModal show={show} rounded="rounded-2xl">
-            <span className="mb-4 block text-center text-2xl font-bold text-rose-500">
+            <p className="mb-4 block text-center text-2xl font-bold text-rose-500">
                 {titleModalT || mainPageT('confirm-modal.title')}
-            </span>
+            </p>
 
             <span className="text-zinc-700 dark:text-zinc-300">{children}</span>
 

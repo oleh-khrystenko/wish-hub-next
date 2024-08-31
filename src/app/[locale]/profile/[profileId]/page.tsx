@@ -1,6 +1,7 @@
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import Refresh from '@/helpers/hocs/Refresh';
+import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import ProfileContent from '@/app/[locale]/profile/[profileId]/ProfileContent';
 import Header from '@/components/layouts/header/Header';
 
@@ -20,9 +21,11 @@ export default function Profile() {
                 ])}
             >
                 <Refresh>
-                    <Header />
+                    <RoutesGuard>
+                        <Header />
 
-                    <ProfileContent />
+                        <ProfileContent />
+                    </RoutesGuard>
                 </Refresh>
             </NextIntlClientProvider>
         </main>

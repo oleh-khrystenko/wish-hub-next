@@ -121,22 +121,26 @@ const DeleteMyUserConfirmModal: FC<IProps> = ({ show, hid }) => {
     };
 
     return (
-        <UiModal show={show}>
-            <form className="modal confirm" onSubmit={handleSubmit(onSubmit)}>
-                <h3 className="title attention">
+        <UiModal show={show} rounded="rounded-2xl">
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <h3 className="block text-center text-2xl font-bold text-rose-500">
                     {mainPageT('confirm-modal.title')}
                 </h3>
 
-                <p className="text">{mainPageT('sadness')}</p>
+                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('sadness')}
+                </p>
 
                 {!myUser?.hasPassword &&
                     confirmDeleteMyUserError.length > 0 && (
-                        <p className="error">{confirmDeleteMyUserError}</p>
+                        <p className="mt-1 text-xs text-rose-500">
+                            {confirmDeleteMyUserError}
+                        </p>
                     )}
 
                 {myUser?.hasPassword && (
                     <>
-                        <div className="email-box">
+                        <div className="mb-6 mt-8">
                             <UiInput
                                 {...register('email', emailValidation)}
                                 id="email"
@@ -146,7 +150,7 @@ const DeleteMyUserConfirmModal: FC<IProps> = ({ show, hid }) => {
                                 error={errors?.email?.message}
                             />
                             {confirmDeleteMyUserError.length > 0 && (
-                                <p className="error">
+                                <p className="mt-1 text-xs text-rose-500">
                                     {confirmDeleteMyUserError}
                                 </p>
                             )}
@@ -163,10 +167,12 @@ const DeleteMyUserConfirmModal: FC<IProps> = ({ show, hid }) => {
                     </>
                 )}
 
-                <div className="modal-actions">
-                    <UiButton variant="text-attention" type="submit">
-                        {mainPageT('delete-my-account')}
-                    </UiButton>
+                <div className="ml-auto mt-4 flex w-fit flex-col items-end gap-2 tablet-md:mt-6 tablet-md:flex-row tablet-md:items-center">
+                    <div className="-mr-4 tablet-md:mr-0">
+                        <UiButton variant="text-attention" type="submit">
+                            {mainPageT('delete-my-account')}
+                        </UiButton>
+                    </div>
 
                     <UiButton onBtnClick={hid}>{mainPageT('stay')}</UiButton>
                 </div>
