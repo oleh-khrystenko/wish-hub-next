@@ -46,7 +46,7 @@ const ClientForm: FC = () => {
         useState<string>('');
 
     const isTimerExecuted = useRef(false);
-    const timerRef = useRef<any | null>(null);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const searchParams = useSearchParams();
 
@@ -208,6 +208,7 @@ const ClientForm: FC = () => {
             toast(notification, { type: 'success' });
 
             timerRef.current = setTimeout(() => {
+                // TS2322: Type Timeout is not assignable to type number
                 isTimerExecuted.current = true;
                 sessionStorage.removeItem('notification');
             }, 3000);
