@@ -96,7 +96,7 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
                 style={{
                     height: screenWidth < 768 ? `${bodyHeight}px` : 'auto',
                 }}
-                className={`${wish.images.length > 1 ? 'desktop-xs:min-h-[482px]' : ''} -mr-1.5 grid w-full grid-cols-1 overflow-y-auto tablet-md:max-h-[76svh] desktop-xs:mr-0 desktop-xs:max-h-fit desktop-xs:grid-cols-8 desktop-xs:gap-0`}
+                className={`${wish.images.length > 1 ? 'desktop-xs:min-h-[482px]' : ''} -mr-1.5 grid w-full grid-cols-1 overflow-y-auto tablet-md:max-h-[76svh] desktop-xs:mr-0 desktop-xs:max-h-fit desktop-xs:grid-cols-8`}
             >
                 {wish.images.length > 0 && <WishSwiper wish={wish} />}
 

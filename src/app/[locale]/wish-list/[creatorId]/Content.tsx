@@ -20,6 +20,7 @@ const Content: FC = () => {
 
     const mainPageT = useTranslations('main-page');
     const profilePageT = useTranslations('profile-page');
+
     const wishesCreator = useWishesStore((state) => state.creator);
 
     const { getFullName } = UseFullName();

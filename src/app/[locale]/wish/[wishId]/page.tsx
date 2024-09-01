@@ -1,10 +1,28 @@
-import TempNav from '@/app/[locale]/TempNav';
+import { useMessages, NextIntlClientProvider } from 'next-intl';
+import pick from 'lodash.pick';
+import Refresh from '@/helpers/hocs/Refresh';
+import Content from '@/app/[locale]/wish/[wishId]/Content';
+import Header from '@/components/layouts/header/Header';
 
 export default function WishList() {
+    const messages = useMessages();
+
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24 text-zinc-800 dark:text-zinc-300">
-            <TempNav />
-            Wish List page
+        <main className="mx-auto flex h-full min-h-screen max-w-7xl flex-col p-1">
+            <NextIntlClientProvider
+                messages={pick(messages, [
+                    'main-page',
+                    'wish-page',
+                    'share-button',
+                    'alerts',
+                ])}
+            >
+                <Refresh>
+                    <Header />
+
+                    <Content />
+                </Refresh>
+            </NextIntlClientProvider>
         </main>
     );
 }

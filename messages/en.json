@@ -377,7 +377,8 @@
             "close": "Cancellation"
         },
         "enter_date": "Enter the date",
-        "wish-list-page-title": "The wish list is created by the user:"
+        "wish-list-page-title": "The wish list is created by the user:",
+        "wish": "wish"
     },
     "activation-link-expired-page": {
         "expired": "Account activation period has expired.",

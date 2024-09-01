@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { toast } from 'react-toastify';
 import api from '@/helpers/utils/api';
 import {
     ICreateWish,
@@ -98,16 +97,7 @@ const updateWish = async (data: IUpdateWish): Promise<AxiosResponse<IWish>> => {
 };
 
 const getWish = async (params: ISendWish): Promise<AxiosResponse<IGetWish>> => {
-    try {
-        return await api.get('/wish', { params });
-    } catch (error: any) {
-        // toast(
-        //     error.response?.data?.message ||
-        //         t('alerts.wishes-api.get-wish.error'),
-        //     { type: 'error' }
-        // );
-        throw error;
-    }
+    return await api.get('/wish', { params });
 };
 
 const bookWish = async (
@@ -162,7 +152,7 @@ const getAllWishes = async (
     return await api.get('/all-wishes', { params });
 };
 
-const wishApi = {
+const wishesApi = {
     fetchWishDataFromLink,
     createWish,
     updateWish,
@@ -178,4 +168,4 @@ const wishApi = {
     getAllWishes,
 };
 
-export default wishApi;
+export default wishesApi;
