@@ -4,10 +4,10 @@ import { FC, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
-import UseFullName from '@/helpers/hooks/UseFullName';
-import WishList from '@/components/layouts/wish-list/WishList';
-import UiBrand from '@/components/ui/UiBrand';
 import { useSettingsStore } from '@/stores/settings';
+import UseFullName from '@/helpers/hooks/UseFullName';
+import WishList from '@/app/[locale]/main/WishList';
+import UiBrand from '@/components/ui/UiBrand';
 
 const Content: FC = () => {
     const mainPageT = useTranslations('main-page');
