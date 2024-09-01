@@ -1,17 +1,21 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { IZoomedImage } from '@/models/Settings';
 import { useWishesStore } from '@/stores/wishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import WishList from '@/components/layouts/wish-list/WishList';
+import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 import UiAvatar from '@/components/ui/UiAvatar';
 import ListIcon from '@/components/icons/ListIcon';
 
 const Content: FC = () => {
+    const [imageData, setImageData] = useState<IZoomedImage | null>(null);
+
     const { creatorId } = useParams<{ creatorId: string }>();
 
     const mainPageT = useTranslations('main-page');
@@ -28,6 +32,10 @@ const Content: FC = () => {
             name: profilePageT('wish-list-title'),
         },
     ];
+
+    const handleShowImage = (src: string | undefined, alt: string) => {
+        src ? setImageData({ src, alt }) : setImageData(null);
+    };
 
     return (
         <div className="pt-3">
@@ -46,6 +54,12 @@ const Content: FC = () => {
                         size={screenWidth < 768 ? 144 : 208}
                         sizeTailwind="w-36 min-w-36 h-36 min-h-36 tablet-md:w-52 tablet-md:min-w-52 tablet-md:h-52 tablet-md:min-h-52"
                         sizeIcon="w-28 h-28 tablet-md:w-40 tablet-md:h-40"
+                        handleClick={() =>
+                            handleShowImage(
+                                wishesCreator?.avatar,
+                                getFullName(wishesCreator)
+                            )
+                        }
                     />
 
                     <p
@@ -58,6 +72,14 @@ const Content: FC = () => {
 
                 <WishList userId={creatorId} />
             </div>
+
+            {!!imageData && (
+                <ZoomedImageModal
+                    src={imageData.src}
+                    alt={imageData.alt}
+                    hide={() => setImageData(null)}
+                />
+            )}
         </div>
     );
 };

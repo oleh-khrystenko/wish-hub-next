@@ -11,8 +11,10 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { IWish } from '@/models/Wish';
+import { IZoomedImage } from '@/models/Settings';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
+import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 
 interface IProps {
     wish: IWish;
@@ -20,6 +22,7 @@ interface IProps {
 
 const WishSwiper: FC<IProps> = ({ wish }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
+    const [imageData, setImageData] = useState<IZoomedImage | null>(null);
 
     const mainPageT = useTranslations('main-page');
 
@@ -29,8 +32,8 @@ const WishSwiper: FC<IProps> = ({ wish }) => {
     screenWidth >= 390 && (slidesPerView = 4);
     screenWidth >= 600 && (slidesPerView = 5);
 
-    const handleZoomImg = () => {
-        console.log('Zoom image');
+    const handleShowImage = (src: string | undefined, alt: string) => {
+        src ? setImageData({ src, alt }) : setImageData(null);
     };
 
     return (
@@ -51,10 +54,17 @@ const WishSwiper: FC<IProps> = ({ wish }) => {
                 thumbs={{ swiper: thumbsSwiper }}
                 navigation={wish.images.length > 1}
                 modules={[EffectCube, FreeMode, Navigation, Thumbs]}
-                onClick={handleZoomImg}
             >
                 {wish.images.map((image) => (
-                    <SwiperSlide key={image.id}>
+                    <SwiperSlide
+                        key={image.id}
+                        onClick={() =>
+                            handleShowImage(
+                                unencryptedData(image.path, wish.show),
+                                `${mainPageT('picture')}-${image.position}`
+                            )
+                        }
+                    >
                         <Image
                             src={unencryptedData(image.path, wish.show)}
                             alt={`${mainPageT('picture')}-${image.position}`}
@@ -97,6 +107,14 @@ const WishSwiper: FC<IProps> = ({ wish }) => {
                         </SwiperSlide>
                     ))}
                 </Swiper>
+            )}
+
+            {!!imageData && (
+                <ZoomedImageModal
+                    src={imageData.src}
+                    alt={imageData.alt}
+                    hide={() => setImageData(null)}
+                />
             )}
         </div>
     );

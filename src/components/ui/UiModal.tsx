@@ -35,7 +35,7 @@ const UiModal: FC<IProps> = ({
 
     return (
         show && (
-            <div className="fixed inset-0 z-40 flex h-svh w-full origin-center items-center justify-center transition-all duration-100 ease-in-out">
+            <div className="fixed inset-0 z-40 flex h-svh w-full items-center justify-center">
                 <div
                     className="absolute inset-0 -z-10 h-svh w-full bg-zinc-400 opacity-60 dark:bg-zinc-950"
                     onClick={() => hide && hide()}

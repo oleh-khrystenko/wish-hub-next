@@ -14,3 +14,8 @@ export enum EPrivacy {
     FRIENDS = 'friends',
     NOBODY = 'nobody',
 }
+
+export interface IZoomedImage {
+    src: string;
+    alt: string;
+}
