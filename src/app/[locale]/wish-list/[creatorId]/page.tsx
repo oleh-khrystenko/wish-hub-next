@@ -13,6 +13,7 @@ export default function Wish() {
                 messages={pick(messages, [
                     'main-page',
                     'profile-page',
+                    'wish-page',
                     'share-button',
                     'alerts',
                 ])}
