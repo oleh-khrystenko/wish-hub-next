@@ -1,15 +1,15 @@
 import { FC, useCallback, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 import { useDrop, useDrag } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
-import { useTranslations } from 'next-intl';
 import { TCurrentImage } from '@/models/Wish';
 import {
     ALLOWED_FILE_EXTENSIONS,
     ALLOWED_MAX_FILE_SIZE_IN_MB,
     MAX_NUMBER_OF_IMAGES_PER_WISH,
 } from '@/helpers/utils/constants';
-import DraggableImage from '@/components/layouts/drag-n-drop/DraggableImage';
-import ImagesValidation from '@/components/layouts/drag-n-drop/ImagesValidation';
+import DraggableImage from '@/app/[locale]/main/drag-n-drop/DraggableImage';
+import ImagesValidation from '@/app/[locale]/main/drag-n-drop/ImagesValidation';
 
 interface IProps {
     images: TCurrentImage[];

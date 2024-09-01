@@ -9,13 +9,13 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { isAfter, isBefore } from '@/helpers/utils/date-validators';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
-import QuoteMessage from '@/components/layouts/wish-editor/QuoteMessage';
+import QuoteMessage from '@/components/layouts/QuoteMessage';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiDatePicker from '@/components/ui/UiDatePicker';
 import UiButton from '@/components/ui/UiButton';
 import UiTooltip from '@/components/ui/UiTooltip';
-import InfoIcon from '@/components/icons/InfoIcon';
 import UiLoading from '@/components/ui/UiLoading';
+import InfoIcon from '@/components/icons/InfoIcon';
 
 interface IProps {
     wish: IWish;

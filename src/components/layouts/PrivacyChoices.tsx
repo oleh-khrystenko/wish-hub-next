@@ -1,9 +1,9 @@
 import { ChangeEvent, FC } from 'react';
 import { useTranslations } from 'next-intl';
-import UiTooltip from '@/components/ui/UiTooltip';
 import { EPrivacy } from '@/models/Settings';
-import InfoIcon from '@/components/icons/InfoIcon';
+import UiTooltip from '@/components/ui/UiTooltip';
 import UiRadio from '@/components/ui/UiRadio';
+import InfoIcon from '@/components/icons/InfoIcon';
 
 interface IProps {
     id: string;

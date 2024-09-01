@@ -21,9 +21,9 @@ import {
 import { EPrivacy } from '@/models/Settings';
 import { ICreateWish } from '@/stores/wishes/types';
 import UseValidations from '@/helpers/hooks/UseValidations';
-import DragNDrop from '@/components/layouts/drag-n-drop/DragNDrop';
-import Addresses from '@/components/layouts/wish-editor/Addresses';
-import PrivacyChoices from '@/components/layouts/wish-editor/PrivacyChoices';
+import DragNDrop from '@/app/[locale]/main/drag-n-drop/DragNDrop';
+import Addresses from '@/app/[locale]/main/wish-editor/Addresses';
+import PrivacyChoices from '@/components/layouts/PrivacyChoices';
 import UiInput from '@/components/ui/UiInput';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import UiSwitch from '@/components/ui/UiSwitch';

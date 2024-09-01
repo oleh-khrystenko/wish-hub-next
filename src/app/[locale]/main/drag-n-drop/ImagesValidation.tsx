@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { TCurrentImage } from '@/models/Wish';
 import { useTranslations } from 'next-intl';
+import { TCurrentImage } from '@/models/Wish';
 import {
     ALLOWED_FILE_EXTENSIONS,
     ALLOWED_MAX_FILE_SIZE_IN_MB,

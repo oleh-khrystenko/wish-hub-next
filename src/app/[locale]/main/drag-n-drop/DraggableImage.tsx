@@ -1,9 +1,9 @@
 import { FC, useRef } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { useDrag, useDrop } from 'react-dnd';
 import { TCurrentImage } from '@/models/Wish';
 import CrossIcon from '@/components/icons/CrossIcon';
-import { useTranslations } from 'next-intl';
 
 interface IProps {
     image: TCurrentImage;

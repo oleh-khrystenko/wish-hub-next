@@ -12,6 +12,7 @@ const QuoteMessage: FC<IProps> = ({ title, text, author }) => {
             <span className="whitespace-nowrap p-2 text-center text-base font-bold">
                 {title}
             </span>
+
             {text && (
                 <div className="relative flex flex-col px-4 py-2 before:absolute before:inset-0 before:h-full before:w-full before:-rotate-2 before:rounded-md before:border before:border-dashed before:border-zinc-500">
                     <p className="text-sm">{text}</p>

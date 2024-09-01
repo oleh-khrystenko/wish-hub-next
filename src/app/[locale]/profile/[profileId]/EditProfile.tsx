@@ -10,7 +10,7 @@ import UseValidations from '@/helpers/hooks/UseValidations';
 import { isAfter, isBefore } from '@/helpers/utils/date-validators';
 import { ALLOWED_FILE_EXTENSIONS } from '@/helpers/utils/constants';
 import AvatarValidation from '@/app/[locale]/profile/[profileId]/AvatarValidation';
-import PrivacyChoices from '@/components/layouts/wish-editor/PrivacyChoices';
+import PrivacyChoices from '@/components/layouts/PrivacyChoices';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 import UiAvatar from '@/components/ui/UiAvatar';

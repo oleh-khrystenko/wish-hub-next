@@ -1,11 +1,11 @@
 import { FC } from 'react';
+import { useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useWishesStore } from '@/stores/wishes';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import UiInput from '@/components/ui/UiInput';
 import UiTooltip from '@/components/ui/UiTooltip';
 import UiButton from '@/components/ui/UiButton';
-import { useWishesStore } from '@/stores/wishes';
-import { useTranslations } from 'next-intl';
 
 interface IProps {
     setIsLoading: (value: boolean) => void;
