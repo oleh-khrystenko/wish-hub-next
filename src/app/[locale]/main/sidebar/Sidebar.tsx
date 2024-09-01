@@ -1,8 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import UserList from '@/components/layouts/sidebar/UserList';
 import { useSettingsStore } from '@/stores/settings';
+import UserList from '@/app/[locale]/main/sidebar/UserList';
 
 function Sidebar() {
     const mainPageT = useTranslations('main-page');

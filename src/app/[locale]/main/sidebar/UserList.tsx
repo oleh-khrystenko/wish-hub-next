@@ -6,11 +6,11 @@ import { useInView } from 'react-intersection-observer';
 import { EUserType, ISendUsersParams } from '@/stores/users/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
+import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
+import UserAction from '@/app/[locale]/main/sidebar/UserAction';
 import UiLoading from '@/components/ui/UiLoading';
-import UserAction from '@/components/layouts/sidebar/UserAction';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import UiSearch from '@/components/ui/UiSearch';
-import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
 const UserList: FC = () => {
     const [firstLoaded, setFirstLoaded] = useState<boolean>(false);

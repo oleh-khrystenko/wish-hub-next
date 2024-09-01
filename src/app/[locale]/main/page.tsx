@@ -2,8 +2,8 @@ import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import Refresh from '@/helpers/hocs/Refresh';
 import Content from '@/app/[locale]/main/Content';
+import Sidebar from '@/app/[locale]/main/sidebar/Sidebar';
 import Header from '@/components/layouts/header/Header';
-import Sidebar from '@/components/layouts/sidebar/Sidebar';
 
 export default function Main() {
     const messages = useMessages();
