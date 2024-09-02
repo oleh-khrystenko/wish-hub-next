@@ -11,6 +11,7 @@ import DetailProfile from '@/app/[locale]/profile/[profileId]/DetailProfile';
 import DeleteMyUserConfirmModal from '@/app/[locale]/profile/[profileId]/DeleteMyUserConfirmModal';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import WishList from '@/components/layouts/wish-list/WishList';
+import Inactivated from '@/components/layouts/Inactivated';
 import UiButton from '@/components/ui/UiButton';
 import EditIcon from '@/components/icons/EditIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
@@ -106,6 +107,8 @@ const Content: FC = () => {
                     />
                 </GoogleOAuthProvider>
             </div>
+
+            {!myUser?.isActivated && <Inactivated />}
         </div>
     );
 };

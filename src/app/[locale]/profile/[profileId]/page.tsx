@@ -18,6 +18,7 @@ export default function Profile() {
                     'share-button',
                     'alerts',
                     'validations',
+                    'inactivated',
                 ])}
             >
                 <Refresh>

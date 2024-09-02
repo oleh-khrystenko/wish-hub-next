@@ -4,6 +4,7 @@ import { FC, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { IZoomedImage } from '@/models/Settings';
+import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
@@ -12,6 +13,7 @@ import WishList from '@/components/layouts/wish-list/WishList';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 import UiAvatar from '@/components/ui/UiAvatar';
 import ListIcon from '@/components/icons/ListIcon';
+import Inactivated from '@/components/layouts/Inactivated';
 
 const Content: FC = () => {
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
@@ -20,6 +22,8 @@ const Content: FC = () => {
 
     const mainPageT = useTranslations('main-page');
     const profilePageT = useTranslations('profile-page');
+
+    const myUser = useMyUserStore((state) => state.myUser);
 
     const wishesCreator = useWishesStore((state) => state.creator);
 
@@ -81,6 +85,8 @@ const Content: FC = () => {
                     hide={() => setImageData(null)}
                 />
             )}
+
+            {!myUser?.isActivated && <Inactivated />}
         </div>
     );
 };

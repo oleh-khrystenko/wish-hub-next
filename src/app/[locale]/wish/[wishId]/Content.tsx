@@ -9,6 +9,7 @@ import { ECurrency, IWish } from '@/models/Wish';
 import { IUser } from '@/models/User';
 import { IZoomedImage } from '@/models/Settings';
 import { IGetWish } from '@/stores/wishes/types';
+import { useMyUserStore } from '@/stores/my-user';
 import wishesApi from '@/stores/wishes/api';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
@@ -19,6 +20,7 @@ import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 import UiAvatar from '@/components/ui/UiAvatar';
 import LogoIcon from '@/components/icons/LogoIcon';
+import Inactivated from '@/components/layouts/Inactivated';
 
 const Content: FC = () => {
     const [wish, setWish] = useState<IWish | null>(null);
@@ -35,6 +37,8 @@ const Content: FC = () => {
     const mainPageT = useTranslations('main-page');
     const wishPageT = useTranslations('wish-page');
     const alertsT = useTranslations('alerts');
+
+    const myUser = useMyUserStore((state) => state.myUser);
 
     const pages = [
         {
@@ -219,6 +223,8 @@ const Content: FC = () => {
                     {wishPageT('empty')}
                 </p>
             )}
+
+            {!myUser?.isActivated && <Inactivated />}
         </div>
     );
 };
