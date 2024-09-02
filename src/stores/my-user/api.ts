@@ -88,52 +88,24 @@ const refresh = async (): Promise<AxiosResponse<IAuth>> => {
 };
 
 const forgotPassword = async (data: IForgotPassword): Promise<void> => {
-    try {
-        await api.put('/forgot-password', data);
-        // toast(
-        //     t('alerts.my-user-api.forgot-password.success', { type: 'api', email: data.email }),
-        //     { type: 'success' },
-        // );
-    } catch (error: any) {
-        // toast(
-        //     error.response?.data?.message || t('alerts.my-user-api.forgot-password.error', {
-        //         email: data.email
-        //     }),
-        //     { type: 'error' },
-        // );
-        throw error;
-    }
+    await api.put('/forgot-password', data);
 };
 
 const changeForgottenPassword = async (
     data: IChangeForgottenPassword
 ): Promise<void> => {
-    try {
-        if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
-            return Promise.reject(
-                'NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.'
-            );
-        }
-
-        const encryptedNewPassword = encryptedData(
-            data.newPassword,
-            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-        );
-        await api.put('/change-forgotten-password', {
-            ...data,
-            newPassword: encryptedNewPassword,
-        });
-        // toast(
-        //     t('alerts.my-user-api.change-forgotten-password.success', { type: 'api' }),
-        //     { type: 'success' },
-        // );
-    } catch (error: any) {
-        // toast(
-        //     error.response?.data?.message || t('alerts.my-user-api.change-forgotten-password.error'),
-        //     { type: 'error' },
-        // );
-        throw error;
+    if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) {
+        return Promise.reject('NEXT_PUBLIC_CRYPTO_JS_SECRET is not defined.');
     }
+
+    const encryptedNewPassword = encryptedData(
+        data.newPassword,
+        process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+    );
+    await api.put('/change-forgotten-password', {
+        ...data,
+        newPassword: encryptedNewPassword,
+    });
 };
 
 const changePassword = async (data: IChangePassword): Promise<void> => {

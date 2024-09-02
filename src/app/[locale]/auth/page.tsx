@@ -1,18 +1,13 @@
-import {
-    useTranslations,
-    useMessages,
-    NextIntlClientProvider,
-} from 'next-intl';
+import { useMessages, NextIntlClientProvider } from 'next-intl';
+import pick from 'lodash.pick';
+import Refresh from '@/helpers/hocs/Refresh';
+import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import ClientForm from '@/app/[locale]/auth/ClientForm';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
-import UiBrand from '@/components/ui/UiBrand';
 import LangSelect from '@/components/layouts/LangSelect';
-import RoutesGuard from '@/helpers/hocs/RoutesGuard';
-import Refresh from '@/helpers/hocs/Refresh';
-import pick from 'lodash.pick';
+import UiBrand from '@/components/ui/UiBrand';
 
 export default function Auth() {
-    const t = useTranslations();
     const messages = useMessages();
 
     return (

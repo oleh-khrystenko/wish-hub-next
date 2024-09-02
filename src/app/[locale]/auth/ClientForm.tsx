@@ -143,10 +143,29 @@ const ClientForm: FC = () => {
         setClickedOnSubmit(true);
 
         if (isForgotPassword) {
-            return myUserApi.forgotPassword({
-                email: data.email.trim(),
-                lang: activeLocale as ELang,
-            });
+            return myUserApi
+                .forgotPassword({
+                    email: data.email.trim(),
+                    lang: activeLocale as ELang,
+                })
+                .then(() => {
+                    toast(
+                        alertsT('my-user-api.forgot-password.success', {
+                            type: 'api',
+                            email: data.email,
+                        }),
+                        { type: 'success' }
+                    );
+                })
+                .catch((error: any) => {
+                    toast(
+                        error.response?.data?.message ||
+                            alertsT('my-user-api.forgot-password.error', {
+                                email: data.email,
+                            }),
+                        { type: 'error' }
+                    );
+                });
         }
 
         if (isSingUp) {
@@ -227,9 +246,9 @@ const ClientForm: FC = () => {
             className="my-auto flex w-full max-w-lg flex-col gap-5 rounded-2xl px-0.5 tablet-md:bg-zinc-300 tablet-md:px-5 tablet-md:pb-5 tablet-md:pt-3 tablet-md:shadow-md tablet-md:dark:bg-zinc-800"
             onSubmit={handleSubmit(onSubmit)}
         >
-            <h1 className="flex w-full items-center justify-evenly gap-2.5 text-center text-xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-2xl">
+            <p className="flex w-full items-center justify-evenly gap-2.5 text-center text-xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-2xl">
                 {title}
-            </h1>
+            </p>
 
             {!isForgotPassword && (
                 <div className="mx-auto">

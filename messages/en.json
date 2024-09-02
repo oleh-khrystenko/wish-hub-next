@@ -58,7 +58,7 @@
                 "error": "refresh: Failed to update the session."
             },
             "forgot-password": {
-                "success": "The password reset email has been successfully sent to: {email}. Please log in with your new password.",
+                "success": "The password reset email has been successfully sent to: {email}. Please follow the instructions in the letter.",
                 "error": "forgotPassword: Failed to send the password reset email to: {email}."
             },
             "change-forgotten-password": {
@@ -405,13 +405,10 @@
         "wish_hub": "",
         "privacy_policy_error": "We can't authorize you until you agree to our Privacy Policy.",
         "passwords_error": "Passwords do not match.",
-        "recovery": "Recovery"
-    },
-    "change-forgotten-password-page": {
-        "title": "Password recovery",
+        "recovery": "Recovery",
+        "password_recovery": "Password recovery",
         "new_password": "New password*",
-        "repeat_new_password": "Repeat new password*",
-        "recovery": "Recovery"
+        "repeat_new_password": "Repeat new password*"
     },
     "welcome-page": {
         "wish_hub_makes": "Wish Hub - makes your dreams come true!",
