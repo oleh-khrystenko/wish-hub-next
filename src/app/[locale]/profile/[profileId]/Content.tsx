@@ -68,7 +68,6 @@ const Content: FC = () => {
 
                                 <div className="ml-auto mt-6 w-fit">
                                     <UiButton
-                                        type="button"
                                         variant="text-attention"
                                         onBtnClick={() =>
                                             setShowConfirmDeleteMyUser(true)

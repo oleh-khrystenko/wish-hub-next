@@ -4,7 +4,7 @@ import { FC, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
-import { EPrivacy, ETheme } from '@/models/Settings';
+import { ETheme } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useSettingsStore } from '@/stores/settings';
@@ -235,11 +235,7 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
 
                 <div className="flex flex-col items-stretch gap-2 border-t border-zinc-500 p-4 dark:border-zinc-600">
                     {myUser && (
-                        <UiButton
-                            variant="text"
-                            type="button"
-                            onBtnClick={handleLogout}
-                        >
+                        <UiButton variant="text" onBtnClick={handleLogout}>
                             <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                 <LogoutIcon />
                                 {mainPageT('logout')}

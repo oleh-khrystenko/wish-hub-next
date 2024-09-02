@@ -18,9 +18,9 @@ import WishSwiper from '@/components/layouts/detail-wish/WishSwiper';
 import BookWish from '@/components/layouts/detail-wish/BookWish';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
+import Inactivated from '@/components/layouts/Inactivated';
 import UiAvatar from '@/components/ui/UiAvatar';
 import LogoIcon from '@/components/icons/LogoIcon';
-import Inactivated from '@/components/layouts/Inactivated';
 
 const Content: FC = () => {
     const [wish, setWish] = useState<IWish | null>(null);

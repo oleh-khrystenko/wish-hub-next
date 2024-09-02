@@ -300,7 +300,7 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
                     {mainPageT('update')}
                 </UiButton>
 
-                <UiButton type="button" onBtnClick={cancel}>
+                <UiButton onBtnClick={cancel}>
                     {profilePageT('cancel')}
                 </UiButton>
             </div>

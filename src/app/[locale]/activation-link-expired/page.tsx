@@ -1,7 +1,43 @@
+import { NextIntlClientProvider, useMessages } from 'next-intl';
+import pick from 'lodash.pick';
+import Refresh from '@/helpers/hocs/Refresh';
+import RoutesGuard from '@/helpers/hocs/RoutesGuard';
+import Content from '@/app/[locale]/activation-link-expired/Content';
+import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
+import LangSelect from '@/components/layouts/LangSelect';
+import UiBrand from '@/components/ui/UiBrand';
+
 export default function ActivationLinkExpired() {
+    const messages = useMessages();
+
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24 text-zinc-800 dark:text-zinc-300">
-            activation-link-expired page wish RoutesGuard
+        <main className="flex min-h-screen flex-col items-center gap-2 p-4 tablet-md:gap-8">
+            <NextIntlClientProvider
+                messages={pick(messages, [
+                    'activation-link-expired-page',
+                    'main-page',
+                    'alerts',
+                ])}
+            >
+                <header className="flex w-full max-w-lg flex-col items-center gap-2 tablet-md:gap-8">
+                    <div className="flex w-full items-center justify-between gap-4">
+                        <ThemeSwitcher />
+                        <LangSelect />
+                    </div>
+
+                    <UiBrand
+                        withLogo
+                        isBig
+                        sizeLoading="h-16 min-h-16 w-16 min-w-16"
+                    />
+                </header>
+
+                <Refresh>
+                    <RoutesGuard>
+                        <Content />
+                    </RoutesGuard>
+                </Refresh>
+            </NextIntlClientProvider>
         </main>
     );
 }

@@ -11,9 +11,9 @@ import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import WishList from '@/components/layouts/wish-list/WishList';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
+import Inactivated from '@/components/layouts/Inactivated';
 import UiAvatar from '@/components/ui/UiAvatar';
 import ListIcon from '@/components/icons/ListIcon';
-import Inactivated from '@/components/layouts/Inactivated';
 
 const Content: FC = () => {
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
