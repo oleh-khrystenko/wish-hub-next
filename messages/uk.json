@@ -43,7 +43,8 @@
                 "error": "registration: Не вдалось зареєструватись."
             },
             "send-activation-link": {
-                "error": "sendActivationLink: Не вдалось надіслати посилання активації."
+                "success": "Лист з посиланням для активації акаунта успішно відправлено на пошту: {email}. Будь ласка, дотримуйтесь інструкцій у листі.",
+                "error": "sendActivationLink: Не вдалось відправити лист з посиланням для активації акаунта на пошту: {email}."
             },
             "google-authorization": {
                 "error": "googleAuthorization: Не вдалось увійти за допомогою Google."

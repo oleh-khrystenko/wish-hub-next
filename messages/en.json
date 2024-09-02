@@ -43,7 +43,8 @@
                 "error": "registration: Failed to register."
             },
             "send-activation-link": {
-                "error": "sendActivationLink: Failed to send the activation link."
+                "success": "An email with a link to activate your account has been successfully sent to {email}. Please follow the instructions in the email.",
+                "error": "sendActivationLink: An email with a link to activate your account could not be sent to {email}."
             },
             "google-authorization": {
                 "error": "googleAuthorization: Couldn't sign in with Google."

@@ -7,6 +7,7 @@ import { useUsersStore } from '@/stores/users';
 import { useSettingsStore } from '@/stores/settings';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import WishList from '@/app/[locale]/main/WishList';
+import Inactivated from '@/components/layouts/Inactivated';
 import UiBrand from '@/components/ui/UiBrand';
 
 const Content: FC = () => {
@@ -73,6 +74,8 @@ const Content: FC = () => {
             )}
 
             <WishList selectedUserFullName={selectedUserFullName} />
+
+            {!myUser?.isActivated && <Inactivated />}
         </div>
     );
 };

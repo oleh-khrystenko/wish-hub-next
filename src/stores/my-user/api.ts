@@ -39,15 +39,7 @@ const registration = async (
 const sendActivationLink = async (
     userId: IUser['id']
 ): Promise<AxiosResponse<IUser['email']>> => {
-    try {
-        return await api.get(`/get-activation-link/${userId}`);
-    } catch (error: any) {
-        // toast(
-        //     error.response?.data?.message || t('alerts.my-user-api.send-activation-link.error'),
-        //     { type: 'error' },
-        // );
-        throw error;
-    }
+    return await api.get(`/get-activation-link/${userId}`);
 };
 
 const googleAuthorization = async (

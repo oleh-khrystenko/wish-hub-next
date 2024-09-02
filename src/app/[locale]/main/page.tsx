@@ -17,6 +17,7 @@ export default function Main() {
                     'share-button',
                     'alerts',
                     'validations',
+                    'inactivated',
                 ])}
             >
                 <Refresh>
