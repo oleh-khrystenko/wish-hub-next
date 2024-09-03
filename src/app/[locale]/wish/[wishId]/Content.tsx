@@ -9,7 +9,6 @@ import { ECurrency, IWish } from '@/models/Wish';
 import { IUser } from '@/models/User';
 import { IZoomedImage } from '@/models/Settings';
 import { IGetWish } from '@/stores/wishes/types';
-import { useMyUserStore } from '@/stores/my-user';
 import wishesApi from '@/stores/wishes/api';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
@@ -18,7 +17,6 @@ import WishSwiper from '@/components/layouts/detail-wish/WishSwiper';
 import BookWish from '@/components/layouts/detail-wish/BookWish';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
-import Inactivated from '@/components/layouts/Inactivated';
 import UiAvatar from '@/components/ui/UiAvatar';
 import LogoIcon from '@/components/icons/LogoIcon';
 
@@ -38,12 +36,10 @@ const Content: FC = () => {
     const wishPageT = useTranslations('wish-page');
     const alertsT = useTranslations('alerts');
 
-    const myUser = useMyUserStore((state) => state.myUser);
-
     const pages = [
         {
             href: 'wish',
-            icon: LogoIcon,
+            icon: <LogoIcon classes="w-4 h-4" />,
             name: mainPageT('wish'),
         },
     ];
@@ -223,8 +219,6 @@ const Content: FC = () => {
                     {wishPageT('empty')}
                 </p>
             )}
-
-            {!myUser?.isActivated && <Inactivated />}
         </div>
     );
 };

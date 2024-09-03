@@ -15,7 +15,6 @@ export default function WishList() {
                     'wish-page',
                     'share-button',
                     'alerts',
-                    'inactivated',
                 ])}
             >
                 <Refresh>

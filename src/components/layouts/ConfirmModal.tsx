@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import UiModal from '@/components/ui/UiModal';
 import UiButton from '@/components/ui/UiButton';
@@ -23,6 +23,14 @@ const ConfirmModal: FC<IProps> = ({
     closeModalT,
 }) => {
     const mainPageT = useTranslations('main-page');
+
+    // useEffect(() => {
+    //     document.body.classList.add('overflow-hidden');
+    //
+    //     return () => {
+    //         document.body.classList.remove('overflow-hidden');
+    //     };
+    // }, []);
 
     return (
         <UiModal show={show} rounded="rounded-2xl">

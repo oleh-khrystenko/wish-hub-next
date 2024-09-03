@@ -30,7 +30,9 @@ const Content: FC = () => {
     const pages = [
         {
             href: 'profile',
-            icon: PersonIcon,
+            icon: (
+                <PersonIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
+            ),
             name: profilePageT('profile'),
         },
     ];

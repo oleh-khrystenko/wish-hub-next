@@ -4,14 +4,12 @@ import { FC, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { IZoomedImage } from '@/models/Settings';
-import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import WishList from '@/components/layouts/wish-list/WishList';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
-import Inactivated from '@/components/layouts/Inactivated';
 import UiAvatar from '@/components/ui/UiAvatar';
 import ListIcon from '@/components/icons/ListIcon';
 
@@ -23,8 +21,6 @@ const Content: FC = () => {
     const mainPageT = useTranslations('main-page');
     const profilePageT = useTranslations('profile-page');
 
-    const myUser = useMyUserStore((state) => state.myUser);
-
     const wishesCreator = useWishesStore((state) => state.creator);
 
     const { getFullName } = UseFullName();
@@ -33,7 +29,9 @@ const Content: FC = () => {
     const pages = [
         {
             href: 'wish-list',
-            icon: ListIcon,
+            icon: (
+                <ListIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
+            ),
             name: profilePageT('wish-list-title'),
         },
     ];
@@ -85,8 +83,6 @@ const Content: FC = () => {
                     hide={() => setImageData(null)}
                 />
             )}
-
-            {!myUser?.isActivated && <Inactivated />}
         </div>
     );
 };

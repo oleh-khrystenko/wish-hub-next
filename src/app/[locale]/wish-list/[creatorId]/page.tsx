@@ -16,7 +16,6 @@ export default function Wish() {
                     'wish-page',
                     'share-button',
                     'alerts',
-                    'inactivated',
                 ])}
             >
                 <Refresh>
