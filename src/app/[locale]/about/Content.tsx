@@ -8,7 +8,7 @@ const Content: FC = () => {
 
     const pages = [
         {
-            href: 'wish',
+            href: 'about',
             icon: (
                 <InfoIcon classes="w-4 h-4 stroke-zinc-200 dark:stroke-zinc-400" />
             ),
@@ -22,7 +22,7 @@ const Content: FC = () => {
 
             <div className="mt-6 flex flex-col gap-5 px-4 pb-6 tablet-md:px-0 tablet-md:pb-10">
                 <section className="flex flex-col gap-5">
-                    <h1 className="text-center text-3xl font-bold text-zinc-700 dark:text-zinc-300">
+                    <h1 className="text-center text-4xl font-bold text-zinc-700 dark:text-zinc-300">
                         {aboutPageT('title')}
                     </h1>
 

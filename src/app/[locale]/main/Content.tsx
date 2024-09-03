@@ -75,7 +75,7 @@ const Content: FC = () => {
 
             <WishList selectedUserFullName={selectedUserFullName} />
 
-            {!myUser?.isActivated && <Inactivated />}
+            {myUser && !myUser.isActivated && <Inactivated />}
         </div>
     );
 };

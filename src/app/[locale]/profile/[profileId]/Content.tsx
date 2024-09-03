@@ -109,7 +109,7 @@ const Content: FC = () => {
                 </GoogleOAuthProvider>
             </div>
 
-            {!myUser?.isActivated && <Inactivated />}
+            {myUser && !myUser.isActivated && <Inactivated />}
         </div>
     );
 };

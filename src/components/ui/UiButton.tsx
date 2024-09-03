@@ -11,6 +11,7 @@ interface IProps {
     tabIndex?: number;
     variant?:
         | 'text'
+        | 'text-only'
         | 'text-btn'
         | 'text-attention'
         | 'solid'
@@ -103,7 +104,11 @@ const UiButton: FC<IProps> = ({
     if (href) {
         return (
             <Link href={`/${activeLocale}/${href}`} {...linkProps}>
-                <span className={spanClasses}>{children}</span>
+                {variant === 'text-only' ? (
+                    <>{children}</>
+                ) : (
+                    <span className={spanClasses}>{children}</span>
+                )}
 
                 {isLoading && (
                     <UiLoading isLocal size={sizeLoading} bg={bgLoading} />
