@@ -11,7 +11,7 @@ import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
 import WishListActions from '@/components/layouts/wish-list/WishListActions';
 import WishItem from '@/components/layouts/wish-list/WishItem';
 import DetailWish from '@/components/layouts/detail-wish/DetailWish';
-import UiModal from '@/components/ui/UiModal';
+import UiModal from '@/components/ui/modal/UiModal';
 import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {

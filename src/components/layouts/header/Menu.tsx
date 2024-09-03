@@ -27,6 +27,7 @@ import LogoDarkIcon from '@/components/icons/LogoDarkIcon';
 import LogoLightIcon from '@/components/icons/LogoLightIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
 import UiLoading from '@/components/ui/UiLoading';
+import UiModal from '@/components/ui/modal/UiModal';
 // import YouTubeIcon from '@/components/icons/YouTubeIcon';
 
 interface IProps {
@@ -35,6 +36,7 @@ interface IProps {
 
 const Menu: FC<IProps> = ({ isMainPage }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [showContacts, setShowContacts] = useState<boolean>(false);
 
     const router = useRouter();
     const pathname = usePathname();
@@ -75,6 +77,11 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
         setTimeout(() => {
             setShowPopup(false);
         }, 300);
+    };
+
+    const handleShowContacts = () => {
+        setShowContacts(true);
+        handleHidePopup();
     };
 
     const handleLogout = async () => {
@@ -222,9 +229,9 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                     </ShareButton>
 
                     <UiButton
-                        href="about"
                         variant="text"
                         bgLoading="bg-zinc-100 dark:bg-zinc-700"
+                        onBtnClick={handleShowContacts}
                     >
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <ForumIcon />
@@ -257,6 +264,51 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                     </div>
                 </div>
             </UiPopup>
+
+            {/* Contacts */}
+            <UiModal
+                rounded="rounded-2xl"
+                show={showContacts}
+                hide={() => setShowContacts(false)}
+            >
+                <p className="text-center text-2xl font-bold text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('contacts')}:
+                </p>
+
+                <p className="mt-6 text-zinc-600 dark:text-zinc-400">
+                    {mainPageT('phone')}{' '}
+                    <a
+                        href="tel:+380508899268"
+                        className="text-cyan-400 dark:text-cyan-300"
+                    >
+                        +38 050 88 99 268
+                    </a>
+                </p>
+
+                <p className="mt-4 text-zinc-600 dark:text-zinc-400">
+                    {mainPageT('email')}{' '}
+                    <a
+                        href="mailto:wish-hub@ukr.net"
+                        className="text-cyan-400 dark:text-cyan-300"
+                    >
+                        wish-hub@ukr.net
+                    </a>
+                </p>
+
+                <div className="mt-4 flex items-center gap-4">
+                    <p className="text-zinc-600 dark:text-zinc-400">
+                        {mainPageT('social-networks')}
+                    </p>
+
+                    <div className="flex items-center justify-evenly gap-4">
+                        <SocialNetworks />
+                    </div>
+                </div>
+
+                <p className="mt-4 text-sm text-zinc-500">
+                    {mainPageT('contact-us')}
+                </p>
+            </UiModal>
 
             {isLoading && <UiLoading />}
         </div>

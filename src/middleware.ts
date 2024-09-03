@@ -1,12 +1,19 @@
 import createMiddleware from 'next-intl/middleware';
+import { NextResponse, NextRequest } from 'next/server';
 
-export default createMiddleware({
-    // A list of all locales that are supported
-    locales: ['uk', 'en', 'ru'],
+export default function middleware(request: NextRequest) {
+    const { pathname } = request.nextUrl;
 
-    // Used when no locale matches
-    defaultLocale: 'uk',
-});
+    // Якщо користувач заходить на головну сторінку `/`, робимо переадресацію на `/uk`
+    if (pathname === '/') {
+        return NextResponse.redirect(new URL('/uk', request.url));
+    }
+
+    return createMiddleware({
+        locales: ['uk', 'en', 'ru'],
+        defaultLocale: 'uk',
+    })(request);
+}
 
 export const config = {
     // Match only internationalized pathnames

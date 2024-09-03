@@ -7,7 +7,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
 import UseValidations from '@/helpers/hooks/UseValidations';
-import UiModal from '@/components/ui/UiModal';
+import UiModal from '@/components/ui/modal/UiModal';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 

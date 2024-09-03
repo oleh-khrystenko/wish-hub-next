@@ -19,7 +19,7 @@ import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
 import FormContent from '@/app/[locale]/main/wish-editor/FormContent';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
-import UiModal from '@/components/ui/UiModal';
+import UiModal from '@/components/ui/modal/UiModal';
 import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {

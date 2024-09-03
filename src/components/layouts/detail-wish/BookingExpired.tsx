@@ -5,7 +5,7 @@ import { IDoneWish } from '@/stores/wishes/types';
 import { useTranslations } from 'next-intl';
 import { useWishesStore } from '@/stores/wishes';
 import UiButton from '@/components/ui/UiButton';
-import UiModal from '@/components/ui/UiModal';
+import UiModal from '@/components/ui/modal/UiModal';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import UiLoading from '@/components/ui/UiLoading';
 
