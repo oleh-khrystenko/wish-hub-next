@@ -19,6 +19,7 @@ interface IMyUserStore {
     myUser: IUser | null;
     candidate: ICandidate | null;
     isLoading: boolean;
+    setCandidate: (data: ICandidate) => void;
     registration: (data: IRegistration, errorT: string) => Promise<void>;
     googleAuthorization: (data: IGoogleAuth, errorT: string) => Promise<void>;
     login: (data: ILogin, errorT: string) => Promise<void>;
@@ -38,6 +39,12 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
     myUser: null,
     candidate: null,
     isLoading: false,
+    setCandidate: (data) => {
+        set((state) => ({
+            ...state,
+            candidate: data,
+        }));
+    },
     registration: async (data, errorT) => {
         set((state) => ({
             ...state,

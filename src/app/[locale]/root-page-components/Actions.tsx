@@ -1,0 +1,43 @@
+'use client';
+
+import { FC } from 'react';
+import { useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { useMyUserStore } from '@/stores/my-user';
+import UiButton from '@/components/ui/UiButton';
+
+const Actions: FC = () => {
+    const router = useRouter();
+
+    const activeLocale = useLocale();
+    const welcomePageT = useTranslations('welcome-page');
+
+    const myUser = useMyUserStore((state) => state.myUser);
+    const setCandidate = useMyUserStore((state) => state.setCandidate);
+
+    const handleSignIn = () => {
+        setCandidate({ firstName: '', email: '' });
+        router.push(`/${activeLocale}/auth`);
+    };
+
+    const handleSignUp = () => {
+        setCandidate({ firstName: '', email: '' });
+        router.push(`/${activeLocale}/auth?register`);
+    };
+
+    return myUser ? (
+        <UiButton href="/main">{welcomePageT('to-main')}</UiButton>
+    ) : (
+        <div className="flex items-center gap-4">
+            <UiButton variant="outline" onBtnClick={handleSignIn}>
+                {welcomePageT('sign-in')}
+            </UiButton>
+
+            <UiButton onBtnClick={handleSignUp}>
+                {welcomePageT('sign-up')}
+            </UiButton>
+        </div>
+    );
+};
+
+export default Actions;

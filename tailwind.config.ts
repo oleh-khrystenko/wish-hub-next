@@ -15,6 +15,10 @@ const config: Config = {
             width: {
                 0.75: '0.1875rem',
             },
+            backgroundImage: {
+                'cyan-rose': "url('/images/cyan-rose.webp')",
+                'rose-cyan-rose': "url('/images/rose-cyan-rose.webp')",
+            },
             boxShadow: {
                 'checked-outline-light': '0 0 0 1px #e4e4e7', // zinc-200
                 'checked-outline-dark': '0 0 0 1px #18181b', // zinc-900
