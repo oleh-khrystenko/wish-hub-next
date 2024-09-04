@@ -15,6 +15,7 @@ interface IProps {
     bg?: string;
     isPending?: boolean;
     withoutIcon?: boolean;
+    expandTop?: boolean;
     value: IOption['value'];
     onChange: (value: IOption['value']) => void;
 }
@@ -24,10 +25,18 @@ const UiSelect: FC<IProps> = ({
     bg = 'bg-zinc-100 dark:bg-zinc-950',
     isPending,
     withoutIcon = false,
+    expandTop,
     value,
     onChange,
 }) => {
     const [show, setShow] = useState<boolean>(false);
+
+    let roundedClasses = 'rounded-md';
+    if (show) {
+        expandTop
+            ? (roundedClasses = 'rounded-b-md')
+            : (roundedClasses = 'rounded-t-md');
+    }
 
     const handleClick = () => {
         setShow((prevState) => !prevState);
@@ -41,7 +50,7 @@ const UiSelect: FC<IProps> = ({
     return (
         <OutsideClickHandler hide={() => setShow(false)}>
             <div
-                className={`${show ? 'rounded-t-md' : 'rounded-md'} ${bg} relative transition-all duration-300 ease-in-out`}
+                className={`${roundedClasses} ${bg} relative transition-all duration-300 ease-in-out`}
             >
                 <button
                     className={`${bg} relative z-10 flex w-full items-center gap-2 overflow-hidden rounded-md px-3 py-2.5`}
@@ -69,7 +78,7 @@ const UiSelect: FC<IProps> = ({
                 </button>
 
                 <ul
-                    className={`${show ? 'scale-y-100' : 'scale-y-0'} ${bg} absolute left-0 top-full z-30 w-full origin-top rounded-b-md transition-all duration-300 ease-in-out`}
+                    className={`${show ? 'scale-y-100' : 'scale-y-0'} ${bg} ${expandTop ? 'bottom-full origin-bottom rounded-t-md' : 'top-full origin-top rounded-b-md'} absolute left-0 z-30 w-full transition-all duration-300 ease-in-out`}
                 >
                     {options.map((option) => {
                         if (option.value === value) return null;

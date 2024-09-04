@@ -1,5 +1,3 @@
-'use client';
-
 import { FC } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
@@ -28,15 +26,17 @@ const Actions: FC = () => {
     return myUser ? (
         <UiButton href="/main">{welcomePageT('to-main')}</UiButton>
     ) : (
-        <div className="flex items-center gap-4">
-            <UiButton variant="outline" onBtnClick={handleSignIn}>
-                {welcomePageT('sign-in')}
-            </UiButton>
+        <>
+            <div className="mobile-xs:ml-auto tablet-md:ml-6">
+                <UiButton variant="outline" onBtnClick={handleSignIn}>
+                    {welcomePageT('sign-in')}
+                </UiButton>
+            </div>
 
             <UiButton onBtnClick={handleSignUp}>
                 {welcomePageT('sign-up')}
             </UiButton>
-        </div>
+        </>
     );
 };
 
