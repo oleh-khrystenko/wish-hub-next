@@ -201,7 +201,12 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                     {/*    variant="text"*/}
                     {/*    bgLoading="bg-zinc-100 dark:bg-zinc-700"*/}
                     {/*>*/}
-                    {/*    <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">*/}
+                    {/*    <span*/}
+                    {/*        className="*/}
+                    {/*            flex items-center gap-2 py-1.5*/}
+                    {/*            text-lg text-zinc-800 dark:text-zinc-300*/}
+                    {/*        "*/}
+                    {/*    >*/}
                     {/*        <YouTubeIcon />*/}
                     {/*        {mainPageT('instruction')}*/}
                     {/*    </span>*/}
