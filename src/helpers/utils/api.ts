@@ -40,7 +40,8 @@ api.interceptors.response.use(
                 return api.request(originalRequest);
             } catch (error: any) {
                 // toast(
-                //     error.response?.data?.message || t('alerts.interceptors-api.response.error'),
+                //     error.response?.data?.message
+                //     || t('alerts.interceptors-api.response.error'),
                 //     { type: 'error' },
                 // );
             }

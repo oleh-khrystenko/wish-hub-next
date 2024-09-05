@@ -256,7 +256,9 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 myUser: response.data,
             }));
         } catch (error: any) {
-            // console.log('my-user changeShowedInfo error: ', error.response?.data?.message || t('alerts.my-user-api.update-data.error'));
+            // console.log('my-user changeShowedInfo error: ',
+            // error.response?.data?.message
+            // || t('alerts.my-user-api.update-data.error'));
         } finally {
             set((state) => ({
                 ...state,
@@ -278,7 +280,9 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 myUser: response.data,
             }));
         } catch (error: any) {
-            // console.log('my-user changeFirsLoaded error: ', error.response?.data?.message || t('alerts.my-user-api.update-data.error'));
+            // console.log('my-user changeFirsLoaded error: ',
+            // error.response?.data?.message
+            // || t('alerts.my-user-api.update-data.error'));
         } finally {
             set((state) => ({
                 ...state,

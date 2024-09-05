@@ -13,8 +13,12 @@ export interface IUser {
     hasPassword: boolean;
     isActivated: boolean;
     lang: ELang;
-    showedInfo: boolean; // показую інструкцію як встановити PWA додаток
-    firstLoaded: boolean; // має показувати модалку з редагуванням профілю. Але зараз такої модалки немає і замість неї сторінка з профілем. Тож поки це поле не задіяне
+    // показую інструкцію як встановити PWA додаток
+    showedInfo: boolean;
+    // має показувати модалку з редагуванням профілю.
+    // Але зараз такої модалки немає і замість неї сторінка з профілем.
+    // Тож поки це поле не задіяне
+    firstLoaded: boolean;
     firstName: string;
     lastName?: string;
     avatar?: string;

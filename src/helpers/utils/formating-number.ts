@@ -16,4 +16,4 @@ export const addingWhiteSpaces = (value: string) => {
     reversedValues.length > 19 && reversedValues.splice(19, 0, ' ');
     value = reversedValues.reverse().join('');
     return value;
-}
+};

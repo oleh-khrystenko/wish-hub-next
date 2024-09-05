@@ -131,7 +131,8 @@ const notificationSubscribe = async (
         return await api.put('/notification-subscribe', data);
     } catch (error: any) {
         // toast(
-        //     error.response?.data?.message || t('alerts.my-user-api.notification-subscribe.error'),
+        //     error.response?.data?.message
+        //     || t('alerts.my-user-api.notification-subscribe.error'),
         //     { type: 'error' },
         // );
         throw error;
@@ -145,7 +146,8 @@ const notificationUnsubscribe = async (
         return await api.put('/notification-unsubscribe', data);
     } catch (error: any) {
         // toast(
-        //     error.response?.data?.message || t('alerts.my-user-api.notification-unsubscribe.error'),
+        //     error.response?.data?.message
+        //     || t('alerts.my-user-api.notification-unsubscribe.error'),
         //     { type: 'error' },
         // );
         throw error;

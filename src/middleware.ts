@@ -4,7 +4,6 @@ import { NextResponse, NextRequest } from 'next/server';
 export default function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    // Якщо користувач заходить на головну сторінку `/`, робимо переадресацію на `/uk`
     if (pathname === '/') {
         return NextResponse.redirect(new URL('/uk', request.url));
     }
