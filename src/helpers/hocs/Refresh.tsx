@@ -8,10 +8,11 @@ import { useMyUserStore } from '@/stores/my-user';
 import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {
+    withoutLoading?: boolean;
     children: ReactNode;
 }
 
-const Refresh: FC<IProps> = ({ children }) => {
+const Refresh: FC<IProps> = ({ withoutLoading, children }) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const refreshed = useRef(false);
@@ -29,13 +30,13 @@ const Refresh: FC<IProps> = ({ children }) => {
         );
     }, []);
 
-    if (isLoading) {
+    if (isLoading && !withoutLoading) {
         return <UiLoading />;
     }
 
     return (
         <>
-            {children}
+            {!isLoading && <>{children}</>}
             <ToastContainer
                 bodyClassName={() =>
                     'flex items-center text-sm font-bold text-zinc-800 dark:text-zinc-300'

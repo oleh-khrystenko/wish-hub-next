@@ -25,7 +25,7 @@ const Action: FC<IProps> = ({ toMainT, signUpT }) => {
     };
 
     return (
-        <div className="mt-4 tablet-md:mt-6">
+        <div className="mt-4 w-fit tablet-md:mt-6">
             {myUser ? (
                 <UiButton href="/main">{toMainT}</UiButton>
             ) : (

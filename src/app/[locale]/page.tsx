@@ -15,13 +15,13 @@ export default function Welcome() {
     const welcomePageT = useTranslations('welcome-page');
 
     return (
-        <main className="flex h-full min-h-screen flex-col">
+        <main className="flex h-full min-h-screen flex-col bg-zinc-300 dark:bg-zinc-900">
             <section className="bg-rose-cyan-rose bg-cover bg-[80%_50%] bg-no-repeat px-4 pb-10 tablet-md:pb-20 desktop-xs:p-0 desktop-sm:bg-center">
-                <div className="mx-auto max-w-7xl pb-10 tablet-md:pb-28">
+                <div className="relative mx-auto max-w-7xl pb-10 pt-20 tablet-md:pb-28 tablet-md:pt-[104px]">
                     <NextIntlClientProvider
                         messages={pick(messages, ['welcome-page', 'alerts'])}
                     >
-                        <Refresh>
+                        <Refresh withoutLoading>
                             <Header />
                         </Refresh>
                     </NextIntlClientProvider>
