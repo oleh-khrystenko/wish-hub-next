@@ -79,6 +79,8 @@ export default function Welcome() {
             </section>
 
             <Divider iconAlt={welcomePageT('alts.star_icon')} />
+
+            <Divider iconAlt={welcomePageT('alts.star_icon')} />
         </main>
     );
 }
