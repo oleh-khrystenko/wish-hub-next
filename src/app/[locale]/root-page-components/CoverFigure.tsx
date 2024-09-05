@@ -12,6 +12,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/star-emoji.webp"
                     alt={welcomePageT('alts.star_emoji')}
+                    title={welcomePageT('alts.star_emoji')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -22,6 +23,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/arrow.webp"
                     alt={welcomePageT('alts.arrow')}
+                    title={welcomePageT('alts.arrow')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -32,6 +34,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/love-smile.webp"
                     alt={welcomePageT('alts.love_smile')}
+                    title={welcomePageT('alts.love_smile')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -43,6 +46,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/pigtails-emoji.webp"
                     alt={welcomePageT('alts.pigtails_emoji')}
+                    title={welcomePageT('alts.pigtails_emoji')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -53,6 +57,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/arrow.webp"
                     alt={welcomePageT('alts.arrow')}
+                    title={welcomePageT('alts.arrow')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -63,6 +68,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/festive-smile.webp"
                     alt={welcomePageT('alts.festive_smile')}
+                    title={welcomePageT('alts.festive_smile')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -74,6 +80,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/winking-emoji.webp"
                     alt={welcomePageT('alts.winking_emoji')}
+                    title={welcomePageT('alts.winking_emoji')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -84,6 +91,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/arrow.webp"
                     alt={welcomePageT('alts.arrow')}
+                    title={welcomePageT('alts.arrow')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -94,6 +102,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/star-smile.webp"
                     alt={welcomePageT('alts.star_smile')}
+                    title={welcomePageT('alts.star_smile')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -105,6 +114,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/bearded-emoji.webp"
                     alt={welcomePageT('alts.bearded_emoji')}
+                    title={welcomePageT('alts.bearded_emoji')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -115,6 +125,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/arrow.webp"
                     alt={welcomePageT('alts.arrow')}
+                    title={welcomePageT('alts.arrow')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -125,6 +136,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/sunglasses-smile.webp"
                     alt={welcomePageT('alts.sunglasses_smile')}
+                    title={welcomePageT('alts.sunglasses_smile')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -136,6 +148,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/great-emoji.webp"
                     alt={welcomePageT('alts.great_emoji')}
+                    title={welcomePageT('alts.great_emoji')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -146,6 +159,7 @@ const CoverFigure: FC = () => {
                 <Image
                     src="/images/arrow.webp"
                     alt={welcomePageT('alts.arrow')}
+                    title={welcomePageT('alts.arrow')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -161,6 +175,7 @@ const CoverFigure: FC = () => {
                         <Image
                             src="/images/party-popper.webp"
                             alt={welcomePageT('alts.party_popper_icon')}
+                            title={welcomePageT('alts.party_popper_icon')}
                             fill
                             sizes={'100%'}
                             className="object-contain"
@@ -185,6 +200,7 @@ const CoverFigure: FC = () => {
                                 <Image
                                     src="/images/flowers.webp"
                                     alt={welcomePageT('bouquet_of')}
+                                    title={welcomePageT('bouquet_of')}
                                     fill
                                     sizes={'100%'}
                                     className="object-contain"
@@ -209,8 +225,9 @@ const CoverFigure: FC = () => {
                         <div className="relative h-2 w-2 min-w-2 self-center rounded-sm border border-solid border-zinc-600 dark:border-zinc-400 tablet-md:h-4 tablet-md:w-4 tablet-md:min-w-4">
                             <div className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 animate-appear-14 opacity-0 tablet-md:h-6 tablet-md:w-6">
                                 <Image
-                                    src="/images/checked-icon.svg"
+                                    src="/icons/checked-icon.svg"
                                     alt={welcomePageT('alts.checked_icon')}
+                                    title={welcomePageT('alts.checked_icon')}
                                     fill
                                     sizes={'100%'}
                                     className="object-contain"
@@ -223,6 +240,7 @@ const CoverFigure: FC = () => {
                                 <Image
                                     src="/images/bear.webp"
                                     alt={welcomePageT('teddy_bear')}
+                                    title={welcomePageT('teddy_bear')}
                                     fill
                                     sizes={'100%'}
                                     className="object-contain"
@@ -251,6 +269,7 @@ const CoverFigure: FC = () => {
                                 <Image
                                     src="/images/vr-headset.webp"
                                     alt={welcomePageT('vr_headset')}
+                                    title={welcomePageT('vr_headset')}
                                     fill
                                     sizes={'100%'}
                                     className="object-contain"
@@ -275,8 +294,9 @@ const CoverFigure: FC = () => {
                         <div className="relative h-2 w-2 min-w-2 self-center rounded-sm border border-solid border-zinc-600 dark:border-zinc-400 tablet-md:h-4 tablet-md:w-4 tablet-md:min-w-4">
                             <div className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 animate-appear-21 opacity-0 tablet-md:h-6 tablet-md:w-6">
                                 <Image
-                                    src="/images/checked-icon.svg"
+                                    src="/icons/checked-icon.svg"
                                     alt={welcomePageT('alts.checked_icon')}
+                                    title={welcomePageT('alts.checked_icon')}
                                     fill
                                     sizes={'100%'}
                                     className="object-contain"

@@ -9,6 +9,7 @@ import Refresh from '@/helpers/hocs/Refresh';
 import Header from '@/app/[locale]/root-page-components/Header';
 import CoverFigure from '@/app/[locale]/root-page-components/CoverFigure';
 import Action from '@/app/[locale]/root-page-components/Action';
+import Divider from '@/app/[locale]/root-page-components/Divider';
 
 export default function Welcome() {
     const messages = useMessages();
@@ -76,6 +77,8 @@ export default function Welcome() {
                     </div>
                 </div>
             </section>
+
+            <Divider iconAlt={welcomePageT('alts.star_icon')} />
         </main>
     );
 }
