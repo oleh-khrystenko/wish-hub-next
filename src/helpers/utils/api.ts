@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { t } from 'i18next';
 // import { toast } from 'react-toastify';
 import myUserApi from '@/stores/my-user/api';
 
