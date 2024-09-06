@@ -17,8 +17,8 @@ export default function Welcome() {
 
     return (
         <main className="flex h-full min-h-screen flex-col bg-zinc-300 dark:bg-zinc-900">
-            <section className="bg-rose-cyan-rose bg-cover bg-[80%_50%] bg-no-repeat px-4 pb-10 tablet-md:pb-20 desktop-xs:p-0 desktop-sm:bg-center">
-                <div className="relative mx-auto max-w-7xl pb-10 pt-20 tablet-md:pb-28 tablet-md:pt-[104px]">
+            <section className="bg-rose-cyan-rose bg-cover bg-[80%_50%] bg-no-repeat px-4 pb-10 tablet-md:pb-20 desktop-xs:px-0 desktop-xs:pb-28 desktop-sm:bg-center">
+                <div className="relative mx-auto max-w-7xl pt-20 tablet-md:pt-[104px]">
                     <NextIntlClientProvider
                         messages={pick(messages, ['welcome-page', 'alerts'])}
                     >
@@ -79,6 +79,23 @@ export default function Welcome() {
             </section>
 
             <Divider iconAlt={welcomePageT('alts.star_icon')} />
+
+            <section className="bg-cyan-cyan-rose bg-cover bg-[66%_50%] bg-no-repeat px-4 pb-16 pt-10 tablet-md:bg-center tablet-md:px-0 tablet-md:pb-28 tablet-md:pt-20">
+                <div className="mx-auto max-w-7xl">
+                    <div className="flex flex-col gap-4 tablet-md:gap-6 desktop-xs:w-3/5">
+                        <h2 className="text-2xl font-bold text-zinc-800 dark:text-zinc-200 mobile-xl:text-center tablet-md:text-left tablet-md:text-4xl">
+                            {welcomePageT('with_wish_hub')}
+                        </h2>
+
+                        <p className="text-base text-zinc-600 dark:text-zinc-400 mobile-xl:text-center tablet-md:text-left tablet-md:text-lg">
+                            {welcomePageT('save_time')}
+                            &nbsp;
+                            <br className="hidden tablet-md:block" />
+                            {welcomePageT('no_more')}
+                        </p>
+                    </div>
+                </div>
+            </section>
         </main>
     );
 }

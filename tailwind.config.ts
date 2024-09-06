@@ -16,7 +16,7 @@ const config: Config = {
                 0.75: '0.1875rem',
             },
             backgroundImage: {
-                'cyan-rose': "url('/images/cyan-rose.webp')",
+                'cyan-cyan-rose': "url('/images/cyan-cyan-rose.webp')",
                 'rose-cyan-rose': "url('/images/rose-cyan-rose.webp')",
             },
             boxShadow: {
