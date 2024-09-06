@@ -449,7 +449,6 @@
         "sign_up_now": "Sign up now to start creating your wish lists and reserving gifts for your loved ones.",
         "alts": {
             "star_emoji": "Emoji of guy with starry eyes",
-            "arrow": "Arrow",
             "love_smile": "Smiley face in love",
             "pigtails_emoji": "Emoji of girl with pigtails",
             "festive_smile": "Festive smiley face",
@@ -459,14 +458,8 @@
             "sunglasses_smile": "Smiley face with sunglasses",
             "great_emoji": "'Great job!' emoji",
             "party_popper_icon": "Party Popper Icon",
-            "checked_icon": "Checked Icon",
             "bigger_gift": "Bigger gift",
             "smaller_gift": "Smaller gift",
-            "star_icon": "Star icon",
-            "plus_icon": "Plus icon",
-            "chain_icon": "Chain icon",
-            "eye_icon": "Eye icon",
-            "lock_icon": "Lock icon",
             "middle_gift": "Middle gift",
             "love_emoji": "Emoji of guy in love",
             "festive_emoji": "Emoji of festive girl"
