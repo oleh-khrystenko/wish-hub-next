@@ -164,6 +164,10 @@ export default function Welcome() {
             </section>
 
             <Divider />
+
+            <div className="w-full bg-zinc-400 p-2 text-center text-sm font-bold text-zinc-500 dark:bg-zinc-900 dark:text-zinc-600">
+                2024. Wish Hub. All rights reserved
+            </div>
         </main>
     );
 }
