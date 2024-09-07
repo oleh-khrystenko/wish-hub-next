@@ -144,9 +144,11 @@ const WishList: FC<IProps> = ({ userId }) => {
                     )}
                 </div>
             ) : (
-                <p className="profile-wishes-empty">
-                    {profilePageT('wishes-empty')}
-                </p>
+                <div className="flex grow items-center justify-center">
+                    <p className="text-center text-zinc-600 dark:text-zinc-300 tablet-md:text-lg">
+                        {profilePageT('wishes-empty')}
+                    </p>
+                </div>
             )}
 
             {detailWish && (

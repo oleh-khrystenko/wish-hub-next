@@ -35,7 +35,7 @@ type TInputs = {
 };
 
 const ClientForm: FC = () => {
-    const [isSingUp, setIsSingUp] = useState<boolean>(false);
+    const [isSignUp, setIsSignUp] = useState<boolean>(false);
     const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
     const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
     const [repeatPassword, setRepeatPassword] = useState<string>('');
@@ -78,11 +78,11 @@ const ClientForm: FC = () => {
         useValidations();
 
     let title = authPageT('title.sing_in');
-    isSingUp && (title = authPageT('title.sing_up'));
+    isSignUp && (title = authPageT('title.sing_up'));
     isForgotPassword && (title = authPageT('title.forgot_password'));
 
     let submit = authPageT('sign-in');
-    isSingUp && (submit = authPageT('sign-up'));
+    isSignUp && (submit = authPageT('sign-up'));
     isForgotPassword && (submit = authPageT('recovery'));
 
     const repeatPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -168,7 +168,7 @@ const ClientForm: FC = () => {
                 });
         }
 
-        if (isSingUp) {
+        if (isSignUp) {
             if (data.password === repeatPassword) {
                 setRepeatPasswordError('');
             } else {
@@ -190,7 +190,7 @@ const ClientForm: FC = () => {
         )
             return;
 
-        if (isSingUp && checkedPrivacyPolicy) {
+        if (isSignUp && checkedPrivacyPolicy) {
             return registration(
                 {
                     ...data,
@@ -216,7 +216,7 @@ const ClientForm: FC = () => {
     useEffect(() => {
         const register = searchParams.get('register');
         const agree = searchParams.get('agree');
-        setIsSingUp(register !== null || agree !== null);
+        setIsSignUp(register !== null || agree !== null);
         setCheckedPrivacyPolicy(agree !== null);
     }, [searchParams]);
 
@@ -251,33 +251,39 @@ const ClientForm: FC = () => {
             </p>
 
             {!isForgotPassword && (
-                <div className="mx-auto">
-                    <GoogleOAuthProvider
-                        clientId={
-                            process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
-                                ? process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
-                                : ''
-                        }
-                    >
-                        <GoogleLogin
-                            text={isSingUp ? 'signup_with' : 'signin_with'}
-                            onSuccess={handleGoogleLogin}
-                            onError={() => {
-                                console.log('Google OAuth Login Failed');
-                                toast(alertsT('auth-page.google-login.error'), {
-                                    type: 'error',
-                                });
-                            }}
-                        />
-                    </GoogleOAuthProvider>
-                </div>
+                <>
+                    <div className="mx-auto">
+                        <GoogleOAuthProvider
+                            clientId={
+                                process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+                                    ? process.env
+                                          .NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+                                    : ''
+                            }
+                        >
+                            <GoogleLogin
+                                text={isSignUp ? 'signup_with' : 'signin_with'}
+                                onSuccess={handleGoogleLogin}
+                                onError={() => {
+                                    console.log('Google OAuth Login Failed');
+                                    toast(
+                                        alertsT('auth-page.google-login.error'),
+                                        {
+                                            type: 'error',
+                                        }
+                                    );
+                                }}
+                            />
+                        </GoogleOAuthProvider>
+                    </div>
+
+                    <span className="flex w-full items-center justify-center gap-2.5 text-sm text-zinc-500 before:flex-1 before:border-b before:border-solid before:border-zinc-500 after:flex-1 after:border-t after:border-solid after:border-zinc-500">
+                        {authPageT('or')}
+                    </span>
+                </>
             )}
 
-            <span className="flex w-full items-center justify-center gap-2.5 text-sm text-zinc-500 before:flex-1 before:border-b before:border-solid before:border-zinc-500 after:flex-1 after:border-t after:border-solid after:border-zinc-500">
-                {authPageT('or')}
-            </span>
-
-            {isSingUp && (
+            {isSignUp && (
                 <div className="mt-2">
                     <UiInput
                         {...register('firstName', accountFirstNameValidation)}
@@ -314,7 +320,7 @@ const ClientForm: FC = () => {
                 </div>
             )}
 
-            {isSingUp && (
+            {isSignUp && (
                 <div className="mt-2">
                     <UiInput
                         id="repeat-password"
@@ -337,16 +343,16 @@ const ClientForm: FC = () => {
                     <div className="mobile-sm:-ml-4">
                         <UiButton
                             variant="text-btn"
-                            onBtnClick={() => setIsSingUp((state) => !state)}
+                            onBtnClick={() => setIsSignUp((state) => !state)}
                         >
-                            {isSingUp
+                            {isSignUp
                                 ? authPageT('sign-in')
                                 : authPageT('sign-up')}
                         </UiButton>
                     </div>
                 )}
 
-                {!isSingUp && (
+                {!isSignUp && (
                     <div className="mobile-sm:-mr-4 mobile-sm:ml-auto">
                         <UiButton
                             variant="text-attention"

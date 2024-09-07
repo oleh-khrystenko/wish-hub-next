@@ -97,7 +97,11 @@ const ChangePassword: FC<IProps> = ({ userId }) => {
             onSubmit={handleSubmit(onSubmit)}
         >
             <p className="text-2xl font-bold text-zinc-700 dark:text-zinc-300">
-                {profilePageT('change-password-title')}
+                {profilePageT(
+                    myUser?.hasPassword
+                        ? 'change-password-title'
+                        : 'set_password_title'
+                )}
             </p>
 
             {myUser?.hasPassword && (

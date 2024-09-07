@@ -9,8 +9,8 @@ export default function Wish() {
     const messages = useMessages();
 
     return (
-        <main className="min-h-screen">
-            <div className="mx-auto max-w-7xl p-1">
+        <main className="flex min-h-screen flex-col justify-between">
+            <div className="mx-auto flex w-full max-w-7xl grow flex-col p-1">
                 <NextIntlClientProvider
                     messages={pick(messages, [
                         'main-page',

@@ -41,10 +41,10 @@ const Content: FC = () => {
     };
 
     return (
-        <div className="pt-3">
+        <div className="flex grow flex-col pt-3">
             <Breadcrumbs pages={pages} />
 
-            <div className="mt-3 px-3 pb-5 desktop-sm:px-0">
+            <div className="mt-3 flex grow flex-col px-3 pb-5 desktop-sm:px-0">
                 <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
                     {mainPageT('wish-list-page-title')}
                 </p>
