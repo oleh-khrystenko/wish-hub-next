@@ -19,3 +19,8 @@ export interface IZoomedImage {
     src: string;
     alt: string;
 }
+
+export interface INavItem {
+    title: string;
+    href: 'main' | 'about' | 'privacy-policy';
+}

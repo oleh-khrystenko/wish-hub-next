@@ -293,10 +293,10 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                 <p className="mt-4 text-zinc-600 dark:text-zinc-400">
                     {mainPageT('email')}{' '}
                     <a
-                        href="mailto:wish-hub@ukr.net"
+                        href="mailto:wish.hub.net@gmail.com"
                         className="text-cyan-400 dark:text-cyan-300"
                     >
-                        wish-hub@ukr.net
+                        wish.hub.net@gmail.com
                     </a>
                 </p>
 

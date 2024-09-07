@@ -9,15 +9,16 @@ import Refresh from '@/helpers/hocs/Refresh';
 import Header from '@/app/[locale]/root-page-components/Header';
 import CoverFigure from '@/app/[locale]/root-page-components/CoverFigure';
 import Action from '@/app/[locale]/root-page-components/Action';
-import Divider from '@/app/[locale]/root-page-components/Divider';
+import Divider from '@/components/layouts/Divider';
 import AlgorithmBox from '@/app/[locale]/root-page-components/AlgorithmBox';
+import Benefits from '@/app/[locale]/root-page-components/Benefits';
+import SignUp from '@/app/[locale]/root-page-components/SignUp';
+import Footer from '@/components/layouts/footer/Footer';
 import ChainIcon from '@/components/icons/ChainIcon';
 import PlusIcon from '@/components/icons/PlusIcon';
 import LockIcon from '@/components/icons/LockIcon';
 import SolidEyeIcon from '@/components/icons/SolidEyeIcon';
 import WindingIcon from '@/components/icons/WindingIcon';
-import Benefits from '@/app/[locale]/root-page-components/Benefits';
-import SignUp from '@/app/[locale]/root-page-components/SignUp';
 
 export default function Welcome() {
     const messages = useMessages();
@@ -38,7 +39,7 @@ export default function Welcome() {
                     <div className="desktop-sm:grid desktop-sm:grid-cols-2 desktop-sm:gap-y-9">
                         <div className="mx-auto tablet-md:w-3/4 desktop-sm:mx-0 desktop-sm:w-auto">
                             <h1 className="text-balance text-3xl font-bold text-zinc-800 dark:text-zinc-200 mobile-lg:text-4xl mobile-xl:text-center tablet-md:text-left tablet-md:text-6xl desktop-sm:w-[110%]">
-                                {welcomePageT('wish_hub_makes')}
+                                {welcomePageT('wish_hub_slogan')}
                             </h1>
 
                             <p className="mt-2 text-base text-zinc-600 dark:text-zinc-400 mobile-xl:text-center tablet-md:mt-6 tablet-md:text-left tablet-md:text-lg desktop-sm:w-4/5 desktop-md:w-11/12">
@@ -163,11 +164,7 @@ export default function Welcome() {
                 </div>
             </section>
 
-            <Divider />
-
-            <div className="w-full bg-zinc-400 p-2 text-center text-sm font-bold text-zinc-500 dark:bg-zinc-900 dark:text-zinc-600">
-                2024. Wish Hub. All rights reserved
-            </div>
+            <Footer />
         </main>
     );
 }

@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from 'react';
 import { useSettingsStore } from '@/stores/settings';
 import InstagramIcon from '@/components/icons/InstagramIcon';

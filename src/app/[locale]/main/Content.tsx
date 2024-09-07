@@ -65,7 +65,7 @@ const Content: FC = () => {
                             <span className="mr-1 min-h-7 whitespace-nowrap text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
                                 {mainPageT('wishes_of_user')}
                             </span>
-                            <span className="min-h-7 max-w-full truncate text-base font-bold italic text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
+                            <span className="min-h-7 max-w-full truncate pr-0.5 text-base font-bold italic text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
                                 {selectedUserFullName}
                             </span>
                         </p>
