@@ -15,13 +15,16 @@ import ChainIcon from '@/components/icons/ChainIcon';
 import PlusIcon from '@/components/icons/PlusIcon';
 import LockIcon from '@/components/icons/LockIcon';
 import SolidEyeIcon from '@/components/icons/SolidEyeIcon';
+import WindingIcon from '@/components/icons/WindingIcon';
+import Benefits from '@/app/[locale]/root-page-components/Benefits';
+import SignUp from '@/app/[locale]/root-page-components/SignUp';
 
 export default function Welcome() {
     const messages = useMessages();
     const welcomePageT = useTranslations('welcome-page');
 
     return (
-        <main className="flex h-full min-h-screen flex-col bg-zinc-300 dark:bg-zinc-900">
+        <main className="flex h-full min-h-screen flex-col bg-zinc-300 pb-14 dark:bg-zinc-900 tablet-md:p-0">
             <section className="bg-rose-cyan-rose bg-cover bg-[80%_50%] bg-no-repeat px-4 pb-10 tablet-md:pb-20 desktop-xs:pb-28 desktop-sm:bg-center desktop-sm:px-0">
                 <div className="relative mx-auto max-w-7xl pt-20 tablet-md:pt-[104px]">
                     <NextIntlClientProvider
@@ -34,7 +37,7 @@ export default function Welcome() {
 
                     <div className="desktop-sm:grid desktop-sm:grid-cols-2 desktop-sm:gap-y-9">
                         <div className="mx-auto tablet-md:w-3/4 desktop-sm:mx-0 desktop-sm:w-auto">
-                            <h1 className="text-4xl font-bold text-zinc-800 dark:text-zinc-200 mobile-xl:text-center tablet-md:text-left tablet-md:text-6xl desktop-sm:w-[110%]">
+                            <h1 className="text-balance text-3xl font-bold text-zinc-800 dark:text-zinc-200 mobile-lg:text-4xl mobile-xl:text-center tablet-md:text-left tablet-md:text-6xl desktop-sm:w-[110%]">
                                 {welcomePageT('wish_hub_makes')}
                             </h1>
 
@@ -62,7 +65,7 @@ export default function Welcome() {
                             <div className="absolute bottom-3.5 right-6 h-20 w-20 tablet-md:bottom-2 tablet-md:right-5 tablet-md:h-28 tablet-md:w-28">
                                 <Image
                                     src="/images/gift-middle.webp"
-                                    alt={welcomePageT('alts.bigger_gift')}
+                                    alt={welcomePageT('alts.middle_gift')}
                                     fill
                                     sizes={'100%'}
                                     className="object-contain"
@@ -87,7 +90,7 @@ export default function Welcome() {
 
             <section className="bg-cyan-cyan-rose bg-cover bg-[66%_50%] bg-no-repeat px-4 pb-16 pt-10 tablet-md:bg-center tablet-md:pb-28 tablet-md:pt-20 desktop-sm:px-0">
                 <div className="mx-auto max-w-7xl">
-                    <div className="mx-auto tablet-md:w-3/4 desktop-xs:w-3/5 desktop-sm:mx-0">
+                    <div className="mx-auto tablet-md:w-3/4 desktop-sm:mx-0 desktop-sm:w-2/5">
                         <h2 className="text-2xl font-bold text-zinc-800 dark:text-zinc-200 mobile-xl:text-center tablet-md:text-left tablet-md:text-4xl">
                             {welcomePageT('with_wish_hub')}
                         </h2>
@@ -130,8 +133,37 @@ export default function Welcome() {
                             text={welcomePageT('book_other_wishes')}
                         />
                     </div>
+
+                    <div className="mx-auto tablet-md:w-3/4 desktop-sm:mx-0 desktop-sm:w-2/5">
+                        <h2 className="text-2xl font-bold text-zinc-800 dark:text-zinc-200 mobile-xl:text-center tablet-md:text-left tablet-md:text-4xl">
+                            {welcomePageT('benefits_of_being')}
+                        </h2>
+
+                        <p className="mt-4 text-base text-zinc-600 dark:text-zinc-400 mobile-xl:text-center tablet-md:mt-6 tablet-md:text-left tablet-md:text-lg">
+                            {welcomePageT('forget_hassle')}
+                        </p>
+                    </div>
+
+                    <div className="mx-auto mt-11 flex max-w-lg flex-col items-center gap-1 tablet-lg:mx-0 tablet-lg:mt-10 tablet-lg:max-w-full tablet-lg:flex-row tablet-lg:gap-5">
+                        {/* benefits */}
+                        <Benefits />
+
+                        <WindingIcon classes="w-20 h-20 desktop-sm:w-24 desktop-sm:h-24 p-2.5 tablet-lg:p-0 tablet-lg:rotate-45 rotate-[144deg]" />
+
+                        {/* sing-up */}
+                        <NextIntlClientProvider
+                            messages={pick(messages, [
+                                'welcome-page',
+                                'validations',
+                            ])}
+                        >
+                            <SignUp />
+                        </NextIntlClientProvider>
+                    </div>
                 </div>
             </section>
+
+            <Divider />
         </main>
     );
 }

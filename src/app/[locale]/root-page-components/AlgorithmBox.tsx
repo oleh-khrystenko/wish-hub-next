@@ -14,9 +14,9 @@ const AlgorithmBox: FC<IProps> = ({ icon, title, text }) => {
                     {icon}
                 </div>
 
-                <h4 className="text-base font-bold text-zinc-800 dark:text-zinc-200 tablet-md:text-xl">
+                <p className="text-base font-bold text-zinc-800 dark:text-zinc-200 tablet-md:text-xl">
                     {title}
-                </h4>
+                </p>
             </div>
 
             <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 tablet-md:mt-4">

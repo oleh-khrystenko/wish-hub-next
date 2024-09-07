@@ -24,12 +24,6 @@
     --scroll-bar: #52525b; /* zinc-600 */
 }
 
-@layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
-}
-
 .custom-max-height {
     @apply max-h-[calc(100svh_-_132px)];
 }

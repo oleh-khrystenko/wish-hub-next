@@ -463,7 +463,8 @@
             "middle_gift": "Middle gift",
             "love_emoji": "Emoji of guy in love",
             "festive_emoji": "Emoji of festive girl"
-        }
+        },
+        "first-name": "Name*"
     },
     "instruction-page": {
         "title": "Instruction",

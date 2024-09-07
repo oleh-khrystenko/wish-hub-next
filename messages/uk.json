@@ -463,7 +463,8 @@
             "middle_gift": "Середній подарунок",
             "love_emoji": "Емодзі закоханого хлопця",
             "festive_emoji": "Емодзі святкової дівчини"
-        }
+        },
+        "first-name": "Ім'я*"
     },
     "instruction-page": {
         "title": "Інструкція",
