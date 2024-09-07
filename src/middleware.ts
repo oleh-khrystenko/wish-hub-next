@@ -13,6 +13,9 @@ export default function middleware(request: NextRequest) {
     if (pathname === '/') {
         return NextResponse.redirect(new URL('/uk', request.url));
     }
+    if (pathname === '/welcome') {
+        return NextResponse.redirect(new URL('/uk', request.url));
+    }
     if (pathname === '/auth') {
         return NextResponse.redirect(new URL('/uk/auth', request.url));
     }
@@ -31,5 +34,12 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
     // Match only internationalized pathnames
-    matcher: ['/', '/auth', '/about', '/privacy-policy', '/(uk|en|ru)/:path*'],
+    matcher: [
+        '/',
+        '/welcome',
+        '/auth',
+        '/about',
+        '/privacy-policy',
+        '/(uk|en|ru)/:path*',
+    ],
 };
