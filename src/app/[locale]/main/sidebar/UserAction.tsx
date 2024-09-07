@@ -24,6 +24,7 @@ import ThreeDotsIcon from '@/components/icons/ThreeDotsIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
 import PersonAddIcon from '@/components/icons/PersonAddIcon';
 import PersonRemoveIcon from '@/components/icons/PersonRemoveIcon';
+import PersonsIcon from '@/components/icons/PersonsIcon';
 
 dayjs.extend(advancedFormat);
 
@@ -70,13 +71,13 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
     const { getInitialWishList } = UseInitialWishes();
     const { getFullName } = UseFullName();
 
-    let borderColor = 'border-transparent';
+    let friendColor = '';
     myUser?.followTo.includes(user.id) &&
-        (borderColor = 'border-zinc-400 dark:border-zinc-700');
+        (friendColor = 'fill-zinc-400 dark:fill-zinc-500');
     myUser?.followFrom.includes(user.id) &&
-        (borderColor = 'border-zinc-200 dark:border-zinc-600');
+        (friendColor = 'fill-zinc-600 dark:fill-zinc-200');
     myUser?.friends.includes(user.id) &&
-        (borderColor = 'border-cyan-400 dark:border-cyan-700');
+        (friendColor = 'fill-cyan-400 dark:fill-cyan-300');
 
     const showAddFriend =
         myUser?.followFrom.includes(user.id) ||
@@ -143,8 +144,12 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
     }, [user, myUser, textWidth]);
 
     const handleGoToProfilePage = () => {
-        setIsLoadingNav(true);
-        router.push(`/${activeLocale}/profile/${user.id}`);
+        if (myUser) {
+            setIsLoadingNav(true);
+            router.push(`/${activeLocale}/profile/${user.id}`);
+        } else {
+            router.push(`/${activeLocale}/auth`);
+        }
     };
 
     const handleSelectWish = async () => {
@@ -241,22 +246,30 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
 
     return (
         <li
-            className={`${borderColor} ${user.id === selectedUserId ? 'bg-zinc-100 dark:bg-zinc-900' : ''} flex items-center gap-2 rounded-md border border-dashed py-1 pl-3`}
+            className={`${user.id === selectedUserId ? 'bg-zinc-100 dark:bg-zinc-900' : ''} flex items-center gap-2 rounded-md py-1 pl-3`}
             ref={containerRef}
         >
-            <UiAvatar
-                avatar={user.avatar}
-                alt={getFullName(user)}
-                size={40}
-                sizeTailwind="w-10 min-w-10 h-10 min-h-10"
-                isLoading={isLoadingNav}
-                bgLoading={
-                    user.id === selectedUserId
-                        ? 'bg-zinc-100 dark:bg-zinc-900'
-                        : 'bg-zinc-300 dark:bg-zinc-800'
-                }
-                handleClick={handleGoToProfilePage}
-            />
+            <div className="relative">
+                <UiAvatar
+                    avatar={user.avatar}
+                    alt={getFullName(user)}
+                    size={40}
+                    sizeTailwind="w-10 min-w-10 h-10 min-h-10"
+                    isLoading={isLoadingNav}
+                    bgLoading={
+                        user.id === selectedUserId
+                            ? 'bg-zinc-100 dark:bg-zinc-900'
+                            : 'bg-zinc-300 dark:bg-zinc-800'
+                    }
+                    handleClick={handleGoToProfilePage}
+                />
+
+                {friendColor.length > 0 && (
+                    <div className="absolute bottom-0 right-0 rounded-full bg-zinc-200 p-0.5 dark:bg-zinc-950">
+                        <PersonsIcon classes={`${friendColor} w-2.5 h-2.5`} />
+                    </div>
+                )}
+            </div>
 
             <button
                 type="button"
