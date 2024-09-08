@@ -378,7 +378,6 @@
             "forgot_password": "Forgotten your password?"
         },
         "or": "or",
-        "name": "Name*",
         "password": "Password*",
         "repeat_password": "Repeat password*",
         "password_remembered": "Password remembered!",
@@ -449,72 +448,6 @@
             "festive_emoji": "Emoji of festive girl"
         },
         "first-name": "Name*"
-    },
-    "instruction-page": {
-        "title": "Instruction",
-        "app": {
-            "title": "How to add Wish Hub to your phone's home screen",
-            "second-title": "To get quick access to Wish Hub, create an app on your phone's home screen",
-            "not_again": "Do not show again",
-            "browser": "To add Wish Hub to your phone's home screen, you need to open this site in the {browser} browser.",
-            "browser_icon": "{icon} icon",
-            "menu": {
-                "Android": "Click on the three dots (menu) in the upper right corner.",
-                "iOS": "Click the \"Share\" icon (the square with the up arrow) at the bottom of the screen.",
-                "img": "Activating menu"
-            },
-            "add": {
-                "Android": "Select the \"Add to Home\" option.",
-                "iOS": "Scroll down and select \"To Home\".",
-                "img": "Add to the home screen"
-            },
-            "install": {
-                "Android": "Click \"Install\"",
-                "iOS": "Click \"Add\"",
-                "img": "Click Add"
-            },
-            "done": {
-                "text": "Done. Look for the \"Wish Hub\" application on your phone screen.",
-                "img": "\"Wish Hub\" on the phone screen"
-            }
-        },
-        "auth": {
-            "title": "Sign up/Sign in",
-            "intro": "There are several ways to log in or register:",
-            "google": {
-                "text-1": "The easiest way is to use a Google service.",
-                "text-2": "First, you need to agree to the terms and conditions.",
-                "text-3": "Then activate the corresponding Google button.",
-                "img": "Log in using the Google service"
-            },
-            "account": {
-                "text": "You must already have a Google account. If you are authorized on your device, you simply select the account you want to use in Wish Hub.",
-                "img": "Selecting a Google account"
-            },
-            "data": {
-                "text": "If you are not already logged in to gmail on your device, enter your information in the appropriate fields.",
-                "account-img": "Enter your account",
-                "password-img": "Enter your password"
-            },
-            "logged": {
-                "text": "Then the program will do everything for you. If you have already registered, you will simply log in to your account. If not, you will be automatically registered.",
-                "img": "Logged in to the Wish Hub"
-            },
-            "sign-up": {
-                "text-1": "If you do not want to use a Google account or do not have one, you will need to verify it in the Wish Hub web application.",
-                "text-2": "Fill in all the fields and agree to the terms of use.",
-                "img": "Registration"
-            },
-            "activation": {
-                "text-1": "Now go to your mail and find the email. If the email is not there, check your \"Spam\" folder. We don't use uncontrolled mailing. It's just that each email service is configured differently, and our email may accidentally end up in the \"Spam\" folder.",
-                "text-2": "Click the appropriate button in the email, or copy the link and paste it into the address bar of your browser.",
-                "img": "Account activation"
-            }
-        },
-        "next": {
-            "title": "Continued",
-            "text": "To be continued..."
-        }
     },
     "about-page": {
         "title": "About Wish Hub",
@@ -728,11 +661,5 @@
         "if_you_have": "If you have any questions about this Privacy Policy, You can contact us:",
         "contact_email": "By email: wish.hub.net@gmail.com",
         "agree": "I Agree"
-    },
-    "not-found-page": {
-        "title": "Page not found",
-        "text": "Oops! The page you were looking for does not exist.",
-        "sub-text": "You may have entered the page address incorrectly.",
-        "to-main": "To Main"
     }
 }
