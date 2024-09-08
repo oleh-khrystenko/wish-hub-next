@@ -6,6 +6,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useMyUserStore } from '@/stores/my-user';
 import UiLoading from '@/components/ui/UiLoading';
+import {
+    checkNotificationSubscription,
+    requestNotificationPermission,
+} from '@/helpers/utils/notification-manager';
 
 interface IProps {
     withoutLoading?: boolean;
@@ -19,6 +23,7 @@ const Refresh: FC<IProps> = ({ withoutLoading, children }) => {
 
     const alertsT = useTranslations('alerts');
 
+    const myUserId = useMyUserStore((state) => state.myUser?.id);
     const refresh = useMyUserStore((state) => state.refresh);
 
     useEffect(() => {
@@ -54,12 +59,26 @@ const Refresh: FC<IProps> = ({ withoutLoading, children }) => {
 
     useEffect(() => {
         setIsLoading(true);
+
         if (refreshed.current) return;
         refreshed.current = true;
-        refresh(alertsT('my-user-api.refresh.error')).finally(() =>
-            setIsLoading(false)
-        );
-    }, []);
+
+        refresh(alertsT('my-user-api.refresh.error'))
+            .then(() => {
+                if (myUserId) {
+                    // Перевірка підписки на повідомлення
+                    checkNotificationSubscription(myUserId).finally();
+                }
+            })
+            .finally(() => setIsLoading(false));
+    }, [myUserId]);
+
+    useEffect(() => {
+        // Запитуємо дозвіл на повідомлення, якщо користувач не підписаний
+        if (myUserId) {
+            requestNotificationPermission(myUserId).finally();
+        }
+    }, [myUserId]);
 
     if (isLoading && !withoutLoading) {
         return <UiLoading />;
