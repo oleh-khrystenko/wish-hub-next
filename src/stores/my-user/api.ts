@@ -127,31 +127,13 @@ const changeLang = async (data: IChangeLang): Promise<AxiosResponse<IUser>> => {
 const notificationSubscribe = async (
     data: INotificationSubscribe
 ): Promise<AxiosResponse<IUser>> => {
-    try {
-        return await api.put('/notification-subscribe', data);
-    } catch (error: any) {
-        // toast(
-        //     error.response?.data?.message
-        //     || t('alerts.my-user-api.notification-subscribe.error'),
-        //     { type: 'error' },
-        // );
-        throw error;
-    }
+    return await api.put('/notification-subscribe', data);
 };
 
 const notificationUnsubscribe = async (
     data: IUserId
 ): Promise<AxiosResponse<IUser>> => {
-    try {
-        return await api.put('/notification-unsubscribe', data);
-    } catch (error: any) {
-        // toast(
-        //     error.response?.data?.message
-        //     || t('alerts.my-user-api.notification-unsubscribe.error'),
-        //     { type: 'error' },
-        // );
-        throw error;
-    }
+    return await api.put('/notification-unsubscribe', data);
 };
 
 const changeShowedInfo = async (

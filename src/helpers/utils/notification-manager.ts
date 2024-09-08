@@ -1,14 +1,19 @@
+import { toast } from 'react-toastify';
 import myUserApi from '@/stores/my-user/api';
 import { IUser } from '@/models/User';
 
-export const checkNotificationSubscription = async (userId: IUser['id']) => {
+export const checkNotificationSubscription = async (
+    userId: IUser['id'],
+    errorT: string
+) => {
     try {
         const registration = await navigator.serviceWorker.ready;
         const subscription = await registration.pushManager.getSubscription();
         if (subscription) return;
         await myUserApi.notificationUnsubscribe({ userId });
-    } catch (e) {
-        console.error('Error checking notification subscription:', e);
+    } catch (error: any) {
+        console.error('Error checking notification subscription:', error);
+        toast(error.response?.data?.message || errorT, { type: 'error' });
     }
 };
 
@@ -25,7 +30,10 @@ const urlBase64ToUint8Array = (base64String: string) => {
     return outputArray;
 };
 
-export const requestNotificationPermission = async (userId: IUser['id']) => {
+export const requestNotificationPermission = async (
+    userId: IUser['id'],
+    errorT: string
+) => {
     if ('Notification' in window && navigator.serviceWorker) {
         try {
             const permission = await Notification.requestPermission();
@@ -48,8 +56,9 @@ export const requestNotificationPermission = async (userId: IUser['id']) => {
             } else {
                 console.warn('Notification permission was not granted.');
             }
-        } catch (e) {
-            console.error('Error requesting notification permission:', e);
+        } catch (error: any) {
+            console.error('Error requesting notification permission:', error);
+            toast(error.response?.data?.message || errorT, { type: 'error' });
         }
     } else {
         console.error(
