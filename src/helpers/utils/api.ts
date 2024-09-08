@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { toast } from 'react-toastify';
 import myUserApi from '@/stores/my-user/api';
 
 // Створення екземпляра axios з базовими налаштуваннями
@@ -37,12 +36,8 @@ api.interceptors.response.use(
                 const response = await myUserApi.refresh();
                 localStorage.setItem('token', response.data.accessToken);
                 return api.request(originalRequest);
-            } catch (error: any) {
-                // toast(
-                //     error.response?.data?.message
-                //     || t('alerts.interceptors-api.response.error'),
-                //     { type: 'error' },
-                // );
+            } catch (error) {
+                console.error(error);
             }
         }
         throw error;

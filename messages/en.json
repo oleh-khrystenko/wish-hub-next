@@ -151,11 +151,6 @@
             "get-all-wishes": {
                 "error": "getAllWishes: Failed to get all wishes."
             }
-        },
-        "interceptors-api": {
-            "response": {
-                "error": "Response interceptor: Failed to refresh the session."
-            }
         }
     },
     "encryption-error": "Could not be decrypted",

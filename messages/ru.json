@@ -151,11 +151,6 @@
             "get-all-wishes": {
                 "error": "getAllWishes: Не вдалось отримати всі бажання."
             }
-        },
-        "interceptors-api": {
-            "response": {
-                "error": "Response interceptor: Не вдалось оновити сесію."
-            }
         }
     },
     "encryption-error": "Не вдалося розшифрувати",
