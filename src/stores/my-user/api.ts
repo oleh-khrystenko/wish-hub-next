@@ -136,18 +136,6 @@ const notificationUnsubscribe = async (
     return await api.put('/notification-unsubscribe', data);
 };
 
-const changeShowedInfo = async (
-    data: IUserId
-): Promise<AxiosResponse<IUser>> => {
-    return await api.put('/showed-info', data);
-};
-
-const changeFirsLoaded = async (
-    data: IUserId
-): Promise<AxiosResponse<IUser>> => {
-    return await api.put('/first-loaded', data);
-};
-
 const updateMyUser = async ({
     userId,
     firstName,
@@ -219,8 +207,6 @@ const myUserApi = {
     changeLang,
     notificationSubscribe,
     notificationUnsubscribe,
-    changeShowedInfo,
-    changeFirsLoaded,
     updateMyUser,
     addFriend,
     removeFriend,

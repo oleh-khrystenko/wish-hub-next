@@ -117,7 +117,7 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                                 ) : (
                                     <LogoDarkIcon classes="h-6 w-6" />
                                 )}
-                                {mainPageT('my-wishes')}
+                                {mainPageT('my_wishes')}
                             </span>
                         </UiButton>
                     )}
@@ -165,7 +165,7 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                                     ) : (
                                         <LogoDarkIcon classes="h-6 w-6" />
                                     )}
-                                    {mainPageT('my-wishes')}
+                                    {mainPageT('my_wishes')}
                                 </span>
                             </UiButton>
 

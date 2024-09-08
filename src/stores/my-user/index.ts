@@ -27,8 +27,6 @@ interface IMyUserStore {
     refresh: (errorT: string) => Promise<void>;
     changePassword: (data: IChangePassword) => Promise<void>;
     changeLang: (data: IChangeLang, errorT: string) => Promise<void>;
-    changeShowedInfo: (data: IUserId) => Promise<void>;
-    changeFirsLoaded: (data: IUserId) => Promise<void>;
     updateMyUser: (data: IUpdateMyUser, errorT: string) => Promise<void>;
     addFriend: (data: IAddFriend, errorT: string) => Promise<void>;
     removeFriend: (data: IRemoveFriend, errorT: string) => Promise<void>;
@@ -235,54 +233,6 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
-        }
-    },
-    changeShowedInfo: async (data) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
-        try {
-            const response = await myUserApi.changeShowedInfo(data);
-
-            set((state) => ({
-                ...state,
-                myUser: response.data,
-            }));
-        } catch (error: any) {
-            // console.log('my-user changeShowedInfo error: ',
-            // error.response?.data?.message
-            // || t('alerts.my-user-api.update-data.error'));
-        } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
-        }
-    },
-    changeFirsLoaded: async (data) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
-
-        try {
-            const response = await myUserApi.changeFirsLoaded(data);
-
-            set((state) => ({
-                ...state,
-                myUser: response.data,
-            }));
-        } catch (error: any) {
-            // console.log('my-user changeFirsLoaded error: ',
-            // error.response?.data?.message
-            // || t('alerts.my-user-api.update-data.error'));
         } finally {
             set((state) => ({
                 ...state,

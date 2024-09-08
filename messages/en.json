@@ -1,7 +1,5 @@
 {
     "meta-description": "Wish Hub - makes your dreams come true!",
-    "logo": "Logo",
-    "wish_hub_icon": "Wish Hub icon",
     "inactivated": {
         "aim": "We aim for all users to be real.",
         "check": "Check your email at:",
@@ -14,7 +12,6 @@
     },
     "share-button": {
         "share-text": "Wish Hub is a place where you can store your wishes and share them with your friends.",
-        "confirm": "Share",
         "question-nobody": "Are you sure you want to share a wish that is hidden from everyone?",
         "question-friends": "Are you sure you want to share a wish that is only open to your friends?",
         "alerts": {
@@ -78,9 +75,6 @@
             },
             "notification-unsubscribe": {
                 "error": "notification: Failed to notification unsubscription."
-            },
-            "update-data": {
-                "error": "changeShowedInfo: Failed to update data."
             },
             "update-my-user": {
                 "error": "updateMyUser: Failed to update the user."
@@ -153,7 +147,6 @@
             }
         }
     },
-    "encryption-error": "Could not be decrypted",
     "validations": {
         "only-whitespace": "The entered data cannot contain only spaces.",
         "wish-name": {
@@ -172,7 +165,6 @@
         },
         "email": {
             "required": "This field is required so that we can identify You.",
-            "only-whitespace": "Email address cannot contain only spaces.",
             "pattern": "This does not look like an email address. Please enter a valid email."
         },
         "password": {
@@ -204,7 +196,6 @@
         "you_can_send": "You can send your wish to: ",
         "bd": "Birthday: {birthday}",
         "interface_language": "Interface language",
-        "my-wishes": "My wishes",
         "about": "About",
         "about_us": "About us",
         "instruction": "Instruction",
@@ -310,11 +301,7 @@
         "sure-fulfilled": "Are you sure that the wish \"{name}\" is fulfilled?",
         "book-end-errors": {
             "required": "This field is required.",
-            "past": "It is impossible to complete a task in the past.",
-            "max": {
-                "my": "If you are not sure that you will realize your wish within 10 years, then you should not generally limit yourself to a specific date.",
-                "another": "Do you think it's reasonable to promise to fulfill a wish in more than a year?"
-            }
+            "past": "It is impossible to complete a task in the past."
         },
         "will-fulfill": "I will fulfill wish",
         "confirm-intention": "Confirm intention",
@@ -330,7 +317,6 @@
         "is_your_wish": "Is Your wish fulfilled?",
         "no": "No",
         "yes": "Yes",
-        "edit-account": "Edit account",
         "change-password": "Change password",
         "old-password": "Old password*",
         "new-password": "New password*",
