@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, FC, useState, useEffect, useRef } from 'react';
+import { FC, ChangeEvent, useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -108,7 +108,18 @@ const ClientForm: FC = () => {
             : setCheckedPrivacyPolicyError(authPageT('privacy_policy_error'));
     };
 
-    const handleGoogleLogin = async (response: CredentialResponse) => {
+    const handleGoogleCheckingPrivacyPolicy = () => {
+        setClickedOnSubmit(true);
+
+        if (!checkedPrivacyPolicy) {
+            setCheckedPrivacyPolicyError(authPageT('privacy_policy_error'));
+            return;
+        }
+
+        setCheckedPrivacyPolicyError('');
+    };
+
+    const handleGoogleAuth = async (response: CredentialResponse) => {
         setClickedOnSubmit(true);
 
         if (checkedPrivacyPolicy) {
@@ -252,7 +263,13 @@ const ClientForm: FC = () => {
 
             {!isForgotPassword && (
                 <>
-                    <div className="mx-auto">
+                    <div className="relative mx-auto">
+                        <button
+                            className={`${checkedPrivacyPolicy ? '-z-10' : 'z-10'} absolute -inset-1`}
+                            type="button"
+                            onClick={handleGoogleCheckingPrivacyPolicy}
+                        ></button>
+
                         <GoogleOAuthProvider
                             clientId={
                                 process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
@@ -263,7 +280,7 @@ const ClientForm: FC = () => {
                         >
                             <GoogleLogin
                                 text={isSignUp ? 'signup_with' : 'signin_with'}
-                                onSuccess={handleGoogleLogin}
+                                onSuccess={handleGoogleAuth}
                                 onError={() => {
                                     console.log('Google OAuth Login Failed');
                                     toast(
