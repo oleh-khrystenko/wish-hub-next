@@ -70,12 +70,6 @@
             "change-lang": {
                 "error": "changeLang: Failed to change the interface language."
             },
-            "notification-subscribe": {
-                "error": "notification: Failed to notification subscription."
-            },
-            "notification-unsubscribe": {
-                "error": "notification: Failed to notification unsubscription."
-            },
             "update-my-user": {
                 "error": "updateMyUser: Failed to update the user."
             },

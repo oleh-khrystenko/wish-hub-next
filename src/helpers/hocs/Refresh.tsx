@@ -67,10 +67,7 @@ const Refresh: FC<IProps> = ({ withoutLoading, children }) => {
             .then(() => {
                 if (myUserId) {
                     // Перевірка підписки на повідомлення
-                    checkNotificationSubscription(
-                        myUserId,
-                        alertsT('my-user-api.notification-unsubscribe.error')
-                    ).finally();
+                    checkNotificationSubscription(myUserId).finally();
                 }
             })
             .finally(() => setIsLoading(false));
@@ -79,10 +76,7 @@ const Refresh: FC<IProps> = ({ withoutLoading, children }) => {
     useEffect(() => {
         // Запитуємо дозвіл на повідомлення, якщо користувач не підписаний
         if (myUserId) {
-            requestNotificationPermission(
-                myUserId,
-                alertsT('my-user-api.notification-subscribe.error')
-            ).finally();
+            requestNotificationPermission(myUserId).finally();
         }
     }, [myUserId]);
 

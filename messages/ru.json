@@ -70,12 +70,6 @@
             "change-lang": {
                 "error": "changeLang: Не вдалось змінити мову."
             },
-            "notification-subscribe": {
-                "error": "notification: Не вдалося підписатися на сповіщення."
-            },
-            "notification-unsubscribe": {
-                "error": "notification: Не вдалося відписатися від сповіщень."
-            },
             "update-my-user": {
                 "error": "updateMyUser: Не вдалось оновити користувача."
             },
