@@ -177,6 +177,12 @@
         }
     },
     "main-page": {
+        "pwa": {
+            "title": "Installing the Wish Hub app",
+            "text": "You have the option to install the Wish Hub app on your device.",
+            "install": "Install",
+            "never_show": "Don't show again"
+        },
         "picture": "picture",
         "logout": "Log out",
         "confirm": "Share",

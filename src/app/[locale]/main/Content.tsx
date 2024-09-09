@@ -6,9 +6,12 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useSettingsStore } from '@/stores/settings';
 import UseFullName from '@/helpers/hooks/UseFullName';
+import { useInstallPrompt } from '@/helpers/hooks/useInstallPrompt';
 import WishList from '@/app/[locale]/main/WishList';
 import Inactivated from '@/components/layouts/Inactivated';
+import UiModal from '@/components/ui/modal/UiModal';
 import UiBrand from '@/components/ui/UiBrand';
+import UiButton from '@/components/ui/UiButton';
 
 const Content: FC = () => {
     const mainPageT = useTranslations('main-page');
@@ -26,6 +29,13 @@ const Content: FC = () => {
     );
 
     const { getFullName } = UseFullName();
+    const {
+        isInstallablePWA,
+        neverInstallPWA,
+        handleHideModal,
+        handleInstallPWA,
+        handleNeverShowInstallation,
+    } = useInstallPrompt();
 
     const selectedUserFullName = useMemo(() => {
         const selectedUser = users.find((user) => user.id === selectedUserId);
@@ -34,6 +44,37 @@ const Content: FC = () => {
 
     return (
         <div className="relative flex w-full grow flex-col pb-5 pl-1 pr-2 pt-2 tablet-md:w-2/3 tablet-xl:w-3/4">
+            <UiModal
+                rounded="rounded-2xl"
+                show={isInstallablePWA && !neverInstallPWA}
+                hide={handleHideModal}
+            >
+                <div className="px-2 pt-8 mobile-md:pt-4 mobile-lg:p-0">
+                    <p className="text-center text-lg font-bold text-zinc-800 dark:text-zinc-200 tablet-md:text-2xl">
+                        {mainPageT('pwa.title')}
+                    </p>
+
+                    <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300 tablet-md:text-lg">
+                        {mainPageT('pwa.text')}
+                    </p>
+
+                    <div className="mt-4 flex flex-col items-end justify-end gap-2 mobile-sm:flex-row">
+                        <div className="-mr-4 mobile-sm:mr-0">
+                            <UiButton
+                                variant="text-attention"
+                                onBtnClick={handleNeverShowInstallation}
+                            >
+                                {mainPageT('pwa.never_show')}
+                            </UiButton>
+                        </div>
+
+                        <UiButton onBtnClick={handleInstallPWA}>
+                            {mainPageT('pwa.install')}
+                        </UiButton>
+                    </div>
+                </div>
+            </UiModal>
+
             <div className="-mr-2 flex items-center justify-between pl-2.5 tablet-md:hidden">
                 <button
                     type="button"
