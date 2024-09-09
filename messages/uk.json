@@ -25,16 +25,11 @@
                 "wish_success": "Посилання на Ваше бажання було скопійовано в буфер обміну.",
                 "wish_hub_success": "Посилання на \"Wish Hub\" було скопійовано в буфер обміну.",
                 "error": "Під час спроби скопіювати посилання виникла помилка.",
-                "console-error": "Clipboard error: "
+                "console-error": "Помилка копіювання в буфер обміну: "
             }
         }
     },
     "alerts": {
-        "auth-page": {
-            "google-login": {
-                "error": "GoogleLogin: Не вдалось увійти за допомогою Google."
-            }
-        },
         "my-user-api": {
             "registration": {
                 "error": "registration: Не вдалось зареєструватись."
@@ -47,7 +42,7 @@
                 "error": "googleAuthorization: Не вдалось увійти за допомогою Google."
             },
             "login": {
-                "error": "login: Не вдалось увійти на сайт."
+                "error": "login: Не вдалось увійти в акаунт."
             },
             "logout": {
                 "error": "logout: Не вдалось вийти з аккаунту."
@@ -127,7 +122,7 @@
                 "error": "likeWish: Не вдалося вподобати бажання."
             },
             "dislike-wish": {
-                "error": "dislikeWish: Не вдалося не вподобати бажання."
+                "error": "dislikeWish: Не вдалося поставити дизлайк на бажання."
             },
             "delete-wish": {
                 "error": "deleteWish: Не вдалося видалити побажання з ідентифікатором {wishId}.",

@@ -2,12 +2,12 @@ import { FC } from 'react';
 
 interface IProps {
     classes?: string;
-    id?: number;
+    id?: string;
 }
 
 const LogoIcon: FC<IProps> = ({
     classes = 'h-8 w-8 tablet-md:h-10 tablet-md:w-10',
-    id = 1,
+    id = '1',
 }) => {
     return (
         <svg

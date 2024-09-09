@@ -284,7 +284,9 @@ const ClientForm: FC = () => {
                                 onError={() => {
                                     console.log('Google OAuth Login Failed');
                                     toast(
-                                        alertsT('auth-page.google-login.error'),
+                                        alertsT(
+                                            'my-user-api.google-authorization.error'
+                                        ),
                                         {
                                             type: 'error',
                                         }

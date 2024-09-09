@@ -30,11 +30,6 @@
         }
     },
     "alerts": {
-        "auth-page": {
-            "google-login": {
-                "error": "GoogleLogin: Could not sign in with Google."
-            }
-        },
         "my-user-api": {
             "registration": {
                 "error": "registration: Failed to register."
@@ -47,7 +42,7 @@
                 "error": "googleAuthorization: Couldn't sign in with Google."
             },
             "login": {
-                "error": "login: Could not log in to the site."
+                "error": "login: Failed to log in."
             },
             "logout": {
                 "error": "logout: Failed to log out."

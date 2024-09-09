@@ -308,7 +308,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                                     <div className="relative w-full pt-[100%]">
                                         <LogoIcon
                                             classes="absolute inset-0 h-full w-full"
-                                            id={idx}
+                                            id={`wish-example-${idx}`}
                                         />
                                     </div>
 
