@@ -69,7 +69,7 @@ const WishItem: FC<IProps> = ({ wish, id, showWish, editWish }) => {
                     ) : (
                         <LogoIcon
                             classes="absolute inset-0 h-full w-full grayscale opacity-50 dark:opacity-20"
-                            id={id}
+                            id={id.toString()}
                         />
                     )}
 
