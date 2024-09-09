@@ -73,6 +73,7 @@ export default function RootLayout({
                     href="https://wish-hub.net/ru"
                 />
                 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+                <link rel="manifest" href="/manifest.json" />
                 <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
                 {/* Google Analytics */}
                 <Script

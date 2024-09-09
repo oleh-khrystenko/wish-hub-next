@@ -1,11 +1,11 @@
 {
   "name": "Wish Hub",
   "short_name": "Wish Hub",
-  "theme_color": "#45f3ff",
-  "background_color": "#191919",
+  "theme_color": "#67e8f9",
+  "background_color": "#18181b",
   "display": "standalone",
   "orientation": "portrait",
-  "start_url": "/",
+  "start_url": "/uk/main",
   "icons": [
     {
       "src": "./app-icons/windows11/SmallTile.scale-100.png",
