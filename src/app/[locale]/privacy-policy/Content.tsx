@@ -244,7 +244,7 @@ const Content: FC = () => {
                     </ul>
 
                     <h4 className="text-lg font-bold text-zinc-700 dark:text-zinc-300">
-                        {privacyPolicyPageT('usage_data_title')}
+                        {privacyPolicyPageT('usage_data')}
                     </h4>
 
                     <p className="text-justify text-zinc-700 dark:text-zinc-300">
@@ -346,7 +346,7 @@ const Content: FC = () => {
                             rel="noopener noreferrer external nofollow"
                         >
                             {privacyPolicyPageT('privacy_policies_website')}
-                        </a>
+                        </a>{' '}
                         {privacyPolicyPageT('article')}
                     </p>
 
