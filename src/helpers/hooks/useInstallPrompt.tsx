@@ -60,17 +60,9 @@ export const useInstallPrompt = () => {
 
     // Ефект для обробки події beforeinstallprompt
     useEffect(() => {
-        console.log('neverInstallPWA: ', neverInstallPWA);
-        console.log('window: ', window);
-        console.log('typeof window: ', typeof window);
-        console.log(
-            'beforeinstallprompt in window: ',
-            'beforeinstallprompt' in window
-        );
         if (neverInstallPWA) return; // Якщо користувач вибрав не показувати запит
 
         const beforeInstallHandler = (event: Event) => {
-            console.log('event: ', event);
             event.preventDefault(); // Запобігаємо стандартному показу запиту
             setInstallPWAPrompt(event); // Зберігаємо подію запиту
         };

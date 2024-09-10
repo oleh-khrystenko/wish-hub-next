@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useSettingsStore } from '@/stores/settings';
 import Menu from '@/components/layouts/header/Menu';
 import UiBrand from '@/components/ui/UiBrand';
@@ -13,13 +13,6 @@ const Header: FC<IProps> = ({ isMainPage }) => {
     const activatedBurgerMenu = useSettingsStore(
         (state) => state.activatedBurgerMenu
     );
-
-    useEffect(() => {
-        console.log(
-            'header beforeinstallprompt in window: ',
-            'beforeinstallprompt' in window
-        );
-    }, []);
 
     let classes = 'relative pr-3 tablet-md:pr-5 tablet-md:pl-1';
     isMainPage &&
