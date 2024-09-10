@@ -36,7 +36,7 @@ const Content: FC = () => {
         handleHideModal,
         handleNeverShowInstallation,
         handleInstallPWA,
-    } = useInstallPrompt();
+    } = useInstallPrompt({ page: 'main' });
 
     const selectedUserFullName = useMemo(() => {
         const selectedUser = users.find((user) => user.id === selectedUserId);
