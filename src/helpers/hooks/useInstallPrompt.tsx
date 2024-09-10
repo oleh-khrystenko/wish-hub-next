@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 
-interface BeforeInstallPromptEvent extends Event {
+interface IBeforeInstallPromptEvent extends Event {
     prompt: () => Promise<void>;
     userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
@@ -27,7 +27,7 @@ export const useInstallPrompt = () => {
             // Перевіряємо, чи є запит на встановлення
             if (installPWAPrompt && 'prompt' in installPWAPrompt) {
                 const promptEvent =
-                    installPWAPrompt as BeforeInstallPromptEvent;
+                    installPWAPrompt as IBeforeInstallPromptEvent;
                 await promptEvent.prompt(); // Викликаємо запит на встановлення
 
                 const choiceResult = await promptEvent.userChoice; // Отримуємо результат вибору користувача
@@ -60,6 +60,8 @@ export const useInstallPrompt = () => {
 
     // Ефект для обробки події beforeinstallprompt
     useEffect(() => {
+        console.log('window : ', window);
+        console.log('typeof window : ', typeof window);
         console.log('neverInstallPWA: ', neverInstallPWA);
         if (neverInstallPWA) return; // Якщо користувач вибрав не показувати запит
 
@@ -78,7 +80,7 @@ export const useInstallPrompt = () => {
             );
         };
         // Додали pathname для кейса коли переходимо з іншої сторінки
-    }, [neverInstallPWA]);
+    }, [neverInstallPWA, window]);
 
     // Ефект для перевірки локального сховища при завантаженні
     useEffect(() => {
