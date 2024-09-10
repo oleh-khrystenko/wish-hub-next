@@ -20,7 +20,6 @@ export const useInstallPrompt = ({ page }: IProps) => {
     const [installPWAPrompt, setInstallPWAPrompt] = useState<Event | null>(
         null
     );
-
     // Стан для зберігання інформації про те, чи користувач відмовився від показу запиту на встановлення
     const [neverInstallPWA, setNeverInstallPWA] = useState<boolean>(false);
 
@@ -90,10 +89,11 @@ export const useInstallPrompt = ({ page }: IProps) => {
     // Ефект для виклику запиту на встановлення, коли шлях відповідає основній сторінці
     // Кейс коли переходимо з іншої сторінки на сторінку на якій розташований хук useInstallPrompt
     useEffect(() => {
+        // Перевіряємо, чи поточний шлях відповідає сторінці
         if (pathname === `/${activeLocale}/${page}` && installPWAPrompt) {
-            setInstallPWAPrompt(installPWAPrompt); // Викликаємо prompt
+            handleInstallPWA(); // Викликаємо запит на встановлення
         }
-    }, [pathname, installPWAPrompt]);
+    }, [pathname, activeLocale, page, installPWAPrompt]);
 
     // Ефект для перевірки локального сховища при завантаженні
     useEffect(() => {
