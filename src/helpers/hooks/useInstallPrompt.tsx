@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 
 interface BeforeInstallPromptEvent extends Event {
@@ -10,12 +10,8 @@ interface BeforeInstallPromptEvent extends Event {
     userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
-interface IProps {
-    page: string; // Сторінка, на якій потрібно показати запит на встановлення
-}
-
 // Хук для обробки запитів на встановлення PWA
-export const useInstallPrompt = ({ page }: IProps) => {
+export const useInstallPrompt = () => {
     // Стан для зберігання події запиту на встановлення
     const [installPWAPrompt, setInstallPWAPrompt] = useState<Event | null>(
         null
@@ -27,7 +23,6 @@ export const useInstallPrompt = ({ page }: IProps) => {
     const pathname = usePathname();
 
     // Отримуємо поточну локалізацію та функцію для перекладів
-    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
 
     // Функція для обробки запиту на встановлення PWA
@@ -69,6 +64,7 @@ export const useInstallPrompt = ({ page }: IProps) => {
 
     // Ефект для обробки події beforeinstallprompt
     useEffect(() => {
+        console.log('useInstallPrompt useEffect: ', pathname);
         if (neverInstallPWA) return; // Якщо користувач вибрав не показувати запит
 
         const beforeInstallHandler = (event: Event) => {
@@ -84,16 +80,8 @@ export const useInstallPrompt = ({ page }: IProps) => {
                 beforeInstallHandler
             );
         };
-    }, [neverInstallPWA]);
-
-    // Ефект для виклику запиту на встановлення, коли шлях відповідає основній сторінці
-    // Кейс коли переходимо з іншої сторінки на сторінку на якій розташований хук useInstallPrompt
-    useEffect(() => {
-        // Перевіряємо, чи поточний шлях відповідає сторінці
-        if (pathname === `/${activeLocale}/${page}` && installPWAPrompt) {
-            handleInstallPWA(); // Викликаємо запит на встановлення
-        }
-    }, [pathname, activeLocale, page, installPWAPrompt]);
+        // Додали pathname для кейса коли переходимо з іншої сторінки
+    }, [neverInstallPWA, pathname]);
 
     // Ефект для перевірки локального сховища при завантаженні
     useEffect(() => {
