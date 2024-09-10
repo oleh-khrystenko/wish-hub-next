@@ -1,12 +1,12 @@
 'use client';
 
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { toast } from 'react-toastify';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useSettingsStore } from '@/stores/settings';
 import UseFullName from '@/helpers/hooks/UseFullName';
+import { useInstallPrompt } from '@/helpers/hooks/useInstallPrompt';
 import WishList from '@/app/[locale]/main/WishList';
 import Inactivated from '@/components/layouts/Inactivated';
 import UiModal from '@/components/ui/modal/UiModal';
@@ -14,19 +14,7 @@ import UiBrand from '@/components/ui/UiBrand';
 import UiButton from '@/components/ui/UiButton';
 import InstallIcon from '@/components/icons/InstallIcon';
 
-interface BeforeInstallPromptEvent extends Event {
-    prompt: () => Promise<void>;
-    userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
-}
-
 const Content: FC = () => {
-    // Стан для зберігання події запиту на встановлення
-    const [installPWAPrompt, setInstallPWAPrompt] = useState<Event | null>(
-        null
-    );
-    // Стан для зберігання інформації про те, чи користувач відмовився від показу запиту на встановлення
-    const [neverInstallPWA, setNeverInstallPWA] = useState<boolean>(false);
-
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -42,76 +30,18 @@ const Content: FC = () => {
     );
 
     const { getFullName } = UseFullName();
+    const {
+        installPWAPrompt,
+        neverInstallPWA,
+        handleHideModal,
+        handleNeverShowInstallation,
+        handleInstallPWA,
+    } = useInstallPrompt();
 
     const selectedUserFullName = useMemo(() => {
         const selectedUser = users.find((user) => user.id === selectedUserId);
         return getFullName(selectedUser);
     }, [users, selectedUserId]);
-
-    // Функція для обробки запиту на встановлення PWA
-    const handleInstallPWA = async () => {
-        try {
-            // Перевіряємо, чи є запит на встановлення
-            if (installPWAPrompt && 'prompt' in installPWAPrompt) {
-                const promptEvent =
-                    installPWAPrompt as BeforeInstallPromptEvent;
-                await promptEvent.prompt(); // Викликаємо запит на встановлення
-
-                const choiceResult = await promptEvent.userChoice; // Отримуємо результат вибору користувача
-                if (choiceResult.outcome === 'accepted') {
-                    // Якщо користувач погодився
-                    toast(mainPageT('pwa.accepted'), { type: 'success' });
-                } else {
-                    // Якщо користувач відмовився
-                    toast(mainPageT('pwa.dismissed'), { type: 'error' });
-                }
-
-                setInstallPWAPrompt(null); // Скидаємо подію запиту
-            }
-        } catch (error) {
-            // Обробка помилок
-            toast(mainPageT('pwa.error'), { type: 'error' });
-        }
-    };
-
-    // Функція для того, щоб не показувати запит на встановлення знову
-    const handleNeverShowInstallation = () => {
-        setNeverInstallPWA(true);
-        localStorage.setItem('neverInstallPWA', 'true'); // Зберігаємо в локальному сховищі
-    };
-
-    // Функція для приховування модального вікна
-    const handleHideModal = () => {
-        setInstallPWAPrompt(null);
-    };
-
-    // Ефект для обробки події beforeinstallprompt
-    useEffect(() => {
-        if (neverInstallPWA) return; // Якщо користувач вибрав не показувати запит
-
-        const beforeInstallHandler = (event: Event) => {
-            event.preventDefault(); // Запобігаємо стандартному показу запиту
-            setInstallPWAPrompt(event); // Зберігаємо подію запиту
-        };
-
-        window.addEventListener('beforeinstallprompt', beforeInstallHandler);
-
-        return () => {
-            window.removeEventListener(
-                'beforeinstallprompt',
-                beforeInstallHandler
-            );
-        };
-    }, [neverInstallPWA]);
-
-    // Ефект для перевірки локального сховища при завантаженні
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.localStorage) {
-            const neverInstall =
-                localStorage.getItem('neverInstallPWA') === 'true';
-            setNeverInstallPWA(neverInstall); // Оновлюємо стан
-        }
-    }, []);
 
     return (
         <div className="relative flex w-full grow flex-col pb-5 pl-1 pr-2 pt-2 tablet-md:w-2/3 tablet-xl:w-3/4">

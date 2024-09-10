@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 
@@ -18,9 +17,6 @@ export const useInstallPrompt = () => {
     );
     // Стан для зберігання інформації про те, чи користувач відмовився від показу запиту на встановлення
     const [neverInstallPWA, setNeverInstallPWA] = useState<boolean>(false);
-
-    // Отримуємо шлях з URL
-    const pathname = usePathname();
 
     // Отримуємо поточну локалізацію та функцію для перекладів
     const mainPageT = useTranslations('main-page');
@@ -64,10 +60,11 @@ export const useInstallPrompt = () => {
 
     // Ефект для обробки події beforeinstallprompt
     useEffect(() => {
-        console.log('useInstallPrompt useEffect: ', pathname);
+        console.log('neverInstallPWA: ', neverInstallPWA);
         if (neverInstallPWA) return; // Якщо користувач вибрав не показувати запит
 
         const beforeInstallHandler = (event: Event) => {
+            console.log('event: ', event);
             event.preventDefault(); // Запобігаємо стандартному показу запиту
             setInstallPWAPrompt(event); // Зберігаємо подію запиту
         };
@@ -81,7 +78,7 @@ export const useInstallPrompt = () => {
             );
         };
         // Додали pathname для кейса коли переходимо з іншої сторінки
-    }, [neverInstallPWA, pathname]);
+    }, [neverInstallPWA]);
 
     // Ефект для перевірки локального сховища при завантаженні
     useEffect(() => {
