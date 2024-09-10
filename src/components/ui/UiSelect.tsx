@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useRef, useState } from 'react';
 import UiLoading from '@/components/ui/UiLoading';
 import OutsideClickHandler from '@/helpers/hocs/OutsideClickHandler';
 import ArrowChevronIcon from '@/components/icons/ArrowChevronIcon';
@@ -31,6 +31,8 @@ const UiSelect: FC<IProps> = ({
 }) => {
     const [show, setShow] = useState<boolean>(false);
 
+    const wrapRef = useRef<HTMLDivElement>(null);
+
     let roundedClasses = 'rounded-md';
     if (show) {
         expandTop
@@ -48,58 +50,64 @@ const UiSelect: FC<IProps> = ({
     };
 
     return (
-        <OutsideClickHandler show={show} hide={() => setShow(false)}>
-            <div
-                className={`${roundedClasses} ${bg} relative transition-all duration-300 ease-in-out`}
+        <div ref={wrapRef}>
+            <OutsideClickHandler
+                show={show}
+                wrapRefCurrent={wrapRef.current}
+                hide={() => setShow(false)}
             >
-                <button
-                    className={`${bg} relative z-10 flex w-full items-center gap-2 overflow-hidden rounded-md px-3 py-2.5`}
-                    type="button"
-                    onClick={handleClick}
+                <div
+                    className={`${roundedClasses} ${bg} relative transition-all duration-300 ease-in-out`}
                 >
-                    <span className="flex w-full items-center justify-between">
-                        {options.find((option) => option.value === value)
-                            ?.label || options[0].label}
+                    <button
+                        className={`${bg} relative z-10 flex w-full items-center gap-2 overflow-hidden rounded-md px-3 py-2.5`}
+                        type="button"
+                        onClick={handleClick}
+                    >
+                        <span className="flex w-full items-center justify-between">
+                            {options.find((option) => option.value === value)
+                                ?.label || options[0].label}
 
-                        {!withoutIcon && (
-                            <ArrowChevronIcon
-                                classes={`${show ? 'rotate-180' : ''} h-3 w-3 fill-zinc-800 dark:fill-zinc-300`}
+                            {!withoutIcon && (
+                                <ArrowChevronIcon
+                                    classes={`${show ? 'rotate-180' : ''} h-3 w-3 fill-zinc-800 dark:fill-zinc-300`}
+                                />
+                            )}
+                        </span>
+
+                        {isPending && (
+                            <UiLoading
+                                isLocal
+                                size="h-10 min-h-10 w-10 min-w-10"
+                                bg={bg}
                             />
                         )}
-                    </span>
+                    </button>
 
-                    {isPending && (
-                        <UiLoading
-                            isLocal
-                            size="h-10 min-h-10 w-10 min-w-10"
-                            bg={bg}
-                        />
-                    )}
-                </button>
+                    <ul
+                        className={`${show ? 'scale-y-100' : 'scale-y-0'} ${bg} ${expandTop ? 'bottom-full origin-bottom rounded-t-md' : 'top-full origin-top rounded-b-md'} absolute left-0 z-30 w-full transition-all duration-300 ease-in-out`}
+                    >
+                        {options.map((option) => {
+                            if (option.value === value) return null;
 
-                <ul
-                    className={`${show ? 'scale-y-100' : 'scale-y-0'} ${bg} ${expandTop ? 'bottom-full origin-bottom rounded-t-md' : 'top-full origin-top rounded-b-md'} absolute left-0 z-30 w-full transition-all duration-300 ease-in-out`}
-                >
-                    {options.map((option) => {
-                        if (option.value === value) return null;
-
-                        return (
-                            <li key={option.value}>
-                                <button
-                                    className="relative flex w-full items-center gap-2 px-3 py-2.5"
-                                    type="button"
-                                    onClick={() =>
-                                        handleOptionChange(option.value)
-                                    }
-                                >
-                                    {option.label}
-                                </button>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div>
-        </OutsideClickHandler>
+                            return (
+                                <li key={option.value}>
+                                    <button
+                                        className="relative flex w-full items-center gap-2 px-3 py-2.5"
+                                        type="button"
+                                        onClick={() =>
+                                            handleOptionChange(option.value)
+                                        }
+                                    >
+                                        {option.label}
+                                    </button>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            </OutsideClickHandler>
+        </div>
     );
 };
 
