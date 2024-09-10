@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import UseFullName from '@/helpers/hooks/UseFullName';
-import { useInstallPrompt } from '@/helpers/hooks/useInstallPrompt';
+import { useInstallPWA } from '@/helpers/hooks/useInstallPWA';
 import WishList from '@/app/[locale]/main/WishList';
 import Inactivated from '@/components/layouts/Inactivated';
 import UiModal from '@/components/ui/modal/UiModal';
@@ -28,7 +28,7 @@ const Content: FC = () => {
         handleHideModal,
         handleNeverShowInstallation,
         handleInstallPWA,
-    } = useInstallPrompt();
+    } = useInstallPWA();
 
     const selectedUserFullName = useMemo(() => {
         const selectedUser = users.find((user) => user.id === selectedUserId);

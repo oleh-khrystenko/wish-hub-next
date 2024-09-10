@@ -10,7 +10,7 @@ interface IBeforeInstallPromptEvent extends Event {
 }
 
 // Хук для обробки запитів на встановлення PWA
-export const useInstallPrompt = () => {
+export const useInstallPWA = () => {
     // Стан для зберігання події запиту на встановлення
     const [installPWAPrompt, setInstallPWAPrompt] = useState<Event | null>(
         null
@@ -33,7 +33,7 @@ export const useInstallPrompt = () => {
                 const choiceResult = await promptEvent.userChoice; // Отримуємо результат вибору користувача
                 if (choiceResult.outcome === 'accepted') {
                     // Якщо користувач погодився
-                    toast(mainPageT('pwa.accepted'), { type: 'success' });
+                    console.log(mainPageT('pwa.accepted'));
                 } else {
                     // Якщо користувач відмовився
                     toast(mainPageT('pwa.dismissed'), { type: 'error' });
