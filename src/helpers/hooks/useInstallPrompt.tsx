@@ -61,9 +61,10 @@ export const useInstallPrompt = () => {
     // Ефект для обробки події beforeinstallprompt
     useEffect(() => {
         console.log('neverInstallPWA: ', neverInstallPWA);
-        console.log('window : ', window);
+        console.log('window: ', window);
+        console.log('typeof window: ', typeof window);
         console.log(
-            'beforeinstallprompt in window : ',
+            'beforeinstallprompt in window: ',
             'beforeinstallprompt' in window
         );
         if (neverInstallPWA) return; // Якщо користувач вибрав не показувати запит
@@ -83,7 +84,7 @@ export const useInstallPrompt = () => {
             );
         };
         // Додали pathname для кейса коли переходимо з іншої сторінки
-    }, [neverInstallPWA, window]);
+    }, [neverInstallPWA]);
 
     // Ефект для перевірки локального сховища при завантаженні
     useEffect(() => {
