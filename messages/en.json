@@ -178,10 +178,13 @@
     },
     "main-page": {
         "pwa": {
-            "title": "Installing the Wish Hub app",
-            "text": "You have the option to install the Wish Hub app on your device.",
+            "text_before": "You have the option to install the",
+            "text_after": "app on your device.",
             "install": "Install",
-            "never_show": "Don't show again"
+            "never_show": "Don't show again",
+            "accepted": "Installation successful! The app is ready to use.",
+            "dismissed": "App installation was canceled.",
+            "error": "Failed to install the Wish Hub. Please try again."
         },
         "picture": "picture",
         "logout": "Log out",

@@ -1,28 +1,40 @@
+'use client';
+
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
+import { toast } from 'react-toastify';
+
+interface BeforeInstallPromptEvent extends Event {
+    prompt: () => Promise<void>;
+    userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
 
 export const useInstallPrompt = () => {
     const [installPWAPrompt, setInstallPWAPrompt] = useState<Event | null>(
         null
     );
-    const [isInstallablePWA, setIsInstallablePWA] = useState<boolean>(false);
-    const [neverInstallPWA, setNeverInstallPWA] = useState<boolean>(
-        localStorage.getItem('neverInstallPWA') === 'true'
-    );
+    const [neverInstallPWA, setNeverInstallPWA] = useState<boolean>(false);
+
+    const mainPageT = useTranslations('main-page');
 
     const handleInstallPWA = async () => {
-        if (installPWAPrompt) {
-            const promptEvent = installPWAPrompt as any;
-            promptEvent.prompt();
+        try {
+            if (installPWAPrompt && 'prompt' in installPWAPrompt) {
+                const promptEvent =
+                    installPWAPrompt as BeforeInstallPromptEvent;
+                await promptEvent.prompt();
 
-            const choiceResult = await promptEvent.userChoice;
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the install prompt');
-            } else {
-                console.log('User dismissed the install prompt');
+                const choiceResult = await promptEvent.userChoice;
+                if (choiceResult.outcome === 'accepted') {
+                    toast(mainPageT('pwa.accepted'), { type: 'success' });
+                } else {
+                    toast(mainPageT('pwa.dismissed'), { type: 'error' });
+                }
+
+                setInstallPWAPrompt(null);
             }
-
-            setInstallPWAPrompt(null);
-            setIsInstallablePWA(false);
+        } catch (error) {
+            toast(mainPageT('pwa.error'), { type: 'error' });
         }
     };
 
@@ -32,7 +44,7 @@ export const useInstallPrompt = () => {
     };
 
     const handleHideModal = () => {
-        setIsInstallablePWA(false);
+        setInstallPWAPrompt(null);
     };
 
     useEffect(() => {
@@ -41,7 +53,6 @@ export const useInstallPrompt = () => {
         const beforeInstallHandler = (event: Event) => {
             event.preventDefault();
             setInstallPWAPrompt(event);
-            setIsInstallablePWA(true);
         };
 
         window.addEventListener('beforeinstallprompt', beforeInstallHandler);
@@ -54,8 +65,16 @@ export const useInstallPrompt = () => {
         };
     }, [neverInstallPWA]);
 
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.localStorage) {
+            const neverInstall =
+                localStorage.getItem('neverInstallPWA') === 'true';
+            setNeverInstallPWA(neverInstall);
+        }
+    }, []);
+
     return {
-        isInstallablePWA,
+        installPWAPrompt,
         neverInstallPWA,
         handleHideModal,
         handleInstallPWA,

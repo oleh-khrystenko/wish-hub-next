@@ -12,6 +12,7 @@ import Inactivated from '@/components/layouts/Inactivated';
 import UiModal from '@/components/ui/modal/UiModal';
 import UiBrand from '@/components/ui/UiBrand';
 import UiButton from '@/components/ui/UiButton';
+import InstallIcon from '@/components/icons/InstallIcon';
 
 const Content: FC = () => {
     const mainPageT = useTranslations('main-page');
@@ -30,11 +31,11 @@ const Content: FC = () => {
 
     const { getFullName } = UseFullName();
     const {
-        isInstallablePWA,
+        installPWAPrompt,
         neverInstallPWA,
         handleHideModal,
-        handleInstallPWA,
         handleNeverShowInstallation,
+        handleInstallPWA,
     } = useInstallPrompt();
 
     const selectedUserFullName = useMemo(() => {
@@ -46,32 +47,29 @@ const Content: FC = () => {
         <div className="relative flex w-full grow flex-col pb-5 pl-1 pr-2 pt-2 tablet-md:w-2/3 tablet-xl:w-3/4">
             <UiModal
                 rounded="rounded-2xl"
-                show={isInstallablePWA && !neverInstallPWA}
+                show={installPWAPrompt !== null && !neverInstallPWA}
                 hide={handleHideModal}
             >
-                <div className="px-2 pt-8 mobile-md:pt-4 mobile-lg:p-0">
-                    <p className="text-center text-lg font-bold text-zinc-800 dark:text-zinc-200 tablet-md:text-2xl">
-                        {mainPageT('pwa.title')}
-                    </p>
+                <p className="pr-9 text-sm text-zinc-700 dark:text-zinc-300 tablet-md:text-lg">
+                    {mainPageT('pwa.text_before')}{' '}
+                    <span className="whitespace-nowrap">Wish Hub</span>{' '}
+                    {mainPageT('pwa.text_after')}
+                </p>
 
-                    <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300 tablet-md:text-lg">
-                        {mainPageT('pwa.text')}
-                    </p>
-
-                    <div className="mt-4 flex flex-col items-end justify-end gap-2 mobile-sm:flex-row">
-                        <div className="-mr-4 mobile-sm:mr-0">
-                            <UiButton
-                                variant="text-attention"
-                                onBtnClick={handleNeverShowInstallation}
-                            >
-                                {mainPageT('pwa.never_show')}
-                            </UiButton>
-                        </div>
-
-                        <UiButton onBtnClick={handleInstallPWA}>
-                            {mainPageT('pwa.install')}
+                <div className="mt-4 flex flex-col items-end justify-end gap-2 mobile-sm:flex-row">
+                    <div className="-mr-4 mobile-sm:mr-0">
+                        <UiButton
+                            variant="text-attention"
+                            onBtnClick={handleNeverShowInstallation}
+                        >
+                            {mainPageT('pwa.never_show')}
                         </UiButton>
                     </div>
+
+                    <UiButton onBtnClick={handleInstallPWA}>
+                        <InstallIcon classes="w-6 h-6 fill-zinc-800" />
+                        {mainPageT('pwa.install')}
+                    </UiButton>
                 </div>
             </UiModal>
 
