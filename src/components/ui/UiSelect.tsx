@@ -48,7 +48,7 @@ const UiSelect: FC<IProps> = ({
     };
 
     return (
-        <OutsideClickHandler hide={() => setShow(false)}>
+        <OutsideClickHandler show={show} hide={() => setShow(false)}>
             <div
                 className={`${roundedClasses} ${bg} relative transition-all duration-300 ease-in-out`}
             >

@@ -3,12 +3,25 @@
 import { FC, ReactNode, useEffect, useRef } from 'react';
 
 interface IProps {
+    show: boolean;
     hide: () => void;
     children: ReactNode;
 }
 
-const OutsideClickHandler: FC<IProps> = ({ hide, children }) => {
+const OutsideClickHandler: FC<IProps> = ({ show, hide, children }) => {
     const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (show) {
+            document.body.style.pointerEvents = 'none';
+        } else {
+            document.body.style.pointerEvents = 'auto';
+        }
+
+        return () => {
+            document.body.style.pointerEvents = 'auto';
+        };
+    }, [show]);
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -25,7 +38,7 @@ const OutsideClickHandler: FC<IProps> = ({ hide, children }) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, []);
+    }, [hide]);
 
     return <div ref={containerRef}>{children}</div>;
 };
