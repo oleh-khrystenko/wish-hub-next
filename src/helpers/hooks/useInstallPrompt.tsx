@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 
 interface BeforeInstallPromptEvent extends Event {
@@ -15,6 +16,9 @@ export const useInstallPrompt = () => {
     );
     const [neverInstallPWA, setNeverInstallPWA] = useState<boolean>(false);
 
+    const pathname = usePathname();
+
+    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
 
     const handleInstallPWA = async () => {
@@ -64,6 +68,12 @@ export const useInstallPrompt = () => {
             );
         };
     }, [neverInstallPWA]);
+
+    useEffect(() => {
+        if (pathname === `/${activeLocale}/main` && installPWAPrompt) {
+            setInstallPWAPrompt(installPWAPrompt); // Викликаємо prompt
+        }
+    }, [pathname, installPWAPrompt]);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.localStorage) {
