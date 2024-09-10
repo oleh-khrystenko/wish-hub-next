@@ -12,17 +12,11 @@ const OutsideClickHandler: FC<IProps> = ({ hide, children }) => {
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
-            // console.log('handleClickOutside');
             if (
                 containerRef.current &&
                 !containerRef.current.contains(e.target as Node)
             ) {
-                // console.log('hide');
                 hide();
-                // document.body.style.pointerEvents = 'none';
-                // e.stopImmediatePropagation();
-                // e.preventDefault();
-                // e.stopPropagation();
             }
         };
 
