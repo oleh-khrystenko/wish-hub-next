@@ -23,6 +23,7 @@ function Sidebar() {
                 {mainPageT('users')}
 
                 <button
+                    className="tablet-md:hidden"
                     type="button"
                     onClick={() => setActivatedBurgerMenu(!activatedBurgerMenu)}
                 >
