@@ -61,8 +61,8 @@ const Menu: FC<IProps> = ({
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
     const theme = useSettingsStore((state) => state.theme);
-    const setActivatedBurgerMenu = useSettingsStore(
-        (state) => state.setActivatedBurgerMenu
+    const setActivatedSidebar = useSettingsStore(
+        (state) => state.setActivatedSidebar
     );
 
     const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
@@ -70,16 +70,18 @@ const Menu: FC<IProps> = ({
 
     const handleSelectMyWishes = async () => {
         if (pathname.split('/')[2] === 'main') {
-            router.push(`/${activeLocale}/main`);
+            if (!myUser) return;
+
+            await getInitialWishList(
+                myUser.id,
+                myUser.id,
+                EWishSort.CREATED_DESC
+            );
+            setShowPopup(false);
+            setActivatedSidebar(false);
         } else {
-            return router.push(`/${activeLocale}/main?my-wishes`);
+            return router.push(`/${activeLocale}/main`);
         }
-
-        if (!myUser) return;
-
-        await getInitialWishList(myUser.id, myUser.id, EWishSort.CREATED_DESC);
-        setShowPopup(false);
-        setActivatedBurgerMenu(false);
     };
 
     const handleHidePopup = () => {

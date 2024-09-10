@@ -63,8 +63,8 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
-    const setActivatedBurgerMenu = useSettingsStore(
-        (state) => state.setActivatedBurgerMenu
+    const setActivatedSidebar = useSettingsStore(
+        (state) => state.setActivatedSidebar
     );
 
     const { getMonthWithDate } = UseLocaleFormats();
@@ -154,7 +154,7 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
 
     const handleSelectWish = async () => {
         await getInitialWishList(myUser?.id, user.id);
-        setActivatedBurgerMenu(false);
+        setActivatedSidebar(false);
     };
 
     const handleAddFriend = async () => {
