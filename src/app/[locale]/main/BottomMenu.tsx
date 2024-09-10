@@ -14,7 +14,7 @@ const BottomMenu: FC = () => {
     );
 
     return (
-        <div className="flex items-center justify-evenly bg-zinc-100 px-4 py-2 dark:bg-zinc-800 tablet-md:hidden">
+        <div className="flex items-center justify-between bg-zinc-100 px-6 py-2.5 dark:bg-zinc-700 tablet-md:hidden">
             <button
                 type="button"
                 onClick={() => setActivatedBurgerMenu(!activatedBurgerMenu)}

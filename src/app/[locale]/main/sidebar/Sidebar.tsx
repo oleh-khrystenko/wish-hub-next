@@ -17,7 +17,7 @@ function Sidebar() {
 
     return (
         <div
-            className={`${activatedBurgerMenu ? 'scale-x-100' : 'scale-x-0'} fixed bottom-14 left-0 top-0 z-30 flex w-full origin-left scale-x-0 flex-col bg-zinc-300 p-3 transition-all duration-300 ease-in-out dark:bg-zinc-800 tablet-md:static tablet-md:w-1/3 tablet-md:scale-x-100 tablet-md:rounded-r-lg tablet-xl:w-1/4`}
+            className={`${activatedBurgerMenu ? 'scale-x-100' : 'scale-x-0'} fixed bottom-16 left-0 top-0 z-30 flex w-full origin-left scale-x-0 flex-col bg-zinc-300 p-3 transition-all duration-300 ease-in-out dark:bg-zinc-800 tablet-md:static tablet-md:w-1/3 tablet-md:scale-x-100 tablet-md:rounded-r-lg tablet-xl:w-1/4`}
         >
             <p className="mb-4 flex shrink-0 items-center justify-between text-xl font-bold text-zinc-800 dark:text-zinc-300">
                 {mainPageT('users')}
