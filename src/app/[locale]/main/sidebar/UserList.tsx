@@ -45,7 +45,7 @@ const UserList: FC = () => {
     const selectOptions: IOption[] = [
         {
             label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                <span className="pr-6 text-left text-sm font-bold text-zinc-800 dark:text-zinc-300">
                     {mainPageT('all')}
                 </span>
             ),
@@ -53,7 +53,7 @@ const UserList: FC = () => {
         },
         {
             label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                <span className="pr-6 text-left text-sm font-bold text-zinc-800 dark:text-zinc-300">
                     {mainPageT('friends')}
                 </span>
             ),
@@ -62,7 +62,7 @@ const UserList: FC = () => {
         {
             label: (
                 <>
-                    <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                    <span className="pr-6 text-left text-sm font-bold text-zinc-800 dark:text-zinc-300">
                         {mainPageT('friend-requests')}
                     </span>
                     {followFromCount > 0 && (
@@ -76,7 +76,7 @@ const UserList: FC = () => {
         },
         {
             label: (
-                <span className="pr-6 text-sm font-bold text-zinc-800 dark:text-zinc-300">
+                <span className="pr-6 text-left text-sm font-bold text-zinc-800 dark:text-zinc-300">
                     {mainPageT('sent-friend-requests')}
                 </span>
             ),
