@@ -35,9 +35,15 @@ interface IProps {
     isMainPage?: boolean;
     showPopupUp?: boolean;
     logoIconId?: string;
+    loginBg?: string;
 }
 
-const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
+const Menu: FC<IProps> = ({
+    isMainPage,
+    showPopupUp,
+    logoIconId,
+    loginBg = 'bg-zinc-300 dark:bg-zinc-800',
+}) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showContacts, setShowContacts] = useState<boolean>(false);
 
@@ -132,7 +138,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     )}
                 </>
             ) : (
-                <UiButton href="auth" variant="text">
+                <UiButton href="auth" variant="text" bgLoading={loginBg}>
                     <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
                         {mainPageT('sign-in')}
                     </span>
