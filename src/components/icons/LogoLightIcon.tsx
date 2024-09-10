@@ -2,10 +2,12 @@ import { FC } from 'react';
 
 interface IProps {
     classes?: string;
+    id?: string;
 }
 
 const LogoLightIcon: FC<IProps> = ({
     classes = 'h-8 w-8 tablet-md:h-14 tablet-md:w-14',
+    id = '1',
 }) => {
     return (
         <svg
@@ -17,7 +19,7 @@ const LogoLightIcon: FC<IProps> = ({
         >
             <defs>
                 <linearGradient
-                    id="wish-hub-gradient"
+                    id={`wish-hub-gradient-${id}`}
                     data-name="Wish Hub Gradient"
                     x1="207.91"
                     y1="893.24"
@@ -46,7 +48,7 @@ const LogoLightIcon: FC<IProps> = ({
             />
             <g>
                 <path
-                    fill="url(#wish-hub-gradient)"
+                    fill={`url(#wish-hub-gradient-${id})`}
                     d="m214,93.13h568.32c66.35,0,120.22,53.87,120.22,120.22v568.32c0,66.35-53.87,120.22-120.22,120.22H214c-66.35,0-120.22-53.87-120.22-120.22V213.35c0-66.35,53.87-120.22,120.22-120.22Z"
                     transform="translate(-111.33 849.93) rotate(-75)"
                 />

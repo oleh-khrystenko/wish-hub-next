@@ -12,6 +12,7 @@ const manrope = Manrope({ subsets: ['latin'], weight: ['700'] });
 
 interface IProps {
     href?: string;
+    logoId?: string;
     sizeLoading?: string;
     bgLoading?: string;
     isMainPage?: boolean;
@@ -21,6 +22,7 @@ interface IProps {
 
 const UiBrand: FC<IProps> = ({
     href = 'main',
+    logoId = 'brand-logo',
     sizeLoading = 'h-12 min-h-12 w-12 min-w-12',
     bgLoading = 'bg-zinc-200 dark:bg-zinc-900',
     isMainPage = false,
@@ -45,6 +47,7 @@ const UiBrand: FC<IProps> = ({
         <>
             {withLogo && (
                 <LogoIcon
+                    id={logoId}
                     classes={`${isBig ? 'tablet-md:h-14 tablet-md:w-14' : 'tablet-md:h-10 tablet-md:w-10'} h-8 w-8`}
                 />
             )}

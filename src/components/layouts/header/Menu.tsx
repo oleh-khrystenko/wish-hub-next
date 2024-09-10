@@ -28,13 +28,16 @@ import LogoLightIcon from '@/components/icons/LogoLightIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
 import UiLoading from '@/components/ui/UiLoading';
 import UiModal from '@/components/ui/modal/UiModal';
+import SettingIcon from '@/components/icons/SettingIcon';
 // import YouTubeIcon from '@/components/icons/YouTubeIcon';
 
 interface IProps {
     isMainPage?: boolean;
+    showPopupUp?: boolean;
+    logoIconId?: string;
 }
 
-const Menu: FC<IProps> = ({ isMainPage }) => {
+const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showContacts, setShowContacts] = useState<boolean>(false);
 
@@ -113,9 +116,15 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                         >
                             <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                 {theme === ETheme.DARK ? (
-                                    <LogoLightIcon classes="h-6 w-6" />
+                                    <LogoLightIcon
+                                        classes="h-6 w-6"
+                                        id={logoIconId}
+                                    />
                                 ) : (
-                                    <LogoDarkIcon classes="h-6 w-6" />
+                                    <LogoDarkIcon
+                                        classes="h-6 w-6"
+                                        id={logoIconId}
+                                    />
                                 )}
                                 {mainPageT('my_wishes')}
                             </span>
@@ -130,15 +139,20 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                 </UiButton>
             )}
 
-            <UiAvatar
-                avatar={myUser?.avatar}
-                alt={getFullName(myUser)}
-                handleClick={() => setShowPopup(true)}
-            />
+            <div className="relative">
+                <UiAvatar
+                    avatar={myUser?.avatar}
+                    alt={getFullName(myUser)}
+                    handleClick={() => setShowPopup(true)}
+                />
+
+                <SettingIcon classes="w-3.5 h-3.5 absolute bottom-0 right-0 fill-zinc-800 dark:fill-zinc-300" />
+            </div>
 
             <UiPopup
-                classes="pt-12"
+                classes={showPopupUp ? 'pb-12' : 'pt-12'}
                 show={showPopup}
+                showPopupUp={showPopupUp}
                 hide={() => setShowPopup(false)}
             >
                 {!myUser && (
@@ -161,9 +175,15 @@ const Menu: FC<IProps> = ({ isMainPage }) => {
                             >
                                 <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                     {theme === ETheme.DARK ? (
-                                        <LogoLightIcon classes="h-6 w-6" />
+                                        <LogoLightIcon
+                                            classes="h-6 w-6"
+                                            id={`${logoIconId}-popup`}
+                                        />
                                     ) : (
-                                        <LogoDarkIcon classes="h-6 w-6" />
+                                        <LogoDarkIcon
+                                            classes="h-6 w-6"
+                                            id={`${logoIconId}-popup`}
+                                        />
                                     )}
                                     {mainPageT('my_wishes')}
                                 </span>

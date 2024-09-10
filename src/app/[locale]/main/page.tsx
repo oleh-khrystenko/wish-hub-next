@@ -3,6 +3,7 @@ import pick from 'lodash.pick';
 import Refresh from '@/helpers/hocs/Refresh';
 import Content from '@/app/[locale]/main/Content';
 import Sidebar from '@/app/[locale]/main/sidebar/Sidebar';
+import BottomMenu from '@/app/[locale]/main/BottomMenu';
 import Header from '@/components/layouts/header/Header';
 
 export default function Main() {
@@ -29,6 +30,8 @@ export default function Main() {
                         <Content />
                     </div>
                 </Refresh>
+
+                <BottomMenu />
             </NextIntlClientProvider>
         </main>
     );
