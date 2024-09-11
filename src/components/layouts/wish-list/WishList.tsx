@@ -109,10 +109,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                 <>
                     <WishListFilter wishListRefCurrent={wishListRef.current} />
 
-                    <WishListActions
-                        withoutShare
-                        wishListRefCurrent={wishListRef.current}
-                    />
+                    <WishListActions wishListRefCurrent={wishListRef.current} />
                 </>
             )}
 

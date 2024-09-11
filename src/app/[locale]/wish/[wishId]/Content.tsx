@@ -81,7 +81,7 @@ const Content: FC = () => {
     }, []);
 
     return (
-        <div className="flex grow flex-col pt-3">
+        <main className="flex grow flex-col pt-3">
             <Breadcrumbs pages={pages} />
 
             {wish ? (
@@ -219,7 +219,7 @@ const Content: FC = () => {
                     {wishPageT('empty')}
                 </p>
             )}
-        </div>
+        </main>
     );
 };
 

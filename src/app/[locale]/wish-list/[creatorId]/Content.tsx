@@ -41,7 +41,7 @@ const Content: FC = () => {
     };
 
     return (
-        <div className="flex grow flex-col pt-3">
+        <main className="flex grow flex-col pt-3">
             <Breadcrumbs pages={pages} />
 
             <div className="mt-3 flex grow flex-col px-3 pb-5 desktop-sm:px-0">
@@ -83,7 +83,7 @@ const Content: FC = () => {
                     hide={() => setImageData(null)}
                 />
             )}
-        </div>
+        </main>
     );
 };
 

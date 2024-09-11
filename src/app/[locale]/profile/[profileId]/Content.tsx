@@ -38,18 +38,18 @@ const Content: FC = () => {
     ];
 
     return (
-        <div className="pt-3">
+        <main className="mx-auto max-w-7xl pt-3">
             <Breadcrumbs pages={pages} />
 
             <div className="mt-3 px-3 pb-5 desktop-sm:px-0">
                 <div className="flex items-center justify-between gap-2 mobile-xs:gap-3">
-                    <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
+                    <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
                         {profilePageT(
                             profileId === myUser?.id
                                 ? 'my-profile'
                                 : 'user-profile'
                         )}
-                    </p>
+                    </h1>
 
                     {!showEdit && profileId === myUser?.id && (
                         <UiButton onBtnClick={() => setShowEdit(true)}>
@@ -110,7 +110,7 @@ const Content: FC = () => {
             </div>
 
             {myUser && !myUser.isActivated && <Inactivated />}
-        </div>
+        </main>
     );
 };
 

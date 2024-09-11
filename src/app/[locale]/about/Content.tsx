@@ -17,7 +17,7 @@ const Content: FC = () => {
     ];
 
     return (
-        <div className="mt-3">
+        <main className="mx-auto mt-3 max-w-7xl">
             <Breadcrumbs pages={pages} />
 
             <div className="mt-6 flex flex-col gap-5 px-4 pb-6 desktop-sm:px-0 desktop-sm:pb-10">
@@ -105,7 +105,7 @@ const Content: FC = () => {
                     </p>
                 </section>
             </div>
-        </div>
+        </main>
     );
 };
 

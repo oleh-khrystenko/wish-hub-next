@@ -11,23 +11,27 @@ interface IProps {
 const Header: FC<IProps> = ({ isMainPage }) => {
     return (
         <header
-            className={`${isMainPage ? 'hidden pl-1 pr-5 tablet-md:flex' : 'flex pr-3 tablet-md:pl-1 tablet-md:pr-5'} relative z-40 w-full items-center justify-between rounded-lg bg-zinc-300 py-2 transition-all duration-300 ease-in-out dark:bg-zinc-800 tablet-md:gap-4`}
+            className={`${isMainPage ? 'hidden tablet-md:block' : 'mx-auto block max-w-7xl'} sticky top-0 z-40 w-full rounded-b-lg bg-zinc-200 dark:bg-zinc-900`}
         >
             <div
-                className={
-                    isMainPage
-                        ? 'hidden tablet-md:block'
-                        : '-ml-1 tablet-md:ml-0'
-                }
+                className={`${isMainPage ? 'pl-1 pr-5' : 'pr-3 tablet-md:pl-1 tablet-md:pr-5'} flex items-center justify-between gap-2 rounded-lg bg-zinc-300 py-2 dark:bg-zinc-800 tablet-md:gap-4`}
             >
-                <UiBrand
-                    withLogo
-                    isMainPage={isMainPage}
-                    bgLoading="bg-zinc-300 dark:bg-zinc-800"
-                />
-            </div>
+                <div
+                    className={
+                        isMainPage
+                            ? 'hidden tablet-md:block'
+                            : '-ml-1 tablet-md:ml-0'
+                    }
+                >
+                    <UiBrand
+                        withLogo
+                        isMainPage={isMainPage}
+                        bgLoading="bg-zinc-300 dark:bg-zinc-800"
+                    />
+                </div>
 
-            <Menu isMainPage={isMainPage} />
+                <Menu isMainPage={isMainPage} />
+            </div>
         </header>
     );
 };

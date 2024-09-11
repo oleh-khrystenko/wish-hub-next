@@ -10,21 +10,19 @@ export default function About() {
 
     return (
         <>
-            <main className="mx-auto flex h-full min-h-screen max-w-7xl flex-col p-1">
-                <NextIntlClientProvider
-                    messages={pick(messages, [
-                        'main-page',
-                        'share-button',
-                        'alerts',
-                    ])}
-                >
-                    <Refresh>
-                        <Header />
-                    </Refresh>
-                </NextIntlClientProvider>
+            <NextIntlClientProvider
+                messages={pick(messages, [
+                    'main-page',
+                    'share-button',
+                    'alerts',
+                ])}
+            >
+                <Refresh>
+                    <Header />
+                </Refresh>
+            </NextIntlClientProvider>
 
-                <Content />
-            </main>
+            <Content />
 
             <Footer remove="about" />
         </>

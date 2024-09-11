@@ -9,24 +9,22 @@ export default function PrivacyPolicy() {
     const messages = useMessages();
 
     return (
-        <main className="h-full min-h-screen">
-            <div className="mx-auto flex max-w-7xl flex-col p-1">
-                <NextIntlClientProvider
-                    messages={pick(messages, [
-                        'main-page',
-                        'share-button',
-                        'alerts',
-                    ])}
-                >
-                    <Refresh>
-                        <Header />
-                    </Refresh>
-                </NextIntlClientProvider>
+        <>
+            <NextIntlClientProvider
+                messages={pick(messages, [
+                    'main-page',
+                    'share-button',
+                    'alerts',
+                ])}
+            >
+                <Refresh>
+                    <Header />
+                </Refresh>
+            </NextIntlClientProvider>
 
-                <Content />
-            </div>
+            <Content />
 
             <Footer remove="privacy-policy" />
-        </main>
+        </>
     );
 }

@@ -19,7 +19,7 @@ const Content: FC = () => {
     ];
 
     return (
-        <div className="mt-3">
+        <main className="mx-auto mt-3 max-w-7xl">
             <Breadcrumbs pages={pages} />
 
             <div className="mt-6 flex flex-col gap-6 px-4 pb-6 desktop-sm:px-0 desktop-sm:pb-10">
@@ -761,7 +761,7 @@ const Content: FC = () => {
 
                 <AgreeAction text={privacyPolicyPageT('agree')} />
             </div>
-        </div>
+        </main>
     );
 };
 

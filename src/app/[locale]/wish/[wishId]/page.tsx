@@ -9,8 +9,8 @@ export default function WishList() {
     const messages = useMessages();
 
     return (
-        <main className="flex h-full min-h-screen flex-col justify-between">
-            <div className="mx-auto flex w-full max-w-7xl flex-col p-1">
+        <div className="flex h-full min-h-screen flex-col justify-between">
+            <div className="mx-auto flex w-full max-w-7xl flex-col">
                 <NextIntlClientProvider
                     messages={pick(messages, [
                         'main-page',
@@ -28,6 +28,6 @@ export default function WishList() {
             </div>
 
             <Footer />
-        </main>
+        </div>
     );
 }
