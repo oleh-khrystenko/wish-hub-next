@@ -10,7 +10,7 @@ export default function Main() {
     const messages = useMessages();
 
     return (
-        <main className="flex h-svh flex-col tablet-md:gap-1 tablet-md:p-1">
+        <div className="flex h-svh flex-col tablet-md:gap-1 tablet-md:p-1">
             <NextIntlClientProvider
                 messages={pick(messages, [
                     'main-page',
@@ -24,15 +24,15 @@ export default function Main() {
                 <Refresh>
                     <Header isMainPage />
 
-                    <div className="flex grow overflow-hidden">
+                    <main className="flex grow overflow-hidden">
                         <Sidebar />
 
                         <Content />
-                    </div>
+                    </main>
                 </Refresh>
 
                 <BottomMenu />
             </NextIntlClientProvider>
-        </main>
+        </div>
     );
 }
