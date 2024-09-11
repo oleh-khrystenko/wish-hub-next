@@ -33,7 +33,7 @@ export default function ChangeForgottenPassword() {
                 </header>
 
                 <Refresh>
-                    <RoutesGuard isUnauthenticated>
+                    <RoutesGuard>
                         <ClientForm />
                     </RoutesGuard>
                 </Refresh>

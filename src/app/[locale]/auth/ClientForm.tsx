@@ -160,6 +160,8 @@ const ClientForm: FC = () => {
                     lang: activeLocale as ELang,
                 })
                 .then(() => {
+                    setIsForgotPassword(false);
+
                     toast(
                         alertsT('my-user-api.forgot-password.success', {
                             type: 'api',
