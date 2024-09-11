@@ -46,24 +46,24 @@ const Content: FC = () => {
                     {selectedUserId ? (
                         <>
                             {myUser?.id === selectedUserId ? (
-                                <p className="text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
+                                <h1 className="text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
                                     {mainPageT('my_wishes')}
-                                </p>
+                                </h1>
                             ) : (
-                                <p className="flex max-w-full flex-wrap items-center">
+                                <h1 className="flex max-w-full flex-wrap items-center">
                                     <span className="mr-1 min-h-7 whitespace-nowrap text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
                                         {mainPageT('wishes_of_user')}
                                     </span>
                                     <span className="min-h-7 max-w-full truncate pr-0.5 text-base font-bold italic text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
                                         {selectedUserFullName}
                                     </span>
-                                </p>
+                                </h1>
                             )}
                         </>
                     ) : (
-                        <p className="text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
-                            {mainPageT('all_wishes')}
-                        </p>
+                        <h1 className="text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
+                            {mainPageT('wishes_of_users')}
+                        </h1>
                     )}
                 </div>
 
