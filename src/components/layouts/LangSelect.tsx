@@ -40,9 +40,14 @@ const options = (withoutText: boolean = false): IOption[] => [
 interface IProps {
     withoutText?: boolean;
     expandTop?: boolean;
+    selectHoverItemBg?: string;
 }
 
-const LangSelect: FC<IProps> = ({ withoutText, expandTop }) => {
+const LangSelect: FC<IProps> = ({
+    withoutText,
+    expandTop,
+    selectHoverItemBg = 'hover:bg-zinc-200 hover:dark:bg-zinc-900',
+}) => {
     const [isPending, startTransition] = useTransition();
 
     const router = useRouter();
@@ -72,6 +77,7 @@ const LangSelect: FC<IProps> = ({ withoutText, expandTop }) => {
         <UiSelect
             options={options(withoutText)}
             bg="bg-zinc-300 dark:bg-zinc-800"
+            hoverItemBg={selectHoverItemBg}
             isPending={isPending}
             withoutIcon
             expandTop={expandTop}

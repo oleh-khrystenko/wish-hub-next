@@ -123,6 +123,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
         <div className="flex w-full items-end gap-3">
             <div className="w-1/2 tablet-md:w-2/5">
                 <UiSelect
+                    hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
                     options={selectOptions}
                     value={status}
                     onChange={handleChangeWishStatus}

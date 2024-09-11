@@ -22,7 +22,7 @@ export default function Auth() {
                 <header className="flex w-full max-w-lg flex-col items-center gap-2 tablet-md:gap-8">
                     <div className="flex w-full items-center justify-between gap-4">
                         <ThemeSwitcher />
-                        <LangSelect />
+                        <LangSelect selectHoverItemBg="hover:bg-zinc-100 hover:dark:bg-zinc-700" />
                     </div>
 
                     <UiBrand

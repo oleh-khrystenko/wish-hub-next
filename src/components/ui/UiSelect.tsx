@@ -13,6 +13,7 @@ export interface IOption {
 interface IProps {
     options: IOption[];
     bg?: string;
+    hoverItemBg?: string;
     isPending?: boolean;
     withoutIcon?: boolean;
     expandTop?: boolean;
@@ -23,6 +24,7 @@ interface IProps {
 const UiSelect: FC<IProps> = ({
     options,
     bg = 'bg-zinc-100 dark:bg-zinc-950',
+    hoverItemBg = 'hover:bg-zinc-200 hover:dark:bg-zinc-900',
     isPending,
     withoutIcon = false,
     expandTop,
@@ -85,7 +87,7 @@ const UiSelect: FC<IProps> = ({
                     </button>
 
                     <ul
-                        className={`${show ? 'scale-y-100' : 'scale-y-0'} ${bg} ${expandTop ? 'bottom-full origin-bottom rounded-t-md' : 'top-full origin-top rounded-b-md'} absolute left-0 z-30 w-full transition-all duration-300 ease-in-out`}
+                        className={`${show ? 'scale-y-100' : 'scale-y-0'} ${bg} ${expandTop ? 'bottom-full origin-bottom rounded-t-md' : 'top-full origin-top rounded-b-md'} absolute left-0 z-30 w-full overflow-hidden transition-all duration-300 ease-in-out`}
                     >
                         {options.map((option) => {
                             if (option.value === value) return null;
@@ -93,7 +95,7 @@ const UiSelect: FC<IProps> = ({
                             return (
                                 <li key={option.value}>
                                     <button
-                                        className="relative flex w-full items-center gap-2 px-3 py-2.5"
+                                        className={`${hoverItemBg} relative flex w-full items-center gap-2 px-3 py-2.5 transition-all duration-300 ease-in-out`}
                                         type="button"
                                         onClick={() =>
                                             handleOptionChange(option.value)
