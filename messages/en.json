@@ -331,7 +331,7 @@
         "email-not-match": "This email does not match the email of the account you are trying to delete.",
         "fast_data_filling": "Quickly fill in the data",
         "product-link": "Link to a product",
-        "product-link-tooltip": "Paste the link to the product from any online store and we will try to automatically fill in the wish data.",
+        "product-link-tooltip": "Paste a link to a product from any online store, and we will try to automatically fill in the wish details. Please note that not all online stores provide complete information about their products, so some data may be unavailable. We are actively working on expanding support for various stores to make the wish creation process even more convenient for you.",
         "manually": "Fill in manually",
         "continue": "Continue",
         "non-unique-wish-name": "You already have a wish with that name.",
