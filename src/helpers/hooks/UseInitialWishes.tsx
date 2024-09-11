@@ -21,6 +21,7 @@ const UseInitialWishes = () => {
             {
                 page: 1,
                 limit: WISHES_PAGINATION_LIMIT,
+                status: EWishStatus.ALL,
                 search: '',
                 sort: EWishSort.POPULAR,
             },

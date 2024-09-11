@@ -165,6 +165,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                     {
                         page,
                         limit: WISHES_PAGINATION_LIMIT,
+                        status,
                         search,
                         sort,
                     },
@@ -228,6 +229,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                         {
                             page: 1,
                             limit: WISHES_PAGINATION_LIMIT,
+                            status,
                             search,
                             sort: EWishSort.POPULAR,
                         },

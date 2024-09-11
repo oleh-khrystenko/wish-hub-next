@@ -60,20 +60,31 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
     const handleChangeWishStatus = async (value: IOption['value']) => {
         setWishesStatus(value as EWishStatus);
 
-        if (!myUser || !selectedUserId) return;
-
-        await getWishList(
-            {
-                myId: myUser.id,
-                userId: selectedUserId,
-                status: value as EWishStatus,
-                page: 1,
-                limit: WISHES_PAGINATION_LIMIT,
-                search,
-                sort,
-            },
-            alertsT('wishes-api.get-wish-list.error')
-        );
+        if (selectedUserId) {
+            await getWishList(
+                {
+                    myId: myUser?.id,
+                    userId: selectedUserId,
+                    status: value as EWishStatus,
+                    page: 1,
+                    limit: WISHES_PAGINATION_LIMIT,
+                    search,
+                    sort,
+                },
+                alertsT('wishes-api.get-wish-list.error')
+            );
+        } else {
+            await getAllWishes(
+                {
+                    page: 1,
+                    limit: WISHES_PAGINATION_LIMIT,
+                    status: value as EWishStatus,
+                    search,
+                    sort,
+                },
+                alertsT('wishes-api.get-wish-list.error')
+            );
+        }
 
         if (!wishListRefCurrent) return;
 
@@ -91,9 +102,9 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                 {
                     myId: myUser?.id,
                     userId: selectedUserId,
-                    status,
                     page: 1,
                     limit: WISHES_PAGINATION_LIMIT,
+                    status,
                     search: value,
                     sort,
                 },
@@ -104,6 +115,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                 {
                     page: 1,
                     limit: WISHES_PAGINATION_LIMIT,
+                    status,
                     search: value,
                     sort,
                 },

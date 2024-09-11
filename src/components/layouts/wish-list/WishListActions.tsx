@@ -77,6 +77,7 @@ const WishListActions: FC<IProps> = ({ withoutShare, wishListRefCurrent }) => {
                 {
                     page: 1,
                     limit: WISHES_PAGINATION_LIMIT,
+                    status,
                     search,
                     sort: value,
                 },

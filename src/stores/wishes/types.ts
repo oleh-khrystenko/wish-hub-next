@@ -35,6 +35,7 @@ export interface ISendWish {
 export interface ISendAllWishes {
     page: number;
     limit: number;
+    status: EWishStatus;
     search: string;
     sort: EWishSort;
 }
@@ -42,7 +43,6 @@ export interface ISendAllWishes {
 export interface ISendWishList extends ISendAllWishes {
     myId?: IUser['id'];
     userId: IUser['id'];
-    status: EWishStatus;
 }
 
 export interface IGetWish {
