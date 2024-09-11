@@ -58,10 +58,10 @@ const Refresh: FC<IProps> = ({ withoutLoading, children }) => {
     }, []);
 
     useEffect(() => {
-        setIsLoading(true);
-
         if (refreshed.current) return;
         refreshed.current = true;
+
+        setIsLoading(true);
 
         refresh(alertsT('my-user-api.refresh.error'))
             .then(() => {
