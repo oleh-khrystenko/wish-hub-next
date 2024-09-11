@@ -11,7 +11,7 @@ import {
     UseFormTrigger,
 } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 import {
     ECurrency,
     IWish,
@@ -260,7 +260,10 @@ const FormContent: FC<IProps> = ({
                 </div>
 
                 {/* DragNDrop */}
-                <DndProvider backend={HTML5Backend}>
+                <DndProvider
+                    backend={TouchBackend}
+                    options={{ enableMouseEvents: true }}
+                >
                     <DragNDrop
                         images={images}
                         setImages={changeImages}
