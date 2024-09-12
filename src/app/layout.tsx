@@ -1,18 +1,7 @@
 import { ReactNode } from 'react';
 import Script from 'next/script';
 import { Mulish } from 'next/font/google';
-import { useTranslations } from 'next-intl';
 import '@/app/[locale]/globals.css';
-
-const mulish = Mulish({
-    subsets: ['cyrillic', 'latin'],
-    weight: ['300', '400', '700'],
-});
-
-interface IProps {
-    children: ReactNode;
-    params: { locale: string };
-}
 
 const setInitialTheme = `
     (function() {
@@ -29,16 +18,20 @@ const setInitialTheme = `
     })();
 `;
 
+const mulish = Mulish({
+    subsets: ['cyrillic', 'latin'],
+    weight: ['300', '400', '700'],
+});
+
+interface IProps {
+    children: ReactNode;
+    params: { locale: string };
+}
+
 export default function Layout({
     children,
     params: { locale },
 }: Readonly<IProps>) {
-    const t = useTranslations();
-
-    // Мета-опис сторінки з перекладом, якщо доступний
-    const description =
-        t('meta-description') || 'Wish Hub - робить ваші мрії реальністю!';
-
     return (
         <html lang={locale}>
             <head>
@@ -50,29 +43,6 @@ export default function Layout({
                     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                     })(window,document,'script','dataLayer','GTM-PKQK5FN3');`}
                 </Script>
-                {/* End Google Tag Manager */}
-                <title>Wish Hub</title>
-                <meta name="description" content={description} />
-                <link
-                    rel="alternate"
-                    hrefLang="x-default"
-                    href="https://wish-hub.net/uk"
-                />
-                <link
-                    rel="alternate"
-                    hrefLang="uk-ua"
-                    href="https://wish-hub.net/uk"
-                />
-                <link
-                    rel="alternate"
-                    hrefLang="en-ua"
-                    href="https://wish-hub.net/en"
-                />
-                <link
-                    rel="alternate"
-                    hrefLang="ru-ua"
-                    href="https://wish-hub.net/ru"
-                />
                 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
                 <link rel="manifest" href="/manifest.json" />
                 <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />

@@ -1,5 +1,4 @@
 {
-    "meta-description": "Wish Hub - makes your dreams come true!",
     "inactivated": {
         "aim": "We aim for all users to be real.",
         "check": "Check your email at:",
@@ -177,6 +176,10 @@
         }
     },
     "main-page": {
+        "head": {
+            "title": "Wish Hub - your source of inspiration for gifts",
+            "description": "Wish Hub - makes your dreams come true!"
+        },
         "pwa": {
             "text_before": "You have the option to install the",
             "text_after": "app on your device.",
@@ -449,6 +452,10 @@
         "first-name": "Name*"
     },
     "about-page": {
+        "head": {
+            "title": "About us - Learn more about Wish Hub",
+            "description": "Find out how the Wish Hub team helps make your dreams come true and makes the process of choosing gifts easier and more enjoyable."
+        },
         "title": "About Wish Hub",
         "hello": "Hello! My name is Oleg. I am the founder of Wish Hub. This web-application is created just for you.",
         "wish_hub_is": "Wish Hub is a unique platform that helps you learn about the wishes of your friends and loved ones. Our service makes gift selection easy and enjoyable by providing the ability to create wish lists, view them, and reserve items to avoid duplicate gifts.",
