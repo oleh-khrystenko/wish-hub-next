@@ -1,179 +1,58 @@
 {
-    "inactivated": {
-        "aim": "We aim for all users to be real.",
-        "check": "Check your email at:",
-        "activate": "and activate your account.",
-        "spam": "If you don't see the email, check your \"Spam\" folder.",
-        "click": "If you haven't received the email, click ",
-        "here": "here.",
-        "resend": "You can resend the email again in:",
-        "day": "If the account is not activated within a day of registration, it will be deleted."
+    "about-page": {
+        "head": {
+            "title": "About us - Learn more about Wish Hub",
+            "description": "Find out how the Wish Hub team helps make your dreams come true and makes the process of choosing gifts easier and more enjoyable."
+        },
+        "title": "About Wish Hub",
+        "hello": "Hello! My name is Oleg. I am the founder of Wish Hub. This web-application is created just for you.",
+        "wish_hub_is": "Wish Hub is a unique platform that helps you learn about the wishes of your friends and loved ones. Our service makes gift selection easy and enjoyable by providing the ability to create wish lists, view them, and reserve items to avoid duplicate gifts.",
+        "our_mission": "Our mission is to build a community where people can share their dreams and receive exactly what they wish for.",
+        "sub-title": "Wishes",
+        "do_you_have": "Do you have desires? I'm sure you do. Are all your desires fulfilled? Probably not. How can we increase the likelihood of fulfilling our desires? Do other people's desires always come true? And how exactly do they come to fruition?",
+        "it_likely": "It's likely that in wealthier individuals, desires are fulfilled more frequently than in those with fewer financial resources. Do you believe this is directly linked to having money? Well, of course! If you have plenty of funds and you desire, let's say, a car, you can simply go to the dealership and make the purchase. It's straightforward. However, for those financially disadvantaged, acquiring such luxuries is out of the question. The economically challenged face a different reality and set of priorities. They must decide between buying necessities like groceries or saving for the future.",
+        "what_about": "What about non-material desires? They can't be bought with money. For instance, longing for genuine love or robust health. Or perhaps you aspire to attain a fit, athletic physique. You might argue that even these desires can be fulfilled with financial means. While this is technically true, paid love will never be as fulfilling as genuine affection, and medical facilities motivated primarily by profit may not prioritize your well-being. Maintaining good health and achieving personal fitness goals requires dedication and effort, where money plays a supporting role at best.",
+        "it_appears_to": "It appears to me that in wealthy individuals, desires are fulfilled more frequently not solely due to their financial status. Rather, their wealth often stems from the consistent fulfillment of their desires.",
+        "probably": "It's probably not a secret to anyone that the primary driving force behind desire fulfillment is our thoughts. The notion that \"thoughts materialize\" is not a new one.",
+        "what_other_factors": "What other factors influence the realization of our desires?",
+        "today_we": "Today, we're bombarded with messages urging us to discover our path, our purpose, our unique journey. These hints are everywhere, hard to overlook or brush aside. Yet, finding one's way in life is far from simple. Many embark on this quest for years on end, and from personal experience, I can attest: it's a journey worth undertaking.",
+        "but_what": "But what about our desires? They come in two forms: those that arise from within, and those imposed upon us from external sources. Consider statements like, \"I hate driving, but I need a car to commute to work. I dislike my job, but I have to pay off the car loan.\" Personal desires manifest effortlessly, like a natural extension of ourselves. Conversely, imposed desires exert a draining energy, constantly pulling us down with their enticing facades.",
+        "profound": "Yet, there's a profound truth here: our wishes carry an energetic weight, and within us lies the power of thought to lift this burden. It's a somewhat abstract concept, but one that resonates deeply with me.",
+        "let_delve": "Let's delve deeper into this notion. Our personal desires are straightforward—they materialize because our thoughts give them life. Our innermost desires align seamlessly with our capabilities, requiring no external intervention. But what about desires that aren't ours? They persist, sometimes with an intensity that borders on unbearable. This is where things get complex. If our present circumstances starkly contrast our aspirations, it's a lamentable situation. Picture a homeless person yearning for a castle—a chasm separates desire from reality. It's easier to relinquish desire altogether than to cling to futile dreams. Yet, what if our wish is within reach, albeit financially out of grasp? When desire burns fiercely, but resources fall short, it becomes evident: we need assistance, an infusion of additional energy. Brute force won't suffice; we require a subtler, more nuanced approach. Assistance may come, albeit with consequences. The question remains: where do we find this energy?",
+        "there_are_so": "There are so many things in this world that carry energy... Actually, scratch that. Absolutely everything in the material world possesses energy. Each item has its own unique energy. Let's take your device, the one you're using to read this text. Just imagine how many companies contributed to creating this technological wonder. And within each company, there were hundreds of employees involved. So, your computer, laptop, or smartphone has absorbed the energy of all those people who contributed to its creation. Add to that the energy of the programmers who dedicated their efforts to ensure this machine works smoothly. And that's not even considering the material components of your gadget. Even the apple you bought from the farmer's market carries its own energy. Think about the energy the farmer expended to pick it, bring it to market, and sell it to you. Let's not even mention the apples from the supermarket. And then, there's another element in this world that holds a calculated energy: money.",
+        "yes_money_it": "Yes, money is the most energetically charged material thing, and today, it's even electronic. It's easy to prove. Close your eyes. Now, vividly imagine your boss giving you a 20% raise. How does that feel? Now, imagine finding a winning lottery ticket and pocketing $100,000. Feel the difference? This illustrates, firstly, that money indeed carries energy, and secondly, that the amount directly correlates with the energy it holds. In the grand scheme of things, practically all your desires touch upon financial matters in one way or another. A loving spouse will love you regardless of financial circumstances, but the experience in a lavish mansion will undoubtedly be different from that in a one-bedroom apartment. While you can't buy health with money, even basic medical procedures come with a price tag. And getting in shape at a top-tier gym with a qualified trainer is far more enjoyable than doing calisthenics in the backyard. Thus, while money may not be the ultimate goal, it certainly makes life more enjoyable and manageable.",
+        "and_finally": "And finally, the most crucial aspect. How do we connect money and desires when we lack the energy? When someone gives you something for free, what emotions do you experience? Deep gratitude, right? You immediately feel the urge to reciprocate in some way. You start wishing them all the best in your thoughts. Well, guess what? Other people experience the same feelings in similar situations. And these impulses are even stronger if the gift is unexpected and, most importantly, valuable. The corresponding wishes can be quite diverse. Typically, it's what we value most for ourselves. And if the person who's giving us the gift is saving up for a house, and we're aware of it, our first instinct is to wish them to buy that house as soon as possible. 'I wish you finally get the house of your dreams! Just the way you want it!' Does this situation sound familiar to you?",
+        "you_know": "After all, you know, wealthy individuals consistently allocate a portion of their fortunes to charitable causes. Consider how this unfolds. It's likely that a wealthy individual would want their donation to, say, an orphanage, to be widely recognized. What do you think people's reactions would be upon learning about such a generous contribution? How might the staff at the orphanage respond? And what about the children who are old enough to grasp the situation? Naturally, they would feel immensely grateful! \"May your business thrive and flourish! May success be a constant companion! And may everything unfold as smoothly as possible!\"",
+        "this_web": "This web application is designed to help your wishes become a reality. Here, each wish has its own \"energetic\" monetary equivalent — a sum defined by the person who dreams it. If you want to help someone else, the best thing you can do is make their dream come true by choosing a suitable gift, provided your capabilities allow it. And when it comes to your own wishes, their realization becomes more likely when you write them down and share them with others. Collective energy of support and positive thoughts greatly increases the chances of any dream coming true. Leave your wishes here, and let the energy of kindness and mutual help work toward their fulfillment!"
     },
-    "share-button": {
-        "share-text": "Wish Hub is a place where you can store your wishes and share them with your friends.",
-        "question-nobody": "Are you sure you want to share a wish that is hidden from everyone?",
-        "question-friends": "Are you sure you want to share a wish that is only open to your friends?",
-        "alerts": {
-            "share": {
-                "wish_success": "You have successfully shared Your wish.",
-                "wish_hub_success": "You have successfully shared \"Wish Hub\".",
-                "error": "An error occurred while trying to activate the \"Share\" function.",
-                "console-error": "Sharing error: "
-            },
-            "clipboard": {
-                "wish_success": "The link to Your wish has been copied to the clipboard.",
-                "wish_hub_success": "The link to \"Wish Hub\" has been copied to the clipboard.",
-                "error": "An error occurred while trying to copy the link to the clipboard.",
-                "console-error": "Clipboard error: "
-            }
-        }
+    "activation-link-expired-page": {
+        "expired": "Account activation period has expired.",
+        "utc": "The account will be deleted at 00:00 UTC.",
+        "again": "You can register with the same email again after the old account is deleted."
     },
-    "alerts": {
-        "my-user-api": {
-            "registration": {
-                "error": "registration: Failed to register."
-            },
-            "send-activation-link": {
-                "success": "An email with a link to activate your account has been successfully sent to {email}. Please follow the instructions in the email.",
-                "error": "sendActivationLink: An email with a link to activate your account could not be sent to {email}."
-            },
-            "google-authorization": {
-                "error": "googleAuthorization: Couldn't sign in with Google."
-            },
-            "login": {
-                "error": "login: Failed to log in."
-            },
-            "logout": {
-                "error": "logout: Failed to log out."
-            },
-            "refresh": {
-                "error": "refresh: Failed to update the session."
-            },
-            "forgot-password": {
-                "success": "The password reset email has been successfully sent to: {email}. Please follow the instructions in the letter.",
-                "error": "forgotPassword: Failed to send the password reset email to: {email}."
-            },
-            "change-forgotten-password": {
-                "success": "Password changed successfully. Please log in with your new password.",
-                "error": "changeForgottenPassword: Failed to change the password."
-            },
-            "change-password": {
-                "success": "Password changed successfully. Please log in with your new password.",
-                "error": "changePassword: Failed to change the password."
-            },
-            "change-lang": {
-                "error": "changeLang: Failed to change the interface language."
-            },
-            "update-my-user": {
-                "error": "updateMyUser: Failed to update the user."
-            },
-            "add-friend": {
-                "error": "addFriend: Failed to add the friend."
-            },
-            "remove-friend": {
-                "error": "removeFriend: Failed to remove the friend."
-            },
-            "delete-my-user": {
-                "success": "Your account has been successfully deleted.",
-                "error": "deleteMyUser: Failed to delete the user."
-            }
+    "auth-page": {
+        "sign-in": "Sign In",
+        "sign-up": "Sign Up",
+        "first-name": "Name*",
+        "title": {
+            "sing_in": "Sign In",
+            "sing_up": "Sign Up",
+            "forgot_password": "Forgotten your password?"
         },
-        "users-api": {
-            "get-users": {
-                "error": "getUsers: Failed to get users."
-            },
-            "get-all-users": {
-                "error": "getAllUsers: Failed to get all users."
-            }
-        },
-        "wishes-api": {
-            "fetch-wish-data": {
-                "error": "fetchWishDataFromLink: Failed to get wish data from the link."
-            },
-            "create-wish": {
-                "error": "createWish: Failed to create a wish.",
-                "success": "The wish has been successfully created."
-            },
-            "update-wish": {
-                "error": "updateWish: Failed to update the wish.",
-                "success": "The wish has been successfully updated."
-            },
-            "get-wish": {
-                "error": "getWish: Failed to get the wish."
-            },
-            "book-wish": {
-                "error": "bookWish: Failed to book the wish.",
-                "success": "The wish has been successfully booked."
-            },
-            "cancel-book-wish": {
-                "error": "cancelBookWish: Failed to cancel the booking of the wish.",
-                "success": "The wish booking has been successfully canceled."
-            },
-            "done-wish": {
-                "error": "doneWish: Failed to mark the wish as done.",
-                "success": "The wish has been successfully marked as done."
-            },
-            "undone-wish": {
-                "error": "undoneWish: Failed to mark the wish as not done.",
-                "success": "The wish has been successfully marked as not done."
-            },
-            "like-wish": {
-                "error": "likeWish: Failed to like the wish."
-            },
-            "dislike-wish": {
-                "error": "dislikeWish: Failed to dislike the wish."
-            },
-            "delete-wish": {
-                "error": "deleteWish: Failed to delete the wish with ID {wishId}.",
-                "success": "The wish has been successfully deleted."
-            },
-            "get-wish-list": {
-                "error": "getWishList: Failed to get wish list."
-            },
-            "get-all-wishes": {
-                "error": "getAllWishes: Failed to get all wishes."
-            }
-        }
-    },
-    "validations": {
-        "only-whitespace": "The entered data cannot contain only spaces.",
-        "wish-name": {
-            "required": "It is impossible to create a desire without a name.",
-            "min": "Why is the name of the wish so short? Please come up with a name that is longer than {min} characters.",
-            "max": "The name of your wish is too long. Let's try to fit it into {max} characters."
-        },
-        "wish-price": {
-            "required": "The material desire that does not have its price cannot be fulfilled by Your universe.",
-            "pattern": "The price must be a positive integer and not start with \"0\".",
-            "max": "Let's try to fit in {max} characters."
-        },
-        "wish-description": {
-            "min": "What is this short wish description? Please come up with a description that is longer than {min} character.",
-            "max": "The name of Your wish contains: {current} characters. Let's try to fit it into {max} characters."
-        },
-        "email": {
-            "required": "This field is required so that we can identify You.",
-            "pattern": "This does not look like an email address. Please enter a valid email."
-        },
-        "password": {
-            "required": "This field is required to prevent anyone else from using Your data.",
-            "whitespaces": "The entered data cannot begin or end with a space.",
-            "min": "The password is too short. Please come up with a password that is longer than {min} characters.",
-            "max": "I think you overdid it. A long password is not always a good password. Try to keep it to {max} characters."
-        },
-        "first-name": {
-            "required": "You must have a name. Don't be shy :)",
-            "min": "We have never heard such a short first name. The minimum length of the field is {min} characters.",
-            "max": "We think you are making something up. The maximum length of the field is {max} characters."
-        },
-        "last-name": {
-            "min": "We have never heard such a short last name. The minimum length of the field is {min} characters.",
-            "max": "We think you are making something up. The maximum length of the field is {max} characters."
-        },
-        "delivery-address": {
-            "min": "Such a short address? The minimum length of the field is {min} characters.",
-            "max": "Is the address that long? The maximum length of the field is {max} characters."
-        }
+        "or": "or",
+        "password": "Password*",
+        "repeat_password": "Repeat password*",
+        "password_remembered": "Password remembered!",
+        "forgot_password": "Forgot my password",
+        "i_agree_to": "I agree to the Wish Hub website's",
+        "privacy_policy": "Privacy Policy.",
+        "wish_hub": "",
+        "privacy_policy_error": "We can't authorize you until you agree to our Privacy Policy.",
+        "passwords_error": "Passwords do not match.",
+        "recovery": "Recovery",
+        "password_recovery": "Password recovery",
+        "new_password": "New password*",
+        "repeat_new_password": "Repeat new password*"
     },
     "main-page": {
         "head": {
@@ -365,159 +244,6 @@
         "wish-list-page-title": "The wish list is created by the user:",
         "wish": "wish"
     },
-    "activation-link-expired-page": {
-        "expired": "Account activation period has expired.",
-        "utc": "The account will be deleted at 00:00 UTC.",
-        "again": "You can register with the same email again after the old account is deleted."
-    },
-    "auth-page": {
-        "sign-in": "Sign In",
-        "sign-up": "Sign Up",
-        "first-name": "Name*",
-        "title": {
-            "sing_in": "Sign In",
-            "sing_up": "Sign Up",
-            "forgot_password": "Forgotten your password?"
-        },
-        "or": "or",
-        "password": "Password*",
-        "repeat_password": "Repeat password*",
-        "password_remembered": "Password remembered!",
-        "forgot_password": "Forgot my password",
-        "i_agree_to": "I agree to the Wish Hub website's",
-        "privacy_policy": "Privacy Policy.",
-        "wish_hub": "",
-        "privacy_policy_error": "We can't authorize you until you agree to our Privacy Policy.",
-        "passwords_error": "Passwords do not match.",
-        "recovery": "Recovery",
-        "password_recovery": "Password recovery",
-        "new_password": "New password*",
-        "repeat_new_password": "Repeat new password*"
-    },
-    "welcome-page": {
-        "sign-in": "Sign In",
-        "sign-up": "Sign Up",
-        "main": "Main",
-        "to-main": "To Main",
-        "wish_hub_slogan": "Wish Hub - makes your dreams come true!",
-        "slogan": "Makes your dreams come true!",
-        "unique_platform": "This is a unique platform where your dreams come true. Create and share your wishes to make them come true.",
-        "birthday_wishlist": "Birthday wishlist",
-        "count_wishes": "14 wishes",
-        "bouquet_of": "Bouquet of yellow roses",
-        "i_love_roses": "I love roses, especially yellow ones! I'd love to receive them for my birthday.",
-        "teddy_bear": "Teddy Bear",
-        "childhood_dream": "My childhood dream! He is so cute!",
-        "vr_headset": "VR headset",
-        "i_will_be": "I will be so happy to get this VR",
-        "the_best_wireless": "The best wireless headphones! I want it!",
-        "take_first_step": "Take the first step towards realizing your dreams!",
-        "create_wish_lists": "On Wish Hub, you can create wish lists, share them with friends and family, and book others' wishes to make their holidays special.",
-        "with_wish_hub": "With Wish Hub, your gift will always be a hit!",
-        "save_time": "Save time and effort in choosing the perfect gift.",
-        "no_more": "No more disappointments or duplicate gifts.",
-        "create_wishes": "Create Wishes",
-        "add_your_dreams": "Add your dreams to the wish list so that your friends and family know what to give you for the holiday.",
-        "share_your_wishes": "Share your wishes",
-        "share_your_lists": "Share your lists with other users to increase the chances of your dreams coming true.",
-        "book_wishes": "Book Wishes",
-        "book_other_wishes": "Book other users' wishes to avoid duplicate gifts and ensure pleasant surprises.",
-        "benefits_of_being": "Benefits of Being a Wish Hub User",
-        "forget_hassle": "Forget the hassle of choosing gifts. Enjoy the joy of giving.",
-        "making_dreams": "Making dreams come true",
-        "your_dreams": "Your dreams will come true when you create and share your wishes.",
-        "time_saving": "Time-Saving",
-        "forget_the_long": "Forget the long hours of thinking and searching for the perfect gift.",
-        "easy_to_use": "Easy to Use",
-        "our_intuitive": "Our intuitive interface lets you quickly and easily create and view wish lists.",
-        "join_today": "Join Wish Hub Today!",
-        "sign_up_now": "Sign up now to start creating your wish lists and reserving gifts for your loved ones.",
-        "alts": {
-            "star_emoji": "Emoji of guy with starry eyes",
-            "love_smile": "Smiley face in love",
-            "pigtails_emoji": "Emoji of girl with pigtails",
-            "festive_smile": "Festive smiley face",
-            "winking_emoji": "Winking girl emoji",
-            "star_smile": "Starry-eyed smiley face",
-            "bearded_emoji": "Bearded man emoji",
-            "sunglasses_smile": "Smiley face with sunglasses",
-            "great_emoji": "'Great job!' emoji",
-            "party_popper_icon": "Party Popper Icon",
-            "bigger_gift": "Bigger gift",
-            "smaller_gift": "Smaller gift",
-            "middle_gift": "Middle gift",
-            "love_emoji": "Emoji of guy in love",
-            "festive_emoji": "Emoji of festive girl"
-        },
-        "first-name": "Name*"
-    },
-    "about-page": {
-        "head": {
-            "title": "About us - Learn more about Wish Hub",
-            "description": "Find out how the Wish Hub team helps make your dreams come true and makes the process of choosing gifts easier and more enjoyable."
-        },
-        "title": "About Wish Hub",
-        "hello": "Hello! My name is Oleg. I am the founder of Wish Hub. This web-application is created just for you.",
-        "wish_hub_is": "Wish Hub is a unique platform that helps you learn about the wishes of your friends and loved ones. Our service makes gift selection easy and enjoyable by providing the ability to create wish lists, view them, and reserve items to avoid duplicate gifts.",
-        "our_mission": "Our mission is to build a community where people can share their dreams and receive exactly what they wish for.",
-        "sub-title": "Wishes",
-        "do_you_have": "Do you have desires? I'm sure you do. Are all your desires fulfilled? Probably not. How can we increase the likelihood of fulfilling our desires? Do other people's desires always come true? And how exactly do they come to fruition?",
-        "it_likely": "It's likely that in wealthier individuals, desires are fulfilled more frequently than in those with fewer financial resources. Do you believe this is directly linked to having money? Well, of course! If you have plenty of funds and you desire, let's say, a car, you can simply go to the dealership and make the purchase. It's straightforward. However, for those financially disadvantaged, acquiring such luxuries is out of the question. The economically challenged face a different reality and set of priorities. They must decide between buying necessities like groceries or saving for the future.",
-        "what_about": "What about non-material desires? They can't be bought with money. For instance, longing for genuine love or robust health. Or perhaps you aspire to attain a fit, athletic physique. You might argue that even these desires can be fulfilled with financial means. While this is technically true, paid love will never be as fulfilling as genuine affection, and medical facilities motivated primarily by profit may not prioritize your well-being. Maintaining good health and achieving personal fitness goals requires dedication and effort, where money plays a supporting role at best.",
-        "it_appears_to": "It appears to me that in wealthy individuals, desires are fulfilled more frequently not solely due to their financial status. Rather, their wealth often stems from the consistent fulfillment of their desires.",
-        "probably": "It's probably not a secret to anyone that the primary driving force behind desire fulfillment is our thoughts. The notion that \"thoughts materialize\" is not a new one.",
-        "what_other_factors": "What other factors influence the realization of our desires?",
-        "today_we": "Today, we're bombarded with messages urging us to discover our path, our purpose, our unique journey. These hints are everywhere, hard to overlook or brush aside. Yet, finding one's way in life is far from simple. Many embark on this quest for years on end, and from personal experience, I can attest: it's a journey worth undertaking.",
-        "but_what": "But what about our desires? They come in two forms: those that arise from within, and those imposed upon us from external sources. Consider statements like, \"I hate driving, but I need a car to commute to work. I dislike my job, but I have to pay off the car loan.\" Personal desires manifest effortlessly, like a natural extension of ourselves. Conversely, imposed desires exert a draining energy, constantly pulling us down with their enticing facades.",
-        "profound": "Yet, there's a profound truth here: our wishes carry an energetic weight, and within us lies the power of thought to lift this burden. It's a somewhat abstract concept, but one that resonates deeply with me.",
-        "let_delve": "Let's delve deeper into this notion. Our personal desires are straightforward—they materialize because our thoughts give them life. Our innermost desires align seamlessly with our capabilities, requiring no external intervention. But what about desires that aren't ours? They persist, sometimes with an intensity that borders on unbearable. This is where things get complex. If our present circumstances starkly contrast our aspirations, it's a lamentable situation. Picture a homeless person yearning for a castle—a chasm separates desire from reality. It's easier to relinquish desire altogether than to cling to futile dreams. Yet, what if our wish is within reach, albeit financially out of grasp? When desire burns fiercely, but resources fall short, it becomes evident: we need assistance, an infusion of additional energy. Brute force won't suffice; we require a subtler, more nuanced approach. Assistance may come, albeit with consequences. The question remains: where do we find this energy?",
-        "there_are_so": "There are so many things in this world that carry energy... Actually, scratch that. Absolutely everything in the material world possesses energy. Each item has its own unique energy. Let's take your device, the one you're using to read this text. Just imagine how many companies contributed to creating this technological wonder. And within each company, there were hundreds of employees involved. So, your computer, laptop, or smartphone has absorbed the energy of all those people who contributed to its creation. Add to that the energy of the programmers who dedicated their efforts to ensure this machine works smoothly. And that's not even considering the material components of your gadget. Even the apple you bought from the farmer's market carries its own energy. Think about the energy the farmer expended to pick it, bring it to market, and sell it to you. Let's not even mention the apples from the supermarket. And then, there's another element in this world that holds a calculated energy: money.",
-        "yes_money_it": "Yes, money is the most energetically charged material thing, and today, it's even electronic. It's easy to prove. Close your eyes. Now, vividly imagine your boss giving you a 20% raise. How does that feel? Now, imagine finding a winning lottery ticket and pocketing $100,000. Feel the difference? This illustrates, firstly, that money indeed carries energy, and secondly, that the amount directly correlates with the energy it holds. In the grand scheme of things, practically all your desires touch upon financial matters in one way or another. A loving spouse will love you regardless of financial circumstances, but the experience in a lavish mansion will undoubtedly be different from that in a one-bedroom apartment. While you can't buy health with money, even basic medical procedures come with a price tag. And getting in shape at a top-tier gym with a qualified trainer is far more enjoyable than doing calisthenics in the backyard. Thus, while money may not be the ultimate goal, it certainly makes life more enjoyable and manageable.",
-        "and_finally": "And finally, the most crucial aspect. How do we connect money and desires when we lack the energy? When someone gives you something for free, what emotions do you experience? Deep gratitude, right? You immediately feel the urge to reciprocate in some way. You start wishing them all the best in your thoughts. Well, guess what? Other people experience the same feelings in similar situations. And these impulses are even stronger if the gift is unexpected and, most importantly, valuable. The corresponding wishes can be quite diverse. Typically, it's what we value most for ourselves. And if the person who's giving us the gift is saving up for a house, and we're aware of it, our first instinct is to wish them to buy that house as soon as possible. 'I wish you finally get the house of your dreams! Just the way you want it!' Does this situation sound familiar to you?",
-        "you_know": "After all, you know, wealthy individuals consistently allocate a portion of their fortunes to charitable causes. Consider how this unfolds. It's likely that a wealthy individual would want their donation to, say, an orphanage, to be widely recognized. What do you think people's reactions would be upon learning about such a generous contribution? How might the staff at the orphanage respond? And what about the children who are old enough to grasp the situation? Naturally, they would feel immensely grateful! \"May your business thrive and flourish! May success be a constant companion! And may everything unfold as smoothly as possible!\"",
-        "this_web": "This web application is designed to help your wishes become a reality. Here, each wish has its own \"energetic\" monetary equivalent — a sum defined by the person who dreams it. If you want to help someone else, the best thing you can do is make their dream come true by choosing a suitable gift, provided your capabilities allow it. And when it comes to your own wishes, their realization becomes more likely when you write them down and share them with others. Collective energy of support and positive thoughts greatly increases the chances of any dream coming true. Leave your wishes here, and let the energy of kindness and mutual help work toward their fulfillment!"
-    },
-    "wish-page": {
-        "created-by": "Wish created by user:",
-        "price": "Price:",
-        "address": "Where to buy:",
-        "description": "Description:",
-        "empty": "This wish does not exist. It may have been deleted by the user."
-    },
-    "profile-page": {
-        "profile": "profile",
-        "my-profile": "My profile",
-        "user-profile": "User profile",
-        "edit": "Edit",
-        "unknown": "Unknown",
-        "delivery-address": "Address of Delivery of Wishes",
-        "delivery-address-tooltip": "We advise you to indicate the city, the number of the carrier's branch, your phone number, your name and surname",
-        "birthday": "Birthday",
-        "birthday*": "Birthday*",
-        "when_your_birth": "When is Your birthday?",
-        "birthday-error": {
-            "min-date": "We have doubts that You are more than 120 years old.",
-            "disable-future": "It is impossible to be born in the future."
-        },
-        "i_have_fulfilled": "I have fulfilled",
-        "i_did_not_fulfill": "I did not fulfill",
-        "wishes": "wishes.",
-        "wish": "wish.",
-        "wish_2_3_4": "wishes.",
-        "change-password-title": "Changing the password",
-        "set_password_title": "Set New Password",
-        "wish-list-title": "Wish list",
-        "wishes-empty": "Wish list is empty.",
-        "cancel": "Cancel",
-        "delete-account": "Delete my account",
-        "first-name": "Name*",
-        "last-name": "Last name*",
-        "avatar-error": {
-            "file-type": "The file must be in one of the following formats:",
-            "file-size": "The file size must not exceed {size} MB."
-        },
-        "password": "Password*"
-    },
     "privacy-policy-page": {
         "title": "Privacy Policy",
         "updated": "Last updated: April 02, 2024",
@@ -666,5 +392,279 @@
         "if_you_have": "If you have any questions about this Privacy Policy, You can contact us:",
         "contact_email": "By email: wish.hub.net@gmail.com",
         "agree": "I Agree"
+    },
+    "profile-page": {
+        "profile": "profile",
+        "my-profile": "My profile",
+        "user-profile": "User profile",
+        "edit": "Edit",
+        "unknown": "Unknown",
+        "delivery-address": "Address of Delivery of Wishes",
+        "delivery-address-tooltip": "We advise you to indicate the city, the number of the carrier's branch, your phone number, your name and surname",
+        "birthday": "Birthday",
+        "birthday*": "Birthday*",
+        "when_your_birth": "When is Your birthday?",
+        "birthday-error": {
+            "min-date": "We have doubts that You are more than 120 years old.",
+            "disable-future": "It is impossible to be born in the future."
+        },
+        "i_have_fulfilled": "I have fulfilled",
+        "i_did_not_fulfill": "I did not fulfill",
+        "wishes": "wishes.",
+        "wish": "wish.",
+        "wish_2_3_4": "wishes.",
+        "change-password-title": "Changing the password",
+        "set_password_title": "Set New Password",
+        "wish-list-title": "Wish list",
+        "wishes-empty": "Wish list is empty.",
+        "cancel": "Cancel",
+        "delete-account": "Delete my account",
+        "first-name": "Name*",
+        "last-name": "Last name*",
+        "avatar-error": {
+            "file-type": "The file must be in one of the following formats:",
+            "file-size": "The file size must not exceed {size} MB."
+        },
+        "password": "Password*"
+    },
+    "inactivated": {
+        "aim": "We aim for all users to be real.",
+        "check": "Check your email at:",
+        "activate": "and activate your account.",
+        "spam": "If you don't see the email, check your \"Spam\" folder.",
+        "click": "If you haven't received the email, click ",
+        "here": "here.",
+        "resend": "You can resend the email again in:",
+        "day": "If the account is not activated within a day of registration, it will be deleted."
+    },
+    "wish-page": {
+        "created-by": "Wish created by user:",
+        "price": "Price:",
+        "address": "Where to buy:",
+        "description": "Description:",
+        "empty": "This wish does not exist. It may have been deleted by the user."
+    },
+    "welcome-page": {
+        "sign-in": "Sign In",
+        "sign-up": "Sign Up",
+        "main": "Main",
+        "to-main": "To Main",
+        "wish_hub_slogan": "Wish Hub - makes your dreams come true!",
+        "slogan": "Makes your dreams come true!",
+        "unique_platform": "This is a unique platform where your dreams come true. Create and share your wishes to make them come true.",
+        "birthday_wishlist": "Birthday wishlist",
+        "count_wishes": "14 wishes",
+        "bouquet_of": "Bouquet of yellow roses",
+        "i_love_roses": "I love roses, especially yellow ones! I'd love to receive them for my birthday.",
+        "teddy_bear": "Teddy Bear",
+        "childhood_dream": "My childhood dream! He is so cute!",
+        "vr_headset": "VR headset",
+        "i_will_be": "I will be so happy to get this VR",
+        "the_best_wireless": "The best wireless headphones! I want it!",
+        "take_first_step": "Take the first step towards realizing your dreams!",
+        "create_wish_lists": "On Wish Hub, you can create wish lists, share them with friends and family, and book others' wishes to make their holidays special.",
+        "with_wish_hub": "With Wish Hub, your gift will always be a hit!",
+        "save_time": "Save time and effort in choosing the perfect gift.",
+        "no_more": "No more disappointments or duplicate gifts.",
+        "create_wishes": "Create Wishes",
+        "add_your_dreams": "Add your dreams to the wish list so that your friends and family know what to give you for the holiday.",
+        "share_your_wishes": "Share your wishes",
+        "share_your_lists": "Share your lists with other users to increase the chances of your dreams coming true.",
+        "book_wishes": "Book Wishes",
+        "book_other_wishes": "Book other users' wishes to avoid duplicate gifts and ensure pleasant surprises.",
+        "benefits_of_being": "Benefits of Being a Wish Hub User",
+        "forget_hassle": "Forget the hassle of choosing gifts. Enjoy the joy of giving.",
+        "making_dreams": "Making dreams come true",
+        "your_dreams": "Your dreams will come true when you create and share your wishes.",
+        "time_saving": "Time-Saving",
+        "forget_the_long": "Forget the long hours of thinking and searching for the perfect gift.",
+        "easy_to_use": "Easy to Use",
+        "our_intuitive": "Our intuitive interface lets you quickly and easily create and view wish lists.",
+        "join_today": "Join Wish Hub Today!",
+        "sign_up_now": "Sign up now to start creating your wish lists and reserving gifts for your loved ones.",
+        "alts": {
+            "star_emoji": "Emoji of guy with starry eyes",
+            "love_smile": "Smiley face in love",
+            "pigtails_emoji": "Emoji of girl with pigtails",
+            "festive_smile": "Festive smiley face",
+            "winking_emoji": "Winking girl emoji",
+            "star_smile": "Starry-eyed smiley face",
+            "bearded_emoji": "Bearded man emoji",
+            "sunglasses_smile": "Smiley face with sunglasses",
+            "great_emoji": "'Great job!' emoji",
+            "party_popper_icon": "Party Popper Icon",
+            "bigger_gift": "Bigger gift",
+            "smaller_gift": "Smaller gift",
+            "middle_gift": "Middle gift",
+            "love_emoji": "Emoji of guy in love",
+            "festive_emoji": "Emoji of festive girl"
+        },
+        "first-name": "Name*"
+    },
+    "alerts": {
+        "my-user-api": {
+            "registration": {
+                "error": "registration: Failed to register."
+            },
+            "send-activation-link": {
+                "success": "An email with a link to activate your account has been successfully sent to {email}. Please follow the instructions in the email.",
+                "error": "sendActivationLink: An email with a link to activate your account could not be sent to {email}."
+            },
+            "google-authorization": {
+                "error": "googleAuthorization: Couldn't sign in with Google."
+            },
+            "login": {
+                "error": "login: Failed to log in."
+            },
+            "logout": {
+                "error": "logout: Failed to log out."
+            },
+            "refresh": {
+                "error": "refresh: Failed to update the session."
+            },
+            "forgot-password": {
+                "success": "The password reset email has been successfully sent to: {email}. Please follow the instructions in the letter.",
+                "error": "forgotPassword: Failed to send the password reset email to: {email}."
+            },
+            "change-forgotten-password": {
+                "success": "Password changed successfully. Please log in with your new password.",
+                "error": "changeForgottenPassword: Failed to change the password."
+            },
+            "change-password": {
+                "success": "Password changed successfully. Please log in with your new password.",
+                "error": "changePassword: Failed to change the password."
+            },
+            "change-lang": {
+                "error": "changeLang: Failed to change the interface language."
+            },
+            "update-my-user": {
+                "error": "updateMyUser: Failed to update the user."
+            },
+            "add-friend": {
+                "error": "addFriend: Failed to add the friend."
+            },
+            "remove-friend": {
+                "error": "removeFriend: Failed to remove the friend."
+            },
+            "delete-my-user": {
+                "success": "Your account has been successfully deleted.",
+                "error": "deleteMyUser: Failed to delete the user."
+            }
+        },
+        "users-api": {
+            "get-users": {
+                "error": "getUsers: Failed to get users."
+            },
+            "get-all-users": {
+                "error": "getAllUsers: Failed to get all users."
+            }
+        },
+        "wishes-api": {
+            "fetch-wish-data": {
+                "error": "fetchWishDataFromLink: Failed to get wish data from the link."
+            },
+            "create-wish": {
+                "error": "createWish: Failed to create a wish.",
+                "success": "The wish has been successfully created."
+            },
+            "update-wish": {
+                "error": "updateWish: Failed to update the wish.",
+                "success": "The wish has been successfully updated."
+            },
+            "get-wish": {
+                "error": "getWish: Failed to get the wish."
+            },
+            "book-wish": {
+                "error": "bookWish: Failed to book the wish.",
+                "success": "The wish has been successfully booked."
+            },
+            "cancel-book-wish": {
+                "error": "cancelBookWish: Failed to cancel the booking of the wish.",
+                "success": "The wish booking has been successfully canceled."
+            },
+            "done-wish": {
+                "error": "doneWish: Failed to mark the wish as done.",
+                "success": "The wish has been successfully marked as done."
+            },
+            "undone-wish": {
+                "error": "undoneWish: Failed to mark the wish as not done.",
+                "success": "The wish has been successfully marked as not done."
+            },
+            "like-wish": {
+                "error": "likeWish: Failed to like the wish."
+            },
+            "dislike-wish": {
+                "error": "dislikeWish: Failed to dislike the wish."
+            },
+            "delete-wish": {
+                "error": "deleteWish: Failed to delete the wish with ID {wishId}.",
+                "success": "The wish has been successfully deleted."
+            },
+            "get-wish-list": {
+                "error": "getWishList: Failed to get wish list."
+            },
+            "get-all-wishes": {
+                "error": "getAllWishes: Failed to get all wishes."
+            }
+        }
+    },
+    "share-button": {
+        "share-text": "Wish Hub is a place where you can store your wishes and share them with your friends.",
+        "question-nobody": "Are you sure you want to share a wish that is hidden from everyone?",
+        "question-friends": "Are you sure you want to share a wish that is only open to your friends?",
+        "alerts": {
+            "share": {
+                "wish_success": "You have successfully shared Your wish.",
+                "wish_hub_success": "You have successfully shared \"Wish Hub\".",
+                "error": "An error occurred while trying to activate the \"Share\" function.",
+                "console-error": "Sharing error: "
+            },
+            "clipboard": {
+                "wish_success": "The link to Your wish has been copied to the clipboard.",
+                "wish_hub_success": "The link to \"Wish Hub\" has been copied to the clipboard.",
+                "error": "An error occurred while trying to copy the link to the clipboard.",
+                "console-error": "Clipboard error: "
+            }
+        }
+    },
+    "validations": {
+        "only-whitespace": "The entered data cannot contain only spaces.",
+        "wish-name": {
+            "required": "It is impossible to create a desire without a name.",
+            "min": "Why is the name of the wish so short? Please come up with a name that is longer than {min} characters.",
+            "max": "The name of your wish is too long. Let's try to fit it into {max} characters."
+        },
+        "wish-price": {
+            "required": "The material desire that does not have its price cannot be fulfilled by Your universe.",
+            "pattern": "The price must be a positive integer and not start with \"0\".",
+            "max": "Let's try to fit in {max} characters."
+        },
+        "wish-description": {
+            "min": "What is this short wish description? Please come up with a description that is longer than {min} character.",
+            "max": "The name of Your wish contains: {current} characters. Let's try to fit it into {max} characters."
+        },
+        "email": {
+            "required": "This field is required so that we can identify You.",
+            "pattern": "This does not look like an email address. Please enter a valid email."
+        },
+        "password": {
+            "required": "This field is required to prevent anyone else from using Your data.",
+            "whitespaces": "The entered data cannot begin or end with a space.",
+            "min": "The password is too short. Please come up with a password that is longer than {min} characters.",
+            "max": "I think you overdid it. A long password is not always a good password. Try to keep it to {max} characters."
+        },
+        "first-name": {
+            "required": "You must have a name. Don't be shy :)",
+            "min": "We have never heard such a short first name. The minimum length of the field is {min} characters.",
+            "max": "We think you are making something up. The maximum length of the field is {max} characters."
+        },
+        "last-name": {
+            "min": "We have never heard such a short last name. The minimum length of the field is {min} characters.",
+            "max": "We think you are making something up. The maximum length of the field is {max} characters."
+        },
+        "delivery-address": {
+            "min": "Such a short address? The minimum length of the field is {min} characters.",
+            "max": "Is the address that long? The maximum length of the field is {max} characters."
+        }
     }
 }
