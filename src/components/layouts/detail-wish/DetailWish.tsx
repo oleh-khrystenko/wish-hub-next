@@ -52,6 +52,9 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
     const myUserBookedOrCreatedWish =
         myUser?.id === wish.booking?.userId || myUser?.id === wish.userId;
 
+    // у бажання є кінцева дата бронювання && термін виконання ще не минув
+    const showBookWish = !wish.booking?.end && !wish.executed;
+
     // бажання належить тому хто створював його
     // && бажання можна скасувати за 3 дні до початку
     // && термін виконання ще не минув
@@ -156,9 +159,7 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
                         )}
 
                         {/* Book */}
-                        {!wish.booking?.end && (
-                            <BookWish wish={wish} hide={hide} />
-                        )}
+                        {showBookWish && <BookWish wish={wish} hide={hide} />}
 
                         {/* Cancel Book */}
                         {showCancelBookWish && (
