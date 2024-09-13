@@ -1,11 +1,23 @@
+import { Metadata } from 'next';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
 import Refresh from '@/helpers/hocs/Refresh';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
+import { fetchMetadata } from '@/helpers/utils/metadata';
 import Content from '@/app/[locale]/activation-link-expired/Content';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
 import LangSelect from '@/components/layouts/LangSelect';
 import UiBrand from '@/components/ui/UiBrand';
+
+interface IMetadataProps {
+    params: { locale: string };
+}
+
+export async function generateMetadata({
+    params,
+}: IMetadataProps): Promise<Metadata> {
+    return await fetchMetadata(params.locale, 'activation-link-expired');
+}
 
 export default function ActivationLinkExpired() {
     const messages = useMessages();

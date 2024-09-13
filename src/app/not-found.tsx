@@ -1,7 +1,19 @@
 'use client';
 
+import { Metadata } from 'next';
 import { usePathname } from 'next/navigation';
+import { fetchMetadata } from '@/helpers/utils/metadata';
 import '@/app/globals.css';
+
+interface IMetadataProps {
+    params: { locale: string };
+}
+
+export async function generateMetadata({
+    params,
+}: IMetadataProps): Promise<Metadata> {
+    return await fetchMetadata(params.locale, 'not-found');
+}
 
 export default function NotFound() {
     const pathname = usePathname();

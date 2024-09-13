@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import {
     NextIntlClientProvider,
     useMessages,
@@ -6,6 +7,7 @@ import {
 import pick from 'lodash.pick';
 import Image from 'next/image';
 import Refresh from '@/helpers/hocs/Refresh';
+import { fetchMetadata } from '@/helpers/utils/metadata';
 import Header from '@/app/[locale]/root-page-components/Header';
 import CoverFigure from '@/app/[locale]/root-page-components/CoverFigure';
 import Action from '@/app/[locale]/root-page-components/Action';
@@ -19,6 +21,16 @@ import PlusIcon from '@/components/icons/PlusIcon';
 import LockIcon from '@/components/icons/LockIcon';
 import SolidEyeIcon from '@/components/icons/SolidEyeIcon';
 import WindingIcon from '@/components/icons/WindingIcon';
+
+interface IMetadataProps {
+    params: { locale: string };
+}
+
+export async function generateMetadata({
+    params,
+}: IMetadataProps): Promise<Metadata> {
+    return await fetchMetadata(params.locale, 'welcome');
+}
 
 export default function Welcome() {
     const messages = useMessages();
