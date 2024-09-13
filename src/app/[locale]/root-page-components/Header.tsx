@@ -12,7 +12,7 @@ const Header: FC = () => {
 
     return (
         <header className="absolute -left-4 right-0 top-0 flex items-center justify-between gap-4 py-4 tablet-md:px-0 tablet-md:py-6">
-            <UiBrand withLogo />
+            <UiBrand withLogo disabled />
 
             <div className="flex items-center gap-10">
                 <ThemeSwitcher />

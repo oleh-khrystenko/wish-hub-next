@@ -4,44 +4,34 @@ import { FC, useState } from 'react';
 import Link from 'next/link';
 import { Manrope } from 'next/font/google';
 import { useLocale } from 'next-intl';
-import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
+import { useMyUserStore } from '@/stores/my-user';
 import UiLoading from '@/components/ui/UiLoading';
 import LogoIcon from '@/components/icons/LogoIcon';
 
 const manrope = Manrope({ subsets: ['latin'], weight: ['700'] });
 
 interface IProps {
-    href?: string;
     logoId?: string;
     sizeLoading?: string;
     bgLoading?: string;
-    isMainPage?: boolean;
+    disabled?: boolean;
     withLogo?: boolean;
     isBig?: boolean;
 }
 
 const UiBrand: FC<IProps> = ({
-    href = 'main',
     logoId = 'brand-logo',
     sizeLoading = 'h-12 min-h-12 w-12 min-w-12',
     bgLoading = 'bg-zinc-200 dark:bg-zinc-900',
-    isMainPage = false,
-    withLogo = false,
-    isBig = false,
+    disabled,
+    withLogo,
+    isBig,
 }) => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const { getInitialAllWishes } = UseInitialWishes();
-
     const activeLocale = useLocale();
 
-    const handleBtnClick = async () => {
-        setIsLoading(true);
-        await getInitialAllWishes();
-        setIsLoading(false);
-    };
-
-    const handleLinkClick = () => setIsLoading(true);
+    const myUser = useMyUserStore((state) => state.myUser);
 
     const children = (
         <>
@@ -64,19 +54,19 @@ const UiBrand: FC<IProps> = ({
         </>
     );
 
-    return isMainPage ? (
-        <button
-            className="relative flex items-center gap-2 px-4 py-2 text-cyan-400 dark:text-cyan-300"
-            type="button"
-            onClick={handleBtnClick}
-        >
-            {children}
-        </button>
-    ) : (
+    if (disabled) {
+        return (
+            <div className="relative flex items-center gap-2 px-4 py-2 text-cyan-400 dark:text-cyan-300">
+                {children}
+            </div>
+        );
+    }
+
+    return (
         <Link
-            href={`/${activeLocale}/${href}`}
+            href={`/${activeLocale}/${myUser ? 'main' : ''}`}
             className="relative flex items-center gap-2 px-4 py-2 text-cyan-400 dark:text-cyan-300"
-            onClick={handleLinkClick}
+            onClick={() => setIsLoading(true)}
         >
             {children}
         </Link>

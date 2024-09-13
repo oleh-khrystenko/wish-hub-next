@@ -24,8 +24,8 @@ const Header: FC<IProps> = ({ isMainPage }) => {
                     }
                 >
                     <UiBrand
+                        disabled={isMainPage}
                         withLogo
-                        isMainPage={isMainPage}
                         bgLoading="bg-zinc-300 dark:bg-zinc-800"
                     />
                 </div>

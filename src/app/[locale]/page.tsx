@@ -176,7 +176,7 @@ export default function Welcome() {
                 </div>
             </section>
 
-            <Footer />
+            <Footer isWelcome />
         </main>
     );
 }

@@ -13,9 +13,10 @@ import UiBrand from '@/components/ui/UiBrand';
 
 interface IProps {
     remove?: INavItem['href'];
+    isWelcome?: boolean;
 }
 
-const Footer: FC<IProps> = ({ remove }) => {
+const Footer: FC<IProps> = ({ remove, isWelcome }) => {
     const messages = useMessages();
     const welcomePageT = useTranslations('welcome-page');
     const mainPageT = useTranslations('main-page');
@@ -38,7 +39,7 @@ const Footer: FC<IProps> = ({ remove }) => {
                                 messages={pick(messages, ['alerts'])}
                             >
                                 <div className="-ml-4">
-                                    <UiBrand withLogo />
+                                    <UiBrand withLogo disabled={isWelcome} />
                                 </div>
                             </NextIntlClientProvider>
 

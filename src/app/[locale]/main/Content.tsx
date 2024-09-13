@@ -39,7 +39,7 @@ const Content: FC = () => {
         <>
             <div className="relative flex w-full grow flex-col pl-1 pr-2 pt-2 tablet-md:w-2/3 tablet-md:pb-5 tablet-xl:w-3/4">
                 <div className="-ml-2 flex items-center justify-between py-1 tablet-md:hidden">
-                    <UiBrand isMainPage withLogo logoId="brand-logo-top" />
+                    <UiBrand withLogo logoId="brand-logo-top" />
                 </div>
 
                 <div className="mb-6 mt-2 pl-2.5">
