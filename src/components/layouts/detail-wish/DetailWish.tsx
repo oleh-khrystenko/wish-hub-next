@@ -90,7 +90,7 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
 
     const handleEditWish = () => {
         editWish && editWish();
-        close();
+        hide();
     };
 
     return (
