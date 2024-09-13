@@ -501,6 +501,10 @@
         },
         "first-name": "Имя*"
     },
+    "not-found-page": {
+        "page_not_found": "Страница не найдена",
+        "to_home": "Вернуться на главную"
+    },
     "alerts": {
         "my-user-api": {
             "registration": {

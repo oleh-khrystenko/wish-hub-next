@@ -501,6 +501,10 @@
         },
         "first-name": "Name*"
     },
+    "not-found-page": {
+        "page_not_found": "Page not found",
+        "to_home": "Back to home"
+    },
     "alerts": {
         "my-user-api": {
             "registration": {

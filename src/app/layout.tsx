@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Script from 'next/script';
 import { Mulish } from 'next/font/google';
-import '@/app/[locale]/globals.css';
+import '@/app/globals.css';
 
 const setInitialTheme = `
     (function() {
