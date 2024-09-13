@@ -1,8 +1,8 @@
 {
     "about-page": {
         "head": {
-            "title": "About us - Learn more about Wish Hub",
-            "description": "Find out how the Wish Hub team helps make your dreams come true and makes the process of choosing gifts easier and more enjoyable."
+            "title": "Wish Hub - About us",
+            "description": "Wish Hub tells you about its history and mission. Learn more about how we help make your dreams come true."
         },
         "title": "About Wish Hub",
         "hello": "Hello! My name is Oleg. I am the founder of Wish Hub. This web-application is created just for you.",
@@ -26,11 +26,19 @@
         "this_web": "This web application is designed to help your wishes become a reality. Here, each wish has its own \"energetic\" monetary equivalent — a sum defined by the person who dreams it. If you want to help someone else, the best thing you can do is make their dream come true by choosing a suitable gift, provided your capabilities allow it. And when it comes to your own wishes, their realization becomes more likely when you write them down and share them with others. Collective energy of support and positive thoughts greatly increases the chances of any dream coming true. Leave your wishes here, and let the energy of kindness and mutual help work toward their fulfillment!"
     },
     "activation-link-expired-page": {
+        "head": {
+            "title": "Wish Hub - Activation link has expired",
+            "description": "Wish Hub apologizes for the inconvenience. Your account activation link has expired. Please check your email or contact us."
+        },
         "expired": "Account activation period has expired.",
         "utc": "The account will be deleted at 00:00 UTC.",
         "again": "You can register with the same email again after the old account is deleted."
     },
     "auth-page": {
+        "head": {
+            "title": "Wish Hub - Authorization",
+            "description": "Wish Hub invites you to log in or register to enjoy all the features without any restrictions."
+        },
         "sign-in": "Sign In",
         "sign-up": "Sign Up",
         "first-name": "Name*",
@@ -54,10 +62,16 @@
         "new_password": "New password*",
         "repeat_new_password": "Repeat new password*"
     },
+    "change-forgotten-password-page": {
+        "head": {
+            "title": "Wish Hub - Change password",
+            "description": "Wish Hub will help you change the password for your account. Enter the new password to keep your account secure."
+        }
+    },
     "main-page": {
         "head": {
-            "title": "Wish Hub - your source of inspiration for gifts",
-            "description": "Wish Hub - makes your dreams come true!"
+            "title": "Wish Hub - makes your dreams come true!",
+            "description": "Wish Hub: welcome to the home page! Browse the latest gift ideas and create your wishes."
         },
         "pwa": {
             "text_before": "You have the option to install the",
@@ -245,6 +259,10 @@
         "wish": "wish"
     },
     "privacy-policy-page": {
+        "head": {
+            "title": "Wish Hub - Privacy Policy",
+            "description": "Wish Hub: Read our privacy policy, which describes how we collect, use, and protect your personal information."
+        },
         "title": "Privacy Policy",
         "updated": "Last updated: April 02, 2024",
         "intro": "This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.",
@@ -394,6 +412,10 @@
         "agree": "I Agree"
     },
     "profile-page": {
+        "head": {
+            "title": "Wish Hub - User profile",
+            "description": "Wish Hub: View a user's profile. Explore their wishes, views, and activity."
+        },
         "profile": "profile",
         "my-profile": "My profile",
         "user-profile": "User profile",
@@ -427,24 +449,28 @@
         },
         "password": "Password*"
     },
-    "inactivated": {
-        "aim": "We aim for all users to be real.",
-        "check": "Check your email at:",
-        "activate": "and activate your account.",
-        "spam": "If you don't see the email, check your \"Spam\" folder.",
-        "click": "If you haven't received the email, click ",
-        "here": "here.",
-        "resend": "You can resend the email again in:",
-        "day": "If the account is not activated within a day of registration, it will be deleted."
-    },
     "wish-page": {
+        "head": {
+            "title": "Wish Hub - Wish",
+            "description": "Wish Hub: learn more about the wish. Read the description and information about this wish."
+        },
         "created-by": "Wish created by user:",
         "price": "Price:",
         "address": "Where to buy:",
         "description": "Description:",
         "empty": "This wish does not exist. It may have been deleted by the user."
     },
+    "wish-list-page": {
+        "head": {
+            "title": "Wish Hub - Wish List",
+            "description": "Wish Hub: view the user's wish list. Find inspiration for gifts."
+        }
+    },
     "welcome-page": {
+        "head": {
+            "title": "Wish Hub - Greetings!",
+            "description": "Wish Hub - makes your dreams come true!"
+        },
         "sign-in": "Sign In",
         "sign-up": "Sign Up",
         "main": "Main",
@@ -502,6 +528,10 @@
         "first-name": "Name*"
     },
     "not-found-page": {
+        "head": {
+            "title": "Wish Hub - Story not found",
+            "description": "Wish Hub: Sorry, but the page you are looking for was not found. Please go to the main page."
+        },
         "page_not_found": "Page not found",
         "to_home": "Back to home"
     },
@@ -611,6 +641,16 @@
                 "error": "getAllWishes: Failed to get all wishes."
             }
         }
+    },
+    "inactivated": {
+        "aim": "We aim for all users to be real.",
+        "check": "Check your email at:",
+        "activate": "and activate your account.",
+        "spam": "If you don't see the email, check your \"Spam\" folder.",
+        "click": "If you haven't received the email, click ",
+        "here": "here.",
+        "resend": "You can resend the email again in:",
+        "day": "If the account is not activated within a day of registration, it will be deleted."
     },
     "share-button": {
         "share-text": "Wish Hub is a place where you can store your wishes and share them with your friends.",
