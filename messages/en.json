@@ -531,9 +531,7 @@
         "head": {
             "title": "Wish Hub - Story not found",
             "description": "Wish Hub: Sorry, but the page you are looking for was not found. Please go to the main page."
-        },
-        "page_not_found": "Page not found",
-        "to_home": "Back to home"
+        }
     },
     "alerts": {
         "my-user-api": {
