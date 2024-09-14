@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useRef, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface IProps {
     isLocal?: boolean;
@@ -17,6 +18,8 @@ const UiLoading: FC<IProps> = ({
 }) => {
     const loaded = useRef(false);
 
+    const alertsT = useTranslations('alerts');
+
     useEffect(() => {
         if (loaded.current) return;
         loaded.current = true;
@@ -26,7 +29,7 @@ const UiLoading: FC<IProps> = ({
 
     return (
         <div
-            className={`${isLocal ? 'absolute h-full' : 'fixed h-svh'} ${bg} ${wrapClasses} z-50 flex items-center justify-center`}
+            className={`${isLocal ? 'absolute h-full' : 'fixed h-svh'} ${bg} ${wrapClasses} z-50 flex flex-col items-center justify-center gap-5`}
         >
             <div className={`${size} relative inline-block`}>
                 <div className="absolute left-[82.5%] top-[46.25%] h-[7.5%] w-[7.5%] animate-spinner-1 rounded-full bg-cyan-500 dark:bg-cyan-300"></div>
@@ -42,6 +45,10 @@ const UiLoading: FC<IProps> = ({
                 <div className="absolute left-[65%] top-[77.5%] h-[7.5%] w-[7.5%] animate-spinner-11 rounded-full bg-cyan-500 dark:bg-cyan-300"></div>
                 <div className="absolute left-[77.5%] top-[65%] h-[7.5%] w-[7.5%] animate-spinner-12 rounded-full bg-cyan-500 dark:bg-cyan-300"></div>
             </div>
+
+            <p className="text-center font-bold text-cyan-400 dark:text-cyan-300">
+                {alertsT('loading.first')}
+            </p>
         </div>
     );
 };

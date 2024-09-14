@@ -136,6 +136,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
 
     const handleGoToProfilePage = () => {
         setIsLoading(true);
+        // add pointer events none
 
         if (myUser) {
             router.push(`/${activeLocale}/profile/${user.id}`);
