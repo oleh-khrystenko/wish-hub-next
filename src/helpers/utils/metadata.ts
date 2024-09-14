@@ -8,9 +8,7 @@ export async function fetchMetadata(
         const messages = await import(`../../../messages/${locale}.json`);
         const metaDescriptionT = (key: string) => messages[key];
 
-        const title =
-            metaDescriptionT(`${page}-page`).head.title ||
-            'Wish Hub - Про нас: як ми робимо ваші мрії реальністю';
+        const title = metaDescriptionT(`${page}-page`).head.title || 'Wish Hub';
 
         const description =
             metaDescriptionT(`${page}-page`).head.description ||
@@ -32,8 +30,9 @@ export async function fetchMetadata(
     }
 
     return {
-        title: 'Сторінку не знайдено',
-        description: 'Сторінку не знайдено',
+        title: 'Wish Hub - Сторінка не знайдена',
+        description:
+            'Wish Hub: вибачте, але сторінка, яку ви шукаєте, не знайдена. Перейдіть на головну сторінку.',
         alternates: {
             canonical: 'https://wish-hub.net/uk/',
             languages: {
