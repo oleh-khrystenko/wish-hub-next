@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
+import LangSelect from '@/components/layouts/LangSelect';
 import UiLoading from '@/components/ui/UiLoading';
 import LogoIcon from '@/components/icons/LogoIcon';
 import '@/app/globals.css';
@@ -107,7 +108,7 @@ export default function NotFound() {
     }, [activeLocale]);
 
     return (
-        <main className="flex h-full min-h-screen w-full flex-col items-center gap-10 bg-zinc-300 px-4 py-6 dark:bg-zinc-800">
+        <main className="flex h-full min-h-screen w-full flex-col items-center gap-10 px-4 py-6">
             <div className="flex min-h-full w-full max-w-7xl grow flex-col items-center">
                 <header className="flex w-full items-center justify-between gap-3 tablet-md:gap-5">
                     <button
@@ -118,7 +119,11 @@ export default function NotFound() {
                         <LogoIcon classes="tablet-md:h-10 tablet-md:w-10 h-8 w-8" />
                         Wish Hub
                     </button>
-                    <ThemeSwitcher />
+
+                    <div className="flex items-center gap-4">
+                        <ThemeSwitcher />
+                        <LangSelect selectHoverItemBg="hover:bg-zinc-100 hover:dark:bg-zinc-700" />
+                    </div>
                 </header>
 
                 <main className="flex grow flex-col items-center justify-center gap-6">
