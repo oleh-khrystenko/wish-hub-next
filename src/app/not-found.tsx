@@ -1,20 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import { Metadata } from 'next';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { IParams } from '@/models/Settings';
-import { fetchMetadata } from '@/helpers/utils/metadata';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
 import UiLoading from '@/components/ui/UiLoading';
 import LogoIcon from '@/components/icons/LogoIcon';
 import '@/app/globals.css';
-
-export async function generateMetadata({ params }: IParams): Promise<Metadata> {
-    return await fetchMetadata(params.locale, 'not-found');
-}
 
 export default function NotFound() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -28,6 +21,90 @@ export default function NotFound() {
         setIsLoading(true);
         router.replace(`/${activeLocale}/main`);
     };
+
+    useEffect(() => {
+        // title
+        document.title = `Wish Hub - ${notFoundPageT('title')}`;
+
+        // meta description
+        let metaDescription = document.querySelector(
+            'meta[name="description"]'
+        ) as HTMLMetaElement | null;
+        if (!metaDescription) {
+            // Якщо тега не існує, створюємо його
+            metaDescription = document.createElement('meta') as HTMLMetaElement;
+            metaDescription.name = 'description';
+            document.head.appendChild(metaDescription);
+        }
+        metaDescription.setAttribute(
+            'content',
+            `${notFoundPageT('head.description')}`
+        );
+
+        // link canonical
+        let linkCanonical = document.querySelector(
+            'link[rel="canonical"]'
+        ) as HTMLLinkElement | null;
+        if (!linkCanonical) {
+            // Якщо тега не існує, створюємо його
+            linkCanonical = document.createElement('link');
+            linkCanonical.rel = 'canonical';
+            document.head.appendChild(linkCanonical);
+        }
+        linkCanonical.setAttribute('href', 'https://wish-hub.net/uk/not-found');
+
+        // link alternate x-default
+        let linkDefault = document.querySelector(
+            'link[hreflang="x-default"]'
+        ) as HTMLLinkElement | null;
+        if (!linkDefault) {
+            // Якщо тега не існує, створюємо його
+            linkDefault = document.createElement('link');
+            linkDefault.rel = 'alternate';
+            linkDefault.hreflang = 'x-default';
+            document.head.appendChild(linkDefault);
+        }
+        linkDefault.setAttribute('href', 'https://wish-hub.net/uk/not-found');
+
+        // link alternate uk-ua
+        let linkUk = document.querySelector(
+            'link[hreflang="uk-ua"]'
+        ) as HTMLLinkElement | null;
+        if (!linkUk) {
+            // Якщо тега не існує, створюємо його
+            linkUk = document.createElement('link');
+            linkUk.rel = 'alternate';
+            linkUk.hreflang = 'uk-ua';
+            document.head.appendChild(linkUk);
+        }
+        linkUk.setAttribute('href', 'https://wish-hub.net/uk/not-found');
+
+        // link alternate en-ua
+        let linkEn = document.querySelector(
+            'link[hreflang="en-ua"]'
+        ) as HTMLLinkElement | null;
+        if (!linkEn) {
+            // Якщо тега не існує, створюємо його
+            linkEn = document.createElement('link');
+            linkEn.rel = 'alternate';
+            linkEn.hreflang = 'en-ua';
+            document.head.appendChild(linkEn);
+        }
+        linkEn.setAttribute('href', `https://wish-hub.net/en/not-found`);
+
+        // link alternate ru-ua
+        let linkRu = document.querySelector(
+            'link[hreflang="ru-ua"]'
+        ) as HTMLLinkElement | null;
+        if (!linkRu) {
+            // Якщо тега не існує, створюємо його
+            linkRu = document.createElement('link');
+            linkRu.rel = 'alternate';
+            linkRu.hreflang = 'ru-ua';
+            document.head.appendChild(linkRu);
+        }
+        linkRu.setAttribute('href', `https://wish-hub.net/ru/not-found`);
+    }, [activeLocale]);
 
     return (
         <main className="flex h-full min-h-screen w-full flex-col items-center gap-10 bg-zinc-300 px-4 py-6 dark:bg-zinc-800">
