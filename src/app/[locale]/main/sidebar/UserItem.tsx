@@ -37,16 +37,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showPopupUp, setShowPopupUp] = useState<boolean>(false);
     const [textWidth, setTextWidth] = useState<number>(0);
-    const [isLoadingNav, setIsLoadingNav] = useState<boolean>(false);
-    const [isLoadingAddFriend, setIsLoadingAddFriend] =
-        useState<boolean>(false);
-    const [isLoadingRemoveFriend, setIsLoadingRemoveFriend] = useState<
-        Record<EWhereRemove, boolean>
-    >({
-        [EWhereRemove.FRIENDS]: false,
-        [EWhereRemove.FOLLOW_FROM]: false,
-        [EWhereRemove.FOLLOW_TO]: false,
-    });
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const popupActionRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLLIElement>(null);
@@ -144,7 +135,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     }, [user, myUser, textWidth]);
 
     const handleGoToProfilePage = () => {
-        setIsLoadingNav(true);
+        setIsLoading(true);
 
         if (myUser) {
             router.push(`/${activeLocale}/profile/${user.id}`);
@@ -160,14 +151,14 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
 
     const handleAddFriend = async () => {
         if (myUser) {
-            setIsLoadingAddFriend(true);
+            setIsLoading(true);
 
             await addFriend(
                 { myId: myUser.id, friendId: user.id },
                 alertsT('my-user-api.add-friend.error')
             );
 
-            setIsLoadingAddFriend(false);
+            setIsLoading(false);
             setShowPopup(false);
             updateUsers();
         } else {
@@ -179,10 +170,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
         whereRemove: IRemoveFriend['whereRemove']
     ) => {
         if (myUser) {
-            setIsLoadingRemoveFriend((prev) => ({
-                ...prev,
-                [whereRemove]: true,
-            }));
+            setIsLoading(true);
 
             await removeFriend(
                 {
@@ -193,10 +181,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                 alertsT('my-user-api.remove-friend.error')
             );
 
-            setIsLoadingRemoveFriend((prev) => ({
-                ...prev,
-                [whereRemove]: false,
-            }));
+            setIsLoading(false);
             setShowPopup(false);
             updateUsers();
         } else {
@@ -360,13 +345,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                 </UiPopup>
             </div>
 
-            {(isLoadingNav ||
-                isLoadingAddFriend ||
-                isLoadingRemoveFriend[EWhereRemove.FOLLOW_TO] ||
-                isLoadingRemoveFriend[EWhereRemove.FOLLOW_FROM] ||
-                isLoadingRemoveFriend[EWhereRemove.FRIENDS]) && (
-                <UiLoading bg="bg-zinc-300 dark:bg-zinc-800" />
-            )}
+            {isLoading && <UiLoading bg="bg-zinc-300 dark:bg-zinc-800" />}
         </li>
     );
 };
