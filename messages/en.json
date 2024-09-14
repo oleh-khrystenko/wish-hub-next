@@ -531,7 +531,12 @@
         "head": {
             "title": "Wish Hub - Story not found",
             "description": "Wish Hub: Sorry, but the page you are looking for was not found. Please go to the main page."
-        }
+        },
+        "title": "Page not found",
+        "invisible_gift": "Invisible gift",
+        "text": "Oops! The page you were looking for does not exist.",
+        "sub_text": "You may have entered the page address incorrectly.",
+        "to_main": "To Main"
     },
     "alerts": {
         "my-user-api": {
