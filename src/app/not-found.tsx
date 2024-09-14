@@ -5,19 +5,14 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { IParams } from '@/models/Settings';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
 import UiLoading from '@/components/ui/UiLoading';
 import LogoIcon from '@/components/icons/LogoIcon';
 import '@/app/globals.css';
 
-interface IMetadataProps {
-    params: { locale: string };
-}
-
-export async function generateMetadata({
-    params,
-}: IMetadataProps): Promise<Metadata> {
+export async function generateMetadata({ params }: IParams): Promise<Metadata> {
     return await fetchMetadata(params.locale, 'not-found');
 }
 

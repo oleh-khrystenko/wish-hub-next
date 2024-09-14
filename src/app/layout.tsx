@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import Script from 'next/script';
 import { Mulish } from 'next/font/google';
+import { IParams } from '@/models/Settings';
 import '@/app/globals.css';
 
 const setInitialTheme = `
@@ -23,9 +24,8 @@ const mulish = Mulish({
     weight: ['300', '400', '700'],
 });
 
-interface IProps {
+interface IProps extends IParams {
     children: ReactNode;
-    params: { locale: string };
 }
 
 export default function Layout({

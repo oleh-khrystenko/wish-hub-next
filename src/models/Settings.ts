@@ -24,3 +24,7 @@ export interface INavItem {
     title: string;
     href: 'main' | 'about' | 'privacy-policy';
 }
+
+export interface IParams {
+    params: { locale: ELang };
+}

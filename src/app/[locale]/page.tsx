@@ -6,6 +6,7 @@ import {
 } from 'next-intl';
 import pick from 'lodash.pick';
 import Image from 'next/image';
+import { IParams } from '@/models/Settings';
 import Refresh from '@/helpers/hocs/Refresh';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Header from '@/app/[locale]/root-page-components/Header';
@@ -22,13 +23,7 @@ import LockIcon from '@/components/icons/LockIcon';
 import SolidEyeIcon from '@/components/icons/SolidEyeIcon';
 import WindingIcon from '@/components/icons/WindingIcon';
 
-interface IMetadataProps {
-    params: { locale: string };
-}
-
-export async function generateMetadata({
-    params,
-}: IMetadataProps): Promise<Metadata> {
+export async function generateMetadata({ params }: IParams): Promise<Metadata> {
     return await fetchMetadata(params.locale, 'welcome');
 }
 

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
+import { IParams } from '@/models/Settings';
 import Refresh from '@/helpers/hocs/Refresh';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
@@ -9,13 +10,7 @@ import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
 import LangSelect from '@/components/layouts/LangSelect';
 import UiBrand from '@/components/ui/UiBrand';
 
-interface IMetadataProps {
-    params: { locale: string };
-}
-
-export async function generateMetadata({
-    params,
-}: IMetadataProps): Promise<Metadata> {
+export async function generateMetadata({ params }: IParams): Promise<Metadata> {
     return await fetchMetadata(params.locale, 'activation-link-expired');
 }
 
