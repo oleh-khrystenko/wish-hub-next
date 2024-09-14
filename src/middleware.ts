@@ -34,5 +34,7 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/((?!_next|api|static|favicon.svg).*)'], // Ігноруємо технічні маршрути
+    matcher: [
+        '/((?!_next|api|static|app-icons|icons|images|favicon.svg|manifest.json|service-worker.js).*)',
+    ], // Ігноруємо технічні маршрути
 };
