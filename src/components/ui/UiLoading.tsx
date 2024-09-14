@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useRef, useEffect } from 'react';
 
 interface IProps {
     isLocal?: boolean;
@@ -15,6 +15,15 @@ const UiLoading: FC<IProps> = ({
     bg = 'bg-zinc-200 dark:bg-zinc-900',
     wrapClasses = 'inset-0 w-full',
 }) => {
+    const loaded = useRef(false);
+
+    useEffect(() => {
+        if (loaded.current) return;
+        loaded.current = true;
+
+        console.log('UiLoading mounted');
+    }, []);
+
     return (
         <div
             className={`${isLocal ? 'absolute h-full' : 'fixed h-svh'} ${bg} ${wrapClasses} z-50 flex items-center justify-center`}

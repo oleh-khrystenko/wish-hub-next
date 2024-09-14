@@ -10,6 +10,12 @@ const intlMiddleware = createMiddleware({
 export default function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
+    // Перевіряємо, чи це маршрут /welcome
+    if (pathname === '/welcome') {
+        // Редіректимо до /uk і зупиняємо подальший обробіток
+        return NextResponse.redirect(new URL(`/${ELang.UK}`, request.url));
+    }
+
     // Створюємо регулярний вираз на основі перерахування ELang
     const langRegex = new RegExp(`^/(${Object.values(ELang).join('|')})/`);
 
@@ -17,7 +23,7 @@ export default function middleware(request: NextRequest) {
     const isLocalized = langRegex.test(pathname);
 
     // Якщо маршрут не локалізований, редіректимо на локалізовану версію
-    if (!isLocalized) {
+    if (!isLocalized && pathname !== `/${ELang.UK}`) {
         return NextResponse.redirect(
             new URL(`/${ELang.UK}${pathname}`, request.url)
         );

@@ -79,7 +79,7 @@ export default function Layout({
                 {/* End Google Tag Manager */}
 
                 <NextIntlClientProvider
-                    messages={pick(messages, ['not-found-page'])}
+                    messages={pick(messages, ['not-found-page', 'alerts'])}
                 >
                     {children}
                 </NextIntlClientProvider>
