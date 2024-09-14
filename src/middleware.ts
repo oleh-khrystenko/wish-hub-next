@@ -9,37 +9,18 @@ const intlMiddleware = createMiddleware({
 export default function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    // редіректи
-    if (pathname === '/') {
-        return NextResponse.redirect(new URL('/uk', request.url));
-    }
-    if (pathname === '/welcome') {
-        return NextResponse.redirect(new URL('/uk', request.url));
-    }
-    if (pathname === '/auth') {
-        return NextResponse.redirect(new URL('/uk/auth', request.url));
-    }
-    if (pathname === '/about') {
-        return NextResponse.redirect(new URL('/uk/about', request.url));
-    }
-    if (pathname === '/privacy-policy') {
-        return NextResponse.redirect(
-            new URL('/uk/privacy-policy', request.url)
-        );
+    // Перевіряємо, чи маршрут уже містить локалізацію
+    const isLocalized = /^\/(uk|en|ru)\//.test(pathname);
+
+    // Якщо маршрут не локалізований, редіректимо на локалізовану версію
+    if (!isLocalized) {
+        return NextResponse.redirect(new URL(`/uk${pathname}`, request.url));
     }
 
-    // Викликаємо обробник локалізації після редіректів
+    // Викликаємо обробник локалізації після редіректу
     return intlMiddleware(request);
 }
 
 export const config = {
-    // Match only internationalized pathnames
-    matcher: [
-        '/',
-        '/welcome',
-        '/auth',
-        '/about',
-        '/privacy-policy',
-        '/(uk|en|ru)/:path*',
-    ],
+    matcher: ['/((?!_next|api|static|favicon.ico).*)'], // Ігноруємо технічні маршрути
 };
