@@ -7,7 +7,7 @@ import { EUserType, ISendUsersParams } from '@/stores/users/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
-import UserAction from '@/app/[locale]/main/sidebar/UserAction';
+import UserItem from '@/app/[locale]/main/sidebar/UserItem';
 import UiLoading from '@/components/ui/UiLoading';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import UiSearch from '@/components/ui/UiSearch';
@@ -275,7 +275,7 @@ const UserList: FC = () => {
             >
                 <ul className="flex flex-col gap-1">
                     {users.map((user) => (
-                        <UserAction
+                        <UserItem
                             key={user.id}
                             user={user}
                             updateUsers={updateUsers}

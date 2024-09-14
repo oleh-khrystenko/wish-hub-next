@@ -33,7 +33,7 @@ interface IProps {
     updateUsers: () => void;
 }
 
-const UserAction: FC<IProps> = ({ user, updateUsers }) => {
+const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showPopupUp, setShowPopupUp] = useState<boolean>(false);
     const [textWidth, setTextWidth] = useState<number>(0);
@@ -371,4 +371,4 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
     );
 };
 
-export default UserAction;
+export default UserItem;
