@@ -144,8 +144,9 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
     }, [user, myUser, textWidth]);
 
     const handleGoToProfilePage = () => {
+        setIsLoadingNav(true);
+
         if (myUser) {
-            setIsLoadingNav(true);
             router.push(`/${activeLocale}/profile/${user.id}`);
         } else {
             router.push(`/${activeLocale}/auth`);
@@ -255,12 +256,6 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                     alt={getFullName(user)}
                     size={40}
                     sizeTailwind="w-10 min-w-10 h-10 min-h-10"
-                    isLoading={isLoadingNav}
-                    bgLoading={
-                        user.id === selectedUserId
-                            ? 'bg-zinc-100 dark:bg-zinc-900'
-                            : 'bg-zinc-300 dark:bg-zinc-800'
-                    }
                     handleClick={handleGoToProfilePage}
                 />
 
@@ -306,14 +301,6 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                             <PersonIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
 
                             {mainPageT('user-profile')}
-
-                            {isLoadingNav && (
-                                <UiLoading
-                                    isLocal
-                                    size="h-6 min-h-6 w-6 min-w-6"
-                                    bg="bg-zinc-100 dark:bg-zinc-700"
-                                />
-                            )}
                         </button>
                         {showAddFriend && (
                             <button
@@ -326,14 +313,6 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                                 {myUser?.followFrom.includes(user.id)
                                     ? mainPageT('confirm-friendship')
                                     : mainPageT('add-friend')}
-
-                                {isLoadingAddFriend && (
-                                    <UiLoading
-                                        isLocal
-                                        size="h-6 min-h-6 w-6 min-w-6"
-                                        bg="bg-zinc-100 dark:bg-zinc-700"
-                                    />
-                                )}
                             </button>
                         )}
                         {(myUser?.friends.includes(user.id) ||
@@ -348,15 +327,6 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                                 <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
                                 {mainPageT('delete-your')} <br />{' '}
                                 {mainPageT('delete-request')}
-                                {isLoadingRemoveFriend[
-                                    EWhereRemove.FOLLOW_TO
-                                ] && (
-                                    <UiLoading
-                                        isLocal
-                                        size="h-6 min-h-6 w-6 min-w-6"
-                                        bg="bg-zinc-100 dark:bg-zinc-700"
-                                    />
-                                )}
                             </button>
                         )}
                         {(myUser?.friends.includes(user.id) ||
@@ -371,15 +341,6 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                                 <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
                                 {mainPageT('delete-user_s')} <br />{' '}
                                 {mainPageT('delete-request')}
-                                {isLoadingRemoveFriend[
-                                    EWhereRemove.FOLLOW_FROM
-                                ] && (
-                                    <UiLoading
-                                        isLocal
-                                        size="h-6 min-h-6 w-6 min-w-6"
-                                        bg="bg-zinc-100 dark:bg-zinc-700"
-                                    />
-                                )}
                             </button>
                         )}
                         {myUser?.friends.includes(user.id) && (
@@ -393,21 +354,19 @@ const UserAction: FC<IProps> = ({ user, updateUsers }) => {
                                 <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
 
                                 {mainPageT('remove-friend')}
-
-                                {isLoadingRemoveFriend[
-                                    EWhereRemove.FRIENDS
-                                ] && (
-                                    <UiLoading
-                                        isLocal
-                                        size="h-6 min-h-6 w-6 min-w-6"
-                                        bg="bg-zinc-100 dark:bg-zinc-700"
-                                    />
-                                )}
                             </button>
                         )}
                     </div>
                 </UiPopup>
             </div>
+
+            {(isLoadingNav ||
+                isLoadingAddFriend ||
+                isLoadingRemoveFriend[EWhereRemove.FOLLOW_TO] ||
+                isLoadingRemoveFriend[EWhereRemove.FOLLOW_FROM] ||
+                isLoadingRemoveFriend[EWhereRemove.FRIENDS]) && (
+                <UiLoading bg="bg-zinc-300 dark:bg-zinc-800" />
+            )}
         </li>
     );
 };

@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import { IUser } from '@/models/User';
-import UiLoading from '@/components/ui/UiLoading';
 import PersonIcon from '@/components/icons/PersonIcon';
 
 interface IProps {
@@ -11,8 +10,6 @@ interface IProps {
     size?: number;
     sizeTailwind?: string;
     sizeIcon?: string;
-    isLoading?: boolean;
-    bgLoading?: string;
     handleClick?: () => void;
 }
 
@@ -23,8 +20,6 @@ const UiAvatar: FC<IProps> = ({
     size = 44,
     sizeTailwind = 'w-11 min-w-11 h-11 min-h-11',
     sizeIcon = 'w-7 h-7',
-    isLoading,
-    bgLoading = 'bg-zinc-200 dark:bg-zinc-900',
     handleClick,
 }) => {
     return (
@@ -46,10 +41,6 @@ const UiAvatar: FC<IProps> = ({
                 <PersonIcon
                     classes={`${sizeIcon} fill-zinc-800 dark:fill-zinc-300`}
                 />
-            )}
-
-            {isLoading && (
-                <UiLoading isLocal size={sizeTailwind} bg={bgLoading} />
             )}
         </div>
     );

@@ -177,36 +177,40 @@ const Menu: FC<IProps> = ({
                 <div className="flex flex-col items-stretch gap-2 px-4 pb-2 pt-4 tablet-md:py-2">
                     {myUser && (
                         <>
-                            <UiButton
-                                variant="text"
-                                onBtnClick={handleSelectMyWishes}
-                            >
-                                <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
-                                    {theme === ETheme.DARK ? (
-                                        <LogoLightIcon
-                                            classes="h-6 w-6"
-                                            id={`${logoIconId}-popup`}
-                                        />
-                                    ) : (
-                                        <LogoDarkIcon
-                                            classes="h-6 w-6"
-                                            id={`${logoIconId}-popup`}
-                                        />
-                                    )}
-                                    {mainPageT('my_wishes')}
-                                </span>
-                            </UiButton>
+                            {(myUser.id !== selectedUserId || !isMainPage) && (
+                                <UiButton
+                                    variant="text"
+                                    onBtnClick={handleSelectMyWishes}
+                                >
+                                    <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                                        {theme === ETheme.DARK ? (
+                                            <LogoLightIcon
+                                                classes="h-6 w-6"
+                                                id={`${logoIconId}-popup`}
+                                            />
+                                        ) : (
+                                            <LogoDarkIcon
+                                                classes="h-6 w-6"
+                                                id={`${logoIconId}-popup`}
+                                            />
+                                        )}
+                                        {mainPageT('my_wishes')}
+                                    </span>
+                                </UiButton>
+                            )}
 
-                            <UiButton
-                                href={`/profile/${myUser.id}`}
-                                variant="text"
-                                bgLoading="bg-zinc-100 dark:bg-zinc-700"
-                            >
-                                <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
-                                    <PersonIcon />
-                                    {mainPageT('my-profile')}
-                                </span>
-                            </UiButton>
+                            {!pathname.includes('/profile') && (
+                                <UiButton
+                                    href={`/profile/${myUser.id}`}
+                                    variant="text"
+                                    bgLoading="bg-zinc-100 dark:bg-zinc-700"
+                                >
+                                    <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                                        <PersonIcon />
+                                        {mainPageT('my-profile')}
+                                    </span>
+                                </UiButton>
+                            )}
                         </>
                     )}
 
