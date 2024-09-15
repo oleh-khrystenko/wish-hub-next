@@ -16,7 +16,6 @@ import { useSettingsStore } from '@/stores/settings';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
-import UiLoading from '@/components/ui/UiLoading';
 import UiAvatar from '@/components/ui/UiAvatar';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -37,7 +36,6 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showPopupUp, setShowPopupUp] = useState<boolean>(false);
     const [textWidth, setTextWidth] = useState<number>(0);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const popupActionRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLLIElement>(null);
@@ -56,6 +54,9 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
 
     const setActivatedSidebar = useSettingsStore(
         (state) => state.setActivatedSidebar
+    );
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
     );
 
     const { getMonthWithDate } = UseLocaleFormats();
@@ -135,8 +136,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     }, [user, myUser, textWidth]);
 
     const handleGoToProfilePage = () => {
-        setIsLoading(true);
-        // add pointer events none
+        setShowGlobalLoading(true);
 
         if (myUser) {
             router.push(`/${activeLocale}/profile/${user.id}`);
@@ -152,14 +152,14 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
 
     const handleAddFriend = async () => {
         if (myUser) {
-            setIsLoading(true);
+            setShowGlobalLoading(true);
 
             await addFriend(
                 { myId: myUser.id, friendId: user.id },
                 alertsT('my-user-api.add-friend.error')
             );
 
-            setIsLoading(false);
+            setShowGlobalLoading(false);
             setShowPopup(false);
             updateUsers();
         } else {
@@ -171,7 +171,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
         whereRemove: IRemoveFriend['whereRemove']
     ) => {
         if (myUser) {
-            setIsLoading(true);
+            setShowGlobalLoading(true);
 
             await removeFriend(
                 {
@@ -182,7 +182,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                 alertsT('my-user-api.remove-friend.error')
             );
 
-            setIsLoading(false);
+            setShowGlobalLoading(false);
             setShowPopup(false);
             updateUsers();
         } else {
@@ -345,8 +345,6 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                     </div>
                 </UiPopup>
             </div>
-
-            {isLoading && <UiLoading bg="bg-zinc-300 dark:bg-zinc-800" />}
         </li>
     );
 };

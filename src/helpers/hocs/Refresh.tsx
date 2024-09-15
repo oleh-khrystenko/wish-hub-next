@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useMyUserStore } from '@/stores/my-user';
+import { useSettingsStore } from '@/stores/settings';
 import UiLoading from '@/components/ui/UiLoading';
 import {
     checkNotificationSubscription,
@@ -25,6 +26,10 @@ const Refresh: FC<IProps> = ({ withoutLoading, children }) => {
 
     const myUserId = useMyUserStore((state) => state.myUser?.id);
     const refresh = useMyUserStore((state) => state.refresh);
+
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
+    );
 
     useEffect(() => {
         const registerServiceWorker = () => {
@@ -61,6 +66,7 @@ const Refresh: FC<IProps> = ({ withoutLoading, children }) => {
         if (refreshed.current) return;
         refreshed.current = true;
 
+        setShowGlobalLoading(false);
         setIsLoading(true);
 
         refresh(alertsT('my-user-api.refresh.error'))

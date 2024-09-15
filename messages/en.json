@@ -647,7 +647,8 @@
         "loading": {
             "first": "We're already working on it. Don't worry, everything is under control!",
             "second": "Something's taking longer than expected... It might be due to slow internet. Try refreshing the page.",
-            "third": "Oops, it's not the internet's fault this time... Refresh the page. Looks like the developers messed up. I wonder if they even tested this?"
+            "third": "Oops, it's not the internet's fault this time... Refresh the page. Looks like the developers messed up. I wonder if they even tested this?",
+            "reload": "Reload the page"
         }
     },
     "inactivated": {

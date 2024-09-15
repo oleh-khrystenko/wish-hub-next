@@ -4,8 +4,7 @@ import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
 import Refresh from '@/helpers/hocs/Refresh';
 import { fetchMetadata } from '@/helpers/utils/metadata';
-import Content from '@/app/[locale]/main/Content';
-import Sidebar from '@/app/[locale]/main/sidebar/Sidebar';
+import Body from '@/app/[locale]/main/Body';
 import BottomMenu from '@/app/[locale]/main/BottomMenu';
 import Header from '@/components/layouts/header/Header';
 
@@ -31,11 +30,7 @@ export default function Main() {
                 <Refresh>
                     <Header isMainPage />
 
-                    <main className="flex grow overflow-hidden">
-                        <Sidebar />
-
-                        <Content />
-                    </main>
+                    <Body />
                 </Refresh>
 
                 <BottomMenu />
