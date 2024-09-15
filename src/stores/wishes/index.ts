@@ -14,6 +14,7 @@ import {
     IUpdateWish,
 } from '@/stores/wishes/types';
 import wishesApi from '@/stores/wishes/api';
+import { useSettingsStore } from '@/stores/settings';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
 const replaceWish = (
@@ -40,6 +41,8 @@ const replaceWish = (
     return {};
 };
 
+const { setShowGlobalLoading } = useSettingsStore.getState();
+
 interface IWishesStore {
     list: IWish[];
     wishCandidate: IWishCandidate | null;
@@ -49,7 +52,6 @@ interface IWishesStore {
     sort: EWishSort;
     page: number;
     stopRequests: boolean;
-    isLoading: boolean;
     setWishesStatus: (value: EWishStatus) => void;
     setWishesSearch: (value: string) => void;
     setWishesSort: (value: EWishSort) => void;
@@ -102,7 +104,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     sort: EWishSort.POPULAR,
     page: 1,
     stopRequests: false,
-    isLoading: false,
     setWishesStatus: (value) => {
         set((state) => ({
             ...state,
@@ -267,10 +268,11 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         }
     },
     getWishList: async (data, errorT) => {
+        setShowGlobalLoading(true);
+
         set((state) => ({
             ...state,
             stopRequests: true,
-            isLoading: true,
         }));
 
         try {
@@ -292,10 +294,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
+            setShowGlobalLoading(false);
         }
     },
     addWishList: async (data, errorT) => {
@@ -324,10 +323,10 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         }
     },
     getAllWishes: async (data, errorT) => {
+        setShowGlobalLoading(true);
         set((state) => ({
             ...state,
             stopRequests: true,
-            isLoading: true,
         }));
 
         try {
@@ -347,10 +346,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
+            setShowGlobalLoading(false);
         }
     },
     addAllWishes: async (data, errorT) => {

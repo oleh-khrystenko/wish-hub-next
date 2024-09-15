@@ -27,16 +27,18 @@ const UiLoading: FC<IProps> = ({
     };
 
     useEffect(() => {
+        if (isLocal) return;
+
         const timerFirst = setTimeout(() => {
             setMessage(alertsT('loading.first'));
-        }, 5000); // 5 секунд
+        }, 4000); // 4 секунд
         const timerSecond = setTimeout(() => {
             setMessage(alertsT('loading.second'));
         }, 12000); // 12 секунд
         const timerThird = setTimeout(() => {
             setMessage(alertsT('loading.third'));
             setShowReload(true);
-        }, 30000); // 30 секунд
+        }, 22000); // 22 секунд
 
         return () => {
             clearTimeout(timerFirst);

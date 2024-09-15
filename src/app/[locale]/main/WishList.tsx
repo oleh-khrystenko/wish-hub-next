@@ -30,7 +30,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const [idOfSelectedWish, setIdOfSelectedWish] = useState<
         IWish['id'] | null
     >(null);
-    const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const wishListRef = useRef<HTMLDivElement>(null);
     const gotWishes = useRef(false);
@@ -54,7 +54,6 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
-    const isLoading = useWishesStore((state) => state.isLoading);
     const setWishesSort = useWishesStore((state) => state.setWishesSort);
     const resetWishCandidate = useWishesStore(
         (state) => state.resetWishCandidate
@@ -145,7 +144,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
             if (!inView || stopRequests) return;
 
-            setIsLoadingAdd(true);
+            setIsLoading(true);
 
             if (selectedUserId) {
                 await addWishList(
@@ -173,7 +172,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                 );
             }
 
-            setIsLoadingAdd(false);
+            setIsLoading(false);
         };
 
         fetchWishes().finally();
@@ -329,7 +328,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                         ></li>
                     </ul>
 
-                    {isLoadingAdd && (
+                    {isLoading && (
                         <div className="relative mt-5 h-20 w-full">
                             <UiLoading isLocal />
                         </div>
@@ -342,8 +341,6 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                     </p>
                 </div>
             )}
-
-            {isLoading && <UiLoading isLocal />}
 
             {detailWish && (
                 <UiModal
