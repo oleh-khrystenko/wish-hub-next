@@ -3,7 +3,10 @@ import { toast } from 'react-toastify';
 import { IUser } from '@/models/User';
 import usersApi from '@/stores/users/api';
 import { ISendAllUsersParams, ISendUsersParams } from '@/stores/users/types';
+import { useSettingsStore } from '@/stores/settings';
 import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
+
+const { setShowGlobalLoading } = useSettingsStore.getState();
 
 interface IUsersStore {
     list: IUser[];
@@ -40,6 +43,8 @@ export const useUsersStore = create<IUsersStore>((set) => ({
         }));
     },
     getUsers: async (params, errorT) => {
+        setShowGlobalLoading(true);
+
         set((state) => ({
             ...state,
             stopRequests: true,
@@ -63,6 +68,8 @@ export const useUsersStore = create<IUsersStore>((set) => ({
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     addUsers: async (params, errorT) => {
@@ -95,6 +102,8 @@ export const useUsersStore = create<IUsersStore>((set) => ({
         }
     },
     getAllUsers: async (params, errorT) => {
+        setShowGlobalLoading(true);
+
         set((state) => ({
             ...state,
             stopRequests: true,
@@ -119,6 +128,8 @@ export const useUsersStore = create<IUsersStore>((set) => ({
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     addAllUsers: async (params, errorT) => {

@@ -17,8 +17,7 @@ const UserList: FC = () => {
     const [userType, setUserType] = useState<ISendUsersParams['userType']>(
         EUserType.ALL
     );
-    const [isLoadingGet, setIsLoadingGet] = useState<boolean>(false);
-    const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const userListRef = useRef<HTMLDivElement>(null);
     const gotUsers = useRef(false);
@@ -89,8 +88,6 @@ const UserList: FC = () => {
 
         if (!myUser) return;
 
-        setIsLoadingGet(true);
-
         await getUsers(
             {
                 page: 1,
@@ -108,14 +105,10 @@ const UserList: FC = () => {
                 top: 0,
             });
         }
-
-        setIsLoadingGet(false);
     };
 
     const handleChangeSearchBar = async (value: string) => {
         setSearch(value);
-
-        setIsLoadingGet(true);
 
         if (myUser) {
             await getUsers(
@@ -145,14 +138,10 @@ const UserList: FC = () => {
                 top: 0,
             });
         }
-
-        setIsLoadingGet(false);
     };
 
     const updateUsers = async () => {
         if (!myUser) return;
-
-        setIsLoadingGet(true);
 
         await getUsers(
             {
@@ -171,8 +160,6 @@ const UserList: FC = () => {
                 top: 0,
             });
         }
-
-        setIsLoadingGet(false);
     };
 
     useEffect(() => {
@@ -181,7 +168,7 @@ const UserList: FC = () => {
         if (!inView || stopRequests) return;
 
         const fetchUsers = async () => {
-            setIsLoadingAdd(true);
+            setIsLoading(true);
 
             if (myUser) {
                 await addUsers(
@@ -201,7 +188,7 @@ const UserList: FC = () => {
                 );
             }
 
-            setIsLoadingAdd(false);
+            setIsLoading(false);
         };
 
         fetchUsers().finally();
@@ -212,8 +199,6 @@ const UserList: FC = () => {
         gotUsers.current = true;
 
         const fetchUsers = async () => {
-            setIsLoadingGet(true);
-
             if (myUser) {
                 await getUsers(
                     {
@@ -233,7 +218,6 @@ const UserList: FC = () => {
             }
 
             setFirstLoaded(true);
-            setIsLoadingGet(false);
         };
 
         fetchUsers().finally();
@@ -289,11 +273,7 @@ const UserList: FC = () => {
                     ref={ref}
                 ></div>
 
-                {isLoadingGet && (
-                    <UiLoading isLocal bg="bg-zinc-300 dark:bg-zinc-800" />
-                )}
-
-                {isLoadingAdd && (
+                {isLoading && (
                     <div className="relative mt-2 h-10 w-full">
                         <UiLoading
                             isLocal
