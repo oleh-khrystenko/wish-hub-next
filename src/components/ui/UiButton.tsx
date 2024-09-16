@@ -17,8 +17,6 @@ interface IProps {
         | 'solid'
         | 'solid-gray'
         | 'outline';
-    sizeLoading?: string;
-    bgLoading?: string;
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
     onLinkClick?: () => void;
@@ -31,8 +29,6 @@ const UiButton: FC<IProps> = ({
     target,
     tabIndex = 0,
     variant = 'solid',
-    sizeLoading = 'h-6 min-h-6 w-6 min-w-6',
-    bgLoading = 'bg-zinc-300 dark:bg-zinc-800',
     disabled,
     type = 'button',
     onLinkClick,

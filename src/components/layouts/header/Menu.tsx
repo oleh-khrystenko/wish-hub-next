@@ -34,15 +34,9 @@ interface IProps {
     isMainPage?: boolean;
     showPopupUp?: boolean;
     logoIconId?: string;
-    loginBg?: string;
 }
 
-const Menu: FC<IProps> = ({
-    isMainPage,
-    showPopupUp,
-    logoIconId,
-    loginBg = 'bg-zinc-300 dark:bg-zinc-800',
-}) => {
+const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showContacts, setShowContacts] = useState<boolean>(false);
 
@@ -138,7 +132,7 @@ const Menu: FC<IProps> = ({
                     )}
                 </>
             ) : (
-                <UiButton href="auth" variant="text" bgLoading={loginBg}>
+                <UiButton href="auth" variant="text">
                     <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
                         {mainPageT('sign-in')}
                     </span>
@@ -201,7 +195,6 @@ const Menu: FC<IProps> = ({
                                 <UiButton
                                     href={`/profile/${myUser.id}`}
                                     variant="text"
-                                    bgLoading="bg-zinc-100 dark:bg-zinc-700"
                                 >
                                     <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                         <PersonIcon />
@@ -229,7 +222,6 @@ const Menu: FC<IProps> = ({
                     {/*<UiButton*/}
                     {/*    href="instruction"*/}
                     {/*    variant="text"*/}
-                    {/*    bgLoading="bg-zinc-100 dark:bg-zinc-700"*/}
                     {/*>*/}
                     {/*    <span*/}
                     {/*        className="*/}
@@ -242,11 +234,7 @@ const Menu: FC<IProps> = ({
                     {/*    </span>*/}
                     {/*</UiButton>*/}
 
-                    <UiButton
-                        href="about"
-                        variant="text"
-                        bgLoading="bg-zinc-100 dark:bg-zinc-700"
-                    >
+                    <UiButton href="about" variant="text">
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <InfoIcon classes="h-6 w-6 stroke-zinc-700 dark:stroke-zinc-300" />
                             {mainPageT('about')} Wish Hub
@@ -263,11 +251,7 @@ const Menu: FC<IProps> = ({
                         </span>
                     </ShareButton>
 
-                    <UiButton
-                        variant="text"
-                        bgLoading="bg-zinc-100 dark:bg-zinc-700"
-                        onBtnClick={handleShowContacts}
-                    >
+                    <UiButton variant="text" onBtnClick={handleShowContacts}>
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <ForumIcon />
                             {mainPageT('contacts')}

@@ -23,7 +23,6 @@ const NavList: FC<IProps> = ({ navList, remove }) => {
                             <li key={href}>
                                 <UiButton
                                     variant="text-only"
-                                    bgLoading="bg-zinc-300 dark:bg-zinc-800"
                                     onBtnClick={() =>
                                         window.scrollTo({
                                             top: 0,
@@ -40,11 +39,7 @@ const NavList: FC<IProps> = ({ navList, remove }) => {
                     }
                     return (
                         <li key={href}>
-                            <UiButton
-                                href={href}
-                                variant="text-only"
-                                bgLoading="bg-zinc-300 dark:bg-zinc-800"
-                            >
+                            <UiButton href={href} variant="text-only">
                                 <span className="font-bold text-zinc-700 dark:text-zinc-400">
                                     {title}
                                 </span>

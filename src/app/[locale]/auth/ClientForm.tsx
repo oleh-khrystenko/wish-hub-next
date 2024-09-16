@@ -400,11 +400,7 @@ const ClientForm: FC = () => {
                     >
                         {authPageT('i_agree_to')}
                         &nbsp;
-                        <UiButton
-                            href="privacy-policy"
-                            variant="text"
-                            bgLoading="bg-zinc-200 dark:bg-zinc-900 tablet-md:bg-zinc-300 tablet-md:dark:bg-zinc-800"
-                        >
+                        <UiButton href="privacy-policy" variant="text">
                             {authPageT('privacy_policy')}
                         </UiButton>
                         &nbsp;

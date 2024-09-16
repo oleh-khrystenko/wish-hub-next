@@ -14,12 +14,7 @@ const AgreeAction: FC<IProps> = ({ text }) => {
     return (
         !myUser && (
             <div className="ml-auto w-fit">
-                <UiButton
-                    href="/auth?agree"
-                    bgLoading="bg-zinc-200 dark:bg-zinc-900"
-                >
-                    {text}
-                </UiButton>
+                <UiButton href="/auth?agree">{text}</UiButton>
             </div>
         )
     );

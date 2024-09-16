@@ -176,12 +176,7 @@ const Content: FC = () => {
                                     {privacyPolicyPageT('website-strong')}
                                 </strong>{' '}
                                 {privacyPolicyPageT('website')}{' '}
-                                <UiButton
-                                    href="/"
-                                    variant="text-only"
-                                    sizeLoading="h-5 min-h-5 w-5 min-w-5"
-                                    bgLoading="bg-zinc-200 dark:bg-zinc-900"
-                                >
+                                <UiButton href="/" variant="text-only">
                                     https://wish-hub.net/
                                 </UiButton>
                             </p>

@@ -24,12 +24,7 @@ const BottomMenu: FC = () => {
                 />
             </button>
 
-            <Menu
-                isMainPage
-                showPopupUp
-                logoIconId="menu"
-                loginBg="bg-zinc-100 dark:bg-zinc-700"
-            />
+            <Menu isMainPage showPopupUp logoIconId="menu" />
         </div>
     );
 };
