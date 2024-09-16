@@ -17,20 +17,20 @@ export default function middleware(request: NextRequest) {
     }
 
     // Створюємо регулярний вираз на основі перерахування ELang
-    const langRegex = new RegExp(`^/(${Object.values(ELang).join('|')})/`);
+    const langRegex = new RegExp(`^/(${Object.values(ELang).join('|')})(/|$)`);
 
     // Перевіряємо, чи маршрут уже містить локалізацію
     const isLocalized = langRegex.test(pathname);
 
-    // Якщо маршрут не локалізований, редіректимо на локалізовану версію
-    if (!isLocalized && pathname !== `/${ELang.UK}`) {
-        return NextResponse.redirect(
-            new URL(`/${ELang.UK}${pathname}`, request.url)
-        );
+    // Якщо маршрут уже містить локалізацію і вона не є кореневою (наприклад, /en або /uk), викликаємо intlMiddleware
+    if (isLocalized) {
+        return intlMiddleware(request);
     }
 
-    // Викликаємо обробник локалізації після редіректу
-    return intlMiddleware(request);
+    // Якщо маршрут не локалізований, редіректимо на локалізовану версію
+    return NextResponse.redirect(
+        new URL(`/${ELang.UK}${pathname}`, request.url)
+    );
 }
 
 export const config = {
