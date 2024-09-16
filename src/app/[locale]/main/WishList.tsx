@@ -30,7 +30,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const [idOfSelectedWish, setIdOfSelectedWish] = useState<
         IWish['id'] | null
     >(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
     const wishListRef = useRef<HTMLDivElement>(null);
     const gotWishes = useRef(false);
@@ -144,7 +144,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
             if (!inView || stopRequests) return;
 
-            setIsLoading(true);
+            setIsLoadingAdd(true);
 
             if (selectedUserId) {
                 await addWishList(
@@ -172,7 +172,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                 );
             }
 
-            setIsLoading(false);
+            setIsLoadingAdd(false);
         };
 
         fetchWishes().finally();
@@ -328,7 +328,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                         ></li>
                     </ul>
 
-                    {isLoading && (
+                    {isLoadingAdd && (
                         <div className="relative mt-5 h-20 w-full">
                             <UiLoading isLocal />
                         </div>

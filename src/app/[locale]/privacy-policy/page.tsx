@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
-import Refresh from '@/helpers/hocs/Refresh';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Content from '@/app/[locale]/privacy-policy/Content';
 import Header from '@/components/layouts/header/Header';
@@ -24,9 +23,7 @@ export default function PrivacyPolicy() {
                     'alerts',
                 ])}
             >
-                <Refresh>
-                    <Header />
-                </Refresh>
+                <Header />
             </NextIntlClientProvider>
 
             <Content />

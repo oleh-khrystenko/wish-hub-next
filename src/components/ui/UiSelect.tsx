@@ -1,7 +1,6 @@
 'use client';
 
 import { FC, ReactNode, useRef, useState } from 'react';
-import UiLoading from '@/components/ui/UiLoading';
 import OutsideClickHandler from '@/helpers/hocs/OutsideClickHandler';
 import ArrowChevronIcon from '@/components/icons/ArrowChevronIcon';
 
@@ -14,18 +13,16 @@ interface IProps {
     options: IOption[];
     bg?: string;
     hoverItemBg?: string;
-    isPending?: boolean;
     withoutIcon?: boolean;
     expandTop?: boolean;
     value: IOption['value'];
-    onChange: (value: IOption['value']) => void;
+    onChange: (value: IOption['value']) => Promise<void>;
 }
 
 const UiSelect: FC<IProps> = ({
     options,
     bg = 'bg-zinc-100 dark:bg-zinc-950',
     hoverItemBg = 'hover:bg-zinc-200 hover:dark:bg-zinc-900',
-    isPending,
     withoutIcon = false,
     expandTop,
     value,
@@ -46,8 +43,8 @@ const UiSelect: FC<IProps> = ({
         setShow((prevState) => !prevState);
     };
 
-    const handleOptionChange = (value: IOption['value']) => {
-        onChange(value);
+    const handleOptionChange = async (value: IOption['value']) => {
+        await onChange(value);
         setShow(false);
     };
 
@@ -76,14 +73,6 @@ const UiSelect: FC<IProps> = ({
                                 />
                             )}
                         </span>
-
-                        {isPending && (
-                            <UiLoading
-                                isLocal
-                                size="h-10 min-h-10 w-10 min-w-10"
-                                bg={bg}
-                            />
-                        )}
                     </button>
 
                     <ul
@@ -97,8 +86,10 @@ const UiSelect: FC<IProps> = ({
                                     <button
                                         className={`${hoverItemBg} relative flex w-full items-center gap-2 px-3 py-2.5 transition-all duration-300 ease-in-out`}
                                         type="button"
-                                        onClick={() =>
-                                            handleOptionChange(option.value)
+                                        onClick={async () =>
+                                            await handleOptionChange(
+                                                option.value
+                                            )
                                         }
                                     >
                                         {option.label}

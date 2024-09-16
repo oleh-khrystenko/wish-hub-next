@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
-import Refresh from '@/helpers/hocs/Refresh';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import ClientForm from '@/app/[locale]/change-forgotten-password/[passwordResetLink]/ClientForm';
@@ -32,18 +31,12 @@ export default function ChangeForgottenPassword() {
                         <LangSelect />
                     </div>
 
-                    <UiBrand
-                        withLogo
-                        isBig
-                        sizeLoading="h-16 min-h-16 w-16 min-w-16"
-                    />
+                    <UiBrand withLogo isBig />
                 </header>
 
-                <Refresh>
-                    <RoutesGuard>
-                        <ClientForm />
-                    </RoutesGuard>
-                </Refresh>
+                <RoutesGuard>
+                    <ClientForm />
+                </RoutesGuard>
             </NextIntlClientProvider>
         </main>
     );

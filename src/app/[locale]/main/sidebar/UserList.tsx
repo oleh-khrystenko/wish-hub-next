@@ -17,7 +17,7 @@ const UserList: FC = () => {
     const [userType, setUserType] = useState<ISendUsersParams['userType']>(
         EUserType.ALL
     );
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
     const userListRef = useRef<HTMLDivElement>(null);
     const gotUsers = useRef(false);
@@ -168,7 +168,7 @@ const UserList: FC = () => {
         if (!inView || stopRequests) return;
 
         const fetchUsers = async () => {
-            setIsLoading(true);
+            setIsLoadingAdd(true);
 
             if (myUser) {
                 await addUsers(
@@ -188,7 +188,7 @@ const UserList: FC = () => {
                 );
             }
 
-            setIsLoading(false);
+            setIsLoadingAdd(false);
         };
 
         fetchUsers().finally();
@@ -273,7 +273,7 @@ const UserList: FC = () => {
                     ref={ref}
                 ></div>
 
-                {isLoading && (
+                {isLoadingAdd && (
                     <div className="relative mt-2 h-10 w-full">
                         <UiLoading
                             isLocal

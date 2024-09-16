@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, ReactNode, MouseEventHandler, useState } from 'react';
+import { FC, ReactNode, MouseEventHandler } from 'react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
-import UiLoading from '@/components/ui/UiLoading';
+import { useSettingsStore } from '@/stores/settings';
 
 interface IProps {
     href?: string;
@@ -39,10 +39,12 @@ const UiButton: FC<IProps> = ({
     onBtnClick,
     children,
 }) => {
-    const [isLoading, setIsLoading] = useState(false);
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
+    );
 
     const handleLinkClick = () => {
-        setIsLoading(true);
+        setShowGlobalLoading(true);
         onLinkClick && onLinkClick();
     };
 
@@ -108,10 +110,6 @@ const UiButton: FC<IProps> = ({
                     <>{children}</>
                 ) : (
                     <span className={spanClasses}>{children}</span>
-                )}
-
-                {isLoading && (
-                    <UiLoading isLocal size={sizeLoading} bg={bgLoading} />
                 )}
             </Link>
         );

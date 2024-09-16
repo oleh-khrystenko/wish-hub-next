@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
-import Refresh from '@/helpers/hocs/Refresh';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import ClientForm from '@/app/[locale]/auth/ClientForm';
@@ -32,18 +31,12 @@ export default function Auth() {
                         <LangSelect selectHoverItemBg="hover:bg-zinc-100 hover:dark:bg-zinc-700" />
                     </div>
 
-                    <UiBrand
-                        withLogo
-                        isBig
-                        sizeLoading="h-16 min-h-16 w-16 min-w-16"
-                    />
+                    <UiBrand withLogo isBig />
                 </header>
 
-                <Refresh>
-                    <RoutesGuard isUnauthenticated>
-                        <ClientForm />
-                    </RoutesGuard>
-                </Refresh>
+                <RoutesGuard isUnauthenticated>
+                    <ClientForm />
+                </RoutesGuard>
             </NextIntlClientProvider>
         </main>
     );

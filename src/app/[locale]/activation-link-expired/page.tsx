@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
-import Refresh from '@/helpers/hocs/Refresh';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Content from '@/app/[locale]/activation-link-expired/Content';
@@ -32,18 +31,12 @@ export default function ActivationLinkExpired() {
                         <LangSelect />
                     </div>
 
-                    <UiBrand
-                        withLogo
-                        isBig
-                        sizeLoading="h-16 min-h-16 w-16 min-w-16"
-                    />
+                    <UiBrand withLogo isBig />
                 </header>
 
-                <Refresh>
-                    <RoutesGuard>
-                        <Content />
-                    </RoutesGuard>
-                </Refresh>
+                <RoutesGuard>
+                    <Content />
+                </RoutesGuard>
             </NextIntlClientProvider>
         </main>
     );

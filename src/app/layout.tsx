@@ -4,6 +4,9 @@ import { Mulish } from 'next/font/google';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
+import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
+import ServiceWorkerRegistrar from '@/helpers/hocs/ServiceWorkerRegistrar';
+import ReactToastify from '@/components/layouts/ReactToastify';
 import '@/app/globals.css';
 
 const setInitialTheme = `
@@ -82,7 +85,13 @@ export default function Layout({
                     messages={pick(messages, ['not-found-page', 'alerts'])}
                 >
                     {children}
+
+                    <UserSessionRefresher />
                 </NextIntlClientProvider>
+
+                <ServiceWorkerRegistrar />
+
+                <ReactToastify />
             </body>
         </html>
     );

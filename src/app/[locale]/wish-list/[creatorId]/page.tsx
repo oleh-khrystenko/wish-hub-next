@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
-import Refresh from '@/helpers/hocs/Refresh';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Content from '@/app/[locale]/wish-list/[creatorId]/Content';
 import Header from '@/components/layouts/header/Header';
@@ -27,11 +26,9 @@ export default function Wish() {
                         'alerts',
                     ])}
                 >
-                    <Refresh>
-                        <Header />
+                    <Header />
 
-                        <Content />
-                    </Refresh>
+                    <Content />
                 </NextIntlClientProvider>
             </div>
 

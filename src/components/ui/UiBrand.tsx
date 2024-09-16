@@ -1,19 +1,17 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 import { Manrope } from 'next/font/google';
 import { useLocale } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
-import UiLoading from '@/components/ui/UiLoading';
 import LogoIcon from '@/components/icons/LogoIcon';
+import { useSettingsStore } from '@/stores/settings';
 
 const manrope = Manrope({ subsets: ['latin'], weight: ['700'] });
 
 interface IProps {
     logoId?: string;
-    sizeLoading?: string;
-    bgLoading?: string;
     disabled?: boolean;
     withLogo?: boolean;
     isBig?: boolean;
@@ -21,17 +19,17 @@ interface IProps {
 
 const UiBrand: FC<IProps> = ({
     logoId = 'brand-logo',
-    sizeLoading = 'h-12 min-h-12 w-12 min-w-12',
-    bgLoading = 'bg-zinc-200 dark:bg-zinc-900',
     disabled,
     withLogo,
     isBig,
 }) => {
-    const [isLoading, setIsLoading] = useState(false);
-
     const activeLocale = useLocale();
 
     const myUser = useMyUserStore((state) => state.myUser);
+
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
+    );
 
     const children = (
         <>
@@ -47,10 +45,6 @@ const UiBrand: FC<IProps> = ({
             >
                 Wish Hub
             </span>
-
-            {isLoading && (
-                <UiLoading isLocal size={sizeLoading} bg={bgLoading} />
-            )}
         </>
     );
 
@@ -66,7 +60,7 @@ const UiBrand: FC<IProps> = ({
         <Link
             href={`/${activeLocale}/${myUser ? 'main' : ''}`}
             className="relative flex items-center gap-2 px-4 py-2 text-cyan-400 dark:text-cyan-300"
-            onClick={() => setIsLoading(true)}
+            onClick={() => setShowGlobalLoading(true)}
         >
             {children}
         </Link>

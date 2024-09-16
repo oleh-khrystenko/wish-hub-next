@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
-import Refresh from '@/helpers/hocs/Refresh';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Content from '@/app/[locale]/profile/[profileId]/Content';
@@ -29,13 +28,11 @@ export default function Profile() {
                     'inactivated',
                 ])}
             >
-                <Refresh>
-                    <RoutesGuard>
-                        <Header />
+                <RoutesGuard>
+                    <Header />
 
-                        <Content />
-                    </RoutesGuard>
-                </Refresh>
+                    <Content />
+                </RoutesGuard>
             </NextIntlClientProvider>
 
             <Footer />

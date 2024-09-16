@@ -129,6 +129,8 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         }));
     },
     fetchWishDataFromLink: async (params, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await wishesApi.fetchWishDataFromLink(params);
 
@@ -143,9 +145,13 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     createWish: async (data, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await wishesApi.createWish(data);
 
@@ -157,9 +163,13 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             return response.data.quote;
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     updateWish: async (data, successT, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await wishesApi.updateWish(data);
 
@@ -171,9 +181,13 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             toast(successT, { type: 'success' });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     bookWish: async (data, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await wishesApi.bookWish(data);
 
@@ -185,9 +199,13 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             return response.data.quote;
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     cancelBookWish: async (data, successT, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await wishesApi.cancelBookWish(data);
 
@@ -199,9 +217,13 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             toast(successT, { type: 'success' });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     doneWish: async (data, successT, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await wishesApi.doneWish(data);
 
@@ -213,9 +235,13 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             toast(successT, { type: 'success' });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     undoneWish: async (data, successT, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await wishesApi.undoneWish(data);
 
@@ -227,9 +253,13 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             toast(successT, { type: 'success' });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     likeWish: async (data, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await wishesApi.likeWish(data);
 
@@ -239,9 +269,13 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     dislikeWish: async (data, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await wishesApi.dislikeWish(data);
 
@@ -251,9 +285,13 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     deleteWish: async (params, successT, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await wishesApi.deleteWish(params);
 
@@ -265,6 +303,8 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             toast(successT, { type: 'success' });
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     getWishList: async (data, errorT) => {

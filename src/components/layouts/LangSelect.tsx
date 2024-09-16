@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useTransition } from 'react';
+import { FC } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { UA, US } from 'country-flag-icons/react/3x2';
@@ -48,8 +48,6 @@ const LangSelect: FC<IProps> = ({
     expandTop,
     selectHoverItemBg = 'hover:bg-zinc-200 hover:dark:bg-zinc-900',
 }) => {
-    const [isPending, startTransition] = useTransition();
-
     const router = useRouter();
     const pathname = usePathname();
 
@@ -59,18 +57,16 @@ const LangSelect: FC<IProps> = ({
     const myUser = useMyUserStore((state) => state.myUser);
     const changeLang = useMyUserStore((state) => state.changeLang);
 
-    const handleChangeLang = (value: IOption['value']) => {
-        startTransition(async () => {
-            if (myUser) {
-                await changeLang(
-                    { userId: myUser.id, lang: value as ELang },
-                    alertsT('my-user-api.change-lang.error')
-                );
-            }
+    const handleChangeLang = async (value: IOption['value']) => {
+        if (myUser) {
+            await changeLang(
+                { userId: myUser.id, lang: value as ELang },
+                alertsT('my-user-api.change-lang.error')
+            );
+        }
 
-            const newPath = pathname.replace(`/${activeLocale}`, '');
-            router.replace(`/${value}${newPath}`);
-        });
+        const newPath = pathname.replace(`/${activeLocale}`, '');
+        router.replace(`/${value}${newPath}`);
     };
 
     return (
@@ -78,7 +74,6 @@ const LangSelect: FC<IProps> = ({
             options={options(withoutText)}
             bg="bg-zinc-300 dark:bg-zinc-800"
             hoverItemBg={selectHoverItemBg}
-            isPending={isPending}
             withoutIcon
             expandTop={expandTop}
             value={activeLocale as ELang}

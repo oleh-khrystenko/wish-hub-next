@@ -9,24 +9,16 @@ import { useWishesStore } from '@/stores/wishes';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UiPopup from '@/components/ui/UiPopup';
 import UiAvatar from '@/components/ui/UiAvatar';
-import UiLoading from '@/components/ui/UiLoading';
 import LikeIcon from '@/components/icons/LikeIcon';
 
 interface IProps {
     wish: IWish;
     type: 'likes' | 'dislikes';
-    bgLoading?: string;
     hide?: () => void;
 }
 
-const LikeAction: FC<IProps> = ({
-    wish,
-    type,
-    bgLoading = 'bg-zinc-200 dark:bg-zinc-900',
-    hide,
-}) => {
+const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const alertsT = useTranslations('alerts');
 
@@ -56,8 +48,6 @@ const LikeAction: FC<IProps> = ({
 
         if (!myUser) return;
 
-        setIsLoading(true);
-
         type === 'likes' &&
             (await likeWish(
                 { userId: myUser.id, wishId: wish.id },
@@ -68,8 +58,6 @@ const LikeAction: FC<IProps> = ({
                 { userId: myUser.id, wishId: wish.id },
                 alertsT('wishes-api.dislike-wish.error')
             ));
-
-        setIsLoading(false);
     };
 
     const handleShowPopup = (e: MouseEvent<HTMLButtonElement>) => {
@@ -149,14 +137,6 @@ const LikeAction: FC<IProps> = ({
                     </UiPopup>
                 )}
             </div>
-
-            {isLoading && (
-                <UiLoading
-                    isLocal
-                    size="h-10 min-h-10 w-10 min-w-10"
-                    bg={bgLoading}
-                />
-            )}
         </div>
     );
 };

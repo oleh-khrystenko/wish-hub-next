@@ -23,11 +23,7 @@ const Header: FC<IProps> = ({ isMainPage }) => {
                             : '-ml-1 tablet-md:ml-0'
                     }
                 >
-                    <UiBrand
-                        disabled={isMainPage}
-                        withLogo
-                        bgLoading="bg-zinc-300 dark:bg-zinc-800"
-                    />
+                    <UiBrand disabled={isMainPage} withLogo />
                 </div>
 
                 <Menu isMainPage={isMainPage} />

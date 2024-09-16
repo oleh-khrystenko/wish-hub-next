@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl';
 import { useWishesStore } from '@/stores/wishes';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
-import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {
     wish: IWish;
@@ -16,7 +15,6 @@ interface IProps {
 
 const CancelBookWish: FC<IProps> = ({ wish, userId, hide }) => {
     const [show, setShow] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
@@ -26,15 +24,11 @@ const CancelBookWish: FC<IProps> = ({ wish, userId, hide }) => {
     const handleSubmit = async () => {
         if (!userId) return;
 
-        setIsLoading(true);
-
         await cancelBookWish(
             { userId, wishId: wish.id },
             alertsT('wishes-api.cancel-book-wish.success'),
             alertsT('wishes-api.cancel-book-wish.error')
         );
-
-        setIsLoading(false);
 
         hide();
     };
@@ -62,13 +56,6 @@ const CancelBookWish: FC<IProps> = ({ wish, userId, hide }) => {
                         name: unencryptedData(wish.name, wish.show),
                     })}
                 </p>
-
-                {isLoading && (
-                    <UiLoading
-                        isLocal
-                        bg="bg-zinc-300 dark:bg-zinc-800 rounded-2xl"
-                    />
-                )}
             </ConfirmModal>
         </>
     );

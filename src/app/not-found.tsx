@@ -1,25 +1,27 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+import { useSettingsStore } from '@/stores/settings';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
 import LangSelect from '@/components/layouts/LangSelect';
-import UiLoading from '@/components/ui/UiLoading';
 import LogoIcon from '@/components/icons/LogoIcon';
 import '@/app/globals.css';
 
 export default function NotFound() {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-
     const router = useRouter();
 
     const activeLocale = useLocale();
     const notFoundPageT = useTranslations('not-found-page');
 
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
+    );
+
     const handleRedirectToMain = () => {
-        setIsLoading(true);
+        setShowGlobalLoading(true);
         router.replace(`/${activeLocale}/main`);
     };
 
@@ -171,8 +173,6 @@ export default function NotFound() {
                     </button>
                 </main>
             </div>
-
-            {isLoading && <UiLoading />}
         </main>
     );
 }

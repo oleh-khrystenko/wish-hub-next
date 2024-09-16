@@ -293,7 +293,7 @@ const FormContent: FC<IProps> = ({
                         <UiSelect
                             options={selectOptions}
                             value={currency}
-                            onChange={(value) =>
+                            onChange={async (value) =>
                                 changeCurrency(value as IWish['currency'])
                             }
                         />

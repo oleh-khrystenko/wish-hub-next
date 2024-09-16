@@ -26,7 +26,6 @@ import PrivacyPolicyIcon from '@/components/icons/PrivacyPolicyIcon';
 import LogoDarkIcon from '@/components/icons/LogoDarkIcon';
 import LogoLightIcon from '@/components/icons/LogoLightIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
-import UiLoading from '@/components/ui/UiLoading';
 import UiModal from '@/components/ui/modal/UiModal';
 import SettingIcon from '@/components/icons/SettingIcon';
 // import YouTubeIcon from '@/components/icons/YouTubeIcon';
@@ -55,7 +54,6 @@ const Menu: FC<IProps> = ({
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
-    const isLoading = useMyUserStore((state) => state.isLoading);
     const logout = useMyUserStore((state) => state.logout);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
@@ -346,8 +344,6 @@ const Menu: FC<IProps> = ({
                     {mainPageT('contact-us')}
                 </p>
             </UiModal>
-
-            {isLoading && <UiLoading />}
         </div>
     );
 };

@@ -20,7 +20,6 @@ import FormContent from '@/app/[locale]/main/wish-editor/FormContent';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
 import UiModal from '@/components/ui/modal/UiModal';
-import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {
     showModal: boolean;
@@ -38,8 +37,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
     const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
     const [showConfirmDeleteWish, setShowConfirmDeleteWish] =
         useState<boolean>(false);
-    const [isLoadingUpdate, setIsLoadingUpdate] = useState<boolean>(false);
-    const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
@@ -107,8 +104,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
             !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
         )
             return;
-
-        setIsLoadingUpdate(true);
 
         // name
         const encryptedName = encryptedData(
@@ -206,8 +201,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
             alertsT('wishes-api.update-wish.error')
         );
 
-        setIsLoadingUpdate(false);
-
         hideModals();
     };
 
@@ -235,8 +228,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
     const handleDeleteWish = async () => {
         if (!myUser || !idOfSelectedWish) return;
 
-        setIsLoadingDelete(true);
-
         await deleteWish(
             { userId: myUser.id, wishId: idOfSelectedWish },
             alertsT('wishes-api.delete-wish.success'),
@@ -244,8 +235,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                 wishId: idOfSelectedWish,
             })
         );
-
-        setIsLoadingDelete(false);
 
         hideModals();
     };
@@ -347,10 +336,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
 
     return (
         <>
-            <UiModal
-                show={showModal}
-                hide={isLoadingUpdate ? undefined : handleHideModal}
-            >
+            <UiModal show={showModal} hide={handleHideModal}>
                 <form
                     className="flex max-h-full flex-col gap-4"
                     onSubmit={handleSubmit(onSubmit)}
@@ -392,13 +378,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                         </UiButton>
                     </div>
                 </form>
-
-                {isLoadingUpdate && (
-                    <UiLoading
-                        isLocal
-                        bg="bg-zinc-300 dark:bg-zinc-800 rounded-2xl"
-                    />
-                )}
             </UiModal>
 
             <ConfirmModal
@@ -423,13 +402,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                 <span className="text-zinc-700 dark:text-zinc-300">
                     {mainPageT('are-you-sure')}
                 </span>
-
-                {isLoadingDelete && (
-                    <UiLoading
-                        isLocal
-                        bg="bg-zinc-300 dark:bg-zinc-800 rounded-2xl"
-                    />
-                )}
             </ConfirmModal>
         </>
     );

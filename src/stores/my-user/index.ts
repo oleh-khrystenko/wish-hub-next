@@ -11,9 +11,11 @@ import {
     IRegistration,
     IRemoveFriend,
     IUpdateMyUser,
-    IUserId,
 } from '@/stores/my-user/types';
 import myUserApi from '@/stores/my-user/api';
+import { useSettingsStore } from '@/stores/settings';
+
+const { setShowGlobalLoading } = useSettingsStore.getState();
 
 interface IMyUserStore {
     myUser: IUser | null;
@@ -24,7 +26,7 @@ interface IMyUserStore {
     googleAuthorization: (data: IGoogleAuth, errorT: string) => Promise<void>;
     login: (data: ILogin, errorT: string) => Promise<void>;
     logout: (errorT: string) => Promise<void>;
-    refresh: (errorT: string) => Promise<void>;
+    refresh: (errorT: string) => Promise<IUser | void>;
     changePassword: (data: IChangePassword) => Promise<void>;
     changeLang: (data: IChangeLang, errorT: string) => Promise<void>;
     updateMyUser: (data: IUpdateMyUser, errorT: string) => Promise<void>;
@@ -44,10 +46,11 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
         }));
     },
     registration: async (data, errorT) => {
+        setShowGlobalLoading(true);
+
         set((state) => ({
             ...state,
             myUser: null,
-            isLoading: true,
         }));
 
         try {
@@ -67,17 +70,15 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
+            setShowGlobalLoading(false);
         }
     },
     googleAuthorization: async (data, errorT) => {
+        setShowGlobalLoading(true);
+
         set((state) => ({
             ...state,
             myUser: null,
-            isLoading: true,
         }));
 
         try {
@@ -97,17 +98,15 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
+            setShowGlobalLoading(false);
         }
     },
     login: async (data, errorT) => {
+        setShowGlobalLoading(true);
+
         set((state) => ({
             ...state,
             myUser: null,
-            isLoading: true,
         }));
 
         try {
@@ -127,17 +126,11 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
+            setShowGlobalLoading(false);
         }
     },
     logout: async (errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
+        setShowGlobalLoading(true);
 
         try {
             await myUserApi.logout();
@@ -152,17 +145,15 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
+            setShowGlobalLoading(false);
         }
     },
     refresh: async (errorT) => {
+        setShowGlobalLoading(true);
+
         set((state) => ({
             ...state,
             myUser: null,
-            isLoading: true,
         }));
 
         try {
@@ -174,6 +165,8 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 ...state,
                 myUser: response.data.user,
             }));
+
+            return response.data.user;
         } catch (error: any) {
             console.log(
                 'my-user refresh error: ',
@@ -188,17 +181,11 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 myUser: null,
             }));
         } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
+            setShowGlobalLoading(false);
         }
     },
     changePassword: async (data) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
+        setShowGlobalLoading(true);
 
         try {
             await myUserApi.changePassword(data);
@@ -212,17 +199,11 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
         } catch (error: any) {
             throw error;
         } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
+            setShowGlobalLoading(false);
         }
     },
     changeLang: async (data, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
+        setShowGlobalLoading(true);
 
         try {
             const response = await myUserApi.changeLang(data);
@@ -234,17 +215,11 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
+            setShowGlobalLoading(false);
         }
     },
     updateMyUser: async (data, errorT) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
+        setShowGlobalLoading(true);
 
         try {
             const response = await myUserApi.updateMyUser(data);
@@ -256,13 +231,12 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
+            setShowGlobalLoading(false);
         }
     },
     addFriend: async (data, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await myUserApi.addFriend(data);
 
@@ -272,9 +246,13 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     removeFriend: async (data, errorT) => {
+        setShowGlobalLoading(true);
+
         try {
             const response = await myUserApi.removeFriend(data);
 
@@ -284,13 +262,12 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
     deleteMyUser: async (data) => {
-        set((state) => ({
-            ...state,
-            isLoading: true,
-        }));
+        setShowGlobalLoading(true);
 
         try {
             const response = await myUserApi.deleteMyUser(data);
@@ -313,10 +290,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
         } catch (error: any) {
             throw error;
         } finally {
-            set((state) => ({
-                ...state,
-                isLoading: false,
-            }));
+            setShowGlobalLoading(false);
         }
     },
 }));

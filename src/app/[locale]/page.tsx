@@ -7,7 +7,6 @@ import {
 import pick from 'lodash.pick';
 import Image from 'next/image';
 import { IParams } from '@/models/Settings';
-import Refresh from '@/helpers/hocs/Refresh';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Header from '@/app/[locale]/root-page-components/Header';
 import CoverFigure from '@/app/[locale]/root-page-components/CoverFigure';
@@ -38,9 +37,7 @@ export default function Welcome() {
                     <NextIntlClientProvider
                         messages={pick(messages, ['welcome-page', 'alerts'])}
                     >
-                        <Refresh withoutLoading>
-                            <Header />
-                        </Refresh>
+                        <Header />
                     </NextIntlClientProvider>
 
                     <div className="desktop-sm:grid desktop-sm:grid-cols-2 desktop-sm:gap-y-9">

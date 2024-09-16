@@ -40,7 +40,6 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     const [showError, setShowError] = useState<string>('');
     const [changed, setChanged] = useState<boolean>(false);
     const [showConfirm, setShowConfirm] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -109,8 +108,6 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
         }
 
         if (!myUser || !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return;
-
-        setIsLoading(true);
 
         // name
         const encryptedName = encryptedData(
@@ -218,8 +215,6 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             );
         }
 
-        setIsLoading(false);
-
         hideModals();
     };
 
@@ -279,13 +274,10 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             <UiModal
                 show={showModal}
                 rounded={isFastWish ? 'rounded-2xl' : ''}
-                hide={isLoading ? undefined : handleHideModal}
+                hide={handleHideModal}
             >
                 {isFastWish ? (
-                    <FastWish
-                        setIsLoading={setIsLoading}
-                        hide={() => setIsFastWish(false)}
-                    />
+                    <FastWish hide={() => setIsFastWish(false)} />
                 ) : (
                     <form
                         className="flex max-h-full flex-col gap-4"
@@ -321,13 +313,6 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                             </UiButton>
                         </div>
                     </form>
-                )}
-
-                {isLoading && (
-                    <UiLoading
-                        isLocal
-                        bg="bg-zinc-300 dark:bg-zinc-800 rounded-2xl"
-                    />
                 )}
             </UiModal>
 

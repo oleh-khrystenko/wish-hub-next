@@ -119,19 +119,9 @@ const DetailWish: FC<IProps> = ({ wish, selectedUser, editWish, hide }) => {
 
                 <div className="flex w-full flex-col gap-3 tablet-lg:flex-row tablet-lg:items-center tablet-lg:justify-between tablet-lg:gap-5">
                     <div className="flex items-center justify-center gap-1">
-                        <LikeAction
-                            wish={wish}
-                            type="likes"
-                            bgLoading="bg-zinc-300 dark:bg-zinc-800"
-                            hide={hide}
-                        />
+                        <LikeAction wish={wish} type="likes" hide={hide} />
 
-                        <LikeAction
-                            wish={wish}
-                            type="dislikes"
-                            bgLoading="bg-zinc-300 dark:bg-zinc-800"
-                            hide={hide}
-                        />
+                        <LikeAction wish={wish} type="dislikes" hide={hide} />
                     </div>
 
                     <div className="flex flex-col gap-1 tablet-md:flex-row tablet-md:items-center tablet-md:gap-5">

@@ -14,7 +14,6 @@ import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiDatePicker from '@/components/ui/UiDatePicker';
 import UiButton from '@/components/ui/UiButton';
 import UiTooltip from '@/components/ui/UiTooltip';
-import UiLoading from '@/components/ui/UiLoading';
 import InfoIcon from '@/components/icons/InfoIcon';
 
 interface IProps {
@@ -27,7 +26,6 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
     const [bookEnd, setBookEnd] = useState<Date | null>(null);
     const [bookEndError, setBookEndError] = useState<string>('');
     const [clickedOnSubmit, setClickedOnSubmit] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const router = useRouter();
 
@@ -64,8 +62,6 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
 
         if (!myUser || !bookEnd || bookEndError.length > 0) return;
 
-        setIsLoading(true);
-
         const response = await bookWish(
             {
                 userId: myUser.id,
@@ -74,8 +70,6 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
             },
             alertsT('wishes-api.book-wish.error')
         );
-
-        setIsLoading(false);
 
         if (response) {
             const quote = response[activeLocale as ELang];
@@ -154,13 +148,6 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
                     </p>
                     <UiTooltip id="book-wish" />
                 </div>
-
-                {isLoading && (
-                    <UiLoading
-                        isLocal
-                        bg="bg-zinc-300 dark:bg-zinc-800 rounded-2xl"
-                    />
-                )}
             </ConfirmModal>
         </>
     );
