@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
+import { useSettingsStore } from '@/stores/settings';
 import useValidations from '@/helpers/hooks/UseValidations';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
@@ -31,9 +32,15 @@ const SignUp: FC = () => {
     const myUser = useMyUserStore((state) => state.myUser);
     const setCandidate = useMyUserStore((state) => state.setCandidate);
 
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
+    );
+
     const { accountFirstNameValidation, emailValidation } = useValidations();
 
     const handleSingUp = () => {
+        setShowGlobalLoading(true);
+
         setCandidate({
             firstName: getValues('firstName'),
             email: getValues('email'),

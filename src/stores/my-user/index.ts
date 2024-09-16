@@ -149,8 +149,6 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
         }
     },
     refresh: async (errorT) => {
-        setShowGlobalLoading(true);
-
         set((state) => ({
             ...state,
             myUser: null,
@@ -180,8 +178,6 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 ...state,
                 myUser: null,
             }));
-        } finally {
-            setShowGlobalLoading(false);
         }
     },
     changePassword: async (data) => {

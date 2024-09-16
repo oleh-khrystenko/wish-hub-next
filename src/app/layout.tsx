@@ -4,8 +4,8 @@ import { Mulish } from 'next/font/google';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
-import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import ServiceWorkerRegistrar from '@/helpers/hocs/ServiceWorkerRegistrar';
+import GlobalLoading from '@/components/layouts/GlobalLoading';
 import ReactToastify from '@/components/layouts/ReactToastify';
 import '@/app/globals.css';
 
@@ -86,7 +86,7 @@ export default function Layout({
                 >
                     {children}
 
-                    <UserSessionRefresher />
+                    <GlobalLoading />
                 </NextIntlClientProvider>
 
                 <ServiceWorkerRegistrar />

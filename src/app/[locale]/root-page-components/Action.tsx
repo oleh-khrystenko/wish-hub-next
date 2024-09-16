@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
+import { useSettingsStore } from '@/stores/settings';
 import UiButton from '@/components/ui/UiButton';
 
 interface IProps {
@@ -19,8 +20,15 @@ const Action: FC<IProps> = ({ toMainT, signUpT }) => {
     const myUser = useMyUserStore((state) => state.myUser);
     const setCandidate = useMyUserStore((state) => state.setCandidate);
 
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
+    );
+
     const handleSignUp = () => {
+        setShowGlobalLoading(true);
+
         setCandidate({ firstName: '', email: '' });
+
         router.push(`/${activeLocale}/auth?register`);
     };
 

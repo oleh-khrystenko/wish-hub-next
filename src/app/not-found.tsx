@@ -4,7 +4,9 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
+import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
 import LangSelect from '@/components/layouts/LangSelect';
 import LogoIcon from '@/components/icons/LogoIcon';
@@ -16,13 +18,15 @@ export default function NotFound() {
     const activeLocale = useLocale();
     const notFoundPageT = useTranslations('not-found-page');
 
+    const myUser = useMyUserStore((state) => state.myUser);
+
     const setShowGlobalLoading = useSettingsStore(
         (state) => state.setShowGlobalLoading
     );
 
     const handleRedirectToMain = () => {
         setShowGlobalLoading(true);
-        router.replace(`/${activeLocale}/main`);
+        router.replace(`/${activeLocale}/${myUser ? 'main' : ''}`);
     };
 
     useEffect(() => {
@@ -113,14 +117,16 @@ export default function NotFound() {
         <main className="flex h-full min-h-screen w-full flex-col items-center gap-10 px-4 py-6">
             <div className="flex min-h-full w-full max-w-7xl grow flex-col items-center">
                 <header className="flex w-full items-center justify-between gap-3 tablet-md:gap-5">
-                    <button
-                        type="button"
-                        className="flex items-center gap-2 whitespace-nowrap text-2xl font-bold text-cyan-400 dark:text-cyan-300 tablet-md:text-3xl"
-                        onClick={handleRedirectToMain}
-                    >
-                        <LogoIcon classes="tablet-md:h-10 tablet-md:w-10 h-8 w-8" />
-                        Wish Hub
-                    </button>
+                    <UserSessionRefresher>
+                        <button
+                            type="button"
+                            className="flex items-center gap-2 whitespace-nowrap text-2xl font-bold text-cyan-400 dark:text-cyan-300 tablet-md:text-3xl"
+                            onClick={handleRedirectToMain}
+                        >
+                            <LogoIcon classes="tablet-md:h-10 tablet-md:w-10 h-8 w-8" />
+                            Wish Hub
+                        </button>
+                    </UserSessionRefresher>
 
                     <div className="flex items-center gap-4">
                         <ThemeSwitcher />

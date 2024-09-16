@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
+import { useSettingsStore } from '@/stores/settings';
 import UiButton from '@/components/ui/UiButton';
 
 const Actions: FC = () => {
@@ -13,13 +14,23 @@ const Actions: FC = () => {
     const myUser = useMyUserStore((state) => state.myUser);
     const setCandidate = useMyUserStore((state) => state.setCandidate);
 
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
+    );
+
     const handleSignIn = () => {
+        setShowGlobalLoading(true);
+
         setCandidate({ firstName: '', email: '' });
+
         router.push(`/${activeLocale}/auth`);
     };
 
     const handleSignUp = () => {
+        setShowGlobalLoading(true);
+
         setCandidate({ firstName: '', email: '' });
+
         router.push(`/${activeLocale}/auth?register`);
     };
 

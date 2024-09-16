@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
+import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Content from '@/app/[locale]/about/Content';
 import Header from '@/components/layouts/header/Header';
@@ -23,7 +24,9 @@ export default function About() {
                     'alerts',
                 ])}
             >
-                <Header />
+                <UserSessionRefresher>
+                    <Header />
+                </UserSessionRefresher>
             </NextIntlClientProvider>
 
             <Content />

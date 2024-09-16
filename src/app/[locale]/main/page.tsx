@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
+import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Sidebar from '@/app/[locale]/main/sidebar/Sidebar';
 import Content from '@/app/[locale]/main/Content';
@@ -27,13 +28,15 @@ export default function Main() {
                     'inactivated',
                 ])}
             >
-                <Header isMainPage />
+                <UserSessionRefresher>
+                    <Header isMainPage />
 
-                <main className="flex grow overflow-hidden">
-                    <Sidebar />
+                    <main className="flex grow overflow-hidden">
+                        <Sidebar />
 
-                    <Content />
-                </main>
+                        <Content />
+                    </main>
+                </UserSessionRefresher>
 
                 <BottomMenu />
             </NextIntlClientProvider>

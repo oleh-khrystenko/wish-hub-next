@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
+import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import ClientForm from '@/app/[locale]/auth/ClientForm';
@@ -34,9 +35,11 @@ export default function Auth() {
                     <UiBrand withLogo isBig />
                 </header>
 
-                <RoutesGuard isUnauthenticated>
-                    <ClientForm />
-                </RoutesGuard>
+                <UserSessionRefresher>
+                    <RoutesGuard isUnauthenticated>
+                        <ClientForm />
+                    </RoutesGuard>
+                </UserSessionRefresher>
             </NextIntlClientProvider>
         </main>
     );
