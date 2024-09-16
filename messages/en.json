@@ -454,7 +454,8 @@
             "title": "Wish Hub - Wish",
             "description": "Wish Hub: learn more about the wish. Read the description and information about this wish."
         },
-        "created-by": "Wish created by user:",
+        "your_wish": "Your wish",
+        "created_by": "Wish created by user:",
         "price": "Price:",
         "address": "Where to buy:",
         "description": "Description:",

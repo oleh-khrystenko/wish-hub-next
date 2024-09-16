@@ -31,8 +31,6 @@ const Content: FC = () => {
 
     const { wishId } = useParams<{ wishId: string }>();
 
-    const screenWidth = UseScreenWidth();
-
     const mainPageT = useTranslations('main-page');
     const wishPageT = useTranslations('wish-page');
     const alertsT = useTranslations('alerts');
@@ -46,6 +44,9 @@ const Content: FC = () => {
             name: mainPageT('wish'),
         },
     ];
+
+    // у бажання є кінцева дата бронювання && термін виконання ще не минув
+    const showBookWish = !wish?.booking?.end && !wish?.executed;
 
     const isURL = (str: string) => {
         try {
@@ -90,33 +91,42 @@ const Content: FC = () => {
             <Breadcrumbs pages={pages} />
 
             {wish ? (
-                <div className="mt-3 px-3 pb-5 desktop-sm:px-0">
-                    <div className="flex flex-col gap-6">
-                        <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                            {wishPageT('created-by')}
-                        </p>
+                <div className="mt-3 px-4 pb-5 desktop-sm:px-0">
+                    {myUser?.id === wish.userId ? (
+                        <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
+                            {wishPageT('your_wish')}:
+                        </h1>
+                    ) : (
+                        <div className="flex flex-col gap-6">
+                            <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xl:text-2xl">
+                                {wishPageT('created_by')}:
+                            </h1>
 
-                        <div className="flex items-center gap-3 tablet-sm:gap-4">
-                            <UiAvatar
-                                avatar={userAvatar}
-                                alt={userFullName}
-                                priority
-                                size={screenWidth < 768 ? 144 : 208}
-                                sizeTailwind="w-36 min-w-36 h-36 min-h-36 tablet-md:w-52 tablet-md:min-w-52 tablet-md:h-52 tablet-md:min-h-52"
-                                sizeIcon="w-28 h-28 tablet-md:w-40 tablet-md:h-40"
-                                handleClick={() =>
-                                    handleShowImage(userAvatar, userFullName)
-                                }
-                            />
+                            <div className="flex items-center gap-3 tablet-sm:gap-4">
+                                <UiAvatar
+                                    avatar={userAvatar}
+                                    alt={userFullName}
+                                    priority
+                                    size={64}
+                                    sizeTailwind="w-16 min-w-16 h-16 min-h-16"
+                                    sizeIcon="w-12 h-12"
+                                    handleClick={() =>
+                                        handleShowImage(
+                                            userAvatar,
+                                            userFullName
+                                        )
+                                    }
+                                />
 
-                            <p
-                                className="max-w-32 truncate text-2xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:max-w-40 mobile-sm:max-w-48 mobile-md:max-w-56 mobile-lg:max-w-60 mobile-xl:max-w-72 tablet-sm:max-w-96 tablet-md:max-w-lg tablet-md:text-3xl tablet-lg:max-w-3xl desktop-xs:max-w-5xl"
-                                title={userFullName}
-                            >
-                                {userFullName}
-                            </p>
+                                <p
+                                    className="truncate text-2xl font-bold text-zinc-700 dark:text-zinc-300"
+                                    title={userFullName}
+                                >
+                                    {userFullName}
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     <p className="mt-6 text-4xl font-bold text-zinc-700 dark:text-zinc-300">
                         {unencryptedData(wish.name, wish.show)}
@@ -205,7 +215,7 @@ const Content: FC = () => {
                         </div>
                     </div>
 
-                    {!wish.booking?.end && (
+                    {showBookWish && (
                         <div className="ml-auto mt-6 w-fit">
                             <BookWish wish={wish} />
                         </div>
