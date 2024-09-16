@@ -8,14 +8,12 @@ interface IProps {
     isLocal?: boolean;
     size?: string;
     bg?: string;
-    wrapClasses?: string;
 }
 
 const UiLoading: FC<IProps> = ({
     isLocal,
     size = 'h-20 min-h-20 w-20 min-w-20',
     bg = 'bg-zinc-200 dark:bg-zinc-900',
-    wrapClasses = 'inset-0 w-full',
 }) => {
     const [message, setMessage] = useState<string>('');
     const [showReload, setShowReload] = useState<boolean>(false);
@@ -49,7 +47,7 @@ const UiLoading: FC<IProps> = ({
 
     return (
         <div
-            className={`${isLocal ? 'absolute h-full' : 'fixed h-svh'} ${bg} ${wrapClasses} z-50 flex flex-col items-center justify-center gap-5`}
+            className={`${isLocal ? 'absolute h-full' : 'fixed h-svh'} ${bg} inset-0 z-50 flex w-full flex-col items-center justify-center gap-5`}
         >
             <div className={`${size} relative inline-block`}>
                 <div className="absolute left-[82.5%] top-[46.25%] h-[7.5%] w-[7.5%] animate-spinner-1 rounded-full bg-cyan-500 dark:bg-cyan-300"></div>
