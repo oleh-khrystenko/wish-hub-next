@@ -3,6 +3,7 @@
 import { FC, ReactNode, useState } from 'react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
+import { useMyUserStore } from '@/stores/my-user';
 import UiLoading from '@/components/ui/UiLoading';
 import HomeIcon from '@/components/icons/HomeIcon';
 
@@ -24,6 +25,8 @@ const Breadcrumbs: FC<IProps> = ({ pages }) => {
 
     const activeLocale = useLocale();
 
+    const myUser = useMyUserStore((state) => state.myUser);
+
     const handleLinkClick = (href: string) => {
         setLoadingLinks((prev) => ({ ...prev, [href]: true }));
     };
@@ -31,7 +34,7 @@ const Breadcrumbs: FC<IProps> = ({ pages }) => {
     return (
         <nav className="flex items-center gap-0.5">
             <Link
-                href={`/${activeLocale}/main`}
+                href={`/${activeLocale}/${myUser ? 'main' : ''}`}
                 className={`${isLoadingHome ? '' : 'transition-all duration-300 ease-in-out after:transition-all after:duration-300 after:ease-in-out hover:bg-cyan-400 hover:after:bg-cyan-400 hover:dark:bg-cyan-300 hover:after:dark:bg-cyan-300'} group relative flex items-center justify-center rounded-l-md bg-zinc-300 px-4 py-1 after:absolute after:right-0 after:top-1/2 after:z-10 after:h-4 after:w-4 after:-translate-y-1/2 after:translate-x-1/2 after:rotate-45 after:bg-zinc-300 dark:bg-zinc-800 after:dark:bg-zinc-800`}
                 onClick={() => setIsLoadingHome(true)}
             >
