@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { EWishSort, EWishStatus, IWish } from '@/models/Wish';
@@ -12,9 +12,7 @@ import EditWish from '@/app/[locale]/main/wish-editor/EditWish';
 import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
 import WishListActions from '@/components/layouts/wish-list/WishListActions';
 import WishItem from '@/components/layouts/wish-list/WishItem';
-import DetailWish from '@/components/layouts/detail-wish/DetailWish';
 import UiLoading from '@/components/ui/UiLoading';
-import UiModal from '@/components/ui/modal/UiModal';
 import CrossIcon from '@/components/icons/CrossIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
 
@@ -24,7 +22,6 @@ interface IProps {
 
 const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
-    const [showWish, setShowWish] = useState<boolean>(false);
     const [showCreateWish, setShowCreateWish] = useState<boolean>(false);
     const [showEditWish, setShowEditWish] = useState<boolean>(false);
     const [idOfSelectedWish, setIdOfSelectedWish] = useState<
@@ -44,7 +41,6 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const users = useUsersStore((state) => state.list);
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
     const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
 
@@ -66,13 +62,6 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const setActivatedSidebar = useSettingsStore(
         (state) => state.setActivatedSidebar
     );
-
-    const selectedUser = useMemo(
-        () => users.find((user) => user.id === selectedUserId),
-        [users, selectedUserId]
-    );
-
-    const detailWish = wishes.find((wish) => wish.id === idOfSelectedWish);
 
     const wishesExample = [
         {
@@ -125,14 +114,6 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const handleHideEditWish = () => {
         setIdOfSelectedWish(null);
         setShowEditWish(false);
-    };
-
-    const handleShowWish = (id: IWish['id'] | null) => {
-        setIdOfSelectedWish(id);
-        setShowWish(true);
-    };
-    const handleHideWish = () => {
-        setShowWish(false);
     };
 
     useEffect(() => {
@@ -281,7 +262,6 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                                     wish={wish}
                                     id={idx}
                                     editWish={() => handleShowEditWish(wish.id)}
-                                    showWish={() => handleShowWish(wish.id)}
                                 />
                             ))}
 
@@ -340,21 +320,6 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                         {emptyText}
                     </p>
                 </div>
-            )}
-
-            {detailWish && (
-                <UiModal
-                    show={showWish}
-                    px="px-0 pr-1 tablet-md:pr-2 tablet-lg:pr-3 desktop-xs:pr-0"
-                    hide={handleHideWish}
-                >
-                    <DetailWish
-                        wish={detailWish}
-                        selectedUser={selectedUser}
-                        editWish={() => handleShowEditWish(idOfSelectedWish)}
-                        hide={handleHideWish}
-                    />
-                </UiModal>
             )}
 
             <CreateWish

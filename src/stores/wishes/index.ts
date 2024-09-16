@@ -7,7 +7,7 @@ import {
     IActionWish,
     IBookWish,
     ICreateWish,
-    IDeleteWish,
+    IWishAction,
     IDoneWish,
     ISendAllWishes,
     ISendWishList,
@@ -85,7 +85,7 @@ interface IWishesStore {
     likeWish: (data: IActionWish, errorT: string) => Promise<void>;
     dislikeWish: (data: IActionWish, errorT: string) => Promise<void>;
     deleteWish: (
-        params: IDeleteWish,
+        params: IWishAction,
         successT: string,
         errorT: string
     ) => Promise<void>;

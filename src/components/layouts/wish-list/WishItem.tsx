@@ -1,10 +1,12 @@
 'use client';
 
 import { FC, MouseEvent, useMemo } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ECurrency, IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
+import { useSettingsStore } from '@/stores/settings';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
 import { isBookingExpired } from '@/helpers/utils/date-validators';
@@ -15,12 +17,15 @@ import EditIcon from '@/components/icons/EditIcon';
 interface IProps {
     wish: IWish;
     id: number;
-    showWish: () => void;
     editWish?: () => void;
 }
 
-const WishItem: FC<IProps> = ({ wish, id, showWish, editWish }) => {
+const WishItem: FC<IProps> = ({ wish, id, editWish }) => {
     const myUser = useMyUserStore((state) => state.myUser);
+
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
+    );
 
     const mainPageT = useTranslations('main-page');
 
@@ -47,10 +52,11 @@ const WishItem: FC<IProps> = ({ wish, id, showWish, editWish }) => {
     return (
         <li
             className={`${isBookingExpired(wish, myUser?.id) ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
-            onClick={showWish}
         >
-            <div
+            <Link
+                href={`/wish/${wish.id}`}
                 className={`${wish.executed ? '-rotate-3 border-cyan-500 dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center gap-4 rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
+                onClick={() => setShowGlobalLoading(true)}
             >
                 <div className="relative w-full pt-[100%]">
                     {wish.images?.length > 0 ? (
@@ -124,7 +130,7 @@ const WishItem: FC<IProps> = ({ wish, id, showWish, editWish }) => {
 
                     <LikeAction wish={wish} type="dislikes" />
                 </div>
-            </div>
+            </Link>
 
             {editWish &&
                 myUser?.id === wish.userId &&

@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { ECurrency, IWish } from '@/models/Wish';
 import { IUser } from '@/models/User';
 import { IZoomedImage } from '@/models/Settings';
+import { useMyUserStore } from '@/stores/my-user';
 import { IGetWish } from '@/stores/wishes/types';
 import wishesApi from '@/stores/wishes/api';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
@@ -36,6 +37,8 @@ const Content: FC = () => {
     const wishPageT = useTranslations('wish-page');
     const alertsT = useTranslations('alerts');
 
+    const myUser = useMyUserStore((state) => state.myUser);
+
     const pages = [
         {
             href: 'wish',
@@ -61,8 +64,10 @@ const Content: FC = () => {
         if (gotWish.current) return;
         gotWish.current = true;
 
+        if (!myUser) return;
+
         wishesApi
-            .getWish({ wishId })
+            .getWish({ userId: myUser.id, wishId })
             .then(({ data }: AxiosResponse<IGetWish>) => {
                 setWish(data.wish);
                 setUserFullName(

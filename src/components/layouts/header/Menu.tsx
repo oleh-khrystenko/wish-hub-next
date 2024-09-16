@@ -61,18 +61,14 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
     const { getFullName } = UseFullName();
 
     const handleSelectMyWishes = async () => {
-        if (pathname.split('/')[2] === 'main') {
-            if (!myUser) return;
+        if (!myUser) return;
 
-            await getInitialWishList(
-                myUser.id,
-                myUser.id,
-                EWishSort.CREATED_DESC
-            );
-            setShowPopup(false);
-            setActivatedSidebar(false);
-        } else {
-            return router.push(`/${activeLocale}/main`);
+        await getInitialWishList(myUser.id, myUser.id, EWishSort.CREATED_DESC);
+        setShowPopup(false);
+        setActivatedSidebar(false);
+
+        if (pathname.split('/')[2] !== 'main') {
+            router.push(`/${activeLocale}/main`);
         }
     };
 

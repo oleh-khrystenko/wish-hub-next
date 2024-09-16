@@ -45,6 +45,7 @@ const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
 
     const handleAction = async (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
+        e.preventDefault();
 
         if (!myUser) return;
 

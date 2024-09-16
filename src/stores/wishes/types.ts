@@ -23,12 +23,8 @@ export interface IWishWithQuote {
     quote: IQuote;
 }
 
-export interface IDeleteWish {
+export interface IWishAction {
     userId: IUser['id'];
-    wishId: IWish['id'];
-}
-
-export interface ISendWish {
     wishId: IWish['id'];
 }
 
