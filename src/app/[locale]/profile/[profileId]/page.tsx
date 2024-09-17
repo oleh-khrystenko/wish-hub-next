@@ -37,11 +37,11 @@ export default function Profile() {
                         <Content />
                     </RoutesGuard>
                 </UserSessionRefresher>
+
+                <GlobalLoading />
             </NextIntlClientProvider>
 
             <Footer />
-
-            <GlobalLoading />
         </>
     );
 }

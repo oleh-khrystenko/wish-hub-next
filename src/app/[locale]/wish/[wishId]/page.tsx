@@ -34,13 +34,13 @@ export default function WishList() {
 
                             <Body />
                         </UserSessionRefresher>
+
+                        <GlobalLoading />
                     </NextIntlClientProvider>
                 </div>
 
                 <Footer />
             </div>
-
-            <GlobalLoading />
         </>
     );
 }

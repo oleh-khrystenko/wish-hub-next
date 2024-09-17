@@ -28,13 +28,13 @@ export default function PrivacyPolicy() {
                 <UserSessionRefresher>
                     <Header />
                 </UserSessionRefresher>
+
+                <GlobalLoading />
             </NextIntlClientProvider>
 
             <Content />
 
             <Footer remove="privacy-policy" />
-
-            <GlobalLoading />
         </>
     );
 }

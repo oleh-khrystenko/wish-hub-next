@@ -34,13 +34,13 @@ export default function Wish() {
 
                             <Content />
                         </UserSessionRefresher>
+
+                        <GlobalLoading />
                     </NextIntlClientProvider>
                 </div>
 
                 <Footer />
             </div>
-
-            <GlobalLoading />
         </>
     );
 }

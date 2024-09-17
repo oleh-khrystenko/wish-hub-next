@@ -168,9 +168,12 @@ export default function Welcome() {
                                 messages={pick(messages, [
                                     'welcome-page',
                                     'validations',
+                                    'alerts',
                                 ])}
                             >
                                 <SignUp />
+
+                                <GlobalLoading />
                             </NextIntlClientProvider>
                         </div>
                     </div>
@@ -178,8 +181,6 @@ export default function Welcome() {
 
                 <Footer isWelcome />
             </main>
-
-            <GlobalLoading />
         </>
     );
 }

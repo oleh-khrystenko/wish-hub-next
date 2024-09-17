@@ -19,33 +19,31 @@ export default function ActivationLinkExpired() {
     const messages = useMessages();
 
     return (
-        <>
-            <main className="flex min-h-screen flex-col items-center gap-2 p-4 tablet-md:gap-8">
-                <NextIntlClientProvider
-                    messages={pick(messages, [
-                        'activation-link-expired-page',
-                        'main-page',
-                        'alerts',
-                    ])}
-                >
-                    <header className="flex w-full max-w-lg flex-col items-center gap-2 tablet-md:gap-8">
-                        <div className="flex w-full items-center justify-between gap-4">
-                            <ThemeSwitcher />
-                            <LangSelect />
-                        </div>
+        <main className="flex min-h-screen flex-col items-center gap-2 p-4 tablet-md:gap-8">
+            <NextIntlClientProvider
+                messages={pick(messages, [
+                    'activation-link-expired-page',
+                    'main-page',
+                    'alerts',
+                ])}
+            >
+                <header className="flex w-full max-w-lg flex-col items-center gap-2 tablet-md:gap-8">
+                    <div className="flex w-full items-center justify-between gap-4">
+                        <ThemeSwitcher />
+                        <LangSelect />
+                    </div>
 
-                        <UiBrand withLogo isBig />
-                    </header>
+                    <UiBrand withLogo isBig />
+                </header>
 
-                    <UserSessionRefresher>
-                        <RoutesGuard>
-                            <Content />
-                        </RoutesGuard>
-                    </UserSessionRefresher>
-                </NextIntlClientProvider>
-            </main>
+                <UserSessionRefresher>
+                    <RoutesGuard>
+                        <Content />
+                    </RoutesGuard>
+                </UserSessionRefresher>
 
-            <GlobalLoading />
-        </>
+                <GlobalLoading />
+            </NextIntlClientProvider>
+        </main>
     );
 }

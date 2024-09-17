@@ -28,13 +28,13 @@ export default function About() {
                 <UserSessionRefresher>
                     <Header />
                 </UserSessionRefresher>
+
+                <GlobalLoading />
             </NextIntlClientProvider>
 
             <Content />
 
             <Footer remove="about" />
-
-            <GlobalLoading />
         </>
     );
 }
