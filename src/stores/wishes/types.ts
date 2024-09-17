@@ -42,9 +42,7 @@ export interface ISendWishList extends ISendAllWishes {
 }
 
 export interface IGetWish {
-    userFirstName: IUser['firstName'];
-    userLastName: IUser['lastName'];
-    userAvatar: IUser['avatar'];
+    creator: IUser;
     wish: IWish;
 }
 

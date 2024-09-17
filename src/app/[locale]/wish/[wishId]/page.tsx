@@ -4,7 +4,7 @@ import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
-import Content from '@/app/[locale]/wish/[wishId]/Content';
+import Body from '@/app/[locale]/wish/[wishId]/Body';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 
@@ -29,7 +29,7 @@ export default function WishList() {
                     <UserSessionRefresher>
                         <Header />
 
-                        <Content />
+                        <Body />
                     </UserSessionRefresher>
                 </NextIntlClientProvider>
             </div>

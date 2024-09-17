@@ -459,7 +459,7 @@
         "price": "Price:",
         "address": "Where to buy:",
         "description": "Description:",
-        "empty": "We couldn't display this wish. It might no longer exist because the user deleted it, or it may be restricted due to privacy settings."
+        "empty": "We were unable to display this preference. It may be hidden due to privacy settings, or it may no longer exist."
     },
     "wish-list-page": {
         "head": {

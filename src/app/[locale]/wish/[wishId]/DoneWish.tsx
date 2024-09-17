@@ -12,10 +12,9 @@ interface IProps {
     wish: IWish;
     userId?: IUser['id'];
     whoseWish: IDoneWish['whoseWish'];
-    hide: () => void;
 }
 
-const DoneWish: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
+const DoneWish: FC<IProps> = ({ wish, userId, whoseWish }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
@@ -31,8 +30,6 @@ const DoneWish: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
             alertsT('wishes-api.done-wish.success'),
             alertsT('wishes-api.done-wish.error')
         );
-
-        hide();
     };
 
     return (

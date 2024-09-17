@@ -12,10 +12,9 @@ interface IProps {
     wish: IWish;
     userId?: IUser['id'];
     whoseWish: IDoneWish['whoseWish'];
-    hide: () => void;
 }
 
-const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
+const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish }) => {
     const [show, setShow] = useState<boolean>(true);
 
     const mainPageT = useTranslations('main-page');
@@ -32,8 +31,6 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
             alertsT('wishes-api.undone-wish.success'),
             alertsT('wishes-api.undone-wish.error')
         );
-
-        hide();
     };
 
     const handleDone = async () => {
@@ -44,8 +41,6 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish, hide }) => {
             alertsT('wishes-api.done-wish.success'),
             alertsT('wishes-api.done-wish.error')
         );
-
-        hide();
     };
 
     return (

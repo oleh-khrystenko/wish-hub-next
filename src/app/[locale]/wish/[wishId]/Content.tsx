@@ -1,52 +1,51 @@
-'use client';
-
-import { FC, useState, useEffect, useRef } from 'react';
-import { useParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { AxiosResponse } from 'axios';
-import { toast } from 'react-toastify';
+import { FC } from 'react';
+import { unencryptedData } from '@/helpers/utils/encryption-data';
+import ShareButton from '@/components/layouts/ShareButton';
+import WishSwiper from '@/app/[locale]/wish/[wishId]/WishSwiper';
+import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
 import { ECurrency, IWish } from '@/models/Wish';
 import { IUser } from '@/models/User';
-import { IZoomedImage } from '@/models/Settings';
-import { useMyUserStore } from '@/stores/my-user';
-import { IGetWish } from '@/stores/wishes/types';
-import wishesApi from '@/stores/wishes/api';
-import { unencryptedData } from '@/helpers/utils/encryption-data';
-import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
-import WishSwiper from '@/components/layouts/detail-wish/WishSwiper';
-import BookWish from '@/components/layouts/detail-wish/BookWish';
-import Breadcrumbs from '@/components/layouts/Breadcrumbs';
-import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
-import UiAvatar from '@/components/ui/UiAvatar';
-import LogoIcon from '@/components/icons/LogoIcon';
+import { EPrivacy } from '@/models/Settings';
+import { useTranslations } from 'next-intl';
 
-const Content: FC = () => {
-    const [wish, setWish] = useState<IWish | null>(null);
-    const [userFullName, setUserFullName] = useState<string>('');
-    const [userAvatar, setUserAvatar] = useState<IUser['avatar']>('');
-    const [imageData, setImageData] = useState<IZoomedImage | null>(null);
+interface IProps {
+    wish: IWish;
+    myUser: IUser | null;
+}
 
-    const gotWish = useRef(false);
-
-    const { wishId } = useParams<{ wishId: string }>();
-
+const Content: FC<IProps> = ({ wish, myUser }) => {
     const mainPageT = useTranslations('main-page');
     const wishPageT = useTranslations('wish-page');
-    const alertsT = useTranslations('alerts');
 
-    const myUser = useMyUserStore((state) => state.myUser);
-
-    const pages = [
-        {
-            href: 'wish',
-            icon: <LogoIcon classes="w-4 h-4" />,
-            name: mainPageT('wish'),
-        },
-    ];
-
-    // у бажання є кінцева дата бронювання && термін виконання ще не минув
-    const showBookWish = !wish?.booking?.end && !wish?.executed;
+    let show = (
+        <>
+            {mainPageT('show-all-1')}{' '}
+            <span className="text-zinc-700 dark:text-zinc-300">
+                {mainPageT('show-all-2')}
+            </span>{' '}
+            {mainPageT('show-all-3')}
+        </>
+    );
+    wish?.show === EPrivacy.FRIENDS &&
+        (show = (
+            <>
+                {mainPageT('show-friends-1')}{' '}
+                <span className="text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('show-friends-2')}
+                </span>{' '}
+                {mainPageT('show-friends-3')}
+            </>
+        ));
+    wish?.show === EPrivacy.NOBODY &&
+        (show = (
+            <>
+                {mainPageT('show-nobody-1')}{' '}
+                <span className="text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('show-nobody-2')}
+                </span>{' '}
+                {mainPageT('show-nobody-3')}
+            </>
+        ));
 
     const isURL = (str: string) => {
         try {
@@ -57,89 +56,37 @@ const Content: FC = () => {
         }
     };
 
-    const handleShowImage = (src: string | undefined, alt: string) => {
-        src ? setImageData({ src, alt }) : setImageData(null);
-    };
-
-    useEffect(() => {
-        if (gotWish.current) return;
-        gotWish.current = true;
-
-        if (!myUser) return;
-
-        wishesApi
-            .getWish({ userId: myUser.id, wishId })
-            .then(({ data }: AxiosResponse<IGetWish>) => {
-                setWish(data.wish);
-                setUserFullName(
-                    data.userFirstName +
-                        (data.userLastName ? ` ${data.userLastName}` : '')
-                );
-                setUserAvatar(data.userAvatar);
-            })
-            .catch((error: any) => {
-                toast(
-                    error.response?.data?.message ||
-                        alertsT('wishes-api.get-wish.error'),
-                    { type: 'error' }
-                );
-            });
-    }, []);
-
     return (
-        <main className="flex grow flex-col pt-3">
-            <Breadcrumbs pages={pages} />
+        <>
+            <div className="flex items-center justify-between gap-5">
+                <p className="mt-6 text-4xl font-bold text-zinc-700 dark:text-zinc-300">
+                    {unencryptedData(wish.name, wish.show)}
+                </p>
 
-            {wish ? (
-                <div className="mt-3 px-4 pb-5 desktop-sm:px-0">
-                    {myUser?.id === wish.userId ? (
-                        <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                            {wishPageT('your_wish')}:
-                        </h1>
-                    ) : (
-                        <div className="flex flex-col gap-6">
-                            <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xl:text-2xl">
-                                {wishPageT('created_by')}:
-                            </h1>
+                {myUser?.id === wish.userId && (
+                    <ShareButton
+                        link={`wish/${wish.id}`}
+                        wishShow={wish.show}
+                    />
+                )}
+            </div>
 
-                            <div className="flex items-center gap-3 tablet-sm:gap-4">
-                                <UiAvatar
-                                    avatar={userAvatar}
-                                    alt={userFullName}
-                                    priority
-                                    size={64}
-                                    sizeTailwind="w-16 min-w-16 h-16 min-h-16"
-                                    sizeIcon="w-12 h-12"
-                                    handleClick={() =>
-                                        handleShowImage(
-                                            userAvatar,
-                                            userFullName
-                                        )
-                                    }
-                                />
+            <div
+                className={`${wish.images.length > 1 ? 'desktop-xs:min-h-[482px]' : ''} mt-6 grid w-full grid-cols-1 desktop-xs:grid-cols-8`}
+            >
+                {wish.images.length > 0 && <WishSwiper wish={wish} />}
 
-                                <p
-                                    className="truncate text-2xl font-bold text-zinc-700 dark:text-zinc-300"
-                                    title={userFullName}
-                                >
-                                    {userFullName}
+                <div
+                    className={`${wish.images.length > 1 ? 'mt-[100px] tablet-md:mt-[120px] desktop-xs:mt-0' : ''} ${wish.images.length === 0 ? 'mt-8 tablet-md:mt-0 desktop-xs:col-span-8' : 'desktop-xs:col-span-5'} flex w-full flex-col gap-4 px-4 tablet-md:px-5 tablet-lg:px-8 desktop-xs:gap-6`}
+                >
+                    {(myUser?.id === wish.userId || wish.price) && (
+                        <div className="flex flex-col gap-4">
+                            {myUser?.id === wish.userId && (
+                                <p className="text-zinc-600 dark:text-zinc-400">
+                                    {show}
                                 </p>
-                            </div>
-                        </div>
-                    )}
+                            )}
 
-                    <p className="mt-6 text-4xl font-bold text-zinc-700 dark:text-zinc-300">
-                        {unencryptedData(wish.name, wish.show)}
-                    </p>
-
-                    <div
-                        className={`${wish.images.length > 1 ? 'desktop-xs:min-h-[482px]' : ''} mt-6 grid w-full grid-cols-1 desktop-xs:grid-cols-8`}
-                    >
-                        {wish.images.length > 0 && <WishSwiper wish={wish} />}
-
-                        <div
-                            className={`${wish.images.length > 1 ? 'mt-[100px] tablet-md:mt-[120px] desktop-xs:mt-0' : ''} ${wish.images.length === 0 ? 'mt-8 tablet-md:mt-0 desktop-xs:col-span-8' : 'desktop-xs:col-span-5'} flex w-full flex-col gap-4 px-4 tablet-md:px-5 tablet-lg:px-8 desktop-xs:gap-6`}
-                        >
                             {wish.price && (
                                 <div className="flex items-center gap-2 whitespace-nowrap">
                                     <span className="text-zinc-600 dark:text-zinc-400">
@@ -159,82 +106,60 @@ const Content: FC = () => {
                                     </span>
                                 </div>
                             )}
-
-                            {wish.addresses && wish.addresses.length > 0 && (
-                                <p className="flex w-full flex-col">
-                                    <span className="text-sm leading-6 text-zinc-600 dark:text-zinc-400 tablet-md:text-base tablet-md:leading-7">
-                                        {wishPageT('address')}
-                                    </span>
-                                    {wish.addresses.map((address, idx) => {
-                                        const unencryptedAddress =
-                                            unencryptedData(
-                                                address.value,
-                                                wish.show
-                                            );
-
-                                        if (isURL(unencryptedAddress)) {
-                                            return (
-                                                <a
-                                                    className="truncate py-1.5 text-base text-cyan-500 dark:text-cyan-300 tablet-md:text-xl"
-                                                    href={unencryptedAddress}
-                                                    key={address.id}
-                                                    title={unencryptedAddress}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                >
-                                                    {unencryptedAddress}
-                                                </a>
-                                            );
-                                        }
-
-                                        return (
-                                            <span
-                                                key={address.id}
-                                                className="truncate py-1.5 text-base text-zinc-700 dark:text-zinc-300 tablet-md:text-xl"
-                                            >
-                                                {unencryptedAddress}
-                                            </span>
-                                        );
-                                    })}
-                                </p>
-                            )}
-
-                            {wish.description && (
-                                <p className="w-full">
-                                    <span className="float-left mr-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400 tablet-md:text-base tablet-md:leading-7">
-                                        {wishPageT('description')}
-                                    </span>
-                                    <span className="whitespace-pre-wrap text-base text-zinc-700 dark:text-zinc-300 tablet-md:text-lg">
-                                        {unencryptedData(
-                                            wish.description,
-                                            wish.show
-                                        )}
-                                    </span>
-                                </p>
-                            )}
-                        </div>
-                    </div>
-
-                    {showBookWish && (
-                        <div className="ml-auto mt-6 w-fit">
-                            <BookWish wish={wish} />
                         </div>
                     )}
 
-                    {!!imageData && (
-                        <ZoomedImageModal
-                            src={imageData.src}
-                            alt={imageData.alt}
-                            hide={() => setImageData(null)}
-                        />
+                    {wish.addresses && wish.addresses.length > 0 && (
+                        <p className="flex w-full flex-col">
+                            <span className="text-sm leading-6 text-zinc-600 dark:text-zinc-400 tablet-md:text-base tablet-md:leading-7">
+                                {wishPageT('address')}
+                            </span>
+                            {wish.addresses.map((address, idx) => {
+                                const unencryptedAddress = unencryptedData(
+                                    address.value,
+                                    wish.show
+                                );
+
+                                if (isURL(unencryptedAddress)) {
+                                    return (
+                                        <a
+                                            className="truncate py-1.5 text-base text-cyan-500 dark:text-cyan-300 tablet-md:text-xl"
+                                            href={unencryptedAddress}
+                                            key={address.id}
+                                            title={unencryptedAddress}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {unencryptedAddress}
+                                        </a>
+                                    );
+                                }
+
+                                return (
+                                    <span
+                                        key={address.id}
+                                        className="truncate py-1.5 text-base text-zinc-700 dark:text-zinc-300 tablet-md:text-xl"
+                                    >
+                                        {unencryptedAddress}
+                                    </span>
+                                );
+                            })}
+                        </p>
+                    )}
+
+                    {wish.description && (
+                        <p className="w-full">
+                            <span className="float-left mr-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400 tablet-md:text-base tablet-md:leading-7">
+                                {wishPageT('description')}
+                            </span>
+                            <span className="whitespace-pre-wrap text-base text-zinc-700 dark:text-zinc-300 tablet-md:text-lg">
+                                {unencryptedData(wish.description, wish.show)}
+                            </span>
+                        </p>
                     )}
                 </div>
-            ) : (
-                <p className="flex w-full grow items-center justify-center p-4 text-center text-base text-zinc-700 dark:text-zinc-300 tablet-md:text-lg desktop-sm:text-xl">
-                    {wishPageT('empty')}
-                </p>
-            )}
-        </main>
+            </div>
+        </>
     );
 };
 

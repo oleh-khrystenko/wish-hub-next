@@ -18,10 +18,9 @@ import InfoIcon from '@/components/icons/InfoIcon';
 
 interface IProps {
     wish: IWish;
-    hide?: () => void;
 }
 
-const BookWish: FC<IProps> = ({ wish, hide }) => {
+const BookWish: FC<IProps> = ({ wish }) => {
     const [show, setShow] = useState<boolean>(false);
     const [bookEnd, setBookEnd] = useState<Date | null>(null);
     const [bookEndError, setBookEndError] = useState<string>('');
@@ -84,7 +83,6 @@ const BookWish: FC<IProps> = ({ wish, hide }) => {
         }
 
         handleHide();
-        hide && hide();
     };
 
     useEffect(() => {

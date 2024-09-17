@@ -20,13 +20,13 @@ export const isAfter = (
 ) => dayjs(checkingDate).isSameOrAfter(dayjs().add(number, numberType));
 
 export const isBookingExpired = (
-    wish: IWish,
+    wish: IWish | null,
     myUserId: IUser['id'] | undefined
 ): boolean => {
     // бажання заброньовано та належить користувачу та не виконано
     return (
-        !!wish.booking?.userId &&
-        (myUserId === wish.userId || myUserId === wish.booking?.userId) &&
-        isBefore(wish.booking?.end, 0, 'day')
+        !!wish?.booking?.userId &&
+        (myUserId === wish?.userId || myUserId === wish?.booking?.userId) &&
+        isBefore(wish?.booking?.end, 0, 'day')
     );
 };

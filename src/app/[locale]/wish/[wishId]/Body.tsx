@@ -1,0 +1,274 @@
+'use client';
+
+import { FC, useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { AxiosResponse } from 'axios';
+import { toast } from 'react-toastify';
+import { IWish } from '@/models/Wish';
+import { IUser } from '@/models/User';
+import { EPrivacy } from '@/models/Settings';
+import { useMyUserStore } from '@/stores/my-user';
+import { EWhoseWish, IGetWish } from '@/stores/wishes/types';
+import wishesApi from '@/stores/wishes/api';
+import BookWish from '@/app/[locale]/wish/[wishId]/BookWish';
+import Breadcrumbs from '@/components/layouts/Breadcrumbs';
+import UiAvatar from '@/components/ui/UiAvatar';
+import LogoIcon from '@/components/icons/LogoIcon';
+import UseFullName from '@/helpers/hooks/UseFullName';
+import LikeAction from '@/components/layouts/LikeAction';
+import { isBookingExpired } from '@/helpers/utils/date-validators';
+import dayjs from 'dayjs';
+import CancelBookWish from '@/app/[locale]/wish/[wishId]/CancelBookWish';
+import DoneWish from '@/app/[locale]/wish/[wishId]/DoneWish';
+import BookingExpired from '@/app/[locale]/wish/[wishId]/BookingExpired';
+import UiButton from '@/components/ui/UiButton';
+import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
+import Content from '@/app/[locale]/wish/[wishId]/Content';
+
+const Body: FC = () => {
+    const [wish, setWish] = useState<IWish | null>(null);
+    const [creator, setCreator] = useState<IUser | null>(null);
+
+    const gotWish = useRef(false);
+
+    const { wishId } = useParams<{ wishId: string }>();
+
+    const activeLocale = useLocale();
+    const mainPageT = useTranslations('main-page');
+    const wishPageT = useTranslations('wish-page');
+    const alertsT = useTranslations('alerts');
+
+    const myUser = useMyUserStore((state) => state.myUser);
+
+    const { getFullName } = UseFullName();
+    const { getFullDate } = UseLocaleFormats();
+
+    const breadcrumbsPages = [
+        {
+            href: 'wish',
+            icon: <LogoIcon classes="w-4 h-4" />,
+            name: mainPageT('wish'),
+        },
+    ];
+
+    let showDeliveryAddress =
+        creator?.deliveryAddress && creator?.deliveryAddress.length > 0;
+    if (showDeliveryAddress) {
+        creator?.showDeliveryAddress === EPrivacy.NOBODY &&
+            (showDeliveryAddress = false);
+        creator?.showDeliveryAddress === EPrivacy.FRIENDS &&
+            !myUser?.friends.includes(creator.id) &&
+            (showDeliveryAddress = false);
+    }
+
+    // я забронював або створив бажання
+    const myUserBookedOrCreatedWish =
+        myUser?.id === wish?.booking?.userId || myUser?.id === wish?.userId;
+
+    // у бажання немає кінцевої дати бронювання && бажання ще не виконане
+    const showBookWish = !wish?.booking?.end && !wish?.executed;
+
+    // бажання належить тому хто створював його
+    // && бажання можна скасувати за 3 дні до початку
+    // && термін виконання ще не минув
+    const showCancelBookWish =
+        myUser?.id === wish?.booking?.userId &&
+        !dayjs().isAfter(dayjs(wish?.booking?.start).add(3, 'days')) &&
+        !dayjs(wish?.booking?.end).isSameOrBefore(dayjs());
+
+    // бажання належить користувачу
+    // && бажання не виконане
+    // && термін виконання ще не минув
+    const showDoneWish =
+        myUser?.id === wish?.userId &&
+        !wish?.executed &&
+        !isBookingExpired(wish, myUser?.id);
+
+    // бажання належить користувачу і термін виконання минув
+    const showBookingExpired =
+        myUser?.id === wish?.userId && isBookingExpired(wish, myUser?.id);
+
+    // бажання можна редагувати
+    // && бажання належить користувачу
+    // && бажання не заброньовано
+    const showEditWish = myUser?.id === wish?.userId && !wish?.booking?.end;
+
+    // МОЖЛИВІ КЕЙСИ
+    // Моє бажання / не моє
+    //// виконане / не виконане
+    //// заброньоване / не заброньоване
+    ////// перші 3 дні минули / не минули
+    ////// термін виконання минув / не минув
+
+    const handleEditWish = () => {
+        console.log('handleEditWish');
+    };
+
+    useEffect(() => {
+        if (gotWish.current) return;
+        gotWish.current = true;
+
+        if (!myUser) return;
+
+        wishesApi
+            .getWish({ userId: myUser.id, wishId })
+            .then(({ data }: AxiosResponse<IGetWish>) => {
+                setCreator(data.creator);
+                setWish(data.wish);
+            })
+            .catch((error: any) => {
+                toast(
+                    error.response?.data?.message ||
+                        alertsT('wishes-api.get-wish.error'),
+                    { type: 'error' }
+                );
+            });
+    }, []);
+
+    return (
+        <main className="flex grow flex-col overflow-y-auto pt-3">
+            <Breadcrumbs pages={breadcrumbsPages} />
+
+            {wish ? (
+                <div className="mt-8 px-4 pb-5 desktop-sm:px-0">
+                    {myUser?.id === wish.userId ? (
+                        <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
+                            {wishPageT('your_wish')}:
+                        </h1>
+                    ) : (
+                        <div className="flex flex-col gap-6">
+                            <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xl:text-2xl">
+                                {wishPageT('created_by')}:
+                            </h1>
+
+                            <Link
+                                href={`/${activeLocale}/profile/${creator?.id}`}
+                                className="flex items-center gap-3 tablet-sm:gap-4"
+                            >
+                                <UiAvatar
+                                    avatar={creator?.avatar}
+                                    alt={getFullName(creator)}
+                                    priority
+                                    size={64}
+                                    sizeTailwind="w-16 min-w-16 h-16 min-h-16"
+                                    sizeIcon="w-12 h-12"
+                                />
+
+                                <p
+                                    className="truncate text-2xl font-bold text-zinc-700 dark:text-zinc-300"
+                                    title={getFullName(creator)}
+                                >
+                                    {getFullName(creator)}
+                                </p>
+                            </Link>
+                        </div>
+                    )}
+
+                    <Content wish={wish} myUser={myUser} />
+
+                    {/* FOOT */}
+                    <div className="w-full pt-8">
+                        {showDeliveryAddress && (
+                            <p className="text-right text-zinc-600 dark:text-zinc-400">
+                                {mainPageT('you_can_send')}
+                                <span className="font-bold">
+                                    {creator?.deliveryAddress}
+                                </span>
+                            </p>
+                        )}
+
+                        <div className="flex justify-between gap-5">
+                            <div className="flex items-center justify-center gap-1">
+                                <LikeAction wish={wish} type="likes" />
+
+                                <LikeAction wish={wish} type="dislikes" />
+                            </div>
+
+                            <div className="flex flex-col gap-1 tablet-md:flex-row tablet-md:items-center tablet-md:gap-5">
+                                {wish.booking?.end && (
+                                    <p
+                                        className={`${isBookingExpired(wish, myUser?.id) ? 'text-rose-500' : 'text-zinc-500 dark:text-zinc-400'} flex flex-wrap items-center justify-end gap-1`}
+                                    >
+                                        {myUserBookedOrCreatedWish ? (
+                                            <>
+                                                <span>
+                                                    {myUser?.id ===
+                                                    wish.booking?.userId
+                                                        ? mainPageT('you-must')
+                                                        : mainPageT(
+                                                              'wish-must'
+                                                          )}
+                                                </span>
+                                                <span className="font-bold">
+                                                    {dayjs(wish.booking?.end)
+                                                        .locale(activeLocale)
+                                                        .format(getFullDate())}
+                                                </span>
+                                            </>
+                                        ) : (
+                                            <>{mainPageT('coming-true')}</>
+                                        )}
+                                    </p>
+                                )}
+
+                                {/* Book */}
+                                {showBookWish && <BookWish wish={wish} />}
+
+                                {/* Cancel Book */}
+                                {showCancelBookWish && (
+                                    <CancelBookWish
+                                        wish={wish}
+                                        userId={myUser?.id}
+                                    />
+                                )}
+
+                                {/* Done */}
+                                {showDoneWish && (
+                                    <DoneWish
+                                        wish={wish}
+                                        userId={myUser?.id}
+                                        whoseWish={
+                                            wish.booking?.userId
+                                                ? EWhoseWish.SOMEONE
+                                                : EWhoseWish.MY
+                                        }
+                                    />
+                                )}
+
+                                {/* Booking Expired */}
+                                {showBookingExpired && (
+                                    <BookingExpired
+                                        wish={wish}
+                                        userId={myUser?.id}
+                                        whoseWish={
+                                            wish.booking?.userId
+                                                ? EWhoseWish.SOMEONE
+                                                : EWhoseWish.MY
+                                        }
+                                    />
+                                )}
+
+                                {/* Edit Wish */}
+                                {showEditWish && (
+                                    <div className="ml-auto mt-3 w-fit tablet-md:mt-0">
+                                        <UiButton onBtnClick={handleEditWish}>
+                                            {mainPageT('edit-wish')}
+                                        </UiButton>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <p className="flex w-full grow items-center justify-center p-4 text-center text-base text-zinc-700 dark:text-zinc-300 tablet-md:text-lg desktop-sm:text-xl">
+                    {wishPageT('empty')}
+                </p>
+            )}
+        </main>
+    );
+};
+
+export default Body;

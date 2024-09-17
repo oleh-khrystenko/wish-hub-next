@@ -10,10 +10,9 @@ import { unencryptedData } from '@/helpers/utils/encryption-data';
 interface IProps {
     wish: IWish;
     userId?: IUser['id'];
-    hide: () => void;
 }
 
-const CancelBookWish: FC<IProps> = ({ wish, userId, hide }) => {
+const CancelBookWish: FC<IProps> = ({ wish, userId }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
@@ -29,8 +28,6 @@ const CancelBookWish: FC<IProps> = ({ wish, userId, hide }) => {
             alertsT('wishes-api.cancel-book-wish.success'),
             alertsT('wishes-api.cancel-book-wish.error')
         );
-
-        hide();
     };
 
     return (
