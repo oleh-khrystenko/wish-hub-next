@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import { EPrivacy } from '@/models/Settings';
@@ -23,12 +23,14 @@ import LikeAction from '@/components/layouts/LikeAction';
 import UiAvatar from '@/components/ui/UiAvatar';
 import UiButton from '@/components/ui/UiButton';
 import LogoIcon from '@/components/icons/LogoIcon';
+import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
 
 const Body: FC = () => {
     const [showEditWishModal, setShowEditWishModal] = useState<boolean>(false);
 
     const gotWish = useRef(false);
 
+    const router = useRouter();
     const { wishId } = useParams<{ wishId: string }>();
 
     const activeLocale = useLocale();
@@ -121,14 +123,34 @@ const Body: FC = () => {
             {wish ? (
                 <div className="mt-8 flex grow flex-col px-4 pb-5 desktop-sm:px-0">
                     {myUser?.id === wish.userId ? (
-                        <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                            {wishPageT('your_wish')}:
-                        </h1>
+                        <div className="flex items-center gap-4">
+                            <button
+                                className="p-2.5"
+                                type="button"
+                                onClick={() => router.back()}
+                            >
+                                <ArrowBackIcon />
+                            </button>
+
+                            <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-2xl">
+                                {wishPageT('your_wish')}:
+                            </h1>
+                        </div>
                     ) : (
                         <div className="flex flex-col gap-6">
-                            <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xl:text-2xl">
-                                {wishPageT('created_by')}:
-                            </h1>
+                            <div className="flex items-center gap-4">
+                                <button
+                                    className="p-2.5"
+                                    type="button"
+                                    onClick={() => router.back()}
+                                >
+                                    <ArrowBackIcon />
+                                </button>
+
+                                <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-2xl">
+                                    {wishPageT('created_by')}:
+                                </h1>
+                            </div>
 
                             <Link
                                 href={`/${activeLocale}/profile/${creator?.id}`}

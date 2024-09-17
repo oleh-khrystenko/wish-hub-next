@@ -29,14 +29,14 @@ const UiLoading: FC<IProps> = ({
 
         const timerFirst = setTimeout(() => {
             setMessage(alertsT('loading.first'));
-        }, 4000); // 4 секунд
+        }, 6000); // 6 секунд
         const timerSecond = setTimeout(() => {
             setMessage(alertsT('loading.second'));
-        }, 12000); // 12 секунд
+        }, 15000); // 15 секунд
         const timerThird = setTimeout(() => {
             setMessage(alertsT('loading.third'));
             setShowReload(true);
-        }, 22000); // 22 секунд
+        }, 30000); // 30 секунд
 
         return () => {
             clearTimeout(timerFirst);
