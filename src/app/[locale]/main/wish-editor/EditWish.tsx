@@ -24,10 +24,11 @@ import UiModal from '@/components/ui/modal/UiModal';
 interface IProps {
     showModal: boolean;
     idOfSelectedWish: IWish['id'] | null;
+    wish?: IWish | null;
     hide: () => void;
 }
 
-const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
+const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, wish, hide }) => {
     const [material, setMaterial] = useState<ICreateWish['material']>(true);
     const [images, setImages] = useState<TCurrentImage[]>([]);
     const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
@@ -97,9 +98,11 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
             return;
         }
 
+        const wishId = idOfSelectedWish ?? wish!.id;
+
         if (
             !myUser ||
-            idOfSelectedWish === null ||
+            !wishId ||
             show === null ||
             !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
         )
@@ -196,7 +199,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
         };
 
         await updateWish(
-            { ...wishData, id: idOfSelectedWish },
+            { ...wishData, id: wishId },
             alertsT('wishes-api.update-wish.success'),
             alertsT('wishes-api.update-wish.error')
         );
@@ -240,11 +243,15 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
     };
 
     useLayoutEffect(() => {
-        if (wishes.length === 0) return;
+        let selectedWish: IWish | undefined = undefined;
 
-        const selectedWish = wishes.find(
-            (wish) => wish.id === idOfSelectedWish
-        );
+        if (idOfSelectedWish) {
+            selectedWish = wishes.find((wish) => wish.id === idOfSelectedWish);
+        }
+
+        if (wish) {
+            selectedWish = { ...wish };
+        }
 
         if (!selectedWish || !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return;
 
@@ -332,7 +339,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, hide }) => {
                 ? selectedWish.images
                 : decryptedImages
         );
-    }, [idOfSelectedWish, wishes, setValue]);
+    }, [idOfSelectedWish, wish, wishes, setValue]);
 
     return (
         <>

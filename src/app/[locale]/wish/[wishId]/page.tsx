@@ -24,6 +24,7 @@ export default function WishList() {
                         'wish-page',
                         'share-button',
                         'alerts',
+                        'validations',
                     ])}
                 >
                     <UserSessionRefresher>

@@ -29,17 +29,15 @@ const replaceWish = (
         (currentWish) => currentWish.id === newWish.id
     );
 
+    const updatedList = [...state.list];
+
     // Перевіряємо, чи було знайдено бажання
     if (index !== -1) {
-        // Оновлюємо масив з новим бажанням
-        const updatedList = [...state.list];
         updatedList[index] = newWish;
-
-        // Оновлюємо стан з новим масивом
-        return { list: updatedList, wish: { ...newWish } };
     }
 
-    return {};
+    // Оновлюємо стан з новим масивом та оновлюємо бажання
+    return { list: updatedList, wish: { ...newWish } };
 };
 
 const { setShowGlobalLoading } = useSettingsStore.getState();
