@@ -23,7 +23,7 @@ import UiModal from '@/components/ui/modal/UiModal';
 
 interface IProps {
     showModal: boolean;
-    idOfSelectedWish: IWish['id'] | null;
+    idOfSelectedWish?: IWish['id'] | null;
     wish?: IWish | null;
     hide: () => void;
 }
