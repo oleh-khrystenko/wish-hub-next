@@ -1,11 +1,8 @@
 import { ReactNode } from 'react';
 import Script from 'next/script';
 import { Mulish } from 'next/font/google';
-import { NextIntlClientProvider, useMessages } from 'next-intl';
-import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
 import ServiceWorkerRegistrar from '@/helpers/hocs/ServiceWorkerRegistrar';
-import GlobalLoading from '@/components/layouts/GlobalLoading';
 import ReactToastify from '@/components/layouts/ReactToastify';
 import '@/app/globals.css';
 
@@ -37,8 +34,6 @@ export default function Layout({
     children,
     params: { locale },
 }: Readonly<IProps>) {
-    const messages = useMessages();
-
     return (
         <html lang={locale}>
             <head>
@@ -81,13 +76,7 @@ export default function Layout({
                 </noscript>
                 {/* End Google Tag Manager */}
 
-                <NextIntlClientProvider
-                    messages={pick(messages, ['not-found-page', 'alerts'])}
-                >
-                    {children}
-
-                    <GlobalLoading />
-                </NextIntlClientProvider>
+                {children}
 
                 <ServiceWorkerRegistrar />
 

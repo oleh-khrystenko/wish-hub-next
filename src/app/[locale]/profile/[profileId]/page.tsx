@@ -8,6 +8,7 @@ import { fetchMetadata } from '@/helpers/utils/metadata';
 import Content from '@/app/[locale]/profile/[profileId]/Content';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
+import GlobalLoading from '@/components/layouts/GlobalLoading';
 
 export async function generateMetadata({ params }: IParams): Promise<Metadata> {
     return await fetchMetadata(params.locale, 'profile');
@@ -39,6 +40,8 @@ export default function Profile() {
             </NextIntlClientProvider>
 
             <Footer />
+
+            <GlobalLoading />
         </>
     );
 }

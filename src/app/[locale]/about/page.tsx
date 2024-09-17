@@ -7,6 +7,7 @@ import { fetchMetadata } from '@/helpers/utils/metadata';
 import Content from '@/app/[locale]/about/Content';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
+import GlobalLoading from '@/components/layouts/GlobalLoading';
 
 export async function generateMetadata({ params }: IParams): Promise<Metadata> {
     return await fetchMetadata(params.locale, 'about');
@@ -32,6 +33,8 @@ export default function About() {
             <Content />
 
             <Footer remove="about" />
+
+            <GlobalLoading />
         </>
     );
 }

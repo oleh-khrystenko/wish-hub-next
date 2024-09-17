@@ -7,6 +7,7 @@ import { fetchMetadata } from '@/helpers/utils/metadata';
 import Content from '@/app/[locale]/privacy-policy/Content';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
+import GlobalLoading from '@/components/layouts/GlobalLoading';
 
 export async function generateMetadata({ params }: IParams): Promise<Metadata> {
     return await fetchMetadata(params.locale, 'privacy-policy');
@@ -32,6 +33,8 @@ export default function PrivacyPolicy() {
             <Content />
 
             <Footer remove="privacy-policy" />
+
+            <GlobalLoading />
         </>
     );
 }
