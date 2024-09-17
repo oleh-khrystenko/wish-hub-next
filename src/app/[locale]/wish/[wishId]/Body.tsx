@@ -1,36 +1,29 @@
 'use client';
 
-import { FC, useState, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { AxiosResponse } from 'axios';
-import { toast } from 'react-toastify';
-import { IWish } from '@/models/Wish';
-import { IUser } from '@/models/User';
+import dayjs from 'dayjs';
 import { EPrivacy } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
-import { EWhoseWish, IGetWish } from '@/stores/wishes/types';
-import wishesApi from '@/stores/wishes/api';
-import BookWish from '@/app/[locale]/wish/[wishId]/BookWish';
-import Breadcrumbs from '@/components/layouts/Breadcrumbs';
-import UiAvatar from '@/components/ui/UiAvatar';
-import LogoIcon from '@/components/icons/LogoIcon';
+import { EWhoseWish } from '@/stores/wishes/types';
+import { useWishesStore } from '@/stores/wishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
-import LikeAction from '@/components/layouts/LikeAction';
+import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import { isBookingExpired } from '@/helpers/utils/date-validators';
-import dayjs from 'dayjs';
+import Content from '@/app/[locale]/wish/[wishId]/Content';
+import BookWish from '@/app/[locale]/wish/[wishId]/BookWish';
 import CancelBookWish from '@/app/[locale]/wish/[wishId]/CancelBookWish';
 import DoneWish from '@/app/[locale]/wish/[wishId]/DoneWish';
 import BookingExpired from '@/app/[locale]/wish/[wishId]/BookingExpired';
+import Breadcrumbs from '@/components/layouts/Breadcrumbs';
+import LikeAction from '@/components/layouts/LikeAction';
+import UiAvatar from '@/components/ui/UiAvatar';
 import UiButton from '@/components/ui/UiButton';
-import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
-import Content from '@/app/[locale]/wish/[wishId]/Content';
+import LogoIcon from '@/components/icons/LogoIcon';
 
 const Body: FC = () => {
-    const [wish, setWish] = useState<IWish | null>(null);
-    const [creator, setCreator] = useState<IUser | null>(null);
-
     const gotWish = useRef(false);
 
     const { wishId } = useParams<{ wishId: string }>();
@@ -41,6 +34,10 @@ const Body: FC = () => {
     const alertsT = useTranslations('alerts');
 
     const myUser = useMyUserStore((state) => state.myUser);
+
+    const wish = useWishesStore((state) => state.wish);
+    const creator = useWishesStore((state) => state.creator);
+    const getWish = useWishesStore((state) => state.getWish);
 
     const { getFullName } = UseFullName();
     const { getFullDate } = UseLocaleFormats();
@@ -112,19 +109,10 @@ const Body: FC = () => {
 
         if (!myUser) return;
 
-        wishesApi
-            .getWish({ userId: myUser.id, wishId })
-            .then(({ data }: AxiosResponse<IGetWish>) => {
-                setCreator(data.creator);
-                setWish(data.wish);
-            })
-            .catch((error: any) => {
-                toast(
-                    error.response?.data?.message ||
-                        alertsT('wishes-api.get-wish.error'),
-                    { type: 'error' }
-                );
-            });
+        getWish(
+            { userId: myUser.id, wishId },
+            alertsT('wishes-api.get-wish.error')
+        ).finally();
     }, []);
 
     return (
@@ -132,7 +120,7 @@ const Body: FC = () => {
             <Breadcrumbs pages={breadcrumbsPages} />
 
             {wish ? (
-                <div className="mt-8 px-4 pb-5 desktop-sm:px-0">
+                <div className="mt-8 flex grow flex-col px-4 pb-5 desktop-sm:px-0">
                     {myUser?.id === wish.userId ? (
                         <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
                             {wishPageT('your_wish')}:
@@ -169,7 +157,7 @@ const Body: FC = () => {
                     <Content wish={wish} myUser={myUser} />
 
                     {/* FOOT */}
-                    <div className="w-full pt-8">
+                    <div className="mt-auto w-full pt-8">
                         {showDeliveryAddress && (
                             <p className="text-right text-zinc-600 dark:text-zinc-400">
                                 {mainPageT('you_can_send')}
@@ -179,7 +167,7 @@ const Body: FC = () => {
                             </p>
                         )}
 
-                        <div className="flex justify-between gap-5">
+                        <div className="mt-5 flex flex-col items-end justify-between gap-5 mobile-sm:flex-row">
                             <div className="flex items-center justify-center gap-1">
                                 <LikeAction wish={wish} type="likes" />
 

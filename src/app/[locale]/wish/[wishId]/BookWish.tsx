@@ -105,7 +105,7 @@ const BookWish: FC<IProps> = ({ wish }) => {
 
     return (
         <>
-            <div className="-mr-4 ml-auto">
+            <div className="ml-auto">
                 <UiButton variant="text-btn" onBtnClick={handleBookWish}>
                     {mainPageT('will-fulfill')}
                 </UiButton>

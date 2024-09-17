@@ -32,7 +32,7 @@ const CancelBookWish: FC<IProps> = ({ wish, userId }) => {
 
     return (
         <>
-            <div className="-mr-4 ml-auto">
+            <div className="ml-auto">
                 <UiButton
                     variant="text-attention"
                     onBtnClick={() => setShow(true)}

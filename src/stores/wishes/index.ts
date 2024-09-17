@@ -20,6 +20,7 @@ import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 const replaceWish = (
     state: {
         list: IWish[];
+        wish: IWish | null;
     },
     newWish: IWish
 ) => {
@@ -35,7 +36,7 @@ const replaceWish = (
         updatedList[index] = newWish;
 
         // Оновлюємо стан з новим масивом
-        return { list: updatedList };
+        return { list: updatedList, wish: { ...newWish } };
     }
 
     return {};
@@ -45,6 +46,7 @@ const { setShowGlobalLoading } = useSettingsStore.getState();
 
 interface IWishesStore {
     list: IWish[];
+    wish: IWish | null;
     wishCandidate: IWishCandidate | null;
     creator: IUser | null;
     status: EWishStatus;
@@ -66,6 +68,7 @@ interface IWishesStore {
         successT: string,
         errorT: string
     ) => Promise<void>;
+    getWish: (params: IWishAction, errorT: string) => Promise<void>;
     bookWish: (data: IBookWish, errorT: string) => Promise<IQuote | void>;
     cancelBookWish: (
         data: IActionWish,
@@ -97,6 +100,7 @@ interface IWishesStore {
 
 export const useWishesStore = create<IWishesStore>((set) => ({
     list: [],
+    wish: null,
     wishCandidate: null,
     creator: null,
     status: EWishStatus.ALL,
@@ -180,6 +184,35 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
             toast(successT, { type: 'success' });
         } catch (error: any) {
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
+        }
+    },
+    getWish: async (params, errorT) => {
+        setShowGlobalLoading(true);
+
+        set((state) => ({
+            ...state,
+            wish: null,
+            creator: null,
+        }));
+
+        try {
+            const response = await wishesApi.getWish(params);
+
+            set((state) => ({
+                ...state,
+                wish: response.data.wish,
+                creator: response.data.creator,
+            }));
+        } catch (error: any) {
+            set((state) => ({
+                ...state,
+                wish: null,
+                creator: null,
+            }));
+
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             setShowGlobalLoading(false);

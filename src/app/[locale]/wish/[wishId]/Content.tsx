@@ -59,7 +59,7 @@ const Content: FC<IProps> = ({ wish, myUser }) => {
     return (
         <>
             <div className="flex items-center justify-between gap-5">
-                <p className="mt-6 text-4xl font-bold text-zinc-700 dark:text-zinc-300">
+                <p className="mt-6 truncate text-4xl font-bold text-zinc-700 dark:text-zinc-300">
                     {unencryptedData(wish.name, wish.show)}
                 </p>
 
