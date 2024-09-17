@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import LogoIcon from '@/components/icons/LogoIcon';
+import Link from 'next/link';
 import Image from 'next/image';
+import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
+import LogoIcon from '@/components/icons/LogoIcon';
 
 export default function NotFound() {
     const pathname = usePathname();
@@ -140,10 +141,7 @@ export default function NotFound() {
                         Wish Hub
                     </Link>
 
-                    <div className="flex items-center gap-4">
-                        {/*<ThemeSwitcher />*/}
-                        {/*<LangSelect selectHoverItemBg="hover:bg-zinc-100 hover:dark:bg-zinc-700" />*/}
-                    </div>
+                    <ThemeSwitcher />
                 </header>
 
                 <main className="flex grow flex-col items-center justify-center gap-6">
