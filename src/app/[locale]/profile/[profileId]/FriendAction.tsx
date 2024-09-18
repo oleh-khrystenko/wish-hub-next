@@ -96,6 +96,7 @@ const FriendAction: FC<IProps> = ({ myUser, user }) => {
 
             <UiPopup
                 classes="pt-10"
+                showPopupCenter
                 show={showPopup}
                 hide={() => setShowPopup(false)}
             >
