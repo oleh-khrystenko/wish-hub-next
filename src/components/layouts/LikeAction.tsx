@@ -1,11 +1,13 @@
 'use client';
 
 import { FC, MouseEvent, useState, useMemo } from 'react';
-import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { IUser } from '@/models/User';
 import { IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
+import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UiPopup from '@/components/ui/UiPopup';
 import UiAvatar from '@/components/ui/UiAvatar';
@@ -20,11 +22,19 @@ interface IProps {
 const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
+    const router = useRouter();
+
+    const activeLocale = useLocale();
+
     const alertsT = useTranslations('alerts');
 
     const myUser = useMyUserStore((state) => state.myUser);
     const likeWish = useWishesStore((state) => state.likeWish);
     const dislikeWish = useWishesStore((state) => state.dislikeWish);
+
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
+    );
 
     const { getInitialWishList } = UseInitialWishes();
 
@@ -47,7 +57,11 @@ const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
         e.stopPropagation();
         e.preventDefault();
 
-        if (!myUser) return;
+        if (!myUser) {
+            setShowGlobalLoading(true);
+            router.push(`/${activeLocale}/auth`);
+            return;
+        }
 
         type === 'likes' &&
             (await likeWish(
