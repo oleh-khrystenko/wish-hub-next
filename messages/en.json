@@ -411,7 +411,10 @@
             "file-type": "The file must be in one of the following formats:",
             "file-size": "The file size must not exceed {size} MB."
         },
-        "password": "Password*"
+        "password": "Password*",
+        "follow_to": "You are following",
+        "follow_from": "Following you",
+        "friends": "Your friend"
     },
     "wish-page": {
         "head": {

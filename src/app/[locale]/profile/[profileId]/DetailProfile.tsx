@@ -10,6 +10,7 @@ import { useWishesStore } from '@/stores/wishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
+import FriendAction from '@/app/[locale]/profile/[profileId]/FriendAction';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 import UiAvatar from '@/components/ui/UiAvatar';
 
@@ -18,13 +19,15 @@ dayjs.extend(advancedFormat);
 const DetailProfile: FC = () => {
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
 
+    const activeLocale = useLocale();
+    const profilePageT = useTranslations('profile-page');
+
     const myUser = useMyUserStore((state) => state.myUser);
 
     const wishesCreator = useWishesStore((state) => state.creator);
 
-    const profilePageT = useTranslations('profile-page');
-    const activeLocale = useLocale();
-
+    const { getFullName } = UseFullName();
+    const screenWidth = UseScreenWidth();
     const { getMonthWithDate } = UseLocaleFormats();
 
     // Avatar
@@ -34,9 +37,6 @@ const DetailProfile: FC = () => {
         }
         return wishesCreator?.avatar;
     }, [wishesCreator, myUser]);
-
-    const { getFullName } = UseFullName();
-    const screenWidth = UseScreenWidth();
 
     // isMyFriend
     const isMyFriend = useMemo(
@@ -170,24 +170,30 @@ const DetailProfile: FC = () => {
     return (
         <div className="mt-8 flex flex-col gap-5">
             <div className="flex items-center gap-3 tablet-sm:gap-4">
-                <UiAvatar
-                    avatar={avatar}
-                    alt={
-                        myUser?.id === wishesCreator?.id
-                            ? getFullName(myUser)
-                            : getFullName(wishesCreator)
-                    }
-                    priority
-                    size={screenWidth < 768 ? 144 : 208}
-                    sizeTailwind="w-36 min-w-36 h-36 min-h-36 tablet-md:w-52 tablet-md:min-w-52 tablet-md:h-52 tablet-md:min-h-52"
-                    sizeIcon="w-28 h-28 tablet-md:w-40 tablet-md:h-40"
-                    handleClick={() =>
-                        handleShowImage(
-                            wishesCreator?.avatar,
-                            getFullName(wishesCreator)
-                        )
-                    }
-                />
+                <div className="relative">
+                    <UiAvatar
+                        avatar={avatar}
+                        alt={
+                            myUser?.id === wishesCreator?.id
+                                ? getFullName(myUser)
+                                : getFullName(wishesCreator)
+                        }
+                        priority
+                        size={screenWidth < 768 ? 144 : 208}
+                        sizeTailwind="w-36 min-w-36 h-36 min-h-36 tablet-md:w-52 tablet-md:min-w-52 tablet-md:h-52 tablet-md:min-h-52"
+                        sizeIcon="w-28 h-28 tablet-md:w-40 tablet-md:h-40"
+                        handleClick={() =>
+                            handleShowImage(
+                                wishesCreator?.avatar,
+                                getFullName(wishesCreator)
+                            )
+                        }
+                    />
+
+                    {myUser && wishesCreator && (
+                        <FriendAction myUser={myUser} user={wishesCreator} />
+                    )}
+                </div>
 
                 <div className="flex max-w-32 flex-col gap-1 mobile-xs:max-w-40 mobile-sm:max-w-48 mobile-md:max-w-56 mobile-lg:max-w-60 mobile-xl:max-w-72 tablet-sm:max-w-96 tablet-md:max-w-lg tablet-lg:max-w-3xl desktop-xs:max-w-5xl">
                     <p
