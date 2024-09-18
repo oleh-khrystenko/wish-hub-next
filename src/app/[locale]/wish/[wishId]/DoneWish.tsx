@@ -17,7 +17,7 @@ interface IProps {
 const DoneWish: FC<IProps> = ({ wish, userId, whoseWish }) => {
     const [show, setShow] = useState<boolean>(false);
 
-    const mainPageT = useTranslations('main-page');
+    const wishPageT = useTranslations('wish-page');
     const alertsT = useTranslations('alerts');
 
     const doneWish = useWishesStore((state) => state.doneWish);
@@ -36,7 +36,7 @@ const DoneWish: FC<IProps> = ({ wish, userId, whoseWish }) => {
         <>
             <div className="ml-auto">
                 <UiButton variant="text-btn" onBtnClick={() => setShow(true)}>
-                    {mainPageT('wish-fulfilled')}
+                    {wishPageT('wish_fulfilled')}
                 </UiButton>
             </div>
 
@@ -44,11 +44,11 @@ const DoneWish: FC<IProps> = ({ wish, userId, whoseWish }) => {
                 show={show}
                 hide={() => setShow(false)}
                 confirm={handleSubmit}
-                confirmModalT={mainPageT('wish-fulfilled')}
-                closeModalT={mainPageT('leave_with_changes.close')}
+                confirmModalT={wishPageT('wish_fulfilled')}
+                closeModalT={wishPageT('cancel')}
             >
                 <p className="text-lg">
-                    {mainPageT('sure-fulfilled', {
+                    {wishPageT('sure_fulfilled', {
                         name: unencryptedData(wish.name, wish.show),
                     })}
                 </p>

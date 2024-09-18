@@ -15,7 +15,7 @@ interface IProps {
 const CancelBookWish: FC<IProps> = ({ wish, userId }) => {
     const [show, setShow] = useState<boolean>(false);
 
-    const mainPageT = useTranslations('main-page');
+    const wishPageT = useTranslations('wish-page');
     const alertsT = useTranslations('alerts');
 
     const cancelBookWish = useWishesStore((state) => state.cancelBookWish);
@@ -37,7 +37,7 @@ const CancelBookWish: FC<IProps> = ({ wish, userId }) => {
                     variant="text-attention"
                     onBtnClick={() => setShow(true)}
                 >
-                    {mainPageT('cancel-execution')}
+                    {wishPageT('cancel_execution')}
                 </UiButton>
             </div>
 
@@ -45,11 +45,11 @@ const CancelBookWish: FC<IProps> = ({ wish, userId }) => {
                 show={show}
                 confirm={handleSubmit}
                 hide={() => setShow(false)}
-                confirmModalT={mainPageT('cancel-my-intention')}
-                closeModalT={mainPageT('leave_with_changes.close')}
+                confirmModalT={wishPageT('cancel_my_intention')}
+                closeModalT={wishPageT('cancel')}
             >
                 <p className="text-lg">
-                    {mainPageT('cancel-intention', {
+                    {wishPageT('cancel_intention', {
                         name: unencryptedData(wish.name, wish.show),
                     })}
                 </p>

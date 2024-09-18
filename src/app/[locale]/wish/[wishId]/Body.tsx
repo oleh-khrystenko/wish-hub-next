@@ -34,7 +34,6 @@ const Body: FC = () => {
     const { wishId } = useParams<{ wishId: string }>();
 
     const activeLocale = useLocale();
-    const mainPageT = useTranslations('main-page');
     const wishPageT = useTranslations('wish-page');
     const alertsT = useTranslations('alerts');
 
@@ -51,7 +50,7 @@ const Body: FC = () => {
         {
             href: 'wish',
             icon: <LogoIcon classes="w-4 h-4" />,
-            name: mainPageT('wish'),
+            name: wishPageT('wish'),
         },
     ];
 
@@ -179,7 +178,7 @@ const Body: FC = () => {
                     <div className="mt-auto w-full pt-8">
                         {showDeliveryAddress && (
                             <p className="text-right text-zinc-600 dark:text-zinc-400">
-                                {mainPageT('you_can_send')}
+                                {wishPageT('you_can_send')}
                                 <span className="font-bold">
                                     {creator?.deliveryAddress}
                                 </span>
@@ -203,9 +202,9 @@ const Body: FC = () => {
                                                 <span>
                                                     {myUser?.id ===
                                                     wish.booking?.userId
-                                                        ? mainPageT('you-must')
-                                                        : mainPageT(
-                                                              'wish-must'
+                                                        ? wishPageT('you_must')
+                                                        : wishPageT(
+                                                              'wish_must'
                                                           )}
                                                 </span>
                                                 <span className="font-bold">
@@ -215,7 +214,7 @@ const Body: FC = () => {
                                                 </span>
                                             </>
                                         ) : (
-                                            <>{mainPageT('coming-true')}</>
+                                            <>{wishPageT('coming_true')}</>
                                         )}
                                     </p>
                                 )}
@@ -263,7 +262,7 @@ const Body: FC = () => {
                                         <UiButton
                                             onBtnClick={handleShowEditWish}
                                         >
-                                            {mainPageT('edit-wish')}
+                                            {wishPageT('edit_wish')}
                                         </UiButton>
                                     </div>
                                 )}

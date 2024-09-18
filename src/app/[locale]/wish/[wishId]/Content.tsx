@@ -14,36 +14,35 @@ interface IProps {
 }
 
 const Content: FC<IProps> = ({ wish, myUser }) => {
-    const mainPageT = useTranslations('main-page');
     const wishPageT = useTranslations('wish-page');
 
     let show = (
         <>
-            {mainPageT('show-all-1')}{' '}
+            {wishPageT('show_all_1')}{' '}
             <span className="text-zinc-700 dark:text-zinc-300">
-                {mainPageT('show-all-2')}
+                {wishPageT('show_all_2')}
             </span>{' '}
-            {mainPageT('show-all-3')}
+            {wishPageT('show_all_3')}
         </>
     );
     wish?.show === EPrivacy.FRIENDS &&
         (show = (
             <>
-                {mainPageT('show-friends-1')}{' '}
+                {wishPageT('show_friends_1')}{' '}
                 <span className="text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('show-friends-2')}
+                    {wishPageT('show_friends_2')}
                 </span>{' '}
-                {mainPageT('show-friends-3')}
+                {wishPageT('show_friends_3')}
             </>
         ));
     wish?.show === EPrivacy.NOBODY &&
         (show = (
             <>
-                {mainPageT('show-nobody-1')}{' '}
+                {wishPageT('show_nobody_1')}{' '}
                 <span className="text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('show-nobody-2')}
+                    {wishPageT('show_nobody_2')}
                 </span>{' '}
-                {mainPageT('show-nobody-3')}
+                {wishPageT('show_nobody_3')}
             </>
         ));
 

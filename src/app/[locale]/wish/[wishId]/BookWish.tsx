@@ -29,7 +29,7 @@ const BookWish: FC<IProps> = ({ wish }) => {
     const router = useRouter();
 
     const activeLocale = useLocale();
-    const mainPageT = useTranslations('main-page');
+    const wishPageT = useTranslations('wish-page');
     const alertsT = useTranslations('alerts');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -87,15 +87,15 @@ const BookWish: FC<IProps> = ({ wish }) => {
 
     useEffect(() => {
         if (bookEnd === null) {
-            setBookEndError(mainPageT('book-end-errors.required'));
+            setBookEndError(wishPageT('book_end_errors.required'));
         } else if (isBefore(bookEnd, -1, 'day')) {
-            setBookEndError(mainPageT('book-end-errors.past'));
+            setBookEndError(wishPageT('book_end_errors.past'));
         } else if (
             isAfter(bookEnd, myUser?.id === wish.userId ? 10 : 1, 'year')
         ) {
             setBookEndError(
-                mainPageT(
-                    `book-end-errors.max.${myUser?.id === wish.userId ? 'my' : 'another'}`
+                wishPageT(
+                    `book_end_errors.max.${myUser?.id === wish.userId ? 'my' : 'another'}`
                 )
             );
         } else {
@@ -107,7 +107,7 @@ const BookWish: FC<IProps> = ({ wish }) => {
         <>
             <div className="ml-auto">
                 <UiButton variant="text-btn" onBtnClick={handleBookWish}>
-                    {mainPageT('will-fulfill')}
+                    {wishPageT('will_fulfill')}
                 </UiButton>
             </div>
 
@@ -115,19 +115,19 @@ const BookWish: FC<IProps> = ({ wish }) => {
                 show={show}
                 hide={handleHide}
                 confirm={handleSubmit}
-                confirmModalT={mainPageT('confirm-intention')}
-                closeModalT={mainPageT('leave_with_changes.close')}
+                confirmModalT={wishPageT('confirm_intention')}
+                closeModalT={wishPageT('cancel')}
             >
                 <div className="flex max-w-md flex-col items-center gap-4">
                     <p className="w-full">
-                        {mainPageT('i-intend', {
+                        {wishPageT('i_intend', {
                             name: unencryptedData(wish.name, wish.show),
                         })}
                     </p>
 
                     <UiDatePicker
-                        label={`${mainPageT('enter_date')}*`}
-                        placeholder={mainPageT('including')}
+                        label={`${wishPageT('enter_date')}*`}
+                        placeholder={wishPageT('including')}
                         selectedDate={bookEnd}
                         selectedDateError={bookEndError}
                         clickedOnSubmit={clickedOnSubmit}
@@ -135,11 +135,11 @@ const BookWish: FC<IProps> = ({ wish }) => {
                     />
 
                     <p>
-                        {mainPageT('after_you_confirm')}
+                        {wishPageT('after_you_confirm')}
                         <span
                             className="-mb-0.5 ml-1 inline-block cursor-pointer"
                             data-tooltip-id="book-wish"
-                            data-tooltip-content={mainPageT('by_declaring')}
+                            data-tooltip-content={wishPageT('by_declaring')}
                         >
                             <InfoIcon />
                         </span>

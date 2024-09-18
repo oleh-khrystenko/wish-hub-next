@@ -17,7 +17,7 @@ interface IProps {
 const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish }) => {
     const [show, setShow] = useState<boolean>(true);
 
-    const mainPageT = useTranslations('main-page');
+    const wishPageT = useTranslations('wish-page');
     const alertsT = useTranslations('alerts');
 
     const undoneWish = useWishesStore((state) => state.undoneWish);
@@ -46,30 +46,30 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish }) => {
     return (
         <>
             <UiButton variant="text" onBtnClick={() => setShow(true)}>
-                {mainPageT('determine-status')}
+                {wishPageT('determine_status')}
             </UiButton>
 
             <UiModal show={show} hide={() => setShow(false)}>
                 <span className="block text-center text-2xl font-bold text-rose-500">
-                    {mainPageT('confirm-modal.title')}
+                    {wishPageT('attention')}
                 </span>
 
                 <p className="mt-4 text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('period-expired', {
+                    {wishPageT('period_expired', {
                         name: unencryptedData(wish.name, wish.show),
                     })}
                     <br />
                     <br />
-                    {mainPageT('is_your_wish')}
+                    {wishPageT('is_your_wish')}
                 </p>
 
                 <div className="mt-6 flex items-center justify-end gap-5">
                     <UiButton variant="text-attention" onBtnClick={handleDone}>
-                        {mainPageT('yes')}
+                        {wishPageT('yes')}
                     </UiButton>
 
                     <UiButton onBtnClick={handleUndone}>
-                        {mainPageT('no')}
+                        {wishPageT('no')}
                     </UiButton>
                 </div>
             </UiModal>

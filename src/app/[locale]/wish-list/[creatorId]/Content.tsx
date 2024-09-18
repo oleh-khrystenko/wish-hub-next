@@ -46,7 +46,7 @@ const Content: FC = () => {
 
             <div className="mt-3 flex grow flex-col px-3 pb-5 desktop-sm:px-0">
                 <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                    {mainPageT('wish-list-page-title')}
+                    {mainPageT('wish_list_page_title')}
                 </p>
 
                 <div className="my-6 flex items-center gap-3 tablet-sm:gap-4">
