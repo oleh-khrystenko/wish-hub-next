@@ -7,8 +7,8 @@ import {
     IActionWish,
     IBookWish,
     ICreateWish,
-    IWishAction,
     IDoneWish,
+    IGetAnyWish,
     ISendAllWishes,
     ISendWishList,
     IUpdateWish,
@@ -45,6 +45,7 @@ const { setShowGlobalLoading } = useSettingsStore.getState();
 interface IWishesStore {
     list: IWish[];
     wish: IWish | null;
+    wishId: IWish['id'] | null;
     wishCandidate: IWishCandidate | null;
     creator: IUser | null;
     status: EWishStatus;
@@ -52,6 +53,7 @@ interface IWishesStore {
     sort: EWishSort;
     page: number;
     stopRequests: boolean;
+    setWishId: (value: IWish['id']) => void;
     setWishesStatus: (value: EWishStatus) => void;
     setWishesSearch: (value: string) => void;
     setWishesSort: (value: EWishSort) => void;
@@ -66,7 +68,11 @@ interface IWishesStore {
         successT: string,
         errorT: string
     ) => Promise<void>;
-    getWish: (params: IWishAction, errorT: string) => Promise<void>;
+    getWish: (
+        params: IGetAnyWish | IActionWish,
+        showAnyWish: boolean,
+        errorT: string
+    ) => Promise<void>;
     bookWish: (data: IBookWish, errorT: string) => Promise<IQuote | void>;
     cancelBookWish: (
         data: IActionWish,
@@ -86,7 +92,7 @@ interface IWishesStore {
     likeWish: (data: IActionWish, errorT: string) => Promise<void>;
     dislikeWish: (data: IActionWish, errorT: string) => Promise<void>;
     deleteWish: (
-        params: IWishAction,
+        params: IActionWish,
         successT: string,
         errorT: string
     ) => Promise<void>;
@@ -99,6 +105,7 @@ interface IWishesStore {
 export const useWishesStore = create<IWishesStore>((set) => ({
     list: [],
     wish: null,
+    wishId: null,
     wishCandidate: null,
     creator: null,
     status: EWishStatus.ALL,
@@ -106,6 +113,12 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     sort: EWishSort.POPULAR,
     page: 1,
     stopRequests: false,
+    setWishId: (value) => {
+        set((state) => ({
+            ...state,
+            wishId: value,
+        }));
+    },
     setWishesStatus: (value) => {
         set((state) => ({
             ...state,
@@ -187,7 +200,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             setShowGlobalLoading(false);
         }
     },
-    getWish: async (params, errorT) => {
+    getWish: async (params, showAnyWish, errorT) => {
         setShowGlobalLoading(true);
 
         set((state) => ({
@@ -197,7 +210,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         }));
 
         try {
-            const response = await wishesApi.getWish(params);
+            const response = showAnyWish
+                ? await wishesApi.getAnyWish(params)
+                : await wishesApi.getWish(params as IActionWish);
 
             set((state) => ({
                 ...state,

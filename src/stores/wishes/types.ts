@@ -23,9 +23,12 @@ export interface IWishWithQuote {
     quote: IQuote;
 }
 
-export interface IWishAction {
+export interface IGetAnyWish {
     wishId: IWish['id'];
-    userId?: IUser['id'];
+}
+
+export interface IActionWish extends IGetAnyWish {
+    userId: IUser['id'];
 }
 
 export interface ISendAllWishes {
@@ -53,11 +56,6 @@ export interface IGetWishList {
 
 export interface IBookWish extends IActionWish {
     end: string;
-}
-
-export interface IActionWish {
-    userId: IUser['id'];
-    wishId: IWish['id'];
 }
 
 export enum EWhoseWish {

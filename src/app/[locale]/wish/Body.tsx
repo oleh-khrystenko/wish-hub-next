@@ -5,18 +5,19 @@ import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
+import { IWish } from '@/models/Wish';
 import { EPrivacy } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
-import { EWhoseWish } from '@/stores/wishes/types';
+import { EWhoseWish, IActionWish, IGetAnyWish } from '@/stores/wishes/types';
 import { useWishesStore } from '@/stores/wishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import { isBookingExpired } from '@/helpers/utils/date-validators';
-import Content from '@/app/[locale]/wish/[wishId]/Content';
-import BookWish from '@/app/[locale]/wish/[wishId]/BookWish';
-import CancelBookWish from '@/app/[locale]/wish/[wishId]/CancelBookWish';
-import DoneWish from '@/app/[locale]/wish/[wishId]/DoneWish';
-import BookingExpired from '@/app/[locale]/wish/[wishId]/BookingExpired';
+import Content from '@/app/[locale]/wish/Content';
+import BookWish from '@/app/[locale]/wish/BookWish';
+import CancelBookWish from '@/app/[locale]/wish/CancelBookWish';
+import DoneWish from '@/app/[locale]/wish/DoneWish';
+import BookingExpired from '@/app/[locale]/wish/BookingExpired';
 import EditWish from '@/app/[locale]/main/wish-editor/EditWish';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import WishMark from '@/components/layouts/WishMark';
@@ -26,13 +27,17 @@ import UiButton from '@/components/ui/UiButton';
 import LogoIcon from '@/components/icons/LogoIcon';
 import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
 
-const Body: FC = () => {
+interface IProps {
+    showAnyWish?: boolean;
+}
+
+const Body: FC<IProps> = ({ showAnyWish }) => {
     const [showEditWishModal, setShowEditWishModal] = useState<boolean>(false);
 
     const gotWish = useRef(false);
 
     const router = useRouter();
-    const { wishId } = useParams<{ wishId: string }>();
+    const { anyWishId } = useParams<{ anyWishId?: IWish['id'] }>();
 
     const activeLocale = useLocale();
     const wishPageT = useTranslations('wish-page');
@@ -40,6 +45,7 @@ const Body: FC = () => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
+    const globalWishId = useWishesStore((state) => state.wishId);
     const wish = useWishesStore((state) => state.wish);
     const creator = useWishesStore((state) => state.creator);
     const getWish = useWishesStore((state) => state.getWish);
@@ -109,11 +115,23 @@ const Body: FC = () => {
         if (gotWish.current) return;
         gotWish.current = true;
 
+        if (!globalWishId && !anyWishId) return;
+
+        const wishId = showAnyWish ? anyWishId : globalWishId;
+
+        if (!wishId) return;
+
+        const params: IGetAnyWish | IActionWish = {
+            wishId,
+        };
+        !showAnyWish && myUser && ((params as IActionWish).userId = myUser.id);
+
         getWish(
-            { wishId, userId: myUser?.id },
+            params,
+            !!showAnyWish,
             alertsT('wishes-api.get-wish.error')
         ).finally();
-    }, []);
+    }, [myUser?.id, globalWishId, anyWishId, showAnyWish]);
 
     return (
         <main className="flex grow flex-col overflow-y-auto pt-3">

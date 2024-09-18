@@ -5,7 +5,7 @@ import { IUser } from '@/models/User';
 import { EPrivacy } from '@/models/Settings';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
-import WishSwiper from '@/app/[locale]/wish/[wishId]/WishSwiper';
+import WishSwiper from '@/app/[locale]/wish/WishSwiper';
 import ShareButton from '@/components/layouts/ShareButton';
 
 interface IProps {

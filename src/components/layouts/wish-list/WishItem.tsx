@@ -3,9 +3,10 @@
 import { FC, MouseEvent, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { ECurrency, IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
+import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
@@ -22,13 +23,16 @@ interface IProps {
 }
 
 const WishItem: FC<IProps> = ({ wish, id, editWish }) => {
+    const activeLocale = useLocale();
+    const mainPageT = useTranslations('main-page');
+
     const myUser = useMyUserStore((state) => state.myUser);
+
+    const setWishId = useWishesStore((state) => state.setWishId);
 
     const setShowGlobalLoading = useSettingsStore(
         (state) => state.setShowGlobalLoading
     );
-
-    const mainPageT = useTranslations('main-page');
 
     const name = useMemo(
         () => unencryptedData(wish.name, wish.show),
@@ -45,6 +49,11 @@ const WishItem: FC<IProps> = ({ wish, id, editWish }) => {
         [wish.currency, wish.show]
     );
 
+    const handleGoToWishPage = () => {
+        setShowGlobalLoading(true);
+        setWishId(wish.id);
+    };
+
     const handleEditWish = (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         editWish && editWish();
@@ -55,9 +64,9 @@ const WishItem: FC<IProps> = ({ wish, id, editWish }) => {
             className={`${isBookingExpired(wish, myUser?.id) ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
         >
             <Link
-                href={`/wish/${wish.id}`}
+                href={`/${activeLocale}/wish`}
                 className={`${wish.executed ? '-rotate-3 border-cyan-500 dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center gap-4 rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
-                onClick={() => setShowGlobalLoading(true)}
+                onClick={handleGoToWishPage}
             >
                 <div className="relative w-full pt-[100%]">
                     {wish.images?.length > 0 ? (

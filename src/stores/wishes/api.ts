@@ -1,13 +1,13 @@
 import { AxiosResponse } from 'axios';
 import api from '@/helpers/utils/api';
 import {
+    IGetAnyWish,
     ICreateWish,
     IWishWithQuote,
     IUpdateWish,
-    IWishAction,
+    IActionWish,
     IGetWish,
     IBookWish,
-    IActionWish,
     IDoneWish,
     ISendWishList,
     ISendAllWishes,
@@ -95,8 +95,14 @@ const updateWish = async (data: IUpdateWish): Promise<AxiosResponse<IWish>> => {
     });
 };
 
+const getAnyWish = async (
+    params: IGetAnyWish
+): Promise<AxiosResponse<IGetWish>> => {
+    return await api.get('/any-wish', { params });
+};
+
 const getWish = async (
-    params: IWishAction
+    params: IActionWish
 ): Promise<AxiosResponse<IGetWish>> => {
     return await api.get('/wish', { params });
 };
@@ -136,7 +142,7 @@ const dislikeWish = async (
 };
 
 const deleteWish = async (
-    params: IWishAction
+    params: IActionWish
 ): Promise<AxiosResponse<IWish['id']>> => {
     return await api.delete('/wish', { params });
 };
@@ -157,6 +163,7 @@ const wishesApi = {
     fetchWishDataFromLink,
     createWish,
     updateWish,
+    getAnyWish,
     getWish,
     bookWish,
     cancelBookWish,
