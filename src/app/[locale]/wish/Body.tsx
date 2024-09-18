@@ -2,10 +2,9 @@
 
 import { FC, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
-import { IWish } from '@/models/Wish';
 import { EPrivacy } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { EWhoseWish, IActionWish, IGetAnyWish } from '@/stores/wishes/types';
@@ -27,17 +26,13 @@ import UiButton from '@/components/ui/UiButton';
 import LogoIcon from '@/components/icons/LogoIcon';
 import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
 
-interface IProps {
-    showAnyWish?: boolean;
-}
-
-const Body: FC<IProps> = ({ showAnyWish }) => {
+const Body: FC = () => {
     const [showEditWishModal, setShowEditWishModal] = useState<boolean>(false);
 
     const gotWish = useRef(false);
 
     const router = useRouter();
-    const { anyWishId } = useParams<{ anyWishId?: IWish['id'] }>();
+    const searchParams = useSearchParams();
 
     const activeLocale = useLocale();
     const wishPageT = useTranslations('wish-page');
@@ -45,7 +40,6 @@ const Body: FC<IProps> = ({ showAnyWish }) => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const globalWishId = useWishesStore((state) => state.wishId);
     const wish = useWishesStore((state) => state.wish);
     const creator = useWishesStore((state) => state.creator);
     const getWish = useWishesStore((state) => state.getWish);
@@ -115,23 +109,23 @@ const Body: FC<IProps> = ({ showAnyWish }) => {
         if (gotWish.current) return;
         gotWish.current = true;
 
-        if (!globalWishId && !anyWishId) return;
+        const anyWishId = searchParams.get('anyWishId');
 
-        const wishId = showAnyWish ? anyWishId : globalWishId;
+        const wishId = searchParams.get('wishId') || anyWishId;
 
         if (!wishId) return;
 
         const params: IGetAnyWish | IActionWish = {
             wishId,
         };
-        !showAnyWish && myUser && ((params as IActionWish).userId = myUser.id);
+        !anyWishId && myUser && ((params as IActionWish).userId = myUser.id);
 
         getWish(
             params,
-            !!showAnyWish,
+            !!anyWishId,
             alertsT('wishes-api.get-wish.error')
         ).finally();
-    }, [myUser?.id, globalWishId, anyWishId, showAnyWish]);
+    }, [myUser?.id, searchParams]);
 
     return (
         <main className="flex grow flex-col overflow-y-auto pt-3">
@@ -288,9 +282,15 @@ const Body: FC<IProps> = ({ showAnyWish }) => {
                     </div>
                 </div>
             ) : (
-                <p className="flex w-full grow items-center justify-center p-4 text-center text-base text-zinc-700 dark:text-zinc-300 tablet-md:text-lg desktop-sm:text-xl">
-                    {wishPageT('empty')}
-                </p>
+                <div className="flex w-full grow flex-col items-center justify-center gap-6 p-4">
+                    <p className="text-center text-base text-zinc-700 dark:text-zinc-300 tablet-md:text-lg desktop-sm:text-xl">
+                        {wishPageT('empty')}
+                    </p>
+
+                    <UiButton href={myUser ? '/main' : '/'}>
+                        {wishPageT('to_main')}
+                    </UiButton>
+                </div>
             )}
 
             <EditWish

@@ -45,7 +45,6 @@ const { setShowGlobalLoading } = useSettingsStore.getState();
 interface IWishesStore {
     list: IWish[];
     wish: IWish | null;
-    wishId: IWish['id'] | null;
     wishCandidate: IWishCandidate | null;
     creator: IUser | null;
     status: EWishStatus;
@@ -53,7 +52,6 @@ interface IWishesStore {
     sort: EWishSort;
     page: number;
     stopRequests: boolean;
-    setWishId: (value: IWish['id']) => void;
     setWishesStatus: (value: EWishStatus) => void;
     setWishesSearch: (value: string) => void;
     setWishesSort: (value: EWishSort) => void;
@@ -105,7 +103,6 @@ interface IWishesStore {
 export const useWishesStore = create<IWishesStore>((set) => ({
     list: [],
     wish: null,
-    wishId: null,
     wishCandidate: null,
     creator: null,
     status: EWishStatus.ALL,
@@ -113,12 +110,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     sort: EWishSort.POPULAR,
     page: 1,
     stopRequests: false,
-    setWishId: (value) => {
-        set((state) => ({
-            ...state,
-            wishId: value,
-        }));
-    },
     setWishesStatus: (value) => {
         set((state) => ({
             ...state,

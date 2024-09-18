@@ -64,7 +64,7 @@ const Content: FC<IProps> = ({ wish, myUser }) => {
 
                 {myUser?.id === wish.userId && (
                     <ShareButton
-                        link={`wish/${wish.id}`}
+                        link={`wish?anyWishId=${wish.id}`}
                         wishShow={wish.show}
                     />
                 )}
