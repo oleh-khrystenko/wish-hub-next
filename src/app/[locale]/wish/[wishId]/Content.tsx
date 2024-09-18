@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { unencryptedData } from '@/helpers/utils/encryption-data';
-import ShareButton from '@/components/layouts/ShareButton';
-import WishSwiper from '@/app/[locale]/wish/[wishId]/WishSwiper';
-import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
+import { useTranslations } from 'next-intl';
 import { ECurrency, IWish } from '@/models/Wish';
 import { IUser } from '@/models/User';
 import { EPrivacy } from '@/models/Settings';
-import { useTranslations } from 'next-intl';
+import { unencryptedData } from '@/helpers/utils/encryption-data';
+import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
+import WishSwiper from '@/app/[locale]/wish/[wishId]/WishSwiper';
+import ShareButton from '@/components/layouts/ShareButton';
 
 interface IProps {
     wish: IWish;
@@ -57,8 +57,8 @@ const Content: FC<IProps> = ({ wish, myUser }) => {
 
     return (
         <>
-            <div className="flex items-center justify-between gap-5">
-                <p className="mt-6 text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-4xl">
+            <div className="mt-6 flex items-center justify-between gap-5">
+                <p className="text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-4xl">
                     {unencryptedData(wish.name, wish.show)}
                 </p>
 
@@ -76,7 +76,7 @@ const Content: FC<IProps> = ({ wish, myUser }) => {
                 {wish.images.length > 0 && <WishSwiper wish={wish} />}
 
                 <div
-                    className={`${wish.images.length > 1 ? 'mt-[100px] tablet-md:mt-[120px] desktop-xs:mt-0' : ''} ${wish.images.length === 0 ? 'mt-8 tablet-md:mt-0 desktop-xs:col-span-8' : 'desktop-xs:col-span-5'} flex w-full flex-col gap-4 px-4 tablet-md:px-5 tablet-lg:px-8 desktop-xs:gap-6`}
+                    className={`${wish.images.length > 1 ? 'mt-[100px] tablet-md:mt-[120px] desktop-xs:mt-0' : ''} ${wish.images.length === 0 ? 'mt-8 tablet-md:mt-0 desktop-xs:col-span-8' : 'desktop-xs:col-span-5'} flex w-full flex-col gap-4 desktop-xs:gap-6`}
                 >
                     {(myUser?.id === wish.userId || wish.price) && (
                         <div className="flex flex-col gap-4">

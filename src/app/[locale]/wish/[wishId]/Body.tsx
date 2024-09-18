@@ -19,6 +19,7 @@ import DoneWish from '@/app/[locale]/wish/[wishId]/DoneWish';
 import BookingExpired from '@/app/[locale]/wish/[wishId]/BookingExpired';
 import EditWish from '@/app/[locale]/main/wish-editor/EditWish';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
+import WishMark from '@/components/layouts/WishMark';
 import LikeAction from '@/components/layouts/LikeAction';
 import UiAvatar from '@/components/ui/UiAvatar';
 import UiButton from '@/components/ui/UiButton';
@@ -91,10 +92,11 @@ const Body: FC = () => {
     const showBookingExpired =
         myUser?.id === wish?.userId && isBookingExpired(wish, myUser?.id);
 
-    // бажання можна редагувати
-    // && бажання належить користувачу
+    // бажання належить користувачу
     // && бажання не заброньовано
-    const showEditWish = myUser?.id === wish?.userId && !wish?.booking?.end;
+    // && бажання не виконане
+    const showEditWish =
+        myUser?.id === wish?.userId && !wish?.booking?.end && !wish?.executed;
 
     const handleShowEditWish = () => {
         setShowEditWishModal(true);
@@ -119,8 +121,8 @@ const Body: FC = () => {
 
             {wish ? (
                 <div className="mt-8 flex grow flex-col px-4 pb-5 desktop-sm:px-0">
-                    {myUser?.id === wish.userId ? (
-                        <div className="flex items-center gap-4">
+                    <div className="flex flex-col gap-6">
+                        <div className="relative -ml-4 flex items-center gap-4 tablet-md:ml-0">
                             <button
                                 className="p-2.5"
                                 type="button"
@@ -130,25 +132,22 @@ const Body: FC = () => {
                             </button>
 
                             <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-2xl">
-                                {wishPageT('your_wish')}:
+                                {wishPageT(
+                                    myUser?.id === wish.userId
+                                        ? 'your_wish'
+                                        : 'created_by'
+                                )}
+                                :
                             </h1>
+
+                            <WishMark
+                                wish={wish}
+                                myUserId={myUser?.id}
+                                classes="absolute right-0 top-3/4 mobile-sm:top-1/2 mobile-lg:-translate-y-1/2 -rotate-12 tablet-md:-rotate-6"
+                            />
                         </div>
-                    ) : (
-                        <div className="flex flex-col gap-6">
-                            <div className="flex items-center gap-4">
-                                <button
-                                    className="p-2.5"
-                                    type="button"
-                                    onClick={() => router.back()}
-                                >
-                                    <ArrowBackIcon />
-                                </button>
 
-                                <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-2xl">
-                                    {wishPageT('created_by')}:
-                                </h1>
-                            </div>
-
+                        {myUser?.id !== wish.userId && (
                             <Link
                                 href={`/${activeLocale}/profile/${creator?.id}`}
                                 className="flex items-center gap-3 tablet-sm:gap-4"
@@ -169,8 +168,8 @@ const Body: FC = () => {
                                     {getFullName(creator)}
                                 </p>
                             </Link>
-                        </div>
-                    )}
+                        )}
+                    </div>
 
                     <Content wish={wish} myUser={myUser} />
 
