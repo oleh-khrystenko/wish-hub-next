@@ -24,8 +24,8 @@ export interface IWishWithQuote {
 }
 
 export interface IWishAction {
-    userId: IUser['id'];
     wishId: IWish['id'];
+    userId?: IUser['id'];
 }
 
 export interface ISendAllWishes {

@@ -70,7 +70,7 @@ const Body: FC = () => {
         myUser?.id === wish?.booking?.userId || myUser?.id === wish?.userId;
 
     // у бажання немає кінцевої дати бронювання && бажання ще не виконане
-    const showBookWish = !wish?.booking?.end && !wish?.executed;
+    const showBookWish = myUser && !wish?.booking?.end && !wish?.executed;
 
     // бажання належить тому хто створював його
     // && бажання можна скасувати за 3 дні до початку
@@ -108,10 +108,8 @@ const Body: FC = () => {
         if (gotWish.current) return;
         gotWish.current = true;
 
-        if (!myUser) return;
-
         getWish(
-            { userId: myUser.id, wishId },
+            { wishId, userId: myUser?.id },
             alertsT('wishes-api.get-wish.error')
         ).finally();
     }, []);

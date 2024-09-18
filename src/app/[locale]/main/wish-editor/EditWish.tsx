@@ -232,7 +232,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, wish, hide }) => {
         if (!myUser || !idOfSelectedWish) return;
 
         await deleteWish(
-            { userId: myUser.id, wishId: idOfSelectedWish },
+            { wishId: idOfSelectedWish, userId: myUser.id },
             alertsT('wishes-api.delete-wish.success'),
             alertsT('wishes-api.delete-wish.error', {
                 wishId: idOfSelectedWish,
