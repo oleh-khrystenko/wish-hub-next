@@ -48,6 +48,7 @@ export default function Layout({
                 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
                 <link rel="manifest" href="/manifest.json" />
                 <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
+
                 {/* Google Analytics */}
                 <Script
                     src="https://www.googletagmanager.com/gtag/js?id=G-M8TC7LWZTB"
@@ -60,6 +61,59 @@ export default function Layout({
                     gtag('config', 'G-M8TC7LWZTB');`}
                 </Script>
                 {/* End Google Analytics */}
+
+                {/* Organization Microdata */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'Organization',
+                            name: 'Wish Hub',
+                            url: 'https://wish-hub.net/uk',
+                            logo: 'https://wish-hub.net/favicon.svg',
+                            description:
+                                'Wish Hub — це сервіс, який допомагає легко створювати та ділитися списками бажань, щоб зробити процес вибору подарунків простішим.',
+                            email: 'wish.hub.net@gmail.com',
+                            telephone: '+380508899268',
+                            contactPoint: [
+                                {
+                                    '@type': 'ContactPoint',
+                                    email: 'wish.hub.net@gmail.com',
+                                    telephone: '+380508899268',
+                                    contactType: 'Technical Support',
+                                    areaServed: 'UA',
+                                    availableLanguage: [
+                                        'Ukrainian',
+                                        'English',
+                                        'Russian',
+                                    ],
+                                },
+                                {
+                                    '@type': 'ContactPoint',
+                                    email: 'wish.hub.net@gmail.com',
+                                    telephone: '+380508899269',
+                                    contactType: 'Customer Service',
+                                    areaServed: 'UA',
+                                    availableLanguage: [
+                                        'Ukrainian',
+                                        'English',
+                                        'Russian',
+                                    ],
+                                },
+                            ],
+                            address: {
+                                '@type': 'PostalAddress',
+                                streetAddress:
+                                    'вулиця Небесної Сотні 13, офіс 408',
+                                addressLocality: 'Полтава',
+                                postalCode: '36000',
+                                addressCountry: 'UA',
+                            },
+                        }),
+                    }}
+                />
+                {/* End Organization Microdata */}
             </head>
 
             <body
