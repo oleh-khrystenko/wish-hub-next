@@ -147,8 +147,6 @@ const FormContent: FC<IProps> = ({
         type: keyof TWishFormInputs,
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        !changed && setChanged(true);
-
         const { value } = event.target;
 
         type === 'description' && setDescriptionLength(value.length);
@@ -168,6 +166,8 @@ const FormContent: FC<IProps> = ({
         );
 
         const subscription = watch((_, { name }) => {
+            !changed && setChanged(true);
+
             if (name?.startsWith('addresses')) {
                 setIsEmptyAddress(
                     watchingAddresses?.some(
