@@ -6,7 +6,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import UiButton from '@/components/ui/UiButton';
 import LogoutIcon from '@/components/icons/LogoutIcon';
 
-const Content: FC = () => {
+const Body: FC = () => {
     const activationLinkExpiredPageT = useTranslations(
         'activation-link-expired-page'
     );
@@ -37,4 +37,4 @@ const Content: FC = () => {
     );
 };
 
-export default Content;
+export default Body;

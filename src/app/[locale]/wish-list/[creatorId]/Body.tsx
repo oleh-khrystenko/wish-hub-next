@@ -13,7 +13,7 @@ import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 import UiAvatar from '@/components/ui/UiAvatar';
 import ListIcon from '@/components/icons/ListIcon';
 
-const Content: FC = () => {
+const Body: FC = () => {
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
 
     const { creatorId } = useParams<{ creatorId: string }>();
@@ -87,4 +87,4 @@ const Content: FC = () => {
     );
 };
 
-export default Content;
+export default Body;

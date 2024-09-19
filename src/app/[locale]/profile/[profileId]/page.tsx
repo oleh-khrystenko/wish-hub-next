@@ -5,7 +5,7 @@ import { IParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
-import Content from '@/app/[locale]/profile/[profileId]/Content';
+import Body from '@/app/[locale]/profile/[profileId]/Body';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
@@ -34,7 +34,7 @@ export default function Profile() {
                     <RoutesGuard>
                         <Header />
 
-                        <Content />
+                        <Body />
                     </RoutesGuard>
                 </UserSessionRefresher>
 

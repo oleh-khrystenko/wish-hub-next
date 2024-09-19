@@ -5,7 +5,7 @@ import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import UiButton from '@/components/ui/UiButton';
 import PrivacyPolicyIcon from '@/components/icons/PrivacyPolicyIcon';
 
-const Content: FC = () => {
+const Body: FC = () => {
     const privacyPolicyPageT = useTranslations('privacy-policy-page');
 
     const pages = [
@@ -760,4 +760,4 @@ const Content: FC = () => {
     );
 };
 
-export default Content;
+export default Body;

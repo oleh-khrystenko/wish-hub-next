@@ -5,7 +5,7 @@ import { IParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
-import Content from '@/app/[locale]/activation-link-expired/Content';
+import Body from '@/app/[locale]/activation-link-expired/Body';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
 import LangSelect from '@/components/layouts/LangSelect';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
@@ -38,7 +38,7 @@ export default function ActivationLinkExpired() {
 
                 <UserSessionRefresher>
                     <RoutesGuard>
-                        <Content />
+                        <Body />
                     </RoutesGuard>
                 </UserSessionRefresher>
 

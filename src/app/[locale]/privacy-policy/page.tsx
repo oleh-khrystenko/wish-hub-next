@@ -4,7 +4,7 @@ import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
-import Content from '@/app/[locale]/privacy-policy/Content';
+import Body from '@/app/[locale]/privacy-policy/Body';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
@@ -32,7 +32,7 @@ export default function PrivacyPolicy() {
                 <GlobalLoading />
             </NextIntlClientProvider>
 
-            <Content />
+            <Body />
 
             <Footer remove="privacy-policy" />
         </>

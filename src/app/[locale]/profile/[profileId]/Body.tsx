@@ -16,7 +16,7 @@ import UiButton from '@/components/ui/UiButton';
 import EditIcon from '@/components/icons/EditIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
 
-const Content: FC = () => {
+const Body: FC = () => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
     const [showConfirmDeleteMyUser, setShowConfirmDeleteMyUser] =
         useState<boolean>(false);
@@ -114,4 +114,4 @@ const Content: FC = () => {
     );
 };
 
-export default Content;
+export default Body;

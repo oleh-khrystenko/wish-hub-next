@@ -13,7 +13,7 @@ import UiBrand from '@/components/ui/UiBrand';
 import UiButton from '@/components/ui/UiButton';
 import InstallIcon from '@/components/icons/InstallIcon';
 
-const Content: FC = () => {
+const Body: FC = () => {
     const mainPageT = useTranslations('main-page');
 
     const activeLocale = useLocale();
@@ -135,4 +135,4 @@ const Content: FC = () => {
     );
 };
 
-export default Content;
+export default Body;

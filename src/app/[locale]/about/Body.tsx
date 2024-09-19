@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import InfoIcon from '@/components/icons/InfoIcon';
 
-const Content: FC = () => {
+const Body: FC = () => {
     const aboutPageT = useTranslations('about-page');
 
     const pages = [
@@ -109,4 +109,4 @@ const Content: FC = () => {
     );
 };
 
-export default Content;
+export default Body;
