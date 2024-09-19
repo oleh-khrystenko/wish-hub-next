@@ -167,8 +167,8 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                         <>
                             {(myUser.id !== selectedUserId || !isMainPage) && (
                                 <UiButton
+                                    href={`/user/${myUser.id}/collection`}
                                     variant="text"
-                                    onBtnClick={handleSelectMyWishes}
                                 >
                                     <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                         {theme === ETheme.DARK ? (
@@ -182,7 +182,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                                                 id={`${logoIconId}-popup`}
                                             />
                                         )}
-                                        {mainPageT('my_wishes')}
+                                        {mainPageT('my_collection')}
                                     </span>
                                 </UiButton>
                             )}

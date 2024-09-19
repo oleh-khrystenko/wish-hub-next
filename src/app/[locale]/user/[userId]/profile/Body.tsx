@@ -47,7 +47,7 @@ const Body: FC = () => {
                         {profilePageT(
                             userId === myUser?.id
                                 ? 'my-profile'
-                                : 'user-profile'
+                                : 'user_profile'
                         )}
                     </h1>
 

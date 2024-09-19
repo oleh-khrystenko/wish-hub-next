@@ -2,13 +2,14 @@
 
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/ru';
 import { IUser } from '@/models/User';
-import { EPrivacy } from '@/models/Settings';
+import { EPrivacy, ETheme } from '@/models/Settings';
 import { EWhereRemove, IRemoveFriend } from '@/stores/my-user/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
@@ -24,6 +25,8 @@ import PersonIcon from '@/components/icons/PersonIcon';
 import PersonAddIcon from '@/components/icons/PersonAddIcon';
 import PersonRemoveIcon from '@/components/icons/PersonRemoveIcon';
 import PersonsIcon from '@/components/icons/PersonsIcon';
+import LogoLightIcon from '@/components/icons/LogoLightIcon';
+import LogoDarkIcon from '@/components/icons/LogoDarkIcon';
 
 dayjs.extend(advancedFormat);
 
@@ -51,6 +54,8 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const removeFriend = useMyUserStore((state) => state.removeFriend);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
+
+    const theme = useSettingsStore((state) => state.theme);
 
     const setActivatedSidebar = useSettingsStore(
         (state) => state.setActivatedSidebar
@@ -279,6 +284,25 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                     hide={() => setShowPopup(false)}
                 >
                     <div className="flex flex-col p-2">
+                        <Link
+                            href={`/${activeLocale}/user/${user.id}/collection`}
+                            className="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                        >
+                            {theme === ETheme.DARK ? (
+                                <LogoLightIcon
+                                    classes="h-5 w-5"
+                                    id="user-popup"
+                                />
+                            ) : (
+                                <LogoDarkIcon
+                                    classes="h-5 w-5"
+                                    id="user-popup"
+                                />
+                            )}
+
+                            {mainPageT('user_collection')}
+                        </Link>
+
                         <button
                             className="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                             type="button"
@@ -286,8 +310,9 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                         >
                             <PersonIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
 
-                            {mainPageT('user-profile')}
+                            {mainPageT('user_profile')}
                         </button>
+
                         {showAddFriend && (
                             <button
                                 className="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
@@ -301,6 +326,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                                     : mainPageT('add-friend')}
                             </button>
                         )}
+
                         {(myUser?.friends.includes(user.id) ||
                             myUser?.followTo.includes(user.id)) && (
                             <button
@@ -315,6 +341,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                                 {mainPageT('delete-request')}
                             </button>
                         )}
+
                         {(myUser?.friends.includes(user.id) ||
                             myUser?.followFrom.includes(user.id)) && (
                             <button
@@ -329,6 +356,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                                 {mainPageT('delete-request')}
                             </button>
                         )}
+
                         {myUser?.friends.includes(user.id) && (
                             <button
                                 className="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
