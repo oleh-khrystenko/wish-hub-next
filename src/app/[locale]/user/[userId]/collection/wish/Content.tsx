@@ -5,7 +5,7 @@ import { IUser } from '@/models/User';
 import { EPrivacy } from '@/models/Settings';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
-import WishSwiper from '@/app/[locale]/wish/WishSwiper';
+import WishSwiper from '@/app/[locale]/user/[userId]/collection/wish/WishSwiper';
 import ShareButton from '@/components/layouts/ShareButton';
 
 interface IProps {
@@ -64,7 +64,7 @@ const Content: FC<IProps> = ({ wish, myUser }) => {
 
                 {myUser?.id === wish.userId && (
                     <ShareButton
-                        link={`wish?anyWishId=${wish.id}`}
+                        link={`user/${wish.userId}/collection/wish?anyWishId=${wish.id}`}
                         wishShow={wish.show}
                     />
                 )}

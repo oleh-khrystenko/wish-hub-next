@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { ECurrency, IWish } from '@/models/Wish';
+import { IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
@@ -17,11 +18,11 @@ import EditIcon from '@/components/icons/EditIcon';
 
 interface IProps {
     wish: IWish;
-    id: number;
+    idx: number;
     editWish?: () => void;
 }
 
-const WishItem: FC<IProps> = ({ wish, id, editWish }) => {
+const WishItem: FC<IProps> = ({ wish, idx, editWish }) => {
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
 
@@ -56,7 +57,7 @@ const WishItem: FC<IProps> = ({ wish, id, editWish }) => {
             className={`${isBookingExpired(wish, myUser?.id) ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
         >
             <Link
-                href={`/${activeLocale}/wish?wishId=${wish.id}`}
+                href={`/${activeLocale}/user/${wish.userId}/collection/wish?wishId=${wish.id}`}
                 className={`${wish.executed ? '-rotate-3 border-cyan-500 dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center gap-4 rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
                 onClick={() => setShowGlobalLoading(true)}
             >
@@ -77,7 +78,7 @@ const WishItem: FC<IProps> = ({ wish, id, editWish }) => {
                     ) : (
                         <LogoIcon
                             classes="absolute inset-0 h-full w-full grayscale opacity-50 dark:opacity-20"
-                            id={id.toString()}
+                            id={idx.toString()}
                         />
                     )}
 

@@ -90,7 +90,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                             <WishItem
                                 key={wish.id + idx}
                                 wish={wish}
-                                id={idx}
+                                idx={idx}
                             />
                         ))}
 

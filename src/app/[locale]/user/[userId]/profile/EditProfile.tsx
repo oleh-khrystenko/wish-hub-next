@@ -9,7 +9,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import { isAfter, isBefore } from '@/helpers/utils/date-validators';
 import { ALLOWED_FILE_EXTENSIONS } from '@/helpers/utils/constants';
-import AvatarValidation from '@/app/[locale]/profile/[profileId]/AvatarValidation';
+import AvatarValidation from '@/app/[locale]/user/[userId]/profile/AvatarValidation';
 import PrivacyChoices from '@/components/layouts/PrivacyChoices';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';

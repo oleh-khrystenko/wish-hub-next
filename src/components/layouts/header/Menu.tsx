@@ -189,7 +189,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
 
                             {!pathname.includes('/profile') && (
                                 <UiButton
-                                    href={`/profile/${myUser.id}`}
+                                    href={`/user/${myUser.id}/profile`}
                                     variant="text"
                                 >
                                     <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">

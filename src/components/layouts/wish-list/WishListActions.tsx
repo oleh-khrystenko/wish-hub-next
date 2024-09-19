@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useMemo, useState } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
 import { EPrivacy } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
@@ -23,7 +23,6 @@ interface IProps {
 const WishListActions: FC<IProps> = ({ withoutShare, wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
-    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
 
@@ -106,7 +105,7 @@ const WishListActions: FC<IProps> = ({ withoutShare, wishListRefCurrent }) => {
                                 : 'pointer-events-none opacity-20'
                         }
                     >
-                        <ShareButton link={`wish-list/${selectedUserId}`}>
+                        <ShareButton link={`user/${myUser.id}/collection`}>
                             <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-700 dark:text-zinc-400">
                                 {mainPageT('share-wishes')}
                             </span>

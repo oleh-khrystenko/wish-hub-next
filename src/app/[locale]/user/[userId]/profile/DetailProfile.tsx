@@ -10,7 +10,7 @@ import { useWishesStore } from '@/stores/wishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
-import FriendAction from '@/app/[locale]/profile/[profileId]/FriendAction';
+import FriendAction from '@/app/[locale]/user/[userId]/profile/FriendAction';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 import UiAvatar from '@/components/ui/UiAvatar';
 

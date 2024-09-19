@@ -260,7 +260,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                                 <WishItem
                                     key={wish.id + idx}
                                     wish={wish}
-                                    id={idx}
+                                    idx={idx}
                                     editWish={() => handleShowEditWish(wish.id)}
                                 />
                             ))}

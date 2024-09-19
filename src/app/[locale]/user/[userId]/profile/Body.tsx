@@ -5,10 +5,10 @@ import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useMyUserStore } from '@/stores/my-user';
-import EditProfile from '@/app/[locale]/profile/[profileId]/EditProfile';
-import ChangePassword from '@/app/[locale]/profile/[profileId]/ChangePassword';
-import DetailProfile from '@/app/[locale]/profile/[profileId]/DetailProfile';
-import DeleteMyUserConfirmModal from '@/app/[locale]/profile/[profileId]/DeleteMyUserConfirmModal';
+import EditProfile from '@/app/[locale]/user/[userId]/profile/EditProfile';
+import ChangePassword from '@/app/[locale]/user/[userId]/profile/ChangePassword';
+import DetailProfile from '@/app/[locale]/user/[userId]/profile/DetailProfile';
+import DeleteMyUserConfirmModal from '@/app/[locale]/user/[userId]/profile/DeleteMyUserConfirmModal';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import WishList from '@/components/layouts/wish-list/WishList';
 import Inactivated from '@/components/layouts/Inactivated';
@@ -21,7 +21,7 @@ const Body: FC = () => {
     const [showConfirmDeleteMyUser, setShowConfirmDeleteMyUser] =
         useState<boolean>(false);
 
-    const { profileId } = useParams<{ profileId: string }>();
+    const { userId } = useParams<{ userId: string }>();
 
     const profilePageT = useTranslations('profile-page');
 
@@ -45,13 +45,13 @@ const Body: FC = () => {
                 <div className="flex items-center justify-between gap-2 mobile-xs:gap-3">
                     <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
                         {profilePageT(
-                            profileId === myUser?.id
+                            userId === myUser?.id
                                 ? 'my-profile'
                                 : 'user-profile'
                         )}
                     </h1>
 
-                    {!showEdit && profileId === myUser?.id && (
+                    {!showEdit && userId === myUser?.id && (
                         <UiButton onBtnClick={() => setShowEdit(true)}>
                             {profilePageT('edit')}
 
@@ -64,7 +64,7 @@ const Body: FC = () => {
                     <>
                         <EditProfile cancel={() => setShowEdit(false)} />
 
-                        {profileId === myUser?.id && (
+                        {userId === myUser?.id && (
                             <>
                                 <ChangePassword userId={myUser?.id} />
 
@@ -91,7 +91,7 @@ const Body: FC = () => {
                             {profilePageT('wish-list-title')}
                         </p>
 
-                        <WishList userId={profileId} />
+                        <WishList userId={userId} />
                     </>
                 )}
 

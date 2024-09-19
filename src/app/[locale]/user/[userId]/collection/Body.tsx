@@ -16,7 +16,7 @@ import ListIcon from '@/components/icons/ListIcon';
 const Body: FC = () => {
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
 
-    const { creatorId } = useParams<{ creatorId: string }>();
+    const { userId } = useParams<{ userId: string }>();
 
     const mainPageT = useTranslations('main-page');
     const profilePageT = useTranslations('profile-page');
@@ -73,7 +73,7 @@ const Body: FC = () => {
                     </p>
                 </div>
 
-                <WishList userId={creatorId} />
+                <WishList userId={userId} />
             </div>
 
             {!!imageData && (

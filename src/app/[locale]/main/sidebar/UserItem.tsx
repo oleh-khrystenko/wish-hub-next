@@ -139,7 +139,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
         setShowGlobalLoading(true);
 
         if (myUser) {
-            router.push(`/${activeLocale}/profile/${user.id}`);
+            router.push(`/${activeLocale}/user/${user.id}/profile`);
         } else {
             router.push(`/${activeLocale}/auth`);
         }
