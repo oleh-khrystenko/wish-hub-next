@@ -14,9 +14,9 @@ import UiButton from '@/components/ui/UiButton';
 import InstallIcon from '@/components/icons/InstallIcon';
 
 const Body: FC = () => {
-    const mainPageT = useTranslations('main-page');
-
     const activeLocale = useLocale();
+    const mainPageT = useTranslations('main-page');
+    const alertsT = useTranslations('alerts');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -45,13 +45,13 @@ const Body: FC = () => {
                 {
                     '@type': 'ListItem',
                     position: 1,
-                    name: 'Home',
+                    name: alertsT('home'),
                     item: `https://wish-hub.net/${activeLocale}`,
                 },
                 {
                     '@type': 'ListItem',
                     position: 2,
-                    name: 'Main Page',
+                    name: mainPageT('main'),
                     item: `https://wish-hub.net/${activeLocale}/main`,
                 },
             ],

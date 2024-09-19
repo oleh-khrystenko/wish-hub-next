@@ -73,6 +73,7 @@
             "title": "Wish Hub - makes your dreams come true!",
             "description": "Wish Hub: welcome to the home page! Browse the latest gift ideas and create your wishes."
         },
+        "main": "Main",
         "pwa": {
             "text_before": "You have the option to install the",
             "text_after": "app on your device.",
@@ -421,7 +422,7 @@
             "title": "Wish Hub - Wish",
             "description": "Wish Hub: learn more about the wish. Read the description and information about this wish."
         },
-        "wish": "wish",
+        "wish": "Wish",
         "your_wish": "Your wish",
         "created_by": "User's wish",
         "show_all_1": "Your wish is visible to",
@@ -660,7 +661,8 @@
             "second": "Something's taking longer than expected... It might be due to slow internet. Try refreshing the page.",
             "third": "Oops, it's not the internet's fault this time... Refresh the page. Looks like the developers messed up. I wonder if they even tested this?",
             "reload": "Reload the page"
-        }
+        },
+        "home": "Home"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

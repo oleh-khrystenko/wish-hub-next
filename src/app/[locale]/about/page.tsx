@@ -29,10 +29,10 @@ export default function About() {
                     <Header />
                 </UserSessionRefresher>
 
+                <Body />
+
                 <GlobalLoading />
             </NextIntlClientProvider>
-
-            <Body />
 
             <Footer remove="about" />
         </>

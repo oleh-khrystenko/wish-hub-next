@@ -1,11 +1,11 @@
 'use client';
 
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
-import HomeIcon from '@/components/icons/HomeIcon';
 import { useSettingsStore } from '@/stores/settings';
+import HomeIcon from '@/components/icons/HomeIcon';
 
 interface IPage {
     href: string;
@@ -19,12 +19,48 @@ interface IProps {
 
 const Breadcrumbs: FC<IProps> = ({ pages }) => {
     const activeLocale = useLocale();
+    const alertsT = useTranslations('alerts');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
     const setShowGlobalLoading = useSettingsStore(
         (state) => state.setShowGlobalLoading
     );
+
+    useEffect(() => {
+        const itemListElement = [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: alertsT('home'),
+                item: `https://wish-hub.net/${activeLocale}`,
+            },
+        ];
+
+        pages.map((page) => {
+            itemListElement.push({
+                '@type': 'ListItem',
+                position: itemListElement.length + 1,
+                name: page.name,
+                item: `https://wish-hub.net/${activeLocale}/${page.href}`,
+            });
+        });
+
+        const breadcrumbJsonLd = JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement,
+        });
+
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.text = JSON.stringify(breadcrumbJsonLd);
+        document.head.appendChild(script);
+
+        return () => {
+            document.head.removeChild(script);
+        };
+    }, [activeLocale]);
 
     return (
         <nav className="flex items-center gap-0.5 px-1 desktop-sm:px-0">

@@ -29,10 +29,10 @@ export default function PrivacyPolicy() {
                     <Header />
                 </UserSessionRefresher>
 
+                <Body />
+
                 <GlobalLoading />
             </NextIntlClientProvider>
-
-            <Body />
 
             <Footer remove="privacy-policy" />
         </>
