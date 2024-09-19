@@ -23,13 +23,12 @@ import UiButton from '@/components/ui/UiButton';
 import UiModal from '@/components/ui/modal/UiModal';
 
 interface IProps {
-    showModal: boolean;
     idOfSelectedWish?: IWish['id'] | null;
     wish?: IWish | null;
     hide: () => void;
 }
 
-const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, wish, hide }) => {
+const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
     const [material, setMaterial] = useState<ICreateWish['material']>(true);
     const [images, setImages] = useState<TCurrentImage[]>([]);
     const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
@@ -355,7 +354,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, wish, hide }) => {
 
     return (
         <>
-            <UiModal show={showModal} hide={handleHideModal}>
+            <UiModal show={true} hide={handleHideModal}>
                 <form
                     className="flex max-h-full flex-col gap-4"
                     onSubmit={handleSubmit(onSubmit)}

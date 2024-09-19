@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Head from 'next/head';
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import { IParams } from '@/models/Settings';
@@ -14,35 +15,65 @@ export async function generateMetadata({ params }: IParams): Promise<Metadata> {
     return await fetchMetadata(params.locale, 'main');
 }
 
+const breadcrumbJsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+        {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://wish-hub.net/uk',
+        },
+        {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Main Page',
+            item: 'https://wish-hub.net/uk/main',
+        },
+    ],
+});
+
 export default function Main() {
     const messages = useMessages();
 
     return (
-        <div className="flex h-svh flex-col tablet-md:gap-1 tablet-md:p-1">
-            <NextIntlClientProvider
-                messages={pick(messages, [
-                    'main-page',
-                    'wish-page',
-                    'share-button',
-                    'alerts',
-                    'validations',
-                    'inactivated',
-                ])}
-            >
-                <UserSessionRefresher>
-                    <Header isMainPage />
+        <>
+            <Head>
+                {/* Breadcrumb Microdata */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: breadcrumbJsonLd }}
+                />
+                {/* End Breadcrumb Microdata */}
+            </Head>
 
-                    <main className="flex grow overflow-hidden">
-                        <Sidebar />
+            <div className="flex h-svh flex-col tablet-md:gap-1 tablet-md:p-1">
+                <NextIntlClientProvider
+                    messages={pick(messages, [
+                        'main-page',
+                        'wish-page',
+                        'share-button',
+                        'alerts',
+                        'validations',
+                        'inactivated',
+                    ])}
+                >
+                    <UserSessionRefresher>
+                        <Header isMainPage />
 
-                        <Content />
-                    </main>
-                </UserSessionRefresher>
+                        <main className="flex grow overflow-hidden">
+                            <Sidebar />
 
-                <BottomMenu />
+                            <Content />
+                        </main>
+                    </UserSessionRefresher>
 
-                <GlobalLoading />
-            </NextIntlClientProvider>
-        </div>
+                    <BottomMenu />
+
+                    <GlobalLoading />
+                </NextIntlClientProvider>
+            </div>
+        </>
     );
 }

@@ -327,11 +327,12 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                 hide={handleHideCreateWish}
             />
 
-            <EditWish
-                showModal={showEditWish}
-                idOfSelectedWish={idOfSelectedWish}
-                hide={handleHideEditWish}
-            />
+            {showEditWish && (
+                <EditWish
+                    idOfSelectedWish={idOfSelectedWish}
+                    hide={handleHideEditWish}
+                />
+            )}
         </>
     );
 };

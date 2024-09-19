@@ -293,11 +293,9 @@ const Body: FC = () => {
                 </div>
             )}
 
-            <EditWish
-                showModal={showEditWishModal}
-                wish={wish}
-                hide={handleHideEditWish}
-            />
+            {showEditWishModal && (
+                <EditWish wish={wish} hide={handleHideEditWish} />
+            )}
         </main>
     );
 };
