@@ -1,7 +1,8 @@
 'use client';
 
 import { FC, useState, useLayoutEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
     ECurrency,
@@ -39,6 +40,10 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, wish, hide }) => {
     const [showConfirmDeleteWish, setShowConfirmDeleteWish] =
         useState<boolean>(false);
 
+    const router = useRouter();
+
+    const activeLocale = useLocale();
+
     const mainPageT = useTranslations('main-page');
     const alertsT = useTranslations('alerts');
 
@@ -71,6 +76,8 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, wish, hide }) => {
     };
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
+        const wishId = idOfSelectedWish ?? wish!.id;
+
         const nonUniqueName = wishes.some((wish) => {
             let wishName = wish.name;
             if (
@@ -82,9 +89,7 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, wish, hide }) => {
                     process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
                 );
             }
-            return (
-                wishName === data.name.trim() && wish.id !== idOfSelectedWish
-            );
+            return wishName === data.name.trim() && wish.id !== wishId;
         });
         if (nonUniqueName) {
             setError(
@@ -97,8 +102,6 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, wish, hide }) => {
             );
             return;
         }
-
-        const wishId = idOfSelectedWish ?? wish!.id;
 
         if (
             !myUser ||
@@ -229,17 +232,26 @@ const EditWish: FC<IProps> = ({ showModal, idOfSelectedWish, wish, hide }) => {
     };
 
     const handleDeleteWish = async () => {
-        if (!myUser || !idOfSelectedWish) return;
+        const wishId = idOfSelectedWish ?? wish!.id;
+        if (!myUser || !wishId) return;
 
         await deleteWish(
-            { wishId: idOfSelectedWish, userId: myUser.id },
+            { wishId, userId: myUser.id },
             alertsT('wishes-api.delete-wish.success'),
             alertsT('wishes-api.delete-wish.error', {
-                wishId: idOfSelectedWish,
+                wishId,
             })
         );
 
-        hideModals();
+        setMaterial(true);
+        setImages([]);
+        setCurrency(ECurrency.UAH);
+        setShow(null);
+        setChanged(false);
+        setShowConfirmLeave(false);
+        setShowConfirmDeleteWish(false);
+
+        router.push(`/${activeLocale}/main`);
     };
 
     useLayoutEffect(() => {
