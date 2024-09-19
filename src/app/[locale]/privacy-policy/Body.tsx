@@ -8,7 +8,7 @@ import PrivacyPolicyIcon from '@/components/icons/PrivacyPolicyIcon';
 const Body: FC = () => {
     const privacyPolicyPageT = useTranslations('privacy-policy-page');
 
-    const pages = [
+    const breadcrumbsPages = [
         {
             href: 'privacy-policy',
             icon: (
@@ -20,7 +20,7 @@ const Body: FC = () => {
 
     return (
         <main className="mx-auto mt-3 max-w-7xl">
-            <Breadcrumbs pages={pages} />
+            <Breadcrumbs pages={breadcrumbsPages} />
 
             <div className="mt-6 flex flex-col gap-6 px-4 pb-6 desktop-sm:px-0 desktop-sm:pb-10">
                 <section className="flex flex-col gap-2.5">

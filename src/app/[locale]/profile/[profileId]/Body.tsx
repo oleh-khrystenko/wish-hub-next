@@ -27,7 +27,7 @@ const Body: FC = () => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const pages = [
+    const breadcrumbsPages = [
         {
             href: 'profile',
             icon: (
@@ -39,7 +39,7 @@ const Body: FC = () => {
 
     return (
         <main className="mx-auto max-w-7xl pt-3">
-            <Breadcrumbs pages={pages} />
+            <Breadcrumbs pages={breadcrumbsPages} />
 
             <div className="mt-3 px-3 pb-5 desktop-sm:px-0">
                 <div className="flex items-center justify-between gap-2 mobile-xs:gap-3">
