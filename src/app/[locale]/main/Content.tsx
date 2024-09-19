@@ -1,7 +1,7 @@
 'use client';
 
-import { FC, useMemo } from 'react';
-import { useTranslations } from 'next-intl';
+import { FC, useMemo, useEffect } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import UseFullName from '@/helpers/hooks/UseFullName';
@@ -15,6 +15,8 @@ import InstallIcon from '@/components/icons/InstallIcon';
 
 const Content: FC = () => {
     const mainPageT = useTranslations('main-page');
+
+    const activeLocale = useLocale();
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -34,6 +36,36 @@ const Content: FC = () => {
         const selectedUser = users.find((user) => user.id === selectedUserId);
         return getFullName(selectedUser);
     }, [users, selectedUserId]);
+
+    useEffect(() => {
+        const breadcrumbJsonLd = JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Home',
+                    item: `https://wish-hub.net/${activeLocale}`,
+                },
+                {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: 'Main Page',
+                    item: `https://wish-hub.net/${activeLocale}/main`,
+                },
+            ],
+        });
+
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.text = JSON.stringify(breadcrumbJsonLd);
+        document.head.appendChild(script);
+
+        return () => {
+            document.head.removeChild(script);
+        };
+    }, [activeLocale]);
 
     return (
         <>
