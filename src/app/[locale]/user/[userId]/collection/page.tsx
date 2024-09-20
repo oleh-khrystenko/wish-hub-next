@@ -10,7 +10,7 @@ import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
 
 export async function generateMetadata({ params }: IParams): Promise<Metadata> {
-    return await fetchMetadata(params.locale, 'wish-list');
+    return await fetchMetadata(params.locale, 'collection');
 }
 
 export default function Wish() {
@@ -22,6 +22,7 @@ export default function Wish() {
                 <div className="mx-auto flex w-full max-w-7xl grow flex-col">
                     <NextIntlClientProvider
                         messages={pick(messages, [
+                            'collection-page',
                             'main-page',
                             'profile-page',
                             'wish-page',

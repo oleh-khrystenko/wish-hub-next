@@ -15,6 +15,7 @@ import Inactivated from '@/components/layouts/Inactivated';
 import UiButton from '@/components/ui/UiButton';
 import EditIcon from '@/components/icons/EditIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
+import MainIcon from '@/components/icons/MainIcon';
 
 const Body: FC = () => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -24,16 +25,24 @@ const Body: FC = () => {
     const { userId } = useParams<{ userId: string }>();
 
     const profilePageT = useTranslations('profile-page');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
     const breadcrumbsPages = [
         {
+            href: 'main',
+            icon: (
+                <MainIcon classes="w-3.5 h-3.5 fill-zinc-500 dark:fill-zinc-400 group-hover:dark:fill-zinc-600" />
+            ),
+            name: allPagesT('main'),
+        },
+        {
             href: 'profile',
             icon: (
                 <PersonIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
             ),
-            name: profilePageT('profile'),
+            name: allPagesT('profile'),
         },
     ];
 

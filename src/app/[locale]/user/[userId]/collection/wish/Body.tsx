@@ -25,6 +25,7 @@ import UiAvatar from '@/components/ui/UiAvatar';
 import UiButton from '@/components/ui/UiButton';
 import LogoIcon from '@/components/icons/LogoIcon';
 import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
+import MainIcon from '@/components/icons/MainIcon';
 
 const Body: FC = () => {
     const [showEditWishModal, setShowEditWishModal] = useState<boolean>(false);
@@ -48,6 +49,13 @@ const Body: FC = () => {
     const { getFullDate } = UseLocaleFormats();
 
     const breadcrumbsPages = [
+        {
+            href: 'main',
+            icon: (
+                <MainIcon classes="w-3.5 h-3.5 fill-zinc-500 dark:fill-zinc-400 group-hover:dark:fill-zinc-600" />
+            ),
+            name: allPagesT('main'),
+        },
         {
             href: 'wish',
             icon: <LogoIcon classes="w-4 h-4" />,

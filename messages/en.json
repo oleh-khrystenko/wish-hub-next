@@ -220,8 +220,7 @@
             "text": "You have made changes to the wish creation form. Are you sure you want to close the window without saving?",
             "confirm": "Close without saving",
             "close": "Cancellation"
-        },
-        "wish_list_page_title": "The wish list is created by the user:"
+        }
     },
     "privacy-policy-page": {
         "head": {
@@ -472,11 +471,12 @@
         "empty": "We were unable to display this preference. It may be hidden due to privacy settings, or it may no longer exist.",
         "to_main": "To Main"
     },
-    "wish-list-page": {
+    "collection-page": {
         "head": {
             "title": "Wish Hub - Wish List",
             "description": "Wish Hub: view the user's wish list. Find inspiration for gifts."
-        }
+        },
+        "title": "The wish list is created by the user:"
     },
     "welcome-page": {
         "head": {
@@ -665,7 +665,9 @@
         "home": "Home",
         "main": "Main",
         "about": "About us",
-        "privacy_policy": "Privacy Policy"
+        "privacy_policy": "Privacy Policy",
+        "collection": "Collection of wishes",
+        "profile": "Profile"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",
