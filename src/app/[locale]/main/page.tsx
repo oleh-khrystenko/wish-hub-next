@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
-import { IParams } from '@/models/Settings';
+import { IPageParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Sidebar from '@/app/[locale]/main/sidebar/Sidebar';
@@ -10,8 +10,10 @@ import BottomMenu from '@/app/[locale]/main/BottomMenu';
 import Header from '@/components/layouts/header/Header';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
 
-export async function generateMetadata({ params }: IParams): Promise<Metadata> {
-    return await fetchMetadata(params.locale, 'main');
+export async function generateMetadata({
+    params,
+}: IPageParams): Promise<Metadata> {
+    return await fetchMetadata(params.locale, 'main', 'main');
 }
 
 export default function Main() {

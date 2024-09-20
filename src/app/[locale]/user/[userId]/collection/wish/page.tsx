@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
-import { IParams } from '@/models/Settings';
+import { IPageParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Body from '@/app/[locale]/user/[userId]/collection/wish/Body';
@@ -9,8 +9,14 @@ import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
 
-export async function generateMetadata({ params }: IParams): Promise<Metadata> {
-    return await fetchMetadata(params.locale, 'wish');
+export async function generateMetadata({
+    params,
+}: IPageParams): Promise<Metadata> {
+    return await fetchMetadata(
+        params.locale,
+        'wish',
+        `user/${params.userId}/collection/wish`
+    );
 }
 
 export default function WishList() {

@@ -6,7 +6,7 @@ import {
 } from 'next-intl';
 import pick from 'lodash.pick';
 import Image from 'next/image';
-import { IParams } from '@/models/Settings';
+import { IPageParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Header from '@/app/[locale]/root-page-components/Header';
@@ -24,8 +24,10 @@ import LockIcon from '@/components/icons/LockIcon';
 import SolidEyeIcon from '@/components/icons/SolidEyeIcon';
 import WindingIcon from '@/components/icons/WindingIcon';
 
-export async function generateMetadata({ params }: IParams): Promise<Metadata> {
-    return await fetchMetadata(params.locale, 'welcome');
+export async function generateMetadata({
+    params,
+}: IPageParams): Promise<Metadata> {
+    return await fetchMetadata(params.locale, 'welcome', 'welcome');
 }
 
 export default function Welcome() {

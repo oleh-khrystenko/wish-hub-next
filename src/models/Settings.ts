@@ -25,6 +25,6 @@ export interface INavItem {
     href: 'main' | 'about' | 'privacy-policy';
 }
 
-export interface IParams {
-    params: { locale: ELang };
+export interface IPageParams {
+    params: { locale: ELang; userId?: string };
 }

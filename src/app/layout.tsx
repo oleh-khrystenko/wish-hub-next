@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Script from 'next/script';
 import { Mulish } from 'next/font/google';
-import { IParams } from '@/models/Settings';
+import { IPageParams } from '@/models/Settings';
 import ServiceWorkerRegistrar from '@/helpers/hocs/ServiceWorkerRegistrar';
 import ReactToastify from '@/components/layouts/ReactToastify';
 import '@/app/globals.css';
@@ -26,7 +26,7 @@ const mulish = Mulish({
     weight: ['300', '400', '700'],
 });
 
-interface IProps extends IParams {
+interface IProps extends IPageParams {
     children: ReactNode;
 }
 

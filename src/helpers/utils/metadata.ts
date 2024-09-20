@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 
 export async function fetchMetadata(
     locale: string,
-    page: string
+    page: string,
+    href: string
 ): Promise<Metadata> {
     const messages = await import(`../../../messages/${locale}.json`);
     const metaDescriptionT = (key: string) => messages[key];
@@ -17,12 +18,12 @@ export async function fetchMetadata(
         title,
         description,
         alternates: {
-            canonical: `https://wish-hub.net/uk/${page === 'welcome' ? '' : page}`,
+            canonical: `https://wish-hub.net/uk/${href === 'welcome' ? '' : href}`,
             languages: {
-                'x-default': `https://wish-hub.net/uk/${page === 'welcome' ? '' : page}`,
-                'uk-ua': `https://wish-hub.net/uk/${page === 'welcome' ? '' : page}`,
-                'en-ua': `https://wish-hub.net/en/${page === 'welcome' ? '' : page}`,
-                'ru-ua': `https://wish-hub.net/ru/${page === 'welcome' ? '' : page}`,
+                'x-default': `https://wish-hub.net/uk/${href === 'welcome' ? '' : href}`,
+                'uk-ua': `https://wish-hub.net/uk/${href === 'welcome' ? '' : href}`,
+                'en-ua': `https://wish-hub.net/en/${href === 'welcome' ? '' : href}`,
+                'ru-ua': `https://wish-hub.net/ru/${href === 'welcome' ? '' : href}`,
             },
         },
     };

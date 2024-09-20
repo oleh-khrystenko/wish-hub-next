@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
-import { IParams } from '@/models/Settings';
+import { IPageParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
@@ -11,8 +11,14 @@ import LangSelect from '@/components/layouts/LangSelect';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
 import UiBrand from '@/components/ui/UiBrand';
 
-export async function generateMetadata({ params }: IParams): Promise<Metadata> {
-    return await fetchMetadata(params.locale, 'activation-link-expired');
+export async function generateMetadata({
+    params,
+}: IPageParams): Promise<Metadata> {
+    return await fetchMetadata(
+        params.locale,
+        'activation-link-expired',
+        'activation-link-expired'
+    );
 }
 
 export default function ActivationLinkExpired() {
