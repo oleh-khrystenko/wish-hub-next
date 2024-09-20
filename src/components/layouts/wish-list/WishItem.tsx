@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { ECurrency, IWish } from '@/models/Wish';
-import { IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
@@ -19,10 +18,11 @@ import EditIcon from '@/components/icons/EditIcon';
 interface IProps {
     wish: IWish;
     idx: number;
+    currentPage: string;
     editWish?: () => void;
 }
 
-const WishItem: FC<IProps> = ({ wish, idx, editWish }) => {
+const WishItem: FC<IProps> = ({ wish, idx, currentPage, editWish }) => {
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
 
@@ -57,7 +57,7 @@ const WishItem: FC<IProps> = ({ wish, idx, editWish }) => {
             className={`${isBookingExpired(wish, myUser?.id) ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
         >
             <Link
-                href={`/${activeLocale}/user/${wish.userId}/collection/wish?wishId=${wish.id}`}
+                href={`/${activeLocale}/user/${wish.userId}/collection/wish?wishId=${wish.id}&fromPage=${currentPage}`}
                 className={`${wish.executed ? '-rotate-3 border-cyan-500 dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center gap-4 rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
                 onClick={() => setShowGlobalLoading(true)}
             >

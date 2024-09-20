@@ -6,17 +6,21 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useSettingsStore } from '@/stores/settings';
 import HomeIcon from '@/components/icons/HomeIcon';
 
-interface IPage {
+interface ISeoPage {
     href: string;
-    icon: ReactNode;
     name: string;
 }
 
-interface IProps {
-    pages: IPage[];
+interface IVisualPage extends ISeoPage {
+    icon: ReactNode;
 }
 
-const Breadcrumbs: FC<IProps> = ({ pages }) => {
+interface IProps {
+    visualPages: IVisualPage[];
+    seoPages: ISeoPage[];
+}
+
+const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages }) => {
     const activeLocale = useLocale();
     const allPagesT = useTranslations('all-pages');
 
@@ -34,7 +38,7 @@ const Breadcrumbs: FC<IProps> = ({ pages }) => {
             },
         ];
 
-        pages.map((page, idx) => {
+        seoPages.map((page, idx) => {
             itemListElement.push({
                 '@type': 'ListItem',
                 position: idx + 2,
@@ -69,8 +73,8 @@ const Breadcrumbs: FC<IProps> = ({ pages }) => {
                 <HomeIcon classes="w-4 h-4 stroke-zinc-500 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-600" />
             </Link>
 
-            {pages.map((page, idx) => {
-                return idx === pages.length - 1 ? (
+            {visualPages.map((page, idx) => {
+                return idx === visualPages.length - 1 ? (
                     <div
                         key={page.href}
                         className="relative flex cursor-default items-center justify-center rounded-r-md bg-zinc-400 px-4 py-1 before:absolute before:left-0 before:top-1/2 before:h-4 before:w-4 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-45 before:bg-zinc-200 dark:bg-zinc-700 before:dark:bg-zinc-900"

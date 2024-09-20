@@ -261,6 +261,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                                     key={wish.id + idx}
                                     wish={wish}
                                     idx={idx}
+                                    currentPage="main"
                                     editWish={() => handleShowEditWish(wish.id)}
                                 />
                             ))}

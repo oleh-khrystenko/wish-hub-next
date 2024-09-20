@@ -48,7 +48,10 @@ const Body: FC = () => {
 
     return (
         <main className="mx-auto max-w-7xl pt-3">
-            <Breadcrumbs pages={breadcrumbsPages} />
+            <Breadcrumbs
+                seoPages={breadcrumbsPages}
+                visualPages={breadcrumbsPages}
+            />
 
             <div className="mt-3 px-3 pb-5 desktop-sm:px-0">
                 <div className="flex items-center justify-between gap-2 mobile-xs:gap-3">
@@ -100,7 +103,7 @@ const Body: FC = () => {
                             {profilePageT('wish-list-title')}
                         </p>
 
-                        <WishList userId={userId} />
+                        <WishList userId={userId} currentPage="profile" />
                     </>
                 )}
 

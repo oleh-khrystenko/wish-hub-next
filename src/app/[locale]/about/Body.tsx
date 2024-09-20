@@ -27,7 +27,10 @@ const Body: FC = () => {
 
     return (
         <main className="mx-auto mt-3 max-w-7xl">
-            <Breadcrumbs pages={breadcrumbsPages} />
+            <Breadcrumbs
+                seoPages={breadcrumbsPages}
+                visualPages={breadcrumbsPages}
+            />
 
             <div className="mt-6 flex flex-col gap-5 px-4 pb-6 desktop-sm:px-0 desktop-sm:pb-10">
                 <section className="flex flex-col gap-5">

@@ -56,7 +56,10 @@ const Body: FC = () => {
                     <UiBrand withLogo logoId="brand-logo-top" />
                 </div>
 
-                <Breadcrumbs pages={breadcrumbsPages} />
+                <Breadcrumbs
+                    seoPages={breadcrumbsPages}
+                    visualPages={breadcrumbsPages}
+                />
 
                 <div className="mb-6 mt-2 pl-2.5">
                     {selectedUserId ? (

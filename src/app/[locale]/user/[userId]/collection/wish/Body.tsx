@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import { EPrivacy } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { EWhoseWish, IActionWish, IGetAnyWish } from '@/stores/wishes/types';
+import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
@@ -26,6 +27,8 @@ import UiButton from '@/components/ui/UiButton';
 import LogoIcon from '@/components/icons/LogoIcon';
 import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
 import MainIcon from '@/components/icons/MainIcon';
+import CollectionIcon from '@/components/icons/CollectionIcon';
+import PersonIcon from '@/components/icons/PersonIcon';
 
 const Body: FC = () => {
     const [showEditWishModal, setShowEditWishModal] = useState<boolean>(false);
@@ -41,6 +44,8 @@ const Body: FC = () => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
+    const selectedUserId = useUsersStore((state) => state.selectedUserId);
+
     const wish = useWishesStore((state) => state.wish);
     const creator = useWishesStore((state) => state.creator);
     const getWish = useWishesStore((state) => state.getWish);
@@ -48,7 +53,22 @@ const Body: FC = () => {
     const { getFullName } = UseFullName();
     const { getFullDate } = UseLocaleFormats();
 
-    const breadcrumbsPages = [
+    const seoPages = [
+        {
+            href: 'main',
+            name: allPagesT('main'),
+        },
+        {
+            href: 'collection',
+            name: allPagesT('collection'),
+        },
+        {
+            href: 'wish',
+            name: wishPageT('wish'),
+        },
+    ];
+
+    const visualPages = [
         {
             href: 'main',
             icon: (
@@ -57,11 +77,35 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
+            href: `user/${selectedUserId}/collection`,
+            icon: (
+                <CollectionIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
+            ),
+            name: allPagesT('collection'),
+        },
+        {
             href: 'wish',
             icon: <LogoIcon classes="w-4 h-4" />,
             name: wishPageT('wish'),
         },
     ];
+
+    const fromPage = searchParams.get('fromPage');
+    if (fromPage) {
+        if (fromPage === 'main') {
+            delete visualPages[1];
+        }
+
+        if (fromPage === 'profile') {
+            visualPages[1] = {
+                href: `user/${selectedUserId}/profile`,
+                icon: (
+                    <PersonIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
+                ),
+                name: allPagesT('profile'),
+            };
+        }
+    }
 
     let showDeliveryAddress =
         creator?.deliveryAddress && creator?.deliveryAddress.length > 0;
@@ -137,7 +181,7 @@ const Body: FC = () => {
 
     return (
         <main className="flex grow flex-col overflow-y-auto pt-3">
-            <Breadcrumbs pages={breadcrumbsPages} />
+            <Breadcrumbs seoPages={seoPages} visualPages={visualPages} />
 
             {wish ? (
                 <div className="mt-8 flex grow flex-col px-4 pb-5 desktop-sm:px-0">
