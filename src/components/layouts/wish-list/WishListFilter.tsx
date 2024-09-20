@@ -16,7 +16,7 @@ interface IProps {
 
 const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
     const mainPageT = useTranslations('main-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -71,7 +71,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                     search,
                     sort,
                 },
-                alertsT('wishes-api.get-wish-list.error')
+                allPagesT('wishes-api.get-wish-list.error')
             );
         } else {
             await getAllWishes(
@@ -82,7 +82,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                     search,
                     sort,
                 },
-                alertsT('wishes-api.get-wish-list.error')
+                allPagesT('wishes-api.get-wish-list.error')
             );
         }
 
@@ -108,7 +108,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                     search: value,
                     sort,
                 },
-                alertsT('wishes-api.get-wish-list.error')
+                allPagesT('wishes-api.get-wish-list.error')
             );
         } else {
             await getAllWishes(
@@ -119,7 +119,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                     search: value,
                     sort,
                 },
-                alertsT('wishes-api.get-all-wishes.error')
+                allPagesT('wishes-api.get-all-wishes.error')
             );
         }
 

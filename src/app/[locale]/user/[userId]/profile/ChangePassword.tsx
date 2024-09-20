@@ -30,7 +30,7 @@ const ChangePassword: FC<IProps> = ({ userId }) => {
 
     const mainPageT = useTranslations('main-page');
     const profilePageT = useTranslations('profile-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const {
         register,
@@ -59,7 +59,7 @@ const ChangePassword: FC<IProps> = ({ userId }) => {
 
             sessionStorage.setItem(
                 'notification',
-                alertsT('my-user-api.change-password.success')
+                allPagesT('my-user-api.change-password.success')
             );
 
             router.replace(`/${activeLocale}/auth`);
@@ -72,7 +72,7 @@ const ChangePassword: FC<IProps> = ({ userId }) => {
                 setOldPasswordError('');
                 toast(
                     error.response?.data?.message ||
-                        alertsT('my-user-api.change-password.error'),
+                        allPagesT('my-user-api.change-password.error'),
                     { type: 'error' }
                 );
             }

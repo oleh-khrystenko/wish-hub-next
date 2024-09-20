@@ -18,7 +18,7 @@ const DoneWish: FC<IProps> = ({ wish, userId, whoseWish }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const wishPageT = useTranslations('wish-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const doneWish = useWishesStore((state) => state.doneWish);
 
@@ -27,8 +27,8 @@ const DoneWish: FC<IProps> = ({ wish, userId, whoseWish }) => {
 
         await doneWish(
             { userId, wishId: wish.id, whoseWish },
-            alertsT('wishes-api.done-wish.success'),
-            alertsT('wishes-api.done-wish.error')
+            allPagesT('wishes-api.done-wish.success'),
+            allPagesT('wishes-api.done-wish.error')
         );
     };
 

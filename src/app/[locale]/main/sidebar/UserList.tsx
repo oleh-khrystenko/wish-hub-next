@@ -23,7 +23,7 @@ const UserList: FC = () => {
     const gotUsers = useRef(false);
 
     const mainPageT = useTranslations('main-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const { ref, inView } = useInView({
         threshold: 0,
@@ -96,7 +96,7 @@ const UserList: FC = () => {
                 userType: value as EUserType,
                 search,
             },
-            alertsT('users-api.get-users.error')
+            allPagesT('users-api.get-users.error')
         );
 
         if (userListRef.current) {
@@ -119,7 +119,7 @@ const UserList: FC = () => {
                     userType,
                     search: value,
                 },
-                alertsT('users-api.get-users.error')
+                allPagesT('users-api.get-users.error')
             );
         } else {
             await getAllUsers(
@@ -128,7 +128,7 @@ const UserList: FC = () => {
                     limit: USERS_PAGINATION_LIMIT,
                     search: value,
                 },
-                alertsT('users-api.get-all-users.error')
+                allPagesT('users-api.get-all-users.error')
             );
         }
 
@@ -151,7 +151,7 @@ const UserList: FC = () => {
                 userType,
                 search,
             },
-            alertsT('users-api.get-users.error')
+            allPagesT('users-api.get-users.error')
         );
 
         if (userListRef.current) {
@@ -179,12 +179,12 @@ const UserList: FC = () => {
                         userType,
                         search,
                     },
-                    alertsT('users-api.get-users.error')
+                    allPagesT('users-api.get-users.error')
                 );
             } else {
                 await addAllUsers(
                     { page, limit: USERS_PAGINATION_LIMIT, search },
-                    alertsT('users-api.get-all-users.error')
+                    allPagesT('users-api.get-all-users.error')
                 );
             }
 
@@ -208,12 +208,12 @@ const UserList: FC = () => {
                         userType,
                         search,
                     },
-                    alertsT('users-api.get-users.error')
+                    allPagesT('users-api.get-users.error')
                 );
             } else {
                 await getAllUsers(
                     { page: 1, limit: USERS_PAGINATION_LIMIT, search },
-                    alertsT('users-api.get-all-users.error')
+                    allPagesT('users-api.get-all-users.error')
                 );
             }
 

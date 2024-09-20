@@ -18,7 +18,7 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish }) => {
     const [show, setShow] = useState<boolean>(true);
 
     const wishPageT = useTranslations('wish-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const undoneWish = useWishesStore((state) => state.undoneWish);
     const doneWish = useWishesStore((state) => state.doneWish);
@@ -28,8 +28,8 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish }) => {
 
         await undoneWish(
             { userId, wishId: wish.id },
-            alertsT('wishes-api.undone-wish.success'),
-            alertsT('wishes-api.undone-wish.error')
+            allPagesT('wishes-api.undone-wish.success'),
+            allPagesT('wishes-api.undone-wish.error')
         );
     };
 
@@ -38,8 +38,8 @@ const BookingExpired: FC<IProps> = ({ wish, userId, whoseWish }) => {
 
         await doneWish(
             { userId, wishId: wish.id, whoseWish },
-            alertsT('wishes-api.done-wish.success'),
-            alertsT('wishes-api.done-wish.error')
+            allPagesT('wishes-api.done-wish.success'),
+            allPagesT('wishes-api.done-wish.error')
         );
     };
 

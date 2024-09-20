@@ -52,7 +52,7 @@ const LangSelect: FC<IProps> = ({
     const pathname = usePathname();
 
     const activeLocale = useLocale();
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
     const changeLang = useMyUserStore((state) => state.changeLang);
@@ -61,7 +61,7 @@ const LangSelect: FC<IProps> = ({
         if (myUser) {
             await changeLang(
                 { userId: myUser.id, lang: value as ELang },
-                alertsT('my-user-api.change-lang.error')
+                allPagesT('my-user-api.change-lang.error')
             );
         }
 

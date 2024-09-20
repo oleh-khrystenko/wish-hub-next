@@ -10,13 +10,13 @@ const Body: FC = () => {
     const activationLinkExpiredPageT = useTranslations(
         'activation-link-expired-page'
     );
-    const alertsT = useTranslations('alerts');
     const mainPageT = useTranslations('main-page');
+    const allPagesT = useTranslations('all-pages');
 
     const logout = useMyUserStore((state) => state.logout);
 
     const handleLogout = async () => {
-        await logout(alertsT('my-user-api.logout.error'));
+        await logout(allPagesT('my-user-api.logout.error'));
     };
 
     return (

@@ -43,7 +43,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const {
         control,
@@ -201,13 +201,13 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
 
         const response = await createWish(
             wishData,
-            alertsT('wishes-api.create-wish.error')
+            allPagesT('wishes-api.create-wish.error')
         );
         if (response) {
             const quote = response[activeLocale as ELang];
             toast(
                 <QuoteMessage
-                    title={alertsT('wishes-api.create-wish.success')}
+                    title={allPagesT('wishes-api.create-wish.success')}
                     text={quote?.text}
                     author={quote?.author}
                 />,

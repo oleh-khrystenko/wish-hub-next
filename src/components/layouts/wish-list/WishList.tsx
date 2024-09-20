@@ -20,8 +20,8 @@ const WishList: FC<IProps> = ({ userId }) => {
 
     const wishListRef = useRef<HTMLDivElement>(null);
 
-    const alertsT = useTranslations('alerts');
     const profilePageT = useTranslations('profile-page');
+    const allPagesT = useTranslations('all-pages');
 
     const { ref, inView } = useInView({
         threshold: 0,
@@ -61,7 +61,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                     search,
                     sort,
                 },
-                alertsT('wishes-api.get-wish-list.error')
+                allPagesT('wishes-api.get-wish-list.error')
             );
 
             setIsLoadingAdd(false);

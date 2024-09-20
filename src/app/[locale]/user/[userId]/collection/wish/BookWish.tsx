@@ -30,7 +30,7 @@ const BookWish: FC<IProps> = ({ wish }) => {
 
     const activeLocale = useLocale();
     const wishPageT = useTranslations('wish-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -67,14 +67,14 @@ const BookWish: FC<IProps> = ({ wish }) => {
                 wishId: wish.id,
                 end: dayjs(bookEnd).add(1, 'day').format(),
             },
-            alertsT('wishes-api.book-wish.error')
+            allPagesT('wishes-api.book-wish.error')
         );
 
         if (response) {
             const quote = response[activeLocale as ELang];
             toast(
                 <QuoteMessage
-                    title={alertsT('wishes-api.book-wish.success')}
+                    title={allPagesT('wishes-api.book-wish.success')}
                     text={quote?.text}
                     author={quote?.author}
                 />,

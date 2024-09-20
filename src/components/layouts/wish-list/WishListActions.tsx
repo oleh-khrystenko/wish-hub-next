@@ -24,7 +24,7 @@ const WishListActions: FC<IProps> = ({ withoutShare, wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -69,7 +69,7 @@ const WishListActions: FC<IProps> = ({ withoutShare, wishListRefCurrent }) => {
                     search,
                     sort: value,
                 },
-                alertsT('wishes-api.get-wish-list.error')
+                allPagesT('wishes-api.get-wish-list.error')
             );
         } else {
             await getAllWishes(
@@ -80,7 +80,7 @@ const WishListActions: FC<IProps> = ({ withoutShare, wishListRefCurrent }) => {
                     search,
                     sort: value,
                 },
-                alertsT('wishes-api.get-all-wishes.error')
+                allPagesT('wishes-api.get-all-wishes.error')
             );
         }
 

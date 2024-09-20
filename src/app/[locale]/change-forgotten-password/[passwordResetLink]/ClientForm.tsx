@@ -24,7 +24,7 @@ const ClientForm: FC = () => {
 
     const activeLocale = useLocale();
     const authPageT = useTranslations('auth-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const {
         register,
@@ -63,7 +63,7 @@ const ClientForm: FC = () => {
             .then(() => {
                 sessionStorage.setItem(
                     'notification',
-                    alertsT('my-user-api.change-forgotten-password.success')
+                    allPagesT('my-user-api.change-forgotten-password.success')
                 );
 
                 router.replace(`/${activeLocale}/auth`);
@@ -71,7 +71,9 @@ const ClientForm: FC = () => {
             .catch((error: any) => {
                 toast(
                     error.response?.data?.message ||
-                        alertsT('my-user-api.change-forgotten-password.error'),
+                        allPagesT(
+                            'my-user-api.change-forgotten-password.error'
+                        ),
                     { type: 'error' }
                 );
             });

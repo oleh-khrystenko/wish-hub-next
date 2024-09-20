@@ -22,7 +22,7 @@ export default function PrivacyPolicy() {
                 messages={pick(messages, [
                     'main-page',
                     'share-button',
-                    'alerts',
+                    'all-pages',
                 ])}
             >
                 <UserSessionRefresher>

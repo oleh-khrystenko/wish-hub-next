@@ -33,7 +33,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
     const gotWishes = useRef(false);
 
     const mainPageT = useTranslations('main-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const { ref, inView } = useInView({
         threshold: 0,
@@ -138,7 +138,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                         search,
                         sort,
                     },
-                    alertsT('wishes-api.get-wish-list.error')
+                    allPagesT('wishes-api.get-wish-list.error')
                 );
             } else {
                 await addAllWishes(
@@ -149,7 +149,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                         search,
                         sort,
                     },
-                    alertsT('wishes-api.get-all-wishes.error')
+                    allPagesT('wishes-api.get-all-wishes.error')
                 );
             }
 
@@ -181,7 +181,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                                 ? EWishSort.CREATED_DESC
                                 : sort,
                     },
-                    alertsT('wishes-api.get-wish-list.error')
+                    allPagesT('wishes-api.get-wish-list.error')
                 );
                 setSelectedUserId(localSelectedUserId);
                 if (myUser?.id === localSelectedUserId) {
@@ -199,7 +199,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                             search,
                             sort: EWishSort.CREATED_DESC,
                         },
-                        alertsT('wishes-api.get-wish-list.error')
+                        allPagesT('wishes-api.get-wish-list.error')
                     );
                     setSelectedUserId(myUser.id);
                     setWishesSort(EWishSort.CREATED_DESC);
@@ -213,7 +213,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
                             search,
                             sort: EWishSort.POPULAR,
                         },
-                        alertsT('wishes-api.get-all-wishes.error')
+                        allPagesT('wishes-api.get-all-wishes.error')
                     );
                     setWishesSort(EWishSort.POPULAR);
                 }

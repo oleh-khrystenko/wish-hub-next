@@ -40,7 +40,7 @@ export default function Welcome() {
                         <NextIntlClientProvider
                             messages={pick(messages, [
                                 'welcome-page',
-                                'alerts',
+                                'all-pages',
                             ])}
                         >
                             <UserSessionRefresher withoutLoading>
@@ -168,7 +168,7 @@ export default function Welcome() {
                                 messages={pick(messages, [
                                     'welcome-page',
                                     'validations',
-                                    'alerts',
+                                    'all-pages',
                                 ])}
                             >
                                 <SignUp />

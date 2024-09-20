@@ -24,7 +24,7 @@ export default function ActivationLinkExpired() {
                 messages={pick(messages, [
                     'activation-link-expired-page',
                     'main-page',
-                    'alerts',
+                    'all-pages',
                 ])}
             >
                 <header className="flex w-full max-w-lg flex-col items-center gap-2 tablet-md:gap-8">

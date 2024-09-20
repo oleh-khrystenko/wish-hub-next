@@ -16,7 +16,7 @@ const CancelBookWish: FC<IProps> = ({ wish, userId }) => {
     const [show, setShow] = useState<boolean>(false);
 
     const wishPageT = useTranslations('wish-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const cancelBookWish = useWishesStore((state) => state.cancelBookWish);
 
@@ -25,8 +25,8 @@ const CancelBookWish: FC<IProps> = ({ wish, userId }) => {
 
         await cancelBookWish(
             { userId, wishId: wish.id },
-            alertsT('wishes-api.cancel-book-wish.success'),
-            alertsT('wishes-api.cancel-book-wish.error')
+            allPagesT('wishes-api.cancel-book-wish.success'),
+            allPagesT('wishes-api.cancel-book-wish.error')
         );
     };
 

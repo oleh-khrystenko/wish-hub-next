@@ -36,7 +36,7 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
                     <div className="grid gap-6 tablet-lg:grid-cols-2 desktop-xs:grid-cols-3">
                         <div>
                             <NextIntlClientProvider
-                                messages={pick(messages, ['alerts'])}
+                                messages={pick(messages, ['all-pages'])}
                             >
                                 <div className="-ml-4">
                                     <UiBrand withLogo disabled={isWelcome} />

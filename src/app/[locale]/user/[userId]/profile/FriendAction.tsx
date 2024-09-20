@@ -20,7 +20,7 @@ const FriendAction: FC<IProps> = ({ myUser, user }) => {
 
     const mainPageT = useTranslations('main-page');
     const profilePageT = useTranslations('profile-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const addFriend = useMyUserStore((state) => state.addFriend);
     const removeFriend = useMyUserStore((state) => state.removeFriend);
@@ -55,7 +55,7 @@ const FriendAction: FC<IProps> = ({ myUser, user }) => {
 
         await addFriend(
             { myId: myUser.id, friendId: user.id },
-            alertsT('my-user-api.add-friend.error')
+            allPagesT('my-user-api.add-friend.error')
         );
 
         setShowGlobalLoading(false);
@@ -73,7 +73,7 @@ const FriendAction: FC<IProps> = ({ myUser, user }) => {
                 friendId: user.id,
                 whereRemove,
             },
-            alertsT('my-user-api.remove-friend.error')
+            allPagesT('my-user-api.remove-friend.error')
         );
 
         setShowGlobalLoading(false);

@@ -73,7 +73,6 @@
             "title": "Wish Hub - makes your dreams come true!",
             "description": "Wish Hub: welcome to the home page! Browse the latest gift ideas and create your wishes."
         },
-        "main": "Main",
         "pwa": {
             "text_before": "You have the option to install the",
             "text_after": "app on your device.",
@@ -552,7 +551,7 @@
         "sub_text": "You may have entered the page address incorrectly.",
         "to_main": "To Main"
     },
-    "alerts": {
+    "all-pages": {
         "my-user-api": {
             "registration": {
                 "error": "registration: Failed to register."
@@ -664,7 +663,8 @@
             "third": "Oops, it's not the internet's fault this time... Refresh the page. Looks like the developers messed up. I wonder if they even tested this?",
             "reload": "Reload the page"
         },
-        "home": "Home"
+        "home": "Home",
+        "main": "Main"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

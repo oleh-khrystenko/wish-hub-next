@@ -26,7 +26,7 @@ export default function Wish() {
                             'profile-page',
                             'wish-page',
                             'share-button',
-                            'alerts',
+                            'all-pages',
                         ])}
                     >
                         <UserSessionRefresher>

@@ -44,8 +44,8 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
     const pathname = usePathname();
 
     const activeLocale = useLocale();
-    const alertsT = useTranslations('alerts');
     const mainPageT = useTranslations('main-page');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
     const logout = useMyUserStore((state) => state.logout);
@@ -84,7 +84,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
     };
 
     const handleLogout = async () => {
-        await logout(alertsT('my-user-api.logout.error'));
+        await logout(allPagesT('my-user-api.logout.error'));
         isMainPage && (await getInitialAllWishes());
         setShowPopup(false);
     };

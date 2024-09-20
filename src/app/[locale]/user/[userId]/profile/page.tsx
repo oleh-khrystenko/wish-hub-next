@@ -25,7 +25,7 @@ export default function Profile() {
                     'main-page',
                     'wish-page',
                     'share-button',
-                    'alerts',
+                    'all-pages',
                     'validations',
                     'inactivated',
                 ])}

@@ -11,7 +11,7 @@ const Inactivated: FC = () => {
     const [timeLeft, setTimeLeft] = useState<number | null>(null);
 
     const inactivatedT = useTranslations('inactivated');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -22,7 +22,7 @@ const Inactivated: FC = () => {
             await myUserApi.sendActivationLink(myUser.id);
 
             toast(
-                alertsT('my-user-api.send-activation-link.success', {
+                allPagesT('my-user-api.send-activation-link.success', {
                     email: myUser.email,
                 }),
                 {
@@ -32,7 +32,7 @@ const Inactivated: FC = () => {
         } catch (error: any) {
             toast(
                 error.response?.data?.message ||
-                    alertsT('my-user-api.send-activation-link.error', {
+                    allPagesT('my-user-api.send-activation-link.error', {
                         email: myUser.email,
                     }),
                 { type: 'error' }

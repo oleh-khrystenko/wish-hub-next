@@ -18,7 +18,7 @@ const UiLoading: FC<IProps> = ({
     const [message, setMessage] = useState<string>('');
     const [showReload, setShowReload] = useState<boolean>(false);
 
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const handleReload = () => {
         window.location.reload();
@@ -28,13 +28,13 @@ const UiLoading: FC<IProps> = ({
         if (isLocal) return;
 
         const timerFirst = setTimeout(() => {
-            setMessage(alertsT('loading.first'));
+            setMessage(allPagesT('loading.first'));
         }, 6000); // 6 секунд
         const timerSecond = setTimeout(() => {
-            setMessage(alertsT('loading.second'));
+            setMessage(allPagesT('loading.second'));
         }, 15000); // 15 секунд
         const timerThird = setTimeout(() => {
-            setMessage(alertsT('loading.third'));
+            setMessage(allPagesT('loading.third'));
             setShowReload(true);
         }, 30000); // 30 секунд
 
@@ -72,7 +72,7 @@ const UiLoading: FC<IProps> = ({
 
                     {showReload && (
                         <UiButton onBtnClick={handleReload}>
-                            {alertsT('loading.reload')}
+                            {allPagesT('loading.reload')}
                         </UiButton>
                     )}
                 </>

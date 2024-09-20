@@ -44,7 +44,7 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
     const activeLocale = useLocale();
 
     const mainPageT = useTranslations('main-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const {
         control,
@@ -202,8 +202,8 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
 
         await updateWish(
             { ...wishData, id: wishId },
-            alertsT('wishes-api.update-wish.success'),
-            alertsT('wishes-api.update-wish.error')
+            allPagesT('wishes-api.update-wish.success'),
+            allPagesT('wishes-api.update-wish.error')
         );
 
         hideModals();
@@ -236,8 +236,8 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
 
         await deleteWish(
             { wishId, userId: myUser.id },
-            alertsT('wishes-api.delete-wish.success'),
-            alertsT('wishes-api.delete-wish.error', {
+            allPagesT('wishes-api.delete-wish.success'),
+            allPagesT('wishes-api.delete-wish.error', {
                 wishId,
             })
         );

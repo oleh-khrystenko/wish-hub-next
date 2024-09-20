@@ -23,7 +23,7 @@ export default function ChangeForgottenPassword() {
             <NextIntlClientProvider
                 messages={pick(messages, [
                     'auth-page',
-                    'alerts',
+                    'all-pages',
                     'validations',
                 ])}
             >

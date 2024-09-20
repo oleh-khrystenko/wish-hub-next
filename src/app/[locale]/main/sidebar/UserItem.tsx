@@ -47,7 +47,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
     const addFriend = useMyUserStore((state) => state.addFriend);
@@ -161,7 +161,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
 
             await addFriend(
                 { myId: myUser.id, friendId: user.id },
-                alertsT('my-user-api.add-friend.error')
+                allPagesT('my-user-api.add-friend.error')
             );
 
             setShowGlobalLoading(false);
@@ -184,7 +184,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                     friendId: user.id,
                     whereRemove,
                 },
-                alertsT('my-user-api.remove-friend.error')
+                allPagesT('my-user-api.remove-friend.error')
             );
 
             setShowGlobalLoading(false);

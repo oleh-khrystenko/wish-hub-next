@@ -52,7 +52,7 @@ const ClientForm: FC = () => {
 
     const activeLocale = useLocale();
     const authPageT = useTranslations('auth-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const registration = useMyUserStore((state) => state.registration);
     const googleAuthorization = useMyUserStore(
@@ -146,7 +146,7 @@ const ClientForm: FC = () => {
                 lastName: decodedUserData.family_name,
                 avatar: decodedUserData.picture,
             },
-            alertsT('my-user-api.google-authorization.error')
+            allPagesT('my-user-api.google-authorization.error')
         );
     };
 
@@ -163,7 +163,7 @@ const ClientForm: FC = () => {
                     setIsForgotPassword(false);
 
                     toast(
-                        alertsT('my-user-api.forgot-password.success', {
+                        allPagesT('my-user-api.forgot-password.success', {
                             type: 'api',
                             email: data.email,
                         }),
@@ -173,7 +173,7 @@ const ClientForm: FC = () => {
                 .catch((error: any) => {
                     toast(
                         error.response?.data?.message ||
-                            alertsT('my-user-api.forgot-password.error', {
+                            allPagesT('my-user-api.forgot-password.error', {
                                 email: data.email,
                             }),
                         { type: 'error' }
@@ -210,7 +210,7 @@ const ClientForm: FC = () => {
                     email: data.email.trim(),
                     lang: activeLocale as ELang,
                 },
-                alertsT('my-user-api.registration.error')
+                allPagesT('my-user-api.registration.error')
             );
         }
 
@@ -221,7 +221,7 @@ const ClientForm: FC = () => {
                     email: data.email.trim(),
                     lang: activeLocale as ELang,
                 },
-                alertsT('my-user-api.login.error')
+                allPagesT('my-user-api.login.error')
             );
         }
     };
@@ -286,7 +286,7 @@ const ClientForm: FC = () => {
                                 onError={() => {
                                     console.log('Google OAuth Login Failed');
                                     toast(
-                                        alertsT(
+                                        allPagesT(
                                             'my-user-api.google-authorization.error'
                                         ),
                                         {

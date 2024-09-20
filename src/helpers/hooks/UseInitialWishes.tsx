@@ -6,7 +6,7 @@ import { useUsersStore } from '@/stores/users';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
 const UseInitialWishes = () => {
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
 
@@ -25,7 +25,7 @@ const UseInitialWishes = () => {
                 search: '',
                 sort: EWishSort.POPULAR,
             },
-            alertsT('wishes-api.get-all-wishes.error')
+            allPagesT('wishes-api.get-all-wishes.error')
         );
         setWishesStatus(EWishStatus.ALL);
         setWishesSearch('');
@@ -49,7 +49,7 @@ const UseInitialWishes = () => {
                 search: '',
                 sort,
             },
-            alertsT('wishes-api.get-wish-list.error')
+            allPagesT('wishes-api.get-wish-list.error')
         );
         setWishesStatus(EWishStatus.ALL);
         setWishesSearch('');

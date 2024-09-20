@@ -16,7 +16,7 @@ import InstallIcon from '@/components/icons/InstallIcon';
 const Body: FC = () => {
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -45,13 +45,13 @@ const Body: FC = () => {
                 {
                     '@type': 'ListItem',
                     position: 1,
-                    name: alertsT('home'),
+                    name: allPagesT('home'),
                     item: `https://wish-hub.net/${activeLocale}`,
                 },
                 {
                     '@type': 'ListItem',
                     position: 2,
-                    name: mainPageT('main'),
+                    name: allPagesT('main'),
                     item: `https://wish-hub.net/${activeLocale}/main`,
                 },
             ],

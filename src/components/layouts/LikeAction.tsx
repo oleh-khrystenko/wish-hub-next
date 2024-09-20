@@ -26,7 +26,7 @@ const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
 
     const activeLocale = useLocale();
 
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
     const likeWish = useWishesStore((state) => state.likeWish);
@@ -66,12 +66,12 @@ const LikeAction: FC<IProps> = ({ wish, type, hide }) => {
         type === 'likes' &&
             (await likeWish(
                 { userId: myUser.id, wishId: wish.id },
-                alertsT('wishes-api.like-wish.error')
+                allPagesT('wishes-api.like-wish.error')
             ));
         type === 'dislikes' &&
             (await dislikeWish(
                 { userId: myUser.id, wishId: wish.id },
-                alertsT('wishes-api.dislike-wish.error')
+                allPagesT('wishes-api.dislike-wish.error')
             ));
     };
 

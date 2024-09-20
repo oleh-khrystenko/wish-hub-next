@@ -17,7 +17,7 @@ export type TInputs = {
 
 const FastWish: FC<IProps> = ({ hide }) => {
     const mainPageT = useTranslations('main-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const {
         register,
@@ -35,7 +35,7 @@ const FastWish: FC<IProps> = ({ hide }) => {
         data.url.length > 0 &&
             (await fetchWishDataFromLink(
                 data,
-                alertsT('wishes-api.fetch-wish-data.error')
+                allPagesT('wishes-api.fetch-wish-data.error')
             ));
 
         hide();

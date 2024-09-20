@@ -36,7 +36,7 @@ const Body: FC = () => {
 
     const activeLocale = useLocale();
     const wishPageT = useTranslations('wish-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -123,7 +123,7 @@ const Body: FC = () => {
         getWish(
             params,
             !!anyWishId,
-            alertsT('wishes-api.get-wish.error')
+            allPagesT('wishes-api.get-wish.error')
         ).finally();
     }, [myUser?.id, searchParams]);
 

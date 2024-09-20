@@ -19,7 +19,7 @@ interface IProps {
 
 const Breadcrumbs: FC<IProps> = ({ pages }) => {
     const activeLocale = useLocale();
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
@@ -32,15 +32,15 @@ const Breadcrumbs: FC<IProps> = ({ pages }) => {
             {
                 '@type': 'ListItem',
                 position: 1,
-                name: alertsT('home'),
+                name: allPagesT('home'),
                 item: `https://wish-hub.net/${activeLocale}`,
             },
         ];
 
-        pages.map((page) => {
+        pages.map((page, idx) => {
             itemListElement.push({
                 '@type': 'ListItem',
-                position: itemListElement.length + 1,
+                position: idx + 2,
                 name: page.name,
                 item: `https://wish-hub.net/${activeLocale}/${page.href}`,
             });

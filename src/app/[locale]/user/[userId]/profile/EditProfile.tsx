@@ -42,7 +42,7 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
 
     const mainPageT = useTranslations('main-page');
     const profilePageT = useTranslations('profile-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const {
         register,
@@ -106,7 +106,7 @@ const EditProfile: FC<IProps> = ({ cancel }) => {
         }
         await updateMyUser(
             updateMyUserData,
-            alertsT('my-user-api.update-my-user.error')
+            allPagesT('my-user-api.update-my-user.error')
         );
 
         cancel();

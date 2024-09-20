@@ -20,7 +20,7 @@ const UserSessionRefresher: FC<IProps> = ({ withoutLoading, children }) => {
 
     const refreshed = useRef(false);
 
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const refresh = useMyUserStore((state) => state.refresh);
 
@@ -37,7 +37,7 @@ const UserSessionRefresher: FC<IProps> = ({ withoutLoading, children }) => {
         setIsLoading(true);
 
         const initializeUserSession = async () => {
-            const user = await refresh(alertsT('my-user-api.refresh.error'));
+            const user = await refresh(allPagesT('my-user-api.refresh.error'));
 
             if (!user) return;
 

@@ -25,7 +25,7 @@ export default function WishList() {
                             'main-page',
                             'wish-page',
                             'share-button',
-                            'alerts',
+                            'all-pages',
                             'validations',
                         ])}
                     >

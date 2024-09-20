@@ -31,7 +31,7 @@ const DeleteMyUserConfirmModal: FC<IProps> = ({ show, hid }) => {
 
     const mainPageT = useTranslations('main-page');
     const profilePageT = useTranslations('profile-page');
-    const alertsT = useTranslations('alerts');
+    const allPagesT = useTranslations('all-pages');
 
     const {
         register,
@@ -74,14 +74,14 @@ const DeleteMyUserConfirmModal: FC<IProps> = ({ show, hid }) => {
 
                 sessionStorage.setItem(
                     'notification',
-                    alertsT('my-user-api.delete-my-user.success')
+                    allPagesT('my-user-api.delete-my-user.success')
                 );
 
                 router.replace(`/${activeLocale}/auth`);
             } catch (error: any) {
                 toast(
                     error.response?.data?.message ||
-                        alertsT('my-user-api.delete-my-user.error'),
+                        allPagesT('my-user-api.delete-my-user.error'),
                     { type: 'error' }
                 );
             }
@@ -104,14 +104,14 @@ const DeleteMyUserConfirmModal: FC<IProps> = ({ show, hid }) => {
 
                 sessionStorage.setItem(
                     'notification',
-                    alertsT('my-user-api.delete-my-user.success')
+                    allPagesT('my-user-api.delete-my-user.success')
                 );
 
                 router.replace(`/${activeLocale}/auth`);
             } catch (error: any) {
                 toast(
                     error.response?.data?.message ||
-                        alertsT('my-user-api.delete-my-user.error'),
+                        allPagesT('my-user-api.delete-my-user.error'),
                     { type: 'error' }
                 );
             }
