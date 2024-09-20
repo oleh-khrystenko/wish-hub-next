@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useMyUserStore } from '@/stores/my-user';
+import { useUsersStore } from '@/stores/users';
 import EditProfile from '@/app/[locale]/user/[userId]/profile/EditProfile';
 import ChangePassword from '@/app/[locale]/user/[userId]/profile/ChangePassword';
 import DetailProfile from '@/app/[locale]/user/[userId]/profile/DetailProfile';
@@ -29,6 +30,8 @@ const Body: FC = () => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
+    const selectedUserId = useUsersStore((state) => state.selectedUserId);
+
     const breadcrumbsPages = [
         {
             href: 'main',
@@ -38,7 +41,7 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: 'profile',
+            href: `user/${selectedUserId}/profile`,
             icon: (
                 <PersonIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
             ),

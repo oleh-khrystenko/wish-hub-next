@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { IZoomedImage } from '@/models/Settings';
 import { useWishesStore } from '@/stores/wishes';
+import { useUsersStore } from '@/stores/users';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
@@ -24,6 +25,8 @@ const Body: FC = () => {
 
     const wishesCreator = useWishesStore((state) => state.creator);
 
+    const selectedUserId = useUsersStore((state) => state.selectedUserId);
+
     const { getFullName } = UseFullName();
     const screenWidth = UseScreenWidth();
 
@@ -36,7 +39,7 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: 'collection',
+            href: `user/${selectedUserId}/collection`,
             icon: (
                 <CollectionIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
             ),

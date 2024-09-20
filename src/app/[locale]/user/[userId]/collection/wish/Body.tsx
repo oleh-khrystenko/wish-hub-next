@@ -59,11 +59,11 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: 'collection',
+            href: `user/${selectedUserId}/collection`,
             name: allPagesT('collection'),
         },
         {
-            href: 'wish',
+            href: `user/${selectedUserId}/collection/wish`,
             name: wishPageT('wish'),
         },
     ];
@@ -84,7 +84,7 @@ const Body: FC = () => {
             name: allPagesT('collection'),
         },
         {
-            href: 'wish',
+            href: `user/${selectedUserId}/collection/wish`,
             icon: <LogoIcon classes="w-4 h-4" />,
             name: wishPageT('wish'),
         },
