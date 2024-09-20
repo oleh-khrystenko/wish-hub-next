@@ -2,17 +2,26 @@ import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import InfoIcon from '@/components/icons/InfoIcon';
+import MainIcon from '@/components/icons/MainIcon';
 
 const Body: FC = () => {
     const aboutPageT = useTranslations('about-page');
+    const allPagesT = useTranslations('all-pages');
 
     const breadcrumbsPages = [
+        {
+            href: 'main',
+            icon: (
+                <MainIcon classes="w-3.5 h-3.5 fill-zinc-500 dark:fill-zinc-400 group-hover:dark:fill-zinc-600" />
+            ),
+            name: allPagesT('main'),
+        },
         {
             href: 'about',
             icon: (
                 <InfoIcon classes="w-4 h-4 stroke-zinc-200 dark:stroke-zinc-400" />
             ),
-            name: aboutPageT('title'),
+            name: allPagesT('about'),
         },
     ];
 

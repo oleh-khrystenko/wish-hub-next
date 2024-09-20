@@ -4,7 +4,7 @@
             "title": "Wish Hub - About us",
             "description": "Wish Hub tells you about its history and mission. Learn more about how we help make your dreams come true."
         },
-        "title": "About Wish Hub",
+        "title": "About us",
         "hello": "Hello! My name is Oleg. I am the founder of Wish Hub. This web-application is created just for you.",
         "wish_hub_is": "Wish Hub is a unique platform that helps you learn about the wishes of your friends and loved ones. Our service makes gift selection easy and enjoyable by providing the ability to create wish lists, view them, and reserve items to avoid duplicate gifts.",
         "our_mission": "Our mission is to build a community where people can share their dreams and receive exactly what they wish for.",
@@ -89,7 +89,6 @@
         "sign-up": "Sign Up",
         "bd": "Birthday: {birthday}",
         "interface_language": "Interface language",
-        "about": "About",
         "about_us": "About us",
         "instruction": "Instruction",
         "contacts": "Contacts",
@@ -664,7 +663,9 @@
             "reload": "Reload the page"
         },
         "home": "Home",
-        "main": "Main"
+        "main": "Main",
+        "about": "About us",
+        "privacy_policy": "Privacy Policy"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

@@ -233,7 +233,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     <UiButton href="about" variant="text">
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <InfoIcon classes="h-6 w-6 stroke-zinc-700 dark:stroke-zinc-300" />
-                            {mainPageT('about')} Wish Hub
+                            {mainPageT('about_us')}
                         </span>
                     </UiButton>
 

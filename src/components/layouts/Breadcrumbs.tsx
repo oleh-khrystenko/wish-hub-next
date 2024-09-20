@@ -3,7 +3,6 @@
 import { FC, ReactNode, useEffect } from 'react';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import HomeIcon from '@/components/icons/HomeIcon';
 
@@ -20,8 +19,6 @@ interface IProps {
 const Breadcrumbs: FC<IProps> = ({ pages }) => {
     const activeLocale = useLocale();
     const allPagesT = useTranslations('all-pages');
-
-    const myUser = useMyUserStore((state) => state.myUser);
 
     const setShowGlobalLoading = useSettingsStore(
         (state) => state.setShowGlobalLoading
@@ -65,7 +62,7 @@ const Breadcrumbs: FC<IProps> = ({ pages }) => {
     return (
         <nav className="flex items-center gap-0.5 px-1 desktop-sm:px-0">
             <Link
-                href={`/${activeLocale}/${myUser ? 'main' : ''}`}
+                href={`/${activeLocale}`}
                 className="group relative flex items-center justify-center rounded-l-md bg-zinc-300 px-4 py-1 transition-all duration-300 ease-in-out after:absolute after:right-0 after:top-1/2 after:z-10 after:h-4 after:w-4 after:-translate-y-1/2 after:translate-x-1/2 after:rotate-45 after:bg-zinc-300 after:transition-all after:duration-300 after:ease-in-out hover:bg-cyan-400 hover:after:bg-cyan-400 dark:bg-zinc-800 after:dark:bg-zinc-800 hover:dark:bg-cyan-300 hover:after:dark:bg-cyan-300"
                 onClick={() => setShowGlobalLoading(true)}
             >
@@ -80,7 +77,7 @@ const Breadcrumbs: FC<IProps> = ({ pages }) => {
                     >
                         {page.icon}
 
-                        <span className="ml-1 text-xs text-zinc-200 transition-all duration-300 ease-in-out dark:text-zinc-400 group-hover:dark:text-zinc-600">
+                        <span className="ml-1.5 text-xs text-zinc-200 transition-all duration-300 ease-in-out dark:text-zinc-400">
                             {page.name}
                         </span>
                     </div>
@@ -93,7 +90,7 @@ const Breadcrumbs: FC<IProps> = ({ pages }) => {
                     >
                         {page.icon}
 
-                        <span className="ml-1 text-xs text-zinc-500 transition-all duration-300 ease-in-out dark:text-zinc-400 group-hover:dark:text-zinc-600">
+                        <span className="ml-1.5 text-xs text-zinc-500 transition-all duration-300 ease-in-out dark:text-zinc-400 group-hover:dark:text-zinc-600">
                             {page.name}
                         </span>
                     </Link>

@@ -4,17 +4,26 @@ import AgreeAction from '@/app/[locale]/privacy-policy/AgreeAction';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import UiButton from '@/components/ui/UiButton';
 import PrivacyPolicyIcon from '@/components/icons/PrivacyPolicyIcon';
+import MainIcon from '@/components/icons/MainIcon';
 
 const Body: FC = () => {
     const privacyPolicyPageT = useTranslations('privacy-policy-page');
+    const allPagesT = useTranslations('all-pages');
 
     const breadcrumbsPages = [
+        {
+            href: 'main',
+            icon: (
+                <MainIcon classes="w-3.5 h-3.5 fill-zinc-500 dark:fill-zinc-400 group-hover:dark:fill-zinc-600" />
+            ),
+            name: allPagesT('main'),
+        },
         {
             href: 'privacy-policy',
             icon: (
                 <PrivacyPolicyIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
             ),
-            name: privacyPolicyPageT('title'),
+            name: allPagesT('privacy_policy'),
         },
     ];
 

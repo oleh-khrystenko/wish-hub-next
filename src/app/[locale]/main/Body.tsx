@@ -7,11 +7,13 @@ import { useUsersStore } from '@/stores/users';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import { useInstallPWA } from '@/helpers/hooks/useInstallPWA';
 import WishList from '@/app/[locale]/main/WishList';
+import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import Inactivated from '@/components/layouts/Inactivated';
 import UiModal from '@/components/ui/modal/UiModal';
 import UiBrand from '@/components/ui/UiBrand';
 import UiButton from '@/components/ui/UiButton';
 import InstallIcon from '@/components/icons/InstallIcon';
+import MainIcon from '@/components/icons/MainIcon';
 
 const Body: FC = () => {
     const activeLocale = useLocale();
@@ -32,40 +34,20 @@ const Body: FC = () => {
         handleInstallPWA,
     } = useInstallPWA();
 
+    const breadcrumbsPages = [
+        {
+            href: 'main',
+            icon: (
+                <MainIcon classes="w-3.5 h-3.5 fill-zinc-200 dark:fill-zinc-400" />
+            ),
+            name: allPagesT('main'),
+        },
+    ];
+
     const selectedUserFullName = useMemo(() => {
         const selectedUser = users.find((user) => user.id === selectedUserId);
         return getFullName(selectedUser);
     }, [users, selectedUserId]);
-
-    useEffect(() => {
-        const breadcrumbJsonLd = JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BreadcrumbList',
-            itemListElement: [
-                {
-                    '@type': 'ListItem',
-                    position: 1,
-                    name: allPagesT('home'),
-                    item: `https://wish-hub.net/${activeLocale}`,
-                },
-                {
-                    '@type': 'ListItem',
-                    position: 2,
-                    name: allPagesT('main'),
-                    item: `https://wish-hub.net/${activeLocale}/main`,
-                },
-            ],
-        });
-
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.text = JSON.stringify(breadcrumbJsonLd);
-        document.head.appendChild(script);
-
-        return () => {
-            document.head.removeChild(script);
-        };
-    }, [activeLocale]);
 
     return (
         <>
@@ -73,6 +55,8 @@ const Body: FC = () => {
                 <div className="-ml-2 flex items-center justify-between py-1 tablet-md:hidden">
                     <UiBrand withLogo logoId="brand-logo-top" />
                 </div>
+
+                <Breadcrumbs pages={breadcrumbsPages} />
 
                 <div className="mb-6 mt-2 pl-2.5">
                     {selectedUserId ? (
