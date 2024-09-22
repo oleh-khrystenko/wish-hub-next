@@ -9,7 +9,7 @@ import { useUsersStore } from '@/stores/users';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
-import WishList from '@/components/layouts/wish-list/WishList';
+import WishList from '@/app/[locale]/user/[userId]/collection/WishList';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 import UiAvatar from '@/components/ui/UiAvatar';
 import CollectionIcon from '@/components/icons/CollectionIcon';

@@ -165,7 +165,8 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                 <div className="flex flex-col items-stretch gap-2 px-4 pb-2 pt-4 tablet-md:py-2">
                     {myUser && (
                         <>
-                            {(myUser.id !== selectedUserId || !isMainPage) && (
+                            {pathname !==
+                                `/${activeLocale}/user/${myUser.id}/collection` && (
                                 <UiButton
                                     href={`/user/${myUser.id}/collection`}
                                     variant="text"
