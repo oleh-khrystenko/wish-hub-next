@@ -401,7 +401,7 @@
         "wish_2_3_4": "wishes.",
         "change-password-title": "Changing the password",
         "set_password_title": "Set New Password",
-        "wish-list-title": "Wish list",
+        "user_collection": "Collection of user wishes",
         "wishes-empty": "Wish list is empty.",
         "cancel": "Cancel",
         "delete-account": "Delete my account",
@@ -601,6 +601,9 @@
             }
         },
         "users-api": {
+            "get-user": {
+                "error": "getUser: Failed to get user."
+            },
             "get-users": {
                 "error": "getUsers: Failed to get users."
             },

@@ -3,9 +3,16 @@ import api from '@/helpers/utils/api';
 import {
     IGetUsers,
     ISendAllUsersParams,
+    ISendUserParams,
     ISendUsersParams,
 } from '@/stores/users/types';
 import { IUser } from '@/models/User';
+
+const getUser = async (
+    params: ISendUserParams
+): Promise<AxiosResponse<IUser>> => {
+    return await api.get('/user', { params });
+};
 
 const getUsers = async (
     params: ISendUsersParams
@@ -20,6 +27,7 @@ const getAllUsers = async (
 };
 
 const usersApi = {
+    getUser,
     getUsers,
     getAllUsers,
 };

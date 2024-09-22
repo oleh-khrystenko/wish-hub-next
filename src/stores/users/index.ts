@@ -2,7 +2,11 @@ import { create } from 'zustand';
 import { toast } from 'react-toastify';
 import { IUser } from '@/models/User';
 import usersApi from '@/stores/users/api';
-import { ISendAllUsersParams, ISendUsersParams } from '@/stores/users/types';
+import {
+    ISendAllUsersParams,
+    ISendUserParams,
+    ISendUsersParams,
+} from '@/stores/users/types';
 import { useSettingsStore } from '@/stores/settings';
 import { USERS_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
@@ -10,6 +14,7 @@ const { setShowGlobalLoading } = useSettingsStore.getState();
 
 interface IUsersStore {
     list: IUser[];
+    user: IUser | null;
     page: number;
     search: string;
     followFromCount: number;
@@ -17,6 +22,7 @@ interface IUsersStore {
     selectedUserId: IUser['id'] | null;
     setSearch: (value: string) => void;
     setSelectedUserId: (id: IUser['id'] | null) => void;
+    getUser: (params: ISendUserParams, errorT: string) => Promise<void>;
     getUsers: (params: ISendUsersParams, errorT: string) => Promise<void>;
     addUsers: (params: ISendUsersParams, errorT: string) => Promise<void>;
     getAllUsers: (params: ISendAllUsersParams, errorT: string) => Promise<void>;
@@ -25,6 +31,7 @@ interface IUsersStore {
 
 export const useUsersStore = create<IUsersStore>((set) => ({
     list: [],
+    user: null,
     page: 1,
     search: '',
     followFromCount: 0,
@@ -41,6 +48,22 @@ export const useUsersStore = create<IUsersStore>((set) => ({
             ...state,
             selectedUserId: id,
         }));
+    },
+    getUser: async (params, errorT) => {
+        setShowGlobalLoading(true);
+
+        try {
+            const response = await usersApi.getUser(params);
+
+            set((state) => ({
+                ...state,
+                user: response.data,
+            }));
+        } catch (error: any) {
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
+        }
     },
     getUsers: async (params, errorT) => {
         setShowGlobalLoading(true);

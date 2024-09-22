@@ -13,6 +13,11 @@ export enum EUserType {
     FOLLOW_TO = 'followTo',
 }
 
+export interface ISendUserParams {
+    myUserId: IUser['id'];
+    userId: IUser['id'];
+}
+
 export interface ISendUsersParams extends ISendAllUsersParams {
     myUserId: IUser['id'];
     userType: EUserType;

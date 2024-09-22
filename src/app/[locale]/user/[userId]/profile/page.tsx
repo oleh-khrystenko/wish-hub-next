@@ -24,7 +24,7 @@ export default function Profile() {
     const messages = useMessages();
 
     return (
-        <>
+        <div className="flex min-h-screen flex-col">
             <NextIntlClientProvider
                 messages={pick(messages, [
                     'profile-page',
@@ -48,6 +48,6 @@ export default function Profile() {
             </NextIntlClientProvider>
 
             <Footer />
-        </>
+        </div>
     );
 }

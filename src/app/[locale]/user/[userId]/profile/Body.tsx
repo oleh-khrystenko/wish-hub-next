@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -11,7 +11,6 @@ import ChangePassword from '@/app/[locale]/user/[userId]/profile/ChangePassword'
 import DetailProfile from '@/app/[locale]/user/[userId]/profile/DetailProfile';
 import DeleteMyUserConfirmModal from '@/app/[locale]/user/[userId]/profile/DeleteMyUserConfirmModal';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
-import WishList from '@/components/layouts/wish-list/WishList';
 import Inactivated from '@/components/layouts/Inactivated';
 import UiButton from '@/components/ui/UiButton';
 import EditIcon from '@/components/icons/EditIcon';
@@ -30,7 +29,7 @@ const Body: FC = () => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const selectedUserId = useUsersStore((state) => state.selectedUserId);
+    const getUser = useUsersStore((state) => state.getUser);
 
     const breadcrumbsPages = [
         {
@@ -41,7 +40,7 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: `user/${selectedUserId}/profile`,
+            href: `user/${userId}/profile`,
             icon: (
                 <PersonIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
             ),
@@ -49,8 +48,17 @@ const Body: FC = () => {
         },
     ];
 
+    useEffect(() => {
+        if (!myUser) return;
+
+        getUser(
+            { userId, myUserId: myUser.id },
+            allPagesT('users-api.get-user.error')
+        ).finally();
+    }, [userId]);
+
     return (
-        <main className="mx-auto max-w-7xl pt-3">
+        <main className="mx-auto w-full max-w-7xl pt-3">
             <Breadcrumbs
                 seoPages={breadcrumbsPages}
                 visualPages={breadcrumbsPages}
@@ -101,13 +109,11 @@ const Body: FC = () => {
                 )}
 
                 {!showEdit && (
-                    <>
-                        <p className="my-6 text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                            {profilePageT('wish-list-title')}
-                        </p>
-
-                        <WishList userId={userId} currentPage="profile" />
-                    </>
+                    <div className="mt-6 w-fit">
+                        <UiButton href={`user/${userId}/collection`}>
+                            {profilePageT('user_collection')}
+                        </UiButton>
+                    </div>
                 )}
 
                 <GoogleOAuthProvider

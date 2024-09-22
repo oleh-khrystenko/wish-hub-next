@@ -401,7 +401,7 @@
         "wish_2_3_4": "желания.",
         "change-password-title": "Изменение пароля",
         "set_password_title": "Установка пароля",
-        "wish-list-title": "Список желаний",
+        "user_collection": "Коллекция желаний пользователя",
         "wishes-empty": "Список желаний пуст",
         "cancel": "Отмена",
         "delete-account": "Удалить свой аккаунт",
@@ -601,6 +601,9 @@
             }
         },
         "users-api": {
+            "get-user": {
+                "error": "getUser: Не удалось получить пользователя."
+            },
             "get-users": {
                 "error": "getUsers: Не удалось получить пользователей."
             },

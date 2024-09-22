@@ -6,7 +6,7 @@ import 'dayjs/locale/uk';
 import 'dayjs/locale/ru';
 import { EPrivacy, IZoomedImage } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
-import { useWishesStore } from '@/stores/wishes';
+import { useUsersStore } from '@/stores/users';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
@@ -24,7 +24,7 @@ const DetailProfile: FC = () => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const wishesCreator = useWishesStore((state) => state.creator);
+    const user = useUsersStore((state) => state.user);
 
     const { getFullName } = UseFullName();
     const screenWidth = UseScreenWidth();
@@ -32,52 +32,50 @@ const DetailProfile: FC = () => {
 
     // Avatar
     const avatar = useMemo(() => {
-        if (myUser?.id === wishesCreator?.id) {
+        if (myUser?.id === user?.id) {
             return myUser?.avatar;
         }
-        return wishesCreator?.avatar;
-    }, [wishesCreator, myUser]);
+        return user?.avatar;
+    }, [user, myUser]);
 
     // isMyFriend
     const isMyFriend = useMemo(
-        () => wishesCreator && myUser?.friends.includes(wishesCreator.id),
-        [wishesCreator, myUser]
+        () => user && myUser?.friends.includes(user.id),
+        [user, myUser]
     );
 
     // Email
     const showEmail = useMemo(() => {
-        const showAll = wishesCreator?.showEmail === EPrivacy.ALL;
-        const showMyFriend =
-            wishesCreator?.showEmail === EPrivacy.FRIENDS && isMyFriend;
+        const showAll = user?.showEmail === EPrivacy.ALL;
+        const showMyFriend = user?.showEmail === EPrivacy.FRIENDS && isMyFriend;
         return (
-            wishesCreator?.email &&
-            (wishesCreator?.id === myUser?.id || showAll || showMyFriend)
+            user?.email && (user?.id === myUser?.id || showAll || showMyFriend)
         );
-    }, [wishesCreator, myUser]);
+    }, [user, myUser]);
     const email = useMemo(() => {
-        if (myUser?.id === wishesCreator?.id) {
+        if (myUser?.id === user?.id) {
             return myUser?.email;
         } else {
             if (showEmail) {
-                return wishesCreator?.email;
+                return user?.email;
             } else {
                 return profilePageT('unknown');
             }
         }
-    }, [showEmail, wishesCreator, myUser]);
+    }, [showEmail, user, myUser]);
 
     // Birthday
     const showBirthday = useMemo(() => {
-        const showAll = wishesCreator?.showBirthday === EPrivacy.ALL;
+        const showAll = user?.showBirthday === EPrivacy.ALL;
         const showMyFriend =
-            wishesCreator?.showBirthday === EPrivacy.FRIENDS && isMyFriend;
+            user?.showBirthday === EPrivacy.FRIENDS && isMyFriend;
         return (
-            wishesCreator?.birthday &&
-            (wishesCreator?.id === myUser?.id || showAll || showMyFriend)
+            user?.birthday &&
+            (user?.id === myUser?.id || showAll || showMyFriend)
         );
-    }, [wishesCreator, myUser]);
+    }, [user, myUser]);
     const birthday = useMemo(() => {
-        if (myUser?.id === wishesCreator?.id) {
+        if (myUser?.id === user?.id) {
             if (myUser?.birthday) {
                 return dayjs(myUser?.birthday)
                     .locale(activeLocale)
@@ -87,28 +85,27 @@ const DetailProfile: FC = () => {
             }
         } else {
             if (showBirthday) {
-                return dayjs(wishesCreator?.birthday)
+                return dayjs(user?.birthday)
                     .locale(activeLocale)
                     .format(getMonthWithDate());
             } else {
                 return profilePageT('unknown');
             }
         }
-    }, [showBirthday, wishesCreator, myUser]);
+    }, [showBirthday, user, myUser]);
 
     // Delivery Address
     const showDeliveryAddress = useMemo(() => {
-        const showAll = wishesCreator?.showDeliveryAddress === EPrivacy.ALL;
+        const showAll = user?.showDeliveryAddress === EPrivacy.ALL;
         const showMyFriend =
-            wishesCreator?.showDeliveryAddress === EPrivacy.FRIENDS &&
-            isMyFriend;
+            user?.showDeliveryAddress === EPrivacy.FRIENDS && isMyFriend;
         return (
-            wishesCreator?.deliveryAddress &&
-            (wishesCreator?.id === myUser?.id || showAll || showMyFriend)
+            user?.deliveryAddress &&
+            (user?.id === myUser?.id || showAll || showMyFriend)
         );
-    }, [wishesCreator, myUser]);
+    }, [user, myUser]);
     const deliveryAddress = useMemo(() => {
-        if (myUser?.id === wishesCreator?.id) {
+        if (myUser?.id === user?.id) {
             if (myUser?.deliveryAddress) {
                 return myUser?.deliveryAddress;
             } else {
@@ -116,22 +113,18 @@ const DetailProfile: FC = () => {
             }
         } else {
             if (showDeliveryAddress) {
-                return wishesCreator?.deliveryAddress;
+                return user?.deliveryAddress;
             } else {
                 return profilePageT('unknown');
             }
         }
-    }, [showDeliveryAddress, wishesCreator, myUser]);
+    }, [showDeliveryAddress, user, myUser]);
 
     // Count of successful and unsuccessful wishes
     const successfulWishes =
-        wishesCreator && wishesCreator.successfulWishes > 0
-            ? wishesCreator.successfulWishes
-            : 0;
+        user && user.successfulWishes > 0 ? user.successfulWishes : 0;
     const unsuccessfulWishes =
-        wishesCreator && wishesCreator.unsuccessfulWishes > 0
-            ? wishesCreator.unsuccessfulWishes
-            : 0;
+        user && user.unsuccessfulWishes > 0 ? user.unsuccessfulWishes : 0;
     const tWishSuccess = useMemo(() => {
         if (successfulWishes === 1) {
             return 'wish';
@@ -174,24 +167,21 @@ const DetailProfile: FC = () => {
                     <UiAvatar
                         avatar={avatar}
                         alt={
-                            myUser?.id === wishesCreator?.id
+                            myUser?.id === user?.id
                                 ? getFullName(myUser)
-                                : getFullName(wishesCreator)
+                                : getFullName(user)
                         }
                         priority
                         size={screenWidth < 768 ? 144 : 208}
                         sizeTailwind="w-36 min-w-36 h-36 min-h-36 tablet-md:w-52 tablet-md:min-w-52 tablet-md:h-52 tablet-md:min-h-52"
                         sizeIcon="w-28 h-28 tablet-md:w-40 tablet-md:h-40"
                         handleClick={() =>
-                            handleShowImage(
-                                wishesCreator?.avatar,
-                                getFullName(wishesCreator)
-                            )
+                            handleShowImage(user?.avatar, getFullName(user))
                         }
                     />
 
-                    {myUser && wishesCreator && (
-                        <FriendAction myUser={myUser} user={wishesCreator} />
+                    {myUser && user && (
+                        <FriendAction myUser={myUser} user={user} />
                     )}
                 </div>
 
@@ -199,14 +189,14 @@ const DetailProfile: FC = () => {
                     <p
                         className="w-full truncate text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-3xl"
                         title={
-                            myUser?.id === wishesCreator?.id
+                            myUser?.id === user?.id
                                 ? getFullName(myUser)
-                                : getFullName(wishesCreator)
+                                : getFullName(user)
                         }
                     >
-                        {myUser?.id === wishesCreator?.id
+                        {myUser?.id === user?.id
                             ? getFullName(myUser)
-                            : getFullName(wishesCreator)}
+                            : getFullName(user)}
                     </p>
 
                     {showEmail && (

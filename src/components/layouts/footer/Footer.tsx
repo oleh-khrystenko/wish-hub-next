@@ -28,7 +28,7 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
     ];
 
     return (
-        <footer>
+        <footer className="mt-auto">
             <Divider />
 
             <div className="bg-zinc-300 px-4 pt-4 dark:bg-zinc-800">

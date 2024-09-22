@@ -401,7 +401,7 @@
         "wish_2_3_4": "бажання.",
         "change-password-title": "Зміна паролю",
         "set_password_title": "Встановлення паролю",
-        "wish-list-title": "Список бажань",
+        "user_collection": "Колекція бажань користувача",
         "wishes-empty": "Список бажань порожній",
         "cancel": "Скасувати",
         "delete-account": "Видалити свій акаунт",
@@ -601,6 +601,9 @@
             }
         },
         "users-api": {
+            "get-user": {
+                "error": "getUser: Не вдалось отримати користувача."
+            },
             "get-users": {
                 "error": "getUsers: Не вдалось отримати користувачів."
             },
