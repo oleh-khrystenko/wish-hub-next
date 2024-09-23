@@ -2,7 +2,6 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { EWishSort, EWishStatus, IWish } from '@/models/Wish';
-import { EPrivacy } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
@@ -14,12 +13,10 @@ import EditWish from '@/app/[locale]/main/wish-editor/EditWish';
 import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
 import WishListActions from '@/components/layouts/wish-list/WishListActions';
 import WishItem from '@/components/layouts/wish-list/WishItem';
-import ShareButton from '@/components/layouts/ShareButton';
-import UiTooltip from '@/components/ui/UiTooltip';
 import UiLoading from '@/components/ui/UiLoading';
 import CrossIcon from '@/components/icons/CrossIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
-import InfoIcon from '@/components/icons/InfoIcon';
+import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
 
 const WishList: FC = () => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
@@ -71,11 +68,6 @@ const WishList: FC = () => {
         const selectedUser = users.find((user) => user.id === selectedUserId);
         return getFullName(selectedUser);
     }, [users, selectedUserId]);
-
-    const wishListIncludesShowAllWish = useMemo(
-        () => wishes.some((wish) => wish.show === EPrivacy.ALL),
-        [wishes]
-    );
 
     const wishesExample = [
         {
@@ -250,41 +242,7 @@ const WishList: FC = () => {
                                 </h1>
 
                                 {myUser?.id === selectedUserId && (
-                                    <div className="ml-auto flex items-center gap-1 tablet-md:ml-0">
-                                        <span
-                                            className="cursor-pointer"
-                                            data-tooltip-id="share-wishes"
-                                            data-tooltip-content={
-                                                wishListIncludesShowAllWish
-                                                    ? mainPageT(
-                                                          'can-see.share-tooltip'
-                                                      )
-                                                    : mainPageT(
-                                                          'can-see.inactive-share-tooltip'
-                                                      )
-                                            }
-                                        >
-                                            <InfoIcon />
-                                        </span>
-                                        <UiTooltip id="share-wishes" />
-
-                                        <div
-                                            className={
-                                                wishListIncludesShowAllWish
-                                                    ? 'ml-1'
-                                                    : 'pointer-events-none ml-1 opacity-20'
-                                            }
-                                        >
-                                            <ShareButton
-                                                link={`user/${myUser.id}/collection`}
-                                                actionClasses="flex-row-reverse"
-                                            >
-                                                <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-700 dark:text-zinc-400">
-                                                    {mainPageT('share_wishes')}
-                                                </span>
-                                            </ShareButton>
-                                        </div>
-                                    </div>
+                                    <ShareCollection myUserId={myUser.id} />
                                 )}
                             </div>
                         ) : (

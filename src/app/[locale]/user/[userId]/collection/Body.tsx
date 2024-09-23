@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { EPrivacy, IZoomedImage } from '@/models/Settings';
+import { IZoomedImage } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
@@ -11,12 +11,10 @@ import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import WishList from '@/app/[locale]/user/[userId]/collection/WishList';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
-import ShareButton from '@/components/layouts/ShareButton';
-import UiTooltip from '@/components/ui/UiTooltip';
 import UiAvatar from '@/components/ui/UiAvatar';
 import CollectionIcon from '@/components/icons/CollectionIcon';
 import MainIcon from '@/components/icons/MainIcon';
-import InfoIcon from '@/components/icons/InfoIcon';
+import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
 
 const Body: FC = () => {
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
@@ -24,21 +22,14 @@ const Body: FC = () => {
     const { userId } = useParams<{ userId: string }>();
 
     const collectionT = useTranslations('collection-page');
-    const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const wishes = useWishesStore((state) => state.list);
     const wishesCreator = useWishesStore((state) => state.creator);
 
     const { getFullName } = UseFullName();
     const screenWidth = UseScreenWidth();
-
-    const wishListIncludesShowAllWish = useMemo(
-        () => wishes.some((wish) => wish.show === EPrivacy.ALL),
-        [wishes]
-    );
 
     const breadcrumbsPages = [
         {
@@ -77,39 +68,7 @@ const Body: FC = () => {
                     </h1>
 
                     {myUser?.id === userId && (
-                        <div className="ml-auto flex items-center gap-1 tablet-md:ml-0">
-                            <span
-                                className="cursor-pointer"
-                                data-tooltip-id="share-wishes"
-                                data-tooltip-content={
-                                    wishListIncludesShowAllWish
-                                        ? mainPageT('can-see.share-tooltip')
-                                        : mainPageT(
-                                              'can-see.inactive-share-tooltip'
-                                          )
-                                }
-                            >
-                                <InfoIcon />
-                            </span>
-                            <UiTooltip id="share-wishes" />
-
-                            <div
-                                className={
-                                    wishListIncludesShowAllWish
-                                        ? ''
-                                        : 'pointer-events-none opacity-20'
-                                }
-                            >
-                                <ShareButton
-                                    link={`user/${myUser.id}/collection`}
-                                    actionClasses="flex-row-reverse"
-                                >
-                                    <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-700 dark:text-zinc-400">
-                                        {mainPageT('share_wishes')}
-                                    </span>
-                                </ShareButton>
-                            </div>
-                        </div>
+                        <ShareCollection myUserId={myUser.id} />
                     )}
                 </div>
 
