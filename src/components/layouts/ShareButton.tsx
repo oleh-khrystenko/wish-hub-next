@@ -16,7 +16,7 @@ interface IProps {
 }
 
 const ShareButton: FC<IProps> = ({
-    actionClasses,
+    actionClasses = 'gap-2',
     iconClasses,
     link = '',
     wishShow,
@@ -80,7 +80,7 @@ const ShareButton: FC<IProps> = ({
     return (
         <>
             <button
-                className={`${actionClasses} flex items-center gap-2`}
+                className={`${actionClasses} flex items-center`}
                 type="button"
                 onClick={handleClick}
             >

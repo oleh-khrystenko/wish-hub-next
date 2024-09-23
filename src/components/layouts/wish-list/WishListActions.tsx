@@ -1,26 +1,21 @@
 'use client';
 
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
-import { EPrivacy } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
-import ShareButton from '@/components/layouts/ShareButton';
-import UiTooltip from '@/components/ui/UiTooltip';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
-import InfoIcon from '@/components/icons/InfoIcon';
 import SortIcon from '@/components/icons/SortIcon';
 
 interface IProps {
-    withoutShare?: boolean;
     wishListRefCurrent: HTMLDivElement | null;
 }
 
-const WishListActions: FC<IProps> = ({ withoutShare, wishListRefCurrent }) => {
+const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
     const mainPageT = useTranslations('main-page');
@@ -30,18 +25,12 @@ const WishListActions: FC<IProps> = ({ withoutShare, wishListRefCurrent }) => {
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
-    const wishes = useWishesStore((state) => state.list);
     const status = useWishesStore((state) => state.status);
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const setWishesSort = useWishesStore((state) => state.setWishesSort);
     const getWishList = useWishesStore((state) => state.getWishList);
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
-
-    const wishListIncludesShowAllWish = useMemo(
-        () => wishes.some((wish) => wish.show === EPrivacy.ALL),
-        [wishes]
-    );
 
     let wishesSortText;
     sort === EWishSort.POPULAR &&
@@ -95,37 +84,8 @@ const WishListActions: FC<IProps> = ({ withoutShare, wishListRefCurrent }) => {
     };
 
     return (
-        <div className="mt-6 flex w-full flex-col gap-3 tablet-md:flex-row tablet-md:items-center">
-            {myUser?.id === selectedUserId && !withoutShare && (
-                <div className="flex items-center gap-1">
-                    <div
-                        className={
-                            wishListIncludesShowAllWish
-                                ? ''
-                                : 'pointer-events-none opacity-20'
-                        }
-                    >
-                        <ShareButton link={`user/${myUser.id}/collection`}>
-                            <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-700 dark:text-zinc-400">
-                                {mainPageT('share-wishes')}
-                            </span>
-                        </ShareButton>
-                    </div>
-
-                    <span
-                        className="cursor-pointer"
-                        data-tooltip-id="share-wishes"
-                        data-tooltip-content={
-                            wishListIncludesShowAllWish
-                                ? mainPageT('can-see.share-tooltip')
-                                : mainPageT('can-see.inactive-share-tooltip')
-                        }
-                    >
-                        <InfoIcon />
-                    </span>
-                    <UiTooltip id="share-wishes" />
-                </div>
-            )}
+        <div className="mt-6 flex w-full items-center justify-between gap-3">
+            <div className="text-zinc-800 dark:text-zinc-300">FOLDERS</div>
 
             <div className="relative ml-auto">
                 <UiButton variant="text" onBtnClick={() => setShowPopup(true)}>

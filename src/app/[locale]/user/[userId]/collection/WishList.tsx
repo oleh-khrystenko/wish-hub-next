@@ -125,11 +125,11 @@ const WishList: FC<IProps> = ({ userId }) => {
     return (
         <>
             {wishesCreator && wishesCreator.wishList.length > 4 && (
-                <>
+                <div className="mt-6">
                     <WishListFilter wishListRefCurrent={wishListRef.current} />
 
                     <WishListActions wishListRefCurrent={wishListRef.current} />
-                </>
+                </div>
             )}
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (

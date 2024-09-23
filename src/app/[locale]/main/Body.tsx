@@ -1,10 +1,8 @@
 'use client';
 
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
-import { useUsersStore } from '@/stores/users';
-import UseFullName from '@/helpers/hooks/UseFullName';
 import { useInstallPWA } from '@/helpers/hooks/useInstallPWA';
 import WishList from '@/app/[locale]/main/WishList';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
@@ -21,10 +19,6 @@ const Body: FC = () => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const users = useUsersStore((state) => state.list);
-    const selectedUserId = useUsersStore((state) => state.selectedUserId);
-
-    const { getFullName } = UseFullName();
     const {
         installPWAPrompt,
         neverInstallPWA,
@@ -43,11 +37,6 @@ const Body: FC = () => {
         },
     ];
 
-    const selectedUserFullName = useMemo(() => {
-        const selectedUser = users.find((user) => user.id === selectedUserId);
-        return getFullName(selectedUser);
-    }, [users, selectedUserId]);
-
     return (
         <>
             <div className="relative flex w-full grow flex-col pl-1 pr-2 pt-2 tablet-md:w-2/3 tablet-md:pb-5 tablet-xl:w-3/4">
@@ -60,32 +49,7 @@ const Body: FC = () => {
                     visualPages={breadcrumbsPages}
                 />
 
-                <div className="mb-6 mt-2 pl-2.5">
-                    {selectedUserId ? (
-                        <>
-                            {myUser?.id === selectedUserId ? (
-                                <h1 className="text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
-                                    {mainPageT('my_wishes')}
-                                </h1>
-                            ) : (
-                                <h1 className="flex max-w-full flex-wrap items-center">
-                                    <span className="mr-1 min-h-7 whitespace-nowrap text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
-                                        {mainPageT('wishes_of_user')}
-                                    </span>
-                                    <span className="min-h-7 max-w-full truncate pr-0.5 text-base font-bold italic text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
-                                        {selectedUserFullName}
-                                    </span>
-                                </h1>
-                            )}
-                        </>
-                    ) : (
-                        <h1 className="text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
-                            {mainPageT('wishes_of_users')}
-                        </h1>
-                    )}
-                </div>
-
-                <WishList selectedUserFullName={selectedUserFullName} />
+                <WishList />
             </div>
 
             <UiModal

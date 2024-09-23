@@ -1,26 +1,27 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { EWishSort, EWishStatus, IWish } from '@/models/Wish';
+import { EPrivacy } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
+import UseFullName from '@/helpers/hooks/UseFullName';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import CreateWish from '@/app/[locale]/main/wish-editor/CreateWish';
 import EditWish from '@/app/[locale]/main/wish-editor/EditWish';
 import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
 import WishListActions from '@/components/layouts/wish-list/WishListActions';
 import WishItem from '@/components/layouts/wish-list/WishItem';
+import ShareButton from '@/components/layouts/ShareButton';
+import UiTooltip from '@/components/ui/UiTooltip';
 import UiLoading from '@/components/ui/UiLoading';
 import CrossIcon from '@/components/icons/CrossIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
+import InfoIcon from '@/components/icons/InfoIcon';
 
-interface IProps {
-    selectedUserFullName: string;
-}
-
-const WishList: FC<IProps> = ({ selectedUserFullName }) => {
+const WishList: FC = () => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [showCreateWish, setShowCreateWish] = useState<boolean>(false);
     const [showEditWish, setShowEditWish] = useState<boolean>(false);
@@ -41,6 +42,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
+    const users = useUsersStore((state) => state.list);
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
     const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
 
@@ -61,6 +63,18 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
     const setActivatedSidebar = useSettingsStore(
         (state) => state.setActivatedSidebar
+    );
+
+    const { getFullName } = UseFullName();
+
+    const selectedUserFullName = useMemo(() => {
+        const selectedUser = users.find((user) => user.id === selectedUserId);
+        return getFullName(selectedUser);
+    }, [users, selectedUserId]);
+
+    const wishListIncludesShowAllWish = useMemo(
+        () => wishes.some((wish) => wish.show === EPrivacy.ALL),
+        [wishes]
     );
 
     const wishesExample = [
@@ -226,6 +240,71 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
 
     return (
         <>
+            <div className="mb-6 mt-2 pl-2.5">
+                {selectedUserId ? (
+                    <>
+                        {myUser?.id === selectedUserId ? (
+                            <div className="flex flex-col gap-3 tablet-md:flex-row tablet-md:items-center tablet-md:justify-between">
+                                <h1 className="text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-lg:text-3xl">
+                                    {mainPageT('my_wishes')}
+                                </h1>
+
+                                {myUser?.id === selectedUserId && (
+                                    <div className="ml-auto flex items-center gap-1 tablet-md:ml-0">
+                                        <span
+                                            className="cursor-pointer"
+                                            data-tooltip-id="share-wishes"
+                                            data-tooltip-content={
+                                                wishListIncludesShowAllWish
+                                                    ? mainPageT(
+                                                          'can-see.share-tooltip'
+                                                      )
+                                                    : mainPageT(
+                                                          'can-see.inactive-share-tooltip'
+                                                      )
+                                            }
+                                        >
+                                            <InfoIcon />
+                                        </span>
+                                        <UiTooltip id="share-wishes" />
+
+                                        <div
+                                            className={
+                                                wishListIncludesShowAllWish
+                                                    ? 'ml-1'
+                                                    : 'pointer-events-none ml-1 opacity-20'
+                                            }
+                                        >
+                                            <ShareButton
+                                                link={`user/${myUser.id}/collection`}
+                                                actionClasses="flex-row-reverse"
+                                            >
+                                                <span className="mr-1.5 whitespace-nowrap text-sm text-zinc-700 dark:text-zinc-400">
+                                                    {mainPageT('share_wishes')}
+                                                </span>
+                                            </ShareButton>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <h1 className="flex max-w-full flex-wrap items-center">
+                                <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
+                                    {mainPageT('wishes_of_user')}
+                                </span>
+                                <span className="min-h-7 max-w-full truncate pr-0.5 text-2xl font-bold italic text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
+                                    {selectedUserFullName}
+                                </span>
+                            </h1>
+                        )}
+                    </>
+                ) : (
+                    <h1 className="text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
+                        {mainPageT('wishes_of_users')}
+                    </h1>
+                )}
+            </div>
+
             <div className="pl-2.5">
                 <WishListFilter wishListRefCurrent={wishListRef.current} />
             </div>
