@@ -34,6 +34,7 @@ export default function Wish() {
                             'wish-page',
                             'share-button',
                             'all-pages',
+                            'validations',
                         ])}
                     >
                         <UserSessionRefresher>
