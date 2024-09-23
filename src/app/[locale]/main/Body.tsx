@@ -1,7 +1,7 @@
 'use client';
 
-import { FC, useMemo, useEffect } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
+import { FC, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import UseFullName from '@/helpers/hooks/UseFullName';
@@ -16,7 +16,6 @@ import InstallIcon from '@/components/icons/InstallIcon';
 import MainIcon from '@/components/icons/MainIcon';
 
 const Body: FC = () => {
-    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
@@ -53,7 +52,7 @@ const Body: FC = () => {
         <>
             <div className="relative flex w-full grow flex-col pl-1 pr-2 pt-2 tablet-md:w-2/3 tablet-md:pb-5 tablet-xl:w-3/4">
                 <div className="-ml-2 flex items-center justify-between py-1 tablet-md:hidden">
-                    <UiBrand withLogo logoId="brand-logo-top" />
+                    <UiBrand withLogo disabled logoId="brand-logo-top" />
                 </div>
 
                 <Breadcrumbs

@@ -85,6 +85,7 @@ const WishList: FC<IProps> = ({ selectedUserFullName }) => {
         (doesNotHave = mainPageT('does_not_have_fulfilled'));
     status === EWishStatus.UNFULFILLED &&
         (doesNotHave = mainPageT('does_not_have_unfulfilled'));
+
     let emptyText;
     myUser?.id !== selectedUserId &&
         (emptyText = (

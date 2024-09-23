@@ -87,7 +87,7 @@ const Body: FC = () => {
                     </p>
                 </div>
 
-                <WishList userId={userId} currentPage="collection" />
+                <WishList userId={userId} />
             </div>
 
             {!!imageData && (

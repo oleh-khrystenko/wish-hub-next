@@ -12,10 +12,9 @@ import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {
     userId: string;
-    currentPage: string;
 }
 
-const WishList: FC<IProps> = ({ userId, currentPage }) => {
+const WishList: FC<IProps> = ({ userId }) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
@@ -92,7 +91,7 @@ const WishList: FC<IProps> = ({ userId, currentPage }) => {
                                 key={wish.id + idx}
                                 wish={wish}
                                 idx={idx}
-                                currentPage={currentPage}
+                                currentPage="collection"
                             />
                         ))}
 

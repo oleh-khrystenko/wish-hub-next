@@ -5,7 +5,7 @@ interface IProps {
 }
 
 const MainIcon: FC<IProps> = ({
-    classes = 'w-6 h-6 fill-zinc-800 dark:fill-zinc-300',
+    classes = 'w-5 h-5 fill-zinc-800 dark:fill-zinc-300',
 }) => {
     return (
         <svg

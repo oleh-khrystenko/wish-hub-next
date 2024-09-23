@@ -11,12 +11,13 @@ import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
-import UiButton from '@/components/ui/UiButton';
-import UiPopup from '@/components/ui/UiPopup';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
 import LangSelect from '@/components/layouts/LangSelect';
 import ShareButton from '@/components/layouts/ShareButton';
+import UiButton from '@/components/ui/UiButton';
+import UiPopup from '@/components/ui/UiPopup';
 import UiAvatar from '@/components/ui/UiAvatar';
+import UiModal from '@/components/ui/modal/UiModal';
 import LangIcon from '@/components/icons/LangIcon';
 import LightDarkThemeIcon from '@/components/icons/LightDarkThemeIcon';
 import InfoIcon from '@/components/icons/InfoIcon';
@@ -26,8 +27,8 @@ import PrivacyPolicyIcon from '@/components/icons/PrivacyPolicyIcon';
 import LogoDarkIcon from '@/components/icons/LogoDarkIcon';
 import LogoLightIcon from '@/components/icons/LogoLightIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
-import UiModal from '@/components/ui/modal/UiModal';
 import SettingIcon from '@/components/icons/SettingIcon';
+import MainIcon from '@/components/icons/MainIcon';
 // import YouTubeIcon from '@/components/icons/YouTubeIcon';
 
 interface IProps {
@@ -163,6 +164,17 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                 )}
 
                 <div className="flex flex-col items-stretch gap-2 px-4 pb-2 pt-4 tablet-md:py-2">
+                    {pathname !== `/${activeLocale}/main` && (
+                        <UiButton href="main" variant="text">
+                            <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                                <div className="p-0.5">
+                                    <MainIcon />
+                                </div>
+                                {mainPageT('to_main')}
+                            </span>
+                        </UiButton>
+                    )}
+
                     {myUser && (
                         <>
                             {pathname !==
@@ -188,7 +200,8 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                                 </UiButton>
                             )}
 
-                            {!pathname.includes('/profile') && (
+                            {pathname !==
+                                `/${activeLocale}/user/${myUser.id}/profile` && (
                                 <UiButton
                                     href={`/user/${myUser.id}/profile`}
                                     variant="text"

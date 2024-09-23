@@ -220,7 +220,8 @@
             "text": "You have made changes to the wish creation form. Are you sure you want to close the window without saving?",
             "confirm": "Close without saving",
             "close": "Cancellation"
-        }
+        },
+        "to_main": "To Main"
     },
     "privacy-policy-page": {
         "head": {
