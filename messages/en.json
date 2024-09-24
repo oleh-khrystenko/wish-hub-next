@@ -84,7 +84,7 @@
         },
         "picture": "picture",
         "logout": "Log out",
-        "confirm": "Share",
+        "share": "Share",
         "sign-in": "Sign In",
         "sign-up": "Sign Up",
         "bd": "Birthday: {birthday}",
@@ -221,7 +221,8 @@
             "confirm": "Close without saving",
             "close": "Cancellation"
         },
-        "to_main": "To Main"
+        "to_main": "To Main",
+        "create_collection": "Create collection"
     },
     "privacy-policy-page": {
         "head": {
@@ -478,7 +479,8 @@
             "description": "Wish Hub: view the user's wish list. Find inspiration for gifts."
         },
         "title": "User Wish Collection:",
-        "title_your": "Your Wish Collection:"
+        "title_your": "Your Wish Collection:",
+        "editor_title": "Wish Collection Editor"
     },
     "welcome-page": {
         "head": {
@@ -600,6 +602,10 @@
             "delete-my-user": {
                 "success": "Your account has been successfully deleted.",
                 "error": "deleteMyUser: Failed to delete the user."
+            },
+            "create-collection": {
+                "success": "The collection \"{name}\" has been successfully created.",
+                "error": "createCollection: Failed to create a collection."
             }
         },
         "users-api": {
@@ -672,7 +678,8 @@
         "about": "About us",
         "privacy_policy": "Privacy Policy",
         "collection": "Collection of wishes",
-        "profile": "Profile"
+        "profile": "Profile",
+        "editor": "Editor"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

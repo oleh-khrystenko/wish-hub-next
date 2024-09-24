@@ -58,7 +58,7 @@ const WishItem: FC<IProps> = ({ wish, idx, currentPage, editWish }) => {
         >
             <Link
                 href={`/${activeLocale}/user/${wish.userId}/collection/wish?wishId=${wish.id}&fromPage=${currentPage}`}
-                className={`${wish.executed ? '-rotate-3 border-cyan-500 dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center gap-4 rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
+                className={`${wish.executed ? 'bg-wish-bg -rotate-3 border-cyan-500 dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center gap-4 rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
                 onClick={() => setShowGlobalLoading(true)}
             >
                 <div className="relative w-full pt-[100%]">

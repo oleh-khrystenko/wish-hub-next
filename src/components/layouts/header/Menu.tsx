@@ -251,12 +251,9 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                         </span>
                     </UiButton>
 
-                    <ShareButton
-                        link="main"
-                        iconClasses="h-6 w-6 fill-zinc-800 dark:fill-zinc-300"
-                    >
+                    <ShareButton iconClasses="h-6 w-6 fill-zinc-800 dark:fill-zinc-300">
                         <span className="flex items-center gap-2 py-1.5 text-lg font-bold text-zinc-800 dark:text-zinc-300">
-                            {mainPageT('confirm')} Wish Hub
+                            {mainPageT('share')} Wish Hub
                         </span>
                     </ShareButton>
 

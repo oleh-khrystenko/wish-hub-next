@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
@@ -10,6 +10,8 @@ import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import SortIcon from '@/components/icons/SortIcon';
+import CrossIcon from '@/components/icons/CrossIcon';
+import { useParams } from 'next/navigation';
 
 interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
@@ -18,10 +20,14 @@ interface IProps {
 const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
+    const { userId } = useParams<{ userId: string }>();
+
     const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
+    const collections = useMyUserStore((state) => state.collections);
+    const createCollection = useMyUserStore((state) => state.createCollection);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
@@ -83,13 +89,36 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
         setShowPopup(false);
     };
 
+    useEffect(() => {
+        console.log('get all collections');
+
+        const handleCreateCollection = async () => {
+            if (!selectedUserId) return;
+
+            await createCollection(
+                {
+                    userId: selectedUserId,
+                    wishIdList: [],
+                    name: 'New collection',
+                },
+                allPagesT('my-user-api.create-collection.error')
+            );
+        };
+    }, []);
+
     return (
         <div className="mt-6 flex w-full items-center justify-between gap-3">
-            <div className="text-zinc-800 dark:text-zinc-300">FOLDERS</div>
+            {/*<UiButton variant="text" href={`user/${userId}/collection`}>*/}
+            {/*    <CrossIcon classes="w-4 h-4 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />*/}
+
+            {/*    <span className="py-3 text-xs">*/}
+            {/*        {mainPageT('create_collection')}*/}
+            {/*    </span>*/}
+            {/*</UiButton>*/}
 
             <div className="relative ml-auto">
                 <UiButton variant="text" onBtnClick={() => setShowPopup(true)}>
-                    <span className="whitespace-nowrap text-xs text-zinc-500 dark:text-zinc-400 tablet-md:text-sm">
+                    <span className="whitespace-nowrap p-3 text-xs text-zinc-500 dark:text-zinc-400 tablet-md:text-sm">
                         {wishesSortText}
                     </span>
                     <SortIcon />

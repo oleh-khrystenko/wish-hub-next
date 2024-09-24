@@ -178,7 +178,7 @@ const CoverFigure: FC = () => {
 
                 {/* Bear */}
                 <li className="h-12 w-full rounded-md border border-dashed border-zinc-500 dark:border-zinc-600 mobile-sm:h-14 tablet-md:h-24 tablet-md:rounded-xl">
-                    <div className="relative flex h-full animate-fulfilled-1 rounded-md border border-dashed border-transparent pb-2 pl-2 pr-1 pt-1.5 before:absolute before:inset-0 before:h-full before:w-full before:animate-appear-14 before:rounded-md before:bg-[url('/images/wish-bg.webp')] before:bg-cover before:bg-center before:bg-no-repeat before:opacity-0 tablet-md:rounded-xl tablet-md:pb-5 tablet-md:pl-4 tablet-md:pr-2 tablet-md:pt-4 tablet-md:before:rounded-xl">
+                    <div className="before:bg-wish-bg relative flex h-full animate-fulfilled-1 rounded-md border border-dashed border-transparent pb-2 pl-2 pr-1 pt-1.5 before:absolute before:inset-0 before:h-full before:w-full before:animate-appear-14 before:rounded-md before:bg-cover before:bg-center before:bg-no-repeat before:opacity-0 tablet-md:rounded-xl tablet-md:pb-5 tablet-md:pl-4 tablet-md:pr-2 tablet-md:pt-4 tablet-md:before:rounded-xl">
                         <div className="relative h-2 w-2 min-w-2 self-center rounded-sm border border-solid border-zinc-600 dark:border-zinc-400 tablet-md:h-4 tablet-md:w-4 tablet-md:min-w-4">
                             <CheckedIcon classes="h-3 w-3 animate-appear-14 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 tablet-md:h-6 tablet-md:w-6" />
                         </div>
@@ -238,7 +238,7 @@ const CoverFigure: FC = () => {
 
                 {/* Headphones */}
                 <li className="h-12 w-full rounded-md border border-dashed border-zinc-500 dark:border-zinc-600 mobile-sm:h-14 tablet-md:h-24 tablet-md:rounded-xl">
-                    <div className="relative flex h-full animate-fulfilled-2 rounded-md border border-dashed border-transparent pb-2 pl-2 pr-1 pt-1.5 before:absolute before:inset-0 before:h-full before:w-full before:animate-appear-21 before:rounded-md before:bg-[url('/images/wish-bg.webp')] before:bg-cover before:bg-center before:bg-no-repeat before:opacity-0 tablet-md:rounded-xl tablet-md:pb-5 tablet-md:pl-4 tablet-md:pr-2 tablet-md:pt-4 tablet-md:before:rounded-xl">
+                    <div className="before:bg-wish-bg relative flex h-full animate-fulfilled-2 rounded-md border border-dashed border-transparent pb-2 pl-2 pr-1 pt-1.5 before:absolute before:inset-0 before:h-full before:w-full before:animate-appear-21 before:rounded-md before:bg-cover before:bg-center before:bg-no-repeat before:opacity-0 tablet-md:rounded-xl tablet-md:pb-5 tablet-md:pl-4 tablet-md:pr-2 tablet-md:pt-4 tablet-md:before:rounded-xl">
                         <div className="relative h-2 w-2 min-w-2 self-center rounded-sm border border-solid border-zinc-600 dark:border-zinc-400 tablet-md:h-4 tablet-md:w-4 tablet-md:min-w-4">
                             <CheckedIcon classes="h-3 w-3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-appear-21 opacity-0 tablet-md:h-6 tablet-md:w-6" />
                         </div>

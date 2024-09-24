@@ -133,7 +133,7 @@ const WishList: FC<IProps> = ({ userId }) => {
             )}
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
-                <div className="mt-6" ref={wishListRef}>
+                <div className="mt-4" ref={wishListRef}>
                     <ul className="grid grid-cols-2 gap-1.5 tablet-xl:grid-cols-3 tablet-xl:gap-4 desktop-sm:grid-cols-4">
                         {myUser?.id === selectedUserId && (
                             <li className="relative flex items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">

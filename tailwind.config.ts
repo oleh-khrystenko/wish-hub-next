@@ -18,6 +18,7 @@ const config: Config = {
             backgroundImage: {
                 'cyan-cyan-rose': "url('/images/cyan-cyan-rose.webp')",
                 'rose-cyan-rose': "url('/images/rose-cyan-rose.webp')",
+                'wish-bg': "url('/images/wish-bg.webp')",
             },
             boxShadow: {
                 'checked-outline-light': '0 0 0 1px #e4e4e7', // zinc-200

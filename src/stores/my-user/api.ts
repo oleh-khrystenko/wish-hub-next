@@ -14,8 +14,11 @@ import {
     IAddFriend,
     IRemoveFriend,
     IDeleteMyUser,
+    ICreateCollection,
+    IGetCollection,
 } from '@/stores/my-user/types';
 import { IUser, IAuth } from '@/models/User';
+import { ICollection } from '@/models/Collection';
 import { encryptedData } from '@/helpers/utils/encryption-data';
 
 const registration = async (
@@ -194,6 +197,24 @@ const deleteMyUser = async (
     });
 };
 
+const createCollection = async (
+    data: ICreateCollection
+): Promise<AxiosResponse<ICollection>> => {
+    return await api.post('/collection', data);
+};
+
+const getCollection = async (
+    params: IGetCollection
+): Promise<AxiosResponse<ICollection>> => {
+    return await api.get('/collection', { params });
+};
+
+const getCollections = async (
+    params: IUserId
+): Promise<AxiosResponse<ICollection[]>> => {
+    return await api.get('/collections', { params });
+};
+
 const myUserApi = {
     registration,
     sendActivationLink,
@@ -211,6 +232,9 @@ const myUserApi = {
     addFriend,
     removeFriend,
     deleteMyUser,
+    createCollection,
+    getCollection,
+    getCollections,
 };
 
 export default myUserApi;

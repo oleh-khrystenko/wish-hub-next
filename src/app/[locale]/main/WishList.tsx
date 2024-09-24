@@ -273,7 +273,7 @@ const WishList: FC = () => {
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
                 <div
-                    className="wish-list-scrollbar mt-6 grow overflow-y-auto overflow-x-hidden p-2.5"
+                    className="wish-list-scrollbar mt-4 grow overflow-y-auto overflow-x-hidden p-2.5"
                     ref={wishListRef}
                 >
                     <ul className="grid grid-cols-2 gap-1.5 tablet-xl:grid-cols-3 tablet-xl:gap-4 desktop-sm:grid-cols-4 desktop-xl:grid-cols-5 desktop-2xl:grid-cols-6">
