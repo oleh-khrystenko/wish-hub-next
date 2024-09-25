@@ -81,7 +81,9 @@ const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages }) => {
                     >
                         {page.icon}
 
-                        <span className="ml-1.5 text-xs text-zinc-200 transition-all duration-300 ease-in-out dark:text-zinc-400">
+                        <span
+                            className={`${visualPages.length > 2 ? 'max-w-8 truncate mobile-xs:max-w-11 mobile-sm:max-w-14 mobile-md:max-w-16 mobile-lg:max-w-20' : ''} ml-1.5 text-xs text-zinc-200 transition-all duration-300 ease-in-out dark:text-zinc-400`}
+                        >
                             {page.name}
                         </span>
                     </div>
@@ -94,7 +96,9 @@ const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages }) => {
                     >
                         {page.icon}
 
-                        <span className="ml-1.5 text-xs text-zinc-500 transition-all duration-300 ease-in-out dark:text-zinc-400 group-hover:dark:text-zinc-600">
+                        <span
+                            className={`${visualPages.length > 2 ? 'max-w-8 truncate mobile-xs:max-w-11 mobile-sm:max-w-14 mobile-md:max-w-16 mobile-lg:max-w-20' : ''} ml-1.5 text-xs text-zinc-500 transition-all duration-300 ease-in-out dark:text-zinc-400 group-hover:dark:text-zinc-600`}
+                        >
                             {page.name}
                         </span>
                     </Link>
