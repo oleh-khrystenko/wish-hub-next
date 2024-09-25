@@ -39,7 +39,7 @@ interface IMyUserStore {
     createCollection: (
         data: ICreateCollection,
         errorT: string
-    ) => Promise<void>;
+    ) => Promise<ICollection | void>;
 }
 
 export const useMyUserStore = create<IMyUserStore>((set) => ({
@@ -307,6 +307,8 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 ...state,
                 collections: [response.data, ...state.collections],
             }));
+
+            return response.data;
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {

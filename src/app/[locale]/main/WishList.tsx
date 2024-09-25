@@ -263,12 +263,14 @@ const WishList: FC = () => {
                 )}
             </div>
 
-            <div className="pl-2.5">
-                <WishListFilter wishListRefCurrent={wishListRef.current} />
-            </div>
+            <div className="flex flex-col gap-3 mobile-xs:gap-6">
+                <div className="pl-2.5">
+                    <WishListFilter wishListRefCurrent={wishListRef.current} />
+                </div>
 
-            <div className="pl-2.5">
-                <WishListActions wishListRefCurrent={wishListRef.current} />
+                <div className="pl-2.5">
+                    <WishListActions wishListRefCurrent={wishListRef.current} />
+                </div>
             </div>
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (

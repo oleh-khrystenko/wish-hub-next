@@ -607,7 +607,7 @@
             },
             "create-collection": {
                 "success": "The collection \"{name}\" has been successfully created.",
-                "error": "createCollection: Failed to create a collection."
+                "error": "Something went wrong! Try again and don't give up!"
             }
         },
         "users-api": {
@@ -757,6 +757,7 @@
             "unique": "Curious how you plan to tell collections apart with the same name? You already have a collection with this name.",
             "min": "It seems a bit short. Add more creativity. The minimum length of the field is {min} characters.",
             "max": "Your creativity knows no bounds, but your collection name does! Try to fit it within {max} characters."
-        }
+        },
+        "collection_wishes": "A collection without wishes is like a wardrobe without clothes. Add at least one to make it meaningful!"
     }
 }

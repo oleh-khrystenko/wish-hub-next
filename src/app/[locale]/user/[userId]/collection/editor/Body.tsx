@@ -1,49 +1,19 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { ICollection } from '@/models/Collection';
-import { useMyUserStore } from '@/stores/my-user';
-import { useWishesStore } from '@/stores/wishes';
-import useValidations from '@/helpers/hooks/UseValidations';
 import WishList from '@/app/[locale]/user/[userId]/collection/editor/WishList';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
-import UiInput from '@/components/ui/UiInput';
-import UiButton from '@/components/ui/UiButton';
 import MainIcon from '@/components/icons/MainIcon';
 import CollectionIcon from '@/components/icons/CollectionIcon';
 import EditIcon from '@/components/icons/EditIcon';
 
-type TInputs = {
-    collectionName: ICollection['name'];
-};
-
 const Body: FC = () => {
-    const [selectedWishError, setSelectedWishError] = useState<string>('');
-
     const { userId } = useParams<{ userId: string }>();
 
     const collectionPageT = useTranslations('collection-page');
     const allPagesT = useTranslations('all-pages');
-
-    const collections = useMyUserStore((state) => state.collections);
-    const createCollection = useMyUserStore((state) => state.createCollection);
-
-    const wishes = useWishesStore((state) => state.list);
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<TInputs>({
-        defaultValues: {
-            collectionName: collections[0]?.name || '',
-        },
-    });
-
-    const { collectionNameValidation } = useValidations();
 
     const breadcrumbsPages = [
         {
@@ -69,21 +39,6 @@ const Body: FC = () => {
         },
     ];
 
-    const onSubmit: SubmitHandler<TInputs> = async (data) => {
-        console.log('onSubmit: ', data);
-        console.log('wishes: ', wishes);
-        console.log('selectedWishError: ', selectedWishError);
-
-        await createCollection(
-            {
-                userId,
-                wishIdList: [],
-                name: data.collectionName,
-            },
-            allPagesT('my-user-api.create-collection.error')
-        );
-    };
-
     return (
         <main className="flex grow flex-col pt-3">
             <Breadcrumbs
@@ -95,27 +50,6 @@ const Body: FC = () => {
                 <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
                     {collectionPageT('editor_title')}
                 </h1>
-
-                <form
-                    className="mt-6 flex items-start gap-10"
-                    onSubmit={handleSubmit(onSubmit)}
-                >
-                    <UiInput
-                        {...register(
-                            'collectionName',
-                            collectionNameValidation
-                        )}
-                        id="collectionName"
-                        name="collectionName"
-                        type="text"
-                        label={collectionPageT('collection_name')}
-                        error={errors?.collectionName?.message}
-                    />
-
-                    <UiButton type="submit">
-                        {collectionPageT('create')}
-                    </UiButton>
-                </form>
 
                 <WishList userId={userId} />
             </div>

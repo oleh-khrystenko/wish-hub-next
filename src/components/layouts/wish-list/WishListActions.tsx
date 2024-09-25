@@ -1,7 +1,7 @@
 'use client';
 
-import { FC, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { FC, useEffect, useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
@@ -21,6 +21,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
     const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -95,8 +96,29 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
         setShowPopup(false);
     };
 
+    useEffect(() => {
+        const collectionId = searchParams.get('collectionId');
+        console.log('collections: ', collections);
+        console.log('collectionId: ', collectionId);
+    }, [searchParams]);
+
     return (
-        <div className="mt-3 flex w-full flex-col items-center justify-between mobile-xs:mt-6 mobile-xs:flex-row mobile-xs:gap-3">
+        <div className="flex w-full flex-col items-center justify-between mobile-xs:flex-row mobile-xs:gap-3">
+            {showCreateCollection && (
+                <div className="mr-auto">
+                    <UiButton
+                        variant="text"
+                        href={`user/${myUser.id}/collection/editor`}
+                    >
+                        <CrossIcon classes="w-4 h-4 tablet-md:w-5 tablet-md:h-5 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />
+
+                        <span className="py-3 text-xs text-zinc-500 dark:text-zinc-400 tablet-md:text-sm">
+                            {mainPageT('create_collection')}
+                        </span>
+                    </UiButton>
+                </div>
+            )}
+
             <div className="relative ml-auto">
                 <UiButton variant="text" onBtnClick={() => setShowPopup(true)}>
                     <span className="whitespace-nowrap p-3 text-xs text-zinc-500 dark:text-zinc-400 tablet-md:text-sm">

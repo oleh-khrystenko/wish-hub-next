@@ -82,7 +82,7 @@ const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages }) => {
                         {page.icon}
 
                         <span
-                            className={`${visualPages.length > 2 ? 'max-w-8 truncate mobile-xs:max-w-11 mobile-sm:max-w-14 mobile-md:max-w-16 mobile-lg:max-w-20' : ''} ml-1.5 text-xs text-zinc-200 transition-all duration-300 ease-in-out dark:text-zinc-400`}
+                            className={`${visualPages.length > 2 ? 'max-w-8 truncate mobile-xs:max-w-11 mobile-sm:max-w-14 mobile-md:max-w-16 mobile-lg:max-w-20 mobile-xl:max-w-fit' : ''} ml-1.5 text-xs text-zinc-200 transition-all duration-300 ease-in-out dark:text-zinc-400`}
                         >
                             {page.name}
                         </span>
@@ -97,7 +97,7 @@ const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages }) => {
                         {page.icon}
 
                         <span
-                            className={`${visualPages.length > 2 ? 'max-w-8 truncate mobile-xs:max-w-11 mobile-sm:max-w-14 mobile-md:max-w-16 mobile-lg:max-w-20' : ''} ml-1.5 text-xs text-zinc-500 transition-all duration-300 ease-in-out dark:text-zinc-400 group-hover:dark:text-zinc-600`}
+                            className={`${visualPages.length > 2 ? 'max-w-8 truncate mobile-xs:max-w-11 mobile-sm:max-w-14 mobile-md:max-w-16 mobile-lg:max-w-20 mobile-xl:max-w-fit' : ''} ml-1.5 text-xs text-zinc-500 transition-all duration-300 ease-in-out dark:text-zinc-400 group-hover:dark:text-zinc-600`}
                         >
                             {page.name}
                         </span>
