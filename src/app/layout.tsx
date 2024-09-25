@@ -5,6 +5,7 @@ import { IPageParams } from '@/models/Settings';
 import ServiceWorkerRegistrar from '@/helpers/hocs/ServiceWorkerRegistrar';
 import ReactToastify from '@/components/layouts/ReactToastify';
 import '@/app/globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const setInitialTheme = `
     (function() {

@@ -29,6 +29,7 @@ const Body: FC = () => {
     const allPagesT = useTranslations('all-pages');
 
     const collections = useMyUserStore((state) => state.collections);
+    const createCollection = useMyUserStore((state) => state.createCollection);
 
     const wishes = useWishesStore((state) => state.list);
 
@@ -72,6 +73,15 @@ const Body: FC = () => {
         console.log('onSubmit: ', data);
         console.log('wishes: ', wishes);
         console.log('selectedWishError: ', selectedWishError);
+
+        await createCollection(
+            {
+                userId,
+                wishIdList: [],
+                name: data.collectionName,
+            },
+            allPagesT('my-user-api.create-collection.error')
+        );
     };
 
     return (
