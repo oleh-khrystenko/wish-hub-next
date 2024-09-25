@@ -39,7 +39,7 @@ const Body: FC = () => {
 
     return (
         <>
-            <div className="relative flex w-full grow flex-col pl-1 pr-2 pt-2 tablet-md:w-2/3 tablet-md:pb-5 tablet-xl:w-3/4">
+            <div className="relative flex w-full grow flex-col pl-1 pr-2 pt-2 tablet-md:w-2/3 tablet-md:pb-5 tablet-md:pt-0 tablet-xl:w-3/4">
                 <div className="-ml-2 flex items-center justify-between py-1 tablet-md:hidden">
                     <UiBrand withLogo disabled logoId="brand-logo-top" />
                 </div>
@@ -47,6 +47,7 @@ const Body: FC = () => {
                 <Breadcrumbs
                     seoPages={breadcrumbsPages}
                     visualPages={breadcrumbsPages}
+                    isMainPage
                 />
 
                 <WishList />

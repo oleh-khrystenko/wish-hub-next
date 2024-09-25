@@ -18,9 +18,10 @@ interface IVisualPage extends ISeoPage {
 interface IProps {
     visualPages: IVisualPage[];
     seoPages: ISeoPage[];
+    isMainPage?: boolean;
 }
 
-const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages }) => {
+const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages, isMainPage }) => {
     const activeLocale = useLocale();
     const allPagesT = useTranslations('all-pages');
 
@@ -64,7 +65,9 @@ const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages }) => {
     }, [activeLocale]);
 
     return (
-        <nav className="flex items-center gap-0.5 px-1 desktop-sm:px-0">
+        <nav
+            className={`${isMainPage ? 'tablet-md:px-0' : 'desktop-sm:px-0'} flex items-center gap-0.5 px-1`}
+        >
             <Link
                 href={`/${activeLocale}`}
                 className="group relative flex items-center justify-center rounded-l-md bg-zinc-300 px-4 py-1 transition-all duration-300 ease-in-out after:absolute after:right-0 after:top-1/2 after:z-10 after:h-4 after:w-4 after:-translate-y-1/2 after:translate-x-1/2 after:rotate-45 after:bg-zinc-300 after:transition-all after:duration-300 after:ease-in-out hover:bg-cyan-400 hover:after:bg-cyan-400 dark:bg-zinc-800 after:dark:bg-zinc-800 hover:dark:bg-cyan-300 hover:after:dark:bg-cyan-300"
