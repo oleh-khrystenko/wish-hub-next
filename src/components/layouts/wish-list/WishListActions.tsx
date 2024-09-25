@@ -31,6 +31,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
+    const wishes = useWishesStore((state) => state.list);
     const status = useWishesStore((state) => state.status);
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
@@ -108,13 +109,18 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
 
     return (
         <div className="mt-6 flex w-full items-center justify-between gap-3">
-            {/*<UiButton variant="text" href={`user/${userId}/collection`}>*/}
-            {/*    <CrossIcon classes="w-4 h-4 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />*/}
+            {/*{wishes.length > 0 && (*/}
+            {/*    <UiButton*/}
+            {/*        variant="text"*/}
+            {/*        href={`user/${userId}/collection/editor`}*/}
+            {/*    >*/}
+            {/*        <CrossIcon classes="w-4 h-4 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />*/}
 
-            {/*    <span className="py-3 text-xs">*/}
-            {/*        {mainPageT('create_collection')}*/}
-            {/*    </span>*/}
-            {/*</UiButton>*/}
+            {/*        <span className="py-3 text-xs">*/}
+            {/*            {mainPageT('create_collection')}*/}
+            {/*        </span>*/}
+            {/*    </UiButton>*/}
+            {/*)}*/}
 
             <div className="relative ml-auto">
                 <UiButton variant="text" onBtnClick={() => setShowPopup(true)}>
