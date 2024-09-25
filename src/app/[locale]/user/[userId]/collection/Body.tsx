@@ -21,7 +21,7 @@ const Body: FC = () => {
 
     const { userId } = useParams<{ userId: string }>();
 
-    const collectionT = useTranslations('collection-page');
+    const collectionPageT = useTranslations('collection-page');
     const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -62,7 +62,7 @@ const Body: FC = () => {
             <div className="mt-3 flex grow flex-col px-3 pb-5 desktop-sm:px-0">
                 <div className="flex flex-col gap-5 tablet-md:flex-row tablet-md:items-center tablet-md:justify-between">
                     <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                        {collectionT(
+                        {collectionPageT(
                             myUser?.id === userId ? 'title_your' : 'title'
                         )}
                     </h1>

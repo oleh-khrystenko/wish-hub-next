@@ -43,6 +43,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
+    const validationsT = useTranslations('validations');
     const allPagesT = useTranslations('all-pages');
 
     const {
@@ -94,7 +95,7 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                 'name',
                 {
                     type: 'unique',
-                    message: mainPageT('non-unique-wish-name'),
+                    message: validationsT('wish-name.unique'),
                 },
                 { shouldFocus: true }
             );

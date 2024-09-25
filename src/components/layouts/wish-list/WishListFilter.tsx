@@ -11,10 +11,11 @@ import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import UiSearch from '@/components/ui/UiSearch';
 
 interface IProps {
+    onlySearch?: boolean;
     wishListRefCurrent: HTMLDivElement | null;
 }
 
-const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
+const WishListFilter: FC<IProps> = ({ onlySearch, wishListRefCurrent }) => {
     const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
@@ -133,14 +134,16 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
 
     return (
         <div className="flex w-full items-end gap-3">
-            <div className="w-1/2 tablet-md:w-2/5">
-                <UiSelect
-                    hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
-                    options={selectOptions}
-                    value={status}
-                    onChange={handleChangeWishStatus}
-                />
-            </div>
+            {!onlySearch && (
+                <div className="w-1/2 tablet-md:w-2/5">
+                    <UiSelect
+                        hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
+                        options={selectOptions}
+                        value={status}
+                        onChange={handleChangeWishStatus}
+                    />
+                </div>
+            )}
 
             <UiSearch
                 id="wishes-search"

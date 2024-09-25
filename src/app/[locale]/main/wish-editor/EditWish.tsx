@@ -44,6 +44,7 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
     const activeLocale = useLocale();
 
     const mainPageT = useTranslations('main-page');
+    const validationsT = useTranslations('validations');
     const allPagesT = useTranslations('all-pages');
 
     const {
@@ -95,7 +96,7 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
                 'name',
                 {
                     type: 'unique',
-                    message: mainPageT('non-unique-wish-name'),
+                    message: validationsT('wish-name.unique'),
                 },
                 { shouldFocus: true }
             );

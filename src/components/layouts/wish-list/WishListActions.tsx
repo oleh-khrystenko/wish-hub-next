@@ -1,7 +1,8 @@
 'use client';
 
 import { FC, useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
@@ -11,7 +12,6 @@ import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import SortIcon from '@/components/icons/SortIcon';
 import CrossIcon from '@/components/icons/CrossIcon';
-import { useParams } from 'next/navigation';
 
 interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
@@ -20,8 +20,9 @@ interface IProps {
 const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
-    const { userId } = useParams<{ userId: string }>();
+    const pathname = usePathname();
 
+    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
@@ -38,6 +39,11 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const setWishesSort = useWishesStore((state) => state.setWishesSort);
     const getWishList = useWishesStore((state) => state.getWishList);
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
+
+    const showCreateCollection =
+        wishes.length > 0 &&
+        myUser?.id === selectedUserId &&
+        pathname !== `/${activeLocale}/user/${myUser.id}/collection/editor`;
 
     let wishesSortText;
     sort === EWishSort.POPULAR &&
@@ -109,18 +115,18 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
 
     return (
         <div className="mt-6 flex w-full items-center justify-between gap-3">
-            {/*{wishes.length > 0 && (*/}
-            {/*    <UiButton*/}
-            {/*        variant="text"*/}
-            {/*        href={`user/${userId}/collection/editor`}*/}
-            {/*    >*/}
-            {/*        <CrossIcon classes="w-4 h-4 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />*/}
+            {showCreateCollection && (
+                <UiButton
+                    variant="text"
+                    href={`user/${myUser.id}/collection/editor`}
+                >
+                    <CrossIcon classes="w-4 h-4 tablet-md:w-5 tablet-md:h-5 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />
 
-            {/*        <span className="py-3 text-xs">*/}
-            {/*            {mainPageT('create_collection')}*/}
-            {/*        </span>*/}
-            {/*    </UiButton>*/}
-            {/*)}*/}
+                    <span className="py-3 text-xs text-zinc-500 dark:text-zinc-400 tablet-md:text-sm">
+                        {mainPageT('create_collection')}
+                    </span>
+                </UiButton>
+            )}
 
             <div className="relative ml-auto">
                 <UiButton variant="text" onBtnClick={() => setShowPopup(true)}>

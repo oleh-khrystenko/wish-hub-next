@@ -196,7 +196,6 @@
         "product-link-tooltip": "Paste a link to a product from any online store, and we will try to automatically fill in the wish details. Please note that not all online stores provide complete information about their products, so some data may be unavailable. We are actively working on expanding support for various stores to make the wish creation process even more convenient for you.",
         "manually": "Fill in manually",
         "continue": "Continue",
-        "non-unique-wish-name": "You already have a wish with that name.",
         "private-wish-error": "You have to select at least one level of privacy you want.",
         "user_not_found": "User not found",
         "theme": "Theme",
@@ -480,7 +479,10 @@
         },
         "title": "User Wish Collection:",
         "title_your": "Your Wish Collection:",
-        "editor_title": "Wish Collection Editor"
+        "editor_title": "Wish Collection Editor",
+        "collection_name": "Collection name",
+        "create": "Create",
+        "edit": "Edit"
     },
     "welcome-page": {
         "head": {
@@ -679,7 +681,7 @@
         "privacy_policy": "Privacy Policy",
         "collection": "Collection of wishes",
         "profile": "Profile",
-        "editor": "Editor"
+        "collection_editor": "Collection Editor"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",
@@ -713,9 +715,10 @@
     "validations": {
         "only-whitespace": "The entered data cannot contain only spaces.",
         "wish-name": {
-            "required": "It is impossible to create a desire without a name.",
-            "min": "Why is the name of the wish so short? Please come up with a name that is longer than {min} characters.",
-            "max": "The name of your wish is too long. Let's try to fit it into {max} characters."
+            "required": "It is impossible to create a wish without a name.",
+            "unique": "Curious how you plan to tell wishes apart with the same name? You already have a wish with this name.",
+            "min": "It seems a bit short. Add more creativity. The minimum length of the field is {min} characters.",
+            "max": "Your creativity knows no bounds, but your wish name does! Try to fit it within {max} characters."
         },
         "wish-price": {
             "required": "The material desire that does not have its price cannot be fulfilled by Your universe.",
@@ -748,6 +751,12 @@
         "delivery-address": {
             "min": "Such a short address? The minimum length of the field is {min} characters.",
             "max": "Is the address that long? The maximum length of the field is {max} characters."
+        },
+        "collection-name": {
+            "required": "It's impossible to create a collection without a name.",
+            "unique": "Curious how you plan to tell collections apart with the same name? You already have a collection with this name.",
+            "min": "It seems a bit short. Add more creativity. The minimum length of the field is {min} characters.",
+            "max": "Your creativity knows no bounds, but your collection name does! Try to fit it within {max} characters."
         }
     }
 }

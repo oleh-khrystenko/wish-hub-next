@@ -10,6 +10,8 @@ import {
     DELIVERY_ADDRESS_MIN_LENGTH,
     DELIVERY_ADDRESS_MAX_LENGTH,
     WISH_DESCRIPTION_MAX_LENGTH,
+    COLLECTION_NAME_MIN_LENGTH,
+    COLLECTION_NAME_MAX_LENGTH,
 } from '@/helpers/utils/constants';
 
 const UseValidations = () => {
@@ -194,6 +196,27 @@ const UseValidations = () => {
         },
     };
 
+    // Collection name
+    const collectionNameValidation = {
+        ...onlyWhitespaceValidation,
+        required: {
+            value: true,
+            message: validationsT('collection-name.required'),
+        },
+        minLength: {
+            value: COLLECTION_NAME_MIN_LENGTH,
+            message: validationsT('collection-name.min', {
+                min: COLLECTION_NAME_MIN_LENGTH,
+            }),
+        },
+        maxLength: {
+            value: COLLECTION_NAME_MAX_LENGTH,
+            message: validationsT('collection-name.max', {
+                max: COLLECTION_NAME_MAX_LENGTH,
+            }),
+        },
+    };
+
     return {
         onlyWhitespaceValidation,
         wishNameValidation,
@@ -204,6 +227,7 @@ const UseValidations = () => {
         accountFirstNameValidation,
         accountLastNameValidation,
         accountDeliveryAddressValidation,
+        collectionNameValidation,
     };
 };
 

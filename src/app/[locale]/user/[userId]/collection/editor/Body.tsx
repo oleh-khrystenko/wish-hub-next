@@ -3,17 +3,41 @@
 import { FC } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { ICollection } from '@/models/Collection';
+import { useMyUserStore } from '@/stores/my-user';
+import useValidations from '@/helpers/hooks/UseValidations';
 import WishList from '@/app/[locale]/user/[userId]/collection/editor/WishList';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
-import CollectionIcon from '@/components/icons/CollectionIcon';
+import UiInput from '@/components/ui/UiInput';
+import UiButton from '@/components/ui/UiButton';
 import MainIcon from '@/components/icons/MainIcon';
+import CollectionIcon from '@/components/icons/CollectionIcon';
 import EditIcon from '@/components/icons/EditIcon';
+
+type TInputs = {
+    collectionName: ICollection['name'];
+};
 
 const Body: FC = () => {
     const { userId } = useParams<{ userId: string }>();
 
-    const collectionT = useTranslations('collection-page');
+    const collectionPageT = useTranslations('collection-page');
     const allPagesT = useTranslations('all-pages');
+
+    const collections = useMyUserStore((state) => state.collections);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<TInputs>({
+        defaultValues: {
+            collectionName: collections[0]?.name || '',
+        },
+    });
+
+    const { collectionNameValidation } = useValidations();
 
     const breadcrumbsPages = [
         {
@@ -33,11 +57,15 @@ const Body: FC = () => {
         {
             href: `user/${userId}/collection/editor`,
             icon: (
-                <EditIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
+                <EditIcon classes="w-3.5 h-3.5 fill-zinc-200 dark:fill-zinc-400" />
             ),
-            name: allPagesT('editor'),
+            name: allPagesT('collection_editor'),
         },
     ];
+
+    const onSubmit: SubmitHandler<TInputs> = async (data) => {
+        console.log('onSubmit: ', data);
+    };
 
     return (
         <main className="flex grow flex-col pt-3">
@@ -48,8 +76,29 @@ const Body: FC = () => {
 
             <div className="mt-3 flex grow flex-col px-3 pb-5 desktop-sm:px-0">
                 <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                    {collectionT('editor_title')}
+                    {collectionPageT('editor_title')}
                 </h1>
+
+                <form
+                    className="mt-6 flex items-start gap-10"
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    <UiInput
+                        {...register(
+                            'collectionName',
+                            collectionNameValidation
+                        )}
+                        id="collectionName"
+                        name="collectionName"
+                        type="text"
+                        label={collectionPageT('collection_name')}
+                        error={errors?.collectionName?.message}
+                    />
+
+                    <UiButton type="submit">
+                        {collectionPageT('create')}
+                    </UiButton>
+                </form>
 
                 <WishList userId={userId} />
             </div>
