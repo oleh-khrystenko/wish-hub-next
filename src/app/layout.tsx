@@ -128,7 +128,7 @@ export default function Layout({
             </head>
 
             <body
-                className={`${mulish.className} bg-zinc-200 before:fixed before:inset-0 before:-z-10 before:bg-zinc-900/70 after:fixed after:inset-0 after:-z-20 after:bg-rose-cyan-rose after:bg-cover after:bg-[80%_50%] after:bg-no-repeat dark:bg-zinc-900 desktop-xs:after:bg-center`}
+                className={`${mulish.className} bg-zinc-200 before:fixed before:inset-0 before:-z-10 before:bg-zinc-200/70 after:fixed after:inset-0 after:-z-20 after:bg-rose-cyan-rose after:bg-cover after:bg-[80%_50%] after:bg-no-repeat dark:bg-zinc-900 dark:before:bg-zinc-900/70 desktop-xs:after:bg-center`}
             >
                 {/* Google Tag Manager (noscript) */}
                 <noscript>
