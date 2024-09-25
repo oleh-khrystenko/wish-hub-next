@@ -63,6 +63,7 @@ export interface IWish {
     booking?: IBooking;
     likes: ILike[];
     dislikes: ILike[];
+    selected?: boolean;
 }
 
 export interface IWishCandidate {

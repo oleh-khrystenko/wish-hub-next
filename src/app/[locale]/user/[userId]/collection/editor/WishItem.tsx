@@ -1,10 +1,11 @@
 'use client';
 
-import { FC, MouseEvent, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { ECurrency, IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
+import { useWishesStore } from '@/stores/wishes';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
 import LogoIcon from '@/components/icons/LogoIcon';
@@ -18,6 +19,8 @@ const WishItem: FC<IProps> = ({ wish, idx }) => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
+
+    const setSelectedWish = useWishesStore((state) => state.setSelectedWish);
 
     const name = useMemo(
         () => unencryptedData(wish.name, wish.show),
@@ -34,9 +37,14 @@ const WishItem: FC<IProps> = ({ wish, idx }) => {
         [wish.currency, wish.show]
     );
 
+    const handleSelectWish = () => {
+        setSelectedWish(wish.id);
+    };
+
     return (
         <li
-            className={`relative flex w-full cursor-pointer flex-col items-center gap-4 rounded-md border-2 border-dashed border-zinc-300 px-4 pb-3 pt-4 dark:border-zinc-700`}
+            className={`${wish.selected ? 'border-green-500 dark:border-green-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer flex-col items-center gap-4 rounded-md border-2 border-dashed px-5 pb-4 pt-6`}
+            onClick={handleSelectWish}
         >
             <div className="relative w-full pt-[100%]">
                 {wish.images?.length > 0 ? (
@@ -68,6 +76,10 @@ const WishItem: FC<IProps> = ({ wish, idx }) => {
                     </div>
                 )}
             </div>
+
+            <div
+                className={`${wish.selected ? 'border-green-500 before:w-6 before:shadow-checked-outline-light before:delay-100 after:h-3.5 dark:border-green-400 dark:before:shadow-checked-outline-dark tablet-md:before:shadow-checked-outline-light-tablet tablet-md:dark:before:shadow-checked-outline-dark-tablet' : 'border-zinc-500 after:delay-100 dark:border-zinc-400'} absolute left-2 top-2 z-10 inline-block h-6 w-6 rounded border-2 bg-transparent transition-all duration-300 ease-in-out before:absolute before:left-2.5 before:top-3 before:inline-block before:h-1 before:w-0 before:origin-top-left before:-rotate-45 before:rounded-full before:bg-green-500 before:transition-all before:duration-150 before:ease-in-out after:absolute after:left-0.5 after:top-1.5 after:inline-block after:h-0 after:w-1 after:origin-top-left after:-rotate-45 after:rounded-full after:bg-green-500 after:transition-all after:duration-150 after:ease-in-out dark:before:bg-green-400 dark:after:bg-green-400`}
+            ></div>
         </li>
     );
 };

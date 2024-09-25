@@ -1,11 +1,12 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
+import { useWishesStore } from '@/stores/wishes';
 import useValidations from '@/helpers/hooks/UseValidations';
 import WishList from '@/app/[locale]/user/[userId]/collection/editor/WishList';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
@@ -20,12 +21,16 @@ type TInputs = {
 };
 
 const Body: FC = () => {
+    const [selectedWishError, setSelectedWishError] = useState<string>('');
+
     const { userId } = useParams<{ userId: string }>();
 
     const collectionPageT = useTranslations('collection-page');
     const allPagesT = useTranslations('all-pages');
 
     const collections = useMyUserStore((state) => state.collections);
+
+    const wishes = useWishesStore((state) => state.list);
 
     const {
         register,
@@ -65,6 +70,8 @@ const Body: FC = () => {
 
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
         console.log('onSubmit: ', data);
+        console.log('wishes: ', wishes);
+        console.log('selectedWishError: ', selectedWishError);
     };
 
     return (

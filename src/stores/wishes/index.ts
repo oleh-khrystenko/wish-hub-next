@@ -56,6 +56,7 @@ interface IWishesStore {
     setWishesSearch: (value: string) => void;
     setWishesSort: (value: EWishSort) => void;
     resetWishCandidate: () => void;
+    setSelectedWish: (id: IWish['id']) => void;
     fetchWishDataFromLink: (
         params: { url: string },
         errorT: string
@@ -132,6 +133,21 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         set((state) => ({
             ...state,
             wishCandidate: null,
+        }));
+    },
+    setSelectedWish: (id) => {
+        set((state) => ({
+            ...state,
+            list: state.list.map((wish) => {
+                if (wish.id === id) {
+                    return {
+                        ...wish,
+                        selected: !wish.selected,
+                    };
+                }
+
+                return wish;
+            }),
         }));
     },
     fetchWishDataFromLink: async (params, errorT) => {
