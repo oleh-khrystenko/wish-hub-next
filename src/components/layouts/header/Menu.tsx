@@ -54,9 +54,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
     const theme = useSettingsStore((state) => state.theme);
-    const setActivatedSidebar = useSettingsStore(
-        (state) => state.setActivatedSidebar
-    );
+    const setShowSidebar = useSettingsStore((state) => state.setShowSidebar);
 
     const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
     const { getFullName } = UseFullName();
@@ -66,7 +64,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
 
         await getInitialWishList(myUser.id, myUser.id, EWishSort.CREATED_DESC);
         setShowPopup(false);
-        setActivatedSidebar(false);
+        setShowSidebar(false);
 
         if (pathname.split('/')[2] !== 'main') {
             router.push(`/${activeLocale}/main`);

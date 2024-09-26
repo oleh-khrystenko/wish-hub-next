@@ -57,9 +57,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
 
     const theme = useSettingsStore((state) => state.theme);
 
-    const setActivatedSidebar = useSettingsStore(
-        (state) => state.setActivatedSidebar
-    );
+    const setShowSidebar = useSettingsStore((state) => state.setShowSidebar);
     const setShowGlobalLoading = useSettingsStore(
         (state) => state.setShowGlobalLoading
     );
@@ -152,7 +150,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
 
     const handleSelectWish = async () => {
         await getInitialWishList(myUser?.id, user.id);
-        setActivatedSidebar(false);
+        setShowSidebar(false);
     };
 
     const handleAddFriend = async () => {

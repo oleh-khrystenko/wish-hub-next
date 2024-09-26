@@ -58,9 +58,7 @@ const WishList: FC = () => {
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
     const addAllWishes = useWishesStore((state) => state.addAllWishes);
 
-    const setActivatedSidebar = useSettingsStore(
-        (state) => state.setActivatedSidebar
-    );
+    const setShowSidebar = useSettingsStore((state) => state.setShowSidebar);
 
     const { getFullName } = UseFullName();
 
@@ -171,7 +169,7 @@ const WishList: FC = () => {
             if (gotWishes.current) return;
             gotWishes.current = true;
 
-            setActivatedSidebar(false);
+            setShowSidebar(false);
 
             const localSelectedUserId = localStorage.getItem('selectedUserId');
             if (localSelectedUserId) {

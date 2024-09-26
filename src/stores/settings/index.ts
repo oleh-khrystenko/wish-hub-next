@@ -3,16 +3,16 @@ import { ETheme } from '@/models/Settings';
 
 interface ISettingsStore {
     theme: ETheme;
-    activatedSidebar: boolean;
+    showSidebar: boolean;
     showGlobalLoading: boolean;
     setTheme: (value: ETheme) => void;
-    setActivatedSidebar: (value: boolean) => void;
+    setShowSidebar: (value: boolean) => void;
     setShowGlobalLoading: (value: boolean) => void;
 }
 
 export const useSettingsStore = create<ISettingsStore>((set) => ({
     theme: ETheme.DARK,
-    activatedSidebar: false,
+    showSidebar: false,
     showGlobalLoading: false,
     setTheme: (value) => {
         set((state) => ({
@@ -20,10 +20,10 @@ export const useSettingsStore = create<ISettingsStore>((set) => ({
             theme: value,
         }));
     },
-    setActivatedSidebar: (value) => {
+    setShowSidebar: (value) => {
         set((state) => ({
             ...state,
-            activatedSidebar: value,
+            showSidebar: value,
         }));
     },
     setShowGlobalLoading: (value) => {
