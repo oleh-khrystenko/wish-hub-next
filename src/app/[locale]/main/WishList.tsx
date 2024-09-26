@@ -232,7 +232,7 @@ const WishList: FC = () => {
 
     return (
         <>
-            <div className="mb-6 mt-2 pl-2.5">
+            <div className="my-2 pl-2.5">
                 {selectedUserId ? (
                     <>
                         {myUser?.id === selectedUserId ? (

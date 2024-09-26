@@ -137,6 +137,7 @@ const WishListFilter: FC<IProps> = ({ onlySearch, wishListRefCurrent }) => {
             {!onlySearch && (
                 <div className="w-1/2 tablet-md:w-2/5">
                     <UiSelect
+                        label={mainPageT('wishes_status')}
                         hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
                         options={selectOptions}
                         value={status}

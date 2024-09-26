@@ -12,6 +12,7 @@ import {
     IRegistration,
     IRemoveFriend,
     IUpdateMyUser,
+    IUserId,
 } from '@/stores/my-user/types';
 import { ICollection } from '@/models/Collection';
 import myUserApi from '@/stores/my-user/api';
@@ -40,6 +41,7 @@ interface IMyUserStore {
         data: ICreateCollection,
         errorT: string
     ) => Promise<ICollection | void>;
+    getCollections: (params: IUserId, errorT: string) => Promise<void>;
 }
 
 export const useMyUserStore = create<IMyUserStore>((set) => ({
@@ -309,6 +311,22 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             }));
 
             return response.data;
+        } catch (error: any) {
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
+        }
+    },
+    getCollections: async (params, errorT) => {
+        setShowGlobalLoading(true);
+
+        try {
+            const response = await myUserApi.getCollections(params);
+
+            set((state) => ({
+                ...state,
+                collections: response.data,
+            }));
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {

@@ -125,7 +125,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     return (
         <>
             {wishesCreator && wishesCreator.wishList.length > 4 && (
-                <div className="mt-6 flex flex-col gap-3 mobile-xs:gap-6">
+                <div className="mt-2 flex flex-col gap-3 mobile-xs:gap-6">
                     <WishListFilter wishListRefCurrent={wishListRef.current} />
 
                     <WishListActions wishListRefCurrent={wishListRef.current} />

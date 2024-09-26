@@ -221,7 +221,8 @@
             "close": "Cancellation"
         },
         "to_main": "To Main",
-        "create_collection": "Create collection"
+        "create_collection": "Create collection",
+        "wishes_status": "Wishes status"
     },
     "privacy-policy-page": {
         "head": {
@@ -477,8 +478,8 @@
             "title": "Wish Hub - Wish List",
             "description": "Wish Hub: view the user's wish list. Find inspiration for gifts."
         },
-        "title": "User Wish Collection:",
-        "title_your": "Your Wish Collection:",
+        "title": "User Collection:",
+        "title_your": "My Collection",
         "editor_title": "Wish Collection Editor",
         "collection_name": "Collection name",
         "create": "Create",
@@ -607,7 +608,10 @@
             },
             "create-collection": {
                 "success": "The collection \"{name}\" has been successfully created.",
-                "error": "Something went wrong! Try again and don't give up!"
+                "error": "Failed to create the collection."
+            },
+            "get-collections": {
+                "error": "Failed to get collections."
             }
         },
         "users-api": {

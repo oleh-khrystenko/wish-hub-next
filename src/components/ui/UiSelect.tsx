@@ -11,6 +11,7 @@ export interface IOption {
 
 interface IProps {
     options: IOption[];
+    label?: string;
     bg?: string;
     hoverItemBg?: string;
     withoutIcon?: boolean;
@@ -21,6 +22,7 @@ interface IProps {
 
 const UiSelect: FC<IProps> = ({
     options,
+    label,
     bg = 'bg-zinc-100 dark:bg-zinc-950',
     hoverItemBg = 'hover:bg-zinc-200 hover:dark:bg-zinc-900',
     withoutIcon = false,
@@ -50,6 +52,11 @@ const UiSelect: FC<IProps> = ({
 
     return (
         <div ref={wrapRef}>
+            {label && (
+                <span className="pl-1 text-xs text-zinc-600 dark:text-zinc-400 tablet-md:text-sm">
+                    {label}
+                </span>
+            )}
             <OutsideClickHandler
                 show={show}
                 wrapRefCurrent={wrapRef.current}
@@ -59,7 +66,7 @@ const UiSelect: FC<IProps> = ({
                     className={`${roundedClasses} ${bg} relative transition-all duration-300 ease-in-out`}
                 >
                     <button
-                        className={`${bg} relative z-10 flex w-full items-center gap-2 overflow-hidden rounded-md px-3 py-2.5`}
+                        className={`${bg} relative z-10 flex w-full items-center gap-2 overflow-hidden rounded-md px-3 py-3 tablet-md:py-2.5`}
                         type="button"
                         onClick={handleClick}
                     >
@@ -84,7 +91,7 @@ const UiSelect: FC<IProps> = ({
                             return (
                                 <li key={option.value}>
                                     <button
-                                        className={`${hoverItemBg} relative flex w-full items-center gap-2 px-3 py-2.5 transition-all duration-300 ease-in-out`}
+                                        className={`${hoverItemBg} relative flex w-full items-center gap-2 px-3 py-3 transition-all duration-300 ease-in-out tablet-md:py-2.5`}
                                         type="button"
                                         onClick={async () =>
                                             await handleOptionChange(

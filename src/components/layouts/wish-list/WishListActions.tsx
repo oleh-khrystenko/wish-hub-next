@@ -29,6 +29,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
 
     const myUser = useMyUserStore((state) => state.myUser);
     const collections = useMyUserStore((state) => state.collections);
+    const getCollections = useMyUserStore((state) => state.getCollections);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
@@ -98,9 +99,18 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
 
     useEffect(() => {
         const collectionId = searchParams.get('collectionId');
-        console.log('collections: ', collections);
         console.log('collectionId: ', collectionId);
     }, [searchParams]);
+
+    useEffect(() => {
+        if (!selectedUserId) return;
+
+        getCollections(
+            { userId: selectedUserId },
+            allPagesT('my-user-api.get-collections.error')
+        ).finally();
+    }, [selectedUserId]);
+    console.log('collections: ', collections);
 
     return (
         <div className="flex w-full flex-col items-center justify-between mobile-xs:flex-row mobile-xs:gap-3">
