@@ -4,15 +4,18 @@ import { ETheme } from '@/models/Settings';
 interface ISettingsStore {
     theme: ETheme;
     showSidebar: boolean;
+    showSlidePanel: boolean;
     showGlobalLoading: boolean;
     setTheme: (value: ETheme) => void;
     setShowSidebar: (value: boolean) => void;
+    setShowSlidePanel: (value: boolean) => void;
     setShowGlobalLoading: (value: boolean) => void;
 }
 
 export const useSettingsStore = create<ISettingsStore>((set) => ({
     theme: ETheme.DARK,
     showSidebar: false,
+    showSlidePanel: false,
     showGlobalLoading: false,
     setTheme: (value) => {
         set((state) => ({
@@ -24,6 +27,12 @@ export const useSettingsStore = create<ISettingsStore>((set) => ({
         set((state) => ({
             ...state,
             showSidebar: value,
+        }));
+    },
+    setShowSlidePanel: (value) => {
+        set((state) => ({
+            ...state,
+            showSlidePanel: value,
         }));
     },
     setShowGlobalLoading: (value) => {

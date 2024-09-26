@@ -3,10 +3,11 @@
 import { FC, useEffect, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { EWishSort, EWishStatus } from '@/models/Wish';
+import { EWishSort } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
+import { useSettingsStore } from '@/stores/settings';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -19,7 +20,6 @@ interface IProps {
 }
 
 const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
-    const [showSlidePanel, setShowSlidePanel] = useState<boolean>(false);
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
     const pathname = usePathname();
@@ -43,6 +43,10 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const getWishList = useWishesStore((state) => state.getWishList);
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
 
+    const setShowSlidePanel = useSettingsStore(
+        (state) => state.setShowSlidePanel
+    );
+
     const showCreateCollection =
         wishes.length > 0 &&
         myUser?.id === selectedUserId &&
@@ -60,8 +64,8 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     sort === EWishSort.CREATED_ASC &&
         (wishesSortText = mainPageT('sort.by-created-down'));
 
-    const handleToggleSlidePanel = () => {
-        setShowSlidePanel((prevState) => !prevState);
+    const handleShowSlidePanel = () => {
+        setShowSlidePanel(true);
     };
 
     const handleSortBy = async (value: EWishSort) => {
@@ -125,7 +129,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                     {collections.length > 0 ? (
                         <UiButton
                             variant="text"
-                            onBtnClick={handleToggleSlidePanel}
+                            onBtnClick={handleShowSlidePanel}
                         >
                             <CollectionIcon classes="w-4 h-4 tablet-md:w-5 tablet-md:h-5 fill-cyan-400 dark:fill-cyan-300" />
 

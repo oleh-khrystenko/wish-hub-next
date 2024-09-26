@@ -8,6 +8,7 @@ import Sidebar from '@/app/[locale]/main/sidebar/Sidebar';
 import Body from '@/app/[locale]/main/Body';
 import BottomMenu from '@/app/[locale]/main/BottomMenu';
 import Header from '@/components/layouts/header/Header';
+import SlidePanel from '@/components/layouts/SlidePanel';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
 
 export async function generateMetadata({
@@ -42,6 +43,8 @@ export default function Main() {
                 </UserSessionRefresher>
 
                 <BottomMenu />
+
+                <SlidePanel />
 
                 <GlobalLoading />
             </NextIntlClientProvider>
