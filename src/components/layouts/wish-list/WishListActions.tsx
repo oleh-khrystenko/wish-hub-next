@@ -3,7 +3,7 @@
 import { FC, useEffect, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { EWishSort } from '@/models/Wish';
+import { EWishSort, EWishStatus } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
@@ -12,12 +12,14 @@ import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import SortIcon from '@/components/icons/SortIcon';
 import CrossIcon from '@/components/icons/CrossIcon';
+import CollectionIcon from '@/components/icons/CollectionIcon';
 
 interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
 }
 
 const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
+    const [showSlidePanel, setShowSlidePanel] = useState<boolean>(false);
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
     const pathname = usePathname();
@@ -57,6 +59,10 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
         (wishesSortText = mainPageT('sort.by-created-up'));
     sort === EWishSort.CREATED_ASC &&
         (wishesSortText = mainPageT('sort.by-created-down'));
+
+    const handleToggleSlidePanel = () => {
+        setShowSlidePanel((prevState) => !prevState);
+    };
 
     const handleSortBy = async (value: EWishSort) => {
         setWishesSort(value);
@@ -116,16 +122,29 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
         <div className="flex w-full flex-col items-center justify-between mobile-xs:flex-row mobile-xs:gap-3">
             {showCreateCollection && (
                 <div className="mr-auto">
-                    <UiButton
-                        variant="text"
-                        href={`user/${myUser.id}/collection/editor`}
-                    >
-                        <CrossIcon classes="w-4 h-4 tablet-md:w-5 tablet-md:h-5 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />
+                    {collections.length > 0 ? (
+                        <UiButton
+                            variant="text"
+                            onBtnClick={handleToggleSlidePanel}
+                        >
+                            <CollectionIcon classes="w-4 h-4 tablet-md:w-5 tablet-md:h-5 fill-cyan-400 dark:fill-cyan-300" />
 
-                        <span className="py-3 text-xs text-zinc-500 dark:text-zinc-400 tablet-md:text-sm">
-                            {mainPageT('create_collection')}
-                        </span>
-                    </UiButton>
+                            <span className="py-3 text-xs text-zinc-500 dark:text-zinc-400 tablet-md:text-sm">
+                                {mainPageT('collections')}
+                            </span>
+                        </UiButton>
+                    ) : (
+                        <UiButton
+                            variant="text"
+                            href={`user/${myUser?.id}/collection/editor`}
+                        >
+                            <CrossIcon classes="w-4 h-4 tablet-md:w-5 tablet-md:h-5 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />
+
+                            <span className="py-3 text-xs text-zinc-500 dark:text-zinc-400 tablet-md:text-sm">
+                                {mainPageT('create_collection')}
+                            </span>
+                        </UiButton>
+                    )}
                 </div>
             )}
 
