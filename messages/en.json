@@ -686,7 +686,8 @@
         "privacy_policy": "Privacy Policy",
         "collection": "Collection of wishes",
         "profile": "Profile",
-        "collection_editor": "Collection Editor"
+        "collection_editor": "Collection Editor",
+        "display_settings": "Display settings"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

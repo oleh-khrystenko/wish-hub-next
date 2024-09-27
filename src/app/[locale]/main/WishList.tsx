@@ -10,13 +10,14 @@ import UseFullName from '@/helpers/hooks/UseFullName';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import CreateWish from '@/app/[locale]/main/wish-editor/CreateWish';
 import EditWish from '@/app/[locale]/main/wish-editor/EditWish';
-import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
-import WishListActions from '@/components/layouts/wish-list/WishListActions';
+import SlidePanel from '@/components/layouts/SlidePanel';
 import WishItem from '@/components/layouts/wish-list/WishItem';
+import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
+import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
 import CrossIcon from '@/components/icons/CrossIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
-import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
+import SliderIcon from '@/components/icons/SliderIcon';
 
 const WishList: FC = () => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
@@ -59,6 +60,9 @@ const WishList: FC = () => {
     const addAllWishes = useWishesStore((state) => state.addAllWishes);
 
     const setShowSidebar = useSettingsStore((state) => state.setShowSidebar);
+    const setShowSlidePanel = useSettingsStore(
+        (state) => state.setShowSlidePanel
+    );
 
     const { getFullName } = UseFullName();
 
@@ -103,6 +107,10 @@ const WishList: FC = () => {
         ));
     !selectedUserId &&
         (emptyText = <span>{mainPageT('no_wishes_found')}</span>);
+
+    const handleShowSlidePanel = () => {
+        setShowSlidePanel(true);
+    };
 
     const handleShowCreateWish = () => {
         setShowCreateWish(true);
@@ -234,15 +242,9 @@ const WishList: FC = () => {
                 {selectedUserId ? (
                     <>
                         {myUser?.id === selectedUserId ? (
-                            <div className="flex flex-col gap-3 tablet-md:flex-row tablet-md:items-center tablet-md:justify-between">
-                                <h1 className="text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-lg:text-3xl">
-                                    {mainPageT('my_wishes')}
-                                </h1>
-
-                                {myUser?.id === selectedUserId && (
-                                    <ShareCollection myUserId={myUser.id} />
-                                )}
-                            </div>
+                            <h1 className="text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-lg:text-3xl">
+                                {mainPageT('my_wishes')}
+                            </h1>
                         ) : (
                             <h1 className="flex max-w-full flex-wrap items-center">
                                 <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
@@ -261,15 +263,26 @@ const WishList: FC = () => {
                 )}
             </div>
 
-            <div className="flex flex-col gap-3 mobile-xs:gap-6">
-                <div className="pl-2.5">
-                    <WishListFilter wishListRefCurrent={wishListRef.current} />
-                </div>
+            {wishes.length > 0 && (
+                <div className="flex flex-col items-center justify-between pl-2.5 tablet-md:gap-4">
+                    <div className="mr-auto">
+                        <UiButton
+                            variant="text"
+                            onBtnClick={handleShowSlidePanel}
+                        >
+                            <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
-                <div className="pl-2.5">
-                    <WishListActions wishListRefCurrent={wishListRef.current} />
+                            <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
+                                {allPagesT('display_settings')}
+                            </span>
+                        </UiButton>
+                    </div>
+
+                    {myUser?.id === selectedUserId && (
+                        <ShareCollection myUserId={myUser.id} />
+                    )}
                 </div>
-            </div>
+            )}
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
                 <div
@@ -372,6 +385,8 @@ const WishList: FC = () => {
                     hide={handleHideEditWish}
                 />
             )}
+
+            <SlidePanel wishListRefCurrent={wishListRef.current} />
         </>
     );
 };
