@@ -7,6 +7,7 @@ import { EWishSort } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
+import { useSettingsStore } from '@/stores/settings';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -28,7 +29,6 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
-    const collections = useMyUserStore((state) => state.collections);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
@@ -38,6 +38,10 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const setWishesSort = useWishesStore((state) => state.setWishesSort);
     const getWishList = useWishesStore((state) => state.getWishList);
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
+
+    const setShowSlidePanel = useSettingsStore(
+        (state) => state.setShowSlidePanel
+    );
 
     const showCreateCollection =
         myUser?.id === selectedUserId &&
@@ -105,6 +109,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                 <UiButton
                     variant="text"
                     href={`user/${myUser?.id}/collection/editor`}
+                    onLinkClick={() => setShowSlidePanel(false)}
                 >
                     <CrossIcon classes="w-4 h-4 tablet-md:w-5 tablet-md:h-5 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />
 

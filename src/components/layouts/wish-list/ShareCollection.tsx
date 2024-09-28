@@ -23,7 +23,7 @@ const ShareCollection: FC<IProps> = ({ myUserId }) => {
     );
 
     return (
-        <div className="ml-auto flex items-center gap-1 tablet-md:ml-0">
+        <div className="ml-auto flex items-center gap-1">
             <span
                 className="cursor-pointer"
                 data-tooltip-id="share-wishes"
