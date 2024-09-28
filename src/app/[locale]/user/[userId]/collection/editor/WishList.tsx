@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
+import { useCollectionStore } from '@/stores/collection';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import useValidations from '@/helpers/hooks/UseValidations';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
@@ -45,8 +46,6 @@ const WishList: FC<IProps> = ({ userId }) => {
     });
 
     const myUser = useMyUserStore((state) => state.myUser);
-    const collections = useMyUserStore((state) => state.collections);
-    const createCollection = useMyUserStore((state) => state.createCollection);
 
     const wishes = useWishesStore((state) => state.list);
     const wishesCreator = useWishesStore((state) => state.creator);
@@ -56,6 +55,11 @@ const WishList: FC<IProps> = ({ userId }) => {
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
     const addWishList = useWishesStore((state) => state.addWishList);
+
+    const collections = useCollectionStore((state) => state.collections);
+    const createCollection = useCollectionStore(
+        (state) => state.createCollection
+    );
 
     const {
         register,
@@ -143,10 +147,7 @@ const WishList: FC<IProps> = ({ userId }) => {
         <>
             {wishesCreator && wishesCreator.wishList.length > 4 && (
                 <div className="mt-6 flex items-center gap-4">
-                    <WishListFilter
-                        onlySearch
-                        wishListRefCurrent={wishListRef.current}
-                    />
+                    <WishListFilter wishListRefCurrent={wishListRef.current} />
 
                     <WishListActions wishListRefCurrent={wishListRef.current} />
                 </div>

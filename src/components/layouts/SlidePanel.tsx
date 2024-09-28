@@ -2,8 +2,8 @@
 
 import { FC, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
+import { useCollectionStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import Collections from '@/components/layouts/Collections';
 import WishListActions from '@/components/layouts/wish-list/WishListActions';
@@ -17,10 +17,10 @@ interface IProps {
 const SlidePanel: FC<IProps> = ({ wishListRefCurrent }) => {
     const allPagesT = useTranslations('all-pages');
 
-    const collections = useMyUserStore((state) => state.collections);
-    const getCollections = useMyUserStore((state) => state.getCollections);
-
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
+
+    const collections = useCollectionStore((state) => state.collections);
+    const getCollections = useCollectionStore((state) => state.getCollections);
 
     const showSlidePanel = useSettingsStore((state) => state.showSlidePanel);
     const setShowSlidePanel = useSettingsStore(

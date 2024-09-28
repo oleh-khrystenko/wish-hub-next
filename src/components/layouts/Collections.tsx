@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
+import { useCollectionStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UiButton from '@/components/ui/UiButton';
 import CollectionIcon from '@/components/icons/CollectionIcon';
@@ -11,7 +12,8 @@ const Collections: FC = () => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
-    const collections = useMyUserStore((state) => state.collections);
+
+    const collections = useCollectionStore((state) => state.collections);
 
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel

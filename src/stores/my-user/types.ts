@@ -1,6 +1,5 @@
 import { TCurrentAvatar, IUser } from '@/models/User';
 import { ELang, EPrivacy } from '@/models/Settings';
-import { ICollection } from '@/models/Collection';
 
 export interface IForgotPassword {
     email: IUser['email'];
@@ -77,13 +76,4 @@ export enum EWhereRemove {
 
 export interface IRemoveFriend extends IAddFriend {
     whereRemove: EWhereRemove;
-}
-
-export interface ICreateCollection extends IUserId {
-    wishIdList: ICollection['wishes'];
-    name: ICollection['name'];
-}
-
-export interface IGetCollection extends IUserId {
-    collectionId: ICollection['id'];
 }

@@ -5,16 +5,13 @@ import {
     IAddFriend,
     IChangeLang,
     IChangePassword,
-    ICreateCollection,
     IDeleteMyUser,
     IGoogleAuth,
     ILogin,
     IRegistration,
     IRemoveFriend,
     IUpdateMyUser,
-    IUserId,
 } from '@/stores/my-user/types';
-import { ICollection } from '@/models/Collection';
 import myUserApi from '@/stores/my-user/api';
 import { useSettingsStore } from '@/stores/settings';
 
@@ -22,7 +19,6 @@ const { setShowGlobalLoading } = useSettingsStore.getState();
 
 interface IMyUserStore {
     myUser: IUser | null;
-    collections: ICollection[];
     candidate: ICandidate | null;
     isLoading: boolean;
     setCandidate: (data: ICandidate) => void;
@@ -37,16 +33,10 @@ interface IMyUserStore {
     addFriend: (data: IAddFriend, errorT: string) => Promise<void>;
     removeFriend: (data: IRemoveFriend, errorT: string) => Promise<void>;
     deleteMyUser: (data: IDeleteMyUser) => Promise<void>;
-    createCollection: (
-        data: ICreateCollection,
-        errorT: string
-    ) => Promise<ICollection | void>;
-    getCollections: (params: IUserId, errorT: string) => Promise<void>;
 }
 
 export const useMyUserStore = create<IMyUserStore>((set) => ({
     myUser: null,
-    collections: [],
     candidate: null,
     isLoading: false,
     setCandidate: (data) => {
@@ -295,40 +285,6 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
             });
         } catch (error: any) {
             throw error;
-        } finally {
-            setShowGlobalLoading(false);
-        }
-    },
-    createCollection: async (data, errorT) => {
-        setShowGlobalLoading(true);
-
-        try {
-            const response = await myUserApi.createCollection(data);
-
-            set((state) => ({
-                ...state,
-                collections: [response.data, ...state.collections],
-            }));
-
-            return response.data;
-        } catch (error: any) {
-            toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            setShowGlobalLoading(false);
-        }
-    },
-    getCollections: async (params, errorT) => {
-        setShowGlobalLoading(true);
-
-        try {
-            const response = await myUserApi.getCollections(params);
-
-            set((state) => ({
-                ...state,
-                collections: response.data,
-            }));
-        } catch (error: any) {
-            toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
             setShowGlobalLoading(false);
         }
