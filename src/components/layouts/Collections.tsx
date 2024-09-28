@@ -47,7 +47,7 @@ const Collections: FC = () => {
 
                         <UiButton
                             variant="text-only"
-                            href={`user/${myUser?.id}/collection/editor`}
+                            href={`user/${myUser?.id}/collection/editor?collectionId=${collection.id}`}
                             onLinkClick={() => setShowSlidePanel(false)}
                         >
                             <span className="rounded-md p-3 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600">

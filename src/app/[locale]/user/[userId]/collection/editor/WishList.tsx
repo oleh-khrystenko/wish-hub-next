@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
@@ -7,16 +7,17 @@ import { toast } from 'react-toastify';
 import { ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
+import { useSettingsStore } from '@/stores/settings';
 import { useCollectionStore } from '@/stores/collection';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import useValidations from '@/helpers/hooks/UseValidations';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishItem from '@/app/[locale]/user/[userId]/collection/editor/WishItem';
-import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
-import WishListActions from '@/components/layouts/wish-list/WishListActions';
+import SlidePanel from '@/components/layouts/SlidePanel';
 import UiLoading from '@/components/ui/UiLoading';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
+import SliderIcon from '@/components/icons/SliderIcon';
 
 type TInputs = {
     collectionName: ICollection['name'];
@@ -34,6 +35,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     const wishListRef = useRef<HTMLDivElement>(null);
 
     const router = useRouter();
+    const searchParams = useSearchParams();
 
     const activeLocale = useLocale();
 
@@ -61,13 +63,17 @@ const WishList: FC<IProps> = ({ userId }) => {
         (state) => state.createCollection
     );
 
+    const setShowSlidePanel = useSettingsStore(
+        (state) => state.setShowSlidePanel
+    );
+
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<TInputs>({
         defaultValues: {
-            collectionName: collections[0]?.name || '',
+            collectionName: '',
         },
     });
 
@@ -143,14 +149,24 @@ const WishList: FC<IProps> = ({ userId }) => {
         getInitialWishList(myUser?.id, userId).finally();
     }, [userId]);
 
+    useEffect(() => {
+        const collectionId = searchParams.get('collectionId');
+        console.log('collectionId: ', collectionId);
+    }, [searchParams]);
+
     return (
         <>
-            {wishesCreator && wishesCreator.wishList.length > 4 && (
-                <div className="mt-6 flex items-center gap-4">
-                    <WishListFilter wishListRefCurrent={wishListRef.current} />
+            {wishes.length > 0 && (
+                <UiButton
+                    variant="text"
+                    onBtnClick={() => setShowSlidePanel(true)}
+                >
+                    <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
-                    <WishListActions wishListRefCurrent={wishListRef.current} />
-                </div>
+                    <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
+                        {allPagesT('display_settings')}
+                    </span>
+                </UiButton>
             )}
 
             <form
@@ -202,6 +218,8 @@ const WishList: FC<IProps> = ({ userId }) => {
                     </div>
                 )}
             </div>
+
+            <SlidePanel wishListRefCurrent={wishListRef.current} />
         </>
     );
 };

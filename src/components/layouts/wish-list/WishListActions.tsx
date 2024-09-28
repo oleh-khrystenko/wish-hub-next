@@ -1,7 +1,7 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { FC, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { EWishSort } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
@@ -22,7 +22,6 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
     const pathname = usePathname();
-    const searchParams = useSearchParams();
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -98,11 +97,6 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
         setShowPopup(false);
     };
 
-    useEffect(() => {
-        const collectionId = searchParams.get('collectionId');
-        console.log('collectionId: ', collectionId);
-    }, [searchParams]);
-
     return (
         <div className="-mr-4 mt-6 flex items-center justify-between gap-3">
             {showCreateCollection && (
@@ -119,7 +113,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                 </UiButton>
             )}
 
-            <div className="relative">
+            <div className="relative ml-auto">
                 <UiButton
                     variant="text-btn"
                     onBtnClick={() => setShowPopup(true)}

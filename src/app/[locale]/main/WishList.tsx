@@ -108,10 +108,6 @@ const WishList: FC = () => {
     !selectedUserId &&
         (emptyText = <span>{mainPageT('no_wishes_found')}</span>);
 
-    const handleShowSlidePanel = () => {
-        setShowSlidePanel(true);
-    };
-
     const handleShowCreateWish = () => {
         setShowCreateWish(true);
     };
@@ -268,7 +264,7 @@ const WishList: FC = () => {
                     <div className="mr-auto">
                         <UiButton
                             variant="text"
-                            onBtnClick={handleShowSlidePanel}
+                            onBtnClick={() => setShowSlidePanel(true)}
                         >
                             <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
