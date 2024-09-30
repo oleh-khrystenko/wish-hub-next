@@ -11,6 +11,7 @@ import { useSettingsStore } from '@/stores/settings';
 import { useCollectionStore } from '@/stores/collection';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import useValidations from '@/helpers/hooks/UseValidations';
+import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishItem from '@/app/[locale]/user/[userId]/collection/editor/WishItem';
 import SlidePanel from '@/components/layouts/SlidePanel';
@@ -50,7 +51,6 @@ const WishList: FC<IProps> = ({ userId }) => {
     const myUser = useMyUserStore((state) => state.myUser);
 
     const wishes = useWishesStore((state) => state.list);
-    const wishesCreator = useWishesStore((state) => state.creator);
     const status = useWishesStore((state) => state.status);
     const page = useWishesStore((state) => state.page);
     const search = useWishesStore((state) => state.search);
@@ -70,16 +70,14 @@ const WishList: FC<IProps> = ({ userId }) => {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
-    } = useForm<TInputs>({
-        defaultValues: {
-            collectionName: '',
-        },
-    });
+    } = useForm<TInputs>();
 
     const { collectionNameValidation } = useValidations();
 
     const { getInitialWishList } = UseInitialWishes();
+    const { getInitialCollection } = UseInitialCollection();
 
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
         if (!myUser) return;
@@ -146,13 +144,27 @@ const WishList: FC<IProps> = ({ userId }) => {
     }, [inView]);
 
     useEffect(() => {
-        getInitialWishList(myUser?.id, userId).finally();
-    }, [userId]);
+        const fetchWishes = async () => {
+            const collectionId = searchParams.get('collectionId');
 
-    useEffect(() => {
-        const collectionId = searchParams.get('collectionId');
-        console.log('collectionId: ', collectionId);
-    }, [searchParams]);
+            const editingCollection = collections.find(
+                (collection) => collection.id === collectionId
+            );
+            if (editingCollection) {
+                setValue('collectionName', editingCollection.name);
+            }
+
+            const wishes = await getInitialWishList(
+                myUser?.id,
+                userId,
+                `collectionId:${collectionId}`
+            );
+
+            if (!wishes) return;
+            getInitialCollection(wishes);
+        };
+        fetchWishes().finally();
+    }, [searchParams, userId, collections.length]);
 
     return (
         <>

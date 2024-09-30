@@ -1,6 +1,7 @@
 import { Dayjs } from 'dayjs';
 import { IUser } from '@/models/User';
 import { EPrivacy } from '@/models/Settings';
+import { ICollection } from '@/models/Collection';
 
 export interface IImage {
     id?: string;
@@ -34,13 +35,13 @@ export enum EWishStatus {
     FULFILLED = 'fulfilled',
 }
 
-export enum EWishSort {
-    POPULAR = 'sortByLikes:desc',
-    PRICE_DESC = 'priceInBaseCurrency:desc',
-    PRICE_ASC = 'priceInBaseCurrency:asc',
-    CREATED_DESC = 'createdAt:desc',
-    CREATED_ASC = 'createdAt:asc',
-}
+export type TWishSort =
+    | 'sortByLikes:desc'
+    | 'priceInBaseCurrency:desc'
+    | 'priceInBaseCurrency:asc'
+    | 'createdAt:desc'
+    | 'createdAt:asc'
+    | `collectionId:${ICollection['id']}`;
 
 export enum ECurrency {
     USD = 'USD',

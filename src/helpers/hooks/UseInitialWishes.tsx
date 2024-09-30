@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { EWishSort, EWishStatus } from '@/models/Wish';
+import { TWishSort, EWishStatus, IWish } from '@/models/Wish';
 import { IUser } from '@/models/User';
 import { useWishesStore } from '@/stores/wishes';
 import { useUsersStore } from '@/stores/users';
@@ -23,13 +23,13 @@ const UseInitialWishes = () => {
                 limit: WISHES_PAGINATION_LIMIT,
                 status: EWishStatus.ALL,
                 search: '',
-                sort: EWishSort.POPULAR,
+                sort: 'sortByLikes:desc',
             },
             allPagesT('wishes-api.get-all-wishes.error')
         );
         setWishesStatus(EWishStatus.ALL);
         setWishesSearch('');
-        setWishesSort(EWishSort.POPULAR);
+        setWishesSort('sortByLikes:desc');
         setSelectedUserId(null);
         localStorage.removeItem('selectedUserId');
     };
@@ -37,9 +37,9 @@ const UseInitialWishes = () => {
     const getInitialWishList = async (
         myId: IUser['id'] | undefined,
         userId: IUser['id'],
-        sort: EWishSort = EWishSort.POPULAR
-    ) => {
-        await getWishList(
+        sort: TWishSort = 'sortByLikes:desc'
+    ): Promise<IWish[] | void> => {
+        const wishes = await getWishList(
             {
                 myId,
                 userId,
@@ -56,6 +56,8 @@ const UseInitialWishes = () => {
         setWishesSort(sort);
         setSelectedUserId(userId);
         localStorage.setItem('selectedUserId', userId);
+
+        return wishes;
     };
 
     return {

@@ -3,7 +3,6 @@
 import { FC, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { EWishSort } from '@/models/Wish';
 import { ETheme } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
@@ -62,7 +61,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
     const handleSelectMyWishes = async () => {
         if (!myUser) return;
 
-        await getInitialWishList(myUser.id, myUser.id, EWishSort.CREATED_DESC);
+        await getInitialWishList(myUser.id, myUser.id, 'createdAt:desc');
         setShowPopup(false);
         setShowSidebar(false);
 

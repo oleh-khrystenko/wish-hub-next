@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
-import { EWishSort, EWishStatus, IWish, IWishCandidate } from '@/models/Wish';
+import { TWishSort, EWishStatus, IWish, IWishCandidate } from '@/models/Wish';
 import { IUser } from '@/models/User';
 import { IQuote } from '@/models/Quote';
 import {
@@ -49,14 +49,15 @@ interface IWishesStore {
     creator: IUser | null;
     status: EWishStatus;
     search: string;
-    sort: EWishSort;
+    sort: TWishSort;
     page: number;
     stopRequests: boolean;
     setWishesStatus: (value: EWishStatus) => void;
     setWishesSearch: (value: string) => void;
-    setWishesSort: (value: EWishSort) => void;
+    setWishesSort: (value: TWishSort) => void;
     resetWishCandidate: () => void;
     setSelectedWish: (id: IWish['id']) => void;
+    setSelectedWishes: (wishIdList: IWish['id'][]) => void;
     fetchWishDataFromLink: (
         params: { url: string },
         errorT: string
@@ -95,7 +96,10 @@ interface IWishesStore {
         successT: string,
         errorT: string
     ) => Promise<void>;
-    getWishList: (data: ISendWishList, errorT: string) => Promise<void>;
+    getWishList: (
+        data: ISendWishList,
+        errorT: string
+    ) => Promise<IWish[] | void>;
     addWishList: (data: ISendWishList, errorT: string) => Promise<void>;
     getAllWishes: (data: ISendAllWishes, errorT: string) => Promise<void>;
     addAllWishes: (data: ISendAllWishes, errorT: string) => Promise<void>;
@@ -108,7 +112,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     creator: null,
     status: EWishStatus.ALL,
     search: '',
-    sort: EWishSort.POPULAR,
+    sort: 'sortByLikes:desc',
     page: 1,
     stopRequests: false,
     setWishesStatus: (value) => {
@@ -143,6 +147,21 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                     return {
                         ...wish,
                         selected: !wish.selected,
+                    };
+                }
+
+                return wish;
+            }),
+        }));
+    },
+    setSelectedWishes: (wishIdList) => {
+        set((state) => ({
+            ...state,
+            list: state.list.map((wish) => {
+                if (wishIdList.includes(wish.id)) {
+                    return {
+                        ...wish,
+                        selected: true,
                     };
                 }
 
@@ -379,6 +398,8 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 stopRequests:
                     response.data.wishes.length !== WISHES_PAGINATION_LIMIT,
             }));
+
+            return response.data.wishes;
         } catch (error: any) {
             set((state) => ({
                 ...state,

@@ -3,11 +3,12 @@
 import { FC, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { EWishSort } from '@/models/Wish';
+import { TWishSort } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
+import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -42,27 +43,29 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
         (state) => state.setShowSlidePanel
     );
 
+    const { getInitialCollection } = UseInitialCollection();
+
     const showCreateCollection =
         myUser?.id === selectedUserId &&
         pathname !== `/${activeLocale}/user/${myUser.id}/collection/editor`;
 
-    let wishesSortText;
-    sort === EWishSort.POPULAR &&
+    let wishesSortText = mainPageT('sort.title');
+    sort === 'sortByLikes:desc' &&
         (wishesSortText = mainPageT('sort.by-popularity'));
-    sort === EWishSort.PRICE_DESC &&
+    sort === 'priceInBaseCurrency:desc' &&
         (wishesSortText = mainPageT('sort.by-price-down'));
-    sort === EWishSort.PRICE_ASC &&
+    sort === 'priceInBaseCurrency:asc' &&
         (wishesSortText = mainPageT('sort.by-price-up'));
-    sort === EWishSort.CREATED_DESC &&
+    sort === 'createdAt:desc' &&
         (wishesSortText = mainPageT('sort.by-created-up'));
-    sort === EWishSort.CREATED_ASC &&
+    sort === 'createdAt:asc' &&
         (wishesSortText = mainPageT('sort.by-created-down'));
 
-    const handleSortBy = async (value: EWishSort) => {
+    const handleSortBy = async (value: TWishSort) => {
         setWishesSort(value);
 
         if (selectedUserId) {
-            await getWishList(
+            const wishes = await getWishList(
                 {
                     myId: myUser?.id,
                     userId: selectedUserId,
@@ -74,6 +77,9 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                 },
                 allPagesT('wishes-api.get-wish-list.error')
             );
+
+            if (!wishes) return;
+            getInitialCollection(wishes);
         } else {
             await getAllWishes(
                 {
@@ -134,7 +140,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                         <button
                             className="whitespace-nowrap rounded-md px-3 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800 tablet-md:text-base"
                             type="button"
-                            onClick={() => handleSortBy(EWishSort.POPULAR)}
+                            onClick={() => handleSortBy('sortByLikes:desc')}
                         >
                             {mainPageT('sort.by-popularity')}
                         </button>
@@ -142,7 +148,9 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                         <button
                             className="whitespace-nowrap rounded-md px-3 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800 tablet-md:text-base"
                             type="button"
-                            onClick={() => handleSortBy(EWishSort.PRICE_DESC)}
+                            onClick={() =>
+                                handleSortBy('priceInBaseCurrency:desc')
+                            }
                         >
                             {mainPageT('sort.by-price-down')}
                         </button>
@@ -150,7 +158,9 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                         <button
                             className="whitespace-nowrap rounded-md px-3 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800 tablet-md:text-base"
                             type="button"
-                            onClick={() => handleSortBy(EWishSort.PRICE_ASC)}
+                            onClick={() =>
+                                handleSortBy('priceInBaseCurrency:asc')
+                            }
                         >
                             {mainPageT('sort.by-price-up')}
                         </button>
@@ -158,7 +168,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                         <button
                             className="whitespace-nowrap rounded-md px-3 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800 tablet-md:text-base"
                             type="button"
-                            onClick={() => handleSortBy(EWishSort.CREATED_DESC)}
+                            onClick={() => handleSortBy('createdAt:desc')}
                         >
                             {mainPageT('sort.by-created-up')}
                         </button>
@@ -166,7 +176,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                         <button
                             className="whitespace-nowrap rounded-md px-3 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800 tablet-md:text-base"
                             type="button"
-                            onClick={() => handleSortBy(EWishSort.CREATED_ASC)}
+                            onClick={() => handleSortBy('createdAt:asc')}
                         >
                             {mainPageT('sort.by-created-down')}
                         </button>

@@ -4,9 +4,11 @@ import { FC, useMemo } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ECurrency, IWish } from '@/models/Wish';
+import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
+import WishMark from '@/components/layouts/WishMark';
 import LogoIcon from '@/components/icons/LogoIcon';
 
 interface IProps {
@@ -17,6 +19,8 @@ interface IProps {
 
 const WishItem: FC<IProps> = ({ wish, idx, resetSelectedWishError }) => {
     const mainPageT = useTranslations('main-page');
+
+    const myUser = useMyUserStore((state) => state.myUser);
 
     const setSelectedWish = useWishesStore((state) => state.setSelectedWish);
 
@@ -62,6 +66,8 @@ const WishItem: FC<IProps> = ({ wish, idx, resetSelectedWishError }) => {
                         id={idx.toString()}
                     />
                 )}
+
+                <WishMark wish={wish} myUserId={myUser?.id} />
             </div>
 
             <div className="flex w-full flex-col items-center justify-evenly gap-3">

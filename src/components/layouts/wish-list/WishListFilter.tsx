@@ -6,6 +6,7 @@ import { EWishStatus } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
+import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import UiSearch from '@/components/ui/UiSearch';
@@ -57,11 +58,13 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
         },
     ];
 
+    const { getInitialCollection } = UseInitialCollection();
+
     const handleChangeWishStatus = async (value: IOption['value']) => {
         setWishesStatus(value as EWishStatus);
 
         if (selectedUserId) {
-            await getWishList(
+            const wishes = await getWishList(
                 {
                     myId: myUser?.id,
                     userId: selectedUserId,
@@ -73,6 +76,9 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                 },
                 allPagesT('wishes-api.get-wish-list.error')
             );
+
+            if (!wishes) return;
+            getInitialCollection(wishes);
         } else {
             await getAllWishes(
                 {
@@ -98,7 +104,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
         setWishesSearch(value);
 
         if (selectedUserId) {
-            await getWishList(
+            const wishes = await getWishList(
                 {
                     myId: myUser?.id,
                     userId: selectedUserId,
@@ -110,6 +116,9 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                 },
                 allPagesT('wishes-api.get-wish-list.error')
             );
+
+            if (!wishes) return;
+            getInitialCollection(wishes);
         } else {
             await getAllWishes(
                 {

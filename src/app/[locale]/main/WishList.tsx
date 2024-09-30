@@ -1,7 +1,7 @@
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
-import { EWishSort, EWishStatus, IWish } from '@/models/Wish';
+import { EWishStatus, IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
@@ -187,14 +187,14 @@ const WishList: FC = () => {
                         search,
                         sort:
                             myUser?.id === localSelectedUserId
-                                ? EWishSort.CREATED_DESC
+                                ? 'createdAt:desc'
                                 : sort,
                     },
                     allPagesT('wishes-api.get-wish-list.error')
                 );
                 setSelectedUserId(localSelectedUserId);
                 if (myUser?.id === localSelectedUserId) {
-                    setWishesSort(EWishSort.CREATED_DESC);
+                    setWishesSort('createdAt:desc');
                 }
             } else {
                 if (myUser) {
@@ -206,12 +206,12 @@ const WishList: FC = () => {
                             page: 1,
                             limit: WISHES_PAGINATION_LIMIT,
                             search,
-                            sort: EWishSort.CREATED_DESC,
+                            sort: 'createdAt:desc',
                         },
                         allPagesT('wishes-api.get-wish-list.error')
                     );
                     setSelectedUserId(myUser.id);
-                    setWishesSort(EWishSort.CREATED_DESC);
+                    setWishesSort('createdAt:desc');
                     return;
                 } else {
                     await getAllWishes(
@@ -220,11 +220,11 @@ const WishList: FC = () => {
                             limit: WISHES_PAGINATION_LIMIT,
                             status,
                             search,
-                            sort: EWishSort.POPULAR,
+                            sort: 'sortByLikes:desc',
                         },
                         allPagesT('wishes-api.get-all-wishes.error')
                     );
-                    setWishesSort(EWishSort.POPULAR);
+                    setWishesSort('sortByLikes:desc');
                 }
             }
         };

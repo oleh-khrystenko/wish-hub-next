@@ -113,6 +113,7 @@
         "does_not_have_unfulfilled": "doesn't have any unfulfilled wishes available for viewing.",
         "no_wishes_found": "According to the specified parameters, no wishes were found.",
         "sort": {
+            "title": "Sorting",
             "by-popularity": "Popular first",
             "by-price-up": "Cheap first",
             "by-price-down": "Expensive first",
