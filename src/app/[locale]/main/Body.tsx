@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
-import { useInstallPWA } from '@/helpers/hooks/useInstallPWA';
+import UseInstallPWA from '@/helpers/hooks/UseInstallPWA';
 import WishList from '@/app/[locale]/main/WishList';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import Inactivated from '@/components/layouts/Inactivated';
@@ -25,7 +25,7 @@ const Body: FC = () => {
         handleHideModal,
         handleNeverShowInstallation,
         handleInstallPWA,
-    } = useInstallPWA();
+    } = UseInstallPWA();
 
     const breadcrumbsPages = [
         {

@@ -10,7 +10,7 @@ interface IBeforeInstallPromptEvent extends Event {
 }
 
 // Хук для обробки запитів на встановлення PWA
-export const useInstallPWA = () => {
+const UseInstallPWA = () => {
     // Стан для зберігання події запиту на встановлення
     const [installPWAPrompt, setInstallPWAPrompt] = useState<Event | null>(
         null
@@ -95,3 +95,5 @@ export const useInstallPWA = () => {
         handleNeverShowInstallation,
     };
 };
+
+export default UseInstallPWA;

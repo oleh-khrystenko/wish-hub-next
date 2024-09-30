@@ -15,7 +15,7 @@ import { ELang } from '@/models/Settings';
 import { IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
 import myUserApi from '@/stores/my-user/api';
-import useValidations from '@/helpers/hooks/UseValidations';
+import UseValidations from '@/helpers/hooks/UseValidations';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 import UiCheckbox from '@/components/ui/UiCheckbox';
@@ -75,7 +75,7 @@ const ClientForm: FC = () => {
     });
 
     const { accountFirstNameValidation, emailValidation, passwordValidation } =
-        useValidations();
+        UseValidations();
 
     let title = authPageT('title.sing_in');
     isSignUp && (title = authPageT('title.sing_up'));

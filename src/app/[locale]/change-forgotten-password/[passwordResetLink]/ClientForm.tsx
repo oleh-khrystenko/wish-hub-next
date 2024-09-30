@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import myUserApi from '@/stores/my-user/api';
-import useValidations from '@/helpers/hooks/UseValidations';
+import UseValidations from '@/helpers/hooks/UseValidations';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 
@@ -33,7 +33,7 @@ const ClientForm: FC = () => {
         formState: { errors },
     } = useForm<Inputs>();
 
-    const { passwordValidation } = useValidations();
+    const { passwordValidation } = UseValidations();
 
     const repeatPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;

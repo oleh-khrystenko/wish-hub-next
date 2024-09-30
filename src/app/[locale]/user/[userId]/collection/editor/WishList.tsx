@@ -10,7 +10,7 @@ import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
 import { useCollectionStore } from '@/stores/collection';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
-import useValidations from '@/helpers/hooks/UseValidations';
+import UseValidations from '@/helpers/hooks/UseValidations';
 import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishItem from '@/app/[locale]/user/[userId]/collection/editor/WishItem';
@@ -74,7 +74,7 @@ const WishList: FC<IProps> = ({ userId }) => {
         formState: { errors },
     } = useForm<TInputs>();
 
-    const { collectionNameValidation } = useValidations();
+    const { collectionNameValidation } = UseValidations();
 
     const { getInitialWishList } = UseInitialWishes();
     const { getInitialCollection } = UseInitialCollection();
