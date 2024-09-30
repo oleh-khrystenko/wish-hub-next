@@ -207,13 +207,17 @@ const Body: FC = () => {
                             <WishMark
                                 wish={wish}
                                 myUserId={myUser?.id}
-                                classes="absolute right-0 top-3/4 mobile-sm:top-1/2 mobile-lg:-translate-y-1/2 -rotate-12 tablet-md:-rotate-6"
+                                classes="absolute right-0 top-3/4 mobile-sm:top-1/2 mobile-lg:-translate-y-1/2 -rotate-12 tablet-md:right-1 desctop-sm:right-2 tablet-md:-rotate-6"
                             />
                         </div>
 
                         {myUser?.id !== wish.userId && (
                             <Link
-                                href={`/${activeLocale}/profile/${creator?.id}`}
+                                href={
+                                    myUser
+                                        ? `/${activeLocale}/profile/${creator?.id}`
+                                        : `/${activeLocale}/auth`
+                                }
                                 className="flex items-center gap-3 tablet-sm:gap-4"
                             >
                                 <UiAvatar
