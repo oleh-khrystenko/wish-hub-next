@@ -76,8 +76,8 @@ export default function Layout({
                             description:
                                 'Wish Hub — це сервіс, який допомагає легко створювати та ділитися списками бажань, щоб зробити процес вибору подарунків простішим.',
                             sameAs: [
-                                'https://www.instagram.com/wish_hub_net/',
-                                'https://www.facebook.com/wish.hub.net',
+                                'https://www.instagram.com/wish_hub_net',
+                                'https://www.facebook.com/wish.hub.net.official',
                                 'https://www.youtube.com/@wish-hub',
                                 'https://www.tiktok.com/@wish.hub.net',
                                 'https://t.me/wish_hub',

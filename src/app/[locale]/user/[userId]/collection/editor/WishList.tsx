@@ -157,7 +157,9 @@ const WishList: FC<IProps> = ({ userId }) => {
             const wishes = await getInitialWishList(
                 myUser?.id,
                 userId,
-                `collectionId:${collectionId}`
+                collectionId
+                    ? `collectionId:${collectionId}`
+                    : 'sortByLikes:desc'
             );
 
             if (!wishes) return;

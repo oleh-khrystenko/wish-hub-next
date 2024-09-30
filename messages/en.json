@@ -688,7 +688,8 @@
         "collection": "Collection of wishes",
         "profile": "Profile",
         "collection_editor": "Collection Editor",
-        "display_settings": "Display settings"
+        "display_settings": "Display settings",
+        "failed_image": "Failed to load image"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

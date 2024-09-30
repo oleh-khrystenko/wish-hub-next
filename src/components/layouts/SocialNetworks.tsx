@@ -16,7 +16,7 @@ const SocialNetworks: FC = () => {
     return (
         <>
             <a
-                href="https://www.instagram.com/wish_hub_net/"
+                href="https://www.instagram.com/wish_hub_net"
                 target="_blank"
                 rel="noopener noreferrer external nofollow"
             >
@@ -24,7 +24,7 @@ const SocialNetworks: FC = () => {
             </a>
 
             <a
-                href="https://www.facebook.com/wish.hub.net"
+                href="https://www.facebook.com/wish.hub.net.official"
                 target="_blank"
                 rel="noopener noreferrer external nofollow"
             >
