@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useCollectionStore } from '@/stores/collection';
@@ -9,11 +10,15 @@ import EditIcon from '@/components/icons/EditIcon';
 import BasketIcon from '@/components/icons/BasketIcon';
 
 const Collections: FC = () => {
+    const searchParams = useSearchParams();
+
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
     const collections = useCollectionStore((state) => state.collections);
+
+    const collectionId = searchParams.get('collectionId');
 
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
@@ -45,15 +50,17 @@ const Collections: FC = () => {
                             {collection.name}
                         </button>
 
-                        <UiButton
-                            variant="text-only"
-                            href={`user/${myUser?.id}/collection/editor?collectionId=${collection.id}`}
-                            onLinkClick={() => setShowSlidePanel(false)}
-                        >
-                            <span className="rounded-md p-3 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600">
-                                <EditIcon classes="w-4 h-4 fill-zinc-800 dark:fill-zinc-300" />
-                            </span>
-                        </UiButton>
+                        {collection.id !== collectionId && (
+                            <UiButton
+                                variant="text-only"
+                                href={`user/${myUser?.id}/collection/editor?collectionId=${collection.id}`}
+                                onLinkClick={() => setShowSlidePanel(false)}
+                            >
+                                <span className="rounded-md p-3 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600">
+                                    <EditIcon classes="w-4 h-4 fill-zinc-800 dark:fill-zinc-300" />
+                                </span>
+                            </UiButton>
+                        )}
 
                         <button
                             className="rounded-md p-2.5 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600"

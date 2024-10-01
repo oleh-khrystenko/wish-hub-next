@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
 import { ICollection } from '@/models/Collection';
-import collectionApi from '@/stores/collection/api';
-import { ICreateCollection } from '@/stores/collection/types';
 import { IUserId } from '@/stores/my-user/types';
+import { ICreateCollection } from '@/stores/collection/types';
+import collectionApi from '@/stores/collection/api';
 import { useSettingsStore } from '@/stores/settings';
 
 const { setShowGlobalLoading } = useSettingsStore.getState();
@@ -20,8 +20,6 @@ interface ICollectionStore {
 export const useCollectionStore = create<ICollectionStore>((set) => ({
     collections: [],
     createCollection: async (data, errorT) => {
-        setShowGlobalLoading(true);
-
         try {
             const response = await collectionApi.createCollection(data);
 
@@ -33,8 +31,6 @@ export const useCollectionStore = create<ICollectionStore>((set) => ({
             return response.data;
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
-        } finally {
-            setShowGlobalLoading(false);
         }
     },
     getCollections: async (params, errorT) => {

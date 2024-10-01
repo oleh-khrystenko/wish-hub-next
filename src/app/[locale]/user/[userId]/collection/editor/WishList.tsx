@@ -30,6 +30,7 @@ interface IProps {
 
 const WishList: FC<IProps> = ({ userId }) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
     const [selectedWishError, setSelectedWishError] = useState<string>('');
 
@@ -82,6 +83,8 @@ const WishList: FC<IProps> = ({ userId }) => {
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
         if (!myUser) return;
 
+        setIsLoading(true);
+
         const wishIdList = wishes
             .filter((wish) => wish.selected)
             .map((wish) => wish.id);
@@ -106,6 +109,8 @@ const WishList: FC<IProps> = ({ userId }) => {
             toast(allPagesT('my-user-api.create-collection.error'), {
                 type: 'error',
             });
+
+            setIsLoading(false);
             return;
         }
 
@@ -125,7 +130,7 @@ const WishList: FC<IProps> = ({ userId }) => {
         const fetchWishList = async () => {
             setIsLoadingAdd(true);
 
-            await addWishList(
+            const responseWishes = await addWishList(
                 {
                     myId: myUser?.id,
                     userId,
@@ -137,6 +142,9 @@ const WishList: FC<IProps> = ({ userId }) => {
                 },
                 allPagesT('wishes-api.get-wish-list.error')
             );
+
+            if (!responseWishes) return;
+            getInitialCollection(responseWishes);
 
             setIsLoadingAdd(false);
         };
@@ -152,9 +160,11 @@ const WishList: FC<IProps> = ({ userId }) => {
             );
             if (editingCollection) {
                 setValue('collectionName', editingCollection.name);
+            } else {
+                setValue('collectionName', '');
             }
 
-            const wishes = await getInitialWishList(
+            const responseWishes = await getInitialWishList(
                 myUser?.id,
                 userId,
                 collectionId
@@ -162,8 +172,8 @@ const WishList: FC<IProps> = ({ userId }) => {
                     : 'sortByLikes:desc'
             );
 
-            if (!wishes) return;
-            getInitialCollection(wishes);
+            if (!responseWishes) return;
+            getInitialCollection(responseWishes);
         };
         fetchWishes().finally();
     }, [searchParams, userId, collections.length]);
@@ -234,6 +244,8 @@ const WishList: FC<IProps> = ({ userId }) => {
             </div>
 
             <SlidePanel wishListRefCurrent={wishListRef.current} />
+
+            {isLoading && <UiLoading />}
         </>
     );
 };

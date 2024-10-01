@@ -5,16 +5,18 @@ import { IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
+import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import CreateWish from '@/app/[locale]/main/wish-editor/CreateWish';
 import EditWish from '@/app/[locale]/main/wish-editor/EditWish';
-import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
-import WishListActions from '@/components/layouts/wish-list/WishListActions';
 import WishItem from '@/components/layouts/wish-list/WishItem';
+import SlidePanel from '@/components/layouts/SlidePanel';
+import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
 import CrossIcon from '@/components/icons/CrossIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
+import SliderIcon from '@/components/icons/SliderIcon';
 
 interface IProps {
     userId: string;
@@ -44,7 +46,6 @@ const WishList: FC<IProps> = ({ userId }) => {
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
     const wishes = useWishesStore((state) => state.list);
-    const wishesCreator = useWishesStore((state) => state.creator);
     const status = useWishesStore((state) => state.status);
     const page = useWishesStore((state) => state.page);
     const search = useWishesStore((state) => state.search);
@@ -53,6 +54,10 @@ const WishList: FC<IProps> = ({ userId }) => {
     const addWishList = useWishesStore((state) => state.addWishList);
     const resetWishCandidate = useWishesStore(
         (state) => state.resetWishCandidate
+    );
+
+    const setShowSlidePanel = useSettingsStore(
+        (state) => state.setShowSlidePanel
     );
 
     const { getInitialWishList } = UseInitialWishes();
@@ -124,13 +129,18 @@ const WishList: FC<IProps> = ({ userId }) => {
 
     return (
         <>
-            {wishesCreator && wishesCreator.wishList.length > 4 && (
-                <div className="mt-2 flex flex-col gap-3 mobile-xs:gap-6">
-                    <WishListFilter wishListRefCurrent={wishListRef.current} />
+            <div className="mr-auto">
+                <UiButton
+                    variant="text"
+                    onBtnClick={() => setShowSlidePanel(true)}
+                >
+                    <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
-                    <WishListActions wishListRefCurrent={wishListRef.current} />
-                </div>
-            )}
+                    <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
+                        {allPagesT('display_settings')}
+                    </span>
+                </UiButton>
+            </div>
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
                 <div className="mt-4" ref={wishListRef}>
@@ -230,6 +240,8 @@ const WishList: FC<IProps> = ({ userId }) => {
                     hide={handleHideEditWish}
                 />
             )}
+
+            <SlidePanel wishListRefCurrent={wishListRef.current} />
         </>
     );
 };

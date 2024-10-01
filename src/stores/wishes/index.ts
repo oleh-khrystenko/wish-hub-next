@@ -100,7 +100,10 @@ interface IWishesStore {
         data: ISendWishList,
         errorT: string
     ) => Promise<IWish[] | void>;
-    addWishList: (data: ISendWishList, errorT: string) => Promise<void>;
+    addWishList: (
+        data: ISendWishList,
+        errorT: string
+    ) => Promise<IWish[] | void>;
     getAllWishes: (data: ISendAllWishes, errorT: string) => Promise<void>;
     addAllWishes: (data: ISendAllWishes, errorT: string) => Promise<void>;
 }
@@ -427,6 +430,8 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 stopRequests:
                     response.data.wishes.length !== WISHES_PAGINATION_LIMIT,
             }));
+
+            return response.data.wishes;
         } catch (error: any) {
             set((state) => ({
                 ...state,

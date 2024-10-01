@@ -1,8 +1,7 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { TWishSort } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
@@ -22,9 +21,6 @@ interface IProps {
 const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
-    const pathname = usePathname();
-
-    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
