@@ -1,7 +1,9 @@
 import { FC } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { usePathname, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
+import { useUsersStore } from '@/stores/users';
 import { useCollectionStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UiButton from '@/components/ui/UiButton';
@@ -11,10 +13,14 @@ import BasketIcon from '@/components/icons/BasketIcon';
 
 const Collections: FC = () => {
     const searchParams = useSearchParams();
+    const pathname = usePathname();
 
+    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
+
+    const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
     const collections = useCollectionStore((state) => state.collections);
 
@@ -23,10 +29,6 @@ const Collections: FC = () => {
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
     );
-
-    const handleSelectCollection = () => {
-        console.log('Collection selected');
-    };
 
     const handleDeleteCollection = () => {
         console.log('handleDeleteCollection');
@@ -42,15 +44,16 @@ const Collections: FC = () => {
             <ul className="flex flex-col rounded-xl bg-zinc-300 px-3 py-2 dark:bg-zinc-800">
                 {collections.map((collection) => (
                     <li key={collection.id} className="flex items-center">
-                        <button
+                        <Link
+                            href={`/${activeLocale}/user/${selectedUserId}/collection?collectionId=${collection.id}`}
                             className="w-full rounded-md px-3 py-2 text-left font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600"
-                            type="button"
-                            onClick={handleSelectCollection}
                         >
                             {collection.name}
-                        </button>
+                        </Link>
 
-                        {collection.id !== collectionId && (
+                        {(collection.id !== collectionId ||
+                            pathname !==
+                                `/${activeLocale}/user/${selectedUserId}/collection/editor`) && (
                             <UiButton
                                 variant="text-only"
                                 href={`user/${myUser?.id}/collection/editor?collectionId=${collection.id}`}
