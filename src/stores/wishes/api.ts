@@ -12,6 +12,7 @@ import {
     ISendWishList,
     ISendAllWishes,
     IGetWishList,
+    ISendCollectionWishes,
 } from '@/stores/wishes/types';
 import { IUser } from '@/models/User';
 import { TCurrentImage, IWish, IWishCandidate } from '@/models/Wish';
@@ -159,6 +160,12 @@ const getAllWishes = async (
     return await api.get('/all-wishes', { params });
 };
 
+const getCollectionWishes = async (
+    params: ISendCollectionWishes
+): Promise<AxiosResponse<IWish[]>> => {
+    return await api.get('/collection-wishes', { params });
+};
+
 const wishesApi = {
     fetchWishDataFromLink,
     createWish,
@@ -174,6 +181,7 @@ const wishesApi = {
     deleteWish,
     getWishList,
     getAllWishes,
+    getCollectionWishes,
 };
 
 export default wishesApi;

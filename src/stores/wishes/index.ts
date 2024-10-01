@@ -10,6 +10,7 @@ import {
     IDoneWish,
     IGetAnyWish,
     ISendAllWishes,
+    ISendCollectionWishes,
     ISendWishList,
     IUpdateWish,
 } from '@/stores/wishes/types';
@@ -106,6 +107,14 @@ interface IWishesStore {
     ) => Promise<IWish[] | void>;
     getAllWishes: (data: ISendAllWishes, errorT: string) => Promise<void>;
     addAllWishes: (data: ISendAllWishes, errorT: string) => Promise<void>;
+    getCollectionWishes: (
+        data: ISendCollectionWishes,
+        errorT: string
+    ) => Promise<void>;
+    addCollectionWishes: (
+        data: ISendCollectionWishes,
+        errorT: string
+    ) => Promise<void>;
 }
 
 export const useWishesStore = create<IWishesStore>((set) => ({
@@ -476,6 +485,57 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
         try {
             const response = await wishesApi.getAllWishes(data);
+
+            set((state) => ({
+                ...state,
+                list: [...state.list, ...response.data],
+                page: state.page + 1,
+                stopRequests: response.data.length !== WISHES_PAGINATION_LIMIT,
+            }));
+        } catch (error: any) {
+            set((state) => ({
+                ...state,
+                stopRequests: false,
+            }));
+
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        }
+    },
+    getCollectionWishes: async (data, errorT) => {
+        setShowGlobalLoading(true);
+        set((state) => ({
+            ...state,
+            stopRequests: true,
+        }));
+
+        try {
+            const response = await wishesApi.getCollectionWishes(data);
+
+            set((state) => ({
+                ...state,
+                list: response.data,
+                page: 2,
+                stopRequests: response.data.length !== WISHES_PAGINATION_LIMIT,
+            }));
+        } catch (error: any) {
+            set((state) => ({
+                ...state,
+                stopRequests: false,
+            }));
+
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
+        }
+    },
+    addCollectionWishes: async (data, errorT) => {
+        set((state) => ({
+            ...state,
+            stopRequests: true,
+        }));
+
+        try {
+            const response = await wishesApi.getCollectionWishes(data);
 
             set((state) => ({
                 ...state,

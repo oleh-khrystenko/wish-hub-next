@@ -1,4 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { IWish } from '@/models/Wish';
@@ -33,6 +34,8 @@ const WishList: FC<IProps> = ({ userId }) => {
 
     const wishListRef = useRef<HTMLDivElement>(null);
 
+    const searchParams = useSearchParams();
+
     const profilePageT = useTranslations('profile-page');
     const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
@@ -44,6 +47,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     const myUser = useMyUserStore((state) => state.myUser);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
+    const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
 
     const wishes = useWishesStore((state) => state.list);
     const status = useWishesStore((state) => state.status);
@@ -52,6 +56,12 @@ const WishList: FC<IProps> = ({ userId }) => {
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
     const addWishList = useWishesStore((state) => state.addWishList);
+    const getCollectionWishes = useWishesStore(
+        (state) => state.getCollectionWishes
+    );
+    const addCollectionWishes = useWishesStore(
+        (state) => state.addCollectionWishes
+    );
     const resetWishCandidate = useWishesStore(
         (state) => state.resetWishCandidate
     );
@@ -61,6 +71,8 @@ const WishList: FC<IProps> = ({ userId }) => {
     );
 
     const { getInitialWishList } = UseInitialWishes();
+
+    const collectionId = searchParams.get('collectionId');
 
     const wishesExample = [
         {
@@ -105,18 +117,34 @@ const WishList: FC<IProps> = ({ userId }) => {
         const fetchWishList = async () => {
             setIsLoadingAdd(true);
 
-            await addWishList(
-                {
-                    myId: myUser?.id,
-                    userId,
-                    status,
-                    page,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    search,
-                    sort,
-                },
-                allPagesT('wishes-api.get-wish-list.error')
-            );
+            if (collectionId) {
+                await addCollectionWishes(
+                    {
+                        collectionId,
+                        myId: myUser?.id,
+                        userId,
+                        status,
+                        page,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort,
+                    },
+                    allPagesT('wishes-api.get-collection-wishes.error')
+                );
+            } else {
+                await addWishList(
+                    {
+                        myId: myUser?.id,
+                        userId,
+                        status,
+                        page,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort,
+                    },
+                    allPagesT('wishes-api.get-wish-list.error')
+                );
+            }
 
             setIsLoadingAdd(false);
         };
@@ -124,8 +152,30 @@ const WishList: FC<IProps> = ({ userId }) => {
     }, [inView]);
 
     useEffect(() => {
-        getInitialWishList(myUser?.id, userId).finally();
-    }, [userId]);
+        const fetchWishes = async () => {
+            if (collectionId) {
+                await getCollectionWishes(
+                    {
+                        collectionId,
+                        myId: myUser?.id,
+                        userId,
+                        status,
+                        page: 1,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort: 'createdAt:desc',
+                    },
+                    allPagesT('wishes-api.get-collection-wishes.error')
+                );
+                setSelectedUserId(userId);
+                localStorage.setItem('selectedUserId', userId);
+            } else {
+                await getInitialWishList(myUser?.id, userId);
+            }
+        };
+
+        fetchWishes().finally();
+    }, [userId, searchParams]);
 
     return (
         <>
