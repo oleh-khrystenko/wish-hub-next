@@ -1,7 +1,6 @@
-import { FC, useState, useEffect } from 'react';
-import Image from 'next/image';
+import { FC, useEffect } from 'react';
 import UiButton from '@/components/ui/UiButton';
-import UiLoading from '@/components/ui/UiLoading';
+import UiImage from '@/components/ui/UiImage';
 import CrossIcon from '@/components/icons/CrossIcon';
 
 interface IProps {
@@ -11,8 +10,6 @@ interface IProps {
 }
 
 const ZoomedImageModal: FC<IProps> = ({ src, alt, hide }) => {
-    const [isLoading, setIsLoading] = useState(true);
-
     useEffect(() => {
         document.body.classList.add('overflow-hidden');
 
@@ -30,22 +27,13 @@ const ZoomedImageModal: FC<IProps> = ({ src, alt, hide }) => {
             </div>
 
             <div className="relative flex h-full w-full items-center justify-center">
-                <Image
+                <UiImage
                     src={src}
                     alt={alt}
-                    title={alt}
                     priority={true}
-                    fill
-                    sizes={'100%'}
-                    className="rounded-md object-contain"
-                    onLoad={() => setIsLoading(false)}
-                    onError={() => setIsLoading(false)}
+                    classes="rounded-md"
                 />
             </div>
-
-            {isLoading && (
-                <UiLoading isLocal bg="bg-zinc-300 dark:bg-zinc-800" />
-            )}
         </div>
     );
 };

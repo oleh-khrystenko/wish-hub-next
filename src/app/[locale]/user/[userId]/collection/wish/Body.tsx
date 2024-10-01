@@ -215,7 +215,7 @@ const Body: FC = () => {
                             <Link
                                 href={
                                     myUser
-                                        ? `/${activeLocale}/profile/${creator?.id}`
+                                        ? `/${activeLocale}/user/${creator?.id}/profile`
                                         : `/${activeLocale}/auth`
                                 }
                                 className="flex items-center gap-3 tablet-sm:gap-4"

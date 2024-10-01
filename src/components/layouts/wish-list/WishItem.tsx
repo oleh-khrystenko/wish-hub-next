@@ -2,7 +2,6 @@
 
 import { FC, MouseEvent, useMemo } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { ECurrency, IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
@@ -12,6 +11,7 @@ import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
 import { isBookingExpired } from '@/helpers/utils/date-validators';
 import WishMark from '@/components/layouts/WishMark';
 import LikeAction from '@/components/layouts/LikeAction';
+import UiImage from '@/components/ui/UiImage';
 import LogoIcon from '@/components/icons/LogoIcon';
 import EditIcon from '@/components/icons/EditIcon';
 
@@ -63,17 +63,13 @@ const WishItem: FC<IProps> = ({ wish, idx, currentPage, editWish }) => {
             >
                 <div className="relative w-full pt-[100%]">
                     {wish.images?.length > 0 ? (
-                        <Image
+                        <UiImage
                             src={unencryptedData(
                                 wish.images[0].path,
                                 wish.show
                             )}
                             alt={`${mainPageT('picture')}-${wish.images[0].position}`}
-                            title={`${name} ${mainPageT('picture')}-${wish.images[0].position + 1}`}
                             priority={true}
-                            fill
-                            sizes={'100%'}
-                            className="object-contain"
                         />
                     ) : (
                         <LogoIcon

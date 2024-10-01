@@ -1,7 +1,6 @@
 'use client';
 
 import { FC, useMemo } from 'react';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ECurrency, IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
@@ -55,7 +54,6 @@ const WishItem: FC<IProps> = ({ wish, idx, resetSelectedWishError }) => {
                     <UiImage
                         src={unencryptedData(wish.images[0].path, wish.show)}
                         alt={`${mainPageT('picture')}-${wish.images[0].position}`}
-                        title={`${name} ${mainPageT('picture')}-${wish.images[0].position + 1}`}
                         priority={true}
                     />
                 ) : (

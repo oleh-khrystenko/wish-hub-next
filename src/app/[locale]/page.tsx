@@ -81,6 +81,7 @@ export default function Welcome() {
                                     <Image
                                         src="/images/gift-middle.webp"
                                         alt={welcomePageT('alts.middle_gift')}
+                                        title={welcomePageT('alts.middle_gift')}
                                         fill
                                         sizes={'100%'}
                                         className="object-contain"
@@ -91,6 +92,9 @@ export default function Welcome() {
                                     <Image
                                         src="/images/gift-small.webp"
                                         alt={welcomePageT('alts.smaller_gift')}
+                                        title={welcomePageT(
+                                            'alts.smaller_gift'
+                                        )}
                                         fill
                                         sizes={'100%'}
                                         className="object-contain"

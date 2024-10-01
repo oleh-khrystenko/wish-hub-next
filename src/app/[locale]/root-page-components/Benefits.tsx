@@ -45,6 +45,7 @@ const Benefits: FC = () => {
                 <Image
                     src="/images/gift-big.webp"
                     alt={welcomePageT('alts.bigger_gift')}
+                    title={welcomePageT('alts.bigger_gift')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -55,6 +56,7 @@ const Benefits: FC = () => {
                 <Image
                     src="/images/gift-middle.webp"
                     alt={welcomePageT('alts.middle_gift')}
+                    title={welcomePageT('alts.middle_gift')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
@@ -65,6 +67,7 @@ const Benefits: FC = () => {
                 <Image
                     src="/images/gift-small.webp"
                     alt={welcomePageT('alts.smaller_gift')}
+                    title={welcomePageT('alts.smaller_gift')}
                     fill
                     sizes={'100%'}
                     className="object-contain"

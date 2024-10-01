@@ -1,5 +1,4 @@
 import { FC, CSSProperties, useState } from 'react';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper';
@@ -15,6 +14,7 @@ import { IZoomedImage } from '@/models/Settings';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
+import UiImage from '@/components/ui/UiImage';
 
 interface IProps {
     wish: IWish;
@@ -65,14 +65,11 @@ const WishSwiper: FC<IProps> = ({ wish }) => {
                             )
                         }
                     >
-                        <Image
+                        <UiImage
                             src={unencryptedData(image.path, wish.show)}
                             alt={`${mainPageT('picture')}-${image.position}`}
-                            title={`${mainPageT('picture')}-${image.position}`}
                             priority={true}
-                            fill
-                            sizes={'100%'}
-                            className="rounded-md object-contain"
+                            classes="rounded-md"
                         />
                     </SwiperSlide>
                 ))}
@@ -95,14 +92,12 @@ const WishSwiper: FC<IProps> = ({ wish }) => {
                 >
                     {wish.images.map((image) => (
                         <SwiperSlide key={image.id}>
-                            <Image
+                            <UiImage
                                 src={unencryptedData(image.path, wish.show)}
                                 alt={`${mainPageT('picture')}-${image.position}`}
-                                title={`${mainPageT('picture')}-${image.position}`}
                                 priority={true}
-                                fill
-                                sizes={'100%'}
-                                className="rounded-md object-contain"
+                                classes="rounded-md"
+                                brokenTextSize="text-[8px]"
                             />
                         </SwiperSlide>
                     ))}

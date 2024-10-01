@@ -1,8 +1,8 @@
 import { FC, useRef } from 'react';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useDrag, useDrop } from 'react-dnd';
 import { TCurrentImage } from '@/models/Wish';
+import UiImage from '@/components/ui/UiImage';
 import CrossIcon from '@/components/icons/CrossIcon';
 
 interface IProps {
@@ -49,18 +49,16 @@ const DraggableImage: FC<IProps> = ({
             ref={ref}
             className="mobile-xs: relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-md border border-dashed border-zinc-700 dark:border-zinc-300 mobile-xs:h-14 mobile-xs:w-14 mobile-sm:h-16 mobile-sm:w-16 tablet-md:h-20 tablet-md:w-20"
         >
-            <Image
+            <UiImage
                 src={
                     image instanceof File
                         ? URL.createObjectURL(image)
                         : image.path
                 }
                 alt={`${mainPageT('picture')}-${index}`}
-                title={`${mainPageT('picture')}-${index}`}
                 priority={true}
-                fill
-                sizes={'100%'}
-                className="rounded-md object-contain"
+                classes="rounded-md"
+                brokenTextSize="text-[8px]"
             />
 
             <button
