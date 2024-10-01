@@ -13,8 +13,10 @@ import {
     IUpdateMyUser,
 } from '@/stores/my-user/types';
 import myUserApi from '@/stores/my-user/api';
+import { useUsersStore } from '@/stores/users';
 import { useSettingsStore } from '@/stores/settings';
 
+const { setSelectedUserId } = useUsersStore.getState();
 const { setShowGlobalLoading } = useSettingsStore.getState();
 
 interface IMyUserStore {
@@ -137,6 +139,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
 
             localStorage.removeItem('token');
             localStorage.removeItem('selectedUserId');
+            setSelectedUserId(null);
 
             set((state) => ({
                 ...state,
@@ -173,6 +176,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
 
             localStorage.removeItem('token');
             localStorage.removeItem('selectedUserId');
+            setSelectedUserId(null);
 
             set((state) => ({
                 ...state,
@@ -270,6 +274,7 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
 
             localStorage.removeItem('token');
             localStorage.removeItem('selectedUserId');
+            setSelectedUserId(null);
 
             set((state) => {
                 if (state.myUser?.id === response.data) {

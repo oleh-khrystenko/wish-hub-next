@@ -45,10 +45,6 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
 
     const { getInitialCollection } = UseInitialCollection();
 
-    const showCreateCollection =
-        myUser?.id === selectedUserId &&
-        pathname !== `/${activeLocale}/user/${myUser.id}/collection/editor`;
-
     let wishesSortText = mainPageT('sort.title');
     sort === 'sortByLikes:desc' &&
         (wishesSortText = mainPageT('sort.by-popularity'));
@@ -105,7 +101,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
 
     return (
         <div className="-mr-4 mt-6 flex items-center justify-between gap-3">
-            {showCreateCollection && (
+            {myUser?.id === selectedUserId && (
                 <UiButton
                     variant="text"
                     href={`user/${myUser?.id}/collection/editor`}

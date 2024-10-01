@@ -212,6 +212,7 @@ const WishList: FC = () => {
                     );
                     setSelectedUserId(myUser.id);
                     setWishesSort('createdAt:desc');
+                    localStorage.setItem('selectedUserId', myUser.id);
                     return;
                 } else {
                     await getAllWishes(
@@ -260,7 +261,7 @@ const WishList: FC = () => {
             </div>
 
             {wishes.length > 0 && (
-                <div className="flex flex-col items-center justify-between pl-2.5 tablet-md:gap-4">
+                <div className="flex flex-col items-center justify-between pl-2.5 tablet-lg:flex-row tablet-lg:gap-4">
                     <div className="mr-auto">
                         <UiButton
                             variant="text"
