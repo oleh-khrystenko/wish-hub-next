@@ -43,7 +43,10 @@ const Collections: FC = () => {
 
             <ul className="flex flex-col rounded-xl bg-zinc-300 px-3 py-2 dark:bg-zinc-800">
                 {collections.map((collection) => (
-                    <li key={collection.id} className="flex items-center">
+                    <li
+                        key={collection.id}
+                        className={`${collection.id === collectionId ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
+                    >
                         <Link
                             href={`/${activeLocale}/user/${selectedUserId}/collection?collectionId=${collection.id}`}
                             className="w-full rounded-md px-3 py-2 text-left font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600"
