@@ -214,7 +214,7 @@ const WishList: FC<IProps> = ({ userId }) => {
             )}
 
             <div ref={wishListRef}>
-                <ul className="grid grid-cols-2 gap-1.5 tablet-xl:grid-cols-3 tablet-xl:gap-4 desktop-sm:grid-cols-4">
+                <ul className="grid grid-cols-2 gap-1.5 tablet-md:grid-cols-3 tablet-lg:grid-cols-4 tablet-xl:grid-cols-5 tablet-xl:gap-4 desktop-sm:grid-cols-6">
                     {wishes.length > 0 &&
                         wishes.map((wish, idx) => (
                             <WishItem

@@ -295,7 +295,7 @@ const WishList: FC = () => {
                     className="wish-list-scrollbar mt-4 grow overflow-y-auto overflow-x-hidden p-2.5"
                     ref={wishListRef}
                 >
-                    <ul className="grid grid-cols-2 gap-1.5 tablet-xl:grid-cols-3 tablet-xl:gap-4 desktop-sm:grid-cols-4 desktop-xl:grid-cols-5 desktop-2xl:grid-cols-6">
+                    <ul className="grid grid-cols-2 gap-1.5 tablet-lg:grid-cols-3 tablet-xl:grid-cols-4 tablet-xl:gap-4 desktop-sm:grid-cols-5 desktop-xl:grid-cols-6 desktop-2xl:grid-cols-8">
                         {myUser?.id === selectedUserId && (
                             <li className="relative flex items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
                                 <button

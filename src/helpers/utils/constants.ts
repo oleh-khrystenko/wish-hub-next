@@ -34,7 +34,7 @@ export const WAITING_TIME = 60;
 
 export const USERS_PAGINATION_LIMIT = 20;
 
-export const WISHES_PAGINATION_LIMIT = 12;
+export const WISHES_PAGINATION_LIMIT = 24;
 
 export const COLLECTION_NAME_MIN_LENGTH = 2;
 

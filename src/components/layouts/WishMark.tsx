@@ -36,7 +36,7 @@ const WishMark: FC<IProps> = ({
 
             {wish.booking?.end && (
                 <span
-                    className={`${classes} worn-out whitespace-nowrap rounded-md border-2 border-solid border-rose-500 px-1 text-xs font-bold uppercase text-rose-500 backdrop-blur mobile-md:px-2 mobile-md:py-0.5 mobile-xl:text-sm tablet-sm:px-2 tablet-sm:py-1 tablet-sm:text-base tablet-md:text-lg desktop-lg:text-xl`}
+                    className={`${classes} worn-out rounded-md border-2 border-solid border-rose-500 px-1 text-center text-xs font-bold uppercase text-rose-500 backdrop-blur mobile-md:px-2 mobile-md:py-0.5 mobile-xl:text-sm tablet-sm:px-2 tablet-sm:py-1 tablet-sm:text-base tablet-md:text-lg`}
                 >
                     {myUserId === wish.booking?.userId ? (
                         <>{mainPageT('reserved_by_your')}</>
@@ -48,7 +48,7 @@ const WishMark: FC<IProps> = ({
 
             {wish.executed && (
                 <span
-                    className={`${classes} worn-out whitespace-nowrap rounded-md border-2 border-solid border-cyan-500 px-1 text-xs font-bold uppercase text-cyan-300 backdrop-blur dark:border-cyan-300 mobile-md:px-2 mobile-md:py-0.5 mobile-xl:text-sm tablet-sm:px-2 tablet-sm:py-1 tablet-sm:text-base tablet-md:text-lg desktop-lg:text-xl`}
+                    className={`${classes} worn-out rounded-md border-2 border-solid border-cyan-500 px-1 text-center text-xs font-bold uppercase text-cyan-300 backdrop-blur dark:border-cyan-300 mobile-md:px-2 mobile-md:py-0.5 mobile-xl:text-sm tablet-sm:px-2 tablet-sm:py-1 tablet-sm:text-base tablet-md:text-lg`}
                 >
                     {mainPageT('fulfilled.single')}
                 </span>
