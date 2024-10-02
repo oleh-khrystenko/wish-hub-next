@@ -1,7 +1,8 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { TWishSort } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
@@ -21,6 +22,10 @@ interface IProps {
 const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+
+    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
@@ -34,6 +39,9 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const setWishesSort = useWishesStore((state) => state.setWishesSort);
     const getWishList = useWishesStore((state) => state.getWishList);
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
+    const getCollectionWishes = useWishesStore(
+        (state) => state.getCollectionWishes
+    );
 
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
@@ -57,21 +65,42 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
         setWishesSort(value);
 
         if (selectedUserId) {
-            const wishes = await getWishList(
-                {
-                    myId: myUser?.id,
-                    userId: selectedUserId,
-                    status,
-                    page: 1,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    search,
-                    sort: value,
-                },
-                allPagesT('wishes-api.get-wish-list.error')
-            );
+            const collectionId = searchParams.get('collectionId');
+            if (
+                collectionId &&
+                pathname !==
+                    `/${activeLocale}/user/${selectedUserId}/collection/editor`
+            ) {
+                await getCollectionWishes(
+                    {
+                        collectionId,
+                        myId: myUser?.id,
+                        userId: selectedUserId,
+                        status,
+                        page: 1,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort: value,
+                    },
+                    allPagesT('wishes-api.get-collection-wishes.error')
+                );
+            } else {
+                const wishes = await getWishList(
+                    {
+                        myId: myUser?.id,
+                        userId: selectedUserId,
+                        status,
+                        page: 1,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort: value,
+                    },
+                    allPagesT('wishes-api.get-wish-list.error')
+                );
 
-            if (!wishes) return;
-            getInitialCollection(wishes);
+                if (!wishes) return;
+                getInitialCollection(wishes);
+            }
         } else {
             await getAllWishes(
                 {
@@ -92,6 +121,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
             top: 0,
         });
 
+        setShowSlidePanel(false);
         setShowPopup(false);
     };
 

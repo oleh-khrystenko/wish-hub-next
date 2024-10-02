@@ -1,7 +1,8 @@
 'use client';
 
 import { FC } from 'react';
-import { useTranslations } from 'next-intl';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { EWishStatus } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
@@ -10,12 +11,17 @@ import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import UiSearch from '@/components/ui/UiSearch';
+import { useSettingsStore } from '@/stores/settings';
 
 interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
 }
 
 const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+
+    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
@@ -30,6 +36,15 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
     const setWishesSearch = useWishesStore((state) => state.setWishesSearch);
     const getWishList = useWishesStore((state) => state.getWishList);
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
+    const getCollectionWishes = useWishesStore(
+        (state) => state.getCollectionWishes
+    );
+
+    const setShowSlidePanel = useSettingsStore(
+        (state) => state.setShowSlidePanel
+    );
+
+    const collectionId = searchParams.get('collectionId');
 
     const selectOptions: IOption[] = [
         {
@@ -64,21 +79,41 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
         setWishesStatus(value as EWishStatus);
 
         if (selectedUserId) {
-            const wishes = await getWishList(
-                {
-                    myId: myUser?.id,
-                    userId: selectedUserId,
-                    status: value as EWishStatus,
-                    page: 1,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    search,
-                    sort,
-                },
-                allPagesT('wishes-api.get-wish-list.error')
-            );
+            if (
+                collectionId &&
+                pathname !==
+                    `/${activeLocale}/user/${selectedUserId}/collection/editor`
+            ) {
+                await getCollectionWishes(
+                    {
+                        collectionId,
+                        myId: myUser?.id,
+                        userId: selectedUserId,
+                        status: value as EWishStatus,
+                        page: 1,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort,
+                    },
+                    allPagesT('wishes-api.get-collection-wishes.error')
+                );
+            } else {
+                const wishes = await getWishList(
+                    {
+                        myId: myUser?.id,
+                        userId: selectedUserId,
+                        status: value as EWishStatus,
+                        page: 1,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search,
+                        sort,
+                    },
+                    allPagesT('wishes-api.get-wish-list.error')
+                );
 
-            if (!wishes) return;
-            getInitialCollection(wishes);
+                if (!wishes) return;
+                getInitialCollection(wishes);
+            }
         } else {
             await getAllWishes(
                 {
@@ -91,6 +126,8 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                 allPagesT('wishes-api.get-wish-list.error')
             );
         }
+
+        setShowSlidePanel(false);
 
         if (!wishListRefCurrent) return;
 
@@ -104,21 +141,41 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
         setWishesSearch(value);
 
         if (selectedUserId) {
-            const wishes = await getWishList(
-                {
-                    myId: myUser?.id,
-                    userId: selectedUserId,
-                    page: 1,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    status,
-                    search: value,
-                    sort,
-                },
-                allPagesT('wishes-api.get-wish-list.error')
-            );
+            if (
+                collectionId &&
+                pathname !==
+                    `/${activeLocale}/user/${selectedUserId}/collection/editor`
+            ) {
+                await getCollectionWishes(
+                    {
+                        collectionId,
+                        myId: myUser?.id,
+                        userId: selectedUserId,
+                        status,
+                        page: 1,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search: value,
+                        sort,
+                    },
+                    allPagesT('wishes-api.get-collection-wishes.error')
+                );
+            } else {
+                const wishes = await getWishList(
+                    {
+                        myId: myUser?.id,
+                        userId: selectedUserId,
+                        page: 1,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        status,
+                        search: value,
+                        sort,
+                    },
+                    allPagesT('wishes-api.get-wish-list.error')
+                );
 
-            if (!wishes) return;
-            getInitialCollection(wishes);
+                if (!wishes) return;
+                getInitialCollection(wishes);
+            }
         } else {
             await getAllWishes(
                 {
@@ -131,6 +188,8 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                 allPagesT('wishes-api.get-all-wishes.error')
             );
         }
+
+        setShowSlidePanel(false);
 
         if (!wishListRefCurrent) return;
 
