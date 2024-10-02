@@ -1,4 +1,5 @@
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { EWishStatus, IWish } from '@/models/Wish';
@@ -30,7 +31,8 @@ const WishList: FC = () => {
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
     const wishListRef = useRef<HTMLDivElement>(null);
-    const gotWishes = useRef(false);
+
+    const searchParams = useSearchParams();
 
     const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
@@ -55,14 +57,23 @@ const WishList: FC = () => {
     );
     const addWishList = useWishesStore((state) => state.addWishList);
     const addAllWishes = useWishesStore((state) => state.addAllWishes);
+    const addCollectionWishes = useWishesStore(
+        (state) => state.addCollectionWishes
+    );
 
     const setShowSidebar = useSettingsStore((state) => state.setShowSidebar);
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
     );
 
-    const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
+    const {
+        getInitialWishList,
+        getInitialAllWishes,
+        getInitialCollectionWishes,
+    } = UseInitialWishes();
     const { getFullName } = UseFullName();
+
+    const collectionId = searchParams.get('collectionId');
 
     const selectedUserFullName = useMemo(() => {
         const selectedUser = users.find((user) => user.id === selectedUserId);
@@ -135,18 +146,34 @@ const WishList: FC = () => {
             setIsLoadingAdd(true);
 
             if (selectedUserId) {
-                await addWishList(
-                    {
-                        myId: myUser?.id,
-                        userId: selectedUserId,
-                        status,
-                        page,
-                        limit: WISHES_PAGINATION_LIMIT,
-                        search,
-                        sort,
-                    },
-                    allPagesT('wishes-api.get-wish-list.error')
-                );
+                if (collectionId) {
+                    await addCollectionWishes(
+                        {
+                            collectionId,
+                            myId: myUser?.id,
+                            userId: selectedUserId,
+                            status,
+                            page,
+                            limit: WISHES_PAGINATION_LIMIT,
+                            search,
+                            sort,
+                        },
+                        allPagesT('wishes-api.get-collection-wishes.error')
+                    );
+                } else {
+                    await addWishList(
+                        {
+                            myId: myUser?.id,
+                            userId: selectedUserId,
+                            status,
+                            page,
+                            limit: WISHES_PAGINATION_LIMIT,
+                            search,
+                            sort,
+                        },
+                        allPagesT('wishes-api.get-wish-list.error')
+                    );
+                }
             } else {
                 await addAllWishes(
                     {
@@ -168,27 +195,44 @@ const WishList: FC = () => {
 
     useEffect(() => {
         const fetchWishes = async () => {
-            if (gotWishes.current) return;
-            gotWishes.current = true;
-
             setShowSidebar(false);
 
             const localSelectedUserId = localStorage.getItem('selectedUserId');
             if (localSelectedUserId) {
-                await getInitialWishList(
-                    myUser?.id,
-                    localSelectedUserId,
-                    myUser?.id === localSelectedUserId
-                        ? 'createdAt:desc'
-                        : 'sortByLikes:desc'
-                );
+                if (collectionId) {
+                    await getInitialCollectionWishes(
+                        collectionId,
+                        myUser?.id,
+                        localSelectedUserId,
+                        myUser?.id === localSelectedUserId
+                            ? 'createdAt:desc'
+                            : 'sortByLikes:desc'
+                    );
+                } else {
+                    await getInitialWishList(
+                        myUser?.id,
+                        localSelectedUserId,
+                        myUser?.id === localSelectedUserId
+                            ? 'createdAt:desc'
+                            : 'sortByLikes:desc'
+                    );
+                }
             } else {
                 if (myUser) {
-                    await getInitialWishList(
-                        myUser.id,
-                        myUser.id,
-                        'createdAt:desc'
-                    );
+                    if (collectionId) {
+                        await getInitialCollectionWishes(
+                            collectionId,
+                            myUser.id,
+                            myUser.id,
+                            'createdAt:desc'
+                        );
+                    } else {
+                        await getInitialWishList(
+                            myUser.id,
+                            myUser.id,
+                            'createdAt:desc'
+                        );
+                    }
                 } else {
                     await getInitialAllWishes();
                 }
@@ -196,7 +240,7 @@ const WishList: FC = () => {
         };
 
         fetchWishes().finally();
-    }, []);
+    }, [collectionId]);
 
     return (
         <>

@@ -48,7 +48,7 @@ const Collections: FC = () => {
                         className={`${collection.id === collectionId ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
                     >
                         <Link
-                            href={`/${activeLocale}/user/${selectedUserId}/collection?collectionId=${collection.id}`}
+                            href={`${pathname}?collectionId=${collection.id}`}
                             className="w-full rounded-md px-3 py-2 text-left font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600"
                             onClick={() => setShowSlidePanel(false)}
                         >

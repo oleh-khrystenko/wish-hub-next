@@ -47,7 +47,6 @@ const WishList: FC<IProps> = ({ userId }) => {
     const myUser = useMyUserStore((state) => state.myUser);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
-    const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
 
     const wishes = useWishesStore((state) => state.list);
     const status = useWishesStore((state) => state.status);
@@ -56,9 +55,6 @@ const WishList: FC<IProps> = ({ userId }) => {
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
     const addWishList = useWishesStore((state) => state.addWishList);
-    const getCollectionWishes = useWishesStore(
-        (state) => state.getCollectionWishes
-    );
     const addCollectionWishes = useWishesStore(
         (state) => state.addCollectionWishes
     );
@@ -70,7 +66,8 @@ const WishList: FC<IProps> = ({ userId }) => {
         (state) => state.setShowSlidePanel
     );
 
-    const { getInitialWishList } = UseInitialWishes();
+    const { getInitialWishList, getInitialCollectionWishes } =
+        UseInitialWishes();
 
     const collectionId = searchParams.get('collectionId');
 
@@ -154,28 +151,19 @@ const WishList: FC<IProps> = ({ userId }) => {
     useEffect(() => {
         const fetchWishes = async () => {
             if (collectionId) {
-                await getCollectionWishes(
-                    {
-                        collectionId,
-                        myId: myUser?.id,
-                        userId,
-                        status,
-                        page: 1,
-                        limit: WISHES_PAGINATION_LIMIT,
-                        search,
-                        sort: 'createdAt:desc',
-                    },
-                    allPagesT('wishes-api.get-collection-wishes.error')
+                await getInitialCollectionWishes(
+                    collectionId,
+                    myUser?.id,
+                    userId,
+                    'createdAt:desc'
                 );
-                setSelectedUserId(userId);
-                localStorage.setItem('selectedUserId', userId);
             } else {
                 await getInitialWishList(myUser?.id, userId);
             }
         };
 
         fetchWishes().finally();
-    }, [userId, searchParams]);
+    }, [userId, collectionId]);
 
     return (
         <>
