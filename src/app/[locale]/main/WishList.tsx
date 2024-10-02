@@ -6,6 +6,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
+import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import CreateWish from '@/app/[locale]/main/wish-editor/CreateWish';
@@ -42,7 +43,6 @@ const WishList: FC = () => {
 
     const users = useUsersStore((state) => state.list);
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
-    const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
 
     const wishes = useWishesStore((state) => state.list);
     const page = useWishesStore((state) => state.page);
@@ -50,13 +50,10 @@ const WishList: FC = () => {
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
-    const setWishesSort = useWishesStore((state) => state.setWishesSort);
     const resetWishCandidate = useWishesStore(
         (state) => state.resetWishCandidate
     );
-    const getWishList = useWishesStore((state) => state.getWishList);
     const addWishList = useWishesStore((state) => state.addWishList);
-    const getAllWishes = useWishesStore((state) => state.getAllWishes);
     const addAllWishes = useWishesStore((state) => state.addAllWishes);
 
     const setShowSidebar = useSettingsStore((state) => state.setShowSidebar);
@@ -64,6 +61,7 @@ const WishList: FC = () => {
         (state) => state.setShowSlidePanel
     );
 
+    const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
     const { getFullName } = UseFullName();
 
     const selectedUserFullName = useMemo(() => {
@@ -177,55 +175,22 @@ const WishList: FC = () => {
 
             const localSelectedUserId = localStorage.getItem('selectedUserId');
             if (localSelectedUserId) {
-                await getWishList(
-                    {
-                        myId: myUser?.id,
-                        userId: localSelectedUserId,
-                        status,
-                        page: 1,
-                        limit: WISHES_PAGINATION_LIMIT,
-                        search,
-                        sort:
-                            myUser?.id === localSelectedUserId
-                                ? 'createdAt:desc'
-                                : sort,
-                    },
-                    allPagesT('wishes-api.get-wish-list.error')
+                await getInitialWishList(
+                    myUser?.id,
+                    localSelectedUserId,
+                    myUser?.id === localSelectedUserId
+                        ? 'createdAt:desc'
+                        : 'sortByLikes:desc'
                 );
-                setSelectedUserId(localSelectedUserId);
-                if (myUser?.id === localSelectedUserId) {
-                    setWishesSort('createdAt:desc');
-                }
             } else {
                 if (myUser) {
-                    await getWishList(
-                        {
-                            myId: myUser.id,
-                            userId: myUser.id,
-                            status,
-                            page: 1,
-                            limit: WISHES_PAGINATION_LIMIT,
-                            search,
-                            sort: 'createdAt:desc',
-                        },
-                        allPagesT('wishes-api.get-wish-list.error')
+                    await getInitialWishList(
+                        myUser.id,
+                        myUser.id,
+                        'createdAt:desc'
                     );
-                    setSelectedUserId(myUser.id);
-                    setWishesSort('createdAt:desc');
-                    localStorage.setItem('selectedUserId', myUser.id);
-                    return;
                 } else {
-                    await getAllWishes(
-                        {
-                            page: 1,
-                            limit: WISHES_PAGINATION_LIMIT,
-                            status,
-                            search,
-                            sort: 'sortByLikes:desc',
-                        },
-                        allPagesT('wishes-api.get-all-wishes.error')
-                    );
-                    setWishesSort('sortByLikes:desc');
+                    await getInitialAllWishes();
                 }
             }
         };
