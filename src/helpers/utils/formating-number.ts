@@ -1,4 +1,4 @@
-export const removingWhiteSpaces = (value: string) => value.split(' ').join('');
+export const removingWhiteSpaces = (value: string) => value.replace(/\s/g, '');
 
 export const addingWhiteSpaces = (value: string) => {
     const onlyDigitsAndWhiteSpaces = /[^0-9\s]/;

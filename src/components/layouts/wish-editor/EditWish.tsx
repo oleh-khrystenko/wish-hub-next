@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useState, useLayoutEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
@@ -40,6 +40,7 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
         useState<boolean>(false);
 
     const router = useRouter();
+    const pathname = usePathname();
 
     const activeLocale = useLocale();
 
@@ -243,15 +244,7 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
             })
         );
 
-        setMaterial(true);
-        setImages([]);
-        setCurrency(ECurrency.UAH);
-        setShow(null);
-        setChanged(false);
-        setShowConfirmLeave(false);
-        setShowConfirmDeleteWish(false);
-
-        router.push(`/${activeLocale}/main`);
+        hideModals();
     };
 
     useLayoutEffect(() => {
