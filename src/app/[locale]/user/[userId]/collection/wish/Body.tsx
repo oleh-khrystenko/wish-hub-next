@@ -18,7 +18,7 @@ import BookWish from '@/app/[locale]/user/[userId]/collection/wish/BookWish';
 import CancelBookWish from '@/app/[locale]/user/[userId]/collection/wish/CancelBookWish';
 import DoneWish from '@/app/[locale]/user/[userId]/collection/wish/DoneWish';
 import BookingExpired from '@/app/[locale]/user/[userId]/collection/wish/BookingExpired';
-import EditWish from '@/app/[locale]/main/wish-editor/EditWish';
+import EditWish from '@/components/layouts/wish-editor/EditWish';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import WishMark from '@/components/layouts/WishMark';
 import LikeAction from '@/components/layouts/LikeAction';
