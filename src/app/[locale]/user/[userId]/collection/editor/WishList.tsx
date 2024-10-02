@@ -194,7 +194,7 @@ const WishList: FC<IProps> = ({ userId }) => {
             )}
 
             <form
-                className="my-6 flex items-start gap-10"
+                className="sticky top-[66px] z-20 my-6 flex items-start gap-8 rounded-md bg-zinc-300 p-2 dark:bg-zinc-800 tablet-md:top-[76px]"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <UiInput

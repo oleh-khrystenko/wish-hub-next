@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import WishList from '@/app/[locale]/user/[userId]/collection/editor/WishList';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
@@ -11,9 +11,12 @@ import EditIcon from '@/components/icons/EditIcon';
 
 const Body: FC = () => {
     const { userId } = useParams<{ userId: string }>();
+    const searchParams = useSearchParams();
 
     const collectionPageT = useTranslations('collection-page');
     const allPagesT = useTranslations('all-pages');
+
+    const collectionId = searchParams.get('collectionId');
 
     const breadcrumbsPages = [
         {
@@ -48,7 +51,9 @@ const Body: FC = () => {
 
             <div className="mt-3 flex grow flex-col px-3 pb-5 desktop-sm:px-0">
                 <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                    {collectionPageT('editor_title')}
+                    {collectionPageT(
+                        collectionId ? 'edit_collection' : 'create_collection'
+                    )}
                 </h1>
 
                 <WishList userId={userId} />

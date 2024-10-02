@@ -482,7 +482,8 @@
         },
         "title": "User Collection:",
         "title_your": "My Collection",
-        "editor_title": "Wish Collection Editor",
+        "create_collection": "Create Collection",
+        "edit_collection": "Edit Collection",
         "collection_name": "Collection name",
         "create": "Create",
         "edit": "Edit"

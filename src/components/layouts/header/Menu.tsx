@@ -54,6 +54,9 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
 
     const theme = useSettingsStore((state) => state.theme);
     const setShowSidebar = useSettingsStore((state) => state.setShowSidebar);
+    const setShowSlidePanel = useSettingsStore(
+        (state) => state.setShowSlidePanel
+    );
 
     const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
     const { getFullName } = UseFullName();
@@ -162,7 +165,11 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
 
                 <div className="flex flex-col items-stretch gap-2 px-4 pb-2 pt-4 tablet-md:py-2">
                     {pathname !== `/${activeLocale}/main` && (
-                        <UiButton href="main" variant="text">
+                        <UiButton
+                            href="main"
+                            variant="text"
+                            onLinkClick={() => setShowSlidePanel(false)}
+                        >
                             <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                 <div className="p-0.5">
                                     <MainIcon />
@@ -179,6 +186,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                                 <UiButton
                                     href={`/user/${myUser.id}/collection`}
                                     variant="text"
+                                    onLinkClick={() => setShowSlidePanel(false)}
                                 >
                                     <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                         {theme === ETheme.DARK ? (

@@ -14,7 +14,6 @@ import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 import UiAvatar from '@/components/ui/UiAvatar';
 import CollectionIcon from '@/components/icons/CollectionIcon';
 import MainIcon from '@/components/icons/MainIcon';
-import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
 
 const Body: FC = () => {
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
@@ -61,9 +60,11 @@ const Body: FC = () => {
 
             <div className="mt-3 flex grow flex-col px-3 pb-5 desktop-sm:px-0">
                 <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                    {collectionPageT(
-                        myUser?.id === userId ? 'title_your' : 'title'
-                    )}
+                    <p className={`first-letter:capitalize`}>
+                        {collectionPageT(
+                            myUser?.id === userId ? 'title_your' : 'title'
+                        )}
+                    </p>
                 </h1>
 
                 {myUser?.id !== userId && (

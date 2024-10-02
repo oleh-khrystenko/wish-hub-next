@@ -41,7 +41,7 @@ const Collections: FC = () => {
                 {mainPageT('collections')}:
             </p>
 
-            <ul className="flex flex-col rounded-xl bg-zinc-300 px-3 py-2 dark:bg-zinc-800">
+            <ul className="flex flex-col gap-1 rounded-xl bg-zinc-300 px-3 py-2 dark:bg-zinc-800">
                 {collections.map((collection) => (
                     <li
                         key={collection.id}
