@@ -181,20 +181,22 @@ const WishList: FC<IProps> = ({ userId }) => {
     return (
         <>
             {wishes.length > 0 && (
-                <UiButton
-                    variant="text"
-                    onBtnClick={() => setShowSlidePanel(true)}
-                >
-                    <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
+                <div>
+                    <UiButton
+                        variant="text"
+                        onBtnClick={() => setShowSlidePanel(true)}
+                    >
+                        <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
-                    <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
-                        {allPagesT('display_settings')}
-                    </span>
-                </UiButton>
+                        <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
+                            {allPagesT('display_settings')}
+                        </span>
+                    </UiButton>
+                </div>
             )}
 
             <form
-                className="sticky top-[66px] z-20 my-6 flex items-start gap-8 rounded-md bg-zinc-300 p-2 dark:bg-zinc-800 tablet-md:top-[76px]"
+                className="sticky top-[66px] z-20 my-6 flex items-start gap-8 rounded-md bg-zinc-300 px-2 pb-2 pt-6 dark:bg-zinc-800 tablet-md:top-[74px]"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <UiInput
@@ -238,7 +240,7 @@ const WishList: FC<IProps> = ({ userId }) => {
 
                 {isLoadingAdd && (
                     <div className="relative mt-5 h-20 w-full">
-                        <UiLoading isLocal />
+                        <UiLoading isLocal bg="bg-transparent" />
                     </div>
                 )}
             </div>

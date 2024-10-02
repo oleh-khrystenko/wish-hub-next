@@ -368,7 +368,7 @@ const WishList: FC = () => {
 
                     {isLoadingAdd && (
                         <div className="relative mt-5 h-20 w-full">
-                            <UiLoading isLocal />
+                            <UiLoading isLocal bg="bg-transparent" />
                         </div>
                     )}
                 </div>
