@@ -9,6 +9,7 @@ import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
+import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
 import CreateWish from '@/components/layouts/wish-editor/CreateWish';
 import EditWish from '@/components/layouts/wish-editor/EditWish';
 import WishItem from '@/components/layouts/wish-list/WishItem';
@@ -167,17 +168,23 @@ const WishList: FC<IProps> = ({ userId }) => {
 
     return (
         <>
-            <div className="mr-auto">
-                <UiButton
-                    variant="text"
-                    onBtnClick={() => setShowSlidePanel(true)}
-                >
-                    <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
+            <div className="flex flex-col tablet-md:flex-row tablet-md:items-center tablet-md:justify-between tablet-md:gap-4">
+                <div className="mr-auto">
+                    <UiButton
+                        variant="text"
+                        onBtnClick={() => setShowSlidePanel(true)}
+                    >
+                        <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
-                    <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
-                        {allPagesT('display_settings')}
-                    </span>
-                </UiButton>
+                        <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
+                            {allPagesT('display_settings')}
+                        </span>
+                    </UiButton>
+                </div>
+
+                {myUser?.id === userId && (
+                    <ShareCollection myUserId={myUser.id} />
+                )}
             </div>
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
