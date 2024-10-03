@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
@@ -12,6 +12,7 @@ import { COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import UiSearch from '@/components/ui/UiSearch';
+import UiLoading from '@/components/ui/UiLoading';
 import CollectionIcon from '@/components/icons/CollectionIcon';
 import EditIcon from '@/components/icons/EditIcon';
 import BasketIcon from '@/components/icons/BasketIcon';
@@ -19,6 +20,8 @@ import SortIcon from '@/components/icons/SortIcon';
 
 const Collections: FC = () => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [firstLoad, setFirstLoad] = useState<boolean>(true);
+    const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
     const collectionListRef = useRef<HTMLUListElement>(null);
 
@@ -40,6 +43,8 @@ const Collections: FC = () => {
     const collections = useCollectionsStore((state) => state.list);
     const sort = useCollectionsStore((state) => state.sort);
     const search = useCollectionsStore((state) => state.search);
+    const page = useCollectionsStore((state) => state.page);
+    const stopRequests = useCollectionsStore((state) => state.stopRequests);
     const setCollectionsSort = useCollectionsStore(
         (state) => state.setCollectionsSort
     );
@@ -47,6 +52,7 @@ const Collections: FC = () => {
         (state) => state.setCollectionsSearch
     );
     const getCollections = useCollectionsStore((state) => state.getCollections);
+    const addCollections = useCollectionsStore((state) => state.addCollections);
 
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
@@ -113,6 +119,34 @@ const Collections: FC = () => {
     const handleDeleteCollection = () => {
         console.log('handleDeleteCollection');
     };
+
+    useEffect(() => {
+        const fetchWishes = async () => {
+            if (firstLoad) {
+                setFirstLoad(false);
+                return;
+            }
+
+            if (!inView || stopRequests || !selectedUserId) return;
+
+            setIsLoadingAdd(true);
+
+            await addCollections(
+                {
+                    userId: selectedUserId,
+                    page,
+                    limit: COLLECTION_PAGINATION_LIMIT,
+                    search,
+                    sort,
+                },
+                allPagesT('my-user-api.get-collections.error')
+            );
+
+            setIsLoadingAdd(false);
+        };
+
+        fetchWishes().finally();
+    }, [inView]);
 
     return (
         <div className="mb-2 flex flex-col gap-1 mobile-sm:mb-6">
@@ -238,7 +272,21 @@ const Collections: FC = () => {
                             </button>
                         </li>
                     ))}
+
+                    <li
+                        className="h-px w-full"
+                        style={{
+                            display: stopRequests ? 'none' : 'block',
+                        }}
+                        ref={ref}
+                    ></li>
                 </ul>
+
+                {isLoadingAdd && (
+                    <div className="relative mt-5 h-20 w-full">
+                        <UiLoading isLocal bg="bg-transparent" />
+                    </div>
+                )}
             </div>
         </div>
     );
