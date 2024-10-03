@@ -191,7 +191,7 @@ const Collections: FC = () => {
                 <div className="pb-2 pl-3 pr-2">
                     <UiSearch
                         id="collections-search"
-                        label={mainPageT('wishes-search')}
+                        label={allPagesT('collections_search')}
                         value={search}
                         changeSearchBar={handleChangeSearchBar}
                     />
