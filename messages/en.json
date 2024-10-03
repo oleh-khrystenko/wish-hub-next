@@ -112,14 +112,6 @@
         "does_not_have_fulfilled": "doesn't have any fulfilled wishes available for viewing.",
         "does_not_have_unfulfilled": "doesn't have any unfulfilled wishes available for viewing.",
         "no_wishes_found": "According to the specified parameters, no wishes were found.",
-        "sort": {
-            "title": "Sorting",
-            "by-popularity": "Popular first",
-            "by-price-up": "Cheap first",
-            "by-price-down": "Expensive first",
-            "by-created-up": "Newest first",
-            "by-created-down": "Oldest first"
-        },
         "wish-example": {
             "first": "Your gifts",
             "second": "Your wishes",
@@ -693,7 +685,17 @@
         "profile": "Profile",
         "collection_editor": "Collection Editor",
         "display_settings": "Display settings",
-        "broken_image": "Failed to load image"
+        "broken_image": "Failed to load image",
+        "sort": {
+            "title": "Sorting",
+            "by-popularity": "Popular first",
+            "by-price-up": "Cheap first",
+            "by-price-down": "Expensive first",
+            "by-created-up": "Newest first",
+            "by-created-down": "Oldest first",
+            "by-title-asc": "Title (A-Z)",
+            "by-title-desc": "Title (Z-A)"
+        }
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

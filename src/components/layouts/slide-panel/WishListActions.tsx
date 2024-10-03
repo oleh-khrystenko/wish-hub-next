@@ -7,8 +7,10 @@ import { TWishSort } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
+import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
+import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -43,23 +45,26 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
         (state) => state.getCollectionWishes
     );
 
+    const collections = useCollectionsStore((state) => state.list);
+
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
     );
 
     const { setSelectedWishesInEditCollection } = UseInitialCollection();
+    const screenWidth = UseScreenWidth();
 
-    let wishesSortText = mainPageT('sort.title');
+    let wishesSortText = allPagesT('sort.title');
     sort === 'sortByLikes:desc' &&
-        (wishesSortText = mainPageT('sort.by-popularity'));
+        (wishesSortText = allPagesT('sort.by-popularity'));
     sort === 'priceInBaseCurrency:desc' &&
-        (wishesSortText = mainPageT('sort.by-price-down'));
+        (wishesSortText = allPagesT('sort.by-price-down'));
     sort === 'priceInBaseCurrency:asc' &&
-        (wishesSortText = mainPageT('sort.by-price-up'));
+        (wishesSortText = allPagesT('sort.by-price-up'));
     sort === 'createdAt:desc' &&
-        (wishesSortText = mainPageT('sort.by-created-up'));
+        (wishesSortText = allPagesT('sort.by-created-up'));
     sort === 'createdAt:asc' &&
-        (wishesSortText = mainPageT('sort.by-created-down'));
+        (wishesSortText = allPagesT('sort.by-created-down'));
 
     const handleSortBy = async (value: TWishSort) => {
         setWishesSort(value);
@@ -126,19 +131,21 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     };
 
     return (
-        <div className="-mr-4 mt-6 flex items-center justify-between gap-3">
+        <div className="-mr-4 flex flex-col items-center justify-between mobile-xs:flex-row mobile-xs:gap-1 mobile-sm:gap-3">
             {myUser?.id === selectedUserId && (
-                <UiButton
-                    variant="text"
-                    href={`user/${myUser?.id}/collection/editor`}
-                    onLinkClick={() => setShowSlidePanel(false)}
-                >
-                    <CrossIcon classes="w-4 h-4 tablet-md:w-5 tablet-md:h-5 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />
+                <div className="mr-auto">
+                    <UiButton
+                        variant="text"
+                        href={`user/${myUser?.id}/collection/editor`}
+                        onLinkClick={() => setShowSlidePanel(false)}
+                    >
+                        <CrossIcon classes="w-4 h-4 tablet-md:w-5 tablet-md:h-5 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />
 
-                    <span className="py-3 text-zinc-500 dark:text-zinc-400">
-                        {mainPageT('create_collection')}
-                    </span>
-                </UiButton>
+                        <span className="py-2 text-xs text-zinc-500 dark:text-zinc-400 mobile-xs:py-3 mobile-xl:text-base">
+                            {mainPageT('create_collection')}
+                        </span>
+                    </UiButton>
+                </div>
             )}
 
             <div className="relative ml-auto">
@@ -146,7 +153,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                     variant="text-btn"
                     onBtnClick={() => setShowPopup(true)}
                 >
-                    <span className="whitespace-nowrap text-zinc-500 dark:text-zinc-400">
+                    <span className="whitespace-nowrap text-xs text-zinc-500 dark:text-zinc-400 mobile-xl:text-base">
                         {wishesSortText}
                     </span>
 
@@ -154,8 +161,9 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                 </UiButton>
 
                 <UiPopup
-                    classes="pt-10 pr-4"
+                    classes={`${screenWidth < 1024 || collections.length > 0 ? 'pb-10' : 'pt-10'} pr-4`}
                     show={showPopup}
+                    showPopupUp={screenWidth < 1024 || collections.length > 0}
                     hide={() => setShowPopup(false)}
                 >
                     <div className="flex flex-col p-2">
@@ -164,7 +172,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                             type="button"
                             onClick={() => handleSortBy('sortByLikes:desc')}
                         >
-                            {mainPageT('sort.by-popularity')}
+                            {allPagesT('sort.by-popularity')}
                         </button>
 
                         <button
@@ -174,7 +182,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                                 handleSortBy('priceInBaseCurrency:desc')
                             }
                         >
-                            {mainPageT('sort.by-price-down')}
+                            {allPagesT('sort.by-price-down')}
                         </button>
 
                         <button
@@ -184,7 +192,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                                 handleSortBy('priceInBaseCurrency:asc')
                             }
                         >
-                            {mainPageT('sort.by-price-up')}
+                            {allPagesT('sort.by-price-up')}
                         </button>
 
                         <button
@@ -192,7 +200,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                             type="button"
                             onClick={() => handleSortBy('createdAt:desc')}
                         >
-                            {mainPageT('sort.by-created-up')}
+                            {allPagesT('sort.by-created-up')}
                         </button>
 
                         <button
@@ -200,7 +208,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                             type="button"
                             onClick={() => handleSortBy('createdAt:asc')}
                         >
-                            {mainPageT('sort.by-created-down')}
+                            {allPagesT('sort.by-created-down')}
                         </button>
                     </div>
                 </UiPopup>

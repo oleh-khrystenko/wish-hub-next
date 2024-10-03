@@ -11,6 +11,6 @@ export interface ICollection {
 export enum ECollectionSort {
     CREATED_DESC = 'createdAt:desc',
     CREATED_ASC = 'createdAt:asc',
-    NAME_DESC = 'name:desc',
-    NAME_ASC = 'name:asc',
+    TITLE_DESC = 'name:desc',
+    TITLE_ASC = 'name:asc',
 }

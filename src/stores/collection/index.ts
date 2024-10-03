@@ -17,6 +17,8 @@ interface ICollectionsStore {
     sort: ECollectionSort;
     page: number;
     stopRequests: boolean;
+    setCollectionsSearch: (value: string) => void;
+    setCollectionsSort: (value: ECollectionSort) => void;
     createCollection: (
         data: ISendCreateCollection,
         errorT: string
@@ -37,6 +39,18 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
     sort: ECollectionSort.CREATED_DESC,
     page: 1,
     stopRequests: false,
+    setCollectionsSearch: (value) => {
+        set((state) => ({
+            ...state,
+            search: value,
+        }));
+    },
+    setCollectionsSort: (value) => {
+        set((state) => ({
+            ...state,
+            sort: value,
+        }));
+    },
     createCollection: async (data, errorT) => {
         try {
             const response = await collectionApi.createCollection(data);

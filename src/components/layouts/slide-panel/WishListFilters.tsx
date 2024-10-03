@@ -200,7 +200,7 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
     };
 
     return (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-5 mobile-xs:gap-8">
             <UiSelect
                 label={mainPageT('wishes_status')}
                 hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
