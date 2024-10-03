@@ -13,7 +13,7 @@ import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
 import CreateWish from '@/components/layouts/wish-editor/CreateWish';
 import EditWish from '@/components/layouts/wish-editor/EditWish';
 import WishItem from '@/components/layouts/wish-list/WishItem';
-import SlidePanel from '@/components/layouts/wish-editor/SlidePanel';
+import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
 import CrossIcon from '@/components/icons/CrossIcon';

@@ -8,13 +8,13 @@ import { ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
-import { useCollectionStore } from '@/stores/collection';
+import { useCollectionsStore } from '@/stores/collection';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishItem from '@/app/[locale]/user/[userId]/collection/editor/WishItem';
-import SlidePanel from '@/components/layouts/wish-editor/SlidePanel';
+import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import UiLoading from '@/components/ui/UiLoading';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
@@ -59,8 +59,8 @@ const WishList: FC<IProps> = ({ userId }) => {
     const stopRequests = useWishesStore((state) => state.stopRequests);
     const addWishList = useWishesStore((state) => state.addWishList);
 
-    const collections = useCollectionStore((state) => state.collections);
-    const createCollection = useCollectionStore(
+    const collections = useCollectionsStore((state) => state.list);
+    const createCollection = useCollectionsStore(
         (state) => state.createCollection
     );
 

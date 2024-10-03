@@ -2,9 +2,11 @@
 
 import { FC, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { ECollectionSort } from '@/models/Collection';
 import { useUsersStore } from '@/stores/users';
-import { useCollectionStore } from '@/stores/collection';
+import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
+import { COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import Collections from '@/components/layouts/Collections';
 import WishListActions from '@/components/layouts/slide-panel/WishListActions';
 import WishListFilters from '@/components/layouts/slide-panel/WishListFilters';
@@ -19,8 +21,8 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent }) => {
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
-    const collections = useCollectionStore((state) => state.collections);
-    const getCollections = useCollectionStore((state) => state.getCollections);
+    const collections = useCollectionsStore((state) => state.list);
+    const getCollections = useCollectionsStore((state) => state.getCollections);
 
     const showSlidePanel = useSettingsStore((state) => state.showSlidePanel);
     const setShowSlidePanel = useSettingsStore(
@@ -31,7 +33,13 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent }) => {
         if (!selectedUserId) return;
 
         getCollections(
-            { userId: selectedUserId },
+            {
+                userId: selectedUserId,
+                page: 1,
+                limit: COLLECTION_PAGINATION_LIMIT,
+                search: '',
+                sort: ECollectionSort.CREATED_DESC,
+            },
             allPagesT('my-user-api.get-collections.error')
         ).finally();
     }, [selectedUserId]);

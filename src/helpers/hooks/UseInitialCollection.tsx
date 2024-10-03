@@ -1,7 +1,7 @@
 import { IWish } from '@/models/Wish';
 import { useSearchParams } from 'next/navigation';
 import { useWishesStore } from '@/stores/wishes';
-import { useCollectionStore } from '@/stores/collection';
+import { useCollectionsStore } from '@/stores/collection';
 
 const UseInitialCollection = () => {
     const searchParams = useSearchParams();
@@ -10,7 +10,7 @@ const UseInitialCollection = () => {
         (state) => state.setSelectedWishes
     );
 
-    const collections = useCollectionStore((state) => state.collections);
+    const collections = useCollectionsStore((state) => state.list);
 
     const setSelectedWishesInEditCollection = (wishes: IWish[]) => {
         if (wishes.length === 0 || collections.length === 0) return;
