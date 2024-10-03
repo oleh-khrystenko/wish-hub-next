@@ -54,7 +54,7 @@ const UiImage: FC<IProps> = ({
                 </p>
             )}
 
-            {isLoading && <UiLoading isLocal />}
+            {isLoading && <UiLoading isLocal bg="bg-transparent" />}
         </div>
     );
 };

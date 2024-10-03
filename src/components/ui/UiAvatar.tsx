@@ -74,7 +74,11 @@ const UiAvatar: FC<IProps> = ({
                     )}
 
                     {isLoading && (
-                        <UiLoading isLocal bg="bg-zinc-300 dark:bg-zinc-800" />
+                        <UiLoading
+                            isLocal
+                            size="h-10 min-h-10 w-10 min-w-10"
+                            bg="bg-transparent"
+                        />
                     )}
                 </>
             ) : (
