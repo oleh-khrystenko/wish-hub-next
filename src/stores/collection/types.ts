@@ -1,12 +1,15 @@
 import { ECollectionSort, ICollection } from '@/models/Collection';
-import { IUserId } from '@/stores/my-user/types';
+import { IUser } from '@/models/User';
 
-export interface ISendCreateCollection extends IUserId {
+export interface ISendCreateCollection {
+    userId: IUser['id'];
     wishIdList: ICollection['wishIdList'];
     name: ICollection['name'];
 }
 
-export interface ISendGetCollections extends IUserId {
+export interface ISendGetCollections {
+    myId?: IUser['id'];
+    userId: IUser['id'];
     page: number;
     limit: number;
     search: string;

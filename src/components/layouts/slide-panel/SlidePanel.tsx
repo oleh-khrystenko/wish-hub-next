@@ -3,6 +3,7 @@
 import { FC, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { ECollectionSort } from '@/models/Collection';
+import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
@@ -19,6 +20,8 @@ interface IProps {
 const SlidePanel: FC<IProps> = ({ wishListRefCurrent }) => {
     const allPagesT = useTranslations('all-pages');
 
+    const myUser = useMyUserStore((state) => state.myUser);
+
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
     const collections = useCollectionsStore((state) => state.list);
@@ -34,6 +37,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent }) => {
 
         getCollections(
             {
+                myId: myUser?.id,
                 userId: selectedUserId,
                 page: 1,
                 limit: COLLECTION_PAGINATION_LIMIT,

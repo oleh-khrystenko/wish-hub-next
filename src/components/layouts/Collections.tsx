@@ -133,6 +133,7 @@ const Collections: FC = () => {
 
             await addCollections(
                 {
+                    myId: myUser?.id,
                     userId: selectedUserId,
                     page,
                     limit: COLLECTION_PAGINATION_LIMIT,
