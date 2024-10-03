@@ -12,7 +12,7 @@ const UseInitialCollection = () => {
 
     const collections = useCollectionStore((state) => state.collections);
 
-    const getInitialCollection = (wishes: IWish[]) => {
+    const setSelectedWishesInEditCollection = (wishes: IWish[]) => {
         if (wishes.length === 0 || collections.length === 0) return;
 
         const collectionId = searchParams.get('collectionId');
@@ -26,7 +26,7 @@ const UseInitialCollection = () => {
     };
 
     return {
-        getInitialCollection,
+        setSelectedWishesInEditCollection,
     };
 };
 

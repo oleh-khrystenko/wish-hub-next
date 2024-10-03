@@ -14,7 +14,7 @@ import UseValidations from '@/helpers/hooks/UseValidations';
 import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishItem from '@/app/[locale]/user/[userId]/collection/editor/WishItem';
-import SlidePanel from '@/components/layouts/SlidePanel';
+import SlidePanel from '@/components/layouts/wish-editor/SlidePanel';
 import UiLoading from '@/components/ui/UiLoading';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
@@ -78,7 +78,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     const { collectionNameValidation } = UseValidations();
 
     const { getInitialWishList } = UseInitialWishes();
-    const { getInitialCollection } = UseInitialCollection();
+    const { setSelectedWishesInEditCollection } = UseInitialCollection();
 
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
         if (!myUser) return;
@@ -144,7 +144,7 @@ const WishList: FC<IProps> = ({ userId }) => {
             );
 
             if (!responseWishes) return;
-            getInitialCollection(responseWishes);
+            setSelectedWishesInEditCollection(responseWishes);
 
             setIsLoadingAdd(false);
         };
@@ -173,7 +173,7 @@ const WishList: FC<IProps> = ({ userId }) => {
             );
 
             if (!responseWishes) return;
-            getInitialCollection(responseWishes);
+            setSelectedWishesInEditCollection(responseWishes);
         };
         fetchWishes().finally();
     }, [searchParams, userId, collections.length]);

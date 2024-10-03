@@ -12,7 +12,7 @@ import UseFullName from '@/helpers/hooks/UseFullName';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import CreateWish from '@/components/layouts/wish-editor/CreateWish';
 import EditWish from '@/components/layouts/wish-editor/EditWish';
-import SlidePanel from '@/components/layouts/SlidePanel';
+import SlidePanel from '@/components/layouts/wish-editor/SlidePanel';
 import WishItem from '@/components/layouts/wish-list/WishItem';
 import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
 import UiButton from '@/components/ui/UiButton';

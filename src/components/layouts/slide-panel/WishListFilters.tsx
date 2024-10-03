@@ -17,7 +17,7 @@ interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
 }
 
-const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
+const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
@@ -73,7 +73,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
         },
     ];
 
-    const { getInitialCollection } = UseInitialCollection();
+    const { setSelectedWishesInEditCollection } = UseInitialCollection();
 
     const handleChangeWishStatus = async (value: IOption['value']) => {
         setWishesStatus(value as EWishStatus);
@@ -112,7 +112,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                 );
 
                 if (!wishes) return;
-                getInitialCollection(wishes);
+                setSelectedWishesInEditCollection(wishes);
             }
         } else {
             await getAllWishes(
@@ -174,7 +174,7 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
                 );
 
                 if (!wishes) return;
-                getInitialCollection(wishes);
+                setSelectedWishesInEditCollection(wishes);
             }
         } else {
             await getAllWishes(
@@ -219,4 +219,4 @@ const WishListFilter: FC<IProps> = ({ wishListRefCurrent }) => {
     );
 };
 
-export default WishListFilter;
+export default WishListFilters;

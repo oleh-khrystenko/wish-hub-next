@@ -6,8 +6,8 @@ import { useUsersStore } from '@/stores/users';
 import { useCollectionStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import Collections from '@/components/layouts/Collections';
-import WishListActions from '@/components/layouts/wish-list/WishListActions';
-import WishListFilter from '@/components/layouts/wish-list/WishListFilter';
+import WishListActions from '@/components/layouts/slide-panel/WishListActions';
+import WishListFilters from '@/components/layouts/slide-panel/WishListFilters';
 import CrossIcon from '@/components/icons/CrossIcon';
 
 interface IProps {
@@ -65,7 +65,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent }) => {
 
                     <WishListActions wishListRefCurrent={wishListRefCurrent} />
 
-                    <WishListFilter wishListRefCurrent={wishListRefCurrent} />
+                    <WishListFilters wishListRefCurrent={wishListRefCurrent} />
                 </div>
             </div>
         </div>

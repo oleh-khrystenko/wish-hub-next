@@ -47,7 +47,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
         (state) => state.setShowSlidePanel
     );
 
-    const { getInitialCollection } = UseInitialCollection();
+    const { setSelectedWishesInEditCollection } = UseInitialCollection();
 
     let wishesSortText = mainPageT('sort.title');
     sort === 'sortByLikes:desc' &&
@@ -99,7 +99,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                 );
 
                 if (!wishes) return;
-                getInitialCollection(wishes);
+                setSelectedWishesInEditCollection(wishes);
             }
         } else {
             await getAllWishes(
