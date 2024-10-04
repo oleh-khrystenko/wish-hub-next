@@ -168,7 +168,7 @@ const WishList: FC<IProps> = ({ userId }) => {
 
     return (
         <>
-            <div className="flex flex-col tablet-md:flex-row tablet-md:items-center tablet-md:justify-between tablet-md:gap-4">
+            <div className="flex flex-col mobile-sm:flex-row mobile-sm:items-center mobile-sm:justify-between mobile-sm:gap-2">
                 <div className="mr-auto">
                     <UiButton
                         variant="text"
@@ -177,7 +177,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                         <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
                         <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
-                            {allPagesT('display_settings')}
+                            {allPagesT('filters')}
                         </span>
                     </UiButton>
                 </div>

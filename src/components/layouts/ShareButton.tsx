@@ -1,11 +1,11 @@
 'use client';
 
 import { FC, ReactNode, useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 import { EPrivacy } from '@/models/Settings';
-import ShareIcon from '@/components/icons/ShareIcon';
-import { useLocale, useTranslations } from 'next-intl';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
+import ShareIcon from '@/components/icons/ShareIcon';
 
 interface IProps {
     actionClasses?: string;
@@ -27,6 +27,11 @@ const ShareButton: FC<IProps> = ({
     const activeLocale = useLocale();
     const shareButtonT = useTranslations('share-button');
 
+    let successT: string = 'wish_hub_success';
+    link.includes('collection') && (successT = 'wishes_success');
+    link.includes('collectionId') && (successT = 'collection_success');
+    link.includes('wish') && (successT = 'wish_success');
+
     const shareContent = () => {
         if (navigator.share) {
             navigator
@@ -36,11 +41,7 @@ const ShareButton: FC<IProps> = ({
                     url: `https://wish-hub.net/${activeLocale}/${link}`,
                 })
                 .then(() =>
-                    toast.success(
-                        link === 'welcome'
-                            ? shareButtonT('alerts.share.wish_hub_success')
-                            : shareButtonT('alerts.share.wish_success')
-                    )
+                    toast.success(shareButtonT(`alerts.share.${successT}`))
                 )
                 .catch((error) => {
                     console.log(
@@ -53,11 +54,7 @@ const ShareButton: FC<IProps> = ({
             navigator.clipboard
                 .writeText(`https://wish-hub.net/${activeLocale}/${link}`)
                 .then(() =>
-                    toast.success(
-                        link === 'welcome'
-                            ? shareButtonT('alerts.clipboard.wish_hub_success')
-                            : shareButtonT('alerts.clipboard.wish_success')
-                    )
+                    toast.success(shareButtonT(`alerts.clipboard.${successT}`))
                 )
                 .catch((error) => {
                     console.log(

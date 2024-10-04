@@ -248,7 +248,7 @@ const WishList: FC = () => {
             <Title selectedUserFullName={selectedUserFullName} />
 
             {wishes.length > 0 && (
-                <div className="flex flex-col items-center justify-between pl-2.5 tablet-lg:flex-row tablet-lg:gap-4">
+                <div className="flex flex-col items-center justify-between pl-2.5 mobile-sm:flex-row mobile-sm:gap-2">
                     <div className="mr-auto">
                         <UiButton
                             variant="text"
@@ -257,7 +257,7 @@ const WishList: FC = () => {
                             <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
                             <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
-                                {allPagesT('display_settings')}
+                                {allPagesT('filters')}
                             </span>
                         </UiButton>
                     </div>

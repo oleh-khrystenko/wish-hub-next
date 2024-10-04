@@ -91,7 +91,9 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
             {myUser ? (
                 <>
                     {myUser.id === selectedUserId || !isMainPage ? (
-                        <div className="flex max-w-40 flex-col items-end gap-1 mobile-xs:max-w-48 mobile-sm:max-w-52 mobile-md:max-w-56 mobile-lg:max-w-60 tablet-sm:max-w-72">
+                        <div
+                            className={`${isMainPage ? 'max-w-40 mobile-xs:max-w-48 mobile-sm:max-w-52 mobile-md:max-w-56 mobile-lg:max-w-60 tablet-sm:max-w-72' : 'max-w-20 mobile-xs:max-w-32 mobile-sm:max-w-36 mobile-md:max-w-40 mobile-lg:max-w-44 tablet-sm:max-w-56'} flex flex-col items-end gap-1`}
+                        >
                             <p className="w-full truncate text-right text-sm font-bold text-zinc-800 dark:text-zinc-300">
                                 {getFullName(myUser)}
                             </p>

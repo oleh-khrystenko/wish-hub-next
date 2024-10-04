@@ -189,7 +189,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                         <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
                         <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
-                            {allPagesT('display_settings')}
+                            {allPagesT('filters')}
                         </span>
                     </UiButton>
                 </div>

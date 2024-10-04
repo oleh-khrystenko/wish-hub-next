@@ -163,6 +163,7 @@
             "birthday-nobody-tooltip": "Your birthday will not be visible to anyone."
         },
         "share_wishes": "Share all wishes",
+        "share_collection": "Share this collection",
         "delete-wish": "Delete wish",
         "delete": "Delete",
         "are-you-sure": "Are You sure you want to delete this wish?",
@@ -688,7 +689,7 @@
         "collection": "Collection of wishes",
         "profile": "Profile",
         "collection_editor": "Collection Editor",
-        "display_settings": "Display settings",
+        "filters": "Filters",
         "broken_image": "Failed to load image",
         "sort": {
             "title": "Sorting",
@@ -720,14 +721,18 @@
         "question-friends": "Are you sure you want to share a wish that is only open to your friends?",
         "alerts": {
             "share": {
-                "wish_success": "You have successfully shared Your wish.",
                 "wish_hub_success": "You have successfully shared \"Wish Hub\".",
+                "wishes_success": "You have successfully shared Your wishes.",
+                "collection_success": "You have successfully shared Your collection.",
+                "wish_success": "You have successfully shared Your wish.",
                 "error": "An error occurred while trying to activate the \"Share\" function.",
                 "console-error": "Sharing error: "
             },
             "clipboard": {
-                "wish_success": "The link to Your wish has been copied to the clipboard.",
                 "wish_hub_success": "The link to \"Wish Hub\" has been copied to the clipboard.",
+                "wishes_success": "The link to Your wishes has been copied to the clipboard.",
+                "collection_success": "The link to Your collection has been copied to the clipboard.",
+                "wish_success": "The link to Your wish has been copied to the clipboard.",
                 "error": "An error occurred while trying to copy the link to the clipboard.",
                 "console-error": "Clipboard error: "
             }

@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { EPrivacy } from '@/models/Settings';
 import { useWishesStore } from '@/stores/wishes';
@@ -13,6 +14,8 @@ interface IProps {
 }
 
 const ShareCollection: FC<IProps> = ({ myUserId }) => {
+    const searchParams = useSearchParams();
+
     const mainPageT = useTranslations('main-page');
 
     const wishes = useWishesStore((state) => state.list);
@@ -21,6 +24,8 @@ const ShareCollection: FC<IProps> = ({ myUserId }) => {
         () => wishes.some((wish) => wish.show === EPrivacy.ALL),
         [wishes]
     );
+
+    const collectionId = searchParams.get('collectionId');
 
     return (
         <div className="ml-auto flex items-center gap-1">
@@ -45,11 +50,16 @@ const ShareCollection: FC<IProps> = ({ myUserId }) => {
                 }
             >
                 <ShareButton
-                    link={`user/${myUserId}/collection`}
+                    link={
+                        `user/${myUserId}/collection` +
+                        (collectionId ? `?collectionId=${collectionId}` : '')
+                    }
                     actionClasses="flex-row-reverse"
                 >
                     <span className="mr-1.5 whitespace-nowrap py-2.5 text-sm text-zinc-700 dark:text-zinc-400">
-                        {mainPageT('share_wishes')}
+                        {mainPageT(
+                            collectionId ? 'share_collection' : 'share_wishes'
+                        )}
                     </span>
                 </ShareButton>
             </div>
