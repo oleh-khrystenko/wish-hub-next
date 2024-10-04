@@ -150,7 +150,7 @@ const Collections: FC = () => {
     }, [inView]);
 
     return (
-        <div className="mb-2 flex flex-col gap-1 mobile-sm:mb-6">
+        <div className="mb-2 flex flex-col gap-1 border-b border-zinc-700 pb-4 dark:border-zinc-400 mobile-sm:pb-6">
             <div className="flex items-center justify-between gap-2">
                 {/* Title */}
                 <p className="mr-auto flex items-center gap-2 pl-2 text-sm font-bold text-zinc-500 dark:text-zinc-400 mobile-lg:text-base">
@@ -159,7 +159,7 @@ const Collections: FC = () => {
                 </p>
 
                 {/* Sort */}
-                <div className="relative ml-auto">
+                <div className="relative -mr-3 ml-auto">
                     <UiButton
                         variant="text-btn"
                         onBtnClick={() => setShowPopup(true)}
@@ -234,9 +234,21 @@ const Collections: FC = () => {
 
                 {/* List */}
                 <ul
-                    className="flex max-h-[calc(100svh_-_428px)] flex-col gap-1 overflow-y-auto overflow-x-hidden pl-3 pr-1 mobile-xs:max-h-[calc(100svh_-_600px)] mobile-md:max-h-[calc(100svh_-_650px)] tablet-lg:max-h-[calc(100svh_-_568px)]"
+                    className="flex max-h-[calc(100svh_-_404px)] flex-col gap-1 overflow-y-auto overflow-x-hidden pl-3 pr-1 mobile-xs:max-h-[calc(100svh_-_600px)] mobile-md:max-h-[calc(100svh_-_650px)] tablet-lg:max-h-[calc(100svh_-_568px)]"
                     ref={collectionListRef}
                 >
+                    {collectionId && (
+                        <li className="flex">
+                            <Link
+                                href={pathname}
+                                className="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
+                                onClick={() => setShowSlidePanel(false)}
+                            >
+                                {allPagesT('all_wishes')}
+                            </Link>
+                        </li>
+                    )}
+
                     {collections.map((collection) => (
                         <li
                             key={collection.id}
@@ -244,7 +256,7 @@ const Collections: FC = () => {
                         >
                             <Link
                                 href={`${pathname}?collectionId=${collection.id}`}
-                                className="w-full rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
+                                className="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
                                 onClick={() => setShowSlidePanel(false)}
                             >
                                 {collection.name}

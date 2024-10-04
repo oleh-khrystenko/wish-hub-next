@@ -15,7 +15,7 @@ import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import SortIcon from '@/components/icons/SortIcon';
-import CrossIcon from '@/components/icons/CrossIcon';
+import LogoIcon from '@/components/icons/LogoIcon';
 
 interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
@@ -28,7 +28,6 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const pathname = usePathname();
 
     const activeLocale = useLocale();
-    const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -131,20 +130,14 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     };
 
     return (
-        <div className="-mr-4 flex flex-col items-center justify-between mobile-xs:flex-row mobile-xs:gap-1 mobile-sm:gap-3">
+        <div className="-mr-4 flex items-center justify-between gap-1 mobile-sm:gap-3">
             {myUser?.id === selectedUserId && (
-                <div className="mr-auto">
-                    <UiButton
-                        variant="text"
-                        href={`user/${myUser?.id}/collection/editor`}
-                        onLinkClick={() => setShowSlidePanel(false)}
-                    >
-                        <CrossIcon classes="w-4 h-4 tablet-md:w-5 tablet-md:h-5 stroke-cyan-400 dark:stroke-cyan-300 -rotate-45" />
+                <div className="mr-auto flex items-center gap-2">
+                    <LogoIcon classes="h-5 w-5" id="logo-slide-panel" />
 
-                        <span className="py-2 text-xs text-zinc-500 dark:text-zinc-400 mobile-xs:py-3 mobile-xl:text-base">
-                            {mainPageT('create_collection')}
-                        </span>
-                    </UiButton>
+                    <span className="text-sm font-bold text-zinc-500 dark:text-zinc-400 mobile-xl:text-base">
+                        {allPagesT('wishes')}:
+                    </span>
                 </div>
             )}
 

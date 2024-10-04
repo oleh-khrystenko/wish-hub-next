@@ -14,9 +14,9 @@ import CreateWish from '@/components/layouts/wish-editor/CreateWish';
 import EditWish from '@/components/layouts/wish-editor/EditWish';
 import WishItem from '@/components/layouts/wish-list/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
+import CreateWishAndCollection from '@/components/layouts/CreateWishAndCollection';
 import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
-import CrossIcon from '@/components/icons/CrossIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
 import SliderIcon from '@/components/icons/SliderIcon';
 
@@ -191,19 +191,9 @@ const WishList: FC<IProps> = ({ userId }) => {
                 <div className="mt-4" ref={wishListRef}>
                     <ul className="grid grid-cols-2 gap-1.5 tablet-md:grid-cols-3 tablet-lg:grid-cols-4 tablet-xl:grid-cols-5 tablet-xl:gap-4 desktop-sm:grid-cols-6">
                         {myUser?.id === selectedUserId && (
-                            <li className="relative flex items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
-                                <button
-                                    className="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border-2 border-dashed border-transparent transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
-                                    type="button"
-                                    onClick={handleShowCreateWish}
-                                >
-                                    <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-500 group-hover:dark:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />
-
-                                    <span className="text-xl font-bold text-zinc-700 group-hover:text-cyan-500 dark:text-zinc-400 group-hover:dark:text-cyan-300">
-                                        {mainPageT('create-wish')}
-                                    </span>
-                                </button>
-                            </li>
+                            <CreateWishAndCollection
+                                createWish={handleShowCreateWish}
+                            />
                         )}
 
                         {wishes.length > 0 &&

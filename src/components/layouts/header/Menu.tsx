@@ -91,7 +91,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
             {myUser ? (
                 <>
                     {myUser.id === selectedUserId || !isMainPage ? (
-                        <div className="flex max-w-20 flex-col items-end gap-1 mobile-xs:max-w-32 mobile-sm:max-w-36 mobile-md:max-w-40 mobile-lg:max-w-44 tablet-sm:max-w-56">
+                        <div className="flex max-w-40 flex-col items-end gap-1 mobile-xs:max-w-48 mobile-sm:max-w-52 mobile-md:max-w-56 mobile-lg:max-w-60 tablet-sm:max-w-72">
                             <p className="w-full truncate text-right text-sm font-bold text-zinc-800 dark:text-zinc-300">
                                 {getFullName(myUser)}
                             </p>
@@ -159,7 +159,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     </div>
                 )}
 
-                <div className="flex flex-col items-stretch gap-2 px-4 pb-2 pt-4 tablet-md:py-2">
+                <div className="flex flex-col items-stretch gap-1 px-4 pb-2 pt-4 mobile-xs:gap-2 tablet-md:py-2">
                     {pathname !== `/${activeLocale}/main` && (
                         <UiButton href="main" variant="text">
                             <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
@@ -227,7 +227,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     </div>
                 </div>
 
-                <div className="flex flex-col items-stretch gap-2 border-t border-zinc-500 px-4 py-2 dark:border-zinc-600">
+                <div className="flex flex-col items-stretch gap-1 border-t border-zinc-500 px-4 py-2 dark:border-zinc-600 mobile-xs:gap-2">
                     {/*<UiButton*/}
                     {/*    href="instruction"*/}
                     {/*    variant="text"*/}
@@ -264,7 +264,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     </UiButton>
                 </div>
 
-                <div className="flex flex-col items-stretch gap-2 border-t border-zinc-500 p-4 dark:border-zinc-600">
+                <div className="flex flex-col items-stretch gap-1 border-t border-zinc-500 p-4 dark:border-zinc-600 mobile-xs:gap-2">
                     {myUser && (
                         <UiButton variant="text" onBtnClick={handleLogout}>
                             <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">

@@ -700,7 +700,9 @@
             "by-title-asc": "Название (А-Я)",
             "by-title-desc": "Название (Я-А)"
         },
-        "collections_search": "Поиск коллекций"
+        "collections_search": "Поиск коллекций",
+        "wishes": "Желания",
+        "all_wishes": "Все желания"
     },
     "inactivated": {
         "aim": "Мы стремимся, чтобы все пользователи были настоящими.",

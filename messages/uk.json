@@ -700,7 +700,9 @@
             "by-title-asc": "Назва (А-Я)",
             "by-title-desc": "Назва (Я-А)"
         },
-        "collections_search": "Пошук колекцій"
+        "collections_search": "Пошук колекцій",
+        "wishes": "Бажання",
+        "all_wishes": "Всі бажання"
     },
     "inactivated": {
         "aim": "Ми прагнемо, щоб всі користувачі були справжніми.",

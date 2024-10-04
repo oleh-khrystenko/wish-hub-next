@@ -25,7 +25,7 @@ const UiPopup: FC<IProps> = ({
     return (
         show && (
             <div
-                className={`${classes} ${showPopupUp ? 'bottom-0' : 'top-0'} ${showPopupCenter ? 'left-1/2 -translate-x-1/2' : 'right-0'} absolute z-40 max-h-svh max-w-xl`}
+                className={`${classes} ${showPopupUp ? 'bottom-0' : 'top-0'} ${showPopupCenter ? 'left-1/2 -translate-x-1/2' : 'right-0'} absolute z-40 max-h-svh max-w-72 mobile-xs:max-w-xs`}
                 ref={wrapRef}
             >
                 <OutsideClickHandler

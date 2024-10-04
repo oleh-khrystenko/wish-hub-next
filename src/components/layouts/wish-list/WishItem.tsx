@@ -58,7 +58,7 @@ const WishItem: FC<IProps> = ({ wish, idx, currentPage, editWish }) => {
         >
             <Link
                 href={`/${activeLocale}/user/${wish.userId}/collection/wish?wishId=${wish.id}&fromPage=${currentPage}`}
-                className={`${wish.executed ? '-rotate-3 border-cyan-500 bg-wish-bg dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center gap-4 rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
+                className={`${wish.executed ? '-rotate-3 border-cyan-500 bg-wish-bg dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
                 onClick={() => setShowGlobalLoading(true)}
             >
                 <div className="relative w-full pt-[100%]">
@@ -81,7 +81,7 @@ const WishItem: FC<IProps> = ({ wish, idx, currentPage, editWish }) => {
                     <WishMark wish={wish} myUserId={myUser?.id} />
                 </div>
 
-                <div className="flex w-full flex-col items-center justify-evenly gap-3">
+                <div className="mt-1 flex w-full flex-col items-center justify-evenly">
                     <div className="w-full truncate text-center text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-lg">
                         {name}
                     </div>

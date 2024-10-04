@@ -700,7 +700,9 @@
             "by-title-asc": "Title (A-Z)",
             "by-title-desc": "Title (Z-A)"
         },
-        "collections_search": "Collections Search"
+        "collections_search": "Collections Search",
+        "wishes": "Wishes",
+        "all_wishes": "All wishes"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",
