@@ -605,13 +605,6 @@
             "delete-my-user": {
                 "success": "Your account has been successfully deleted.",
                 "error": "deleteMyUser: Failed to delete the user."
-            },
-            "create-collection": {
-                "success": "The collection \"{name}\" has been successfully created.",
-                "error": "Failed to create the collection."
-            },
-            "get-collections": {
-                "error": "Failed to get collections."
             }
         },
         "users-api": {
@@ -676,6 +669,18 @@
                 "error": "Failed to get collection wishes."
             }
         },
+        "collections": {
+            "create-collection": {
+                "success": "The collection \"{name}\" has been successfully created.",
+                "error": "Failed to create the collection."
+            },
+            "get-collections": {
+                "error": "Failed to get collections."
+            },
+            "delete-collection": {
+                "error": "Failed to delete the “{name}” collection."
+            }
+        },
         "loading": {
             "first": "We're already working on it. Don't worry, everything is under control!",
             "second": "Something's taking longer than expected... It might be due to slow internet. Try refreshing the page.",
@@ -703,7 +708,8 @@
         },
         "collections_search": "Collections Search",
         "wishes": "Wishes",
-        "all_wishes": "All wishes"
+        "all_wishes": "All wishes",
+        "sure_collection": "Deleting the collection will not remove any wishes. Are you sure you want to delete the collection \"{name}\"?"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

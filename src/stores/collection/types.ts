@@ -22,3 +22,13 @@ export interface IGetCollections {
     page: number;
     total: number;
 }
+
+export interface ISendDeleteCollection {
+    collectionId: ICollection['id'];
+    userId: IUser['id'];
+}
+
+export interface IDeleteCollection {
+    collectionId: ICollection['id'];
+    message: string;
+}

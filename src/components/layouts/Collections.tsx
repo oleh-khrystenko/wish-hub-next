@@ -3,7 +3,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
-import { ECollectionSort } from '@/models/Collection';
+import { ECollectionSort, ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useCollectionsStore } from '@/stores/collection';
@@ -18,7 +18,11 @@ import EditIcon from '@/components/icons/EditIcon';
 import BasketIcon from '@/components/icons/BasketIcon';
 import SortIcon from '@/components/icons/SortIcon';
 
-const Collections: FC = () => {
+interface IProps {
+    handleDeleteCollection: (currentCollection: ICollection) => void;
+}
+
+const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
@@ -83,7 +87,7 @@ const Collections: FC = () => {
                 search,
                 sort: value,
             },
-            allPagesT('my-user-api.get-collections.error')
+            allPagesT('collections.get-collections.error')
         );
 
         collectionListRef.current?.scrollTo({
@@ -107,17 +111,13 @@ const Collections: FC = () => {
                 search: value,
                 sort: ECollectionSort.CREATED_DESC,
             },
-            allPagesT('my-user-api.get-collections.error')
+            allPagesT('collections.get-collections.error')
         );
 
         collectionListRef.current?.scrollTo({
             behavior: 'smooth',
             top: 0,
         });
-    };
-
-    const handleDeleteCollection = () => {
-        console.log('handleDeleteCollection');
     };
 
     useEffect(() => {
@@ -140,7 +140,7 @@ const Collections: FC = () => {
                     search,
                     sort,
                 },
-                allPagesT('my-user-api.get-collections.error')
+                allPagesT('collections.get-collections.error')
             );
 
             setIsLoadingAdd(false);
@@ -150,7 +150,7 @@ const Collections: FC = () => {
     }, [inView]);
 
     return (
-        <div className="mb-2 flex flex-col gap-1 border-b border-zinc-700 pb-4 dark:border-zinc-400 mobile-sm:pb-6">
+        <div className="mb-2 flex flex-col gap-1 border-b border-zinc-300 pb-4 dark:border-zinc-800 mobile-sm:pb-6">
             <div className="flex items-center justify-between gap-2">
                 {/* Title */}
                 <p className="mr-auto flex items-center gap-2 pl-2 text-sm font-bold text-zinc-500 dark:text-zinc-400 mobile-lg:text-base">
@@ -279,7 +279,9 @@ const Collections: FC = () => {
                             <button
                                 className="rounded-md p-2 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-2.5"
                                 type="button"
-                                onClick={handleDeleteCollection}
+                                onClick={() =>
+                                    handleDeleteCollection(collection)
+                                }
                             >
                                 <BasketIcon />
                             </button>

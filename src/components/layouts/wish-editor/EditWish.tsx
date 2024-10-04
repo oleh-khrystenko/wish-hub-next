@@ -1,8 +1,7 @@
 'use client';
 
 import { FC, useState, useLayoutEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
     ECurrency,
@@ -38,11 +37,6 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
     const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
     const [showConfirmDeleteWish, setShowConfirmDeleteWish] =
         useState<boolean>(false);
-
-    const router = useRouter();
-    const pathname = usePathname();
-
-    const activeLocale = useLocale();
 
     const mainPageT = useTranslations('main-page');
     const validationsT = useTranslations('validations');

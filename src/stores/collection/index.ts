@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { ECollectionSort, ICollection } from '@/models/Collection';
 import {
     ISendCreateCollection,
+    ISendDeleteCollection,
     ISendGetCollections,
 } from '@/stores/collection/types';
 import collectionApi from '@/stores/collection/api';
@@ -21,6 +22,7 @@ interface ICollectionsStore {
     setCollectionsSort: (value: ECollectionSort) => void;
     createCollection: (
         data: ISendCreateCollection,
+        successT: string,
         errorT: string
     ) => Promise<ICollection | void>;
     getCollections: (
@@ -29,6 +31,10 @@ interface ICollectionsStore {
     ) => Promise<void>;
     addCollections: (
         params: ISendGetCollections,
+        errorT: string
+    ) => Promise<void>;
+    deleteCollection: (
+        params: ISendDeleteCollection,
         errorT: string
     ) => Promise<void>;
 }
@@ -51,7 +57,7 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
             sort: value,
         }));
     },
-    createCollection: async (data, errorT) => {
+    createCollection: async (data, successT, errorT) => {
         try {
             const response = await collectionApi.createCollection(data);
 
@@ -59,6 +65,8 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
                 ...state,
                 list: [response.data, ...state.list],
             }));
+
+            toast(successT, { type: 'success' });
 
             return response.data;
         } catch (error: any) {
@@ -119,6 +127,26 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
+        }
+    },
+    deleteCollection: async (params, errorT) => {
+        setShowGlobalLoading(true);
+
+        try {
+            const response = await collectionApi.deleteCollection(params);
+
+            set((state) => ({
+                ...state,
+                list: state.list.filter(
+                    (collection) => collection.id !== response.data.collectionId
+                ),
+            }));
+
+            toast(response.data.message, { type: 'success' });
+        } catch (error: any) {
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
         }
     },
 }));

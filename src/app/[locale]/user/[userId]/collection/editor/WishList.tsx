@@ -102,11 +102,14 @@ const WishList: FC<IProps> = ({ userId }) => {
                 wishIdList,
                 name: data.collectionName,
             },
-            allPagesT('my-user-api.create-collection.error')
+            allPagesT('collections.create-collection.success', {
+                name: data.collectionName,
+            }),
+            allPagesT('collections.create-collection.error')
         );
 
         if (!collection) {
-            toast(allPagesT('my-user-api.create-collection.error'), {
+            toast(allPagesT('collections.create-collection.error'), {
                 type: 'error',
             });
 
