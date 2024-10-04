@@ -1,0 +1,93 @@
+import { FC } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useMyUserStore } from '@/stores/my-user';
+import { useUsersStore } from '@/stores/users';
+import { useCollectionsStore } from '@/stores/collection';
+
+interface IProps {
+    selectedUserFullName: string;
+}
+
+const Title: FC<IProps> = ({ selectedUserFullName }) => {
+    const searchParams = useSearchParams();
+
+    const mainPageT = useTranslations('main-page');
+
+    const myUser = useMyUserStore((state) => state.myUser);
+
+    const selectedUserId = useUsersStore((state) => state.selectedUserId);
+
+    const collections = useCollectionsStore((state) => state.list);
+
+    const collectionId = searchParams.get('collectionId');
+
+    const collectionName = collections.find(
+        (collection) => collection.id === collectionId
+    )?.name;
+
+    return (
+        <div className="my-2 pl-2.5">
+            {selectedUserId ? (
+                <>
+                    {myUser?.id === selectedUserId ? (
+                        <h1 className="flex max-w-full flex-wrap items-center">
+                            <span className="whitespace-nowrap text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-lg:text-3xl">
+                                {mainPageT(
+                                    collectionId ? 'my_collection' : 'my_wishes'
+                                )}
+                            </span>
+                            {collectionId && collectionName && (
+                                <>
+                                    &nbsp;
+                                    <span
+                                        className="min-h-7 max-w-full truncate pr-1 text-2xl font-bold italic text-zinc-950 dark:text-zinc-100 tablet-md:text-3xl"
+                                        title={collectionName}
+                                    >
+                                        &quot;{collectionName}&quot;
+                                    </span>
+                                </>
+                            )}
+                        </h1>
+                    ) : (
+                        <h1 className="flex max-w-full flex-wrap items-center">
+                            {collectionId ? (
+                                <>
+                                    <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
+                                        {mainPageT('collection')}
+                                    </span>
+                                    <span
+                                        className="min-h-7 max-w-full truncate pr-1 text-2xl font-bold italic text-zinc-950 dark:text-zinc-100 tablet-md:text-3xl"
+                                        title={collectionName}
+                                    >
+                                        &quot;{collectionName}&quot;
+                                    </span>
+                                    &nbsp;
+                                    <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
+                                        {mainPageT('of_user')}
+                                    </span>
+                                </>
+                            ) : (
+                                <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
+                                    {mainPageT('wishes_of_user')}
+                                </span>
+                            )}
+                            <span
+                                className="min-h-7 max-w-full truncate pr-1 text-2xl font-bold italic text-zinc-950 dark:text-zinc-100 tablet-md:text-3xl"
+                                title={selectedUserFullName}
+                            >
+                                &quot;{selectedUserFullName}&quot;
+                            </span>
+                        </h1>
+                    )}
+                </>
+            ) : (
+                <h1 className="text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
+                    {mainPageT('wishes_of_users')}
+                </h1>
+            )}
+        </div>
+    );
+};
+
+export default Title;

@@ -10,6 +10,7 @@ import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
+import Title from '@/app/[locale]/main/Title';
 import CreateWish from '@/components/layouts/wish-editor/CreateWish';
 import EditWish from '@/components/layouts/wish-editor/EditWish';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
@@ -244,30 +245,7 @@ const WishList: FC = () => {
 
     return (
         <>
-            <div className="my-2 pl-2.5">
-                {selectedUserId ? (
-                    <>
-                        {myUser?.id === selectedUserId ? (
-                            <h1 className="text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-lg:text-3xl">
-                                {mainPageT('my_wishes')}
-                            </h1>
-                        ) : (
-                            <h1 className="flex max-w-full flex-wrap items-center">
-                                <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
-                                    {mainPageT('wishes_of_user')}
-                                </span>
-                                <span className="min-h-7 max-w-full truncate pr-0.5 text-2xl font-bold italic text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
-                                    {selectedUserFullName}
-                                </span>
-                            </h1>
-                        )}
-                    </>
-                ) : (
-                    <h1 className="text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-xl">
-                        {mainPageT('wishes_of_users')}
-                    </h1>
-                )}
-            </div>
+            <Title selectedUserFullName={selectedUserFullName} />
 
             {wishes.length > 0 && (
                 <div className="flex flex-col items-center justify-between pl-2.5 tablet-lg:flex-row tablet-lg:gap-4">

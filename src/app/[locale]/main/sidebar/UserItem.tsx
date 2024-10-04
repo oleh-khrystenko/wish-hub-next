@@ -151,6 +151,8 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const handleSelectWish = async () => {
         await getInitialWishList(myUser?.id, user.id);
         setShowSidebar(false);
+
+        router.push(`/${activeLocale}/main`);
     };
 
     const handleAddFriend = async () => {

@@ -162,7 +162,7 @@ const getAllWishes = async (
 
 const getCollectionWishes = async (
     params: ISendCollectionWishes
-): Promise<AxiosResponse<IWish[]>> => {
+): Promise<AxiosResponse<IGetWishList>> => {
     return await api.get('/collection-wishes', { params });
 };
 

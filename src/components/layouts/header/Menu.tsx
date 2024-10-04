@@ -51,6 +51,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
     const logout = useMyUserStore((state) => state.logout);
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
+    const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
 
     const theme = useSettingsStore((state) => state.theme);
     const setShowSidebar = useSettingsStore((state) => state.setShowSidebar);
@@ -65,9 +66,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
         setShowPopup(false);
         setShowSidebar(false);
 
-        if (pathname.split('/')[2] !== 'main') {
-            router.push(`/${activeLocale}/main`);
-        }
+        router.push(`/${activeLocale}/main`);
     };
 
     const handleHidePopup = () => {
@@ -179,6 +178,9 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                                 <UiButton
                                     href={`/user/${myUser.id}/collection`}
                                     variant="text"
+                                    onLinkClick={() =>
+                                        setSelectedUserId(myUser.id)
+                                    }
                                 >
                                     <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                         {theme === ETheme.DARK ? (
@@ -192,7 +194,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                                                 id={`${logoIconId}-popup`}
                                             />
                                         )}
-                                        {mainPageT('my_collection')}
+                                        {mainPageT('my_wishes_collection')}
                                     </span>
                                 </UiButton>
                             )}

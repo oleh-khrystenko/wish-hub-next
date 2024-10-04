@@ -1,11 +1,12 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { IZoomedImage } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
+import { useCollectionsStore } from '@/stores/collection';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import WishList from '@/app/[locale]/user/[userId]/collection/WishList';
@@ -19,6 +20,7 @@ const Body: FC = () => {
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
 
     const { userId } = useParams<{ userId: string }>();
+    const searchParams = useSearchParams();
 
     const collectionPageT = useTranslations('collection-page');
     const allPagesT = useTranslations('all-pages');
@@ -27,8 +29,16 @@ const Body: FC = () => {
 
     const wishesCreator = useWishesStore((state) => state.creator);
 
+    const collections = useCollectionsStore((state) => state.list);
+
     const { getFullName } = UseFullName();
     const screenWidth = UseScreenWidth();
+
+    const collectionId = searchParams.get('collectionId');
+
+    const collectionName = collections.find(
+        (collection) => collection.id === collectionId
+    )?.name;
 
     const breadcrumbsPages = [
         {
@@ -60,11 +70,24 @@ const Body: FC = () => {
 
             <div className="mt-3 flex grow flex-col px-3 pb-5 desktop-sm:px-0">
                 <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                    <p className={`first-letter:capitalize`}>
-                        {collectionPageT(
-                            myUser?.id === userId ? 'title_your' : 'title'
-                        )}
-                    </p>
+                    {collectionPageT(
+                        myUser?.id === userId ? 'my_collection' : 'collection'
+                    )}
+
+                    {collectionId && (
+                        <>
+                            &nbsp;
+                            <span className="italic text-zinc-900 dark:text-zinc-100">
+                                &quot;
+                                {collectionName}
+                                &quot;
+                            </span>
+                        </>
+                    )}
+
+                    {myUser?.id !== userId && (
+                        <>&nbsp;{collectionPageT('of_user')}:</>
+                    )}
                 </h1>
 
                 {myUser?.id !== userId && (

@@ -513,9 +513,11 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
             set((state) => ({
                 ...state,
-                list: response.data,
+                list: response.data.wishes,
+                creator: response.data.creator,
                 page: 2,
-                stopRequests: response.data.length !== WISHES_PAGINATION_LIMIT,
+                stopRequests:
+                    response.data.wishes.length !== WISHES_PAGINATION_LIMIT,
             }));
         } catch (error: any) {
             set((state) => ({
@@ -539,9 +541,10 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
             set((state) => ({
                 ...state,
-                list: [...state.list, ...response.data],
+                list: [...state.list, ...response.data.wishes],
                 page: state.page + 1,
-                stopRequests: response.data.length !== WISHES_PAGINATION_LIMIT,
+                stopRequests:
+                    response.data.wishes.length !== WISHES_PAGINATION_LIMIT,
             }));
         } catch (error: any) {
             set((state) => ({
