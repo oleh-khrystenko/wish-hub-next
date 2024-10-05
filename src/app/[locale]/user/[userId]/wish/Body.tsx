@@ -13,11 +13,11 @@ import { useWishesStore } from '@/stores/wishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import { isBookingExpired } from '@/helpers/utils/date-validators';
-import Content from '@/app/[locale]/user/[userId]/collection/wish/Content';
-import BookWish from '@/app/[locale]/user/[userId]/collection/wish/BookWish';
-import CancelBookWish from '@/app/[locale]/user/[userId]/collection/wish/CancelBookWish';
-import DoneWish from '@/app/[locale]/user/[userId]/collection/wish/DoneWish';
-import BookingExpired from '@/app/[locale]/user/[userId]/collection/wish/BookingExpired';
+import Content from '@/app/[locale]/user/[userId]/wish/Content';
+import BookWish from '@/app/[locale]/user/[userId]/wish/BookWish';
+import CancelBookWish from '@/app/[locale]/user/[userId]/wish/CancelBookWish';
+import DoneWish from '@/app/[locale]/user/[userId]/wish/DoneWish';
+import BookingExpired from '@/app/[locale]/user/[userId]/wish/BookingExpired';
 import EditWish from '@/components/layouts/wish-editor/EditWish';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import WishMark from '@/components/layouts/WishMark';
@@ -63,7 +63,7 @@ const Body: FC = () => {
             name: allPagesT('collection'),
         },
         {
-            href: `user/${selectedUserId}/collection/wish`,
+            href: `user/${selectedUserId}/wish`,
             name: wishPageT('wish'),
         },
     ];
@@ -84,7 +84,7 @@ const Body: FC = () => {
             name: allPagesT('collection'),
         },
         {
-            href: `user/${selectedUserId}/collection/wish`,
+            href: `user/${selectedUserId}/wish`,
             icon: <LogoIcon classes="w-4 h-4" />,
             name: wishPageT('wish'),
         },

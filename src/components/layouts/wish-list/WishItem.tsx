@@ -57,7 +57,7 @@ const WishItem: FC<IProps> = ({ wish, idx, currentPage, editWish }) => {
             className={`${isBookingExpired(wish, myUser?.id) ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
         >
             <Link
-                href={`/${activeLocale}/user/${wish.userId}/collection/wish?wishId=${wish.id}&fromPage=${currentPage}`}
+                href={`/${activeLocale}/user/${wish.userId}/wish?wishId=${wish.id}&fromPage=${currentPage}`}
                 className={`${wish.executed ? '-rotate-3 border-cyan-500 bg-wish-bg dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
                 onClick={() => setShowGlobalLoading(true)}
             >
