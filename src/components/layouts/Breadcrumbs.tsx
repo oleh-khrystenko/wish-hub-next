@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, ReactNode, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSettingsStore } from '@/stores/settings';
@@ -22,6 +22,8 @@ interface IProps {
 }
 
 const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages, isMainPage }) => {
+    const navRef = useRef<HTMLDivElement>(null);
+
     const activeLocale = useLocale();
     const allPagesT = useTranslations('all-pages');
 
@@ -64,9 +66,18 @@ const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages, isMainPage }) => {
         };
     }, [activeLocale]);
 
+    useEffect(() => {
+        if (!navRef.current) return;
+        navRef.current.scrollTo({
+            left: navRef.current.scrollWidth,
+            behavior: 'smooth',
+        });
+    }, []);
+
     return (
         <nav
-            className={`${isMainPage ? 'tablet-md:px-0' : 'desktop-sm:px-0'} flex items-center gap-0.5 px-1`}
+            className={`${isMainPage ? 'tablet-md:px-0' : 'desktop-sm:px-0'} ${visualPages.length > 3 ? 'breadcrumbs-scrollbar overflow-x-auto pb-1' : ''} flex items-center gap-0.5 px-1`}
+            ref={navRef}
         >
             <Link
                 href={`/${activeLocale}`}

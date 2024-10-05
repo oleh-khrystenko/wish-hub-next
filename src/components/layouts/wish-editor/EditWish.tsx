@@ -1,7 +1,8 @@
 'use client';
 
 import { FC, useState, useLayoutEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
     ECurrency,
@@ -19,25 +20,27 @@ import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
 import FormContent from '@/components/layouts/wish-editor/FormContent';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
-import UiModal from '@/components/ui/modal/UiModal';
+// import UiModal from '@/components/ui/modal/UiModal';
 
 interface IProps {
     idOfSelectedWish?: IWish['id'] | null;
     wish?: IWish | null;
-    hide: () => void;
 }
 
-const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
+const EditWish: FC<IProps> = ({ idOfSelectedWish, wish }) => {
     const [material, setMaterial] = useState<ICreateWish['material']>(true);
     const [images, setImages] = useState<TCurrentImage[]>([]);
     const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
     const [changed, setChanged] = useState<boolean>(false);
-    const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
+    // const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
     const [showConfirmDeleteWish, setShowConfirmDeleteWish] =
         useState<boolean>(false);
 
+    const route = useRouter();
+
+    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
     const validationsT = useTranslations('validations');
     const allPagesT = useTranslations('all-pages');
@@ -58,17 +61,6 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
     const wishes = useWishesStore((state) => state.list);
     const updateWish = useWishesStore((state) => state.updateWish);
     const deleteWish = useWishesStore((state) => state.deleteWish);
-
-    const hideModals = () => {
-        setMaterial(true);
-        setImages([]);
-        setCurrency(ECurrency.UAH);
-        setShow(null);
-        setChanged(false);
-        setShowConfirmLeave(false);
-        setShowConfirmDeleteWish(false);
-        hide();
-    };
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
         const wishId = idOfSelectedWish ?? wish!.id;
@@ -202,7 +194,7 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
             allPagesT('wishes-api.update-wish.error')
         );
 
-        hideModals();
+        route.push(`/${activeLocale}/user/${myUser.id}/wish?wishId=${wishId}`);
     };
 
     const removeAllImages = () => {
@@ -219,13 +211,6 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
         setChanged(true);
     };
 
-    const handleHideModal = () => {
-        if (changed) {
-            return setShowConfirmLeave(true);
-        }
-        hideModals();
-    };
-
     const handleDeleteWish = async () => {
         const wishId = idOfSelectedWish ?? wish!.id;
         if (!myUser || !wishId) return;
@@ -238,7 +223,7 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
             })
         );
 
-        hideModals();
+        route.push(`/${activeLocale}/main`);
     };
 
     useLayoutEffect(() => {
@@ -342,61 +327,58 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish, hide }) => {
 
     return (
         <>
-            <UiModal show={true} hide={handleHideModal}>
-                <form
-                    className="flex max-h-full flex-col gap-4"
-                    onSubmit={handleSubmit(onSubmit)}
-                >
-                    <FormContent
-                        title="editing_wish"
-                        register={register}
-                        control={control}
-                        setValue={setValue}
-                        watch={watch}
-                        trigger={trigger}
-                        errors={errors}
-                        material={material}
-                        setMaterial={setMaterial}
-                        images={images}
-                        setImages={setImages}
-                        removeAllImages={removeAllImages}
-                        currency={currency}
-                        setCurrency={setCurrency}
-                        show={show}
-                        setShow={setShow}
-                        showError={showError}
-                        setShowError={setShowError}
-                        changed={changed}
-                        setChanged={setChanged}
-                    />
-
-                    {/* actions */}
-                    <div className="ml-auto flex items-center gap-4">
-                        <UiButton
-                            variant="text-attention"
-                            onBtnClick={() => setShowConfirmDeleteWish(true)}
-                        >
-                            {mainPageT('delete-wish')}
-                        </UiButton>
-
-                        <UiButton type="submit" disabled={!changed}>
-                            {mainPageT('update')}
-                        </UiButton>
-                    </div>
-                </form>
-            </UiModal>
-
-            <ConfirmModal
-                show={showConfirmLeave}
-                confirm={hideModals}
-                hide={() => setShowConfirmLeave(false)}
-                confirmModalT={mainPageT('leave_with_changes.confirm')}
-                closeModalT={mainPageT('leave_with_changes.close')}
+            <form
+                className="flex max-h-full flex-col gap-4"
+                onSubmit={handleSubmit(onSubmit)}
             >
-                <span className="text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('leave_with_changes.text')}
-                </span>
-            </ConfirmModal>
+                <FormContent
+                    register={register}
+                    control={control}
+                    setValue={setValue}
+                    watch={watch}
+                    trigger={trigger}
+                    errors={errors}
+                    material={material}
+                    setMaterial={setMaterial}
+                    images={images}
+                    setImages={setImages}
+                    removeAllImages={removeAllImages}
+                    currency={currency}
+                    setCurrency={setCurrency}
+                    show={show}
+                    setShow={setShow}
+                    showError={showError}
+                    setShowError={setShowError}
+                    changed={changed}
+                    setChanged={setChanged}
+                />
+
+                {/* actions */}
+                <div className="ml-auto flex items-center gap-4">
+                    <UiButton
+                        variant="text-attention"
+                        onBtnClick={() => setShowConfirmDeleteWish(true)}
+                    >
+                        {mainPageT('delete-wish')}
+                    </UiButton>
+
+                    <UiButton type="submit" disabled={!changed}>
+                        {mainPageT('update')}
+                    </UiButton>
+                </div>
+            </form>
+
+            {/*<ConfirmModal*/}
+            {/*    show={showConfirmLeave}*/}
+            {/*    confirm={hideModals}*/}
+            {/*    hide={() => setShowConfirmLeave(false)}*/}
+            {/*    confirmModalT={mainPageT('leave_with_changes.confirm')}*/}
+            {/*    closeModalT={mainPageT('leave_with_changes.close')}*/}
+            {/*>*/}
+            {/*    <span className="text-zinc-700 dark:text-zinc-300">*/}
+            {/*        {mainPageT('leave_with_changes.text')}*/}
+            {/*    </span>*/}
+            {/*</ConfirmModal>*/}
 
             <ConfirmModal
                 show={showConfirmDeleteWish}

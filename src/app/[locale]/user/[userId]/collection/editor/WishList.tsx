@@ -175,6 +175,10 @@ const WishList: FC<IProps> = ({ userId }) => {
                     : 'sortByLikes:desc'
             );
 
+            if (responseWishes && responseWishes.length === 0) {
+                router.replace(`/${activeLocale}/main`);
+            }
+
             if (!responseWishes) return;
             setSelectedWishesInEditCollection(responseWishes);
         };

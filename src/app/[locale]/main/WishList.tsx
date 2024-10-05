@@ -1,8 +1,8 @@
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
-import { EWishStatus, IWish } from '@/models/Wish';
+import { EWishStatus } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
@@ -11,8 +11,6 @@ import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import Title from '@/app/[locale]/main/Title';
-import CreateWish from '@/components/layouts/wish-editor/CreateWish';
-import EditWish from '@/components/layouts/wish-editor/EditWish';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import WishItem from '@/components/layouts/wish-list/WishItem';
 import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
@@ -24,17 +22,14 @@ import SliderIcon from '@/components/icons/SliderIcon';
 
 const WishList: FC = () => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
-    const [showCreateWish, setShowCreateWish] = useState<boolean>(false);
-    const [showEditWish, setShowEditWish] = useState<boolean>(false);
-    const [idOfSelectedWish, setIdOfSelectedWish] = useState<
-        IWish['id'] | null
-    >(null);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
     const wishListRef = useRef<HTMLDivElement>(null);
 
+    const router = useRouter();
     const searchParams = useSearchParams();
 
+    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
@@ -53,9 +48,6 @@ const WishList: FC = () => {
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
-    const resetWishCandidate = useWishesStore(
-        (state) => state.resetWishCandidate
-    );
     const addWishList = useWishesStore((state) => state.addWishList);
     const addAllWishes = useWishesStore((state) => state.addAllWishes);
     const addCollectionWishes = useWishesStore(
@@ -117,23 +109,6 @@ const WishList: FC = () => {
         ));
     !selectedUserId &&
         (emptyText = <span>{mainPageT('no_wishes_found')}</span>);
-
-    const handleShowCreateWish = () => {
-        setShowCreateWish(true);
-    };
-    const handleHideCreateWish = () => {
-        setShowCreateWish(false);
-        resetWishCandidate();
-    };
-
-    const handleShowEditWish = (id: IWish['id'] | null) => {
-        setIdOfSelectedWish(id);
-        setShowEditWish(true);
-    };
-    const handleHideEditWish = () => {
-        setIdOfSelectedWish(null);
-        setShowEditWish(false);
-    };
 
     useEffect(() => {
         const fetchWishes = async () => {
@@ -275,7 +250,7 @@ const WishList: FC = () => {
                 >
                     <ul className="grid grid-cols-2 gap-1.5 tablet-lg:grid-cols-3 tablet-xl:grid-cols-4 tablet-xl:gap-4 desktop-sm:grid-cols-5 desktop-xl:grid-cols-6 desktop-2xl:grid-cols-8">
                         {myUser?.id === selectedUserId && (
-                            <CreateWishAndCollection />
+                            <CreateWishAndCollection currentPage="main" />
                         )}
 
                         {wishes.length > 0 &&
@@ -305,7 +280,9 @@ const WishList: FC = () => {
                                     className={`${opacity} flex min-h-96 w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-700`}
                                     onClick={() =>
                                         myUser?.id === selectedUserId &&
-                                        handleShowCreateWish()
+                                        router.push(
+                                            `/${activeLocale}/user/${myUser?.id}/wish/editor`
+                                        )
                                     }
                                 >
                                     <div className="relative w-full pt-[100%]">
@@ -343,18 +320,6 @@ const WishList: FC = () => {
                         {emptyText}
                     </p>
                 </div>
-            )}
-
-            <CreateWish
-                showModal={showCreateWish}
-                hide={handleHideCreateWish}
-            />
-
-            {showEditWish && (
-                <EditWish
-                    idOfSelectedWish={idOfSelectedWish}
-                    hide={handleHideEditWish}
-                />
             )}
 
             <SlidePanel wishListRefCurrent={wishListRef.current} />

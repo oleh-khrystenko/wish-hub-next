@@ -3,6 +3,7 @@ import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import { IPageParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
+import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
@@ -37,9 +38,11 @@ export default function Wish() {
                         ])}
                     >
                         <UserSessionRefresher>
-                            <Header />
+                            <RoutesGuard>
+                                <Header />
 
-                            <Body />
+                                <Body />
+                            </RoutesGuard>
                         </UserSessionRefresher>
 
                         <GlobalLoading />

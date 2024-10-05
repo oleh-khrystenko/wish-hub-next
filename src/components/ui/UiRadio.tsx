@@ -18,7 +18,7 @@ const UiRadio: FC<IProps> = ({
     value,
     checked,
     label,
-    bg = 'after:bg-zinc-300 dark:after:bg-zinc-800',
+    bg = 'after:bg-zinc-200 dark:after:bg-zinc-900',
     onChange,
 }) => {
     return (

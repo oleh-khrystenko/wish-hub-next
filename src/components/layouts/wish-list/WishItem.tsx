@@ -99,7 +99,7 @@ const WishItem: FC<IProps> = ({ wish, idx, currentPage }) => {
                 !wish.booking?.userId &&
                 !wish.executed && (
                     <Link
-                        href={`/${activeLocale}/user/${myUser?.id}/wish/editor?wishId=${wish.id}`}
+                        href={`/${activeLocale}/user/${myUser?.id}/wish/editor?wishId=${wish.id}&fromPage=${currentPage}`}
                         className="absolute right-1 top-1 flex h-10 w-10 items-center justify-center rounded-md bg-zinc-300 transition-all duration-300 ease-in-out hover:bg-zinc-400 dark:bg-zinc-700 hover:dark:bg-zinc-600"
                     >
                         <EditIcon />

@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
@@ -18,7 +18,6 @@ import BookWish from '@/app/[locale]/user/[userId]/wish/BookWish';
 import CancelBookWish from '@/app/[locale]/user/[userId]/wish/CancelBookWish';
 import DoneWish from '@/app/[locale]/user/[userId]/wish/DoneWish';
 import BookingExpired from '@/app/[locale]/user/[userId]/wish/BookingExpired';
-import EditWish from '@/components/layouts/wish-editor/EditWish';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import WishMark from '@/components/layouts/WishMark';
 import LikeAction from '@/components/layouts/LikeAction';
@@ -30,8 +29,6 @@ import MainIcon from '@/components/icons/MainIcon';
 import CollectionIcon from '@/components/icons/CollectionIcon';
 
 const Body: FC = () => {
-    const [showEditWishModal, setShowEditWishModal] = useState<boolean>(false);
-
     const gotWish = useRef(false);
 
     const router = useRouter();
@@ -134,13 +131,6 @@ const Body: FC = () => {
     // && бажання не виконане
     const showEditWish =
         myUser?.id === wish?.userId && !wish?.booking?.end && !wish?.executed;
-
-    const handleShowEditWish = () => {
-        setShowEditWishModal(true);
-    };
-    const handleHideEditWish = () => {
-        setShowEditWishModal(false);
-    };
 
     useEffect(() => {
         if (gotWish.current) return;
@@ -312,7 +302,7 @@ const Body: FC = () => {
                                 {showEditWish && (
                                     <div className="ml-auto mt-3 w-fit tablet-md:mt-0">
                                         <UiButton
-                                            onBtnClick={handleShowEditWish}
+                                            href={`user/${myUser?.id}/wish/editor?wishId=${wish.id}`}
                                         >
                                             {wishPageT('edit_wish')}
                                         </UiButton>
@@ -332,10 +322,6 @@ const Body: FC = () => {
                         {wishPageT('to_main')}
                     </UiButton>
                 </div>
-            )}
-
-            {showEditWishModal && (
-                <EditWish wish={wish} hide={handleHideEditWish} />
             )}
         </main>
     );

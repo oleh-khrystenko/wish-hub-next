@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useState, useLayoutEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
@@ -21,17 +22,11 @@ import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
 import FastWish from '@/components/layouts/wish-editor/FastWish';
 import FormContent from '@/components/layouts/wish-editor/FormContent';
 import QuoteMessage from '@/components/layouts/QuoteMessage';
-import ConfirmModal from '@/components/layouts/ConfirmModal';
+// import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
 import UiModal from '@/components/ui/modal/UiModal';
-import UiLoading from '@/components/ui/UiLoading';
 
-interface IProps {
-    showModal: boolean;
-    hide: () => void;
-}
-
-const CreateWish: FC<IProps> = ({ showModal, hide }) => {
+const CreateWish: FC = () => {
     const [isFastWish, setIsFastWish] = useState<boolean>(true);
     const [material, setMaterial] = useState<ICreateWish['material']>(true);
     const [images, setImages] = useState<TCurrentImage[]>([]);
@@ -39,7 +34,9 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
     const [changed, setChanged] = useState<boolean>(false);
-    const [showConfirm, setShowConfirm] = useState<boolean>(false);
+    // const [showConfirm, setShowConfirm] = useState<boolean>(false);
+
+    const route = useRouter();
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -51,7 +48,6 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
         register,
         setValue,
         watch,
-        reset,
         trigger,
         setError,
         handleSubmit,
@@ -63,18 +59,6 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
     const wishes = useWishesStore((state) => state.list);
     const wishCandidate = useWishesStore((state) => state.wishCandidate);
     const createWish = useWishesStore((state) => state.createWish);
-
-    const hideModals = () => {
-        setMaterial(true);
-        setImages([]);
-        setCurrency(ECurrency.UAH);
-        setShow(null);
-        setIsFastWish(true);
-        setChanged(false);
-        setShowConfirm(false);
-        reset();
-        hide();
-    };
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
         const nonUniqueName = wishes.some((wish) => {
@@ -216,7 +200,9 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
             );
         }
 
-        hideModals();
+        route.push(
+            `/${activeLocale}/user/${myUser.id}/wish?wishId=${response?.id}`
+        );
     };
 
     const removeAllImages = () => {
@@ -229,13 +215,6 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
                     return updatedImage;
                 })
         );
-    };
-
-    const handleHideModal = () => {
-        if (changed) {
-            return setShowConfirm(true);
-        }
-        hideModals();
     };
 
     useLayoutEffect(() => {
@@ -272,62 +251,57 @@ const CreateWish: FC<IProps> = ({ showModal, hide }) => {
 
     return (
         <>
-            <UiModal
-                show={showModal}
-                rounded={isFastWish ? 'rounded-2xl' : ''}
-                hide={handleHideModal}
+            <form
+                className="flex max-h-full flex-col gap-4"
+                onSubmit={handleSubmit(onSubmit)}
             >
-                {isFastWish ? (
+                <FormContent
+                    register={register}
+                    control={control}
+                    setValue={setValue}
+                    watch={watch}
+                    trigger={trigger}
+                    errors={errors}
+                    material={material}
+                    setMaterial={setMaterial}
+                    images={images}
+                    setImages={setImages}
+                    removeAllImages={removeAllImages}
+                    currency={currency}
+                    setCurrency={setCurrency}
+                    show={show}
+                    setShow={setShow}
+                    showError={showError}
+                    setShowError={setShowError}
+                    changed={changed}
+                    setChanged={setChanged}
+                />
+
+                {/* submit */}
+                <div className="ml-auto">
+                    <UiButton type="submit" disabled={!changed}>
+                        {mainPageT('create')}
+                    </UiButton>
+                </div>
+            </form>
+
+            {isFastWish && (
+                <UiModal show={true} hide={() => setIsFastWish(false)}>
                     <FastWish hide={() => setIsFastWish(false)} />
-                ) : (
-                    <form
-                        className="flex max-h-full flex-col gap-4"
-                        onSubmit={handleSubmit(onSubmit)}
-                    >
-                        <FormContent
-                            title="creating_wish"
-                            register={register}
-                            control={control}
-                            setValue={setValue}
-                            watch={watch}
-                            trigger={trigger}
-                            errors={errors}
-                            material={material}
-                            setMaterial={setMaterial}
-                            images={images}
-                            setImages={setImages}
-                            removeAllImages={removeAllImages}
-                            currency={currency}
-                            setCurrency={setCurrency}
-                            show={show}
-                            setShow={setShow}
-                            showError={showError}
-                            setShowError={setShowError}
-                            changed={changed}
-                            setChanged={setChanged}
-                        />
+                </UiModal>
+            )}
 
-                        {/* submit */}
-                        <div className="ml-auto">
-                            <UiButton type="submit" disabled={!changed}>
-                                {mainPageT('create')}
-                            </UiButton>
-                        </div>
-                    </form>
-                )}
-            </UiModal>
-
-            <ConfirmModal
-                show={showConfirm}
-                confirm={hideModals}
-                hide={() => setShowConfirm(false)}
-                confirmModalT={mainPageT('leave_with_changes.confirm')}
-                closeModalT={mainPageT('leave_with_changes.close')}
-            >
-                <span className="text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('leave_with_changes.text')}
-                </span>
-            </ConfirmModal>
+            {/*<ConfirmModal*/}
+            {/*    show={showConfirm}*/}
+            {/*    confirm={hideModals}*/}
+            {/*    hide={() => setShowConfirm(false)}*/}
+            {/*    confirmModalT={mainPageT('leave_with_changes.confirm')}*/}
+            {/*    closeModalT={mainPageT('leave_with_changes.close')}*/}
+            {/*>*/}
+            {/*    <span className="text-zinc-700 dark:text-zinc-300">*/}
+            {/*        {mainPageT('leave_with_changes.text')}*/}
+            {/*    </span>*/}
+            {/*</ConfirmModal>*/}
         </>
     );
 };

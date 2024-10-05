@@ -5,7 +5,11 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import CrossIcon from '@/components/icons/CrossIcon';
 
-const CreateWishAndCollection: FC = () => {
+interface IProps {
+    currentPage: string;
+}
+
+const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
 
@@ -32,7 +36,7 @@ const CreateWishAndCollection: FC = () => {
 
             <div className="relative flex h-full items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
                 <Link
-                    href={`/${activeLocale}/user/${myUser?.id}/wish/editor`}
+                    href={`/${activeLocale}/user/${myUser?.id}/wish/editor?fromPage=${currentPage}`}
                     className="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-1 rounded-md border-2 border-dashed border-transparent p-2 transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
                 >
                     <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-500 group-hover:dark:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />

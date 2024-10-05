@@ -29,7 +29,6 @@ import UiSelect, { IOption } from '@/components/ui/UiSelect';
 import UiSwitch from '@/components/ui/UiSwitch';
 
 interface IProps {
-    title: string;
     register: UseFormRegister<TWishFormInputs>;
     control: Control<TWishFormInputs>;
     setValue: UseFormSetValue<TWishFormInputs>;
@@ -52,7 +51,6 @@ interface IProps {
 }
 
 const FormContent: FC<IProps> = ({
-    title,
     register,
     control,
     setValue,
@@ -165,8 +163,14 @@ const FormContent: FC<IProps> = ({
                 false
         );
 
-        const subscription = watch((_, { name }) => {
-            !changed && setChanged(true);
+        const subscription = watch((fields, { name }) => {
+            // console.log('fields', fields);
+            // console.log('name', name);
+            const firstLoaded =
+                name === 'addresses' &&
+                fields.addresses?.length === 1 &&
+                fields.addresses[0]?.value?.length === 0;
+            !changed && !firstLoaded && setChanged(true);
 
             if (name?.startsWith('addresses')) {
                 setIsEmptyAddress(
@@ -204,14 +208,51 @@ const FormContent: FC<IProps> = ({
         }
     }, [showError]);
 
+    // useEffect(() => {
+    //     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+    //         if (changed) {
+    //             e.preventDefault();
+    //             e.returnValue = ''; // Показує стандартне попередження про втрату даних
+    //         }
+    //     };
+    //
+    //     const handlePopState = () => {
+    //         if (changed) {
+    //             const confirmation = confirm(
+    //                 'handlePopState У вас є незбережені зміни. Ви впевнені, що хочете повернутися?'
+    //             );
+    //             if (!confirmation) {
+    //                 window.history.pushState(null, '', window.location.href);
+    //             }
+    //         }
+    //     };
+    //
+    //     // const handleLinkClick = (e: MouseEvent) => {
+    //     //     if (changed) {
+    //     //         const confirmation = confirm(
+    //     //             'handleLinkClick У вас є незбережені зміни. Ви впевнені, що хочете покинути цю сторінку?'
+    //     //         );
+    //     //         if (!confirmation) {
+    //     //             e.preventDefault(); // Запобігає переходу за лінком
+    //     //         }
+    //     //     }
+    //     // };
+    //
+    //     window.addEventListener('beforeunload', handleBeforeUnload);
+    //     window.addEventListener('popstate', handlePopState);
+    //     // document.addEventListener('click', handleLinkClick);
+    //
+    //     return () => {
+    //         window.removeEventListener('beforeunload', handleBeforeUnload);
+    //         window.removeEventListener('popstate', handlePopState);
+    //         // document.removeEventListener('click', handleLinkClick);
+    //     };
+    // }, [changed]);
+
     return (
         <>
-            <span className="whitespace-nowrap text-center text-lg font-bold text-zinc-700 dark:text-zinc-300">
-                {mainPageT(title)}
-            </span>
-
             <div
-                className="custom-max-height -mr-3 flex h-auto flex-col overflow-y-auto overflow-x-hidden pr-3 tablet-md:max-h-[70svh]"
+                className="-mr-3 flex h-auto flex-col pr-3"
                 ref={formContentContainer}
             >
                 {/* material */}

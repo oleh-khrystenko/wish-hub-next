@@ -24,10 +24,6 @@
     --scroll-bar: #52525b; /* zinc-600 */
 }
 
-.custom-max-height {
-    @apply max-h-[calc(100svh_-_132px)];
-}
-
 /********************* Scrollbar *********************/
 *::-webkit-scrollbar {
     height: 6px;
@@ -51,6 +47,15 @@
 
 .textarea-scrollbar::-webkit-scrollbar-track {
     margin: 4px 0;
+}
+
+.breadcrumbs-scrollbar::-webkit-scrollbar {
+    height: 3px;
+    width: 3px;
+}
+
+.breadcrumbs-scrollbar::-webkit-scrollbar-track {
+    margin: 0 4px;
 }
 
 .wish-list-scrollbar::-webkit-scrollbar-track {

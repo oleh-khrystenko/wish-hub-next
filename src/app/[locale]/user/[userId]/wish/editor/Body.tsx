@@ -1,9 +1,13 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useMyUserStore } from '@/stores/my-user';
+import { useWishesStore } from '@/stores/wishes';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
+import CreateWish from '@/components/layouts/wish-editor/CreateWish';
+import EditWish from '@/components/layouts/wish-editor/EditWish';
 import MainIcon from '@/components/icons/MainIcon';
 import EditIcon from '@/components/icons/EditIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
@@ -16,6 +20,12 @@ const Body: FC = () => {
     const wishPageT = useTranslations('wish-page');
     const allPagesT = useTranslations('all-pages');
 
+    const myUser = useMyUserStore((state) => state.myUser);
+
+    const wish = useWishesStore((state) => state.wish);
+    const getWish = useWishesStore((state) => state.getWish);
+
+    const fromPage = searchParams.get('fromPage');
     const wishId = searchParams.get('wishId');
 
     const seoPages = [
@@ -49,7 +59,7 @@ const Body: FC = () => {
             name: allPagesT('collection'),
         },
         {
-            href: `user/${userId}/wish`,
+            href: `user/${userId}/wish?wishId=${wishId}`,
             icon: <LogoIcon classes="w-4 h-4" />,
             name: allPagesT('wish'),
         },
@@ -62,12 +72,23 @@ const Body: FC = () => {
         },
     ];
 
-    const fromPage = searchParams.get('fromPage');
-    if (fromPage) {
-        if (fromPage === 'main') {
-            delete visualPages[1];
-        }
+    if (fromPage && fromPage === 'main') {
+        delete visualPages[1];
     }
+
+    if (!wishId) {
+        delete visualPages[2];
+    }
+
+    useEffect(() => {
+        if (!wishId) return;
+
+        getWish(
+            { wishId, userId: myUser?.id },
+            false,
+            allPagesT('wishes-api.get-wish.error')
+        ).finally();
+    }, []);
 
     return (
         <main className="flex grow flex-col pt-3">
@@ -78,7 +99,11 @@ const Body: FC = () => {
                     {wishPageT(wishId ? 'editing_wish' : 'creating_wish')}
                 </h1>
 
-                {wishId ? <p>Edit</p> : <p>Create</p>}
+                {wishId ? (
+                    <EditWish idOfSelectedWish={wishId} wish={wish} />
+                ) : (
+                    <CreateWish />
+                )}
             </div>
         </main>
     );
