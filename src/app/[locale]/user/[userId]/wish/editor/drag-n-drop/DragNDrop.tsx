@@ -8,8 +8,8 @@ import {
     ALLOWED_MAX_FILE_SIZE_IN_MB,
     MAX_NUMBER_OF_IMAGES_PER_WISH,
 } from '@/helpers/utils/constants';
-import DraggableImage from '@/components/layouts/wish-editor/drag-n-drop/DraggableImage';
-import ImagesValidation from '@/components/layouts/wish-editor/drag-n-drop/ImagesValidation';
+import DraggableImage from '@/app/[locale]/user/[userId]/wish/editor/drag-n-drop/DraggableImage';
+import ImagesValidation from '@/app/[locale]/user/[userId]/wish/editor/drag-n-drop/ImagesValidation';
 
 interface IProps {
     images: TCurrentImage[];
