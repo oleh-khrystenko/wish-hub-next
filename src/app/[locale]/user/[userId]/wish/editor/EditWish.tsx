@@ -20,23 +20,25 @@ import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
 import FormContent from '@/app/[locale]/user/[userId]/wish/editor/FormContent';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
+import UiLoading from '@/components/ui/UiLoading';
 // import UiModal from '@/components/ui/modal/UiModal';
 
 interface IProps {
-    idOfSelectedWish?: IWish['id'] | null;
-    wish?: IWish | null;
+    wish: IWish;
 }
 
-const EditWish: FC<IProps> = ({ idOfSelectedWish, wish }) => {
+const EditWish: FC<IProps> = ({ wish }) => {
     const [material, setMaterial] = useState<ICreateWish['material']>(true);
     const [images, setImages] = useState<TCurrentImage[]>([]);
     const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
     const [changed, setChanged] = useState<boolean>(false);
+    // const [loadedAllData, setLoadedAllData] = useState<boolean>(false);
     // const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
     const [showConfirmDeleteWish, setShowConfirmDeleteWish] =
         useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const route = useRouter();
 
@@ -63,20 +65,18 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish }) => {
     const deleteWish = useWishesStore((state) => state.deleteWish);
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
-        const wishId = idOfSelectedWish ?? wish!.id;
-
-        const nonUniqueName = wishes.some((wish) => {
-            let wishName = wish.name;
+        const nonUniqueName = wishes.some((currentWish) => {
+            let wishName = currentWish.name;
             if (
                 process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET &&
-                wish.show !== EPrivacy.ALL
+                currentWish.show !== EPrivacy.ALL
             ) {
                 wishName = decryptedData(
-                    wish.name,
+                    currentWish.name,
                     process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
                 );
             }
-            return wishName === data.name.trim() && wish.id !== wishId;
+            return wishName === data.name.trim() && currentWish.id !== wish.id;
         });
         if (nonUniqueName) {
             setError(
@@ -92,7 +92,6 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish }) => {
 
         if (
             !myUser ||
-            !wishId ||
             show === null ||
             !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
         )
@@ -188,13 +187,14 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish }) => {
             images: show === EPrivacy.ALL ? images : encryptedImages,
         };
 
+        setIsLoading(true);
         await updateWish(
-            { ...wishData, id: wishId },
+            { ...wishData, id: wish.id },
             allPagesT('wishes-api.update-wish.success'),
             allPagesT('wishes-api.update-wish.error')
         );
 
-        route.push(`/${activeLocale}/user/${myUser.id}/wish?wishId=${wishId}`);
+        route.push(`/${activeLocale}/user/${myUser.id}/wish?wishId=${wish.id}`);
     };
 
     const removeAllImages = () => {
@@ -212,14 +212,14 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish }) => {
     };
 
     const handleDeleteWish = async () => {
-        const wishId = idOfSelectedWish ?? wish!.id;
-        if (!myUser || !wishId) return;
+        if (!myUser) return;
 
+        setIsLoading(true);
         await deleteWish(
-            { wishId, userId: myUser.id },
+            { wishId: wish.id, userId: myUser.id },
             allPagesT('wishes-api.delete-wish.success'),
             allPagesT('wishes-api.delete-wish.error', {
-                wishId,
+                wishId: wish.id,
             })
         );
 
@@ -227,63 +227,55 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish }) => {
     };
 
     useLayoutEffect(() => {
-        let selectedWish: IWish | undefined = undefined;
+        const copiedWish = { ...wish };
 
-        if (idOfSelectedWish) {
-            selectedWish = wishes.find((wish) => wish.id === idOfSelectedWish);
-        }
+        if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return;
 
-        if (wish) {
-            selectedWish = { ...wish };
-        }
-
-        if (!selectedWish || !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return;
-
-        setMaterial(selectedWish.material);
-        setShow(selectedWish.show);
+        setMaterial(copiedWish.material);
+        setShow(copiedWish.show);
 
         // name
         setValue(
             'name',
-            selectedWish.show === EPrivacy.ALL
-                ? selectedWish.name
+            copiedWish.show === EPrivacy.ALL
+                ? copiedWish.name
                 : decryptedData(
-                      selectedWish.name,
+                      copiedWish.name,
                       process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
                   )
         );
 
         // price
-        selectedWish.price &&
+        copiedWish.price &&
             setValue(
                 'price',
-                selectedWish.show === EPrivacy.ALL
-                    ? selectedWish.price
+                copiedWish.show === EPrivacy.ALL
+                    ? copiedWish.price
                     : decryptedData(
-                          selectedWish.price,
+                          copiedWish.price,
                           process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
                       )
             );
 
         // currency
-        selectedWish.currency &&
+        copiedWish.currency &&
             setCurrency(
-                selectedWish.show === EPrivacy.ALL
-                    ? selectedWish.currency
+                copiedWish.show === EPrivacy.ALL
+                    ? copiedWish.currency
                     : (decryptedData(
-                          selectedWish.currency,
+                          copiedWish.currency,
                           process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
                       ) as IWish['currency'])
             );
 
         // addresses
-        selectedWish.addresses &&
-            selectedWish.addresses.length > 0 &&
+        copiedWish.addresses &&
+            copiedWish.addresses.length > 0 &&
             setValue(
                 'addresses',
-                selectedWish.show === EPrivacy.ALL
-                    ? selectedWish.addresses
-                    : selectedWish.addresses.map((address) =>
+                copiedWish.show === EPrivacy.ALL
+                    ? copiedWish.addresses
+                    : copiedWish.addresses.map((address) =>
                           process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
                               ? {
                                     ...address,
@@ -299,16 +291,16 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish }) => {
         // description
         setValue(
             'description',
-            selectedWish.show === EPrivacy.ALL
-                ? selectedWish.description
+            copiedWish.show === EPrivacy.ALL
+                ? copiedWish.description
                 : decryptedData(
-                      selectedWish.description,
+                      copiedWish.description,
                       process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
                   )
         );
 
         // images
-        const decryptedImages = selectedWish.images.map((image) => {
+        const decryptedImages = copiedWish.images.map((image) => {
             if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return image;
 
             const decryptedImage = { ...image };
@@ -319,11 +311,13 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish }) => {
             return decryptedImage;
         });
         setImages(
-            selectedWish.show === EPrivacy.ALL
-                ? selectedWish.images
+            copiedWish.show === EPrivacy.ALL
+                ? copiedWish.images
                 : decryptedImages
         );
-    }, [idOfSelectedWish, wish, wishes, setValue]);
+
+        // setLoadedAllData(true);
+    }, [wish, setValue]);
 
     return (
         <>
@@ -351,6 +345,7 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish }) => {
                     setShowError={setShowError}
                     changed={changed}
                     setChanged={setChanged}
+                    // loadedAllData={loadedAllData}
                 />
 
                 {/* actions */}
@@ -391,6 +386,8 @@ const EditWish: FC<IProps> = ({ idOfSelectedWish, wish }) => {
                     {mainPageT('are-you-sure')}
                 </span>
             </ConfirmModal>
+
+            {isLoading && <UiLoading />}
         </>
     );
 };

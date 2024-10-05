@@ -48,6 +48,7 @@ interface IProps {
     setShowError: (value: string) => void;
     changed: boolean;
     setChanged: (value: boolean) => void;
+    // loadedAllData?: boolean;
 }
 
 const FormContent: FC<IProps> = ({
@@ -70,6 +71,7 @@ const FormContent: FC<IProps> = ({
     setShowError,
     changed,
     setChanged,
+    // loadedAllData,
 }) => {
     const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
     const [descriptionLength, setDescriptionLength] = useState<number>(0);

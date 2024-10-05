@@ -99,11 +99,7 @@ const Body: FC = () => {
                     {wishPageT(wishId ? 'editing_wish' : 'creating_wish')}
                 </h1>
 
-                {wishId ? (
-                    <EditWish idOfSelectedWish={wishId} wish={wish} />
-                ) : (
-                    <CreateWish />
-                )}
+                {wish ? <EditWish wish={wish} /> : <CreateWish />}
             </div>
         </main>
     );

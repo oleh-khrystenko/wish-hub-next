@@ -25,6 +25,7 @@ import QuoteMessage from '@/components/layouts/QuoteMessage';
 // import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
 import UiModal from '@/components/ui/modal/UiModal';
+import UiLoading from '@/components/ui/UiLoading';
 
 const CreateWish: FC = () => {
     const [isFastWish, setIsFastWish] = useState<boolean>(true);
@@ -34,6 +35,7 @@ const CreateWish: FC = () => {
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
     const [changed, setChanged] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     // const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
     const route = useRouter();
@@ -184,6 +186,7 @@ const CreateWish: FC = () => {
             images: show === EPrivacy.ALL ? images : encryptedImages,
         };
 
+        setIsLoading(true);
         const response = await createWish(
             wishData,
             allPagesT('wishes-api.create-wish.error')
@@ -302,6 +305,8 @@ const CreateWish: FC = () => {
             {/*        {mainPageT('leave_with_changes.text')}*/}
             {/*    </span>*/}
             {/*</ConfirmModal>*/}
+
+            {isLoading && <UiLoading />}
         </>
     );
 };
