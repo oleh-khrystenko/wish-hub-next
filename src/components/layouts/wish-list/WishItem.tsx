@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, MouseEvent, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { ECurrency, IWish } from '@/models/Wish';
@@ -19,10 +19,9 @@ interface IProps {
     wish: IWish;
     idx: number;
     currentPage: string;
-    editWish?: () => void;
 }
 
-const WishItem: FC<IProps> = ({ wish, idx, currentPage, editWish }) => {
+const WishItem: FC<IProps> = ({ wish, idx, currentPage }) => {
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
 
@@ -46,11 +45,6 @@ const WishItem: FC<IProps> = ({ wish, idx, currentPage, editWish }) => {
         () => unencryptedData(wish.currency, wish.show),
         [wish.currency, wish.show]
     );
-
-    const handleEditWish = (e: MouseEvent<HTMLButtonElement>) => {
-        e.stopPropagation();
-        editWish && editWish();
-    };
 
     return (
         <li
@@ -101,17 +95,15 @@ const WishItem: FC<IProps> = ({ wish, idx, currentPage, editWish }) => {
                 </div>
             </Link>
 
-            {editWish &&
-                myUser?.id === wish.userId &&
+            {myUser?.id === wish.userId &&
                 !wish.booking?.userId &&
                 !wish.executed && (
-                    <button
+                    <Link
+                        href={`/${activeLocale}/user/${myUser?.id}/wish/editor?wishId=${wish.id}`}
                         className="absolute right-1 top-1 flex h-10 w-10 items-center justify-center rounded-md bg-zinc-300 transition-all duration-300 ease-in-out hover:bg-zinc-400 dark:bg-zinc-700 hover:dark:bg-zinc-600"
-                        type="button"
-                        onClick={handleEditWish}
                     >
                         <EditIcon />
-                    </button>
+                    </Link>
                 )}
         </li>
     );

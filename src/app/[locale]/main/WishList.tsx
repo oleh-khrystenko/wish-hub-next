@@ -275,9 +275,7 @@ const WishList: FC = () => {
                 >
                     <ul className="grid grid-cols-2 gap-1.5 tablet-lg:grid-cols-3 tablet-xl:grid-cols-4 tablet-xl:gap-4 desktop-sm:grid-cols-5 desktop-xl:grid-cols-6 desktop-2xl:grid-cols-8">
                         {myUser?.id === selectedUserId && (
-                            <CreateWishAndCollection
-                                createWish={handleShowCreateWish}
-                            />
+                            <CreateWishAndCollection />
                         )}
 
                         {wishes.length > 0 &&
@@ -287,7 +285,6 @@ const WishList: FC = () => {
                                     wish={wish}
                                     idx={idx}
                                     currentPage="main"
-                                    editWish={() => handleShowEditWish(wish.id)}
                                 />
                             ))}
 

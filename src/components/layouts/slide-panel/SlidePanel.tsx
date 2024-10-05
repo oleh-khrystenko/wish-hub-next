@@ -8,7 +8,7 @@ import { useUsersStore } from '@/stores/users';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import { COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
-import Collections from '@/components/layouts/Collections';
+import Collections from '@/components/layouts/slide-panel/Collections';
 import WishListActions from '@/components/layouts/slide-panel/WishListActions';
 import WishListFilters from '@/components/layouts/slide-panel/WishListFilters';
 import ConfirmModal from '@/components/layouts/ConfirmModal';

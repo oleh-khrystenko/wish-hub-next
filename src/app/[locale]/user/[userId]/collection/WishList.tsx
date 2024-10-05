@@ -191,9 +191,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                 <div className="mt-4" ref={wishListRef}>
                     <ul className="grid grid-cols-2 gap-1.5 tablet-md:grid-cols-3 tablet-lg:grid-cols-4 tablet-xl:grid-cols-5 tablet-xl:gap-4 desktop-sm:grid-cols-6">
                         {myUser?.id === selectedUserId && (
-                            <CreateWishAndCollection
-                                createWish={handleShowCreateWish}
-                            />
+                            <CreateWishAndCollection />
                         )}
 
                         {wishes.length > 0 &&
@@ -203,7 +201,6 @@ const WishList: FC<IProps> = ({ userId }) => {
                                     wish={wish}
                                     idx={idx}
                                     currentPage="collection"
-                                    editWish={() => handleShowEditWish(wish.id)}
                                 />
                             ))}
 

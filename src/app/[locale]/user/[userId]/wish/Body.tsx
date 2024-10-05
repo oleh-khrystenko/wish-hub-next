@@ -28,7 +28,6 @@ import LogoIcon from '@/components/icons/LogoIcon';
 import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
 import MainIcon from '@/components/icons/MainIcon';
 import CollectionIcon from '@/components/icons/CollectionIcon';
-import PersonIcon from '@/components/icons/PersonIcon';
 
 const Body: FC = () => {
     const [showEditWishModal, setShowEditWishModal] = useState<boolean>(false);
@@ -59,12 +58,8 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: `user/${selectedUserId}/collection`,
-            name: allPagesT('collection'),
-        },
-        {
             href: `user/${selectedUserId}/wish`,
-            name: wishPageT('wish'),
+            name: allPagesT('wish'),
         },
     ];
 
@@ -86,7 +81,7 @@ const Body: FC = () => {
         {
             href: `user/${selectedUserId}/wish`,
             icon: <LogoIcon classes="w-4 h-4" />,
-            name: wishPageT('wish'),
+            name: allPagesT('wish'),
         },
     ];
 
@@ -94,16 +89,6 @@ const Body: FC = () => {
     if (fromPage) {
         if (fromPage === 'main') {
             delete visualPages[1];
-        }
-
-        if (fromPage === 'profile') {
-            visualPages[1] = {
-                href: `user/${selectedUserId}/profile`,
-                icon: (
-                    <PersonIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
-                ),
-                name: allPagesT('profile'),
-            };
         }
     }
 
