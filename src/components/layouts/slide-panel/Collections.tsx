@@ -1,6 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { ECollectionSort, ICollection } from '@/models/Collection';
@@ -239,13 +238,14 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                 >
                     {collectionId && (
                         <li className="flex">
-                            <Link
-                                href={pathname}
-                                className="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
-                                onClick={() => setShowSlidePanel(false)}
+                            <UiButton
+                                href={pathname.replace(`/${activeLocale}/`, '')}
+                                variant="clear-styles"
+                                classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
+                                onLinkClick={() => setShowSlidePanel(false)}
                             >
                                 {allPagesT('all_wishes')}
-                            </Link>
+                            </UiButton>
                         </li>
                     )}
 
@@ -254,20 +254,21 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                             key={collection.id}
                             className={`${collection.id === collectionId ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
                         >
-                            <Link
-                                href={`${pathname}?collectionId=${collection.id}`}
-                                className="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
-                                onClick={() => setShowSlidePanel(false)}
+                            <UiButton
+                                href={`${pathname.replace(`/${activeLocale}/`, '')}?collectionId=${collection.id}`}
+                                variant="clear-styles"
+                                classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
+                                onLinkClick={() => setShowSlidePanel(false)}
                             >
                                 {collection.name}
-                            </Link>
+                            </UiButton>
 
                             {(collection.id !== collectionId ||
                                 pathname !==
                                     `/${activeLocale}/user/${selectedUserId}/collection/editor`) && (
                                 <UiButton
-                                    variant="text-only"
                                     href={`user/${myUser?.id}/collection/editor?collectionId=${collection.id}`}
+                                    variant="text-only"
                                     onLinkClick={() => setShowSlidePanel(false)}
                                 >
                                     <span className="rounded-md p-2.5 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-3">
@@ -276,15 +277,15 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                                 </UiButton>
                             )}
 
-                            <button
-                                className="rounded-md p-2 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-2.5"
-                                type="button"
-                                onClick={() =>
+                            <UiButton
+                                variant="text-only"
+                                classesWrap="rounded-md p-2 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-2.5"
+                                onBtnClick={() =>
                                     handleDeleteCollection(collection)
                                 }
                             >
                                 <BasketIcon />
-                            </button>
+                            </UiButton>
                         </li>
                     ))}
 

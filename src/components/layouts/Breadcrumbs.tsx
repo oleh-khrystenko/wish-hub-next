@@ -1,9 +1,9 @@
 'use client';
 
 import { FC, ReactNode, useEffect, useRef } from 'react';
-import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSettingsStore } from '@/stores/settings';
+import UiButton from '@/components/ui/UiButton';
 import HomeIcon from '@/components/icons/HomeIcon';
 
 interface ISeoPage {
@@ -79,13 +79,14 @@ const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages, isMainPage }) => {
             className={`${isMainPage ? 'tablet-md:px-0' : 'desktop-sm:px-0'} ${visualPages.length > 3 ? 'breadcrumbs-scrollbar overflow-x-auto pb-1' : ''} flex items-center gap-0.5 px-1`}
             ref={navRef}
         >
-            <Link
-                href={`/${activeLocale}`}
-                className="group relative flex items-center justify-center rounded-l-md bg-zinc-300 px-4 py-1 transition-all duration-300 ease-in-out after:absolute after:right-0 after:top-1/2 after:z-10 after:h-4 after:w-4 after:-translate-y-1/2 after:translate-x-1/2 after:rotate-45 after:bg-zinc-300 after:transition-all after:duration-300 after:ease-in-out hover:bg-cyan-400 hover:after:bg-cyan-400 dark:bg-zinc-800 after:dark:bg-zinc-800 hover:dark:bg-cyan-300 hover:after:dark:bg-cyan-300"
-                onClick={() => setShowGlobalLoading(true)}
+            <UiButton
+                href=""
+                variant="clear-styles"
+                classesWrap="group relative flex items-center justify-center rounded-l-md bg-zinc-300 px-4 py-1 transition-all duration-300 ease-in-out after:absolute after:right-0 after:top-1/2 after:z-10 after:h-4 after:w-4 after:-translate-y-1/2 after:translate-x-1/2 after:rotate-45 after:bg-zinc-300 after:transition-all after:duration-300 after:ease-in-out hover:bg-cyan-400 hover:after:bg-cyan-400 dark:bg-zinc-800 after:dark:bg-zinc-800 hover:dark:bg-cyan-300 hover:after:dark:bg-cyan-300"
+                onLinkClick={() => setShowGlobalLoading(true)}
             >
                 <HomeIcon classes="w-4 h-4 stroke-zinc-500 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-600" />
-            </Link>
+            </UiButton>
 
             {visualPages.map((page, idx) => {
                 return idx === visualPages.length - 1 ? (
@@ -102,11 +103,12 @@ const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages, isMainPage }) => {
                         </span>
                     </div>
                 ) : (
-                    <Link
+                    <UiButton
                         key={page.href}
-                        href={`/${activeLocale}/${page.href}`}
-                        className="group relative flex items-center justify-center bg-zinc-300 px-4 py-1 transition-all duration-300 ease-in-out before:absolute before:left-0 before:top-1/2 before:h-4 before:w-4 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-45 before:bg-zinc-200 after:absolute after:right-0 after:top-1/2 after:z-10 after:h-4 after:w-4 after:-translate-y-1/2 after:translate-x-1/2 after:rotate-45 after:bg-zinc-300 after:transition-all after:duration-300 after:ease-in-out hover:bg-cyan-400 hover:after:bg-cyan-400 dark:bg-zinc-800 before:dark:bg-zinc-900 after:dark:bg-zinc-800 hover:dark:bg-cyan-300 hover:after:dark:bg-cyan-300"
-                        onClick={() => setShowGlobalLoading(true)}
+                        href={`/${page.href}`}
+                        variant="clear-styles"
+                        classesWrap="group relative flex items-center justify-center bg-zinc-300 px-4 py-1 transition-all duration-300 ease-in-out before:absolute before:left-0 before:top-1/2 before:h-4 before:w-4 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-45 before:bg-zinc-200 after:absolute after:right-0 after:top-1/2 after:z-10 after:h-4 after:w-4 after:-translate-y-1/2 after:translate-x-1/2 after:rotate-45 after:bg-zinc-300 after:transition-all after:duration-300 after:ease-in-out hover:bg-cyan-400 hover:after:bg-cyan-400 dark:bg-zinc-800 before:dark:bg-zinc-900 after:dark:bg-zinc-800 hover:dark:bg-cyan-300 hover:after:dark:bg-cyan-300"
+                        onLinkClick={() => setShowGlobalLoading(true)}
                     >
                         {page.icon}
 
@@ -115,7 +117,7 @@ const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages, isMainPage }) => {
                         >
                             {page.name}
                         </span>
-                    </Link>
+                    </UiButton>
                 );
             })}
         </nav>

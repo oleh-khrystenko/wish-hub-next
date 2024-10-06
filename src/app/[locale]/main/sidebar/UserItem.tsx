@@ -2,7 +2,6 @@
 
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
@@ -284,9 +283,10 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                     hide={() => setShowPopup(false)}
                 >
                     <div className="flex flex-col p-2">
-                        <Link
-                            href={`/${activeLocale}/user/${user.id}/collection`}
-                            className="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                        <UiButton
+                            href={`/user/${user.id}/collection`}
+                            variant="clear-styles"
+                            classesWrap="relative flex w-full items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                         >
                             {theme === ETheme.DARK ? (
                                 <LogoLightIcon
@@ -301,74 +301,71 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                             )}
 
                             {mainPageT('user_collection')}
-                        </Link>
+                        </UiButton>
 
-                        <button
-                            className="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
-                            type="button"
-                            onClick={handleGoToProfilePage}
+                        <UiButton
+                            variant="clear-styles"
+                            classesWrap="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                            onBtnClick={handleGoToProfilePage}
                         >
                             <PersonIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
-
                             {mainPageT('user_profile')}
-                        </button>
+                        </UiButton>
 
                         {showAddFriend && (
-                            <button
-                                className="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
-                                type="button"
-                                onClick={handleAddFriend}
+                            <UiButton
+                                variant="clear-styles"
+                                classesWrap="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                                onBtnClick={handleAddFriend}
                             >
                                 <PersonAddIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
 
                                 {myUser?.followFrom.includes(user.id)
                                     ? mainPageT('confirm-friendship')
                                     : mainPageT('add-friend')}
-                            </button>
+                            </UiButton>
                         )}
 
-                        {(myUser?.friends.includes(user.id) ||
-                            myUser?.followTo.includes(user.id)) && (
-                            <button
-                                className="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
-                                type="button"
-                                onClick={() =>
-                                    handleRemoveFriend(EWhereRemove.FOLLOW_TO)
-                                }
-                            >
-                                <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
-                                {mainPageT('delete-your')} <br />{' '}
-                                {mainPageT('delete-request')}
-                            </button>
-                        )}
+                        {/*{(myUser?.friends.includes(user.id) ||*/}
+                        {/*    myUser?.followTo.includes(user.id)) && (*/}
+                        {/*    <button*/}
+                        {/*        type="button"*/}
+                        {/*        onClick={() =>*/}
+                        {/*            handleRemoveFriend(EWhereRemove.FOLLOW_TO)*/}
+                        {/*        }*/}
+                        {/*    >*/}
+                        {/*        <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />*/}
+                        {/*        {mainPageT('delete-your')} <br />{' '}*/}
+                        {/*        {mainPageT('delete-request')}*/}
+                        {/*    </button>*/}
+                        {/*)}*/}
 
-                        {(myUser?.friends.includes(user.id) ||
-                            myUser?.followFrom.includes(user.id)) && (
-                            <button
-                                className="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
-                                type="button"
-                                onClick={() =>
-                                    handleRemoveFriend(EWhereRemove.FOLLOW_FROM)
-                                }
-                            >
-                                <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
-                                {mainPageT('delete-user_s')} <br />{' '}
-                                {mainPageT('delete-request')}
-                            </button>
-                        )}
+                        {/*{(myUser?.friends.includes(user.id) ||*/}
+                        {/*    myUser?.followFrom.includes(user.id)) && (*/}
+                        {/*    <button*/}
+                        {/*        type="button"*/}
+                        {/*        onClick={() =>*/}
+                        {/*            handleRemoveFriend(EWhereRemove.FOLLOW_FROM)*/}
+                        {/*        }*/}
+                        {/*    >*/}
+                        {/*        <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />*/}
+                        {/*        {mainPageT('delete-user_s')} <br />{' '}*/}
+                        {/*        {mainPageT('delete-request')}*/}
+                        {/*    </button>*/}
+                        {/*)}*/}
 
                         {myUser?.friends.includes(user.id) && (
-                            <button
-                                className="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
-                                type="button"
-                                onClick={() =>
+                            <UiButton
+                                variant="clear-styles"
+                                classesWrap="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                                onBtnClick={() =>
                                     handleRemoveFriend(EWhereRemove.FRIENDS)
                                 }
                             >
                                 <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
 
                                 {mainPageT('remove-friend')}
-                            </button>
+                            </UiButton>
                         )}
                     </div>
                 </UiPopup>

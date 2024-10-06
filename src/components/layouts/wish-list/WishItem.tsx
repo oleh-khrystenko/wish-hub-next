@@ -1,8 +1,7 @@
 'use client';
 
 import { FC, useMemo } from 'react';
-import Link from 'next/link';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { ECurrency, IWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
@@ -12,6 +11,7 @@ import { isBookingExpired } from '@/helpers/utils/date-validators';
 import WishMark from '@/components/layouts/WishMark';
 import LikeAction from '@/components/layouts/LikeAction';
 import UiImage from '@/components/ui/UiImage';
+import UiButton from '@/components/ui/UiButton';
 import LogoIcon from '@/components/icons/LogoIcon';
 import EditIcon from '@/components/icons/EditIcon';
 
@@ -22,7 +22,6 @@ interface IProps {
 }
 
 const WishItem: FC<IProps> = ({ wish, idx, currentPage }) => {
-    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -50,10 +49,11 @@ const WishItem: FC<IProps> = ({ wish, idx, currentPage }) => {
         <li
             className={`${isBookingExpired(wish, myUser?.id) ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
         >
-            <Link
-                href={`/${activeLocale}/user/${wish.userId}/wish?wishId=${wish.id}&fromPage=${currentPage}`}
-                className={`${wish.executed ? '-rotate-3 border-cyan-500 bg-wish-bg dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
-                onClick={() => setShowGlobalLoading(true)}
+            <UiButton
+                href={`/user/${wish.userId}/wish?wishId=${wish.id}&fromPage=${currentPage}`}
+                variant="clear-styles"
+                classesWrap={`${wish.executed ? '-rotate-3 border-cyan-500 bg-wish-bg dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
+                onLinkClick={() => setShowGlobalLoading(true)}
             >
                 <div className="relative w-full pt-[100%]">
                     {wish.images?.length > 0 ? (
@@ -93,17 +93,18 @@ const WishItem: FC<IProps> = ({ wish, idx, currentPage }) => {
 
                     <LikeAction wish={wish} type="dislikes" />
                 </div>
-            </Link>
+            </UiButton>
 
             {myUser?.id === wish.userId &&
                 !wish.booking?.userId &&
                 !wish.executed && (
-                    <Link
-                        href={`/${activeLocale}/user/${myUser?.id}/wish/editor?wishId=${wish.id}&fromPage=${currentPage}`}
-                        className="absolute right-1 top-1 flex h-10 w-10 items-center justify-center rounded-md bg-zinc-300 transition-all duration-300 ease-in-out hover:bg-zinc-400 dark:bg-zinc-700 hover:dark:bg-zinc-600"
+                    <UiButton
+                        href={`/user/${myUser?.id}/wish/editor?wishId=${wish.id}&fromPage=${currentPage}`}
+                        variant="clear-styles"
+                        classesWrap="absolute right-1 top-1 flex h-10 w-10 items-center justify-center rounded-md bg-zinc-300 transition-all duration-300 ease-in-out hover:bg-zinc-400 dark:bg-zinc-700 hover:dark:bg-zinc-600"
                     >
                         <EditIcon />
-                    </Link>
+                    </UiButton>
                 )}
         </li>
     );

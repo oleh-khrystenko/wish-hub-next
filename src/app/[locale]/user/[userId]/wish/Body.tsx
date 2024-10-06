@@ -1,7 +1,6 @@
 'use client';
 
 import { FC, useEffect, useRef } from 'react';
-import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
@@ -187,13 +186,14 @@ const Body: FC = () => {
                         </div>
 
                         {myUser?.id !== wish.userId && (
-                            <Link
+                            <UiButton
                                 href={
                                     myUser
-                                        ? `/${activeLocale}/user/${creator?.id}/profile`
-                                        : `/${activeLocale}/auth`
+                                        ? `/user/${creator?.id}/profile`
+                                        : `/auth`
                                 }
-                                className="flex items-center gap-3 tablet-sm:gap-4"
+                                variant="clear-styles"
+                                classesWrap="flex items-center gap-3 tablet-sm:gap-4"
                             >
                                 <UiAvatar
                                     avatar={creator?.avatar}
@@ -210,7 +210,7 @@ const Body: FC = () => {
                                 >
                                     {getFullName(creator)}
                                 </p>
-                            </Link>
+                            </UiButton>
                         )}
                     </div>
 

@@ -1,12 +1,11 @@
 'use client';
 
 import { FC } from 'react';
-import Link from 'next/link';
 import { Manrope } from 'next/font/google';
-import { useLocale } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
-import LogoIcon from '@/components/icons/LogoIcon';
 import { useSettingsStore } from '@/stores/settings';
+import UiButton from '@/components/ui/UiButton';
+import LogoIcon from '@/components/icons/LogoIcon';
 
 const manrope = Manrope({ subsets: ['latin'], weight: ['700'] });
 
@@ -23,8 +22,6 @@ const UiBrand: FC<IProps> = ({
     withLogo,
     isBig,
 }) => {
-    const activeLocale = useLocale();
-
     const myUser = useMyUserStore((state) => state.myUser);
 
     const setShowGlobalLoading = useSettingsStore(
@@ -57,13 +54,14 @@ const UiBrand: FC<IProps> = ({
     }
 
     return (
-        <Link
-            href={`/${activeLocale}/${myUser ? 'main' : ''}`}
-            className="relative flex items-center gap-2 px-4 py-2 text-cyan-400 dark:text-cyan-300"
-            onClick={() => setShowGlobalLoading(true)}
+        <UiButton
+            href={myUser ? 'main' : ''}
+            variant="clear-styles"
+            classesWrap="relative flex items-center gap-2 px-4 py-2 text-cyan-400 dark:text-cyan-300"
+            onLinkClick={() => setShowGlobalLoading(true)}
         >
             {children}
-        </Link>
+        </UiButton>
     );
 };
 
