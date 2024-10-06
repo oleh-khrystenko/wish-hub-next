@@ -1,9 +1,11 @@
 'use client';
 
-import { FC, ReactNode, MouseEventHandler } from 'react';
+import { FC, ReactNode, MouseEvent, MouseEventHandler, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useSettingsStore } from '@/stores/settings';
+import ConfirmModal from '@/components/layouts/ConfirmModal';
 
 interface IProps {
     href?: string;
@@ -38,20 +40,41 @@ const UiButton: FC<IProps> = ({
     onBtnClick,
     children,
 }) => {
+    const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
+
+    const router = useRouter();
+
+    const activeLocale = useLocale();
+    const allPagesT = useTranslations('all-pages');
+
+    const isDirtyForm = useSettingsStore((state) => state.isDirtyForm);
     const setShowGlobalLoading = useSettingsStore(
         (state) => state.setShowGlobalLoading
     );
 
-    const handleLinkClick = () => {
+    const handleLinkClick = (event: MouseEvent<HTMLAnchorElement>) => {
+        if (isDirtyForm) {
+            // Якщо є незбережені зміни, зупиняємо перехід і показуємо модалку
+            event.preventDefault();
+            setShowConfirmLeave(true);
+        } else {
+            // Якщо немає незбережених змін, продовжуємо перехід
+            setShowGlobalLoading(true);
+            onLinkClick && onLinkClick();
+        }
+    };
+
+    const confirmLeave = () => {
         setShowGlobalLoading(true);
+        setShowConfirmLeave(false);
+        // Продовжуємо перехід після підтвердження
         onLinkClick && onLinkClick();
+        router.push(`/${activeLocale}/${href}`);
     };
 
     const handleBtnClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
         disabled && event.preventDefault();
     };
-
-    const activeLocale = useLocale();
 
     let classes =
         'relative inline-flex items-center justify-start w-auto text-cyan-400 dark:text-cyan-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 ease-in-out';
@@ -110,13 +133,27 @@ const UiButton: FC<IProps> = ({
 
     if (href !== undefined) {
         return (
-            <Link href={`/${activeLocale}/${href}`} {...linkProps}>
-                {variant === 'text-only' || variant === 'clear-styles' ? (
-                    <>{children}</>
-                ) : (
-                    <span className={spanClasses}>{children}</span>
-                )}
-            </Link>
+            <>
+                <Link href={`/${activeLocale}/${href}`} {...linkProps}>
+                    {variant === 'text-only' || variant === 'clear-styles' ? (
+                        <>{children}</>
+                    ) : (
+                        <span className={spanClasses}>{children}</span>
+                    )}
+                </Link>
+
+                <ConfirmModal
+                    show={showConfirmLeave}
+                    confirm={confirmLeave}
+                    hide={() => setShowConfirmLeave(false)}
+                    confirmModalT={allPagesT('leave_with_changes.confirm')}
+                    closeModalT={allPagesT('leave_with_changes.close')}
+                >
+                    <span className="text-zinc-700 dark:text-zinc-300">
+                        {allPagesT('leave_with_changes.text')}
+                    </span>
+                </ConfirmModal>
+            </>
         );
     }
 

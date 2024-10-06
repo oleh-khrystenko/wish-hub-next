@@ -41,11 +41,11 @@ export default function WishList() {
                             <Body />
                         </UserSessionRefresher>
 
+                        <Footer />
+
                         <GlobalLoading />
                     </NextIntlClientProvider>
                 </div>
-
-                <Footer />
             </div>
         </>
     );

@@ -35,20 +35,19 @@ export default function Welcome() {
     const welcomePageT = useTranslations('welcome-page');
 
     return (
-        <>
-            <main className="flex h-full min-h-screen flex-col bg-zinc-300 pb-14 dark:bg-zinc-900 tablet-md:p-0">
+        <main className="flex h-full min-h-screen flex-col bg-zinc-300 pb-14 dark:bg-zinc-900 tablet-md:p-0">
+            <NextIntlClientProvider
+                messages={pick(messages, [
+                    'welcome-page',
+                    'validations',
+                    'all-pages',
+                ])}
+            >
                 <section className="bg-rose-cyan-rose bg-cover bg-[80%_50%] bg-no-repeat px-4 pb-10 tablet-md:pb-20 desktop-xs:pb-28 desktop-sm:bg-center desktop-sm:px-0">
                     <div className="relative mx-auto max-w-7xl pt-20 tablet-md:pt-[104px]">
-                        <NextIntlClientProvider
-                            messages={pick(messages, [
-                                'welcome-page',
-                                'all-pages',
-                            ])}
-                        >
-                            <UserSessionRefresher withoutLoading>
-                                <Header />
-                            </UserSessionRefresher>
-                        </NextIntlClientProvider>
+                        <UserSessionRefresher withoutLoading>
+                            <Header />
+                        </UserSessionRefresher>
 
                         <div className="desktop-sm:grid desktop-sm:grid-cols-2 desktop-sm:gap-y-9">
                             <div className="mx-auto tablet-md:w-3/4 desktop-sm:mx-0 desktop-sm:w-auto">
@@ -170,23 +169,14 @@ export default function Welcome() {
                             <WindingIcon classes="w-20 h-20 desktop-sm:w-24 desktop-sm:h-24 p-2.5 tablet-lg:p-0 tablet-lg:rotate-45 rotate-[144deg]" />
 
                             {/* sing-up */}
-                            <NextIntlClientProvider
-                                messages={pick(messages, [
-                                    'welcome-page',
-                                    'validations',
-                                    'all-pages',
-                                ])}
-                            >
-                                <SignUp />
+                            <SignUp />
 
-                                <GlobalLoading />
-                            </NextIntlClientProvider>
+                            <GlobalLoading />
                         </div>
                     </div>
                 </section>
-
                 <Footer isWelcome />
-            </main>
-        </>
+            </NextIntlClientProvider>
+        </main>
     );
 }

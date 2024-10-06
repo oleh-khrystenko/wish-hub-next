@@ -15,13 +15,13 @@ import { EPrivacy } from '@/models/Settings';
 import { ICreateWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
+import { useSettingsStore } from '@/stores/settings';
 import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
 import FormContent from '@/app/[locale]/user/[userId]/wish/editor/FormContent';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
-// import UiModal from '@/components/ui/modal/UiModal';
 
 interface IProps {
     wish: IWish;
@@ -33,8 +33,6 @@ const EditWish: FC<IProps> = ({ wish }) => {
     const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
-    const [changed, setChanged] = useState<boolean>(false);
-    // const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
     const [showConfirmDeleteWish, setShowConfirmDeleteWish] =
         useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -62,6 +60,9 @@ const EditWish: FC<IProps> = ({ wish }) => {
     const wishes = useWishesStore((state) => state.list);
     const updateWish = useWishesStore((state) => state.updateWish);
     const deleteWish = useWishesStore((state) => state.deleteWish);
+
+    const isDirtyForm = useSettingsStore((state) => state.isDirtyForm);
+    const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
         const nonUniqueName = wishes.some((currentWish) => {
@@ -207,7 +208,7 @@ const EditWish: FC<IProps> = ({ wish }) => {
                 })
         );
 
-        setChanged(true);
+        setIsDirtyForm(true);
     };
 
     const handleDeleteWish = async () => {
@@ -340,8 +341,6 @@ const EditWish: FC<IProps> = ({ wish }) => {
                     setShow={setShow}
                     showError={showError}
                     setShowError={setShowError}
-                    changed={changed}
-                    setChanged={setChanged}
                 />
 
                 {/* actions */}
@@ -353,33 +352,21 @@ const EditWish: FC<IProps> = ({ wish }) => {
                         {mainPageT('delete-wish')}
                     </UiButton>
 
-                    <UiButton type="submit" disabled={!changed}>
+                    <UiButton type="submit" disabled={!isDirtyForm}>
                         {mainPageT('update')}
                     </UiButton>
                 </div>
             </form>
 
-            {/*<ConfirmModal*/}
-            {/*    show={showConfirmLeave}*/}
-            {/*    confirm={hideModals}*/}
-            {/*    hide={() => setShowConfirmLeave(false)}*/}
-            {/*    confirmModalT={mainPageT('leave_with_changes.confirm')}*/}
-            {/*    closeModalT={mainPageT('leave_with_changes.close')}*/}
-            {/*>*/}
-            {/*    <span className="text-zinc-700 dark:text-zinc-300">*/}
-            {/*        {mainPageT('leave_with_changes.text')}*/}
-            {/*    </span>*/}
-            {/*</ConfirmModal>*/}
-
             <ConfirmModal
                 show={showConfirmDeleteWish}
                 confirm={handleDeleteWish}
                 hide={() => setShowConfirmDeleteWish(false)}
-                confirmModalT={mainPageT('delete')}
-                closeModalT={mainPageT('leave_with_changes.close')}
+                confirmModalT={allPagesT('delete')}
+                closeModalT={allPagesT('leave_with_changes.close')}
             >
                 <span className="text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('are-you-sure')}
+                    {allPagesT('are-you-sure')}
                 </span>
             </ConfirmModal>
 

@@ -22,22 +22,22 @@ const ConfirmModal: FC<IProps> = ({
     confirmModalT,
     closeModalT,
 }) => {
-    const mainPageT = useTranslations('main-page');
+    const allPagesT = useTranslations('all-pages');
 
     return (
         <UiModal show={show} rounded="rounded-2xl">
             <p className="mb-4 block text-center text-2xl font-bold text-rose-500">
-                {titleModalT || mainPageT('confirm-modal.title')}
+                {titleModalT || allPagesT('confirm-modal.title')}
             </p>
 
             <span className="text-zinc-700 dark:text-zinc-300">{children}</span>
 
             <div className="mt-6 flex flex-col items-end justify-end gap-4 mobile-xs:flex-row mobile-xs:items-center">
                 <UiButton variant="text-attention" onBtnClick={confirm}>
-                    {confirmModalT || mainPageT('confirm-modal.confirm')}
+                    {confirmModalT || allPagesT('confirm-modal.confirm')}
                 </UiButton>
                 <UiButton onBtnClick={hide}>
-                    {closeModalT || mainPageT('confirm-modal.close')}
+                    {closeModalT || allPagesT('confirm-modal.close')}
                 </UiButton>
             </div>
         </UiModal>

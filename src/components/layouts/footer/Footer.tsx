@@ -1,10 +1,5 @@
 import { FC } from 'react';
-import {
-    useMessages,
-    useTranslations,
-    NextIntlClientProvider,
-} from 'next-intl';
-import pick from 'lodash.pick';
+import { useTranslations } from 'next-intl';
 import { INavItem } from '@/models/Settings';
 import Divider from '@/components/layouts/Divider';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
@@ -17,7 +12,6 @@ interface IProps {
 }
 
 const Footer: FC<IProps> = ({ remove, isWelcome }) => {
-    const messages = useMessages();
     const welcomePageT = useTranslations('welcome-page');
     const mainPageT = useTranslations('main-page');
 
@@ -35,13 +29,9 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
                 <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
                     <div className="grid gap-6 tablet-lg:grid-cols-2 desktop-xs:grid-cols-3">
                         <div>
-                            <NextIntlClientProvider
-                                messages={pick(messages, ['all-pages'])}
-                            >
-                                <div className="-ml-4">
-                                    <UiBrand withLogo disabled={isWelcome} />
-                                </div>
-                            </NextIntlClientProvider>
+                            <div className="-ml-4">
+                                <UiBrand withLogo disabled={isWelcome} />
+                            </div>
 
                             <p className="text-lg text-zinc-700 dark:text-zinc-400">
                                 {welcomePageT('slogan')}

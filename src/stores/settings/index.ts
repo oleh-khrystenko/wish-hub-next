@@ -6,10 +6,12 @@ interface ISettingsStore {
     showSidebar: boolean;
     showSlidePanel: boolean;
     showGlobalLoading: boolean;
+    isDirtyForm: boolean;
     setTheme: (value: ETheme) => void;
     setShowSidebar: (value: boolean) => void;
     setShowSlidePanel: (value: boolean) => void;
     setShowGlobalLoading: (value: boolean) => void;
+    setIsDirtyForm: (value: boolean) => void;
 }
 
 export const useSettingsStore = create<ISettingsStore>((set) => ({
@@ -17,6 +19,7 @@ export const useSettingsStore = create<ISettingsStore>((set) => ({
     showSidebar: false,
     showSlidePanel: false,
     showGlobalLoading: false,
+    isDirtyForm: false,
     setTheme: (value) => {
         set((state) => ({
             ...state,
@@ -39,6 +42,12 @@ export const useSettingsStore = create<ISettingsStore>((set) => ({
         set((state) => ({
             ...state,
             showGlobalLoading: value,
+        }));
+    },
+    setIsDirtyForm: (value) => {
+        set((state) => ({
+            ...state,
+            isDirtyForm: value,
         }));
     },
 }));

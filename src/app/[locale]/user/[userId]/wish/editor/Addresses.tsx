@@ -10,6 +10,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { TWishFormInputs } from '@/models/Wish';
 import { ICreateWish } from '@/stores/wishes/types';
+import { useSettingsStore } from '@/stores/settings';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import UiInput from '@/components/ui/UiInput';
 import CrossIcon from '@/components/icons/CrossIcon';
@@ -20,7 +21,6 @@ interface IProps {
     errors: FieldErrors<TWishFormInputs>;
     material: ICreateWish['material'];
     setValue: UseFormSetValue<TWishFormInputs>;
-    setChanged: (value: boolean) => void;
     watchingAddresses?: TWishFormInputs['addresses'];
     isEmptyAddress: boolean;
 }
@@ -31,7 +31,6 @@ const Addresses: FC<IProps> = ({
     errors,
     material,
     setValue,
-    setChanged,
     watchingAddresses,
     isEmptyAddress,
 }) => {
@@ -44,6 +43,8 @@ const Addresses: FC<IProps> = ({
         name: 'addresses',
     });
 
+    const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
+
     const { onlyWhitespaceValidation } = UseValidations();
 
     const handleChange = (
@@ -51,17 +52,17 @@ const Addresses: FC<IProps> = ({
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         setValue(`addresses.${idx}.value`, event.target.value);
-        setChanged(true);
+        setIsDirtyForm(true);
     };
 
     const handleRemove = (idx: number) => {
         remove(idx);
-        setChanged(true);
+        setIsDirtyForm(true);
     };
 
     const handleAppend = () => {
         append({ id: uuidv4(), value: '' });
-        setChanged(true);
+        setIsDirtyForm(true);
     };
 
     useLayoutEffect(() => {

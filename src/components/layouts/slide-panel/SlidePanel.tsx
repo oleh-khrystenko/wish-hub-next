@@ -23,7 +23,6 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent }) => {
     const [showConfirmDeleteCollection, setShowConfirmDeleteCollection] =
         useState<boolean>(false);
 
-    const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -129,8 +128,8 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent }) => {
                 show={showConfirmDeleteCollection}
                 confirm={confirmDeleteCollection}
                 hide={() => setShowConfirmDeleteCollection(false)}
-                confirmModalT={mainPageT('delete')}
-                closeModalT={mainPageT('leave_with_changes.close')}
+                confirmModalT={allPagesT('delete')}
+                closeModalT={allPagesT('leave_with_changes.close')}
             >
                 <span className="text-zinc-700 dark:text-zinc-300">
                     {allPagesT('sure_collection', { name: collection?.name })}

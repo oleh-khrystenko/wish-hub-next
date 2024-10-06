@@ -19,24 +19,22 @@ export default function About() {
     const messages = useMessages();
 
     return (
-        <>
-            <NextIntlClientProvider
-                messages={pick(messages, [
-                    'main-page',
-                    'share-button',
-                    'all-pages',
-                ])}
-            >
-                <UserSessionRefresher>
-                    <Header />
-                </UserSessionRefresher>
+        <NextIntlClientProvider
+            messages={pick(messages, [
+                'main-page',
+                'share-button',
+                'all-pages',
+            ])}
+        >
+            <UserSessionRefresher>
+                <Header />
+            </UserSessionRefresher>
 
-                <Body />
-
-                <GlobalLoading />
-            </NextIntlClientProvider>
+            <Body />
 
             <Footer remove="about" />
-        </>
+
+            <GlobalLoading />
+        </NextIntlClientProvider>
     );
 }

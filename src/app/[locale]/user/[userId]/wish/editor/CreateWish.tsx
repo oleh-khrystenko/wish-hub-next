@@ -17,12 +17,12 @@ import { ELang, EPrivacy } from '@/models/Settings';
 import { ICreateWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
+import { useSettingsStore } from '@/stores/settings';
 import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
 import FastWish from '@/app/[locale]/user/[userId]/wish/editor/FastWish';
 import FormContent from '@/app/[locale]/user/[userId]/wish/editor/FormContent';
 import QuoteMessage from '@/components/layouts/QuoteMessage';
-// import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
 import UiModal from '@/components/ui/modal/UiModal';
 import UiLoading from '@/components/ui/UiLoading';
@@ -34,9 +34,7 @@ const CreateWish: FC = () => {
     const [currency, setCurrency] = useState<IWish['currency']>(ECurrency.UAH);
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
-    const [changed, setChanged] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    // const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
     const route = useRouter();
 
@@ -61,6 +59,9 @@ const CreateWish: FC = () => {
     const wishes = useWishesStore((state) => state.list);
     const wishCandidate = useWishesStore((state) => state.wishCandidate);
     const createWish = useWishesStore((state) => state.createWish);
+
+    const isDirtyForm = useSettingsStore((state) => state.isDirtyForm);
+    const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
         const nonUniqueName = wishes.some((wish) => {
@@ -248,7 +249,7 @@ const CreateWish: FC = () => {
 
             setValue('description', wishCandidate.description);
 
-            setChanged(true);
+            setIsDirtyForm(true);
         }
     }, [wishCandidate, setValue]);
 
@@ -276,13 +277,11 @@ const CreateWish: FC = () => {
                     setShow={setShow}
                     showError={showError}
                     setShowError={setShowError}
-                    changed={changed}
-                    setChanged={setChanged}
                 />
 
                 {/* submit */}
                 <div className="ml-auto">
-                    <UiButton type="submit" disabled={!changed}>
+                    <UiButton type="submit" disabled={!isDirtyForm}>
                         {mainPageT('create')}
                     </UiButton>
                 </div>
@@ -293,18 +292,6 @@ const CreateWish: FC = () => {
                     <FastWish hide={() => setIsFastWish(false)} />
                 </UiModal>
             )}
-
-            {/*<ConfirmModal*/}
-            {/*    show={showConfirm}*/}
-            {/*    confirm={hideModals}*/}
-            {/*    hide={() => setShowConfirm(false)}*/}
-            {/*    confirmModalT={mainPageT('leave_with_changes.confirm')}*/}
-            {/*    closeModalT={mainPageT('leave_with_changes.close')}*/}
-            {/*>*/}
-            {/*    <span className="text-zinc-700 dark:text-zinc-300">*/}
-            {/*        {mainPageT('leave_with_changes.text')}*/}
-            {/*    </span>*/}
-            {/*</ConfirmModal>*/}
 
             {isLoading && <UiLoading />}
         </>

@@ -20,6 +20,7 @@ import {
 } from '@/models/Wish';
 import { EPrivacy } from '@/models/Settings';
 import { ICreateWish } from '@/stores/wishes/types';
+import { useSettingsStore } from '@/stores/settings';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import DragNDrop from '@/app/[locale]/user/[userId]/wish/editor/drag-n-drop/DragNDrop';
 import Addresses from '@/app/[locale]/user/[userId]/wish/editor/Addresses';
@@ -46,8 +47,6 @@ interface IProps {
     setShow: (value: ICreateWish['show']) => void;
     showError: string;
     setShowError: (value: string) => void;
-    changed: boolean;
-    setChanged: (value: boolean) => void;
 }
 
 const FormContent: FC<IProps> = ({
@@ -68,8 +67,6 @@ const FormContent: FC<IProps> = ({
     setShow,
     showError,
     setShowError,
-    changed,
-    setChanged,
 }) => {
     const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
     const [descriptionLength, setDescriptionLength] = useState<number>(0);
@@ -86,6 +83,9 @@ const FormContent: FC<IProps> = ({
     const watchingAddresses = watch('addresses');
 
     const mainPageT = useTranslations('main-page');
+
+    const isDirtyForm = useSettingsStore((state) => state.isDirtyForm);
+    const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
 
     const {
         wishNameValidation,
@@ -122,23 +122,23 @@ const FormContent: FC<IProps> = ({
 
     const changeMaterial = (value: boolean) => {
         setMaterial(value);
-        setChanged(true);
+        setIsDirtyForm(true);
     };
 
     const changeImages = (value: TCurrentImage[]) => {
         setImages(value);
-        setChanged(true);
+        setIsDirtyForm(true);
     };
 
     const changeCurrency = (value: IWish['currency']) => {
         setCurrency(value);
-        setChanged(true);
+        setIsDirtyForm(true);
     };
 
     const changePrivacy = (value: EPrivacy) => {
         setShow(value);
         setShowError('');
-        setChanged(true);
+        setIsDirtyForm(true);
     };
 
     const handleReactHookFormInputChange = async (
@@ -150,7 +150,7 @@ const FormContent: FC<IProps> = ({
         type === 'description' && setDescriptionLength(value.length);
 
         setValue(type, value);
-        setChanged(true);
+        setIsDirtyForm(true);
 
         setShouldTriggerValidation({
             type,
@@ -203,7 +203,7 @@ const FormContent: FC<IProps> = ({
 
     useEffect(() => {
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            if (changed) {
+            if (isDirtyForm) {
                 e.preventDefault();
                 e.returnValue = '';
             }
@@ -216,7 +216,13 @@ const FormContent: FC<IProps> = ({
             // Очищаємо слухачі подій при демонтажі компонента
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
-    }, [changed]);
+    }, [isDirtyForm]);
+
+    useEffect(() => {
+        return () => {
+            setIsDirtyForm(false);
+        };
+    }, []);
 
     return (
         <>
@@ -316,7 +322,6 @@ const FormContent: FC<IProps> = ({
                         errors={errors}
                         material={material}
                         setValue={setValue}
-                        setChanged={setChanged}
                         watchingAddresses={watchingAddresses}
                         isEmptyAddress={isEmptyAddress}
                     />

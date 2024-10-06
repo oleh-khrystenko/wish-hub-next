@@ -44,10 +44,10 @@ export default function Profile() {
                     </RoutesGuard>
                 </UserSessionRefresher>
 
+                <Footer />
+
                 <GlobalLoading />
             </NextIntlClientProvider>
-
-            <Footer />
         </div>
     );
 }

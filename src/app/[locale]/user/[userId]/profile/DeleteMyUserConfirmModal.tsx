@@ -124,7 +124,7 @@ const DeleteMyUserConfirmModal: FC<IProps> = ({ show, hid }) => {
         <UiModal show={show} rounded="rounded-2xl">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <h3 className="block text-center text-2xl font-bold text-rose-500">
-                    {mainPageT('confirm-modal.title')}
+                    {allPagesT('confirm-modal.title')}
                 </h3>
 
                 <p className="mt-4 text-zinc-700 dark:text-zinc-300">

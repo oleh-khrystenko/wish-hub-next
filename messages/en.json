@@ -163,7 +163,6 @@
         "share_collection": "Share this collection",
         "delete-wish": "Delete wish",
         "delete": "Delete",
-        "are-you-sure": "Are You sure you want to delete this wish?",
         "create": "Create",
         "drag": "Click or drag images here to add them to your wish list.",
         "click": "Click here to add an image to Your wish.",
@@ -193,11 +192,6 @@
         "private-wish-error": "You have to select at least one level of privacy you want.",
         "user_not_found": "User not found",
         "theme": "Theme",
-        "confirm-modal": {
-            "title": "Attention!",
-            "confirm": "Confirm",
-            "close": "Close"
-        },
         "privacy_policy_title": "Privacy Policy",
         "my-profile": "My profile",
         "user_profile": "User profile",
@@ -206,11 +200,6 @@
             "file-type": "One or more files are in an unsupported format. Supported formats:",
             "file-size": "One or more files are larger than {size} MB.",
             "file-count": "Unfortunately, it is not possible to save more than {count} images."
-        },
-        "leave_with_changes": {
-            "text": "You have made changes to the form. Are you sure you want to leave this page?",
-            "confirm": "Close without saving",
-            "close": "Cancellation"
         },
         "to_main": "To Main",
         "create_collection": "Create collection",
@@ -708,7 +697,19 @@
         "collections_search": "Collections Search",
         "wishes": "Wishes",
         "all_wishes": "All wishes",
-        "sure_collection": "Deleting the collection will not remove any wishes. Are you sure you want to delete the collection \"{name}\"?"
+        "delete": "Delete",
+        "are-you-sure": "Are You sure you want to delete this wish?",
+        "sure_collection": "Deleting the collection will not remove any wishes. Are you sure you want to delete the collection \"{name}\"?",
+        "leave_with_changes": {
+            "text": "You have made changes to the form. Are you sure you want to leave this page?",
+            "confirm": "Leave without saving",
+            "close": "Cancel"
+        },
+        "confirm-modal": {
+            "title": "Attention!",
+            "confirm": "Confirm",
+            "close": "Close"
+        }
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

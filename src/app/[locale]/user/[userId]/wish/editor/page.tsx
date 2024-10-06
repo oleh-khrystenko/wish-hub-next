@@ -45,11 +45,11 @@ export default function Wish() {
                             </RoutesGuard>
                         </UserSessionRefresher>
 
+                        <Footer />
+
                         <GlobalLoading />
                     </NextIntlClientProvider>
                 </div>
-
-                <Footer />
             </div>
         </>
     );
