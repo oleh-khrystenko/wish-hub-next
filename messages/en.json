@@ -211,7 +211,7 @@
             "file-count": "Unfortunately, it is not possible to save more than {count} images."
         },
         "leave_with_changes": {
-            "text": "You have made changes to the wish creation form. Are you sure you want to close the window without saving?",
+            "text": "You have made changes to the form. Are you sure you want to leave this page?",
             "confirm": "Close without saving",
             "close": "Cancellation"
         },

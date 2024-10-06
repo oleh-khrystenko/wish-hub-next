@@ -205,27 +205,16 @@ const FormContent: FC<IProps> = ({
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
             if (changed) {
                 e.preventDefault();
-                e.returnValue = ''; // Показує стандартне попередження про втрату даних
+                e.returnValue = '';
             }
         };
 
-        const handlePopState = () => {
-            if (changed) {
-                const confirmation = confirm(
-                    'У вас є незбережені зміни. Ви впевнені, що хочете повернутися? (кероване попередження)'
-                );
-                if (!confirmation) {
-                    window.history.pushState(null, '', window.location.href);
-                }
-            }
-        };
-
+        // Додаємо слухачі подій
         window.addEventListener('beforeunload', handleBeforeUnload);
-        window.addEventListener('popstate', handlePopState);
 
         return () => {
+            // Очищаємо слухачі подій при демонтажі компонента
             window.removeEventListener('beforeunload', handleBeforeUnload);
-            window.removeEventListener('popstate', handlePopState);
         };
     }, [changed]);
 
