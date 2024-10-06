@@ -34,7 +34,6 @@ const EditWish: FC<IProps> = ({ wish }) => {
     const [show, setShow] = useState<ICreateWish['show'] | null>(null);
     const [showError, setShowError] = useState<string>('');
     const [changed, setChanged] = useState<boolean>(false);
-    // const [loadedAllData, setLoadedAllData] = useState<boolean>(false);
     // const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
     const [showConfirmDeleteWish, setShowConfirmDeleteWish] =
         useState<boolean>(false);
@@ -315,8 +314,6 @@ const EditWish: FC<IProps> = ({ wish }) => {
                 ? copiedWish.images
                 : decryptedImages
         );
-
-        // setLoadedAllData(true);
     }, [wish, setValue]);
 
     return (
@@ -343,9 +340,7 @@ const EditWish: FC<IProps> = ({ wish }) => {
                     setShow={setShow}
                     showError={showError}
                     setShowError={setShowError}
-                    changed={changed}
                     setChanged={setChanged}
-                    // loadedAllData={loadedAllData}
                 />
 
                 {/* actions */}

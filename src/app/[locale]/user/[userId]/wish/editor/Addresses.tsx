@@ -1,10 +1,11 @@
-import { FC, useRef, useLayoutEffect } from 'react';
+import { FC, ChangeEvent, useRef, useLayoutEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import {
     useFieldArray,
     Control,
     UseFormRegister,
     FieldErrors,
+    UseFormSetValue,
 } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import { TWishFormInputs } from '@/models/Wish';
@@ -18,6 +19,8 @@ interface IProps {
     control: Control<TWishFormInputs>;
     errors: FieldErrors<TWishFormInputs>;
     material: ICreateWish['material'];
+    setValue: UseFormSetValue<TWishFormInputs>;
+    setChanged: (value: boolean) => void;
     watchingAddresses?: TWishFormInputs['addresses'];
     isEmptyAddress: boolean;
 }
@@ -27,6 +30,8 @@ const Addresses: FC<IProps> = ({
     control,
     errors,
     material,
+    setValue,
+    setChanged,
     watchingAddresses,
     isEmptyAddress,
 }) => {
@@ -40,6 +45,24 @@ const Addresses: FC<IProps> = ({
     });
 
     const { onlyWhitespaceValidation } = UseValidations();
+
+    const handleChange = (
+        idx: number,
+        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        setValue(`addresses.${idx}.value`, event.target.value);
+        setChanged(true);
+    };
+
+    const handleRemove = (idx: number) => {
+        remove(idx);
+        setChanged(true);
+    };
+
+    const handleAppend = () => {
+        append({ id: uuidv4(), value: '' });
+        setChanged(true);
+    };
 
     useLayoutEffect(() => {
         if (appended.current || isEmptyAddress) return;
@@ -65,13 +88,14 @@ const Addresses: FC<IProps> = ({
                                 type="text"
                                 label={mainPageT('where-to-buy')}
                                 tooltip={mainPageT('where-to-buy-tooltip')}
+                                onChange={(event) => handleChange(idx, event)}
                             />
 
                             {watchingAddresses.length > 1 && (
                                 <button
                                     className="rounded-md bg-rose-500 p-2"
                                     type="button"
-                                    onClick={() => remove(idx)}
+                                    onClick={() => handleRemove(idx)}
                                 >
                                     <CrossIcon />
                                 </button>
@@ -82,9 +106,7 @@ const Addresses: FC<IProps> = ({
                                     <button
                                         className="rounded-md bg-[#90ff27] p-2"
                                         type="button"
-                                        onClick={() =>
-                                            append({ id: uuidv4(), value: '' })
-                                        }
+                                        onClick={handleAppend}
                                     >
                                         <CrossIcon classes="w-6 h-6 -rotate-45 stroke-zinc-700 dark:stroke-zinc-800" />
                                     </button>

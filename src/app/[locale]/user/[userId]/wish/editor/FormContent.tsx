@@ -46,9 +46,7 @@ interface IProps {
     setShow: (value: ICreateWish['show']) => void;
     showError: string;
     setShowError: (value: string) => void;
-    changed: boolean;
     setChanged: (value: boolean) => void;
-    // loadedAllData?: boolean;
 }
 
 const FormContent: FC<IProps> = ({
@@ -69,9 +67,7 @@ const FormContent: FC<IProps> = ({
     setShow,
     showError,
     setShowError,
-    changed,
     setChanged,
-    // loadedAllData,
 }) => {
     const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
     const [descriptionLength, setDescriptionLength] = useState<number>(0);
@@ -152,6 +148,7 @@ const FormContent: FC<IProps> = ({
         type === 'description' && setDescriptionLength(value.length);
 
         setValue(type, value);
+        setChanged(true);
 
         setShouldTriggerValidation({
             type,
@@ -165,15 +162,7 @@ const FormContent: FC<IProps> = ({
                 false
         );
 
-        const subscription = watch((fields, { name }) => {
-            // console.log('fields', fields);
-            // console.log('name', name);
-            const firstLoaded =
-                name === 'addresses' &&
-                fields.addresses?.length === 1 &&
-                fields.addresses[0]?.value?.length === 0;
-            !changed && !firstLoaded && setChanged(true);
-
+        const subscription = watch((_, { name }) => {
             if (name?.startsWith('addresses')) {
                 setIsEmptyAddress(
                     watchingAddresses?.some(
@@ -348,6 +337,8 @@ const FormContent: FC<IProps> = ({
                         control={control}
                         errors={errors}
                         material={material}
+                        setValue={setValue}
+                        setChanged={setChanged}
                         watchingAddresses={watchingAddresses}
                         isEmptyAddress={isEmptyAddress}
                     />
