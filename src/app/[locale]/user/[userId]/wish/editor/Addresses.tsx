@@ -73,7 +73,7 @@ const Addresses: FC<IProps> = ({
     }, []);
 
     return (
-        <div className="mt-4 flex flex-col gap-7">
+        <>
             {watchingAddresses &&
                 watchingAddresses.map((address, idx) => (
                     <div key={address.id}>
@@ -121,7 +121,7 @@ const Addresses: FC<IProps> = ({
                         )}
                     </div>
                 ))}
-        </div>
+        </>
     );
 };
 

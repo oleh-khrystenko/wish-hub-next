@@ -131,40 +131,40 @@ const UiButton: FC<IProps> = ({
     const spanClasses =
         'flex z-20 relative items-center justify-center gap-2 whitespace-nowrap text-left text-base font-bold';
 
-    if (href !== undefined) {
+    if (href === undefined) {
         return (
-            <>
-                <Link href={`/${activeLocale}/${href}`} {...linkProps}>
-                    {variant === 'text-only' || variant === 'clear-styles' ? (
-                        <>{children}</>
-                    ) : (
-                        <span className={spanClasses}>{children}</span>
-                    )}
-                </Link>
-
-                <ConfirmModal
-                    show={showConfirmLeave}
-                    confirm={confirmLeave}
-                    hide={() => setShowConfirmLeave(false)}
-                    confirmModalT={allPagesT('leave_with_changes.confirm')}
-                    closeModalT={allPagesT('leave_with_changes.close')}
-                >
-                    <span className="text-zinc-700 dark:text-zinc-300">
-                        {allPagesT('leave_with_changes.text')}
-                    </span>
-                </ConfirmModal>
-            </>
+            <button type={type} disabled={disabled} {...btnProps}>
+                {variant === 'text-only' || variant === 'clear-styles' ? (
+                    <>{children}</>
+                ) : (
+                    <span className={spanClasses}>{children}</span>
+                )}
+            </button>
         );
     }
 
     return (
-        <button type={type} disabled={disabled} {...btnProps}>
-            {variant === 'text-only' || variant === 'clear-styles' ? (
-                <>{children}</>
-            ) : (
-                <span className={spanClasses}>{children}</span>
-            )}
-        </button>
+        <>
+            <Link href={`/${activeLocale}/${href}`} {...linkProps}>
+                {variant === 'text-only' || variant === 'clear-styles' ? (
+                    <>{children}</>
+                ) : (
+                    <span className={spanClasses}>{children}</span>
+                )}
+            </Link>
+
+            <ConfirmModal
+                show={showConfirmLeave}
+                confirm={confirmLeave}
+                hide={() => setShowConfirmLeave(false)}
+                confirmModalT={allPagesT('leave_with_changes.confirm')}
+                closeModalT={allPagesT('leave_with_changes.close')}
+            >
+                <span className="text-zinc-700 dark:text-zinc-300">
+                    {allPagesT('leave_with_changes.text')}
+                </span>
+            </ConfirmModal>
+        </>
     );
 };
 

@@ -1,13 +1,15 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
+import { useSettingsStore } from '@/stores/settings';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import CreateWish from '@/app/[locale]/user/[userId]/wish/editor/CreateWish';
 import EditWish from '@/app/[locale]/user/[userId]/wish/editor/EditWish';
+import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
 import MainIcon from '@/components/icons/MainIcon';
 import EditIcon from '@/components/icons/EditIcon';
@@ -16,6 +18,8 @@ import CollectionIcon from '@/components/icons/CollectionIcon';
 import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
 
 const Body: FC = () => {
+    const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
+
     const { userId } = useParams<{ userId: string }>();
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -27,6 +31,8 @@ const Body: FC = () => {
 
     const wish = useWishesStore((state) => state.wish);
     const getWish = useWishesStore((state) => state.getWish);
+
+    const isDirtyForm = useSettingsStore((state) => state.isDirtyForm);
 
     const fromPage = searchParams.get('fromPage');
     const wishId = searchParams.get('wishId');
@@ -83,6 +89,18 @@ const Body: FC = () => {
         delete visualPages[2];
     }
 
+    const confirmLeave = () => {
+        router.back();
+    };
+
+    const handleLinkClick = () => {
+        if (isDirtyForm) {
+            setShowConfirmLeave(true);
+        } else {
+            router.back();
+        }
+    };
+
     useEffect(() => {
         if (!wishId) return;
 
@@ -102,7 +120,7 @@ const Body: FC = () => {
                     <UiButton
                         variant="clear-styles"
                         classesWrap="p-2.5"
-                        onBtnClick={() => router.back()}
+                        onBtnClick={handleLinkClick}
                     >
                         <ArrowBackIcon />
                     </UiButton>
@@ -114,6 +132,18 @@ const Body: FC = () => {
 
                 {wish && wishId ? <EditWish wish={wish} /> : <CreateWish />}
             </div>
+
+            <ConfirmModal
+                show={showConfirmLeave}
+                confirm={confirmLeave}
+                hide={() => setShowConfirmLeave(false)}
+                confirmModalT={allPagesT('leave_with_changes.confirm')}
+                closeModalT={allPagesT('leave_with_changes.close')}
+            >
+                <span className="text-zinc-700 dark:text-zinc-300">
+                    {allPagesT('leave_with_changes.text')}
+                </span>
+            </ConfirmModal>
         </main>
     );
 };

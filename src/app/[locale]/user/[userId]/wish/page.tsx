@@ -23,30 +23,28 @@ export default function WishList() {
     const messages = useMessages();
 
     return (
-        <>
-            <div className="flex h-full min-h-screen flex-col">
+        <div className="flex h-full min-h-screen flex-col">
+            <NextIntlClientProvider
+                messages={pick(messages, [
+                    'main-page',
+                    'wish-page',
+                    'share-button',
+                    'all-pages',
+                    'validations',
+                ])}
+            >
                 <div className="mx-auto flex w-full max-w-7xl grow flex-col">
-                    <NextIntlClientProvider
-                        messages={pick(messages, [
-                            'main-page',
-                            'wish-page',
-                            'share-button',
-                            'all-pages',
-                            'validations',
-                        ])}
-                    >
-                        <UserSessionRefresher>
-                            <Header />
+                    <UserSessionRefresher>
+                        <Header />
 
-                            <Body />
-                        </UserSessionRefresher>
-
-                        <Footer />
-
-                        <GlobalLoading />
-                    </NextIntlClientProvider>
+                        <Body />
+                    </UserSessionRefresher>
                 </div>
-            </div>
-        </>
+
+                <Footer />
+
+                <GlobalLoading />
+            </NextIntlClientProvider>
+        </div>
     );
 }

@@ -24,34 +24,32 @@ export default function Wish() {
     const messages = useMessages();
 
     return (
-        <>
-            <div className="flex min-h-screen flex-col justify-between">
+        <div className="flex min-h-screen flex-col justify-between">
+            <NextIntlClientProvider
+                messages={pick(messages, [
+                    'collection-page',
+                    'main-page',
+                    'profile-page',
+                    'wish-page',
+                    'share-button',
+                    'all-pages',
+                    'validations',
+                ])}
+            >
                 <div className="mx-auto flex w-full max-w-7xl grow flex-col">
-                    <NextIntlClientProvider
-                        messages={pick(messages, [
-                            'collection-page',
-                            'main-page',
-                            'profile-page',
-                            'wish-page',
-                            'share-button',
-                            'all-pages',
-                            'validations',
-                        ])}
-                    >
-                        <UserSessionRefresher>
-                            <RoutesGuard>
-                                <Header />
+                    <UserSessionRefresher>
+                        <RoutesGuard>
+                            <Header />
 
-                                <Body />
-                            </RoutesGuard>
-                        </UserSessionRefresher>
-
-                        <Footer />
-
-                        <GlobalLoading />
-                    </NextIntlClientProvider>
+                            <Body />
+                        </RoutesGuard>
+                    </UserSessionRefresher>
                 </div>
-            </div>
-        </>
+
+                <Footer />
+
+                <GlobalLoading />
+            </NextIntlClientProvider>
+        </div>
     );
 }

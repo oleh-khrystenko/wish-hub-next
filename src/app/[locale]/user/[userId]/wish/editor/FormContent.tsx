@@ -70,6 +70,8 @@ const FormContent: FC<IProps> = ({
 }) => {
     const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
     const [descriptionLength, setDescriptionLength] = useState<number>(0);
+    const [priceAndAddressesHeight, setPriceAndAddressesHeight] =
+        useState<number>(0);
     const [shouldTriggerValidation, setShouldTriggerValidation] = useState<{
         type: keyof TWishFormInputs | null;
         value: boolean;
@@ -79,6 +81,8 @@ const FormContent: FC<IProps> = ({
     });
 
     const formContentContainer = useRef<HTMLDivElement>(null);
+    const priceRef = useRef<HTMLDivElement>(null);
+    const addressesRef = useRef<HTMLDivElement>(null);
 
     const watchingAddresses = watch('addresses');
 
@@ -218,6 +222,22 @@ const FormContent: FC<IProps> = ({
         };
     }, [isDirtyForm]);
 
+    useEffect(() => {
+        if (priceRef.current && addressesRef.current) {
+            setPriceAndAddressesHeight(
+                priceRef.current.offsetHeight +
+                    addressesRef.current.offsetHeight +
+                    52
+            );
+        }
+    }, [priceRef.current, addressesRef.current?.offsetHeight]);
+
+    useEffect(() => {
+        return () => {
+            setIsDirtyForm(false);
+        };
+    }, []);
+
     return (
         <>
             <div
@@ -282,10 +302,15 @@ const FormContent: FC<IProps> = ({
                 </DndProvider>
 
                 <div
-                    className={`${material ? 'flex' : 'hidden'} mt-5 flex-col gap-4 transition-all duration-300 ease-in-out`}
+                    style={{
+                        maxHeight: material
+                            ? `${priceAndAddressesHeight}px`
+                            : '0px',
+                    }}
+                    className={`${material ? 'pt-5' : 'mt-0'} flex flex-col gap-8 overflow-hidden transition-all duration-300 ease-in-out`}
                 >
                     {/* price */}
-                    <div className="flex items-center gap-5">
+                    <div className="flex items-center gap-5" ref={priceRef}>
                         <UiInput
                             {...(material &&
                                 register('price', wishPriceValidation))}
@@ -310,15 +335,17 @@ const FormContent: FC<IProps> = ({
                     </div>
 
                     {/* addresses */}
-                    <Addresses
-                        register={register}
-                        control={control}
-                        errors={errors}
-                        material={material}
-                        setValue={setValue}
-                        watchingAddresses={watchingAddresses}
-                        isEmptyAddress={isEmptyAddress}
-                    />
+                    <div className="flex flex-col gap-7" ref={addressesRef}>
+                        <Addresses
+                            register={register}
+                            control={control}
+                            errors={errors}
+                            material={material}
+                            setValue={setValue}
+                            watchingAddresses={watchingAddresses}
+                            isEmptyAddress={isEmptyAddress}
+                        />
+                    </div>
                 </div>
 
                 {/* description */}
