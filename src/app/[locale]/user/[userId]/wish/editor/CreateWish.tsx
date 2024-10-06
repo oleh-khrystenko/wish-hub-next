@@ -276,6 +276,7 @@ const CreateWish: FC = () => {
                     setShow={setShow}
                     showError={showError}
                     setShowError={setShowError}
+                    changed={changed}
                     setChanged={setChanged}
                 />
 

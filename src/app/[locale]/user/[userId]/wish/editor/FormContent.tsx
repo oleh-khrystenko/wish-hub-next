@@ -46,6 +46,7 @@ interface IProps {
     setShow: (value: ICreateWish['show']) => void;
     showError: string;
     setShowError: (value: string) => void;
+    changed: boolean;
     setChanged: (value: boolean) => void;
 }
 
@@ -67,6 +68,7 @@ const FormContent: FC<IProps> = ({
     setShow,
     showError,
     setShowError,
+    changed,
     setChanged,
 }) => {
     const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
@@ -199,46 +201,33 @@ const FormContent: FC<IProps> = ({
         }
     }, [showError]);
 
-    // useEffect(() => {
-    //     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-    //         if (changed) {
-    //             e.preventDefault();
-    //             e.returnValue = ''; // Показує стандартне попередження про втрату даних
-    //         }
-    //     };
-    //
-    //     const handlePopState = () => {
-    //         if (changed) {
-    //             const confirmation = confirm(
-    //                 'handlePopState У вас є незбережені зміни. Ви впевнені, що хочете повернутися?'
-    //             );
-    //             if (!confirmation) {
-    //                 window.history.pushState(null, '', window.location.href);
-    //             }
-    //         }
-    //     };
-    //
-    //     // const handleLinkClick = (e: MouseEvent) => {
-    //     //     if (changed) {
-    //     //         const confirmation = confirm(
-    //     //             'handleLinkClick У вас є незбережені зміни. Ви впевнені, що хочете покинути цю сторінку?'
-    //     //         );
-    //     //         if (!confirmation) {
-    //     //             e.preventDefault(); // Запобігає переходу за лінком
-    //     //         }
-    //     //     }
-    //     // };
-    //
-    //     window.addEventListener('beforeunload', handleBeforeUnload);
-    //     window.addEventListener('popstate', handlePopState);
-    //     // document.addEventListener('click', handleLinkClick);
-    //
-    //     return () => {
-    //         window.removeEventListener('beforeunload', handleBeforeUnload);
-    //         window.removeEventListener('popstate', handlePopState);
-    //         // document.removeEventListener('click', handleLinkClick);
-    //     };
-    // }, [changed]);
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (changed) {
+                e.preventDefault();
+                e.returnValue = ''; // Показує стандартне попередження про втрату даних
+            }
+        };
+
+        const handlePopState = () => {
+            if (changed) {
+                const confirmation = confirm(
+                    'У вас є незбережені зміни. Ви впевнені, що хочете повернутися? (кероване попередження)'
+                );
+                if (!confirmation) {
+                    window.history.pushState(null, '', window.location.href);
+                }
+            }
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [changed]);
 
     return (
         <>

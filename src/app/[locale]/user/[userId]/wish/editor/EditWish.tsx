@@ -340,6 +340,7 @@ const EditWish: FC<IProps> = ({ wish }) => {
                     setShow={setShow}
                     showError={showError}
                     setShowError={setShowError}
+                    changed={changed}
                     setChanged={setChanged}
                 />
 
