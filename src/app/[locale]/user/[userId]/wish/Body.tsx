@@ -161,13 +161,13 @@ const Body: FC = () => {
                 <div className="mt-8 flex grow flex-col px-4 pb-5 desktop-sm:px-0">
                     <div className="flex flex-col gap-6">
                         <div className="relative -ml-4 flex items-center gap-4 tablet-md:ml-0">
-                            <button
-                                className="p-2.5"
-                                type="button"
-                                onClick={() => router.back()}
+                            <UiButton
+                                classesWrap="p-2.5"
+                                variant="clear-styles"
+                                onBtnClick={() => router.back()}
                             >
                                 <ArrowBackIcon />
-                            </button>
+                            </UiButton>
 
                             <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-2xl">
                                 {wishPageT(
