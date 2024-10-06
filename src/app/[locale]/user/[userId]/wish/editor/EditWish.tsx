@@ -320,7 +320,7 @@ const EditWish: FC<IProps> = ({ wish }) => {
     return (
         <>
             <form
-                className="flex max-h-full flex-col gap-4"
+                className="mt-4 flex max-h-full flex-col gap-4"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <FormContent

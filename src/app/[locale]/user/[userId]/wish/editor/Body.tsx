@@ -1,20 +1,23 @@
 'use client';
 
 import { FC, useEffect } from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import CreateWish from '@/app/[locale]/user/[userId]/wish/editor/CreateWish';
 import EditWish from '@/app/[locale]/user/[userId]/wish/editor/EditWish';
+import UiButton from '@/components/ui/UiButton';
 import MainIcon from '@/components/icons/MainIcon';
 import EditIcon from '@/components/icons/EditIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
 import CollectionIcon from '@/components/icons/CollectionIcon';
+import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
 
 const Body: FC = () => {
     const { userId } = useParams<{ userId: string }>();
+    const router = useRouter();
     const searchParams = useSearchParams();
 
     const wishPageT = useTranslations('wish-page');
@@ -95,11 +98,21 @@ const Body: FC = () => {
             <Breadcrumbs seoPages={seoPages} visualPages={visualPages} />
 
             <div className="mt-3 flex grow flex-col px-3 pb-5 desktop-sm:px-0">
-                <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
-                    {wishPageT(wishId ? 'editing_wish' : 'creating_wish')}
-                </h1>
+                <div className="flex items-center gap-4">
+                    <UiButton
+                        variant="clear-styles"
+                        classesWrap="p-2.5"
+                        onBtnClick={() => router.back()}
+                    >
+                        <ArrowBackIcon />
+                    </UiButton>
 
-                {wish ? <EditWish wish={wish} /> : <CreateWish />}
+                    <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
+                        {wishPageT(wishId ? 'editing_wish' : 'creating_wish')}
+                    </h1>
+                </div>
+
+                {wish && wishId ? <EditWish wish={wish} /> : <CreateWish />}
             </div>
         </main>
     );

@@ -218,12 +218,6 @@ const FormContent: FC<IProps> = ({
         };
     }, [isDirtyForm]);
 
-    useEffect(() => {
-        return () => {
-            setIsDirtyForm(false);
-        };
-    }, []);
-
     return (
         <>
             <div
