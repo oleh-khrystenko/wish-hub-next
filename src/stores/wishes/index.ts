@@ -13,6 +13,7 @@ import {
     ISendCollectionWishes,
     ISendWishList,
     IUpdateWish,
+    IWishWithQuote,
 } from '@/stores/wishes/types';
 import wishesApi from '@/stores/wishes/api';
 import { useSettingsStore } from '@/stores/settings';
@@ -62,7 +63,10 @@ interface IWishesStore {
         params: { url: string },
         errorT: string
     ) => Promise<void>;
-    createWish: (data: ICreateWish, errorT: string) => Promise<IQuote | void>;
+    createWish: (
+        data: ICreateWish,
+        errorT: string
+    ) => Promise<IWishWithQuote | void>;
     updateWish: (
         data: IUpdateWish,
         successT: string,
@@ -206,7 +210,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
                 list: [response.data.wish, ...state.list],
             }));
 
-            return response.data.quote;
+            return response.data;
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {

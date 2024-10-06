@@ -192,7 +192,7 @@ const CreateWish: FC = () => {
             allPagesT('wishes-api.create-wish.error')
         );
         if (response) {
-            const quote = response[activeLocale as ELang];
+            const quote = response.quote[activeLocale as ELang];
             toast(
                 <QuoteMessage
                     title={allPagesT('wishes-api.create-wish.success')}
@@ -204,7 +204,7 @@ const CreateWish: FC = () => {
         }
 
         route.push(
-            `/${activeLocale}/user/${myUser.id}/wish?wishId=${response?.id}`
+            `/${activeLocale}/user/${myUser.id}/wish?wishId=${response?.wish.id}`
         );
     };
 
