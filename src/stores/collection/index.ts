@@ -5,6 +5,7 @@ import {
     ISendCreateCollection,
     ISendDeleteCollection,
     ISendGetCollections,
+    ISendUpdateCollection,
 } from '@/stores/collection/types';
 import collectionApi from '@/stores/collection/api';
 import { useSettingsStore } from '@/stores/settings';
@@ -22,6 +23,11 @@ interface ICollectionsStore {
     setCollectionsSort: (value: ECollectionSort) => void;
     createCollection: (
         data: ISendCreateCollection,
+        successT: string,
+        errorT: string
+    ) => Promise<ICollection | void>;
+    updateCollection: (
+        data: ISendUpdateCollection,
         successT: string,
         errorT: string
     ) => Promise<ICollection | void>;
@@ -65,6 +71,36 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
                 ...state,
                 list: [response.data, ...state.list],
             }));
+
+            toast(successT, { type: 'success' });
+
+            return response.data;
+        } catch (error: any) {
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        }
+    },
+    updateCollection: async (data, successT, errorT) => {
+        try {
+            const response = await collectionApi.updateCollection(data);
+
+            set((state) => {
+                // Знаходимо індекс бажання в списку за його ідентифікатором
+                const index = state.list.findIndex(
+                    (currentWish) => currentWish.id === response.data.id
+                );
+
+                const updatedList = [...state.list];
+
+                // Перевіряємо, чи було знайдено бажання
+                if (index !== -1) {
+                    updatedList[index] = response.data;
+                }
+
+                return {
+                    ...state,
+                    list: updatedList,
+                }
+            });
 
             toast(successT, { type: 'success' });
 

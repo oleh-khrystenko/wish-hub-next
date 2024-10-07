@@ -7,6 +7,10 @@ export interface ISendCreateCollection {
     name: ICollection['name'];
 }
 
+export interface ISendUpdateCollection extends ISendCreateCollection {
+    collectionId: ICollection['id'];
+}
+
 export interface ISendGetCollections {
     myId?: IUser['id'];
     userId: IUser['id'];
