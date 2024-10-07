@@ -63,6 +63,9 @@ const WishList: FC<IProps> = ({ userId }) => {
     const createCollection = useCollectionsStore(
         (state) => state.createCollection
     );
+    const updateCollection = useCollectionsStore(
+        (state) => state.updateCollection
+    );
 
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
@@ -80,6 +83,8 @@ const WishList: FC<IProps> = ({ userId }) => {
     const { getInitialWishList } = UseInitialWishes();
     const { setSelectedWishesInEditCollection } = UseInitialCollection();
 
+    const collectionId = searchParams.get('collectionId');
+
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
         if (!myUser) return;
 
@@ -96,7 +101,18 @@ const WishList: FC<IProps> = ({ userId }) => {
             setSelectedWishError('');
         }
 
-        const collection = await createCollection(
+        const collection = collectionId ? await updateCollection(
+            {
+                collectionId,
+                userId,
+                wishIdList,
+                name: data.collectionName,
+            },
+            allPagesT('collections.update-collection.success', {
+                name: data.collectionName,
+            }),
+            allPagesT('collections.update-collection.error')
+        ) : await createCollection(
             {
                 userId,
                 wishIdList,
@@ -109,7 +125,7 @@ const WishList: FC<IProps> = ({ userId }) => {
         );
 
         if (!collection) {
-            toast(allPagesT('collections.create-collection.error'), {
+            toast(allPagesT(`collections.${collectionId ? 'update' : 'create'}-collection.error`), {
                 type: 'error',
             });
 
@@ -156,8 +172,6 @@ const WishList: FC<IProps> = ({ userId }) => {
 
     useEffect(() => {
         const fetchWishes = async () => {
-            const collectionId = searchParams.get('collectionId');
-
             const editingCollection = collections.find(
                 (collection) => collection.id === collectionId
             );
@@ -215,7 +229,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                     error={errors?.collectionName?.message}
                 />
 
-                <UiButton type="submit">{collectionPageT('create')}</UiButton>
+                <UiButton type="submit">{collectionPageT(collectionId ? 'update' : 'create')}</UiButton>
             </form>
 
             {selectedWishError && (

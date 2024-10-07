@@ -469,7 +469,7 @@
         "edit_collection": "Edit Collection",
         "collection_name": "Collection name",
         "create": "Create",
-        "edit": "Edit"
+        "update": "Update"
     },
     "welcome-page": {
         "head": {
@@ -659,6 +659,10 @@
             "create-collection": {
                 "success": "The collection \"{name}\" has been successfully created.",
                 "error": "Failed to create the collection."
+            },
+            "update-collection": {
+                "success": "The collection \"{name}\" has been successfully updated.",
+                "error": "Failed to update the collection."
             },
             "get-collections": {
                 "error": "Failed to get collections."

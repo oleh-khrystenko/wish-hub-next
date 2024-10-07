@@ -469,7 +469,7 @@
         "edit_collection": "Редагування колекції",
         "collection_name": "Назва колекції",
         "create": "Створити",
-        "edit": "Редагувати"
+        "update": "Оновити"
     },
     "welcome-page": {
         "head": {
@@ -659,6 +659,10 @@
             "create-collection": {
                 "success": "Колекція \"{name}\" успішно створена.",
                 "error": "Не вдалось створити колекцію."
+            },
+            "update-collection": {
+                "success": "Колекція \"{name}\" успішно оновленна.",
+                "error": "Не вдалось оновити колекцію."
             },
             "get-collections": {
                 "error": "Не вдалось отримати колекції."
