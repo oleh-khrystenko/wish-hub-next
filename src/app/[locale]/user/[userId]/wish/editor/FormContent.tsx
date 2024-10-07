@@ -349,7 +349,9 @@ const FormContent: FC<IProps> = ({
                 </div>
 
                 {/* description */}
-                <div className={`${material ? 'mt-8' : 'mt-4'} transition-all duration-300 ease-in-out`}>
+                <div
+                    className={`${material ? 'mt-8' : 'mt-4'} transition-all duration-300 ease-in-out`}
+                >
                     <UiInput
                         {...register(
                             'description',

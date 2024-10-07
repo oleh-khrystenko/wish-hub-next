@@ -35,7 +35,7 @@ export default function Wish() {
                     'validations',
                 ])}
             >
-                <div className="mx-auto relative flex w-full max-w-7xl grow flex-col">
+                <div className="relative mx-auto flex w-full max-w-7xl grow flex-col">
                     <UserSessionRefresher>
                         <Header />
 

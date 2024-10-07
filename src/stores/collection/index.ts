@@ -99,7 +99,7 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
                 return {
                     ...state,
                     list: updatedList,
-                }
+                };
             });
 
             toast(successT, { type: 'success' });

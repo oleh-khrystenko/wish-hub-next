@@ -101,33 +101,40 @@ const WishList: FC<IProps> = ({ userId }) => {
             setSelectedWishError('');
         }
 
-        const collection = collectionId ? await updateCollection(
-            {
-                collectionId,
-                userId,
-                wishIdList,
-                name: data.collectionName,
-            },
-            allPagesT('collections.update-collection.success', {
-                name: data.collectionName,
-            }),
-            allPagesT('collections.update-collection.error')
-        ) : await createCollection(
-            {
-                userId,
-                wishIdList,
-                name: data.collectionName,
-            },
-            allPagesT('collections.create-collection.success', {
-                name: data.collectionName,
-            }),
-            allPagesT('collections.create-collection.error')
-        );
+        const collection = collectionId
+            ? await updateCollection(
+                  {
+                      collectionId,
+                      userId,
+                      wishIdList,
+                      name: data.collectionName,
+                  },
+                  allPagesT('collections.update-collection.success', {
+                      name: data.collectionName,
+                  }),
+                  allPagesT('collections.update-collection.error')
+              )
+            : await createCollection(
+                  {
+                      userId,
+                      wishIdList,
+                      name: data.collectionName,
+                  },
+                  allPagesT('collections.create-collection.success', {
+                      name: data.collectionName,
+                  }),
+                  allPagesT('collections.create-collection.error')
+              );
 
         if (!collection) {
-            toast(allPagesT(`collections.${collectionId ? 'update' : 'create'}-collection.error`), {
-                type: 'error',
-            });
+            toast(
+                allPagesT(
+                    `collections.${collectionId ? 'update' : 'create'}-collection.error`
+                ),
+                {
+                    type: 'error',
+                }
+            );
 
             setIsLoading(false);
             return;
@@ -229,7 +236,9 @@ const WishList: FC<IProps> = ({ userId }) => {
                     error={errors?.collectionName?.message}
                 />
 
-                <UiButton type="submit">{collectionPageT(collectionId ? 'update' : 'create')}</UiButton>
+                <UiButton type="submit">
+                    {collectionPageT(collectionId ? 'update' : 'create')}
+                </UiButton>
             </form>
 
             {selectedWishError && (
