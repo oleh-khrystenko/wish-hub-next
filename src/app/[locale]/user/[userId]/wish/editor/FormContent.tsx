@@ -227,7 +227,7 @@ const FormContent: FC<IProps> = ({
             setPriceAndAddressesHeight(
                 priceRef.current.offsetHeight +
                     addressesRef.current.offsetHeight +
-                    52
+                    54
             );
         }
     }, [priceRef.current, addressesRef.current?.offsetHeight]);
@@ -349,7 +349,7 @@ const FormContent: FC<IProps> = ({
                 </div>
 
                 {/* description */}
-                <div className="mt-7">
+                <div className={`${material ? 'mt-8' : 'mt-4'} transition-all duration-300 ease-in-out`}>
                     <UiInput
                         {...register(
                             'description',
