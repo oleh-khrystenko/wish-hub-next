@@ -322,7 +322,7 @@ const WishList: FC = () => {
                 </div>
             )}
 
-            <SlidePanel wishListRefCurrent={wishListRef.current} />
+            <SlidePanel wishListRefCurrent={wishListRef.current} isMainPage />
         </>
     );
 };

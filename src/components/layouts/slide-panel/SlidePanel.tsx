@@ -16,9 +16,10 @@ import CrossIcon from '@/components/icons/CrossIcon';
 
 interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
+    isMainPage?: boolean;
 }
 
-const SlidePanel: FC<IProps> = ({ wishListRefCurrent }) => {
+const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     const [collection, setCollection] = useState<ICollection | null>(null);
     const [showConfirmDeleteCollection, setShowConfirmDeleteCollection] =
         useState<boolean>(false);
@@ -84,7 +85,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent }) => {
     return (
         <>
             <div
-                className={`${showSlidePanel ? 'scale-y-100 tablet-lg:scale-x-100' : 'scale-y-0 tablet-lg:scale-x-0 tablet-lg:scale-y-100'} fixed inset-0 z-40 flex origin-bottom flex-col justify-end transition-all duration-300 ease-in-out mobile-xs:z-30 tablet-lg:origin-right tablet-lg:pb-1 tablet-lg:pr-1 tablet-lg:pt-20`}
+                className={`${showSlidePanel ? 'scale-y-100 tablet-lg:scale-x-100' : 'scale-y-0 tablet-lg:scale-x-0 tablet-lg:scale-y-100'} ${isMainPage ? 'fixed' : 'absolute -mr-1'} inset-0 z-40 flex origin-bottom flex-col justify-end transition-all duration-300 ease-in-out mobile-xs:z-30 tablet-lg:origin-right tablet-lg:pb-1 tablet-lg:pr-1 tablet-lg:pt-20`}
             >
                 <div
                     className={`${showSlidePanel ? 'opacity-50' : 'opacity-0'} absolute inset-0 -z-10 h-svh w-full bg-zinc-400 transition-all delay-300 duration-300 ease-in-out dark:bg-zinc-950`}
