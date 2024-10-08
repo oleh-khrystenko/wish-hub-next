@@ -32,7 +32,6 @@ const WishList: FC<IProps> = ({ userId }) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
-    const [selectedWishError, setSelectedWishError] = useState<string>('');
 
     const wishListRef = useRef<HTMLDivElement>(null);
 
@@ -43,7 +42,6 @@ const WishList: FC<IProps> = ({ userId }) => {
 
     const collectionPageT = useTranslations('collection-page');
     const allPagesT = useTranslations('all-pages');
-    const validationsT = useTranslations('validations');
 
     const { ref, inView } = useInView({
         threshold: 0,
@@ -93,13 +91,6 @@ const WishList: FC<IProps> = ({ userId }) => {
         const wishIdList = wishes
             .filter((wish) => wish.selected)
             .map((wish) => wish.id);
-
-        if (wishIdList.length === 0) {
-            setSelectedWishError(validationsT('collection_wishes'));
-            return;
-        } else {
-            setSelectedWishError('');
-        }
 
         const collection = collectionId
             ? await updateCollection(
@@ -241,10 +232,6 @@ const WishList: FC<IProps> = ({ userId }) => {
                 </UiButton>
             </form>
 
-            {selectedWishError && (
-                <p className="mb-2 text-sm text-red-500">{selectedWishError}</p>
-            )}
-
             <div ref={wishListRef}>
                 <ul className="grid grid-cols-2 gap-1.5 tablet-md:grid-cols-3 tablet-lg:grid-cols-4 tablet-xl:grid-cols-5 tablet-xl:gap-4 desktop-sm:grid-cols-6">
                     {wishes.length > 0 &&
@@ -253,9 +240,6 @@ const WishList: FC<IProps> = ({ userId }) => {
                                 key={wish.id + idx}
                                 wish={wish}
                                 idx={idx}
-                                resetSelectedWishError={() =>
-                                    setSelectedWishError('')
-                                }
                             />
                         ))}
 

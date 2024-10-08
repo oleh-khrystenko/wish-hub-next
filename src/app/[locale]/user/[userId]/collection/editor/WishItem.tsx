@@ -14,10 +14,9 @@ import LogoIcon from '@/components/icons/LogoIcon';
 interface IProps {
     wish: IWish;
     idx: number;
-    resetSelectedWishError: () => void;
 }
 
-const WishItem: FC<IProps> = ({ wish, idx, resetSelectedWishError }) => {
+const WishItem: FC<IProps> = ({ wish, idx }) => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -41,7 +40,6 @@ const WishItem: FC<IProps> = ({ wish, idx, resetSelectedWishError }) => {
 
     const handleSelectWish = () => {
         setSelectedWish(wish.id);
-        resetSelectedWishError();
     };
 
     return (
