@@ -223,7 +223,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                     id="collectionName"
                     name="collectionName"
                     type="text"
-                    label={collectionPageT('collection_name')}
+                    label={allPagesT('collection_name')}
                     error={errors?.collectionName?.message}
                 />
 

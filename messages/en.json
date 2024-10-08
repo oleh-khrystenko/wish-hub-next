@@ -204,7 +204,11 @@
         "to_main": "To Main",
         "create_collection": "Create collection",
         "collections": "Collections",
-        "wishes_status": "Wishes status"
+        "wishes_status": "Wishes status",
+        "collection_block": "Add to Collection",
+        "none_collection": "Do not add to a collection",
+        "create_for_wish": "Create a collection for this wish",
+        "add_to_collection": "Add to an existing collection"
     },
     "privacy-policy-page": {
         "head": {
@@ -467,7 +471,6 @@
         "of_user": "of User",
         "create_collection": "Create Collection",
         "edit_collection": "Edit Collection",
-        "collection_name": "Collection name",
         "create": "Create",
         "update": "Update"
     },
@@ -713,7 +716,8 @@
             "title": "Attention!",
             "confirm": "Confirm",
             "close": "Close"
-        }
+        },
+        "collection_name": "Collection name"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

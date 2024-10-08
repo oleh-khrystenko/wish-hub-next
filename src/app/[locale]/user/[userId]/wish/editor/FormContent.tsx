@@ -24,6 +24,7 @@ import { useSettingsStore } from '@/stores/settings';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import DragNDrop from '@/app/[locale]/user/[userId]/wish/editor/drag-n-drop/DragNDrop';
 import Addresses from '@/app/[locale]/user/[userId]/wish/editor/Addresses';
+import AddToCollection from '@/app/[locale]/user/[userId]/wish/editor/AddToCollection';
 import PrivacyChoices from '@/components/layouts/PrivacyChoices';
 import UiInput from '@/components/ui/UiInput';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
@@ -70,8 +71,6 @@ const FormContent: FC<IProps> = ({
 }) => {
     const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
     const [descriptionLength, setDescriptionLength] = useState<number>(0);
-    const [priceAndAddressesHeight, setPriceAndAddressesHeight] =
-        useState<number>(0);
     const [shouldTriggerValidation, setShouldTriggerValidation] = useState<{
         type: keyof TWishFormInputs | null;
         value: boolean;
@@ -81,8 +80,6 @@ const FormContent: FC<IProps> = ({
     });
 
     const formContentContainer = useRef<HTMLDivElement>(null);
-    const priceRef = useRef<HTMLDivElement>(null);
-    const addressesRef = useRef<HTMLDivElement>(null);
 
     const watchingAddresses = watch('addresses');
 
@@ -223,16 +220,6 @@ const FormContent: FC<IProps> = ({
     }, [isDirtyForm]);
 
     useEffect(() => {
-        if (priceRef.current && addressesRef.current) {
-            setPriceAndAddressesHeight(
-                priceRef.current.offsetHeight +
-                    addressesRef.current.offsetHeight +
-                    54
-            );
-        }
-    }, [priceRef.current, addressesRef.current?.offsetHeight]);
-
-    useEffect(() => {
         return () => {
             setIsDirtyForm(false);
         };
@@ -302,15 +289,10 @@ const FormContent: FC<IProps> = ({
                 </DndProvider>
 
                 <div
-                    style={{
-                        maxHeight: material
-                            ? `${priceAndAddressesHeight}px`
-                            : '0px',
-                    }}
-                    className={`${material ? 'pt-5' : 'mt-0'} flex flex-col gap-8 overflow-hidden transition-all duration-300 ease-in-out`}
+                    className={`${material ? 'max-h-96 pt-5' : 'max-h-0 pt-0'} flex flex-col gap-8 overflow-y-auto transition-all duration-300 ease-in-out`}
                 >
                     {/* price */}
-                    <div className="flex items-center gap-5" ref={priceRef}>
+                    <div className="flex items-center gap-5">
                         <UiInput
                             {...(material &&
                                 register('price', wishPriceValidation))}
@@ -335,7 +317,7 @@ const FormContent: FC<IProps> = ({
                     </div>
 
                     {/* addresses */}
-                    <div className="flex flex-col gap-7" ref={addressesRef}>
+                    <div className="flex flex-col gap-7">
                         <Addresses
                             register={register}
                             control={control}
@@ -382,6 +364,15 @@ const FormContent: FC<IProps> = ({
                         onChange={changePrivacy}
                     />
                 </div>
+
+                {/* Collections */}
+                <AddToCollection
+                    register={register}
+                    errors={errors}
+                    handleReactHookFormInputChange={
+                        handleReactHookFormInputChange
+                    }
+                />
             </div>
         </>
     );

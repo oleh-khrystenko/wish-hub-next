@@ -204,7 +204,11 @@
         "to_main": "На главную",
         "create_collection": "Создать коллекцию",
         "collections": "Коллекции",
-        "wishes_status": "Статус желаний"
+        "wishes_status": "Статус желаний",
+        "collection_block": "Добавить в коллекцию",
+        "none_collection": "Не добавлять в коллекцию",
+        "create_for_wish": "Создать коллекцию для этого желания",
+        "add_to_collection": "Добавить в существующую коллекцию"
     },
     "privacy-policy-page": {
         "head": {
@@ -467,7 +471,6 @@
         "of_user": "пользователя",
         "create_collection": "Создание коллекции",
         "edit_collection": "Редактирование коллекции",
-        "collection_name": "Название коллекции",
         "create": "Создать",
         "update": "Обновить"
     },
@@ -713,7 +716,8 @@
             "title": "Внимание!",
             "confirm": "Подтвердить",
             "close": "Закрыть"
-        }
+        },
+        "collection_name": "Название коллекции"
     },
     "inactivated": {
         "aim": "Мы стремимся, чтобы все пользователи были настоящими.",

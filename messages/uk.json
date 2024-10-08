@@ -204,7 +204,11 @@
         "to_main": "На головну",
         "create_collection": "Створити колекцію",
         "collections": "Колекції",
-        "wishes_status": "Статус бажань"
+        "wishes_status": "Статус бажань",
+        "collection_block": "Додати до колекції",
+        "none_collection": "Не додавати до колекції",
+        "create_for_wish": "Створити колекцію для цього бажання",
+        "add_to_collection": "Додати до існуючої колекції"
     },
     "privacy-policy-page": {
         "head": {
@@ -467,7 +471,6 @@
         "of_user": "користувача",
         "create_collection": "Створення колекції",
         "edit_collection": "Редагування колекції",
-        "collection_name": "Назва колекції",
         "create": "Створити",
         "update": "Оновити"
     },
@@ -713,7 +716,8 @@
             "title": "Увага!",
             "confirm": "Підтвердити",
             "close": "Закрити"
-        }
+        },
+        "collection_name": "Назва колекції"
     },
     "inactivated": {
         "aim": "Ми прагнемо, щоб всі користувачі були справжніми.",

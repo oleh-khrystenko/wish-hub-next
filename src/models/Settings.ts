@@ -15,6 +15,12 @@ export enum EPrivacy {
     NOBODY = 'nobody',
 }
 
+export enum EAddToCollection {
+    NONE = 'none',
+    CREATE = 'create-collection',
+    ADD = 'add-to-collection',
+}
+
 export interface IZoomedImage {
     src: string;
     alt: string;
