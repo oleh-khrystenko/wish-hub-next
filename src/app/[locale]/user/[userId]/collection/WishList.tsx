@@ -124,7 +124,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     }, [inView]);
 
     useEffect(() => {
-        const fetchWishes = async () => {
+        const fetchCollection = async () => {
             if (collectionId) {
                 await getInitialCollectionWishes(
                     collectionId,
@@ -137,7 +137,7 @@ const WishList: FC<IProps> = ({ userId }) => {
             }
         };
 
-        fetchWishes().finally();
+        fetchCollection().finally();
     }, [userId, collectionId]);
 
     return (

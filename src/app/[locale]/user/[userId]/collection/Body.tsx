@@ -1,12 +1,13 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { ICollection } from '@/models/Collection';
 import { IZoomedImage } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
-import { useCollectionsStore } from '@/stores/collection';
+import collectionApi from '@/stores/collection/api';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import WishList from '@/app/[locale]/user/[userId]/collection/WishList';
@@ -17,6 +18,8 @@ import CollectionIcon from '@/components/icons/CollectionIcon';
 import MainIcon from '@/components/icons/MainIcon';
 
 const Body: FC = () => {
+    const [collectionName, setCollectionName] =
+        useState<ICollection['name']>('');
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
 
     const { userId } = useParams<{ userId: string }>();
@@ -29,16 +32,10 @@ const Body: FC = () => {
 
     const wishesCreator = useWishesStore((state) => state.creator);
 
-    const collections = useCollectionsStore((state) => state.list);
-
     const { getFullName } = UseFullName();
     const screenWidth = UseScreenWidth();
 
     const collectionId = searchParams.get('collectionId');
-
-    const collectionName = collections.find(
-        (collection) => collection.id === collectionId
-    )?.name;
 
     const breadcrumbsPages = [
         {
@@ -60,6 +57,20 @@ const Body: FC = () => {
     const handleShowImage = (src: string | undefined, alt: string) => {
         src ? setImageData({ src, alt }) : setImageData(null);
     };
+
+    useEffect(() => {
+        if (!collectionId) return;
+
+        const fetchCollection = async () => {
+            const response = await collectionApi.getCollection({
+                collectionId,
+            });
+
+            setCollectionName(response.data.name);
+        };
+
+        fetchCollection().finally();
+    }, []);
 
     return (
         <main className="flex grow flex-col pt-3">

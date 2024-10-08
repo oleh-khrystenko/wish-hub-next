@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { ICollection } from '@/models/Collection';
 import {
+    ICollectionId,
     IDeleteCollection,
     IGetCollections,
     ISendCreateCollection,
@@ -22,6 +23,12 @@ const updateCollection = async (
     return await api.put('/collection', data);
 };
 
+const getCollection = async (
+    params: ICollectionId
+): Promise<AxiosResponse<ICollection>> => {
+    return await api.get('/collection', { params });
+};
+
 const getCollections = async (
     params: ISendGetCollections
 ): Promise<AxiosResponse<IGetCollections>> => {
@@ -37,6 +44,7 @@ const deleteCollection = async (
 const myUserApi = {
     createCollection,
     updateCollection,
+    getCollection,
     getCollections,
     deleteCollection,
 };

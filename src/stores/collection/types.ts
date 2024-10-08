@@ -7,9 +7,13 @@ export interface ISendCreateCollection {
     name: ICollection['name'];
 }
 
-export interface ISendUpdateCollection extends ISendCreateCollection {
+export interface ICollectionId {
     collectionId: ICollection['id'];
 }
+
+export interface ISendUpdateCollection
+    extends ISendCreateCollection,
+        ICollectionId {}
 
 export interface ISendGetCollections {
     myId?: IUser['id'];
@@ -27,12 +31,10 @@ export interface IGetCollections {
     total: number;
 }
 
-export interface ISendDeleteCollection {
-    collectionId: ICollection['id'];
+export interface ISendDeleteCollection extends ICollectionId {
     userId: IUser['id'];
 }
 
-export interface IDeleteCollection {
-    collectionId: ICollection['id'];
+export interface IDeleteCollection extends ICollectionId {
     message: string;
 }
