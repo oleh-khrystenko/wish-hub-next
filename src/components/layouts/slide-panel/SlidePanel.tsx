@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { ECollectionSort, ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
@@ -24,6 +25,8 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     const [showConfirmDeleteCollection, setShowConfirmDeleteCollection] =
         useState<boolean>(false);
 
+    const { userId } = useParams<{ userId: string }>();
+
     const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -36,11 +39,16 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     const deleteCollection = useCollectionsStore(
         (state) => state.deleteCollection
     );
+    const setResetCollections = useCollectionsStore(
+        (state) => state.setResetCollections
+    );
 
     const showSlidePanel = useSettingsStore((state) => state.showSlidePanel);
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
     );
+
+    const currentUserId = selectedUserId || userId;
 
     const handleDeleteCollection = (currentCollection: ICollection) => {
         setCollection(currentCollection);
@@ -64,12 +72,12 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     };
 
     useEffect(() => {
-        if (!selectedUserId) return;
+        if (!currentUserId) return;
 
         getCollections(
             {
                 myId: myUser?.id,
-                userId: selectedUserId,
+                userId: currentUserId,
                 page: 1,
                 limit: COLLECTION_PAGINATION_LIMIT,
                 search: '',
@@ -79,9 +87,10 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
         ).finally();
 
         return () => {
+            setResetCollections();
             setShowSlidePanel(false);
         };
-    }, [selectedUserId]);
+    }, [currentUserId]);
 
     return (
         <>

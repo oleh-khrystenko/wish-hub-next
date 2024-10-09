@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { ETheme } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
+import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
@@ -53,6 +54,10 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
     const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
 
+    const setResetCollections = useCollectionsStore(
+        (state) => state.setResetCollections
+    );
+
     const theme = useSettingsStore((state) => state.theme);
     const setShowSidebar = useSettingsStore((state) => state.setShowSidebar);
 
@@ -83,6 +88,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
     const handleLogout = async () => {
         await logout(allPagesT('my-user-api.logout.error'));
         isMainPage && (await getInitialAllWishes());
+        setResetCollections();
         setShowPopup(false);
     };
 

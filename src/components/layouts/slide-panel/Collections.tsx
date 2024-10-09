@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { ECollectionSort, ICollection } from '@/models/Collection';
@@ -28,6 +28,7 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
 
     const collectionListRef = useRef<HTMLUListElement>(null);
 
+    const { userId } = useParams<{ userId: string }>();
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
@@ -73,15 +74,17 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
     sort === ECollectionSort.TITLE_ASC &&
         (wishesSortText = allPagesT('sort.by-title-asc'));
 
+    const currentUserId = selectedUserId || userId;
+
     const handleSortBy = async (value: ECollectionSort) => {
-        if (!selectedUserId) return;
+        if (!currentUserId) return;
 
         setCollectionsSort(value);
 
         await getCollections(
             {
                 myId: myUser?.id,
-                userId: selectedUserId,
+                userId: currentUserId,
                 page: 1,
                 limit: COLLECTION_PAGINATION_LIMIT,
                 search,
@@ -99,14 +102,14 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
     };
 
     const handleChangeSearchBar = async (value: string) => {
-        if (!selectedUserId) return;
+        if (!currentUserId) return;
 
         setCollectionsSearch(value);
 
         await getCollections(
             {
                 myId: myUser?.id,
-                userId: selectedUserId,
+                userId: currentUserId,
                 page: 1,
                 limit: COLLECTION_PAGINATION_LIMIT,
                 search: value,
@@ -128,14 +131,14 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                 return;
             }
 
-            if (!inView || stopRequests || !selectedUserId) return;
+            if (!inView || stopRequests || !currentUserId) return;
 
             setIsLoadingAdd(true);
 
             await addCollections(
                 {
                     myId: myUser?.id,
-                    userId: selectedUserId,
+                    userId: currentUserId,
                     page,
                     limit: COLLECTION_PAGINATION_LIMIT,
                     search,
@@ -306,8 +309,12 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                         ></li>
 
                         {isLoadingAdd && (
-                            <li className="relative mt-5 h-20 w-full">
-                                <UiLoading isLocal bg="bg-transparent" />
+                            <li className="relative h-10 w-full">
+                                <UiLoading
+                                    isLocal
+                                    size="h-10 min-h-10 w-10 min-w-10"
+                                    bg="bg-transparent"
+                                />
                             </li>
                         )}
                     </ul>
