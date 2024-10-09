@@ -80,6 +80,7 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
 
         await getCollections(
             {
+                myId: myUser?.id,
                 userId: selectedUserId,
                 page: 1,
                 limit: COLLECTION_PAGINATION_LIMIT,
@@ -104,6 +105,7 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
 
         await getCollections(
             {
+                myId: myUser?.id,
                 userId: selectedUserId,
                 page: 1,
                 limit: COLLECTION_PAGINATION_LIMIT,
@@ -232,76 +234,87 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                 </div>
 
                 {/* List */}
-                <ul
-                    className="flex max-h-[calc(100svh_-_404px)] flex-col gap-1 overflow-y-auto overflow-x-hidden pl-3 pr-1 mobile-xs:max-h-[calc(100svh_-_600px)] mobile-md:max-h-[calc(100svh_-_650px)] tablet-lg:max-h-[calc(100svh_-_568px)]"
-                    ref={collectionListRef}
-                >
-                    {collectionId && (
-                        <li className="flex">
-                            <UiButton
-                                href={pathname.replace(`/${activeLocale}/`, '')}
-                                variant="clear-styles"
-                                classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
-                                onLinkClick={() => setShowSlidePanel(false)}
-                            >
-                                {allPagesT('all_wishes')}
-                            </UiButton>
-                        </li>
-                    )}
-
-                    {collections.map((collection) => (
-                        <li
-                            key={collection.id}
-                            className={`${collection.id === collectionId ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
-                        >
-                            <UiButton
-                                href={`${pathname.replace(`/${activeLocale}/`, '')}?collectionId=${collection.id}`}
-                                variant="clear-styles"
-                                classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
-                                onLinkClick={() => setShowSlidePanel(false)}
-                            >
-                                {collection.name}
-                            </UiButton>
-
-                            {(collection.id !== collectionId ||
-                                pathname !==
-                                    `/${activeLocale}/user/${selectedUserId}/collection/editor`) && (
+                {collections.length > 0 ? (
+                    <ul
+                        className="flex max-h-[calc(100svh_-_404px)] flex-col gap-1 overflow-y-auto overflow-x-hidden pl-3 pr-1 mobile-xs:max-h-[calc(100svh_-_600px)] mobile-md:max-h-[calc(100svh_-_650px)] tablet-lg:max-h-[calc(100svh_-_568px)]"
+                        ref={collectionListRef}
+                    >
+                        {collectionId && (
+                            <li className="flex">
                                 <UiButton
-                                    href={`user/${myUser?.id}/collection/editor?collectionId=${collection.id}`}
-                                    variant="text-only"
+                                    href={pathname.replace(
+                                        `/${activeLocale}/`,
+                                        ''
+                                    )}
+                                    variant="clear-styles"
+                                    classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
                                     onLinkClick={() => setShowSlidePanel(false)}
                                 >
-                                    <span className="rounded-md p-2.5 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-3">
-                                        <EditIcon classes="w-4 h-4 fill-zinc-800 dark:fill-zinc-300" />
-                                    </span>
+                                    {allPagesT('all_wishes')}
                                 </UiButton>
-                            )}
+                            </li>
+                        )}
 
-                            <UiButton
-                                variant="text-only"
-                                classesWrap="rounded-md p-2 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-2.5"
-                                onBtnClick={() =>
-                                    handleDeleteCollection(collection)
-                                }
+                        {collections.map((collection) => (
+                            <li
+                                key={collection.id}
+                                className={`${collection.id === collectionId ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
                             >
-                                <BasketIcon />
-                            </UiButton>
-                        </li>
-                    ))}
+                                <UiButton
+                                    href={`${pathname.replace(`/${activeLocale}/`, '')}?collectionId=${collection.id}`}
+                                    variant="clear-styles"
+                                    classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
+                                    onLinkClick={() => setShowSlidePanel(false)}
+                                >
+                                    {collection.name}
+                                </UiButton>
 
-                    <li
-                        className="h-px w-full"
-                        style={{
-                            display: stopRequests ? 'none' : 'block',
-                        }}
-                        ref={ref}
-                    ></li>
-                </ul>
+                                {(collection.id !== collectionId ||
+                                    pathname !==
+                                        `/${activeLocale}/user/${selectedUserId}/collection/editor`) && (
+                                    <UiButton
+                                        href={`user/${myUser?.id}/collection/editor?collectionId=${collection.id}`}
+                                        variant="text-only"
+                                        onLinkClick={() =>
+                                            setShowSlidePanel(false)
+                                        }
+                                    >
+                                        <span className="rounded-md p-2.5 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-3">
+                                            <EditIcon classes="w-4 h-4 fill-zinc-800 dark:fill-zinc-300" />
+                                        </span>
+                                    </UiButton>
+                                )}
 
-                {isLoadingAdd && (
-                    <div className="relative mt-5 h-20 w-full">
-                        <UiLoading isLocal bg="bg-transparent" />
-                    </div>
+                                <UiButton
+                                    variant="text-only"
+                                    classesWrap="rounded-md p-2 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-2.5"
+                                    onBtnClick={() =>
+                                        handleDeleteCollection(collection)
+                                    }
+                                >
+                                    <BasketIcon />
+                                </UiButton>
+                            </li>
+                        ))}
+
+                        <li
+                            className="h-px w-full"
+                            style={{
+                                display: stopRequests ? 'none' : 'block',
+                            }}
+                            ref={ref}
+                        ></li>
+
+                        {!isLoadingAdd && (
+                            <li className="relative mt-5 h-20 w-full">
+                                <UiLoading isLocal bg="bg-transparent" />
+                            </li>
+                        )}
+                    </ul>
+                ) : (
+                    <p className="text-center text-sm text-zinc-800 dark:text-zinc-300">
+                        {allPagesT('no_collections_found')}
+                    </p>
                 )}
             </div>
         </div>

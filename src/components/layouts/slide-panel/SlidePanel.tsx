@@ -31,6 +31,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
     const collections = useCollectionsStore((state) => state.list);
+    const search = useCollectionsStore((state) => state.search);
     const getCollections = useCollectionsStore((state) => state.getCollections);
     const deleteCollection = useCollectionsStore(
         (state) => state.deleteCollection
@@ -108,7 +109,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
                     </div>
 
                     <div className="rounded-xl bg-zinc-200 px-2 pb-4 pt-3 dark:bg-zinc-900 mobile-lg:px-4 mobile-lg:pb-6 tablet-lg:h-full">
-                        {collections.length > 0 && (
+                        {(collections.length > 0 || search.length > 0) && (
                             <Collections
                                 handleDeleteCollection={handleDeleteCollection}
                             />

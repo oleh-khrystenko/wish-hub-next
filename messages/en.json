@@ -717,7 +717,8 @@
             "confirm": "Confirm",
             "close": "Close"
         },
-        "collection_name": "Collection name"
+        "collection_name": "Collection name",
+        "no_collections_found": "No collections were found according to the specified parameters"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",
