@@ -305,7 +305,7 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                             ref={ref}
                         ></li>
 
-                        {!isLoadingAdd && (
+                        {isLoadingAdd && (
                             <li className="relative mt-5 h-20 w-full">
                                 <UiLoading isLocal bg="bg-transparent" />
                             </li>
