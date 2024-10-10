@@ -70,7 +70,7 @@ const Body: FC = () => {
         };
 
         fetchCollection().finally();
-    }, []);
+    }, [collectionId]);
 
     return (
         <main className="flex grow flex-col pt-3">

@@ -1,15 +1,19 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
-import { useCollectionsStore } from '@/stores/collection';
+import collectionApi from '@/stores/collection/api';
 
 interface IProps {
     selectedUserFullName: string;
 }
 
 const Title: FC<IProps> = ({ selectedUserFullName }) => {
+    const [collectionName, setCollectionName] =
+        useState<ICollection['name']>('');
+
     const searchParams = useSearchParams();
 
     const mainPageT = useTranslations('main-page');
@@ -18,13 +22,21 @@ const Title: FC<IProps> = ({ selectedUserFullName }) => {
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
-    const collections = useCollectionsStore((state) => state.list);
-
     const collectionId = searchParams.get('collectionId');
 
-    const collectionName = collections.find(
-        (collection) => collection.id === collectionId
-    )?.name;
+    useEffect(() => {
+        if (!collectionId) return;
+
+        const fetchCollection = async () => {
+            const response = await collectionApi.getCollection({
+                collectionId,
+            });
+
+            setCollectionName(response.data.name);
+        };
+
+        fetchCollection().finally();
+    }, [collectionId]);
 
     return (
         <div className="my-2 pl-2.5">
