@@ -7,6 +7,7 @@ import InfoIcon from '@/components/icons/InfoIcon';
 
 interface IProps {
     id: string;
+    bgRadio?: string;
     tooltipContent: {
         all: string;
         friends: string;
@@ -19,6 +20,7 @@ interface IProps {
 
 const PrivacyChoices: FC<IProps> = ({
     id,
+    bgRadio = 'after:bg-zinc-200 dark:after:bg-zinc-900',
     tooltipContent,
     show,
     showError,
@@ -41,6 +43,7 @@ const PrivacyChoices: FC<IProps> = ({
                     <UiRadio
                         id={`${id}-all`}
                         label={mainPageT('can-see.all')}
+                        bg={bgRadio}
                         name="show"
                         checked={show === EPrivacy.ALL}
                         value={EPrivacy.ALL}
@@ -61,6 +64,7 @@ const PrivacyChoices: FC<IProps> = ({
                     <UiRadio
                         id={`${id}-friends`}
                         label={mainPageT('can-see.friends')}
+                        bg={bgRadio}
                         name="show"
                         checked={show === EPrivacy.FRIENDS}
                         value={EPrivacy.FRIENDS}
@@ -81,6 +85,7 @@ const PrivacyChoices: FC<IProps> = ({
                     <UiRadio
                         id={`${id}-nobody`}
                         label={mainPageT('can-see.nobody')}
+                        bg={bgRadio}
                         name="show"
                         checked={show === EPrivacy.NOBODY}
                         value={EPrivacy.NOBODY}
