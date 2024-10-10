@@ -98,10 +98,10 @@ const WishList: FC<IProps> = ({ userId }) => {
                       collectionId,
                       userId,
                       wishIdList,
-                      name: data.collectionName,
+                      name: data.collectionName.trim(),
                   },
                   allPagesT('collections.update-collection.success', {
-                      name: data.collectionName,
+                      name: data.collectionName.trim(),
                   }),
                   allPagesT('collections.update-collection.error')
               )
@@ -109,10 +109,10 @@ const WishList: FC<IProps> = ({ userId }) => {
                   {
                       userId,
                       wishIdList,
-                      name: data.collectionName,
+                      name: data.collectionName.trim(),
                   },
                   allPagesT('collections.create-collection.success', {
-                      name: data.collectionName,
+                      name: data.collectionName.trim(),
                   }),
                   allPagesT('collections.create-collection.error')
               );
