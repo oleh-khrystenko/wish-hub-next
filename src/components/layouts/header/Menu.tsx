@@ -308,7 +308,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                 </p>
 
                 <p className="mt-6 text-zinc-600 dark:text-zinc-400">
-                    {mainPageT('phone')}{' '}
+                    {allPagesT('phone')}{' '}
                     <a
                         href="tel:+380508899268"
                         className="text-cyan-400 dark:text-cyan-300"
@@ -318,7 +318,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                 </p>
 
                 <p className="mt-4 text-zinc-600 dark:text-zinc-400">
-                    {mainPageT('email')}{' '}
+                    {allPagesT('email')}{' '}
                     <a
                         href="mailto:wish.hub.net@gmail.com"
                         className="text-cyan-400 dark:text-cyan-300"

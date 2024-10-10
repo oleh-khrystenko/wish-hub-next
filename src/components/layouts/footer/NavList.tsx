@@ -17,10 +17,10 @@ const NavList: FC<IProps> = ({ navList, remove }) => {
     return (
         <nav>
             <ul className="flex flex-col gap-2">
-                {navList.map(({ href, title }) => {
+                {navList.map(({ href, title }, idx) => {
                     if (href === remove) {
                         return (
-                            <li key={href}>
+                            <li key={href + idx}>
                                 <UiButton
                                     variant="text-only"
                                     onBtnClick={() =>
@@ -38,7 +38,7 @@ const NavList: FC<IProps> = ({ navList, remove }) => {
                         );
                     }
                     return (
-                        <li key={href}>
+                        <li key={href + idx}>
                             <UiButton href={href} variant="text-only">
                                 <span className="font-bold text-zinc-700 dark:text-zinc-400">
                                     {title}

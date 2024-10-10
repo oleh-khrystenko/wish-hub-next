@@ -1,6 +1,9 @@
+'use client';
+
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { INavItem } from '@/models/Settings';
+import UsePageParams from '@/helpers/hooks/UsePageParams';
 import Divider from '@/components/layouts/Divider';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
 import NavList from '@/components/layouts/footer/NavList';
@@ -9,16 +12,29 @@ import UiBrand from '@/components/ui/UiBrand';
 interface IProps {
     remove?: INavItem['href'];
     isWelcome?: boolean;
+    withPageParams?: boolean;
 }
 
-const Footer: FC<IProps> = ({ remove, isWelcome }) => {
-    const welcomePageT = useTranslations('welcome-page');
-    const mainPageT = useTranslations('main-page');
+const Footer: FC<IProps> = ({ remove, isWelcome, withPageParams }) => {
+    const allPagesT = useTranslations('all-pages');
+
+    const { getAllPageParams } = UsePageParams();
 
     const navList: INavItem[] = [
-        { href: 'main', title: welcomePageT('main') },
-        { href: 'about', title: mainPageT('about_us') },
-        { href: 'privacy-policy', title: mainPageT('privacy_policy_title') },
+        {
+            href: 'main' + (withPageParams ? `?${getAllPageParams()}` : ''),
+            title: allPagesT('main'),
+        },
+        {
+            href: 'about' + (withPageParams ? `?${getAllPageParams()}` : ''),
+            title: allPagesT('about'),
+        },
+        {
+            href:
+                'privacy-policy' +
+                (withPageParams ? `?${getAllPageParams()}` : ''),
+            title: allPagesT('privacy_policy'),
+        },
     ];
 
     return (
@@ -34,7 +50,7 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
                             </div>
 
                             <p className="text-lg text-zinc-700 dark:text-zinc-400">
-                                {welcomePageT('slogan')}
+                                {allPagesT('slogan')}
                             </p>
                         </div>
 
@@ -42,7 +58,7 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
 
                         <div className="flex flex-col gap-2 tablet-lg:col-start-2 tablet-lg:col-end-3 desktop-xs:col-auto">
                             <p className="text-zinc-600 dark:text-zinc-400">
-                                {mainPageT('phone')}{' '}
+                                {allPagesT('phone')}{' '}
                                 <a
                                     href="tel:+380508899268"
                                     className="font-bold"
@@ -52,7 +68,7 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
                             </p>
 
                             <p className="text-zinc-600 dark:text-zinc-400">
-                                {mainPageT('email')}{' '}
+                                {allPagesT('email')}{' '}
                                 <a
                                     href="mailto:wish.hub.net@gmail.com"
                                     className="font-bold"

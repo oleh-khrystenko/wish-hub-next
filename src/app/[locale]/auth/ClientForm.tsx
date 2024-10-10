@@ -85,6 +85,10 @@ const ClientForm: FC = () => {
     isSignUp && (submit = authPageT('sign-up'));
     isForgotPassword && (submit = authPageT('recovery'));
 
+    const utm_source = searchParams.get('utm_source') || undefined;
+    const utm_medium = searchParams.get('utm_medium') || undefined;
+    const utm_campaign = searchParams.get('utm_campaign') || undefined;
+
     const repeatPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setRepeatPassword(value);
@@ -145,6 +149,9 @@ const ClientForm: FC = () => {
                 firstName: decodedUserData.given_name,
                 lastName: decodedUserData.family_name,
                 avatar: decodedUserData.picture,
+                utm_source,
+                utm_medium,
+                utm_campaign,
             },
             allPagesT('my-user-api.google-authorization.error')
         );
@@ -209,6 +216,9 @@ const ClientForm: FC = () => {
                     ...data,
                     email: data.email.trim(),
                     lang: activeLocale as ELang,
+                    utm_source,
+                    utm_medium,
+                    utm_campaign,
                 },
                 allPagesT('my-user-api.registration.error')
             );

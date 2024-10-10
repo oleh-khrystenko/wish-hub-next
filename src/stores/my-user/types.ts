@@ -17,7 +17,13 @@ export interface ILogin {
     lang: ELang;
 }
 
-export interface IGoogleAuth {
+interface IUTM {
+    utm_source?: string;
+    utm_medium?: string;
+    utm_campaign?: string;
+}
+
+export interface IGoogleAuth extends IUTM {
     email: IUser['email'];
     lang: ELang;
     isActivated: IUser['isActivated'];
@@ -26,7 +32,7 @@ export interface IGoogleAuth {
     avatar: IUser['avatar'];
 }
 
-export interface IRegistration extends ILogin {
+export interface IRegistration extends ILogin, IUTM {
     firstName: IUser['firstName'];
 }
 

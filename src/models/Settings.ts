@@ -28,7 +28,7 @@ export interface IZoomedImage {
 
 export interface INavItem {
     title: string;
-    href: 'main' | 'about' | 'privacy-policy';
+    href: string;
 }
 
 export interface IPageParams {

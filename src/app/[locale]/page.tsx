@@ -175,7 +175,8 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
-                <Footer isWelcome />
+
+                <Footer isWelcome withPageParams />
             </NextIntlClientProvider>
         </main>
     );

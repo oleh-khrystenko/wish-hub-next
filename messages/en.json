@@ -176,8 +176,6 @@
         "new-password": "New password*",
         "repeat-new-password": "Repeat new password*",
         "repeat-password-error": "New passwords do not match.",
-        "phone": "Phone:",
-        "email": "Email address:",
         "social-networks": "Social networks:",
         "contact-us": "If you have any questions or suggestions, please contact us.",
         "sadness": "Our sadness knows no bounds... We hope that you will give us another chance and to stay. If you have decided to leave us, please confirm your intention by entering the appropriate data.",
@@ -484,7 +482,6 @@
         "main": "Main",
         "to-main": "To Main",
         "wish_hub_slogan": "Wish Hub - makes your dreams come true!",
-        "slogan": "Makes your dreams come true!",
         "unique_platform": "This is a unique platform where your dreams come true. Create and share your wishes to make them come true.",
         "birthday_wishlist": "Birthday wishlist",
         "count_wishes": "14 wishes",
@@ -718,7 +715,10 @@
             "close": "Close"
         },
         "collection_name": "Collection name",
-        "no_collections_found": "No collections were found according to the specified parameters"
+        "no_collections_found": "No collections were found according to the specified parameters",
+        "slogan": "Makes your dreams come true!",
+        "phone": "Phone:",
+        "email": "Email address:"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",
