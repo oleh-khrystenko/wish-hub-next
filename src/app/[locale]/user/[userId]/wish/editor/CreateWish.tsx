@@ -13,13 +13,18 @@ import {
     TCurrentImage,
     TWishFormInputs,
 } from '@/models/Wish';
-import { ELang, EPrivacy } from '@/models/Settings';
+import { EAddToCollection, ELang, EPrivacy } from '@/models/Settings';
 import { ICreateWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
+import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
+import {
+    COLLECTION_NAME_MAX_LENGTH,
+    COLLECTION_NAME_MIN_LENGTH,
+} from '@/helpers/utils/constants';
 import FastWish from '@/app/[locale]/user/[userId]/wish/editor/FastWish';
 import FormContent from '@/app/[locale]/user/[userId]/wish/editor/FormContent';
 import QuoteMessage from '@/components/layouts/QuoteMessage';
@@ -50,6 +55,7 @@ const CreateWish: FC = () => {
         watch,
         trigger,
         setError,
+        clearErrors,
         handleSubmit,
         formState: { errors },
     } = useForm<TWishFormInputs>();
@@ -59,6 +65,14 @@ const CreateWish: FC = () => {
     const wishes = useWishesStore((state) => state.list);
     const wishCandidate = useWishesStore((state) => state.wishCandidate);
     const createWish = useWishesStore((state) => state.createWish);
+
+    const collections = useCollectionsStore((state) => state.list);
+    const showAddToCollection = useCollectionsStore(
+        (state) => state.showAddToCollection
+    );
+    const setAddToCollectionError = useCollectionsStore(
+        (state) => state.setAddToCollectionError
+    );
 
     const isDirtyForm = useSettingsStore((state) => state.isDirtyForm);
     const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
@@ -93,6 +107,64 @@ const CreateWish: FC = () => {
             return setShowError(mainPageT('private-wish-error'));
         } else {
             setShowError('');
+        }
+
+        const hasSelectedCollection = collections.some(
+            (collection) => collection.selected
+        );
+        // Collection Errors
+        // create
+        if (showAddToCollection === EAddToCollection.CREATE) {
+            if (data.collectionName.length === 0) {
+                setError(
+                    'collectionName',
+                    {
+                        type: 'required',
+                        message: validationsT('collection-name.required'),
+                    },
+                    { shouldFocus: true }
+                );
+                return;
+            }
+            if (
+                data.collectionName.length > 0 &&
+                data.collectionName.length < COLLECTION_NAME_MIN_LENGTH
+            ) {
+                setError(
+                    'collectionName',
+                    {
+                        type: 'min',
+                        message: validationsT('collection-name.min', {
+                            min: COLLECTION_NAME_MIN_LENGTH,
+                        }),
+                    },
+                    { shouldFocus: true }
+                );
+                return;
+            }
+            if (data.collectionName.length > COLLECTION_NAME_MAX_LENGTH) {
+                setError(
+                    'collectionName',
+                    {
+                        type: 'max',
+                        message: validationsT('collection-name.max', {
+                            max: COLLECTION_NAME_MAX_LENGTH,
+                        }),
+                    },
+                    { shouldFocus: true }
+                );
+                return;
+            }
+        }
+        // add
+        if (
+            showAddToCollection === EAddToCollection.ADD &&
+            !hasSelectedCollection
+        ) {
+            setAddToCollectionError(validationsT('add-to-collection.required'));
+            return;
+        } else {
+            setAddToCollectionError('');
         }
 
         if (!myUser || !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return;
@@ -174,6 +246,22 @@ const CreateWish: FC = () => {
             return encryptedImage;
         });
 
+        // Collections
+        const isSendCollectionName =
+            showAddToCollection === EAddToCollection.CREATE &&
+            data.collectionName;
+        const collectionName = isSendCollectionName
+            ? data.collectionName.trim()
+            : undefined;
+        const isSendCollectionIdList =
+            showAddToCollection === EAddToCollection.ADD &&
+            hasSelectedCollection;
+        const collectionIdList = isSendCollectionIdList
+            ? collections
+                  .filter((collection) => collection.selected)
+                  .map((collection) => collection.id)
+            : undefined;
+
         const wishData = {
             userId: myUser.id,
             material,
@@ -184,6 +272,8 @@ const CreateWish: FC = () => {
             addresses: material ? sendingAddresses : undefined,
             description:
                 dataDescription.length > 0 ? sendingDescription : undefined,
+            collectionName,
+            collectionIdList,
             images: show === EPrivacy.ALL ? images : encryptedImages,
         };
 
@@ -266,6 +356,7 @@ const CreateWish: FC = () => {
                     watch={watch}
                     trigger={trigger}
                     errors={errors}
+                    clearErrors={clearErrors}
                     material={material}
                     setMaterial={setMaterial}
                     images={images}

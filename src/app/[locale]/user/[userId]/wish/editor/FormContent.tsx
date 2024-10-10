@@ -37,6 +37,9 @@ interface IProps {
     watch: UseFormWatch<TWishFormInputs>;
     trigger: UseFormTrigger<TWishFormInputs>;
     errors: FieldErrors<TWishFormInputs>;
+    clearErrors: (
+        name?: keyof TWishFormInputs | (keyof TWishFormInputs)[]
+    ) => void;
     material: ICreateWish['material'];
     setMaterial: (value: ICreateWish['material']) => void;
     images: TCurrentImage[];
@@ -57,6 +60,7 @@ const FormContent: FC<IProps> = ({
     watch,
     trigger,
     errors,
+    clearErrors,
     material,
     setMaterial,
     images,
@@ -369,6 +373,7 @@ const FormContent: FC<IProps> = ({
                 <AddToCollection
                     register={register}
                     errors={errors}
+                    clearErrors={clearErrors}
                     handleReactHookFormInputChange={
                         handleReactHookFormInputChange
                     }

@@ -80,5 +80,5 @@ export type TWishFormInputs = {
     price: IWish['price'];
     addresses: IWish['addresses'];
     description: IWish['description'];
-    collection: ICollection['name'];
+    collectionName: ICollection['name'];
 };

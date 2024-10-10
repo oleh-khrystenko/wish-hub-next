@@ -12,6 +12,8 @@ export interface ICreateWish {
     currency?: IWish['currency'] | string;
     addresses?: IWish['addresses'];
     description?: IWish['description'];
+    collectionName?: ICollection['name'];
+    collectionIdList?: ICollection['id'][];
     show: IWish['show'];
 }
 

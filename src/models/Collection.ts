@@ -6,6 +6,7 @@ export interface ICollection {
     userId: IUser['id'];
     wishIdList: IWish['id'][];
     name: string;
+    selected?: boolean;
 }
 
 export enum ECollectionSort {

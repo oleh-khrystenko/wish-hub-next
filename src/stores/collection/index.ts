@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
 import { ECollectionSort, ICollection } from '@/models/Collection';
+import { EAddToCollection } from '@/models/Settings';
 import {
     ISendCreateCollection,
     ISendDeleteCollection,
@@ -19,8 +20,13 @@ interface ICollectionsStore {
     sort: ECollectionSort;
     page: number;
     stopRequests: boolean;
+    showAddToCollection: EAddToCollection;
+    addToCollectionError: string;
+    setAddToCollectionError: (value: string) => void;
     setCollectionsSearch: (value: string) => void;
     setCollectionsSort: (value: ECollectionSort) => void;
+    setSelectedCollection: (id: ICollection['id']) => void;
+    setShowAddToCollection: (value: EAddToCollection) => void;
     setResetCollections: () => void;
     createCollection: (
         data: ISendCreateCollection,
@@ -52,6 +58,14 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
     sort: ECollectionSort.CREATED_DESC,
     page: 1,
     stopRequests: false,
+    showAddToCollection: EAddToCollection.NONE,
+    addToCollectionError: '',
+    setAddToCollectionError: (value) => {
+        set((state) => ({
+            ...state,
+            addToCollectionError: value,
+        }));
+    },
     setCollectionsSearch: (value) => {
         set((state) => ({
             ...state,
@@ -62,6 +76,27 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
         set((state) => ({
             ...state,
             sort: value,
+        }));
+    },
+    setSelectedCollection: (id) => {
+        set((state) => ({
+            ...state,
+            list: state.list.map((collection) => {
+                if (collection.id === id) {
+                    return {
+                        ...collection,
+                        selected: !collection.selected,
+                    };
+                }
+
+                return collection;
+            }),
+        }));
+    },
+    setShowAddToCollection: (value) => {
+        set((state) => ({
+            ...state,
+            showAddToCollection: value,
         }));
     },
     setResetCollections: () => {

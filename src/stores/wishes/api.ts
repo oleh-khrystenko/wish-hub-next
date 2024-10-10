@@ -51,6 +51,8 @@ const addDataToFormData = (
         currency,
         addresses,
         description,
+        collectionName,
+        collectionIdList,
         images,
     } = data;
     processCommonFields(formData, { userId, material, show, name });
@@ -62,6 +64,12 @@ const addDataToFormData = (
             formData.append(`address-${idx}`, JSON.stringify(address));
         });
     description && processCommonFields(formData, { description });
+    collectionName && processCommonFields(formData, { collectionName });
+    if (collectionIdList && collectionIdList.length > 0) {
+        collectionIdList.forEach((collectionId, idx) => {
+            formData.append(`collectionId-${idx}`, collectionId);
+        });
+    }
     processImages(formData, images);
 
     return formData;
