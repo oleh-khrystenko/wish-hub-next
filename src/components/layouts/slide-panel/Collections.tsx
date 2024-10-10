@@ -253,7 +253,7 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                                     classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
                                     onLinkClick={() => setShowSlidePanel(false)}
                                 >
-                                    {allPagesT('all_collections')}
+                                    {allPagesT('all_wishes')}
                                 </UiButton>
                             </li>
                         )}
