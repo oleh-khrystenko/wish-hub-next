@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
+import { IWish } from '@/models/Wish';
 import { ECollectionSort, ICollection } from '@/models/Collection';
 import { EAddToCollection } from '@/models/Settings';
 import {
@@ -40,12 +41,14 @@ interface ICollectionsStore {
     ) => Promise<ICollection | void>;
     getCollections: (
         params: ISendGetCollections,
-        errorT: string
-    ) => Promise<void>;
+        errorT: string,
+        wishId?: IWish['id']
+    ) => Promise<ICollection[] | void>;
     addCollections: (
         params: ISendGetCollections,
-        errorT: string
-    ) => Promise<void>;
+        errorT: string,
+        wishId?: IWish['id']
+    ) => Promise<ICollection[] | void>;
     deleteCollection: (
         params: ISendDeleteCollection,
         errorT: string
@@ -155,7 +158,7 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
             toast(error.response?.data?.message || errorT, { type: 'error' });
         }
     },
-    getCollections: async (params, errorT) => {
+    getCollections: async (params, errorT, wishId) => {
         setShowGlobalLoading(true);
 
         set((state) => ({
@@ -166,9 +169,24 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
         try {
             const response = await collectionApi.getCollections(params);
 
+            const selectedCollections = wishId
+                ? response.data.collections.map((collection) => {
+                      // console.log('wishId: ', wishId);
+                      // console.log('collection: ', collection);
+                      if (collection.wishIdList.includes(wishId)) {
+                          return {
+                              ...collection,
+                              selected: true,
+                          };
+                      }
+
+                      return collection;
+                  })
+                : response.data.collections;
+
             set((state) => ({
                 ...state,
-                list: response.data.collections,
+                list: selectedCollections,
                 page: 2,
                 stopRequests:
                     response.data.collections.length !==
@@ -185,7 +203,7 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
             setShowGlobalLoading(false);
         }
     },
-    addCollections: async (params, errorT) => {
+    addCollections: async (params, errorT, wishId) => {
         set((state) => ({
             ...state,
             stopRequests: true,
@@ -194,9 +212,22 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
         try {
             const response = await collectionApi.getCollections(params);
 
+            const selectedCollections = wishId
+                ? response.data.collections.map((collection) => {
+                      if (collection.wishIdList.includes(wishId)) {
+                          return {
+                              ...collection,
+                              selected: true,
+                          };
+                      }
+
+                      return collection;
+                  })
+                : response.data.collections;
+
             set((state) => ({
                 ...state,
-                list: [...state.list, ...response.data.collections],
+                list: [...state.list, ...selectedCollections],
                 page: state.page + 1,
                 stopRequests:
                     response.data.collections.length !==

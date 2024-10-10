@@ -66,8 +66,13 @@ const addDataToFormData = (
     description && processCommonFields(formData, { description });
     collectionName && processCommonFields(formData, { collectionName });
     if (collectionIdList && collectionIdList.length > 0) {
-        collectionIdList.forEach((collectionId, idx) => {
-            formData.append(`collectionId-${idx}`, collectionId);
+        collectionIdList.forEach((collectionData, idx) => {
+            formData.append(
+                `collectionId-${idx}`,
+                typeof collectionData === 'string'
+                    ? collectionData
+                    : JSON.stringify(collectionData)
+            );
         });
     }
     processImages(formData, images);

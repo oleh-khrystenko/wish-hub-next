@@ -703,7 +703,7 @@
         },
         "collections_search": "Collections Search",
         "wishes": "Wishes",
-        "all_wishes": "All wishes",
+        "all_collections": "All collections",
         "delete": "Delete",
         "are-you-sure": "Are You sure you want to delete this wish?",
         "sure_collection": "Deleting the collection will not remove any wishes. Are you sure you want to delete the collection \"{name}\"?",

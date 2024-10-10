@@ -3,7 +3,7 @@ import { IUser } from '@/models/User';
 import { IQuote } from '@/models/Quote';
 import { ICollection } from '@/models/Collection';
 
-export interface ICreateWish {
+export interface IEditorWish {
     userId: IUser['id'];
     material: IWish['material'];
     name: IWish['name'];
@@ -13,12 +13,19 @@ export interface ICreateWish {
     addresses?: IWish['addresses'];
     description?: IWish['description'];
     collectionName?: ICollection['name'];
-    collectionIdList?: ICollection['id'][];
     show: IWish['show'];
 }
 
-export interface IUpdateWish extends ICreateWish {
+export interface ICreateWish extends IEditorWish {
+    collectionIdList?: ICollection['id'][];
+}
+
+export interface IUpdateWish extends IEditorWish {
     id: IWish['id'];
+    collectionIdList?: {
+        id: ICollection['id'];
+        selected: boolean;
+    }[];
 }
 
 export interface IWishWithQuote {

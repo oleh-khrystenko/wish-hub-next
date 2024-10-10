@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
@@ -8,6 +8,7 @@ import { ECollectionSort, ICollection } from '@/models/Collection';
 import { EAddToCollection } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useCollectionsStore } from '@/stores/collection';
+import { useSettingsStore } from '@/stores/settings';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import { COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiRadio from '@/components/ui/UiRadio';
@@ -36,6 +37,7 @@ const AddToCollection: FC<IProps> = ({
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
     const { userId } = useParams<{ userId: string }>();
+    const searchParams = useSearchParams();
 
     const allPagesT = useTranslations('all-pages');
     const mainPageT = useTranslations('main-page');
@@ -67,7 +69,11 @@ const AddToCollection: FC<IProps> = ({
     const getCollections = useCollectionsStore((state) => state.getCollections);
     const addCollections = useCollectionsStore((state) => state.addCollections);
 
+    const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
+
     const { onlyWhitespaceValidation } = UseValidations();
+
+    const wishId = searchParams.get('wishId');
 
     const handleChangeShow = (e: ChangeEvent<HTMLInputElement>) => {
         setShowAddToCollection(e.target.value as EAddToCollection);
@@ -78,17 +84,18 @@ const AddToCollection: FC<IProps> = ({
     const handleCollectionClick = (id: ICollection['id']) => {
         setSelectedCollection(id);
         setAddToCollectionError('');
+        setIsDirtyForm(true);
     };
 
     useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
+        if (!inView || stopRequests || !userId) return;
+
         const fetchWishes = async () => {
-            if (firstLoad) {
-                setFirstLoad(false);
-                return;
-            }
-
-            if (!inView || stopRequests || !userId) return;
-
             setIsLoadingAdd(true);
 
             await addCollections(
@@ -100,7 +107,8 @@ const AddToCollection: FC<IProps> = ({
                     search: '',
                     sort: ECollectionSort.CREATED_DESC,
                 },
-                allPagesT('collections.get-collections.error')
+                allPagesT('collections.get-collections.error'),
+                wishId || undefined
             );
 
             setIsLoadingAdd(false);
@@ -112,18 +120,23 @@ const AddToCollection: FC<IProps> = ({
     useEffect(() => {
         if (!userId) return;
 
-        getCollections(
-            {
-                myId: myUser?.id,
-                userId,
-                page: 1,
-                limit: COLLECTION_PAGINATION_LIMIT,
-                search: '',
-                sort: ECollectionSort.CREATED_DESC,
-            },
-            allPagesT('collections.get-collections.error')
-        ).finally();
-    }, [userId]);
+        const fetchCollections = async () => {
+            await getCollections(
+                {
+                    myId: myUser?.id,
+                    userId,
+                    page: 1,
+                    limit: COLLECTION_PAGINATION_LIMIT,
+                    search: '',
+                    sort: ECollectionSort.CREATED_DESC,
+                },
+                allPagesT('collections.get-collections.error'),
+                wishId || undefined
+            );
+        };
+
+        fetchCollections().finally();
+    }, [userId, wishId]);
 
     useEffect(() => {
         return () => {

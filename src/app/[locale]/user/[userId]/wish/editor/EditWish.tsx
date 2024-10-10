@@ -257,9 +257,10 @@ const EditWish: FC<IProps> = ({ wish }) => {
             showAddToCollection === EAddToCollection.ADD &&
             hasSelectedCollection;
         const collectionIdList = isSendCollectionIdList
-            ? collections
-                  .filter((collection) => collection.selected)
-                  .map((collection) => collection.id)
+            ? collections.map((collection) => ({
+                  id: collection.id,
+                  selected: !!collection.selected,
+              }))
             : undefined;
 
         const wishData = {
