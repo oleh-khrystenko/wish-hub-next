@@ -25,6 +25,8 @@ interface IProps {
     isEmptyAddress: boolean;
 }
 
+const MAX_ADDRESSES = 10;
+
 const Addresses: FC<IProps> = ({
     register,
     control,
@@ -61,8 +63,10 @@ const Addresses: FC<IProps> = ({
     };
 
     const handleAppend = () => {
-        append({ id: uuidv4(), value: '' });
-        setIsDirtyForm(true);
+        if (watchingAddresses && watchingAddresses.length < MAX_ADDRESSES) {
+            append({ id: uuidv4(), value: '' });
+            setIsDirtyForm(true);
+        }
     };
 
     useLayoutEffect(() => {
@@ -103,7 +107,8 @@ const Addresses: FC<IProps> = ({
                             )}
 
                             {idx === watchingAddresses.length - 1 &&
-                                !isEmptyAddress && (
+                                !isEmptyAddress &&
+                                watchingAddresses.length < MAX_ADDRESSES && (
                                     <button
                                         className="rounded-md bg-[#90ff27] p-2"
                                         type="button"
@@ -121,6 +126,14 @@ const Addresses: FC<IProps> = ({
                         )}
                     </div>
                 ))}
+
+            {watchingAddresses && watchingAddresses.length >= MAX_ADDRESSES && (
+                <p className="-mt-6 text-sm text-red-500">
+                    {mainPageT('max_address_limit', {
+                        count: MAX_ADDRESSES,
+                    })}
+                </p>
+            )}
         </>
     );
 };

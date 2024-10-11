@@ -321,7 +321,7 @@ const FormContent: FC<IProps> = ({
                     </div>
 
                     {/* addresses */}
-                    <div className="flex flex-col gap-7">
+                    <div className="flex flex-col gap-7 pr-2">
                         <Addresses
                             register={register}
                             control={control}
