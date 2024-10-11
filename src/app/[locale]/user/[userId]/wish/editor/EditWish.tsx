@@ -458,7 +458,16 @@ const EditWish: FC<IProps> = ({ wish }) => {
                 closeModalT={allPagesT('leave_with_changes.close')}
             >
                 <span className="text-zinc-700 dark:text-zinc-300">
-                    {allPagesT('are-you-sure')}
+                    {allPagesT('are_you_sure', {
+                        name:
+                            wish.show === EPrivacy.ALL
+                                ? wish.name
+                                : decryptedData(
+                                      wish.name,
+                                      process.env
+                                          .NEXT_PUBLIC_CRYPTO_JS_SECRET || ''
+                                  ),
+                    })}
                 </span>
             </ConfirmModal>
 
