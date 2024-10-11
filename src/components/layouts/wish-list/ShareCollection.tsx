@@ -4,6 +4,7 @@ import { FC, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { EPrivacy } from '@/models/Settings';
+import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import ShareButton from '@/components/layouts/ShareButton';
 import UiTooltip from '@/components/ui/UiTooltip';
@@ -18,6 +19,8 @@ const ShareCollection: FC<IProps> = ({ myUserId }) => {
 
     const mainPageT = useTranslations('main-page');
 
+    const myUser = useMyUserStore((state) => state.myUser);
+
     const wishes = useWishesStore((state) => state.list);
 
     const wishListIncludesShowAllWish = useMemo(
@@ -26,6 +29,14 @@ const ShareCollection: FC<IProps> = ({ myUserId }) => {
     );
 
     const collectionId = searchParams.get('collectionId');
+
+    let additionalParams = '';
+    if (collectionId) {
+        additionalParams = `?collectionId=${collectionId}${myUser ? `&utm_source=user&utm_medium=share&utm_campaign=user_${myUser.id}` : ''}`;
+    } else {
+        myUser &&
+            (additionalParams = `?utm_source=user&utm_medium=share&utm_campaign=user_${myUser.id}`);
+    }
 
     return (
         <div className="ml-auto flex items-center gap-1">
@@ -50,10 +61,7 @@ const ShareCollection: FC<IProps> = ({ myUserId }) => {
                 }
             >
                 <ShareButton
-                    link={
-                        `user/${myUserId}/collection` +
-                        (collectionId ? `?collectionId=${collectionId}` : '')
-                    }
+                    link={`/user/${myUserId}/collection${additionalParams}`}
                     actionClasses="flex-row-reverse"
                 >
                     <span className="mr-1.5 whitespace-nowrap py-2.5 text-sm text-zinc-700 dark:text-zinc-400">

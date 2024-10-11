@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
-import UsePageParams from '@/helpers/hooks/UsePageParams';
+import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UiButton from '@/components/ui/UiButton';
 
 const Actions: FC = () => {
@@ -19,14 +19,14 @@ const Actions: FC = () => {
         (state) => state.setShowGlobalLoading
     );
 
-    const { getAllPageParams } = UsePageParams();
+    const utmParams = UseUTMParams();
 
     const handleSignIn = () => {
         setShowGlobalLoading(true);
 
         setCandidate({ firstName: '', email: '' });
 
-        router.push(`/${activeLocale}/auth?${getAllPageParams()}`);
+        router.push(`/${activeLocale}/auth${utmParams ? `?${utmParams}` : ''}`);
     };
 
     const handleSignUp = () => {
@@ -34,7 +34,9 @@ const Actions: FC = () => {
 
         setCandidate({ firstName: '', email: '' });
 
-        router.push(`/${activeLocale}/auth?register&${getAllPageParams()}`);
+        router.push(
+            `/${activeLocale}/auth?register${utmParams ? `&${utmParams}` : ''}`
+        );
     };
 
     return myUser ? (

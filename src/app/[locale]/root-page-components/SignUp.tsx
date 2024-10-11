@@ -8,8 +8,8 @@ import { useForm } from 'react-hook-form';
 import { IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
-import UsePageParams from '@/helpers/hooks/UsePageParams';
 import UseValidations from '@/helpers/hooks/UseValidations';
+import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 
@@ -37,8 +37,8 @@ const SignUp: FC = () => {
         (state) => state.setShowGlobalLoading
     );
 
-    const { getAllPageParams } = UsePageParams();
     const { accountFirstNameValidation, emailValidation } = UseValidations();
+    const utmParams = UseUTMParams();
 
     const handleSingUp = () => {
         setShowGlobalLoading(true);
@@ -48,7 +48,9 @@ const SignUp: FC = () => {
             email: getValues('email'),
         });
 
-        router.push(`/${activeLocale}/auth?register&${getAllPageParams()}`);
+        router.push(
+            `/${activeLocale}/auth?register${utmParams ? `&${utmParams}` : ''}`
+        );
     };
 
     return (

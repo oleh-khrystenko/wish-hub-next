@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { INavItem } from '@/models/Settings';
-import UsePageParams from '@/helpers/hooks/UsePageParams';
+import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import Divider from '@/components/layouts/Divider';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
 import NavList from '@/components/layouts/footer/NavList';
@@ -12,27 +12,24 @@ import UiBrand from '@/components/ui/UiBrand';
 interface IProps {
     remove?: INavItem['href'];
     isWelcome?: boolean;
-    withPageParams?: boolean;
 }
 
-const Footer: FC<IProps> = ({ remove, isWelcome, withPageParams }) => {
+const Footer: FC<IProps> = ({ remove, isWelcome }) => {
     const allPagesT = useTranslations('all-pages');
 
-    const { getAllPageParams } = UsePageParams();
+    const utmParams = UseUTMParams();
 
     const navList: INavItem[] = [
         {
-            href: 'main' + (withPageParams ? `?${getAllPageParams()}` : ''),
+            href: `main${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('main'),
         },
         {
-            href: 'about' + (withPageParams ? `?${getAllPageParams()}` : ''),
+            href: `about${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('about'),
         },
         {
-            href:
-                'privacy-policy' +
-                (withPageParams ? `?${getAllPageParams()}` : ''),
+            href: `privacy-policy${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('privacy_policy'),
         },
     ];

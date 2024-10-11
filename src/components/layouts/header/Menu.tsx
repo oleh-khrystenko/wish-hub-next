@@ -10,6 +10,7 @@ import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
+import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
 import LangSelect from '@/components/layouts/LangSelect';
@@ -63,6 +64,12 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
 
     const { getInitialWishList, getInitialAllWishes } = UseInitialWishes();
     const { getFullName } = UseFullName();
+    const utmParams = UseUTMParams();
+
+    let shareButtonLink = '/';
+    utmParams && (shareButtonLink = `?${utmParams}`);
+    myUser &&
+        (shareButtonLink = `?utm_source=user&utm_medium=share&utm_campaign=user_${myUser.id}`);
 
     const handleSelectMyWishes = async () => {
         if (!myUser) return;
@@ -133,7 +140,10 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     )}
                 </>
             ) : (
-                <UiButton href="auth" variant="text">
+                <UiButton
+                    href={`auth${utmParams ? `?${utmParams}` : ''}`}
+                    variant="text"
+                >
                     <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300">
                         {mainPageT('sign-in')}
                     </span>
@@ -158,10 +168,15 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
             >
                 {!myUser && (
                     <div className="mx-4 mt-4 flex flex-col items-center justify-evenly gap-2 rounded-lg bg-zinc-300 p-2 dark:bg-zinc-800 mobile-xs:flex-row">
-                        <UiButton href="auth" variant="outline">
+                        <UiButton
+                            href={`auth${utmParams ? `?${utmParams}` : ''}`}
+                            variant="outline"
+                        >
                             {mainPageT('sign-in')}
                         </UiButton>
-                        <UiButton href="auth?register">
+                        <UiButton
+                            href={`auth?register${utmParams ? `&${utmParams}` : ''}`}
+                        >
                             {mainPageT('sign-up')}
                         </UiButton>
                     </div>
@@ -169,7 +184,10 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
 
                 <div className="flex flex-col items-stretch gap-1 px-4 pb-2 pt-4 mobile-xs:gap-2 tablet-md:py-2">
                     {pathname !== `/${activeLocale}/main` && (
-                        <UiButton href="main" variant="text">
+                        <UiButton
+                            href={`main${utmParams ? `?${utmParams}` : ''}`}
+                            variant="text"
+                        >
                             <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                                 <div className="p-0.5">
                                     <MainIcon />
@@ -237,28 +255,29 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
 
                 <div className="flex flex-col items-stretch gap-1 border-t border-zinc-500 px-4 py-2 dark:border-zinc-600 mobile-xs:gap-2">
                     {/*<UiButton*/}
-                    {/*    href="instruction"*/}
+                    {/*    href={`instruction${utmParams ? `?${utmParams}` : ''}`}*/}
                     {/*    variant="text"*/}
                     {/*>*/}
-                    {/*    <span*/}
-                    {/*        className="*/}
-                    {/*            flex items-center gap-2 py-1.5*/}
-                    {/*            text-lg text-zinc-800 dark:text-zinc-300*/}
-                    {/*        "*/}
-                    {/*    >*/}
+                    {/*    <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">*/}
                     {/*        <YouTubeIcon />*/}
                     {/*        {mainPageT('instruction')}*/}
                     {/*    </span>*/}
                     {/*</UiButton>*/}
 
-                    <UiButton href="about" variant="text">
+                    <UiButton
+                        href={`about${utmParams ? `?${utmParams}` : ''}`}
+                        variant="text"
+                    >
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <InfoIcon classes="h-6 w-6 stroke-zinc-700 dark:stroke-zinc-300" />
                             {mainPageT('about_us')}
                         </span>
                     </UiButton>
 
-                    <ShareButton iconClasses="h-6 w-6 fill-zinc-800 dark:fill-zinc-300">
+                    <ShareButton
+                        link={shareButtonLink}
+                        iconClasses="h-6 w-6 fill-zinc-800 dark:fill-zinc-300"
+                    >
                         <span className="flex items-center gap-2 py-1.5 text-lg font-bold text-zinc-800 dark:text-zinc-300">
                             {mainPageT('share')} Wish Hub
                         </span>
@@ -287,7 +306,10 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                             <SocialNetworks />
                         </div>
 
-                        <UiButton href="privacy-policy" variant="text">
+                        <UiButton
+                            href={`privacy-policy${utmParams ? `?${utmParams}` : ''}`}
+                            variant="text"
+                        >
                             <span className="flex items-center gap-2 text-xs text-zinc-800 underline dark:text-zinc-300">
                                 <PrivacyPolicyIcon />
                                 {mainPageT('privacy_policy_title')}

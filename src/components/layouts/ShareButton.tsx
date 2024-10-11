@@ -38,7 +38,7 @@ const ShareButton: FC<IProps> = ({
                 .share({
                     title: 'Wish Hub',
                     text: shareButtonT('share-text'),
-                    url: `https://wish-hub.net/${activeLocale}/${link}`,
+                    url: `https://wish-hub.net/${activeLocale}${link}`,
                 })
                 .then(() =>
                     toast.success(shareButtonT(`alerts.share.${successT}`))
