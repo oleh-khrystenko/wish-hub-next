@@ -131,15 +131,13 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
 
     return (
         <div className="-mr-4 flex items-center justify-between gap-1 mobile-sm:gap-3">
-            {myUser?.id === selectedUserId && (
-                <div className="mr-auto flex items-center gap-2">
-                    <LogoIcon classes="h-5 w-5" id="logo-slide-panel" />
+            <div className="mr-auto flex items-center gap-2">
+                <LogoIcon classes="h-5 w-5" id="logo-slide-panel" />
 
-                    <span className="text-sm font-bold text-zinc-500 dark:text-zinc-400 mobile-xl:text-base">
-                        {allPagesT('wishes')}:
-                    </span>
-                </div>
-            )}
+                <span className="text-sm font-bold text-zinc-500 dark:text-zinc-400 mobile-xl:text-base">
+                    {allPagesT('wishes')}:
+                </span>
+            </div>
 
             <div className="relative ml-auto">
                 <UiButton
