@@ -26,7 +26,9 @@ export const WISH_DESCRIPTION_MAX_LENGTH = 10000;
 
 export const MAX_NUMBER_OF_IMAGES_PER_WISH = 10;
 
-export const PASSWORD_MIN_LENGTH = 4;
+export const SIGN_IN_PASSWORD_MIN_LENGTH = 4;
+
+export const PASSWORD_MIN_LENGTH = 8;
 
 export const PASSWORD_MAX_LENGTH = 128;
 

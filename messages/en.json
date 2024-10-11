@@ -778,7 +778,8 @@
             "required": "This field is required to prevent anyone else from using Your data.",
             "whitespaces": "The entered data cannot begin or end with a space.",
             "min": "The password is too short. Please come up with a password that is longer than {min} characters.",
-            "max": "I think you overdid it. A long password is not always a good password. Try to keep it to {max} characters."
+            "max": "I think you're overdoing it. A long password is not always a good password. Try to keep it within {max} characters.",
+            "pattern": "The password must contain at least one uppercase letter from the Latin alphabet, one lowercase letter from the Latin alphabet, one digit, and one special character (e.g., !@#$%^&*)."
         },
         "first-name": {
             "required": "You must have a name. Don't be shy :)",

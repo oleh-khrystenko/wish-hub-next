@@ -32,6 +32,7 @@ type TInputs = {
     firstName: IUser['firstName'];
     email: IUser['email'];
     password: string;
+    signInPassword: string;
 };
 
 const ClientForm: FC = () => {
@@ -63,19 +64,26 @@ const ClientForm: FC = () => {
 
     const {
         register,
+        setValue,
         getValues,
         handleSubmit,
+        clearErrors,
         formState: { errors },
     } = useForm<TInputs>({
         defaultValues: {
             firstName: candidate?.firstName || '',
             email: candidate?.email || '',
             password: '',
+            signInPassword: '',
         },
     });
 
-    const { accountFirstNameValidation, emailValidation, passwordValidation } =
-        UseValidations();
+    const {
+        accountFirstNameValidation,
+        emailValidation,
+        passwordValidation,
+        signInPasswordValidation,
+    } = UseValidations();
 
     let title = authPageT('title.sing_in');
     isSignUp && (title = authPageT('title.sing_up'));
@@ -121,6 +129,14 @@ const ClientForm: FC = () => {
         }
 
         setCheckedPrivacyPolicyError('');
+    };
+
+    const handleToggleIsSignUp = () => {
+        setIsSignUp((prevState) => !prevState);
+        clearErrors('password');
+        clearErrors('signInPassword');
+        setValue('password', '');
+        setValue('signInPassword', '');
     };
 
     const handleGoogleAuth = async (response: CredentialResponse) => {
@@ -213,8 +229,9 @@ const ClientForm: FC = () => {
         if (isSignUp && checkedPrivacyPolicy) {
             return registration(
                 {
-                    ...data,
+                    firstName: data.firstName.trim(),
                     email: data.email.trim(),
+                    password: data.password,
                     lang: activeLocale as ELang,
                     utm_source,
                     utm_medium,
@@ -227,8 +244,8 @@ const ClientForm: FC = () => {
         if (checkedPrivacyPolicy) {
             return login(
                 {
-                    ...data,
                     email: data.email.trim(),
+                    password: data.signInPassword,
                     lang: activeLocale as ELang,
                 },
                 allPagesT('my-user-api.login.error')
@@ -340,14 +357,28 @@ const ClientForm: FC = () => {
 
             {!isForgotPassword && (
                 <div className="mt-2">
-                    <UiInput
-                        {...register('password', passwordValidation)}
-                        id="password"
-                        name="password"
-                        type="password"
-                        label={authPageT('password')}
-                        error={errors?.password?.message}
-                    />
+                    {isSignUp ? (
+                        <UiInput
+                            {...register('password', passwordValidation)}
+                            id="password"
+                            name="password"
+                            type="password"
+                            label={authPageT('password')}
+                            error={errors?.password?.message}
+                        />
+                    ) : (
+                        <UiInput
+                            {...register(
+                                'signInPassword',
+                                signInPasswordValidation
+                            )}
+                            id="signInPassword"
+                            name="signInPassword"
+                            type="password"
+                            label={authPageT('password')}
+                            error={errors?.signInPassword?.message}
+                        />
+                    )}
                 </div>
             )}
 
@@ -374,7 +405,7 @@ const ClientForm: FC = () => {
                     <div className="mobile-sm:-ml-4">
                         <UiButton
                             variant="text-btn"
-                            onBtnClick={() => setIsSignUp((state) => !state)}
+                            onBtnClick={handleToggleIsSignUp}
                         >
                             {isSignUp
                                 ? authPageT('sign-in')

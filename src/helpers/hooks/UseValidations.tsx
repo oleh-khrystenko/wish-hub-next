@@ -1,7 +1,8 @@
 import { useTranslations } from 'next-intl';
 import {
-    PASSWORD_MAX_LENGTH,
     PASSWORD_MIN_LENGTH,
+    SIGN_IN_PASSWORD_MIN_LENGTH,
+    PASSWORD_MAX_LENGTH,
     WISH_NAME_MAX_LENGTH,
     NAME_MAX_LENGTH,
     NAME_MIN_LENGTH,
@@ -143,6 +144,36 @@ const UseValidations = () => {
                 max: PASSWORD_MAX_LENGTH,
             }),
         },
+        pattern: {
+            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/,
+            message: validationsT('password.pattern'),
+        },
+    };
+
+    // Sigh In Password
+    const signInPasswordValidation = {
+        required: {
+            value: true,
+            message: validationsT('password.required'),
+        },
+        validate: (value: string) => {
+            if (value[0] === ' ' || value[value.length - 1] === ' ') {
+                return validationsT('password.whitespaces');
+            }
+            return true;
+        },
+        minLength: {
+            value: SIGN_IN_PASSWORD_MIN_LENGTH,
+            message: validationsT('password.min', {
+                min: SIGN_IN_PASSWORD_MIN_LENGTH - 1,
+            }),
+        },
+        maxLength: {
+            value: PASSWORD_MAX_LENGTH,
+            message: validationsT('password.max', {
+                max: PASSWORD_MAX_LENGTH,
+            }),
+        },
     };
 
     // Account first name
@@ -224,6 +255,7 @@ const UseValidations = () => {
         wishDescriptionValidation,
         emailValidation,
         passwordValidation,
+        signInPasswordValidation,
         accountFirstNameValidation,
         accountLastNameValidation,
         accountDeliveryAddressValidation,
