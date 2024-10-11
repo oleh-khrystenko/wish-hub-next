@@ -102,7 +102,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
                     onClick={() => setShowSlidePanel(false)}
                 ></div>
 
-                <div className="flex flex-col gap-4 border-t border-zinc-200 bg-zinc-300 px-2 pb-6 pt-4 drop-shadow-2xl dark:border-zinc-900 dark:bg-zinc-800 mobile-xs:rounded-t-2xl mobile-lg:gap-6 mobile-lg:px-4 mobile-lg:pb-10 mobile-lg:pt-6 tablet-lg:ml-auto tablet-lg:h-full tablet-lg:w-1/2 tablet-lg:rounded-lg tablet-lg:border-t-0 tablet-xl:w-2/5 desktop-sm:w-1/3 desktop-xl:w-1/4">
+                <div className="flex flex-col gap-4 border-t border-zinc-200 bg-zinc-300 px-2 pb-6 pt-4 drop-shadow-2xl dark:border-zinc-900 dark:bg-zinc-800 mobile-xs:rounded-t-2xl mobile-lg:gap-6 mobile-lg:px-4 mobile-lg:pb-10 mobile-lg:pt-6 tablet-lg:ml-auto tablet-lg:h-full tablet-lg:w-1/2 tablet-lg:rounded-lg tablet-lg:border-t-0 tablet-xl:w-2/5 desktop-sm:w-1/3">
                     <div className="relative">
                         <p className="px-2 text-zinc-600 dark:text-zinc-300 mobile-lg:text-lg">
                             {allPagesT('filters')}
