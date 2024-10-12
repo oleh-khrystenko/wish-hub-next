@@ -283,7 +283,7 @@ const FormContent: FC<IProps> = ({
                 {/* DragNDrop */}
                 <DndProvider
                     backend={TouchBackend}
-                    options={{ enableMouseEvents: true }}
+                    options={{ enableMouseEvents: false }}
                 >
                     <DragNDrop
                         images={images}
