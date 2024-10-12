@@ -12,6 +12,8 @@ import {
 } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { isMobile } from 'react-device-detect';
 import {
     ECurrency,
     IWish,
@@ -73,6 +75,7 @@ const FormContent: FC<IProps> = ({
     showError,
     setShowError,
 }) => {
+    const [isTouch, setIsTouch] = useState(false);
     const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
     const [descriptionLength, setDescriptionLength] = useState<number>(0);
     const [shouldTriggerValidation, setShouldTriggerValidation] = useState<{
@@ -224,6 +227,11 @@ const FormContent: FC<IProps> = ({
     }, [isDirtyForm]);
 
     useEffect(() => {
+        // Визначаємо чи пристрій сенсорний
+        setIsTouch(isMobile);
+    }, []);
+
+    useEffect(() => {
         return () => {
             setIsDirtyForm(false);
         };
@@ -282,7 +290,7 @@ const FormContent: FC<IProps> = ({
 
                 {/* DragNDrop */}
                 <DndProvider
-                    backend={TouchBackend}
+                    backend={isTouch ? TouchBackend : HTML5Backend}
                     options={{ enableMouseEvents: true }}
                 >
                     <DragNDrop

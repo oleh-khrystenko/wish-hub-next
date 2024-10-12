@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import UiLoading from '@/components/ui/UiLoading';
@@ -31,6 +31,10 @@ const UiImage: FC<IProps> = ({
         setIsBroken(true);
         setIsLoading(false);
     };
+
+    useEffect(() => {
+        setImageSrc(src);
+    }, [src]);
 
     return (
         <div className="absolute inset-0">
