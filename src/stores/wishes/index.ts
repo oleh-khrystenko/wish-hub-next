@@ -208,6 +208,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             set((state) => ({
                 ...state,
                 list: [response.data.wish, ...state.list],
+                wishCandidate: null,
             }));
 
             return response.data;
