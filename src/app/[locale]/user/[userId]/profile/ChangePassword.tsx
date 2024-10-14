@@ -42,7 +42,7 @@ const ChangePassword: FC<IProps> = ({ userId }) => {
     const myUser = useMyUserStore((state) => state.myUser);
     const changePassword = useMyUserStore((state) => state.changePassword);
 
-    const { passwordValidation } = UseValidations();
+    const { signInPasswordValidation, passwordValidation } = UseValidations();
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         setClickedOnSubmit(true);
@@ -106,12 +106,12 @@ const ChangePassword: FC<IProps> = ({ userId }) => {
 
             {myUser?.hasPassword && (
                 <UiInput
-                    {...register('oldPassword', passwordValidation)}
+                    {...register('oldPassword', signInPasswordValidation)}
                     id="oldPassword"
                     name="oldPassword"
                     type="password"
                     label={mainPageT('old-password')}
-                    error={oldPasswordError}
+                    error={oldPasswordError || errors?.oldPassword?.message}
                 />
             )}
 

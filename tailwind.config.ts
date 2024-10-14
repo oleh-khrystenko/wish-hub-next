@@ -40,20 +40,8 @@ const config: Config = {
                 fulfilled: {
                     to: { transform: 'rotate(3deg)', borderColor: '#67e8f9' },
                 },
-                'delete-start': {
-                    '0%': { opacity: '0' },
-                    '50%': { opacity: '0' },
-                    '100%': { opacity: '0.5' },
-                },
-                'delete-end': {
-                    '0%': { opacity: '0.5' },
-                    '50%': { opacity: '0.5' },
-                    '100%': { opacity: '0' },
-                },
             },
             animation: {
-                'delete-start-1': 'delete-start 0.3s forwards ease-in-out',
-                'delete-end-2': 'delete-end 0.3s forwards ease-in-out',
                 'spinner-1': 'spinner 1.2s ease-in-out infinite 0s',
                 'spinner-2': 'spinner 1.2s ease-in-out infinite -0.1s',
                 'spinner-3': 'spinner 1.2s ease-in-out infinite -0.2s',
