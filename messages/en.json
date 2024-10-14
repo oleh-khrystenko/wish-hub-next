@@ -155,8 +155,8 @@
             "delivery-address-all-tooltip": "Your address will be available for viewing by all users and visitors of the Wish Hub platform.",
             "delivery-address-friends-tooltip": "Your address will be visible only to users with whom you have mutually added each other as friends.",
             "delivery-address-nobody-tooltip": "Your address will not be visible to anyone.",
-            "birthday-all-tooltip": "Your birthday will be available for viewing by all users and visitors of the Wish Hub platform.",
-            "birthday-friends-tooltip": "Your birthday will be visible only to users with whom you have mutually added each other as friends.",
+            "birthday-all-tooltip": "Your birthday will be available for viewing by all users and visitors of the Wish Hub platform. We do not show your age or year of birth - this data is used solely for statistical and analytical purposes.",
+            "birthday-friends-tooltip": "Your birthday will be visible only to users with whom you have mutually added each other as friends. We do not show your age or year of birth - this data is used solely for statistical and analytical purposes.",
             "birthday-nobody-tooltip": "Your birthday will not be visible to anyone."
         },
         "share_wishes": "Share all wishes",
