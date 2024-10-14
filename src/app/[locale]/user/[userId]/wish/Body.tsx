@@ -91,11 +91,24 @@ const Body: FC = () => {
     let showDeliveryAddress =
         creator?.deliveryAddress && creator?.deliveryAddress.length > 0;
     if (showDeliveryAddress) {
-        creator?.showDeliveryAddress === EPrivacy.NOBODY &&
-            (showDeliveryAddress = false);
-        creator?.showDeliveryAddress === EPrivacy.FRIENDS &&
-            !myUser?.friends.includes(creator.id) &&
-            (showDeliveryAddress = false);
+        if (creator?.showDeliveryAddress === EPrivacy.NOBODY) {
+            showDeliveryAddress = false;
+        }
+
+        if (
+            creator?.showDeliveryAddress === EPrivacy.FRIENDS &&
+            !myUser?.friends.includes(creator.id)
+        ) {
+            showDeliveryAddress = false;
+        }
+
+        if (wish?.executed) {
+            showDeliveryAddress = false;
+        }
+
+        if (wish?.booking && wish?.booking?.userId !== myUser?.id) {
+            showDeliveryAddress = false;
+        }
     }
 
     // я забронював або створив бажання
