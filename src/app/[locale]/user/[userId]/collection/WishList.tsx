@@ -1,9 +1,8 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { useMyUserStore } from '@/stores/my-user';
-import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
@@ -28,6 +27,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     const wishListRef = useRef<HTMLDivElement>(null);
 
     const router = useRouter();
+    const { userId: routeUserId } = useParams<{ userId: string }>();
     const searchParams = useSearchParams();
 
     const activeLocale = useLocale();
@@ -40,8 +40,6 @@ const WishList: FC<IProps> = ({ userId }) => {
     });
 
     const myUser = useMyUserStore((state) => state.myUser);
-
-    const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
     const wishes = useWishesStore((state) => state.list);
     const status = useWishesStore((state) => state.status);
@@ -161,10 +159,10 @@ const WishList: FC<IProps> = ({ userId }) => {
                 )}
             </div>
 
-            {myUser?.id === selectedUserId || wishes.length > 0 ? (
+            {myUser?.id === routeUserId || wishes.length > 0 ? (
                 <div className="mt-4" ref={wishListRef}>
                     <ul className="grid grid-cols-2 gap-1.5 tablet-md:grid-cols-3 tablet-lg:grid-cols-4 tablet-xl:grid-cols-5 tablet-xl:gap-4 desktop-sm:grid-cols-6">
-                        {myUser?.id === selectedUserId && (
+                        {myUser?.id === routeUserId && (
                             <CreateWishAndCollection currentPage="collection" />
                         )}
 
@@ -182,7 +180,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                             if (wishes.length > idx) return null;
 
                             let opacity = 'opacity-0';
-                            if (myUser?.id === selectedUserId) {
+                            if (myUser?.id === routeUserId) {
                                 idx === 0 && (opacity = 'opacity-50');
                                 idx === 1 && (opacity = 'opacity-40');
                                 idx === 2 && (opacity = 'opacity-30');
@@ -194,7 +192,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                                     key={idx}
                                     className={`${opacity} flex min-h-96 w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-700`}
                                     onClick={() =>
-                                        myUser?.id === selectedUserId &&
+                                        myUser?.id === routeUserId &&
                                         router.push(
                                             `/${activeLocale}/user/${myUser?.id}/wish/editor`
                                         )

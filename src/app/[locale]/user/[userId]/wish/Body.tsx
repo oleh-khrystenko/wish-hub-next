@@ -1,13 +1,12 @@
 'use client';
 
 import { FC, useEffect, useRef } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import { EPrivacy } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { EWhoseWish, IActionWish, IGetAnyWish } from '@/stores/wishes/types';
-import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
@@ -31,6 +30,7 @@ const Body: FC = () => {
     const gotWish = useRef(false);
 
     const router = useRouter();
+    const { userId } = useParams<{ userId: string }>();
     const searchParams = useSearchParams();
 
     const activeLocale = useLocale();
@@ -38,8 +38,6 @@ const Body: FC = () => {
     const allPagesT = useTranslations('all-pages');
 
     const myUser = useMyUserStore((state) => state.myUser);
-
-    const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
     const wish = useWishesStore((state) => state.wish);
     const creator = useWishesStore((state) => state.creator);
@@ -54,7 +52,7 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: `user/${selectedUserId}/wish`,
+            href: `user/${userId}/wish`,
             name: allPagesT('wish'),
         },
     ];
@@ -68,14 +66,14 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: `user/${selectedUserId}/collection`,
+            href: `user/${userId}/collection`,
             icon: (
                 <CollectionIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
             ),
             name: allPagesT('collection'),
         },
         {
-            href: `user/${selectedUserId}/wish`,
+            href: `user/${userId}/wish`,
             icon: <LogoIcon classes="w-4 h-4" />,
             name: allPagesT('wish'),
         },
