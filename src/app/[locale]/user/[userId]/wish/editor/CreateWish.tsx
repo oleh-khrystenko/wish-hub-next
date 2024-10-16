@@ -78,225 +78,235 @@ const CreateWish: FC = () => {
     const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
-        const nonUniqueName = wishes.some((wish) => {
-            let wishName = wish.name;
-            if (
-                process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET &&
-                wish.show !== EPrivacy.ALL
-            ) {
-                wishName = decryptedData(
-                    wish.name,
-                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+        if (myUser) {
+            const nonUniqueName = wishes.some((wish) => {
+                let wishName = wish.name;
+                if (
+                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET &&
+                    wish.show !== EPrivacy.ALL
+                ) {
+                    wishName = decryptedData(
+                        wish.name,
+                        process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                    );
+                }
+                return wishName === data.name.trim();
+            });
+            if (nonUniqueName) {
+                setError(
+                    'name',
+                    {
+                        type: 'unique',
+                        message: validationsT('wish-name.unique'),
+                    },
+                    { shouldFocus: true }
                 );
+                return;
             }
-            return wishName === data.name.trim();
-        });
-        if (nonUniqueName) {
-            setError(
-                'name',
-                {
-                    type: 'unique',
-                    message: validationsT('wish-name.unique'),
-                },
-                { shouldFocus: true }
+
+            if (!show) {
+                return setShowError(mainPageT('private-wish-error'));
+            } else {
+                setShowError('');
+            }
+
+            const hasSelectedCollection = collections.some(
+                (collection) => collection.selected
             );
-            return;
-        }
-
-        if (!show) {
-            return setShowError(mainPageT('private-wish-error'));
-        } else {
-            setShowError('');
-        }
-
-        const hasSelectedCollection = collections.some(
-            (collection) => collection.selected
-        );
-        // Collection Errors
-        // create
-        if (showAddToCollection === EAddToCollection.CREATE) {
-            if (data.collectionName.length === 0) {
-                setError(
-                    'collectionName',
-                    {
-                        type: 'required',
-                        message: validationsT('collection-name.required'),
-                    },
-                    { shouldFocus: true }
-                );
-                return;
+            // Collection Errors
+            // create
+            if (showAddToCollection === EAddToCollection.CREATE) {
+                if (data.collectionName.length === 0) {
+                    setError(
+                        'collectionName',
+                        {
+                            type: 'required',
+                            message: validationsT('collection-name.required'),
+                        },
+                        { shouldFocus: true }
+                    );
+                    return;
+                }
+                if (
+                    data.collectionName.length > 0 &&
+                    data.collectionName.length < COLLECTION_NAME_MIN_LENGTH
+                ) {
+                    setError(
+                        'collectionName',
+                        {
+                            type: 'min',
+                            message: validationsT('collection-name.min', {
+                                min: COLLECTION_NAME_MIN_LENGTH,
+                            }),
+                        },
+                        { shouldFocus: true }
+                    );
+                    return;
+                }
+                if (data.collectionName.length > COLLECTION_NAME_MAX_LENGTH) {
+                    setError(
+                        'collectionName',
+                        {
+                            type: 'max',
+                            message: validationsT('collection-name.max', {
+                                max: COLLECTION_NAME_MAX_LENGTH,
+                            }),
+                        },
+                        { shouldFocus: true }
+                    );
+                    return;
+                }
             }
+            // add
             if (
-                data.collectionName.length > 0 &&
-                data.collectionName.length < COLLECTION_NAME_MIN_LENGTH
+                showAddToCollection === EAddToCollection.ADD &&
+                !hasSelectedCollection
             ) {
-                setError(
-                    'collectionName',
-                    {
-                        type: 'min',
-                        message: validationsT('collection-name.min', {
-                            min: COLLECTION_NAME_MIN_LENGTH,
-                        }),
-                    },
-                    { shouldFocus: true }
+                setAddToCollectionError(
+                    validationsT('add-to-collection.required')
                 );
                 return;
+            } else {
+                setAddToCollectionError('');
             }
-            if (data.collectionName.length > COLLECTION_NAME_MAX_LENGTH) {
-                setError(
-                    'collectionName',
-                    {
-                        type: 'max',
-                        message: validationsT('collection-name.max', {
-                            max: COLLECTION_NAME_MAX_LENGTH,
-                        }),
-                    },
-                    { shouldFocus: true }
-                );
-                return;
-            }
-        }
-        // add
-        if (
-            showAddToCollection === EAddToCollection.ADD &&
-            !hasSelectedCollection
-        ) {
-            setAddToCollectionError(validationsT('add-to-collection.required'));
-            return;
-        } else {
-            setAddToCollectionError('');
-        }
 
-        if (!myUser || !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return;
+            if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return;
 
-        // name
-        const encryptedName = encryptedData(
-            data.name.trim(),
-            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-        );
-
-        // price
-        const priceWithoutWhiteSpaces = data.price
-            ? removingWhiteSpaces(data.price.trim())
-            : '';
-        const encryptedPrice = encryptedData(
-            priceWithoutWhiteSpaces,
-            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-        );
-        const sendingPrice =
-            show === EPrivacy.ALL ? priceWithoutWhiteSpaces : encryptedPrice;
-
-        // currency
-        const encryptedCurrency = encryptedData(
-            currency,
-            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-        );
-        const sendingCurrency =
-            show === EPrivacy.ALL ? currency : encryptedCurrency;
-
-        // addresses
-        const dataAddresses =
-            data.addresses && data.addresses.length > 0
-                ? data.addresses
-                      .filter((address) => address.value.length > 0)
-                      .map((address) => ({
-                          ...address,
-                          value: address.value.trim(),
-                      }))
-                : [];
-        const encryptedAddresses =
-            dataAddresses.length > 0
-                ? dataAddresses.map((address) =>
-                      process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-                          ? {
-                                ...address,
-                                value: encryptedData(
-                                    address.value,
-                                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-                                ),
-                            }
-                          : address
-                  )
-                : undefined;
-        const sendingAddresses =
-            show === EPrivacy.ALL ? dataAddresses : encryptedAddresses;
-
-        // description
-        const dataDescription = data.description ? data.description.trim() : '';
-        const encryptedDescription = encryptedData(
-            dataDescription,
-            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-        );
-        const sendingDescription =
-            show === EPrivacy.ALL ? dataDescription : encryptedDescription;
-
-        // images
-        const encryptedImages = images.map((image) => {
-            if (
-                image instanceof File ||
-                !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-            )
-                return image;
-
-            const encryptedImage = { ...image };
-            encryptedImage.path = encryptedData(
-                image.path,
+            // name
+            const encryptedName = encryptedData(
+                data.name.trim(),
                 process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
             );
-            return encryptedImage;
-        });
 
-        // Collections
-        const isSendCollectionName =
-            showAddToCollection === EAddToCollection.CREATE &&
-            data.collectionName;
-        const collectionName = isSendCollectionName
-            ? data.collectionName.trim()
-            : undefined;
-        const isSendCollectionIdList =
-            showAddToCollection === EAddToCollection.ADD &&
-            hasSelectedCollection;
-        const collectionIdList = isSendCollectionIdList
-            ? collections
-                  .filter((collection) => collection.selected)
-                  .map((collection) => collection.id)
-            : undefined;
-
-        const wishData = {
-            userId: myUser.id,
-            material,
-            show,
-            name: show === EPrivacy.ALL ? data.name.trim() : encryptedName,
-            price: material ? sendingPrice : undefined,
-            currency: material ? sendingCurrency : undefined,
-            addresses: material ? sendingAddresses : undefined,
-            description:
-                dataDescription.length > 0 ? sendingDescription : undefined,
-            collectionName,
-            collectionIdList,
-            images: show === EPrivacy.ALL ? images : encryptedImages,
-        };
-
-        setIsLoading(true);
-        const response = await createWish(
-            wishData,
-            allPagesT('wishes-api.create-wish.error')
-        );
-        if (response) {
-            const quote = response.quote[activeLocale as ELang];
-            toast(
-                <QuoteMessage
-                    title={allPagesT('wishes-api.create-wish.success')}
-                    text={quote?.text}
-                    author={quote?.author}
-                />,
-                { type: 'success' }
+            // price
+            const priceWithoutWhiteSpaces = data.price
+                ? removingWhiteSpaces(data.price.trim())
+                : '';
+            const encryptedPrice = encryptedData(
+                priceWithoutWhiteSpaces,
+                process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
             );
-        }
+            const sendingPrice =
+                show === EPrivacy.ALL
+                    ? priceWithoutWhiteSpaces
+                    : encryptedPrice;
 
-        route.push(
-            `/${activeLocale}/user/${myUser.id}/wish?wishId=${response?.wish.id}`
-        );
+            // currency
+            const encryptedCurrency = encryptedData(
+                currency,
+                process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+            );
+            const sendingCurrency =
+                show === EPrivacy.ALL ? currency : encryptedCurrency;
+
+            // addresses
+            const dataAddresses =
+                data.addresses && data.addresses.length > 0
+                    ? data.addresses
+                          .filter((address) => address.value.length > 0)
+                          .map((address) => ({
+                              ...address,
+                              value: address.value.trim(),
+                          }))
+                    : [];
+            const encryptedAddresses =
+                dataAddresses.length > 0
+                    ? dataAddresses.map((address) =>
+                          process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                              ? {
+                                    ...address,
+                                    value: encryptedData(
+                                        address.value,
+                                        process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                                    ),
+                                }
+                              : address
+                      )
+                    : undefined;
+            const sendingAddresses =
+                show === EPrivacy.ALL ? dataAddresses : encryptedAddresses;
+
+            // description
+            const dataDescription = data.description
+                ? data.description.trim()
+                : '';
+            const encryptedDescription = encryptedData(
+                dataDescription,
+                process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+            );
+            const sendingDescription =
+                show === EPrivacy.ALL ? dataDescription : encryptedDescription;
+
+            // images
+            const encryptedImages = images.map((image) => {
+                if (
+                    image instanceof File ||
+                    !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                )
+                    return image;
+
+                const encryptedImage = { ...image };
+                encryptedImage.path = encryptedData(
+                    image.path,
+                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                );
+                return encryptedImage;
+            });
+
+            // Collections
+            const isSendCollectionName =
+                showAddToCollection === EAddToCollection.CREATE &&
+                data.collectionName;
+            const collectionName = isSendCollectionName
+                ? data.collectionName.trim()
+                : undefined;
+            const isSendCollectionIdList =
+                showAddToCollection === EAddToCollection.ADD &&
+                hasSelectedCollection;
+            const collectionIdList = isSendCollectionIdList
+                ? collections
+                      .filter((collection) => collection.selected)
+                      .map((collection) => collection.id)
+                : undefined;
+
+            const wishData = {
+                userId: myUser.id,
+                material,
+                show,
+                name: show === EPrivacy.ALL ? data.name.trim() : encryptedName,
+                price: material ? sendingPrice : undefined,
+                currency: material ? sendingCurrency : undefined,
+                addresses: material ? sendingAddresses : undefined,
+                description:
+                    dataDescription.length > 0 ? sendingDescription : undefined,
+                collectionName,
+                collectionIdList,
+                images: show === EPrivacy.ALL ? images : encryptedImages,
+            };
+
+            setIsLoading(true);
+            const response = await createWish(
+                wishData,
+                allPagesT('wishes-api.create-wish.error')
+            );
+            if (response) {
+                const quote = response.quote[activeLocale as ELang];
+                toast(
+                    <QuoteMessage
+                        title={allPagesT('wishes-api.create-wish.success')}
+                        text={quote?.text}
+                        author={quote?.author}
+                    />,
+                    { type: 'success' }
+                );
+            }
+
+            route.push(
+                `/${activeLocale}/user/${myUser.id}/wish?wishId=${response?.wish.id}`
+            );
+        } else {
+            console.log('User is not defined');
+        }
     };
 
     const removeAllImages = () => {
@@ -314,34 +324,38 @@ const CreateWish: FC = () => {
     useLayoutEffect(() => {
         if (
             wishCandidate?.name ||
-            wishCandidate?.image ||
+            (myUser && wishCandidate?.image) ||
             wishCandidate?.price ||
             wishCandidate?.url ||
             wishCandidate?.description
         ) {
-            setValue('name', wishCandidate.name);
+            wishCandidate?.name && setValue('name', wishCandidate.name);
 
-            setImages([
-                {
-                    path: wishCandidate.image,
-                    position: 0,
-                },
-            ]);
+            if (myUser && wishCandidate?.image) {
+                setImages([
+                    {
+                        path: wishCandidate.image,
+                        position: 0,
+                    },
+                ]);
+            }
 
-            setValue('price', wishCandidate.price);
+            wishCandidate?.price && setValue('price', wishCandidate.price);
 
-            setValue('addresses', [
-                {
-                    id: uuidv4(),
-                    value: wishCandidate.url,
-                },
-            ]);
+            wishCandidate?.url &&
+                setValue('addresses', [
+                    {
+                        id: uuidv4(),
+                        value: wishCandidate.url,
+                    },
+                ]);
 
-            setValue('description', wishCandidate.description);
+            wishCandidate?.description &&
+                setValue('description', wishCandidate.description);
 
             setIsDirtyForm(true);
         }
-    }, [wishCandidate, setValue]);
+    }, [myUser, wishCandidate, setValue]);
 
     return (
         <>

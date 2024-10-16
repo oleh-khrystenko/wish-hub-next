@@ -1,8 +1,11 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
+import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UiButton from '@/components/ui/UiButton';
+import UiModal from '@/components/ui/modal/UiModal';
 import CrossIcon from '@/components/icons/CrossIcon';
 
 interface IProps {
@@ -10,44 +13,138 @@ interface IProps {
 }
 
 const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
+    const [showCreateCollection, setShowCreateCollection] =
+        useState<boolean>(false);
+    const [showCreateWish, setShowCreateWish] = useState<boolean>(false);
+
+    const router = useRouter();
+
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
 
     const wishes = useWishesStore((state) => state.list);
 
+    const utmParams = UseUTMParams();
+
+    const handleCreateCollection = () => {
+        if (myUser) {
+            router.push(`/user/${myUser?.id}/collection/editor`);
+        } else {
+            setShowCreateCollection(true);
+        }
+    };
+
+    const handleCreateWish = () => {
+        if (myUser) {
+            router.push(
+                `/user/${myUser?.id}/wish/editor?fromPage=${currentPage}`
+            );
+        } else {
+            setShowCreateWish(true);
+        }
+    };
+
     return (
-        <li className="flex flex-col gap-2">
-            {wishes.length > 0 && (
-                <div className="relative flex h-2/3 items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
+        <>
+            <li className="flex flex-col gap-2">
+                {/* Collection */}
+                {wishes.length > 0 && (
+                    <div className="relative flex h-2/3 items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
+                        <UiButton
+                            variant="clear-styles"
+                            classesWrap="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-1 rounded-md border-2 border-dashed border-transparent p-2 transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
+                            onBtnClick={handleCreateCollection}
+                        >
+                            <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-500 group-hover:dark:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />
+
+                            <span className="text-center text-xs font-bold text-zinc-700 group-hover:text-cyan-500 dark:text-zinc-400 group-hover:dark:text-cyan-300 mobile-xs:text-sm mobile-md:text-base">
+                                {mainPageT('create_collection')}
+                            </span>
+                        </UiButton>
+                    </div>
+                )}
+
+                {/* Wish */}
+                <div className="relative flex h-full items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
                     <UiButton
-                        href={`/user/${myUser?.id}/collection/editor`}
                         variant="clear-styles"
                         classesWrap="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-1 rounded-md border-2 border-dashed border-transparent p-2 transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
+                        onBtnClick={handleCreateWish}
                     >
                         <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-500 group-hover:dark:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />
 
-                        <span className="text-center text-xs font-bold text-zinc-700 group-hover:text-cyan-500 dark:text-zinc-400 group-hover:dark:text-cyan-300 mobile-xs:text-sm mobile-md:text-base">
-                            {mainPageT('create_collection')}
+                        <span className="text-center text-xl font-bold text-zinc-700 group-hover:text-cyan-500 dark:text-zinc-400 group-hover:dark:text-cyan-300">
+                            {mainPageT('create-wish')}
                         </span>
                     </UiButton>
                 </div>
-            )}
+            </li>
 
-            <div className="relative flex h-full items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
-                <UiButton
-                    href={`/user/${myUser?.id}/wish/editor?fromPage=${currentPage}`}
-                    variant="clear-styles"
-                    classesWrap="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-1 rounded-md border-2 border-dashed border-transparent p-2 transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
-                >
-                    <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-500 group-hover:dark:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />
+            {/* Collection */}
+            <UiModal
+                show={showCreateCollection}
+                hide={() => setShowCreateCollection(false)}
+            >
+                <p className="text-center text-2xl font-bold text-amber-400">
+                    ⚠️ {mainPageT('only_registered_users')} ⚠️
+                </p>
 
-                    <span className="text-center text-xl font-bold text-zinc-700 group-hover:text-cyan-500 dark:text-zinc-400 group-hover:dark:text-cyan-300">
-                        {mainPageT('create-wish')}
-                    </span>
-                </UiButton>
-            </div>
-        </li>
+                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('you_trying')}
+                    <br />
+                    <br />
+                    {mainPageT('please_sign_up')}
+                </p>
+
+                <div className="mt-6 flex items-center justify-end gap-5">
+                    <UiButton
+                        href={`/auth${utmParams ? `?${utmParams}` : ''}`}
+                        variant="outline"
+                    >
+                        {mainPageT('sign-in')}
+                    </UiButton>
+
+                    <UiButton
+                        href={`/auth?register${utmParams ? `&${utmParams}` : ''}`}
+                    >
+                        {mainPageT('sign-up')}
+                    </UiButton>
+                </div>
+            </UiModal>
+
+            {/* Wish */}
+            <UiModal
+                show={showCreateWish}
+                hide={() => setShowCreateWish(false)}
+            >
+                <p className="text-center text-2xl font-bold text-amber-400">
+                    ✨ {mainPageT('create_temporary_wish')} ✨
+                </p>
+
+                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('you_are_creating')}
+                    <br />
+                    <br />
+                    {mainPageT('registration_only')}
+                </p>
+
+                <div className="mt-6 flex items-center justify-end gap-5">
+                    <UiButton
+                        href={`/user/unknown/wish/editor?fromPage=${currentPage}`}
+                        variant="outline"
+                    >
+                        {mainPageT('temporary_action')}
+                    </UiButton>
+
+                    <UiButton
+                        href={`/auth?register${utmParams ? `&${utmParams}` : ''}`}
+                    >
+                        {mainPageT('sign-up')}
+                    </UiButton>
+                </div>
+            </UiModal>
+        </>
     );
 };
 

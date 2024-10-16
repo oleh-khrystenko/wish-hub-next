@@ -207,7 +207,14 @@
         "none_collection": "Do not add to a collection",
         "create_for_wish": "Create a collection for this wish",
         "add_to_collection": "Add to an existing collection",
-        "max_address_limit": "The maximum number of addresses has been reached. You can add up to {count} addresses."
+        "max_address_limit": "The maximum number of addresses has been reached. You can add up to {count} addresses.",
+        "only_registered_users": "Only registered users",
+        "you_trying": "You are trying to create a collection, but this feature is only available to registered users.",
+        "please_sign_up": "Please sign up or log in to your account to create, edit, and view collections!",
+        "create_temporary_wish": "Create a Temporary Wish",
+        "you_are_creating": "You're creating a temporary wish with certain limitations, which can be lost at any moment. To save your wishes without restrictions and access them from any device, please sign up.",
+        "registration_only": "Registration only takes a few seconds via Google or email.",
+        "temporary_action": "Create Temporary Wish"
     },
     "privacy-policy-page": {
         "head": {

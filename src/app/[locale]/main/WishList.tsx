@@ -247,9 +247,7 @@ const WishList: FC = () => {
                     ref={wishListRef}
                 >
                     <ul className="grid grid-cols-2 gap-1.5 tablet-lg:grid-cols-3 tablet-xl:grid-cols-4 tablet-xl:gap-4 desktop-sm:grid-cols-5 desktop-xl:grid-cols-6 desktop-2xl:grid-cols-8">
-                        {myUser?.id === selectedUserId && (
-                            <CreateWishAndCollection currentPage="main" />
-                        )}
+                        <CreateWishAndCollection currentPage="main" />
 
                         {wishes.length > 0 &&
                             wishes.map((wish, idx) => (
