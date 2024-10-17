@@ -1,6 +1,8 @@
 import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { v4 as uuidv4 } from 'uuid';
+import { IUnsavedWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
@@ -41,7 +43,18 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
                 `/user/${myUser?.id}/wish/editor?fromPage=${currentPage}`
             );
         } else {
-            setShowAttentionWish(true);
+            const unsavedWishes: string =
+                localStorage.getItem('unsavedWishes') || '';
+            const parsedUnsavedWishes: IUnsavedWish[] =
+                unsavedWishes.length > 0
+                    ? (JSON.parse(unsavedWishes) as IUnsavedWish[])
+                    : [];
+
+            if (parsedUnsavedWishes.length > 3) {
+                setShowAttentionWish(true);
+            } else {
+                setShowAttentionWish(true);
+            }
         }
     };
 
@@ -131,7 +144,7 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
 
                 <div className="mt-6 flex items-center justify-end gap-5">
                     <UiButton
-                        href={`/user/unknown/wish/editor?fromPage=${currentPage}`}
+                        href={`/user/guest-${uuidv4()}/wish/editor?fromPage=${currentPage}`}
                         variant="outline"
                     >
                         {mainPageT('temporary_action')}

@@ -49,17 +49,20 @@ export enum ECurrency {
     UAH = 'UAH',
 }
 
-export interface IWish {
+export interface IUnsavedWish {
     id: string;
     userId: IUser['id'];
     material: boolean;
     show: EPrivacy;
     name: string;
-    images: IImage[];
     price?: string;
     currency: ECurrency;
     addresses?: IAddress[];
     description: string;
+}
+
+export interface IWish extends IUnsavedWish {
+    images: IImage[];
     executed: boolean;
     booking?: IBooking;
     likes: ILike[];

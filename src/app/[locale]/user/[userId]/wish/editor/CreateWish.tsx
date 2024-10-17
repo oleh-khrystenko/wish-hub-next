@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useState, useLayoutEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import {
     ECurrency,
     IImage,
+    IUnsavedWish,
     IWish,
     TCurrentImage,
     TWishFormInputs,
@@ -42,6 +43,7 @@ const CreateWish: FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const route = useRouter();
+    const { userId } = useParams<{ userId: string }>();
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -305,7 +307,61 @@ const CreateWish: FC = () => {
                 `/${activeLocale}/user/${myUser.id}/wish?wishId=${response?.wish.id}`
             );
         } else {
-            console.log('User is not defined');
+            const guestWishes: string =
+                localStorage.getItem('guestWishes') || '';
+
+            const parsedGuestWishes: IUnsavedWish[] =
+                guestWishes.length > 0
+                    ? (JSON.parse(guestWishes) as IUnsavedWish[])
+                    : [];
+
+            const nonUniqueName = parsedGuestWishes.some((wish) => {
+                return wish.name === data.name.trim();
+            });
+            if (nonUniqueName) {
+                setError(
+                    'name',
+                    {
+                        type: 'unique',
+                        message: validationsT('wish-name.unique'),
+                    },
+                    { shouldFocus: true }
+                );
+                return;
+            }
+
+            if (!show) {
+                return setShowError(mainPageT('private-wish-error'));
+            } else {
+                setShowError('');
+            }
+
+            const guestWish: IUnsavedWish = {
+                id: uuidv4(),
+                userId,
+                material,
+                show,
+                name: data.name.trim(),
+                price: data.price?.trim(),
+                currency,
+                addresses: data.addresses,
+                description: data.description.trim(),
+            };
+
+            if (!material) {
+                delete guestWish.price;
+            }
+
+            const updatedGuestWishes = [...parsedGuestWishes, guestWish];
+
+            localStorage.setItem(
+                'guestWishes',
+                JSON.stringify(updatedGuestWishes)
+            );
+
+            route.push(
+                `/${activeLocale}/user/${userId}/wish?wishId=${guestWish.id}`
+            );
         }
     };
 
