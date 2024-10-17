@@ -59,6 +59,7 @@ interface IWishesStore {
     setWishesSort: (value: TWishSort) => void;
     setSelectedWish: (id: IWish['id']) => void;
     setSelectedWishes: (wishIdList: IWish['id'][]) => void;
+    resetWishCandidate: () => void;
     fetchWishDataFromLink: (
         params: { url: string },
         errorT: string
@@ -176,6 +177,12 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
                 return wish;
             }),
+        }));
+    },
+    resetWishCandidate: () => {
+        set((state) => ({
+            ...state,
+            wishCandidate: null,
         }));
     },
     fetchWishDataFromLink: async (params, errorT) => {

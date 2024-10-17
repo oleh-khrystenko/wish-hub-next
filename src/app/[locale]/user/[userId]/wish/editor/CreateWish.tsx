@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState, useLayoutEffect } from 'react';
+import { FC, useState, useLayoutEffect, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -66,6 +66,9 @@ const CreateWish: FC = () => {
 
     const wishes = useWishesStore((state) => state.list);
     const wishCandidate = useWishesStore((state) => state.wishCandidate);
+    const resetWishCandidate = useWishesStore(
+        (state) => state.resetWishCandidate
+    );
     const createWish = useWishesStore((state) => state.createWish);
 
     const collections = useCollectionsStore((state) => state.list);
@@ -412,6 +415,12 @@ const CreateWish: FC = () => {
             setIsDirtyForm(true);
         }
     }, [myUser, wishCandidate, setValue]);
+
+    useEffect(() => {
+        return () => {
+            resetWishCandidate();
+        };
+    }, []);
 
     return (
         <>
