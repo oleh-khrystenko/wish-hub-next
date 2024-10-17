@@ -1,8 +1,10 @@
-import { FC, useCallback, useRef } from 'react';
+import { FC, ChangeEvent, useCallback, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useDrop, useDrag } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
 import { TCurrentImage } from '@/models/Wish';
+import { useMyUserStore } from '@/stores/my-user';
+import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import {
     ALLOWED_FILE_EXTENSIONS,
     ALLOWED_MAX_FILE_SIZE_IN_MB,
@@ -10,6 +12,8 @@ import {
 } from '@/helpers/utils/constants';
 import DraggableImage from '@/app/[locale]/user/[userId]/wish/editor/drag-n-drop/DraggableImage';
 import ImagesValidation from '@/app/[locale]/user/[userId]/wish/editor/drag-n-drop/ImagesValidation';
+import UiModal from '@/components/ui/modal/UiModal';
+import UiButton from '@/components/ui/UiButton';
 
 interface IProps {
     images: TCurrentImage[];
@@ -18,15 +22,25 @@ interface IProps {
 }
 
 const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
+    const [showAttention, setShowAttention] = useState<boolean>(false);
+
     const mainPageT = useTranslations('main-page');
 
     const dropZoneRef = useRef<HTMLDivElement | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const imageListRef = useRef<HTMLDivElement | null>(null);
 
+    const myUser = useMyUserStore((state) => state.myUser);
+
+    const utmParams = UseUTMParams();
+
     const onDrop = useCallback(
         (acceptedFiles: TCurrentImage[]) => {
-            setImages([...images, ...acceptedFiles]);
+            if (myUser) {
+                setImages([...images, ...acceptedFiles]);
+            } else {
+                setShowAttention(true);
+            }
         },
         [images, setImages]
     );
@@ -45,10 +59,14 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
     drag(imageListRef);
 
     const handleDropZoneClick = () => {
-        fileInputRef.current?.click();
+        if (myUser) {
+            fileInputRef.current?.click();
+        } else {
+            setShowAttention(true);
+        }
     };
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(event.target.files || []);
         setImages([...images, ...files]);
     };
@@ -142,6 +160,34 @@ const DragNDrop: FC<IProps> = ({ images, setImages, removeAllImages }) => {
                     {mainPageT('delete-all-images')}
                 </button>
             )}
+
+            <UiModal show={showAttention} hide={() => setShowAttention(false)}>
+                <p className="text-center text-2xl font-bold text-amber-400">
+                    ⚠️ {mainPageT('only_registered_users')} ⚠️
+                </p>
+
+                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('you_trying_image')}
+                    <br />
+                    <br />
+                    {mainPageT('sign_up_image')}
+                </p>
+
+                <div className="mt-6 flex items-center justify-end gap-5">
+                    <UiButton
+                        variant="outline"
+                        onBtnClick={() => setShowAttention(false)}
+                    >
+                        {mainPageT('i_see')}
+                    </UiButton>
+
+                    <UiButton
+                        href={`/auth?register${utmParams ? `&${utmParams}` : ''}`}
+                    >
+                        {mainPageT('sign-up')}
+                    </UiButton>
+                </div>
+            </UiModal>
         </div>
     );
 };

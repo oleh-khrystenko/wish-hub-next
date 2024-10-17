@@ -55,6 +55,11 @@ interface IProps {
     setShowError: (value: string) => void;
 }
 
+interface IShouldTriggerValidation {
+    type: keyof TWishFormInputs | null;
+    value: boolean;
+}
+
 const FormContent: FC<IProps> = ({
     register,
     control,
@@ -78,13 +83,11 @@ const FormContent: FC<IProps> = ({
     const [isTouch, setIsTouch] = useState(false);
     const [isEmptyAddress, setIsEmptyAddress] = useState<boolean>(false);
     const [descriptionLength, setDescriptionLength] = useState<number>(0);
-    const [shouldTriggerValidation, setShouldTriggerValidation] = useState<{
-        type: keyof TWishFormInputs | null;
-        value: boolean;
-    }>({
-        type: null,
-        value: false,
-    });
+    const [shouldTriggerValidation, setShouldTriggerValidation] =
+        useState<IShouldTriggerValidation>({
+            type: null,
+            value: false,
+        });
 
     const formContentContainer = useRef<HTMLDivElement>(null);
 
@@ -235,156 +238,152 @@ const FormContent: FC<IProps> = ({
     }, []);
 
     return (
-        <>
-            <div
-                className="-mr-3 flex h-auto flex-col pr-3"
-                ref={formContentContainer}
-            >
-                {/* material */}
-                <div className="flex items-center justify-center gap-4">
-                    <button
-                        className={`${material ? 'text-cyan-500 dark:text-cyan-300' : 'text-zinc-700 dark:text-zinc-300'} text-sm font-bold tablet-md:text-base`}
-                        type="button"
-                        onClick={() => changeMaterial(true)}
-                    >
-                        {mainPageT('material-wish')}
-                    </button>
-                    <UiSwitch
-                        id="material"
-                        name="material"
-                        checked={material}
-                        bg={
-                            material
-                                ? 'bg-cyan-500 dark:bg-cyan-300'
-                                : 'bg-rose-500'
-                        }
-                        onChange={(e) => changeMaterial(e.target.checked)}
-                    />
-                    <button
-                        className={`${material ? 'text-zinc-700 dark:text-zinc-300' : 'text-rose-500'} text-sm font-bold tablet-md:text-base`}
-                        type="button"
-                        onClick={() => changeMaterial(false)}
-                    >
-                        {mainPageT('non-material-wish')}
-                    </button>
-                </div>
-
-                {/* name */}
-                <div className="mt-7">
-                    <UiInput
-                        {...register('name', wishNameValidation)}
-                        id="name"
-                        name="name"
-                        type="text"
-                        label={mainPageT('wish-name')}
-                        tooltip={mainPageT('wish-name-tooltip')}
-                        error={errors?.name?.message}
-                        onChange={(event) =>
-                            handleReactHookFormInputChange('name', event)
-                        }
-                    />
-                </div>
-
-                {/* DragNDrop */}
-                <DndProvider
-                    backend={isTouch ? TouchBackend : HTML5Backend}
-                    options={{ enableMouseEvents: !isTouch }}
+        <div
+            className="-mr-3 flex h-auto flex-col pr-3"
+            ref={formContentContainer}
+        >
+            {/* material */}
+            <div className="flex items-center justify-center gap-4">
+                <button
+                    className={`${material ? 'text-cyan-500 dark:text-cyan-300' : 'text-zinc-700 dark:text-zinc-300'} text-sm font-bold tablet-md:text-base`}
+                    type="button"
+                    onClick={() => changeMaterial(true)}
                 >
-                    <DragNDrop
-                        images={images}
-                        setImages={changeImages}
-                        removeAllImages={removeAllImages}
-                    />
-                </DndProvider>
-
-                <div
-                    className={`${material ? 'max-h-96 pt-5' : 'max-h-0 pt-0'} flex flex-col gap-8 overflow-y-auto transition-all duration-300 ease-in-out`}
+                    {mainPageT('material-wish')}
+                </button>
+                <UiSwitch
+                    id="material"
+                    name="material"
+                    checked={material}
+                    bg={
+                        material
+                            ? 'bg-cyan-500 dark:bg-cyan-300'
+                            : 'bg-rose-500'
+                    }
+                    onChange={(e) => changeMaterial(e.target.checked)}
+                />
+                <button
+                    className={`${material ? 'text-zinc-700 dark:text-zinc-300' : 'text-rose-500'} text-sm font-bold tablet-md:text-base`}
+                    type="button"
+                    onClick={() => changeMaterial(false)}
                 >
-                    {/* price */}
-                    <div className="flex items-center gap-5">
-                        <UiInput
-                            {...(material &&
-                                register('price', wishPriceValidation))}
-                            id="price"
-                            name="price"
-                            type="number"
-                            label={mainPageT('wish-price')}
-                            tooltip={mainPageT('wish-price-tooltip')}
-                            error={errors?.price?.message}
-                            onChange={(event) =>
-                                handleReactHookFormInputChange('price', event)
-                            }
-                        />
+                    {mainPageT('non-material-wish')}
+                </button>
+            </div>
 
-                        <UiSelect
-                            options={selectOptions}
-                            value={currency}
-                            onChange={async (value) =>
-                                changeCurrency(value as IWish['currency'])
-                            }
-                        />
-                    </div>
-
-                    {/* addresses */}
-                    <div className="flex flex-col gap-7 pr-2">
-                        <Addresses
-                            register={register}
-                            control={control}
-                            errors={errors}
-                            material={material}
-                            setValue={setValue}
-                            watchingAddresses={watchingAddresses}
-                            isEmptyAddress={isEmptyAddress}
-                        />
-                    </div>
-                </div>
-
-                {/* description */}
-                <div
-                    className={`${material ? 'mt-8' : 'mt-4'} transition-all duration-300 ease-in-out`}
-                >
-                    <UiInput
-                        {...register(
-                            'description',
-                            wishDescriptionValidation(descriptionLength)
-                        )}
-                        id="description"
-                        name="description"
-                        type="multiline"
-                        label={mainPageT('wish-description')}
-                        error={errors?.description?.message}
-                        onChange={(event) =>
-                            handleReactHookFormInputChange('description', event)
-                        }
-                    />
-                </div>
-
-                {/* PrivacyChoices */}
-                <div className="pb-px pl-px">
-                    <PrivacyChoices
-                        id="wish"
-                        tooltipContent={{
-                            all: mainPageT('can-see.wish-all-tooltip'),
-                            friends: mainPageT('can-see.wish-friends-tooltip'),
-                            nobody: mainPageT('can-see.wish-nobody-tooltip'),
-                        }}
-                        show={show}
-                        showError={showError}
-                        onChange={changePrivacy}
-                    />
-                </div>
-
-                {/* Collections */}
-                <AddToCollection
-                    register={register}
-                    errors={errors}
-                    clearErrors={clearErrors}
-                    handleReactHookFormInputChange={
-                        handleReactHookFormInputChange
+            {/* name */}
+            <div className="mt-7">
+                <UiInput
+                    {...register('name', wishNameValidation)}
+                    id="name"
+                    name="name"
+                    type="text"
+                    label={mainPageT('wish-name')}
+                    tooltip={mainPageT('wish-name-tooltip')}
+                    error={errors?.name?.message}
+                    onChange={(event) =>
+                        handleReactHookFormInputChange('name', event)
                     }
                 />
             </div>
-        </>
+
+            {/* DragNDrop */}
+            <DndProvider
+                backend={isTouch ? TouchBackend : HTML5Backend}
+                options={{ enableMouseEvents: !isTouch }}
+            >
+                <DragNDrop
+                    images={images}
+                    setImages={changeImages}
+                    removeAllImages={removeAllImages}
+                />
+            </DndProvider>
+
+            <div
+                className={`${material ? 'max-h-96 pt-5' : 'max-h-0 pt-0'} flex flex-col gap-8 overflow-y-auto transition-all duration-300 ease-in-out`}
+            >
+                {/* price */}
+                <div className="flex items-center gap-5">
+                    <UiInput
+                        {...(material &&
+                            register('price', wishPriceValidation))}
+                        id="price"
+                        name="price"
+                        type="number"
+                        label={mainPageT('wish-price')}
+                        tooltip={mainPageT('wish-price-tooltip')}
+                        error={errors?.price?.message}
+                        onChange={(event) =>
+                            handleReactHookFormInputChange('price', event)
+                        }
+                    />
+
+                    <UiSelect
+                        options={selectOptions}
+                        value={currency}
+                        onChange={async (value) =>
+                            changeCurrency(value as IWish['currency'])
+                        }
+                    />
+                </div>
+
+                {/* addresses */}
+                <div className="flex flex-col gap-7 pr-2">
+                    <Addresses
+                        register={register}
+                        control={control}
+                        errors={errors}
+                        material={material}
+                        setValue={setValue}
+                        watchingAddresses={watchingAddresses}
+                        isEmptyAddress={isEmptyAddress}
+                    />
+                </div>
+            </div>
+
+            {/* description */}
+            <div
+                className={`${material ? 'mt-8' : 'mt-4'} transition-all duration-300 ease-in-out`}
+            >
+                <UiInput
+                    {...register(
+                        'description',
+                        wishDescriptionValidation(descriptionLength)
+                    )}
+                    id="description"
+                    name="description"
+                    type="multiline"
+                    label={mainPageT('wish-description')}
+                    error={errors?.description?.message}
+                    onChange={(event) =>
+                        handleReactHookFormInputChange('description', event)
+                    }
+                />
+            </div>
+
+            {/* PrivacyChoices */}
+            <div className="pb-px pl-px">
+                <PrivacyChoices
+                    id="wish"
+                    tooltipContent={{
+                        all: mainPageT('can-see.wish-all-tooltip'),
+                        friends: mainPageT('can-see.wish-friends-tooltip'),
+                        nobody: mainPageT('can-see.wish-nobody-tooltip'),
+                    }}
+                    show={show}
+                    showError={showError}
+                    onChange={changePrivacy}
+                />
+            </div>
+
+            {/* Collections */}
+            <AddToCollection
+                register={register}
+                errors={errors}
+                clearErrors={clearErrors}
+                handleReactHookFormInputChange={handleReactHookFormInputChange}
+            />
+        </div>
     );
 };
 

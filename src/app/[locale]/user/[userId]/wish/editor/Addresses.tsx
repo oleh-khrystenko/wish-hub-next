@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useRef, useLayoutEffect } from 'react';
+import { FC, ChangeEvent, useRef, useLayoutEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import {
     useFieldArray,
@@ -10,9 +10,13 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { TWishFormInputs } from '@/models/Wish';
 import { ICreateWish } from '@/stores/wishes/types';
+import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
+import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import UiInput from '@/components/ui/UiInput';
+import UiModal from '@/components/ui/modal/UiModal';
+import UiButton from '@/components/ui/UiButton';
 import CrossIcon from '@/components/icons/CrossIcon';
 
 interface IProps {
@@ -36,6 +40,8 @@ const Addresses: FC<IProps> = ({
     watchingAddresses,
     isEmptyAddress,
 }) => {
+    const [showAttention, setShowAttention] = useState<boolean>(false);
+
     const appended = useRef(false);
 
     const mainPageT = useTranslations('main-page');
@@ -45,8 +51,11 @@ const Addresses: FC<IProps> = ({
         name: 'addresses',
     });
 
+    const myUser = useMyUserStore((state) => state.myUser);
+
     const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
 
+    const utmParams = UseUTMParams();
     const { onlyWhitespaceValidation } = UseValidations();
 
     const handleChange = (
@@ -63,9 +72,13 @@ const Addresses: FC<IProps> = ({
     };
 
     const handleAppend = () => {
-        if (watchingAddresses && watchingAddresses.length < MAX_ADDRESSES) {
-            append({ id: uuidv4(), value: '' });
-            setIsDirtyForm(true);
+        if (myUser) {
+            if (watchingAddresses && watchingAddresses.length < MAX_ADDRESSES) {
+                append({ id: uuidv4(), value: '' });
+                setIsDirtyForm(true);
+            }
+        } else {
+            setShowAttention(true);
         }
     };
 
@@ -134,6 +147,34 @@ const Addresses: FC<IProps> = ({
                     })}
                 </p>
             )}
+
+            <UiModal show={showAttention} hide={() => setShowAttention(false)}>
+                <p className="text-center text-2xl font-bold text-amber-400">
+                    ⚠️ {mainPageT('only_registered_users')} ⚠️
+                </p>
+
+                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('you_trying_address')}
+                    <br />
+                    <br />
+                    {mainPageT('sign_up_address')}
+                </p>
+
+                <div className="mt-6 flex items-center justify-end gap-5">
+                    <UiButton
+                        variant="outline"
+                        onBtnClick={() => setShowAttention(false)}
+                    >
+                        {mainPageT('i_see')}
+                    </UiButton>
+
+                    <UiButton
+                        href={`/auth?register${utmParams ? `&${utmParams}` : ''}`}
+                    >
+                        {mainPageT('sign-up')}
+                    </UiButton>
+                </div>
+            </UiModal>
         </>
     );
 };

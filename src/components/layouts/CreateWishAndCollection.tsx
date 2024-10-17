@@ -91,10 +91,10 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
                 </p>
 
                 <p className="mt-4 text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('you_trying')}
+                    {mainPageT('you_trying_collection')}
                     <br />
                     <br />
-                    {mainPageT('please_sign_up')}
+                    {mainPageT('sign_up_collection')}
                 </p>
 
                 <div className="mt-6 flex items-center justify-end gap-5">

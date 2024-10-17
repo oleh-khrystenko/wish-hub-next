@@ -1,8 +1,12 @@
-import { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { EPrivacy } from '@/models/Settings';
+import { useMyUserStore } from '@/stores/my-user';
+import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UiTooltip from '@/components/ui/UiTooltip';
 import UiRadio from '@/components/ui/UiRadio';
+import UiModal from '@/components/ui/modal/UiModal';
+import UiButton from '@/components/ui/UiButton';
 import InfoIcon from '@/components/icons/InfoIcon';
 
 interface IProps {
@@ -26,10 +30,27 @@ const PrivacyChoices: FC<IProps> = ({
     showError,
     onChange,
 }) => {
+    const [showAttention, setShowAttention] = useState<boolean>(false);
+
     const mainPageT = useTranslations('main-page');
 
+    const myUser = useMyUserStore((state) => state.myUser);
+
+    const utmParams = UseUTMParams();
+
     const handleChangeShow = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange(e.target.value as EPrivacy);
+        const value = e.target.value as EPrivacy;
+
+        onChange(value);
+
+        if (!myUser && value !== EPrivacy.NOBODY) {
+            setShowAttention(true);
+        }
+    };
+
+    const handleUnderstood = () => {
+        setShowAttention(false);
+        onChange(EPrivacy.NOBODY);
     };
 
     return (
@@ -106,6 +127,33 @@ const PrivacyChoices: FC<IProps> = ({
             {showError && (
                 <p className="mt-1 text-xs text-red-500">{showError}</p>
             )}
+
+            <UiModal show={showAttention} hide={handleUnderstood}>
+                <p className="text-center text-2xl font-bold text-amber-400">
+                    ⚠️ {mainPageT('only_registered_users')} ⚠️
+                </p>
+
+                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('you_trying_private')}
+                    <br />
+                    {mainPageT('can_choose_private')}
+                    <br />
+                    <br />
+                    {mainPageT('sign_up_private')}
+                </p>
+
+                <div className="mt-6 flex items-center justify-end gap-5">
+                    <UiButton variant="outline" onBtnClick={handleUnderstood}>
+                        {mainPageT('i_see')}
+                    </UiButton>
+
+                    <UiButton
+                        href={`/auth?register${utmParams ? `&${utmParams}` : ''}`}
+                    >
+                        {mainPageT('sign-up')}
+                    </UiButton>
+                </div>
+            </UiModal>
         </div>
     );
 };
