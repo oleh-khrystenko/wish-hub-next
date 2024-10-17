@@ -214,7 +214,8 @@
         "create_temporary_wish": "Create a Temporary Wish",
         "you_are_creating": "You're creating a temporary wish with certain limitations, which can be lost at any moment. To save your wishes without restrictions and access them from any device, please sign up.",
         "registration_only": "Registration only takes a few seconds via Google or email.",
-        "temporary_action": "Create Temporary Wish"
+        "temporary_action": "Create Temporary Wish",
+        "i_see": "I See"
     },
     "privacy-policy-page": {
         "head": {

@@ -13,9 +13,9 @@ interface IProps {
 }
 
 const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
-    const [showCreateCollection, setShowCreateCollection] =
+    const [showAttentionCollection, setShowAttentionCollection] =
         useState<boolean>(false);
-    const [showCreateWish, setShowCreateWish] = useState<boolean>(false);
+    const [showAttentionWish, setShowAttentionWish] = useState<boolean>(false);
 
     const router = useRouter();
 
@@ -31,7 +31,7 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
         if (myUser) {
             router.push(`/user/${myUser?.id}/collection/editor`);
         } else {
-            setShowCreateCollection(true);
+            setShowAttentionCollection(true);
         }
     };
 
@@ -41,7 +41,7 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
                 `/user/${myUser?.id}/wish/editor?fromPage=${currentPage}`
             );
         } else {
-            setShowCreateWish(true);
+            setShowAttentionWish(true);
         }
     };
 
@@ -83,8 +83,8 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
 
             {/* Collection */}
             <UiModal
-                show={showCreateCollection}
-                hide={() => setShowCreateCollection(false)}
+                show={showAttentionCollection}
+                hide={() => setShowAttentionCollection(false)}
             >
                 <p className="text-center text-2xl font-bold text-amber-400">
                     ⚠️ {mainPageT('only_registered_users')} ⚠️
@@ -115,8 +115,8 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
 
             {/* Wish */}
             <UiModal
-                show={showCreateWish}
-                hide={() => setShowCreateWish(false)}
+                show={showAttentionWish}
+                hide={() => setShowAttentionWish(false)}
             >
                 <p className="text-center text-2xl font-bold text-amber-400">
                     ✨ {mainPageT('create_temporary_wish')} ✨

@@ -10,10 +10,13 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseValidations from '@/helpers/hooks/UseValidations';
+import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import { COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiRadio from '@/components/ui/UiRadio';
 import UiInput from '@/components/ui/UiInput';
 import UiLoading from '@/components/ui/UiLoading';
+import UiModal from '@/components/ui/modal/UiModal';
+import UiButton from '@/components/ui/UiButton';
 
 interface IProps {
     register: UseFormRegister<TWishFormInputs>;
@@ -35,6 +38,7 @@ const AddToCollection: FC<IProps> = ({
 }) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
+    const [showAttention, setShowAttention] = useState<boolean>(false);
 
     const { userId } = useParams<{ userId: string }>();
     const searchParams = useSearchParams();
@@ -57,11 +61,11 @@ const AddToCollection: FC<IProps> = ({
     const showAddToCollection = useCollectionsStore(
         (state) => state.showAddToCollection
     );
-    const setAddToCollectionError = useCollectionsStore(
-        (state) => state.setAddToCollectionError
-    );
     const setShowAddToCollection = useCollectionsStore(
         (state) => state.setShowAddToCollection
+    );
+    const setAddToCollectionError = useCollectionsStore(
+        (state) => state.setAddToCollectionError
     );
     const setSelectedCollection = useCollectionsStore(
         (state) => state.setSelectedCollection
@@ -71,14 +75,21 @@ const AddToCollection: FC<IProps> = ({
 
     const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
 
+    const utmParams = UseUTMParams();
     const { onlyWhitespaceValidation } = UseValidations();
 
     const wishId = searchParams.get('wishId');
 
     const handleChangeShow = (e: ChangeEvent<HTMLInputElement>) => {
-        setShowAddToCollection(e.target.value as EAddToCollection);
+        const value = e.target.value as EAddToCollection;
+
+        setShowAddToCollection(value);
         setAddToCollectionError('');
         clearErrors('collectionName');
+
+        if (!myUser && value !== EAddToCollection.NONE) {
+            setShowAttention(true);
+        }
     };
 
     const handleCollectionClick = (id: ICollection['id']) => {
@@ -87,21 +98,26 @@ const AddToCollection: FC<IProps> = ({
         setIsDirtyForm(true);
     };
 
+    const handleUnderstood = () => {
+        setShowAttention(false);
+        setShowAddToCollection(EAddToCollection.NONE);
+    };
+
     useEffect(() => {
         if (firstLoad) {
             setFirstLoad(false);
             return;
         }
 
-        if (!inView || stopRequests || !userId) return;
+        if (!inView || stopRequests || !myUser || userId !== myUser?.id) return;
 
         const fetchWishes = async () => {
             setIsLoadingAdd(true);
 
             await addCollections(
                 {
-                    myId: myUser?.id,
-                    userId,
+                    myId: myUser.id,
+                    userId: myUser.id,
                     page,
                     limit: COLLECTION_PAGINATION_LIMIT,
                     search: '',
@@ -115,16 +131,16 @@ const AddToCollection: FC<IProps> = ({
         };
 
         fetchWishes().finally();
-    }, [inView]);
+    }, [inView, myUser, userId]);
 
     useEffect(() => {
-        if (!userId) return;
+        if (!myUser || userId !== myUser?.id) return;
 
         const fetchCollections = async () => {
             await getCollections(
                 {
-                    myId: myUser?.id,
-                    userId,
+                    myId: myUser.id,
+                    userId: myUser.id,
                     page: 1,
                     limit: COLLECTION_PAGINATION_LIMIT,
                     search: '',
@@ -136,7 +152,7 @@ const AddToCollection: FC<IProps> = ({
         };
 
         fetchCollections().finally();
-    }, [userId, wishId]);
+    }, [userId, wishId, myUser]);
 
     useEffect(() => {
         return () => {
@@ -189,7 +205,7 @@ const AddToCollection: FC<IProps> = ({
             </div>
 
             {/* ADD */}
-            {collections.length > 0 && (
+            {myUser && userId === myUser.id && collections.length > 0 && (
                 <>
                     <div className="mt-4">
                         <UiRadio
@@ -249,6 +265,31 @@ const AddToCollection: FC<IProps> = ({
                     </div>
                 </>
             )}
+
+            <UiModal show={showAttention} hide={handleUnderstood}>
+                <p className="text-center text-2xl font-bold text-amber-400">
+                    ⚠️ {mainPageT('only_registered_users')} ⚠️
+                </p>
+
+                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('you_trying')}
+                    <br />
+                    <br />
+                    {mainPageT('please_sign_up')}
+                </p>
+
+                <div className="mt-6 flex items-center justify-end gap-5">
+                    <UiButton variant="outline" onBtnClick={handleUnderstood}>
+                        {mainPageT('i_see')}
+                    </UiButton>
+
+                    <UiButton
+                        href={`/auth?register${utmParams ? `&${utmParams}` : ''}`}
+                    >
+                        {mainPageT('sign-up')}
+                    </UiButton>
+                </div>
+            </UiModal>
         </>
     );
 };
