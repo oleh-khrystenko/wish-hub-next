@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
     ECurrency,
+    IGuestWish,
     IImage,
     IWish,
     TCurrentImage,
@@ -29,7 +30,7 @@ import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
 
 interface IProps {
-    wish: IWish;
+    wish: IWish | IGuestWish;
 }
 
 const EditWish: FC<IProps> = ({ wish }) => {
@@ -303,18 +304,36 @@ const EditWish: FC<IProps> = ({ wish }) => {
     };
 
     const handleDeleteWish = async () => {
-        if (!myUser) return;
+        if (myUser) {
+            setIsLoading(true);
+            await deleteWish(
+                { wishId: wish.id, userId: myUser.id },
+                allPagesT('wishes-api.delete-wish.success'),
+                allPagesT('wishes-api.delete-wish.error', {
+                    wishId: wish.id,
+                })
+            );
 
-        setIsLoading(true);
-        await deleteWish(
-            { wishId: wish.id, userId: myUser.id },
-            allPagesT('wishes-api.delete-wish.success'),
-            allPagesT('wishes-api.delete-wish.error', {
-                wishId: wish.id,
-            })
-        );
+            route.push(`/${activeLocale}/main`);
+        } else {
+            setIsLoading(true);
+            const guestWishes = localStorage.getItem('guestWishes') || '';
+            const parsedGuestWishes: IGuestWish[] =
+                guestWishes.length > 0
+                    ? (JSON.parse(guestWishes) as IGuestWish[])
+                    : [];
 
-        route.push(`/${activeLocale}/main`);
+            const updatedGuestWishes = parsedGuestWishes.filter(
+                (currentWish) => currentWish.id !== wish.id
+            );
+
+            localStorage.setItem(
+                'guestWishes',
+                JSON.stringify(updatedGuestWishes)
+            );
+
+            route.push(`/${activeLocale}/main`);
+        }
     };
 
     useLayoutEffect(() => {
@@ -391,21 +410,23 @@ const EditWish: FC<IProps> = ({ wish }) => {
         );
 
         // images
-        const decryptedImages = copiedWish.images.map((image) => {
-            if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return image;
+        if ('images' in copiedWish) {
+            const decryptedImages = copiedWish.images.map((image) => {
+                if (!process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET) return image;
 
-            const decryptedImage = { ...image };
-            decryptedImage.path = decryptedData(
-                image.path,
-                process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                const decryptedImage = { ...image };
+                decryptedImage.path = decryptedData(
+                    image.path,
+                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                );
+                return decryptedImage;
+            });
+            setImages(
+                copiedWish.show === EPrivacy.ALL
+                    ? copiedWish.images
+                    : decryptedImages
             );
-            return decryptedImage;
-        });
-        setImages(
-            copiedWish.show === EPrivacy.ALL
-                ? copiedWish.images
-                : decryptedImages
-        );
+        }
     }, [wish, setValue]);
 
     return (

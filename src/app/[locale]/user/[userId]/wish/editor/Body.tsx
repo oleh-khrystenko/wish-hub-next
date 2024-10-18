@@ -3,6 +3,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { IGuestWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
@@ -18,6 +19,9 @@ import CollectionIcon from '@/components/icons/CollectionIcon';
 import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
 
 const Body: FC = () => {
+    const [guestWish, setGuestWish] = useState<IGuestWish | undefined>(
+        undefined
+    );
     const [showConfirmLeave, setShowConfirmLeave] = useState<boolean>(false);
 
     const { userId } = useParams<{ userId: string }>();
@@ -102,14 +106,32 @@ const Body: FC = () => {
     };
 
     useEffect(() => {
-        if (!wishId) return;
+        if (userId.includes('guest')) {
+            if (myUser) return;
 
-        getWish(
-            { wishId, userId: myUser?.id },
-            false,
-            allPagesT('wishes-api.get-wish.error')
-        ).finally();
-    }, []);
+            const guestWishes = localStorage.getItem('guestWishes') || '';
+
+            const parsedGuestWishes: IGuestWish[] =
+                guestWishes.length > 0
+                    ? (JSON.parse(guestWishes) as IGuestWish[])
+                    : [];
+
+            const wishId = searchParams.get('wishId');
+
+            const currentGuestWish = parsedGuestWishes.find(
+                (wish) => wish.id === wishId
+            );
+            setGuestWish(currentGuestWish);
+        } else {
+            if (!wishId) return;
+
+            getWish(
+                { wishId, userId: myUser?.id },
+                false,
+                allPagesT('wishes-api.get-wish.error')
+            ).finally();
+        }
+    }, [myUser, userId, searchParams]);
 
     return (
         <main className="flex grow flex-col pt-3">
@@ -130,7 +152,14 @@ const Body: FC = () => {
                     </h1>
                 </div>
 
-                {wish && wishId ? <EditWish wish={wish} /> : <CreateWish />}
+                {wishId ? (
+                    <>
+                        {wish && <EditWish wish={wish} />}
+                        {guestWish && <EditWish wish={guestWish} />}
+                    </>
+                ) : (
+                    <CreateWish />
+                )}
             </div>
 
             <ConfirmModal
