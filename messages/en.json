@@ -224,7 +224,11 @@
         "temporary_action": "Create Temporary Wish",
         "i_see": "I See",
         "you_trying_profile": "You're trying to access your profile... But, oops, it seems like you don’t have one yet! \uD83D\uDE05 Create it in just a few seconds, and then we’ll see what’s inside.",
-        "trying_share_wish": "To share a wish, first save it. Register or log in to your profile to save your wish forever!"
+        "trying_share_wish": "To share a wish, first save it. Register or log in to your profile to save your wish forever!",
+        "you_trying_like": "You're trying to like a temporary wish, but this feature is only available to registered users.",
+        "you_trying_dislike": "You're trying to dislike a temporary wish, but this feature is only available to registered users.",
+        "you_trying_book": "You are trying to book a temporary wish, but this functionality is only available to registered users.",
+        "you_trying_done": "You are trying to mark a temporary wish as fulfilled, but this functionality is only available to registered users."
     },
     "privacy-policy-page": {
         "head": {

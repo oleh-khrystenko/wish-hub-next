@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { ECurrency, IGuestWish } from '@/models/Wish';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
@@ -8,23 +8,46 @@ import UiAvatar from '@/components/ui/UiAvatar';
 import UiModal from '@/components/ui/modal/UiModal';
 import ShareIcon from '@/components/icons/ShareIcon';
 import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
+import LikeIcon from '@/components/icons/LikeIcon';
 
 interface IProps {
     wish: IGuestWish;
 }
 
 const GuestWish: FC<IProps> = ({ wish }) => {
-    const [showAttentionProfile, setShowAttentionProfile] =
-        useState<boolean>(false);
-    const [showAttentionShare, setShowAttentionShare] =
-        useState<boolean>(false);
+    const [showAttention, setShowAttention] = useState<
+        '' | 'profile' | 'share' | 'like' | 'dislike' | 'book' | 'done'
+    >('');
 
     const router = useRouter();
+    const { userId } = useParams<{ userId: string }>();
 
     const mainPageT = useTranslations('main-page');
     const wishPageT = useTranslations('wish-page');
 
     const utmParams = UseUTMParams();
+
+    let attentionActionText = mainPageT('i_see');
+    showAttention === 'profile' && (attentionActionText = mainPageT('i_see'));
+    showAttention === 'share' && (attentionActionText = mainPageT('sign-in'));
+    showAttention === 'like' && (attentionActionText = mainPageT('i_see'));
+    showAttention === 'dislike' && (attentionActionText = mainPageT('i_see'));
+    showAttention === 'book' && (attentionActionText = mainPageT('i_see'));
+    showAttention === 'done' && (attentionActionText = mainPageT('i_see'));
+
+    let attentionBodyText = mainPageT('only_registered_users');
+    showAttention === 'profile' &&
+        (attentionBodyText = mainPageT('you_trying_profile'));
+    showAttention === 'share' &&
+        (attentionBodyText = mainPageT('trying_share_wish'));
+    showAttention === 'like' &&
+        (attentionBodyText = mainPageT('you_trying_like'));
+    showAttention === 'dislike' &&
+        (attentionBodyText = mainPageT('you_trying_dislike'));
+    showAttention === 'book' &&
+        (attentionBodyText = mainPageT('you_trying_book'));
+    showAttention === 'done' &&
+        (attentionBodyText = mainPageT('you_trying_done'));
 
     const isURL = (str: string) => {
         try {
@@ -55,7 +78,7 @@ const GuestWish: FC<IProps> = ({ wish }) => {
                 <UiButton
                     variant="clear-styles"
                     classesWrap="flex items-center gap-3 tablet-sm:gap-4"
-                    onBtnClick={() => setShowAttentionProfile(true)}
+                    onBtnClick={() => setShowAttention('profile')}
                 >
                     <UiAvatar
                         avatar={undefined}
@@ -78,7 +101,7 @@ const GuestWish: FC<IProps> = ({ wish }) => {
                 <UiButton
                     classesWrap="flex item-center gap-2 text-zinc-700 dark:text-zinc-300 ml-auto whitespace-nowrap"
                     variant="clear-styles"
-                    onBtnClick={() => setShowAttentionShare(true)}
+                    onBtnClick={() => setShowAttention('share')}
                 >
                     {wishPageT('share')}
                     <ShareIcon />
@@ -156,58 +179,92 @@ const GuestWish: FC<IProps> = ({ wish }) => {
                 )}
             </div>
 
-            <UiModal
-                show={showAttentionProfile}
-                hide={() => setShowAttentionProfile(false)}
-            >
-                <p className="text-center text-2xl font-bold text-amber-400">
-                    ⚠️ {mainPageT('only_registered_users')} ⚠️
-                </p>
-
-                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('you_trying_profile')}
-                </p>
-
-                <div className="mt-6 flex items-center justify-end gap-5">
+            <div className="mt-5 flex flex-col items-end justify-between gap-5 mobile-sm:flex-row">
+                <div className="flex items-center justify-center gap-1">
                     <UiButton
-                        variant="outline"
-                        onBtnClick={() => setShowAttentionProfile(false)}
+                        variant="clear-styles"
+                        classesWrap="p-1 tablet-md:p-2"
+                        onBtnClick={() => setShowAttention('like')}
                     >
-                        {mainPageT('i_see')}
+                        <LikeIcon classes="fill-zinc-800 dark:fill-zinc-300 w-5 h-5 tablet-md:w-6 tablet-md:h-6" />
                     </UiButton>
 
                     <UiButton
-                        href={`/auth?register${utmParams ? `&${utmParams}` : ''}`}
+                        variant="clear-styles"
+                        classesWrap="-scale-100 p-1 tablet-md:p-2"
+                        onBtnClick={() => setShowAttention('dislike')}
                     >
-                        {mainPageT('create')}
+                        <LikeIcon classes="fill-zinc-800 dark:fill-zinc-300 w-5 h-5 tablet-md:w-6 tablet-md:h-6" />
                     </UiButton>
                 </div>
-            </UiModal>
+
+                <div className="flex flex-col gap-1 tablet-md:flex-row tablet-md:items-center tablet-md:gap-5">
+                    {/* Book */}
+                    <div className="ml-auto">
+                        <UiButton
+                            variant="text-btn"
+                            onBtnClick={() => setShowAttention('book')}
+                        >
+                            {wishPageT('will_fulfill')}
+                        </UiButton>
+                    </div>
+
+                    {/* Done */}
+                    <div className="ml-auto">
+                        <UiButton
+                            variant="text-btn"
+                            onBtnClick={() => setShowAttention('done')}
+                        >
+                            {wishPageT('wish_fulfilled')}
+                        </UiButton>
+                    </div>
+
+                    {/* Edit Wish */}
+                    <div className="ml-auto mt-3 w-fit tablet-md:mt-0">
+                        <UiButton
+                            href={`user/${userId}/wish/editor?wishId=${wish.id}`}
+                        >
+                            {wishPageT('edit_wish')}
+                        </UiButton>
+                    </div>
+                </div>
+            </div>
 
             <UiModal
-                show={showAttentionShare}
-                hide={() => setShowAttentionShare(false)}
+                show={showAttention.length > 0}
+                hide={() => setShowAttention('')}
             >
                 <p className="text-center text-2xl font-bold text-amber-400">
                     ⚠️ {mainPageT('only_registered_users')} ⚠️
                 </p>
 
                 <p className="mt-4 text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('trying_share_wish')}
+                    {attentionBodyText}
                 </p>
 
                 <div className="mt-6 flex items-center justify-end gap-5">
-                    <UiButton
-                        href={`/auth${utmParams ? `?${utmParams}` : ''}`}
-                        variant="outline"
-                    >
-                        {mainPageT('sign-in')}
-                    </UiButton>
+                    {showAttention === 'share' ? (
+                        <UiButton
+                            href={`/auth${utmParams ? `?${utmParams}` : ''}`}
+                            variant="outline"
+                        >
+                            {mainPageT('sign-in')}
+                        </UiButton>
+                    ) : (
+                        <UiButton
+                            variant="outline"
+                            onBtnClick={() => setShowAttention('')}
+                        >
+                            {attentionActionText}
+                        </UiButton>
+                    )}
 
                     <UiButton
                         href={`/auth?register${utmParams ? `&${utmParams}` : ''}`}
                     >
-                        {mainPageT('sign-up')}
+                        {mainPageT(
+                            showAttention === 'profile' ? 'create' : 'sign-up'
+                        )}
                     </UiButton>
                 </div>
             </UiModal>
