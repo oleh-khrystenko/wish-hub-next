@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import {
     ECurrency,
     IImage,
-    IUnsavedWish,
+    IGuestWish,
     IWish,
     TCurrentImage,
     TWishFormInputs,
@@ -313,9 +313,9 @@ const CreateWish: FC = () => {
             const guestWishes: string =
                 localStorage.getItem('guestWishes') || '';
 
-            const parsedGuestWishes: IUnsavedWish[] =
+            const parsedGuestWishes: IGuestWish[] =
                 guestWishes.length > 0
-                    ? (JSON.parse(guestWishes) as IUnsavedWish[])
+                    ? (JSON.parse(guestWishes) as IGuestWish[])
                     : [];
 
             const nonUniqueName = parsedGuestWishes.some((wish) => {
@@ -339,7 +339,7 @@ const CreateWish: FC = () => {
                 setShowError('');
             }
 
-            const guestWish: IUnsavedWish = {
+            const guestWish: IGuestWish = {
                 id: uuidv4(),
                 userId,
                 material,

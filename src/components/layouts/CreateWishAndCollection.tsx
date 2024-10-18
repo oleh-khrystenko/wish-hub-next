@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { v4 as uuidv4 } from 'uuid';
-import { IUnsavedWish } from '@/models/Wish';
+import { IGuestWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
@@ -45,9 +45,9 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
         } else {
             const unsavedWishes: string =
                 localStorage.getItem('unsavedWishes') || '';
-            const parsedUnsavedWishes: IUnsavedWish[] =
+            const parsedUnsavedWishes: IGuestWish[] =
                 unsavedWishes.length > 0
-                    ? (JSON.parse(unsavedWishes) as IUnsavedWish[])
+                    ? (JSON.parse(unsavedWishes) as IGuestWish[])
                     : [];
 
             if (parsedUnsavedWishes.length > 3) {

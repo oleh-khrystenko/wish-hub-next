@@ -222,7 +222,9 @@
         "you_are_creating": "You're creating a temporary wish with certain limitations, which can be lost at any moment. To save your wishes without restrictions and access them from any device, please sign up.",
         "registration_only": "Registration only takes a few seconds via Google or email.",
         "temporary_action": "Create Temporary Wish",
-        "i_see": "I See"
+        "i_see": "I See",
+        "you_trying_profile": "You're trying to access your profile... But, oops, it seems like you don’t have one yet! \uD83D\uDE05 Create it in just a few seconds, and then we’ll see what’s inside.",
+        "trying_share_wish": "To share a wish, first save it. Register or log in to your profile to save your wish forever!"
     },
     "privacy-policy-page": {
         "head": {
@@ -428,6 +430,9 @@
         "editing_wish": "Editing wish",
         "your_wish": "Your wish",
         "created_by": "User's wish",
+        "your_unsaved_wish": "Your unsaved wish",
+        "guest": "Guest",
+        "share": "Share this wish",
         "show_all_1": "Your wish is visible to",
         "show_all_2": "all",
         "show_all_3": "users.",

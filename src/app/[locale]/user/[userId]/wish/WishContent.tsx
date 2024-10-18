@@ -13,7 +13,7 @@ interface IProps {
     myUser: IUser | null;
 }
 
-const Content: FC<IProps> = ({ wish, myUser }) => {
+const WishContent: FC<IProps> = ({ wish, myUser }) => {
     const wishPageT = useTranslations('wish-page');
 
     let show = (
@@ -66,7 +66,12 @@ const Content: FC<IProps> = ({ wish, myUser }) => {
                     <ShareButton
                         link={`/user/${wish.userId}/wish?anyWishId=${wish.id}${myUser ? `&utm_source=user&utm_medium=share&utm_campaign=user_${myUser.id}` : ''}`}
                         wishShow={wish.show}
-                    />
+                        actionClasses="flex-row-reverse"
+                    >
+                        <span className="mr-1.5 whitespace-nowrap py-2.5 text-sm text-zinc-700 dark:text-zinc-400">
+                            {wishPageT('share')}
+                        </span>
+                    </ShareButton>
                 )}
             </div>
 
@@ -162,4 +167,4 @@ const Content: FC<IProps> = ({ wish, myUser }) => {
     );
 };
 
-export default Content;
+export default WishContent;
