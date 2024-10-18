@@ -355,6 +355,7 @@ const CreateWish: FC = () => {
                 delete guestWish.price;
             }
 
+            setIsLoading(true);
             const updatedGuestWishes = [...parsedGuestWishes, guestWish];
 
             localStorage.setItem(

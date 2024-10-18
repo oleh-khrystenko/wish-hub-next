@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useState, useLayoutEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
@@ -44,6 +44,7 @@ const EditWish: FC<IProps> = ({ wish }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const route = useRouter();
+    const { userId } = useParams<{ userId: string }>();
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -80,213 +81,287 @@ const EditWish: FC<IProps> = ({ wish }) => {
     const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
-        const nonUniqueName = wishes.some((currentWish) => {
-            let wishName = currentWish.name;
-            if (
-                process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET &&
-                currentWish.show !== EPrivacy.ALL
-            ) {
-                wishName = decryptedData(
-                    currentWish.name,
-                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+        if (myUser) {
+            const nonUniqueName = wishes.some((currentWish) => {
+                let wishName = currentWish.name;
+                if (
+                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET &&
+                    currentWish.show !== EPrivacy.ALL
+                ) {
+                    wishName = decryptedData(
+                        currentWish.name,
+                        process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                    );
+                }
+                return (
+                    wishName === data.name.trim() && currentWish.id !== wish.id
                 );
+            });
+            if (nonUniqueName) {
+                setError(
+                    'name',
+                    {
+                        type: 'unique',
+                        message: validationsT('wish-name.unique'),
+                    },
+                    { shouldFocus: true }
+                );
+                return;
             }
-            return wishName === data.name.trim() && currentWish.id !== wish.id;
-        });
-        if (nonUniqueName) {
-            setError(
-                'name',
-                {
-                    type: 'unique',
-                    message: validationsT('wish-name.unique'),
-                },
-                { shouldFocus: true }
+
+            const hasSelectedCollection = collections.some(
+                (collection) => collection.selected
             );
-            return;
-        }
-
-        const hasSelectedCollection = collections.some(
-            (collection) => collection.selected
-        );
-        // Collection Errors
-        // create
-        if (showAddToCollection === EAddToCollection.CREATE) {
-            if (data.collectionName.length === 0) {
-                setError(
-                    'collectionName',
-                    {
-                        type: 'required',
-                        message: validationsT('collection-name.required'),
-                    },
-                    { shouldFocus: true }
-                );
-                return;
+            // Collection Errors
+            // create
+            if (showAddToCollection === EAddToCollection.CREATE) {
+                if (data.collectionName.length === 0) {
+                    setError(
+                        'collectionName',
+                        {
+                            type: 'required',
+                            message: validationsT('collection-name.required'),
+                        },
+                        { shouldFocus: true }
+                    );
+                    return;
+                }
+                if (
+                    data.collectionName.length > 0 &&
+                    data.collectionName.length < COLLECTION_NAME_MIN_LENGTH
+                ) {
+                    setError(
+                        'collectionName',
+                        {
+                            type: 'min',
+                            message: validationsT('collection-name.min', {
+                                min: COLLECTION_NAME_MIN_LENGTH,
+                            }),
+                        },
+                        { shouldFocus: true }
+                    );
+                    return;
+                }
+                if (data.collectionName.length > COLLECTION_NAME_MAX_LENGTH) {
+                    setError(
+                        'collectionName',
+                        {
+                            type: 'max',
+                            message: validationsT('collection-name.max', {
+                                max: COLLECTION_NAME_MAX_LENGTH,
+                            }),
+                        },
+                        { shouldFocus: true }
+                    );
+                    return;
+                }
             }
+            // add
             if (
-                data.collectionName.length > 0 &&
-                data.collectionName.length < COLLECTION_NAME_MIN_LENGTH
+                showAddToCollection === EAddToCollection.ADD &&
+                !hasSelectedCollection
             ) {
-                setError(
-                    'collectionName',
-                    {
-                        type: 'min',
-                        message: validationsT('collection-name.min', {
-                            min: COLLECTION_NAME_MIN_LENGTH,
-                        }),
-                    },
-                    { shouldFocus: true }
+                setAddToCollectionError(
+                    validationsT('add-to-collection.required')
                 );
                 return;
+            } else {
+                setAddToCollectionError('');
             }
-            if (data.collectionName.length > COLLECTION_NAME_MAX_LENGTH) {
-                setError(
-                    'collectionName',
-                    {
-                        type: 'max',
-                        message: validationsT('collection-name.max', {
-                            max: COLLECTION_NAME_MAX_LENGTH,
-                        }),
-                    },
-                    { shouldFocus: true }
-                );
+
+            if (show === null || !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET)
                 return;
-            }
-        }
-        // add
-        if (
-            showAddToCollection === EAddToCollection.ADD &&
-            !hasSelectedCollection
-        ) {
-            setAddToCollectionError(validationsT('add-to-collection.required'));
-            return;
-        } else {
-            setAddToCollectionError('');
-        }
 
-        if (
-            !myUser ||
-            show === null ||
-            !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-        )
-            return;
-
-        // name
-        const encryptedName = encryptedData(
-            data.name.trim(),
-            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-        );
-
-        // price
-        const priceWithoutWhiteSpaces = data.price
-            ? removingWhiteSpaces(data.price.trim())
-            : '';
-        const encryptedPrice = encryptedData(
-            priceWithoutWhiteSpaces,
-            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-        );
-        const sendingPrice =
-            show === EPrivacy.ALL ? priceWithoutWhiteSpaces : encryptedPrice;
-
-        // currency
-        const encryptedCurrency = encryptedData(
-            currency,
-            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-        );
-        const sendingCurrency =
-            show === EPrivacy.ALL ? currency : encryptedCurrency;
-
-        // addresses
-        const dataAddresses =
-            data.addresses && data.addresses.length > 0
-                ? data.addresses
-                      .filter((address) => address.value.length > 0)
-                      .map((address) => ({
-                          ...address,
-                          value: address.value.trim(),
-                      }))
-                : [];
-        const encryptedAddresses =
-            dataAddresses.length > 0
-                ? dataAddresses.map((address) =>
-                      process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-                          ? {
-                                ...address,
-                                value: encryptedData(
-                                    address.value,
-                                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-                                ),
-                            }
-                          : address
-                  )
-                : undefined;
-        const sendingAddresses =
-            show === EPrivacy.ALL ? dataAddresses : encryptedAddresses;
-
-        // description
-        const dataDescription = data.description ? data.description.trim() : '';
-        const encryptedDescription = encryptedData(
-            dataDescription,
-            process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-        );
-        const sendingDescription =
-            show === EPrivacy.ALL ? dataDescription : encryptedDescription;
-
-        // images
-        const encryptedImages = images.map((image) => {
-            if (
-                image instanceof File ||
-                !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-            )
-                return image;
-
-            const encryptedImage = { ...image };
-            encryptedImage.path = encryptedData(
-                image.path,
+            // name
+            const encryptedName = encryptedData(
+                data.name.trim(),
                 process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
             );
-            return encryptedImage;
-        });
 
-        // Collections
-        const isSendCollectionName =
-            showAddToCollection === EAddToCollection.CREATE &&
-            data.collectionName;
-        const collectionName = isSendCollectionName
-            ? data.collectionName.trim()
-            : undefined;
-        const isSendCollectionIdList =
-            showAddToCollection === EAddToCollection.ADD &&
-            hasSelectedCollection;
-        const collectionIdList = isSendCollectionIdList
-            ? collections.map((collection) => ({
-                  id: collection.id,
-                  selected: !!collection.selected,
-              }))
-            : undefined;
+            // price
+            const priceWithoutWhiteSpaces = data.price
+                ? removingWhiteSpaces(data.price.trim())
+                : '';
+            const encryptedPrice = encryptedData(
+                priceWithoutWhiteSpaces,
+                process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+            );
+            const sendingPrice =
+                show === EPrivacy.ALL
+                    ? priceWithoutWhiteSpaces
+                    : encryptedPrice;
 
-        const wishData = {
-            userId: myUser.id,
-            material,
-            show,
-            name: show === EPrivacy.ALL ? data.name.trim() : encryptedName,
-            price: material ? sendingPrice : undefined,
-            currency: material ? sendingCurrency : undefined,
-            addresses: material ? sendingAddresses : undefined,
-            description:
-                dataDescription.length > 0 ? sendingDescription : undefined,
-            collectionName,
-            collectionIdList,
-            images: show === EPrivacy.ALL ? images : encryptedImages,
-        };
+            // currency
+            const encryptedCurrency = encryptedData(
+                currency,
+                process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+            );
+            const sendingCurrency =
+                show === EPrivacy.ALL ? currency : encryptedCurrency;
 
-        setIsLoading(true);
-        await updateWish(
-            { ...wishData, id: wish.id },
-            allPagesT('wishes-api.update-wish.success'),
-            allPagesT('wishes-api.update-wish.error')
-        );
+            // addresses
+            const dataAddresses =
+                data.addresses && data.addresses.length > 0
+                    ? data.addresses
+                          .filter((address) => address.value.length > 0)
+                          .map((address) => ({
+                              ...address,
+                              value: address.value.trim(),
+                          }))
+                    : [];
+            const encryptedAddresses =
+                dataAddresses.length > 0
+                    ? dataAddresses.map((address) =>
+                          process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                              ? {
+                                    ...address,
+                                    value: encryptedData(
+                                        address.value,
+                                        process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                                    ),
+                                }
+                              : address
+                      )
+                    : undefined;
+            const sendingAddresses =
+                show === EPrivacy.ALL ? dataAddresses : encryptedAddresses;
 
-        route.push(`/${activeLocale}/user/${myUser.id}/wish?wishId=${wish.id}`);
+            // description
+            const dataDescription = data.description
+                ? data.description.trim()
+                : '';
+            const encryptedDescription = encryptedData(
+                dataDescription,
+                process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+            );
+            const sendingDescription =
+                show === EPrivacy.ALL ? dataDescription : encryptedDescription;
+
+            // images
+            const encryptedImages = images.map((image) => {
+                if (
+                    image instanceof File ||
+                    !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                )
+                    return image;
+
+                const encryptedImage = { ...image };
+                encryptedImage.path = encryptedData(
+                    image.path,
+                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
+                );
+                return encryptedImage;
+            });
+
+            // Collections
+            const isSendCollectionName =
+                showAddToCollection === EAddToCollection.CREATE &&
+                data.collectionName;
+            const collectionName = isSendCollectionName
+                ? data.collectionName.trim()
+                : undefined;
+            const isSendCollectionIdList =
+                showAddToCollection === EAddToCollection.ADD &&
+                hasSelectedCollection;
+            const collectionIdList = isSendCollectionIdList
+                ? collections.map((collection) => ({
+                      id: collection.id,
+                      selected: !!collection.selected,
+                  }))
+                : undefined;
+
+            const wishData = {
+                userId: myUser.id,
+                material,
+                show,
+                name: show === EPrivacy.ALL ? data.name.trim() : encryptedName,
+                price: material ? sendingPrice : undefined,
+                currency: material ? sendingCurrency : undefined,
+                addresses: material ? sendingAddresses : undefined,
+                description:
+                    dataDescription.length > 0 ? sendingDescription : undefined,
+                collectionName,
+                collectionIdList,
+                images: show === EPrivacy.ALL ? images : encryptedImages,
+            };
+
+            setIsLoading(true);
+            await updateWish(
+                { ...wishData, id: wish.id },
+                allPagesT('wishes-api.update-wish.success'),
+                allPagesT('wishes-api.update-wish.error')
+            );
+
+            route.push(
+                `/${activeLocale}/user/${myUser.id}/wish?wishId=${wish.id}`
+            );
+        } else {
+            const guestWishes: string =
+                localStorage.getItem('guestWishes') || '';
+
+            const parsedGuestWishes: IGuestWish[] =
+                guestWishes.length > 0
+                    ? (JSON.parse(guestWishes) as IGuestWish[])
+                    : [];
+
+            const nonUniqueName = parsedGuestWishes.some((currentWish) => {
+                return (
+                    currentWish.name === data.name.trim() &&
+                    currentWish.id !== wish.id
+                );
+            });
+            if (nonUniqueName) {
+                setError(
+                    'name',
+                    {
+                        type: 'unique',
+                        message: validationsT('wish-name.unique'),
+                    },
+                    { shouldFocus: true }
+                );
+                return;
+            }
+
+            if (!show) {
+                return setShowError(mainPageT('private-wish-error'));
+            } else {
+                setShowError('');
+            }
+
+            const guestWish: IGuestWish = {
+                id: wish.id,
+                userId,
+                material,
+                show,
+                name: data.name.trim(),
+                price: data.price?.trim(),
+                currency,
+                addresses: data.addresses,
+                description: data.description.trim(),
+            };
+
+            if (!material) {
+                delete guestWish.price;
+            }
+
+            setIsLoading(true);
+            const index = parsedGuestWishes.findIndex(
+                (wish) => wish.id === guestWish.id
+            );
+
+            if (index !== -1) {
+                parsedGuestWishes[index] = guestWish;
+            }
+
+            localStorage.setItem(
+                'guestWishes',
+                JSON.stringify(parsedGuestWishes)
+            );
+
+            route.push(
+                `/${activeLocale}/user/${userId}/wish?wishId=${guestWish.id}`
+            );
+        }
     };
 
     const removeAllImages = () => {
