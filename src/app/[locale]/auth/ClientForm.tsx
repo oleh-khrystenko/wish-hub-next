@@ -96,6 +96,8 @@ const ClientForm: FC = () => {
     const utm_source = searchParams.get('utm_source') || undefined;
     const utm_medium = searchParams.get('utm_medium') || undefined;
     const utm_campaign = searchParams.get('utm_campaign') || undefined;
+    const utm_content = searchParams.get('utm_content') || undefined;
+    const utm_term = searchParams.get('utm_term') || undefined;
 
     const repeatPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -168,6 +170,8 @@ const ClientForm: FC = () => {
                 utm_source,
                 utm_medium,
                 utm_campaign,
+                utm_content,
+                utm_term,
             },
             allPagesT('my-user-api.google-authorization.error')
         );
@@ -236,6 +240,8 @@ const ClientForm: FC = () => {
                     utm_source,
                     utm_medium,
                     utm_campaign,
+                    utm_content,
+                    utm_term,
                 },
                 allPagesT('my-user-api.registration.error')
             );
