@@ -6,11 +6,13 @@ import {
     WISH_NAME_MAX_LENGTH,
     NAME_MAX_LENGTH,
     NAME_MIN_LENGTH,
-    WISH_DESCRIPTION_MIN_LENGTH,
     WISH_PRICE_MAX_LENGTH,
+    WISH_ADDRESS_MIN_LENGTH,
+    WISH_ADDRESS_MAX_LENGTH,
+    WISH_DESCRIPTION_MIN_LENGTH,
+    WISH_DESCRIPTION_MAX_LENGTH,
     DELIVERY_ADDRESS_MIN_LENGTH,
     DELIVERY_ADDRESS_MAX_LENGTH,
-    WISH_DESCRIPTION_MAX_LENGTH,
     COLLECTION_NAME_MIN_LENGTH,
     COLLECTION_NAME_MAX_LENGTH,
 } from '@/helpers/utils/constants';
@@ -70,6 +72,26 @@ const UseValidations = () => {
                 max: WISH_PRICE_MAX_LENGTH,
             }),
         },
+    };
+
+    // Wish address
+    const wishAddressValidation = (addressLength: number) => {
+        return {
+            ...onlyWhitespaceValidation,
+            minLength: {
+                value: WISH_ADDRESS_MIN_LENGTH,
+                message: validationsT('wish-address.min', {
+                    min: WISH_ADDRESS_MIN_LENGTH - 1,
+                }),
+            },
+            maxLength: {
+                value: WISH_ADDRESS_MAX_LENGTH,
+                message: validationsT('wish-address.max', {
+                    current: addressLength,
+                    max: WISH_ADDRESS_MAX_LENGTH,
+                }),
+            },
+        };
     };
 
     // Wish description
@@ -252,6 +274,7 @@ const UseValidations = () => {
         onlyWhitespaceValidation,
         wishNameValidation,
         wishPriceValidation,
+        wishAddressValidation,
         wishDescriptionValidation,
         emailValidation,
         passwordValidation,

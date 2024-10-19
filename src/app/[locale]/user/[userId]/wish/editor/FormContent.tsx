@@ -25,7 +25,7 @@ import { ICreateWish } from '@/stores/wishes/types';
 import { useSettingsStore } from '@/stores/settings';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import DragNDrop from '@/app/[locale]/user/[userId]/wish/editor/drag-n-drop/DragNDrop';
-import Addresses from '@/app/[locale]/user/[userId]/wish/editor/Addresses';
+import Addresses from '@/app/[locale]/user/[userId]/wish/editor/address/Addresses';
 import AddToCollection from '@/app/[locale]/user/[userId]/wish/editor/AddToCollection';
 import PrivacyChoices from '@/components/layouts/PrivacyChoices';
 import UiInput from '@/components/ui/UiInput';
@@ -335,6 +335,7 @@ const FormContent: FC<IProps> = ({
                         errors={errors}
                         material={material}
                         setValue={setValue}
+                        trigger={trigger}
                         watchingAddresses={watchingAddresses}
                         isEmptyAddress={isEmptyAddress}
                     />

@@ -20,6 +20,10 @@ export const DELIVERY_ADDRESS_MAX_LENGTH = 200;
 
 export const WISH_PRICE_MAX_LENGTH = 19;
 
+export const WISH_ADDRESS_MIN_LENGTH = 5;
+
+export const WISH_ADDRESS_MAX_LENGTH = 2000;
+
 export const WISH_DESCRIPTION_MIN_LENGTH = 2;
 
 export const WISH_DESCRIPTION_MAX_LENGTH = 10000;

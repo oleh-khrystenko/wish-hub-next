@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useRef, useLayoutEffect, useState } from 'react';
+import { FC, useRef, useLayoutEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import {
     useFieldArray,
@@ -6,6 +6,7 @@ import {
     UseFormRegister,
     FieldErrors,
     UseFormSetValue,
+    UseFormTrigger,
 } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import { TWishFormInputs } from '@/models/Wish';
@@ -13,8 +14,7 @@ import { ICreateWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
-import UseValidations from '@/helpers/hooks/UseValidations';
-import UiInput from '@/components/ui/UiInput';
+import AddressInput from '@/app/[locale]/user/[userId]/wish/editor/address/AddressInput';
 import UiModal from '@/components/ui/modal/UiModal';
 import UiButton from '@/components/ui/UiButton';
 import CrossIcon from '@/components/icons/CrossIcon';
@@ -25,6 +25,7 @@ interface IProps {
     errors: FieldErrors<TWishFormInputs>;
     material: ICreateWish['material'];
     setValue: UseFormSetValue<TWishFormInputs>;
+    trigger: UseFormTrigger<TWishFormInputs>;
     watchingAddresses?: TWishFormInputs['addresses'];
     isEmptyAddress: boolean;
 }
@@ -37,6 +38,7 @@ const Addresses: FC<IProps> = ({
     errors,
     material,
     setValue,
+    trigger,
     watchingAddresses,
     isEmptyAddress,
 }) => {
@@ -56,15 +58,6 @@ const Addresses: FC<IProps> = ({
     const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
 
     const utmParams = UseUTMParams();
-    const { onlyWhitespaceValidation } = UseValidations();
-
-    const handleChange = (
-        idx: number,
-        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        setValue(`addresses.${idx}.value`, event.target.value);
-        setIsDirtyForm(true);
-    };
 
     const handleRemove = (idx: number) => {
         remove(idx);
@@ -95,18 +88,13 @@ const Addresses: FC<IProps> = ({
                 watchingAddresses.map((address, idx) => (
                     <div key={address.id}>
                         <div className="flex items-center gap-4">
-                            <UiInput
-                                {...(material &&
-                                    register(
-                                        `addresses.${idx}.value`,
-                                        onlyWhitespaceValidation
-                                    ))}
-                                id={`address-${idx}`}
-                                name={`addresses[${idx}].value`}
-                                type="text"
-                                label={mainPageT('where-to-buy')}
-                                tooltip={mainPageT('where-to-buy-tooltip')}
-                                onChange={(event) => handleChange(idx, event)}
+                            <AddressInput
+                                material={material}
+                                register={register}
+                                idx={idx}
+                                errors={errors}
+                                setValue={setValue}
+                                trigger={trigger}
                             />
 
                             {watchingAddresses.length > 1 && (
@@ -131,12 +119,6 @@ const Addresses: FC<IProps> = ({
                                     </button>
                                 )}
                         </div>
-
-                        {errors?.addresses?.[idx]?.value && (
-                            <span className="mt-1 text-xs text-red-500">
-                                {errors?.addresses?.[idx]?.value?.message}
-                            </span>
-                        )}
                     </div>
                 ))}
 

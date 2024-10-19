@@ -160,6 +160,7 @@ const GuestWish: FC<IProps> = ({ wish }) => {
                                 <span
                                     key={address.id}
                                     className="truncate py-1.5 text-base text-zinc-700 dark:text-zinc-300 tablet-md:text-xl"
+                                    title={address.value}
                                 >
                                     {address.value}
                                 </span>

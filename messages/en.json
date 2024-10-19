@@ -791,6 +791,10 @@
             "pattern": "The price must be a positive integer and not start with \"0\".",
             "max": "Let's try to fit in {max} characters."
         },
+        "wish-address": {
+            "min": "Why such a short address? Please enter an address longer than {min} characters.",
+            "max": "Your address has {current} characters. Let's try to fit within {max} characters."
+        },
         "wish-description": {
             "min": "What is this short wish description? Please come up with a description that is longer than {min} character.",
             "max": "The name of Your wish contains: {current} characters. Let's try to fit it into {max} characters."
