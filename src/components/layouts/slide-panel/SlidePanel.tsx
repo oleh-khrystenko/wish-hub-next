@@ -72,7 +72,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     };
 
     useEffect(() => {
-        if (!currentUserId) return;
+        if (!currentUserId || currentUserId.includes('guest')) return;
 
         getCollections(
             {
@@ -98,7 +98,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
                 className={`${showSlidePanel ? 'scale-y-100 tablet-lg:scale-x-100' : 'scale-y-0 tablet-lg:scale-x-0 tablet-lg:scale-y-100'} ${isMainPage ? 'fixed' : 'fixed -mr-1 tablet-lg:absolute'} inset-0 z-40 flex origin-bottom flex-col justify-end transition-all duration-300 ease-in-out mobile-xs:z-30 tablet-lg:origin-right tablet-lg:pb-1 tablet-lg:pr-1 tablet-lg:pt-20`}
             >
                 <div
-                    className={`${showSlidePanel ? 'opacity-50' : 'opacity-0'} absolute inset-0 -z-10 h-svh w-full bg-zinc-400 transition-all delay-300 duration-300 ease-in-out dark:bg-zinc-950`}
+                    className="absolute inset-0 -z-10 h-svh w-full"
                     onClick={() => setShowSlidePanel(false)}
                 ></div>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { ETheme } from '@/models/Settings';
@@ -39,6 +39,7 @@ interface IProps {
 }
 
 const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
+    const [userId, setUserId] = useState('');
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showContacts, setShowContacts] = useState<boolean>(false);
 
@@ -98,6 +99,14 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
         setResetCollections();
         setShowPopup(false);
     };
+
+    useEffect(() => {
+        const guestWishes = localStorage.getItem('guestWishes');
+        const parsedWishes = guestWishes ? JSON.parse(guestWishes) : [];
+        if (parsedWishes.length > 0) {
+            setUserId(parsedWishes[0].userId);
+        }
+    }, []);
 
     return (
         <div className="relative ml-auto flex items-center justify-center gap-1 mobile-sm:gap-4">
@@ -197,48 +206,48 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                         </UiButton>
                     )}
 
-                    {myUser && (
-                        <>
-                            {pathname !==
-                                `/${activeLocale}/user/${myUser.id}/collection` && (
-                                <UiButton
-                                    href={`/user/${myUser.id}/collection`}
-                                    variant="text"
-                                    onLinkClick={() =>
-                                        setSelectedUserId(myUser.id)
-                                    }
-                                >
-                                    <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
-                                        {theme === ETheme.DARK ? (
-                                            <LogoLightIcon
-                                                classes="h-6 w-6"
-                                                id={`${logoIconId}-popup`}
-                                            />
-                                        ) : (
-                                            <LogoDarkIcon
-                                                classes="h-6 w-6"
-                                                id={`${logoIconId}-popup`}
-                                            />
-                                        )}
-                                        {mainPageT('my_wishes_collection')}
-                                    </span>
-                                </UiButton>
-                            )}
+                    {(myUser || userId.length > 0) &&
+                        pathname !==
+                            `/${activeLocale}/user/${myUser ? myUser.id : userId}/collection` && (
+                            <UiButton
+                                href={`/user/${myUser ? myUser.id : userId}/collection`}
+                                variant="text"
+                                onLinkClick={() =>
+                                    setSelectedUserId(
+                                        myUser ? myUser.id : userId
+                                    )
+                                }
+                            >
+                                <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                                    {theme === ETheme.DARK ? (
+                                        <LogoLightIcon
+                                            classes="h-6 w-6"
+                                            id={`${logoIconId}-popup`}
+                                        />
+                                    ) : (
+                                        <LogoDarkIcon
+                                            classes="h-6 w-6"
+                                            id={`${logoIconId}-popup`}
+                                        />
+                                    )}
+                                    {mainPageT('my_wishes_collection')}
+                                </span>
+                            </UiButton>
+                        )}
 
-                            {pathname !==
-                                `/${activeLocale}/user/${myUser.id}/profile` && (
-                                <UiButton
-                                    href={`/user/${myUser.id}/profile`}
-                                    variant="text"
-                                >
-                                    <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
-                                        <PersonIcon />
-                                        {mainPageT('my-profile')}
-                                    </span>
-                                </UiButton>
-                            )}
-                        </>
-                    )}
+                    {myUser &&
+                        pathname !==
+                            `/${activeLocale}/user/${myUser.id}/profile` && (
+                            <UiButton
+                                href={`/user/${myUser.id}/profile`}
+                                variant="text"
+                            >
+                                <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                                    <PersonIcon />
+                                    {mainPageT('my-profile')}
+                                </span>
+                            </UiButton>
+                        )}
 
                     <div className="flex items-center gap-2 whitespace-nowrap text-lg font-bold text-zinc-800 dark:text-zinc-300">
                         <LangIcon />

@@ -104,7 +104,11 @@ const Body: FC = () => {
                 {myUser?.id !== userId && (
                     <div className="mt-6 flex items-center gap-3 tablet-sm:gap-4">
                         <UiAvatar
-                            avatar={wishesCreator?.avatar}
+                            avatar={
+                                userId.includes('guest')
+                                    ? undefined
+                                    : wishesCreator?.avatar
+                            }
                             alt={getFullName(wishesCreator)}
                             priority
                             size={screenWidth < 768 ? 144 : 208}
@@ -120,9 +124,15 @@ const Body: FC = () => {
 
                         <p
                             className="max-w-32 truncate text-2xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:max-w-40 mobile-sm:max-w-48 mobile-md:max-w-56 mobile-lg:max-w-60 mobile-xl:max-w-72 tablet-sm:max-w-96 tablet-md:max-w-lg tablet-md:text-3xl tablet-lg:max-w-3xl desktop-xs:max-w-5xl"
-                            title={getFullName(wishesCreator)}
+                            title={
+                                userId.includes('guest')
+                                    ? allPagesT('guest')
+                                    : getFullName(wishesCreator)
+                            }
                         >
-                            {getFullName(wishesCreator)}
+                            {userId.includes('guest')
+                                ? allPagesT('guest')
+                                : getFullName(wishesCreator)}
                         </p>
                     </div>
                 )}

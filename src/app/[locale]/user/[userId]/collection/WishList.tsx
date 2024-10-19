@@ -2,27 +2,34 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
+import { IGuestWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
+import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
+import GuestWishItem from '@/app/[locale]/user/[userId]/collection/GuestWishItem';
 import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
 import WishItem from '@/components/layouts/wish-list/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import CreateWishAndCollection from '@/components/layouts/CreateWishAndCollection';
 import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
+import UiModal from '@/components/ui/modal/UiModal';
 import LogoIcon from '@/components/icons/LogoIcon';
 import SliderIcon from '@/components/icons/SliderIcon';
+import ShareIcon from '@/components/icons/ShareIcon';
 
 interface IProps {
     userId: string;
 }
 
 const WishList: FC<IProps> = ({ userId }) => {
+    const [guestWishes, setGuestWishes] = useState<IGuestWish[]>([]);
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
+    const [showAttention, setShowAttention] = useState<boolean>(false);
 
     const wishListRef = useRef<HTMLDivElement>(null);
 
@@ -56,6 +63,7 @@ const WishList: FC<IProps> = ({ userId }) => {
         (state) => state.setShowSlidePanel
     );
 
+    const utmParams = UseUTMParams();
     const { getInitialWishList, getInitialCollectionWishes } =
         UseInitialWishes();
 
@@ -82,7 +90,7 @@ const WishList: FC<IProps> = ({ userId }) => {
             return;
         }
 
-        if (!inView || stopRequests) return;
+        if (!inView || stopRequests || routeUserId.includes('guest')) return;
 
         const fetchWishList = async () => {
             setIsLoadingAdd(true);
@@ -123,46 +131,73 @@ const WishList: FC<IProps> = ({ userId }) => {
 
     useEffect(() => {
         const fetchCollection = async () => {
-            if (collectionId) {
-                await getInitialCollectionWishes(
-                    collectionId,
-                    myUser?.id,
-                    userId,
-                    'createdAt:desc'
+            if (routeUserId.includes('guest')) {
+                const localGuestWishes: string =
+                    localStorage.getItem('guestWishes') || '';
+
+                setGuestWishes(
+                    localGuestWishes.length > 0
+                        ? (JSON.parse(localGuestWishes) as IGuestWish[])
+                        : []
                 );
             } else {
-                await getInitialWishList(myUser?.id, userId);
+                if (collectionId) {
+                    await getInitialCollectionWishes(
+                        collectionId,
+                        myUser?.id,
+                        userId,
+                        'createdAt:desc'
+                    );
+                } else {
+                    await getInitialWishList(myUser?.id, userId);
+                }
             }
         };
 
         fetchCollection().finally();
-    }, [userId, collectionId]);
+    }, [userId, collectionId, routeUserId]);
 
     return (
         <>
             <div className="flex flex-col mobile-sm:flex-row mobile-sm:items-center mobile-sm:justify-between mobile-sm:gap-2">
-                <div className="mr-auto">
-                    <UiButton
-                        variant="text"
-                        onBtnClick={() => setShowSlidePanel(true)}
-                    >
-                        <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
+                {!routeUserId.includes('guest') && (
+                    <div className="mr-auto">
+                        <UiButton
+                            variant="text"
+                            onBtnClick={() => setShowSlidePanel(true)}
+                        >
+                            <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
-                        <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
-                            {allPagesT('filters')}
-                        </span>
-                    </UiButton>
-                </div>
+                            <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
+                                {allPagesT('filters')}
+                            </span>
+                        </UiButton>
+                    </div>
+                )}
 
                 {myUser?.id === userId && (
                     <ShareCollection myUserId={myUser.id} />
                 )}
+
+                {routeUserId.includes('guest') && (
+                    <UiButton
+                        classesWrap="flex item-center gap-2 text-zinc-700 dark:text-zinc-300 ml-auto whitespace-nowrap"
+                        variant="clear-styles"
+                        onBtnClick={() => setShowAttention(true)}
+                    >
+                        {mainPageT('share_wishes')}
+                        <ShareIcon />
+                    </UiButton>
+                )}
             </div>
 
-            {myUser?.id === routeUserId || wishes.length > 0 ? (
+            {myUser?.id === routeUserId ||
+            wishes.length > 0 ||
+            guestWishes.length > 0 ? (
                 <div className="mt-4" ref={wishListRef}>
                     <ul className="grid grid-cols-2 gap-1.5 tablet-md:grid-cols-3 tablet-lg:grid-cols-4 tablet-xl:grid-cols-5 tablet-xl:gap-4 desktop-sm:grid-cols-6">
-                        {myUser?.id === routeUserId && (
+                        {(myUser?.id === routeUserId ||
+                            routeUserId.includes('guest')) && (
                             <CreateWishAndCollection currentPage="collection" />
                         )}
 
@@ -176,11 +211,26 @@ const WishList: FC<IProps> = ({ userId }) => {
                                 />
                             ))}
 
+                        {guestWishes.length > 0 &&
+                            guestWishes.map((wish, idx) => (
+                                <GuestWishItem
+                                    key={wish.id + idx}
+                                    wish={wish}
+                                    idx={idx}
+                                    currentPage="collection"
+                                />
+                            ))}
+
                         {wishesExample.map((wish, idx) => {
-                            if (wishes.length > idx) return null;
+                            const currentWishesLength =
+                                wishes.length || guestWishes.length;
+                            if (currentWishesLength > idx) return null;
 
                             let opacity = 'opacity-0';
-                            if (myUser?.id === routeUserId) {
+                            if (
+                                myUser?.id === routeUserId ||
+                                routeUserId.includes('guest')
+                            ) {
                                 idx === 0 && (opacity = 'opacity-50');
                                 idx === 1 && (opacity = 'opacity-40');
                                 idx === 2 && (opacity = 'opacity-30');
@@ -190,7 +240,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                             return (
                                 <li
                                     key={idx}
-                                    className={`${opacity} flex min-h-96 w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-700`}
+                                    className={`${opacity} flex w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-700`}
                                     onClick={() =>
                                         myUser?.id === routeUserId &&
                                         router.push(
@@ -236,6 +286,31 @@ const WishList: FC<IProps> = ({ userId }) => {
             )}
 
             <SlidePanel wishListRefCurrent={wishListRef.current} />
+
+            <UiModal show={showAttention} hide={() => setShowAttention(false)}>
+                <p className="text-center text-2xl font-bold text-amber-400">
+                    ⚠️ {mainPageT('only_registered_users')} ⚠️
+                </p>
+
+                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
+                    {mainPageT('trying_share_collection')}
+                </p>
+
+                <div className="mt-6 flex items-center justify-end gap-5">
+                    <UiButton
+                        variant="outline"
+                        onBtnClick={() => setShowAttention(false)}
+                    >
+                        {mainPageT('i_see')}
+                    </UiButton>
+
+                    <UiButton
+                        href={`/auth?register${utmParams ? `&${utmParams}` : ''}`}
+                    >
+                        {mainPageT('sign-up')}
+                    </UiButton>
+                </div>
+            </UiModal>
         </>
     );
 };

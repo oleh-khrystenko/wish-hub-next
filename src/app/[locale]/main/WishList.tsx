@@ -48,6 +48,7 @@ const WishList: FC = () => {
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
+    const resetWishList = useWishesStore((state) => state.resetWishList);
     const addWishList = useWishesStore((state) => state.addWishList);
     const addAllWishes = useWishesStore((state) => state.addAllWishes);
     const addCollectionWishes = useWishesStore(
@@ -218,6 +219,12 @@ const WishList: FC = () => {
         fetchWishes().finally();
     }, [collectionId]);
 
+    useEffect(() => {
+        return () => {
+            resetWishList();
+        };
+    }, []);
+
     return (
         <>
             <Title selectedUserFullName={selectedUserFullName} />
@@ -247,7 +254,10 @@ const WishList: FC = () => {
                     ref={wishListRef}
                 >
                     <ul className="grid grid-cols-2 gap-1.5 tablet-lg:grid-cols-3 tablet-xl:grid-cols-4 tablet-xl:gap-4 desktop-sm:grid-cols-5 desktop-xl:grid-cols-6 desktop-2xl:grid-cols-8">
-                        <CreateWishAndCollection currentPage="main" />
+                        {(myUser?.id === selectedUserId ||
+                            (!myUser && !selectedUserId)) && (
+                            <CreateWishAndCollection currentPage="main" />
+                        )}
 
                         {wishes.length > 0 &&
                             wishes.map((wish, idx) => (
@@ -273,7 +283,7 @@ const WishList: FC = () => {
                             return (
                                 <li
                                     key={idx}
-                                    className={`${opacity} flex min-h-96 w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-700`}
+                                    className={`${opacity} flex w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-700`}
                                     onClick={() =>
                                         myUser?.id === selectedUserId &&
                                         router.push(

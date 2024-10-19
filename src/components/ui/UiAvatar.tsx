@@ -82,9 +82,11 @@ const UiAvatar: FC<IProps> = ({
                     )}
                 </>
             ) : (
-                <PersonIcon
-                    classes={`${sizeIcon} fill-zinc-800 dark:fill-zinc-300`}
-                />
+                <div title={alt}>
+                    <PersonIcon
+                        classes={`${sizeIcon} fill-zinc-800 dark:fill-zinc-300`}
+                    />
+                </div>
             )}
         </div>
     );

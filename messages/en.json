@@ -188,7 +188,6 @@
         "manually": "Fill in manually",
         "continue": "Continue",
         "private-wish-error": "You have to select at least one level of privacy you want.",
-        "user_not_found": "User not found",
         "theme": "Theme",
         "privacy_policy_title": "Privacy Policy",
         "my-profile": "My profile",
@@ -228,7 +227,8 @@
         "you_trying_like": "You're trying to like a temporary wish, but this feature is only available to registered users.",
         "you_trying_dislike": "You're trying to dislike a temporary wish, but this feature is only available to registered users.",
         "you_trying_book": "You are trying to book a temporary wish, but this functionality is only available to registered users.",
-        "you_trying_done": "You are trying to mark a temporary wish as fulfilled, but this functionality is only available to registered users."
+        "you_trying_done": "You are trying to mark a temporary wish as fulfilled, but this functionality is only available to registered users.",
+        "trying_share_collection": "You are trying to share your collection, but this functionality is only available to registered users."
     },
     "privacy-policy-page": {
         "head": {
@@ -435,7 +435,6 @@
         "your_wish": "Your wish",
         "created_by": "User's wish",
         "your_unsaved_wish": "Your unsaved wish",
-        "guest": "Guest",
         "share": "Share this wish",
         "show_all_1": "Your wish is visible to",
         "show_all_2": "all",
@@ -743,7 +742,8 @@
         "no_collections_found": "No collections were found according to the specified parameters",
         "slogan": "Makes your dreams come true!",
         "phone": "Phone:",
-        "email": "Email address:"
+        "email": "Email address:",
+        "guest": "Guest"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

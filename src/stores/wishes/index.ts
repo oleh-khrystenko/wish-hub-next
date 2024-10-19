@@ -60,6 +60,7 @@ interface IWishesStore {
     setSelectedWish: (id: IWish['id']) => void;
     setSelectedWishes: (wishIdList: IWish['id'][]) => void;
     resetWishCandidate: () => void;
+    resetWishList: () => void;
     fetchWishDataFromLink: (
         params: { url: string },
         errorT: string
@@ -183,6 +184,14 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         set((state) => ({
             ...state,
             wishCandidate: null,
+        }));
+    },
+    resetWishList: () => {
+        set((state) => ({
+            ...state,
+            list: [],
+            page: 1,
+            stopRequests: false,
         }));
     },
     fetchWishDataFromLink: async (params, errorT) => {

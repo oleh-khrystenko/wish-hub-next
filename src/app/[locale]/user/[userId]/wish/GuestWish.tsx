@@ -24,6 +24,7 @@ const GuestWish: FC<IProps> = ({ wish }) => {
 
     const mainPageT = useTranslations('main-page');
     const wishPageT = useTranslations('wish-page');
+    const allPagesT = useTranslations('all-pages');
 
     const utmParams = UseUTMParams();
 
@@ -82,7 +83,7 @@ const GuestWish: FC<IProps> = ({ wish }) => {
                 >
                     <UiAvatar
                         avatar={undefined}
-                        alt={wishPageT('guest')}
+                        alt={allPagesT('guest')}
                         size={64}
                         sizeTailwind="w-16 min-w-16 h-16 min-h-16"
                         sizeIcon="w-12 h-12"
@@ -90,9 +91,9 @@ const GuestWish: FC<IProps> = ({ wish }) => {
 
                     <p
                         className="text-2xl font-bold text-zinc-700 dark:text-zinc-300"
-                        title={wishPageT('guest')}
+                        title={allPagesT('guest')}
                     >
-                        {wishPageT('guest')}
+                        {allPagesT('guest')}
                     </p>
                 </UiButton>
             </div>
