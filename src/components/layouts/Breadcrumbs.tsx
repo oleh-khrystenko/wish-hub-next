@@ -53,11 +53,11 @@ const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages, isMainPage }) => {
             });
         });
 
-        const breadcrumbJsonLd = JSON.stringify({
+        const breadcrumbJsonLd = {
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             itemListElement,
-        });
+        };
 
         const script = document.createElement('script');
         script.type = 'application/ld+json';
