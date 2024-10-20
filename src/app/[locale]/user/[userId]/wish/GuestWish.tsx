@@ -71,9 +71,9 @@ const GuestWish: FC<IProps> = ({ wish }) => {
                         <ArrowBackIcon />
                     </UiButton>
 
-                    <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-2xl">
+                    <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-2xl">
                         {wishPageT('your_unsaved_wish')}:
-                    </h1>
+                    </p>
                 </div>
 
                 <UiButton
@@ -108,9 +108,9 @@ const GuestWish: FC<IProps> = ({ wish }) => {
                     <ShareIcon />
                 </UiButton>
 
-                <p className="truncate text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:min-h-11 tablet-md:text-4xl">
+                <h1 className="truncate text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:min-h-11 tablet-md:text-4xl">
                     {wish.name}
-                </p>
+                </h1>
             </div>
 
             <div className="mt-6 flex w-full flex-col gap-4">
@@ -149,7 +149,7 @@ const GuestWish: FC<IProps> = ({ wish }) => {
                                         key={address.id}
                                         title={address.value}
                                         target="_blank"
-                                        rel="noopener noreferrer"
+                                        rel="noopener noreferrer external nofollow"
                                     >
                                         {address.value}
                                     </a>

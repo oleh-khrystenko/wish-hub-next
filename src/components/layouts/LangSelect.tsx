@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { UA, US } from 'country-flag-icons/react/3x2';
 import { ELang } from '@/models/Settings';
@@ -50,6 +50,7 @@ const LangSelect: FC<IProps> = ({
 }) => {
     const router = useRouter();
     const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     const activeLocale = useLocale();
     const allPagesT = useTranslations('all-pages');
@@ -65,8 +66,14 @@ const LangSelect: FC<IProps> = ({
             );
         }
 
+        // Отримуємо всі search параметри
+        const allSearchParams = searchParams.toString();
         const newPath = pathname.replace(`/${activeLocale}`, '');
-        router.replace(`/${value}${newPath}`);
+
+        // Створюємо новий URL з мовою і search параметрами
+        const newUrl = `/${value}${newPath}${allSearchParams ? `?${allSearchParams}` : ''}`;
+
+        router.replace(newUrl);
     };
 
     return (

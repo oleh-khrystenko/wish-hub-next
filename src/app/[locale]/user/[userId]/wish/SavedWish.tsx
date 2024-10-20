@@ -109,14 +109,14 @@ const SavedWish: FC = () => {
                         <ArrowBackIcon />
                     </UiButton>
 
-                    <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-2xl">
+                    <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-2xl">
                         {wishPageT(
                             myUser?.id === wish?.userId
                                 ? 'your_wish'
                                 : 'created_by'
                         )}
                         :
-                    </h1>
+                    </p>
 
                     {wish && (
                         <WishMark

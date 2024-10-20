@@ -64,18 +64,6 @@ export default function NotFound() {
         }
         metaDescription.setAttribute('content', headDescriptionT);
 
-        // link canonical
-        let linkCanonical = document.querySelector(
-            'link[rel="canonical"]'
-        ) as HTMLLinkElement | null;
-        if (!linkCanonical) {
-            // Якщо тега не існує, створюємо його
-            linkCanonical = document.createElement('link');
-            linkCanonical.rel = 'canonical';
-            document.head.appendChild(linkCanonical);
-        }
-        linkCanonical.setAttribute('href', 'https://wish-hub.net/uk/not-found');
-
         // link alternate x-default
         let linkDefault = document.querySelector(
             'link[hreflang="x-default"]'

@@ -18,7 +18,7 @@ export async function fetchMetadata(
         title,
         description,
         alternates: {
-            canonical: `https://wish-hub.net/uk/${href === 'welcome' ? '' : href}`,
+            canonical: `https://wish-hub.net/${locale}${href === 'welcome' ? '' : `/${href}`}`,
             languages: {
                 'x-default': `https://wish-hub.net/uk/${href === 'welcome' ? '' : href}`,
                 'uk-ua': `https://wish-hub.net/uk/${href === 'welcome' ? '' : href}`,

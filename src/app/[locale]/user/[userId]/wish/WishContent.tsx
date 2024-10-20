@@ -58,9 +58,9 @@ const WishContent: FC<IProps> = ({ wish, myUser }) => {
     return (
         <>
             <div className="mt-6 flex items-center justify-between gap-5">
-                <p className="text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-4xl">
+                <h1 className="text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-4xl">
                     {unencryptedData(wish.name, wish.show)}
-                </p>
+                </h1>
 
                 {myUser?.id === wish.userId && (
                     <ShareButton
@@ -132,7 +132,7 @@ const WishContent: FC<IProps> = ({ wish, myUser }) => {
                                             key={address.id}
                                             title={unencryptedAddress}
                                             target="_blank"
-                                            rel="noopener noreferrer"
+                                            rel="noopener noreferrer external nofollow"
                                         >
                                             {unencryptedAddress}
                                         </a>
