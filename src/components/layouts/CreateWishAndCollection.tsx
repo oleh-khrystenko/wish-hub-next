@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { v4 as uuidv4 } from 'uuid';
 import { IGuestWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
-import { useWishesStore } from '@/stores/wishes';
+import { useSettingsStore } from '@/stores/settings';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UiButton from '@/components/ui/UiButton';
 import UiModal from '@/components/ui/modal/UiModal';
@@ -27,12 +27,15 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const wishes = useWishesStore((state) => state.list);
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
+    );
 
     const utmParams = UseUTMParams();
 
     const handleCreateCollection = () => {
         if (myUser) {
+            setShowGlobalLoading(true);
             router.push(`/user/${myUser?.id}/collection/editor`);
         } else {
             setShowAttentionCollection(true);
@@ -41,6 +44,7 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
 
     const handleCreateWish = () => {
         if (myUser) {
+            setShowGlobalLoading(true);
             router.push(
                 `/user/${myUser?.id}/wish/editor?fromPage=${currentPage}`
             );
