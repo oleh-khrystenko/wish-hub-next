@@ -15,10 +15,12 @@ import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishItem from '@/app/[locale]/user/[userId]/collection/editor/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
+import CreateWishAndCollection from '@/components/layouts/CreateWishAndCollection';
 import UiLoading from '@/components/ui/UiLoading';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 import SliderIcon from '@/components/icons/SliderIcon';
+import LogoIcon from '@/components/icons/LogoIcon';
 
 type TInputs = {
     collectionName: ICollection['name'];
@@ -41,6 +43,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     const activeLocale = useLocale();
 
     const collectionPageT = useTranslations('collection-page');
+    const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
 
     const { ref, inView } = useInView({
@@ -82,6 +85,21 @@ const WishList: FC<IProps> = ({ userId }) => {
     const { setSelectedWishesInEditCollection } = UseInitialCollection();
 
     const collectionId = searchParams.get('collectionId');
+
+    const wishesExample = [
+        {
+            name: mainPageT('wish-example.first'),
+        },
+        {
+            name: mainPageT('wish-example.second'),
+        },
+        {
+            name: mainPageT('wish-example.third'),
+        },
+        {
+            name: mainPageT('wish-example.fourth'),
+        },
+    ];
 
     const onSubmit: SubmitHandler<TInputs> = async (data) => {
         if (!myUser) return;
@@ -187,10 +205,6 @@ const WishList: FC<IProps> = ({ userId }) => {
                     : 'sortByLikes:desc'
             );
 
-            if (responseWishes && responseWishes.length === 0) {
-                router.replace(`/${activeLocale}/main`);
-            }
-
             if (!responseWishes) return;
             setSelectedWishesInEditCollection(responseWishes);
         };
@@ -232,6 +246,8 @@ const WishList: FC<IProps> = ({ userId }) => {
 
             <div ref={wishListRef}>
                 <ul className="grid grid-cols-2 gap-1.5 tablet-md:grid-cols-3 tablet-lg:grid-cols-4 tablet-xl:grid-cols-5 tablet-xl:gap-4 desktop-sm:grid-cols-6">
+                    <CreateWishAndCollection currentPage="collection" />
+
                     {wishes.length > 0 &&
                         wishes.map((wish, idx) => (
                             <WishItem
@@ -240,6 +256,42 @@ const WishList: FC<IProps> = ({ userId }) => {
                                 idx={idx}
                             />
                         ))}
+
+                    {wishesExample.map((wish, idx) => {
+                        if (wishes.length > idx) return null;
+
+                        let opacity = 'opacity-0';
+                        if (myUser?.id === userId) {
+                            idx === 0 && (opacity = 'opacity-50');
+                            idx === 1 && (opacity = 'opacity-40');
+                            idx === 2 && (opacity = 'opacity-30');
+                            idx === 3 && (opacity = 'opacity-20');
+                        }
+
+                        return (
+                            <li
+                                key={idx}
+                                className={`${opacity} flex w-full flex-col items-center justify-center gap-6 rounded-md border-2 border-dashed border-zinc-300 p-8 dark:border-zinc-700`}
+                                onClick={() =>
+                                    myUser?.id === userId &&
+                                    router.push(
+                                        `/${activeLocale}/user/${myUser?.id}/wish/editor`
+                                    )
+                                }
+                            >
+                                <div className="relative w-full pt-[100%]">
+                                    <LogoIcon
+                                        classes="absolute inset-0 h-full w-full"
+                                        id={`wish-example-${idx}`}
+                                    />
+                                </div>
+
+                                <div className="w-full text-center text-lg font-bold text-zinc-800 dark:text-zinc-300">
+                                    {wish.name}
+                                </div>
+                            </li>
+                        );
+                    })}
 
                     <li
                         className="h-px w-full"

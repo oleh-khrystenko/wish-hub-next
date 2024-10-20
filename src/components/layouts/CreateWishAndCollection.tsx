@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { v4 as uuidv4 } from 'uuid';
 import { IGuestWish } from '@/models/Wish';
@@ -22,6 +22,7 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
     >('');
 
     const router = useRouter();
+    const pathname = usePathname();
 
     const mainPageT = useTranslations('main-page');
 
@@ -68,19 +69,21 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
         <>
             <li className="flex flex-col gap-2">
                 {/* Collection */}
-                <div className="relative flex h-2/3 items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
-                    <UiButton
-                        variant="clear-styles"
-                        classesWrap="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-1 rounded-md border-2 border-dashed border-transparent p-2 transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
-                        onBtnClick={handleCreateCollection}
-                    >
-                        <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-500 group-hover:dark:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />
+                {!pathname.includes('/collection/editor') && (
+                    <div className="relative flex h-2/3 items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
+                        <UiButton
+                            variant="clear-styles"
+                            classesWrap="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-1 rounded-md border-2 border-dashed border-transparent p-2 transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
+                            onBtnClick={handleCreateCollection}
+                        >
+                            <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-500 group-hover:dark:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />
 
-                        <span className="text-center text-xs font-bold text-zinc-700 group-hover:text-cyan-500 dark:text-zinc-400 group-hover:dark:text-cyan-300 mobile-xs:text-sm mobile-md:text-base">
-                            {mainPageT('create_collection')}
-                        </span>
-                    </UiButton>
-                </div>
+                            <span className="text-center text-xs font-bold text-zinc-700 group-hover:text-cyan-500 dark:text-zinc-400 group-hover:dark:text-cyan-300 mobile-xs:text-sm mobile-md:text-base">
+                                {mainPageT('create_collection')}
+                            </span>
+                        </UiButton>
+                    </div>
+                )}
 
                 {/* Wish */}
                 <div className="relative flex h-full items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
