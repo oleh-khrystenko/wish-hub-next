@@ -70,8 +70,8 @@
     },
     "main-page": {
         "head": {
-            "title": "Wish Hub - makes your dreams come true!",
-            "description": "Wish Hub: welcome to the home page! Browse the latest gift ideas and create your wishes."
+            "title": "Online Wish List service from Wish Hub - Wish Lists for special moments✨",
+            "description": "Ukrainian service for creating online e-cards - Wish Hub - Don't delay - create a wish list ⚡\uFE0F on Wish Hub, send it to your friends ❤\uFE0F and wait for cool gifts ❗."
         },
         "pwa": {
             "text_before": "You have the option to install the",
@@ -500,8 +500,8 @@
     },
     "welcome-page": {
         "head": {
-            "title": "Wish Hub - Greetings!",
-            "description": "Wish Hub - makes your dreams come true!"
+            "title": "Wish Hub is a site for creating online Wishlists ✨",
+            "description": "Don't delay - create a Wishlist online at Wish Hub ⚡\uFE0F Wishlist on Wish Hub, drop your friends a line at ❤\uFE0F and wait for cool gifts ❗."
         },
         "sign-in": "Sign In",
         "sign-up": "Sign Up",
