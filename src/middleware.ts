@@ -12,7 +12,7 @@ export default function middleware(request: NextRequest) {
 
     // Перевіряємо, чи це маршрут /welcome
     if (pathname === '/welcome') {
-        // Редіректимо до /uk і зупиняємо подальший обробіток
+        // Редіректимо до /ua і зупиняємо подальший обробіток
         return NextResponse.redirect(new URL(`/${ELang.UK}`, request.url));
     }
 
@@ -22,7 +22,7 @@ export default function middleware(request: NextRequest) {
     // Перевіряємо, чи маршрут уже містить локалізацію
     const isLocalized = langRegex.test(pathname);
 
-    // Якщо маршрут уже містить локалізацію і вона не є кореневою (наприклад, /en або /uk), викликаємо intlMiddleware
+    // Якщо маршрут уже містить локалізацію і вона не є кореневою (наприклад, /en або /ua), викликаємо intlMiddleware
     if (isLocalized) {
         return intlMiddleware(request);
     }

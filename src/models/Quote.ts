@@ -6,6 +6,6 @@ interface IQuoteContent {
 export interface IQuote {
     id: number;
     en: IQuoteContent;
-    uk: IQuoteContent;
+    ua: IQuoteContent;
     ru: IQuoteContent;
 }

@@ -20,8 +20,8 @@ export async function fetchMetadata(
         alternates: {
             canonical: `https://wish-hub.net/${locale}${href === 'welcome' ? '' : `/${href}`}`,
             languages: {
-                'x-default': `https://wish-hub.net/uk/${href === 'welcome' ? '' : href}`,
-                'uk-ua': `https://wish-hub.net/uk/${href === 'welcome' ? '' : href}`,
+                'x-default': `https://wish-hub.net/ua/${href === 'welcome' ? '' : href}`,
+                'uk-ua': `https://wish-hub.net/ua/${href === 'welcome' ? '' : href}`,
                 'en-ua': `https://wish-hub.net/en/${href === 'welcome' ? '' : href}`,
                 'ru-ua': `https://wish-hub.net/ru/${href === 'welcome' ? '' : href}`,
             },

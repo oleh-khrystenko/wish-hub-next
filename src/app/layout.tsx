@@ -71,7 +71,7 @@ export default function Layout({
                             '@context': 'https://schema.org',
                             '@type': 'Organization',
                             name: 'Wish Hub',
-                            url: 'https://wish-hub.net/uk',
+                            url: 'https://wish-hub.net/ua',
                             logo: 'https://wish-hub.net/favicon.svg',
                             description:
                                 'Wish Hub — це сервіс, який допомагає легко створювати та ділитися списками бажань, щоб зробити процес вибору подарунків простішим.',

@@ -1,6 +1,6 @@
 export enum ELang {
     EN = 'en',
-    UK = 'uk',
+    UK = 'ua',
     RU = 'ru',
 }
 

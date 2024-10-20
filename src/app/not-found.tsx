@@ -75,7 +75,7 @@ export default function NotFound() {
             linkDefault.hreflang = 'x-default';
             document.head.appendChild(linkDefault);
         }
-        linkDefault.setAttribute('href', 'https://wish-hub.net/uk/not-found');
+        linkDefault.setAttribute('href', 'https://wish-hub.net/ua/not-found');
 
         // link alternate uk-ua
         let linkUk = document.querySelector(
@@ -88,7 +88,7 @@ export default function NotFound() {
             linkUk.hreflang = 'uk-ua';
             document.head.appendChild(linkUk);
         }
-        linkUk.setAttribute('href', 'https://wish-hub.net/uk/not-found');
+        linkUk.setAttribute('href', 'https://wish-hub.net/ua/not-found');
 
         // link alternate en-ua
         let linkEn = document.querySelector(
