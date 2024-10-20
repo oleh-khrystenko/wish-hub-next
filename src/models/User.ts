@@ -1,5 +1,6 @@
 import { Dayjs } from 'dayjs';
 import { EPrivacy, ELang } from '@/models/Settings';
+import { IGuestWish } from '@/models/Wish';
 
 export interface ICandidate {
     email?: string;
@@ -40,4 +41,5 @@ export interface IAuth {
     accessToken: string;
     refreshToken: string;
     user: IUser;
+    wishes: IGuestWish[];
 }

@@ -32,10 +32,12 @@ export interface IGoogleAuth extends IUTM {
     firstName: IUser['firstName'];
     lastName: IUser['lastName'];
     avatar: IUser['avatar'];
+    guestWishes: string | null;
 }
 
 export interface IRegistration extends ILogin, IUTM {
     firstName: IUser['firstName'];
+    guestWishes: string | null;
 }
 
 export interface IUserId {

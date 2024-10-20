@@ -64,6 +64,10 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 ...state,
                 myUser: response.data.user,
             }));
+
+            if (response.data.wishes.length > 0) {
+                localStorage.removeItem('guestWishes');
+            }
         } catch (error: any) {
             set((state) => ({
                 ...state,

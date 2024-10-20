@@ -16,6 +16,7 @@ import { IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
 import myUserApi from '@/stores/my-user/api';
 import UseValidations from '@/helpers/hooks/UseValidations';
+import UseGuestWishes from '@/helpers/hooks/UseGuestWishes';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 import UiCheckbox from '@/components/ui/UiCheckbox';
@@ -84,6 +85,7 @@ const ClientForm: FC = () => {
         passwordValidation,
         signInPasswordValidation,
     } = UseValidations();
+    const { getGuestWishes } = UseGuestWishes();
 
     let title = authPageT('title.sing_in');
     isSignUp && (title = authPageT('title.sing_up'));
@@ -167,6 +169,7 @@ const ClientForm: FC = () => {
                 firstName: decodedUserData.given_name,
                 lastName: decodedUserData.family_name,
                 avatar: decodedUserData.picture,
+                guestWishes: getGuestWishes(),
                 utm_source,
                 utm_medium,
                 utm_campaign,
@@ -237,6 +240,7 @@ const ClientForm: FC = () => {
                     email: data.email.trim(),
                     password: data.password,
                     lang: activeLocale as ELang,
+                    guestWishes: getGuestWishes(),
                     utm_source,
                     utm_medium,
                     utm_campaign,
