@@ -17,7 +17,9 @@ interface IProps {
 const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
     const [showAttentionCollection, setShowAttentionCollection] =
         useState<boolean>(false);
-    const [showAttentionWish, setShowAttentionWish] = useState<boolean>(false);
+    const [showAttentionWish, setShowAttentionWish] = useState<
+        '' | 'temp' | 'limit'
+    >('');
 
     const router = useRouter();
 
@@ -43,17 +45,17 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
                 `/user/${myUser?.id}/wish/editor?fromPage=${currentPage}`
             );
         } else {
-            const unsavedWishes: string =
-                localStorage.getItem('unsavedWishes') || '';
-            const parsedUnsavedWishes: IGuestWish[] =
-                unsavedWishes.length > 0
-                    ? (JSON.parse(unsavedWishes) as IGuestWish[])
+            const guestWishes: string =
+                localStorage.getItem('guestWishes') || '';
+            const parsedGuestWishes: IGuestWish[] =
+                guestWishes.length > 0
+                    ? (JSON.parse(guestWishes) as IGuestWish[])
                     : [];
 
-            if (parsedUnsavedWishes.length > 3) {
-                setShowAttentionWish(true);
+            if (parsedGuestWishes.length >= 3) {
+                setShowAttentionWish('limit');
             } else {
-                setShowAttentionWish(true);
+                setShowAttentionWish('temp');
             }
         }
     };
@@ -128,27 +130,46 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
 
             {/* Wish */}
             <UiModal
-                show={showAttentionWish}
-                hide={() => setShowAttentionWish(false)}
+                show={showAttentionWish.length > 0}
+                hide={() => setShowAttentionWish('')}
             >
                 <p className="text-center text-2xl font-bold text-amber-400">
-                    ✨ {mainPageT('create_temporary_wish')} ✨
+                    ✨{' '}
+                    {mainPageT(
+                        showAttentionWish === 'temp'
+                            ? 'create_temporary_wish'
+                            : 'wish_limit'
+                    )}{' '}
+                    ✨
                 </p>
 
                 <p className="mt-4 text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('you_are_creating')}
+                    {mainPageT(
+                        showAttentionWish === 'temp'
+                            ? 'you_are_creating'
+                            : 'as_guest_user'
+                    )}
                     <br />
                     <br />
                     {mainPageT('registration_only')}
                 </p>
 
                 <div className="mt-6 flex items-center justify-end gap-5">
-                    <UiButton
-                        href={`/user/guest-${uuidv4()}/wish/editor?fromPage=${currentPage}`}
-                        variant="outline"
-                    >
-                        {mainPageT('temporary_action')}
-                    </UiButton>
+                    {showAttentionWish === 'temp' ? (
+                        <UiButton
+                            href={`/user/guest-${uuidv4()}/wish/editor?fromPage=${currentPage}`}
+                            variant="outline"
+                        >
+                            {mainPageT('temporary_action')}
+                        </UiButton>
+                    ) : (
+                        <UiButton
+                            href={`/auth${utmParams ? `?${utmParams}` : ''}`}
+                            variant="outline"
+                        >
+                            {mainPageT('sign-in')}
+                        </UiButton>
+                    )}
 
                     <UiButton
                         href={`/auth?register${utmParams ? `&${utmParams}` : ''}`}

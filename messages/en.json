@@ -219,6 +219,8 @@
         "sign_up_collection": "Please sign up or log in to your account to create, edit, and view collections!",
         "create_temporary_wish": "Create a Temporary Wish",
         "you_are_creating": "You're creating a temporary wish with certain limitations, which can be lost at any moment. To save your wishes without restrictions and access them from any device, please sign up.",
+        "wish_limit": "Guest Wish Limit",
+        "as_guest_user": "As a guest user, you can create up to 3 wishes. To unlock unlimited access to all features, save more wishes, and access them from any device, please register.",
         "registration_only": "Registration only takes a few seconds via Google or email.",
         "temporary_action": "Create Temporary Wish",
         "i_see": "I See",
