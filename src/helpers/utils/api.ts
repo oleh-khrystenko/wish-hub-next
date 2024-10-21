@@ -1,5 +1,6 @@
 import axios from 'axios';
 import myUserApi from '@/stores/my-user/api';
+import { getLangFromUrl } from '@/helpers/utils/get-lang-from-url';
 
 // Створення екземпляра axios з базовими налаштуваннями
 const api = axios.create({
@@ -10,12 +11,16 @@ const api = axios.create({
             : process.env.NEXT_PUBLIC_API_URL,
 });
 
-// Додавання токену до заголовків кожного запиту
+// Додавання токену і мови до заголовків кожного запиту
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
+
+    // Додаємо заголовок Accept-Language
+    config.headers['Accept-Language'] = getLangFromUrl();
+
     return config;
 });
 

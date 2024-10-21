@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { v4 as uuidv4 } from 'uuid';
 import { IGuestWish } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
@@ -24,6 +24,7 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
     const router = useRouter();
     const pathname = usePathname();
 
+    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -37,7 +38,9 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
     const handleCreateCollection = () => {
         if (myUser) {
             setShowGlobalLoading(true);
-            router.push(`/user/${myUser?.id}/collection/editor`);
+            router.push(
+                `/${activeLocale}/user/${myUser?.id}/collection/editor`
+            );
         } else {
             setShowAttentionCollection(true);
         }
@@ -47,7 +50,7 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
         if (myUser) {
             setShowGlobalLoading(true);
             router.push(
-                `/user/${myUser?.id}/wish/editor?fromPage=${currentPage}`
+                `/${activeLocale}/user/${myUser?.id}/wish/editor?fromPage=${currentPage}`
             );
         } else {
             const guestWishes: string =

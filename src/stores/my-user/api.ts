@@ -17,6 +17,7 @@ import {
 } from '@/stores/my-user/types';
 import { IUser, IAuth } from '@/models/User';
 import { encryptedData } from '@/helpers/utils/encryption-data';
+import { getLangFromUrl } from '@/helpers/utils/get-lang-from-url';
 
 const registration = async (
     data: IRegistration
@@ -75,7 +76,12 @@ const refresh = async (): Promise<AxiosResponse<IAuth>> => {
                 ? process.env.NEXT_PUBLIC_DEV_API_URL
                 : process.env.NEXT_PUBLIC_API_URL
         }/refresh`,
-        { withCredentials: true }
+        {
+            withCredentials: true,
+            headers: {
+                'Accept-Language': getLangFromUrl(), // Додаємо заголовок мови
+            },
+        }
     );
 };
 
