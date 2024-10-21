@@ -84,31 +84,6 @@ const CreateWish: FC = () => {
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
         if (myUser) {
-            const nonUniqueName = wishes.some((wish) => {
-                let wishName = wish.name;
-                if (
-                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET &&
-                    wish.show !== EPrivacy.ALL
-                ) {
-                    wishName = decryptedData(
-                        wish.name,
-                        process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-                    );
-                }
-                return wishName === data.name.trim();
-            });
-            if (nonUniqueName) {
-                setError(
-                    'name',
-                    {
-                        type: 'unique',
-                        message: validationsT('wish-name.unique'),
-                    },
-                    { shouldFocus: true }
-                );
-                return;
-            }
-
             if (!show) {
                 return setShowError(mainPageT('private-wish-error'));
             } else {
@@ -304,11 +279,12 @@ const CreateWish: FC = () => {
                     />,
                     { type: 'success' }
                 );
-            }
 
-            route.push(
-                `/${activeLocale}/user/${myUser.id}/wish?wishId=${response?.wish.id}`
-            );
+                route.push(
+                    `/${activeLocale}/user/${myUser.id}/wish?wishId=${response?.wish.id}`
+                );
+            }
+            setIsLoading(false);
         } else {
             const guestWishes: string =
                 localStorage.getItem('guestWishes') || '';

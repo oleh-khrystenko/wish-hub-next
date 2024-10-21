@@ -98,7 +98,7 @@ const GuestWish: FC<IProps> = ({ wish }) => {
                 </UiButton>
             </div>
 
-            <div className="mt-6 flex flex-col gap-3 tablet-md:flex-row-reverse tablet-md:items-center tablet-md:gap-5">
+            <div className="mt-6 flex flex-col gap-3 tablet-md:flex-row-reverse tablet-md:items-start tablet-md:gap-5">
                 <UiButton
                     classesWrap="flex item-center gap-2 text-zinc-700 dark:text-zinc-300 ml-auto whitespace-nowrap"
                     variant="clear-styles"
@@ -108,7 +108,7 @@ const GuestWish: FC<IProps> = ({ wish }) => {
                     <ShareIcon />
                 </UiButton>
 
-                <h1 className="truncate text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:min-h-11 tablet-md:text-4xl">
+                <h1 className="text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:min-h-11 tablet-md:text-4xl">
                     {wish.name}
                 </h1>
             </div>

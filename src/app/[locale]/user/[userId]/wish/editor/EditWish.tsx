@@ -82,33 +82,6 @@ const EditWish: FC<IProps> = ({ wish }) => {
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
         if (myUser) {
-            const nonUniqueName = wishes.some((currentWish) => {
-                let wishName = currentWish.name;
-                if (
-                    process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET &&
-                    currentWish.show !== EPrivacy.ALL
-                ) {
-                    wishName = decryptedData(
-                        currentWish.name,
-                        process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET
-                    );
-                }
-                return (
-                    wishName === data.name.trim() && currentWish.id !== wish.id
-                );
-            });
-            if (nonUniqueName) {
-                setError(
-                    'name',
-                    {
-                        type: 'unique',
-                        message: validationsT('wish-name.unique'),
-                    },
-                    { shouldFocus: true }
-                );
-                return;
-            }
-
             const hasSelectedCollection = collections.some(
                 (collection) => collection.selected
             );
@@ -286,15 +259,19 @@ const EditWish: FC<IProps> = ({ wish }) => {
             };
 
             setIsLoading(true);
-            await updateWish(
+            const response = await updateWish(
                 { ...wishData, id: wish.id },
                 allPagesT('wishes-api.update-wish.success'),
                 allPagesT('wishes-api.update-wish.error')
             );
 
-            route.push(
-                `/${activeLocale}/user/${myUser.id}/wish?wishId=${wish.id}`
-            );
+            if (response) {
+                route.push(
+                    `/${activeLocale}/user/${myUser.id}/wish?wishId=${wish.id}`
+                );
+            } else {
+                setIsLoading(false);
+            }
         } else {
             const guestWishes: string =
                 localStorage.getItem('guestWishes') || '';

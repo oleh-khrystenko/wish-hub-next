@@ -57,11 +57,7 @@ const WishContent: FC<IProps> = ({ wish, myUser }) => {
 
     return (
         <>
-            <div className="mt-6 flex items-center justify-between gap-5">
-                <h1 className="text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-4xl">
-                    {unencryptedData(wish.name, wish.show)}
-                </h1>
-
+            <div className="mt-6 flex flex-col gap-2 tablet-md:flex-row-reverse tablet-md:items-start tablet-md:justify-between tablet-md:gap-3">
                 {myUser?.id === wish.userId && (
                     <ShareButton
                         link={`/user/${wish.userId}/wish?anyWishId=${wish.id}${myUser ? `&utm_source=user&utm_medium=share&utm_campaign=user_${myUser.id}` : ''}`}
@@ -73,6 +69,10 @@ const WishContent: FC<IProps> = ({ wish, myUser }) => {
                         </span>
                     </ShareButton>
                 )}
+
+                <h1 className="text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-4xl">
+                    {unencryptedData(wish.name, wish.show)}
+                </h1>
             </div>
 
             <div

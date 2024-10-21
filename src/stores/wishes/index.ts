@@ -73,7 +73,7 @@ interface IWishesStore {
         data: IUpdateWish,
         successT: string,
         errorT: string
-    ) => Promise<void>;
+    ) => Promise<IWish | void>;
     getWish: (
         params: IGetAnyWish | IActionWish,
         showAnyWish: boolean,
@@ -246,6 +246,8 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             }));
 
             toast(successT, { type: 'success' });
+
+            return response.data;
         } catch (error: any) {
             toast(error.response?.data?.message || errorT, { type: 'error' });
         } finally {
