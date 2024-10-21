@@ -16,6 +16,11 @@ export default function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL(`/${ELang.UK}`, request.url));
     }
 
+    // Редірект зі сторінки /ua/uk/main на /ua/main
+    if (pathname === `/${ELang.UK}/uk/main`) {
+        return NextResponse.redirect(new URL(`/${ELang.UK}/main`, request.url));
+    }
+
     // Створюємо регулярний вираз на основі перерахування ELang
     const langRegex = new RegExp(`^/(${Object.values(ELang).join('|')})(/|$)`);
 

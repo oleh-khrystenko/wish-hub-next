@@ -784,7 +784,6 @@
         "only-whitespace": "The entered data cannot contain only spaces.",
         "wish-name": {
             "required": "It is impossible to create a wish without a name.",
-            "unique": "Curious how you plan to tell wishes apart with the same name? You already have a wish with this name.",
             "min": "It seems a bit short. Add more creativity. The minimum length of the field is {min} characters.",
             "max": "Your creativity knows no bounds, but your wish name does! Try to fit it within {max} characters."
         },
