@@ -326,33 +326,33 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                             </UiButton>
                         )}
 
-                        {/*{(myUser?.friends.includes(user.id) ||*/}
-                        {/*    myUser?.followTo.includes(user.id)) && (*/}
-                        {/*    <button*/}
-                        {/*        type="button"*/}
-                        {/*        onClick={() =>*/}
-                        {/*            handleRemoveFriend(EWhereRemove.FOLLOW_TO)*/}
-                        {/*        }*/}
-                        {/*    >*/}
-                        {/*        <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />*/}
-                        {/*        {mainPageT('delete-your')} <br />{' '}*/}
-                        {/*        {mainPageT('delete-request')}*/}
-                        {/*    </button>*/}
-                        {/*)}*/}
+                        {myUser?.followTo.includes(user.id) && (
+                            <UiButton
+                                variant="clear-styles"
+                                classesWrap="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                                onBtnClick={() =>
+                                    handleRemoveFriend(EWhereRemove.FOLLOW_TO)
+                                }
+                            >
+                                <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
+                                {mainPageT('delete-your')} <br />{' '}
+                                {mainPageT('delete-request')}
+                            </UiButton>
+                        )}
 
-                        {/*{(myUser?.friends.includes(user.id) ||*/}
-                        {/*    myUser?.followFrom.includes(user.id)) && (*/}
-                        {/*    <button*/}
-                        {/*        type="button"*/}
-                        {/*        onClick={() =>*/}
-                        {/*            handleRemoveFriend(EWhereRemove.FOLLOW_FROM)*/}
-                        {/*        }*/}
-                        {/*    >*/}
-                        {/*        <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />*/}
-                        {/*        {mainPageT('delete-user_s')} <br />{' '}*/}
-                        {/*        {mainPageT('delete-request')}*/}
-                        {/*    </button>*/}
-                        {/*)}*/}
+                        {myUser?.followFrom.includes(user.id) && (
+                            <UiButton
+                                variant="clear-styles"
+                                classesWrap="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                                onBtnClick={() =>
+                                    handleRemoveFriend(EWhereRemove.FOLLOW_FROM)
+                                }
+                            >
+                                <PersonRemoveIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
+                                {mainPageT('delete-user_s')} <br />{' '}
+                                {mainPageT('delete-request')}
+                            </UiButton>
+                        )}
 
                         {myUser?.friends.includes(user.id) && (
                             <UiButton
