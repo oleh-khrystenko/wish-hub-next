@@ -1,48 +1,28 @@
 'use client';
 
 import { FC } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { EWishStatus } from '@/models/Wish';
-import { useMyUserStore } from '@/stores/my-user';
-import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
-import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
-import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
+import UseChangeWishes from '@/helpers/hooks/UseChangeWishes';
 
 interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
 }
 
 const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
-    const searchParams = useSearchParams();
-    const pathname = usePathname();
-
-    const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
-    const allPagesT = useTranslations('all-pages');
-
-    const myUser = useMyUserStore((state) => state.myUser);
-
-    const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
     const status = useWishesStore((state) => state.status);
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const setWishesStatus = useWishesStore((state) => state.setWishesStatus);
-    const getWishList = useWishesStore((state) => state.getWishList);
-    const getAllWishes = useWishesStore((state) => state.getAllWishes);
-    const getCollectionWishes = useWishesStore(
-        (state) => state.getCollectionWishes
-    );
 
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
     );
-
-    const collectionId = searchParams.get('collectionId');
 
     const selectOptions: IOption[] = [
         {
@@ -71,68 +51,19 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
         },
     ];
 
-    const { setSelectedWishesInEditCollection } = UseInitialCollection();
+    const { handleChangeWishes } = UseChangeWishes();
 
     const handleChangeWishStatus = async (value: IOption['value']) => {
         setWishesStatus(value as EWishStatus);
 
-        if (selectedUserId) {
-            if (
-                collectionId &&
-                pathname !==
-                    `/${activeLocale}/user/${selectedUserId}/collection/editor`
-            ) {
-                await getCollectionWishes(
-                    {
-                        collectionId,
-                        myId: myUser?.id,
-                        userId: selectedUserId,
-                        status: value as EWishStatus,
-                        page: 1,
-                        limit: WISHES_PAGINATION_LIMIT,
-                        search,
-                        sort,
-                    },
-                    allPagesT('wishes-api.get-collection-wishes.error')
-                );
-            } else {
-                const wishes = await getWishList(
-                    {
-                        myId: myUser?.id,
-                        userId: selectedUserId,
-                        status: value as EWishStatus,
-                        page: 1,
-                        limit: WISHES_PAGINATION_LIMIT,
-                        search,
-                        sort,
-                    },
-                    allPagesT('wishes-api.get-wish-list.error')
-                );
-
-                if (!wishes) return;
-                setSelectedWishesInEditCollection(wishes);
-            }
-        } else {
-            await getAllWishes(
-                {
-                    page: 1,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    status: value as EWishStatus,
-                    search,
-                    sort,
-                },
-                allPagesT('wishes-api.get-wish-list.error')
-            );
-        }
+        await handleChangeWishes(
+            value as EWishStatus,
+            search,
+            sort,
+            wishListRefCurrent
+        );
 
         setShowSlidePanel(false);
-
-        if (!wishListRefCurrent) return;
-
-        wishListRefCurrent.scrollTo({
-            behavior: 'smooth',
-            top: 0,
-        });
     };
 
     return (

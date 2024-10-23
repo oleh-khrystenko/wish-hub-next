@@ -1,21 +1,15 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { TWishSort } from '@/models/Wish';
-import { useMyUserStore } from '@/stores/my-user';
-import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
-import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
-import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
-import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import SortIcon from '@/components/icons/SortIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
+import UseChangeWishes from '@/helpers/hooks/UseChangeWishes';
 
 interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
@@ -24,31 +18,18 @@ interface IProps {
 const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
 
-    const searchParams = useSearchParams();
-    const pathname = usePathname();
-
-    const activeLocale = useLocale();
     const allPagesT = useTranslations('all-pages');
-
-    const myUser = useMyUserStore((state) => state.myUser);
-
-    const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
     const status = useWishesStore((state) => state.status);
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const setWishesSort = useWishesStore((state) => state.setWishesSort);
-    const getWishList = useWishesStore((state) => state.getWishList);
-    const getAllWishes = useWishesStore((state) => state.getAllWishes);
-    const getCollectionWishes = useWishesStore(
-        (state) => state.getCollectionWishes
-    );
 
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
     );
 
-    const { setSelectedWishesInEditCollection } = UseInitialCollection();
+    const { handleChangeWishes } = UseChangeWishes();
 
     let wishesSortText = allPagesT('sort.title');
     sort === 'sortByLikes:desc' &&
@@ -65,62 +46,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const handleSortBy = async (value: TWishSort) => {
         setWishesSort(value);
 
-        if (selectedUserId) {
-            const collectionId = searchParams.get('collectionId');
-            if (
-                collectionId &&
-                pathname !==
-                    `/${activeLocale}/user/${selectedUserId}/collection/editor`
-            ) {
-                await getCollectionWishes(
-                    {
-                        collectionId,
-                        myId: myUser?.id,
-                        userId: selectedUserId,
-                        status,
-                        page: 1,
-                        limit: WISHES_PAGINATION_LIMIT,
-                        search,
-                        sort: value,
-                    },
-                    allPagesT('wishes-api.get-collection-wishes.error')
-                );
-            } else {
-                const wishes = await getWishList(
-                    {
-                        myId: myUser?.id,
-                        userId: selectedUserId,
-                        status,
-                        page: 1,
-                        limit: WISHES_PAGINATION_LIMIT,
-                        search,
-                        sort: value,
-                    },
-                    allPagesT('wishes-api.get-wish-list.error')
-                );
-
-                if (!wishes) return;
-                setSelectedWishesInEditCollection(wishes);
-            }
-        } else {
-            await getAllWishes(
-                {
-                    page: 1,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    status,
-                    search,
-                    sort: value,
-                },
-                allPagesT('wishes-api.get-all-wishes.error')
-            );
-        }
-
-        if (!wishListRefCurrent) return;
-
-        wishListRefCurrent.scrollTo({
-            behavior: 'smooth',
-            top: 0,
-        });
+        await handleChangeWishes(status, search, value, wishListRefCurrent);
 
         setShowSlidePanel(false);
         setShowPopup(false);
