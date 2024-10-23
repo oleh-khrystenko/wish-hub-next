@@ -1,22 +1,18 @@
-'use client';
-
 import { FC } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { EWishStatus } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
-import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
-import { useSettingsStore } from '@/stores/settings';
-import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
+import { useUsersStore } from '@/stores/users';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
-import UiSelect, { IOption } from '@/components/ui/UiSelect';
+import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
+import UiSearch from '@/components/ui/UiSearch';
 
 interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
 }
 
-const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
+const WishesSearch: FC<IProps> = ({ wishListRefCurrent }) => {
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
@@ -31,50 +27,19 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
     const status = useWishesStore((state) => state.status);
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
-    const setWishesStatus = useWishesStore((state) => state.setWishesStatus);
+    const setWishesSearch = useWishesStore((state) => state.setWishesSearch);
     const getWishList = useWishesStore((state) => state.getWishList);
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
     const getCollectionWishes = useWishesStore(
         (state) => state.getCollectionWishes
     );
 
-    const setShowSlidePanel = useSettingsStore(
-        (state) => state.setShowSlidePanel
-    );
-
     const collectionId = searchParams.get('collectionId');
-
-    const selectOptions: IOption[] = [
-        {
-            label: (
-                <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
-                    {mainPageT('all')}
-                </span>
-            ),
-            value: EWishStatus.ALL,
-        },
-        {
-            label: (
-                <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
-                    {mainPageT('unfulfilled')}
-                </span>
-            ),
-            value: EWishStatus.UNFULFILLED,
-        },
-        {
-            label: (
-                <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
-                    {mainPageT('fulfilled.plural')}
-                </span>
-            ),
-            value: EWishStatus.FULFILLED,
-        },
-    ];
 
     const { setSelectedWishesInEditCollection } = UseInitialCollection();
 
-    const handleChangeWishStatus = async (value: IOption['value']) => {
-        setWishesStatus(value as EWishStatus);
+    const handleChangeSearchBar = async (value: string) => {
+        setWishesSearch(value);
 
         if (selectedUserId) {
             if (
@@ -87,10 +52,10 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
                         collectionId,
                         myId: myUser?.id,
                         userId: selectedUserId,
-                        status: value as EWishStatus,
+                        status,
                         page: 1,
                         limit: WISHES_PAGINATION_LIMIT,
-                        search,
+                        search: value,
                         sort,
                     },
                     allPagesT('wishes-api.get-collection-wishes.error')
@@ -100,10 +65,10 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
                     {
                         myId: myUser?.id,
                         userId: selectedUserId,
-                        status: value as EWishStatus,
                         page: 1,
                         limit: WISHES_PAGINATION_LIMIT,
-                        search,
+                        status,
+                        search: value,
                         sort,
                     },
                     allPagesT('wishes-api.get-wish-list.error')
@@ -117,15 +82,13 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
                 {
                     page: 1,
                     limit: WISHES_PAGINATION_LIMIT,
-                    status: value as EWishStatus,
-                    search,
+                    status,
+                    search: value,
                     sort,
                 },
-                allPagesT('wishes-api.get-wish-list.error')
+                allPagesT('wishes-api.get-all-wishes.error')
             );
         }
-
-        setShowSlidePanel(false);
 
         if (!wishListRefCurrent) return;
 
@@ -136,16 +99,13 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
     };
 
     return (
-        <div className="flex flex-col gap-5 mobile-xs:gap-8">
-            <UiSelect
-                label={mainPageT('wishes_status')}
-                hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
-                options={selectOptions}
-                value={status}
-                onChange={handleChangeWishStatus}
-            />
-        </div>
+        <UiSearch
+            id="wishes-search"
+            label={mainPageT('wishes-search')}
+            value={search}
+            changeSearchBar={handleChangeSearchBar}
+        />
     );
 };
 
-export default WishListFilters;
+export default WishesSearch;

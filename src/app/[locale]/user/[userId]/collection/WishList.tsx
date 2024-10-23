@@ -13,6 +13,7 @@ import GuestWishItem from '@/app/[locale]/user/[userId]/collection/GuestWishItem
 import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
 import WishItem from '@/components/layouts/wish-list/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
+import WishesSearch from '@/components/layouts/WishesSearch';
 import CreateWishAndCollection from '@/components/layouts/CreateWishAndCollection';
 import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
@@ -189,6 +190,10 @@ const WishList: FC<IProps> = ({ userId }) => {
                         <ShareIcon />
                     </UiButton>
                 )}
+            </div>
+
+            <div className="mt-5">
+                <WishesSearch wishListRefCurrent={wishListRef.current} />
             </div>
 
             {myUser?.id === routeUserId ||

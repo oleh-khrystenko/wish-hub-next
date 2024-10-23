@@ -119,13 +119,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
                         </button>
                     </div>
 
-                    <div className="rounded-xl bg-zinc-200 px-2 pb-4 pt-3 dark:bg-zinc-900 mobile-lg:px-4 mobile-lg:pb-6 tablet-lg:h-full">
-                        {(collections.length > 0 || search.length > 0) && (
-                            <Collections
-                                handleDeleteCollection={handleDeleteCollection}
-                            />
-                        )}
-
+                    <div className="rounded-xl bg-zinc-200 px-2 pb-2 pt-3 dark:bg-zinc-900 mobile-lg:px-4 mobile-lg:pb-6 tablet-lg:h-full">
                         <WishListActions
                             wishListRefCurrent={wishListRefCurrent}
                         />
@@ -133,6 +127,12 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
                         <WishListFilters
                             wishListRefCurrent={wishListRefCurrent}
                         />
+
+                        {(collections.length > 0 || search.length > 0) && (
+                            <Collections
+                                handleDeleteCollection={handleDeleteCollection}
+                            />
+                        )}
                     </div>
                 </div>
             </div>

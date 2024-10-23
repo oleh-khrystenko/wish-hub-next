@@ -14,6 +14,7 @@ import Title from '@/app/[locale]/main/Title';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import WishItem from '@/components/layouts/wish-list/WishItem';
 import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
+import WishesSearch from '@/components/layouts/WishesSearch';
 import CreateWishAndCollection from '@/components/layouts/CreateWishAndCollection';
 import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
@@ -246,6 +247,10 @@ const WishList: FC = () => {
                 {myUser?.id === selectedUserId && wishes.length > 0 && (
                     <ShareCollection myUserId={myUser.id} />
                 )}
+            </div>
+
+            <div className="mt-5">
+                <WishesSearch wishListRefCurrent={wishListRef.current} />
             </div>
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (

@@ -154,7 +154,7 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
     }, [inView]);
 
     return (
-        <div className="mb-2 flex flex-col gap-1 border-b border-zinc-300 pb-4 dark:border-zinc-800 mobile-sm:pb-6">
+        <div className="mt-4 flex flex-col gap-1 border-t border-zinc-400 pt-3 dark:border-zinc-700">
             <div className="flex items-center justify-between gap-2">
                 {/* Title */}
                 <p className="mr-auto flex items-center gap-2 pl-2 text-sm font-bold text-zinc-500 dark:text-zinc-400 mobile-lg:text-base">
@@ -176,8 +176,9 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                     </UiButton>
 
                     <UiPopup
-                        classes="pt-10 pr-4"
+                        classes={`${collections.length < 2 ? 'pb-10' : 'pt-10'} pr-4`}
                         show={showPopup}
+                        showPopupUp={collections.length < 2}
                         hide={() => setShowPopup(false)}
                     >
                         <div className="flex flex-col p-2">
@@ -239,7 +240,7 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                 {/* List */}
                 {collections.length > 0 ? (
                     <ul
-                        className="flex max-h-[calc(100svh_-_404px)] flex-col gap-1 overflow-y-auto overflow-x-hidden pl-3 pr-1 mobile-xs:max-h-[calc(100svh_-_600px)] mobile-md:max-h-[calc(100svh_-_650px)] tablet-lg:max-h-[calc(100svh_-_568px)]"
+                        className="flex max-h-[calc(100svh_-_340px)] flex-col gap-1 overflow-y-auto overflow-x-hidden pl-3 pr-1 mobile-xs:max-h-[calc(100svh_-_500px)] mobile-md:max-h-[calc(100svh_-_550px)] tablet-lg:max-h-[calc(100svh_-_493px)]"
                         ref={collectionListRef}
                     >
                         {collectionId && (
@@ -264,7 +265,7 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                                 className={`${collection.id === collectionId ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
                             >
                                 <UiButton
-                                    href={`${pathname.replace(`/${activeLocale}/`, '')}?collectionId=${collection.id}`}
+                                    href={`${pathname.replace(`/${activeLocale}/`, '').replace('/editor', '')}?collectionId=${collection.id}`}
                                     variant="clear-styles"
                                     classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
                                     onLinkClick={() => setShowSlidePanel(false)}

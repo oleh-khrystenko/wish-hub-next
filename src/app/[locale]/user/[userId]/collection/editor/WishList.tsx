@@ -15,6 +15,7 @@ import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishItem from '@/app/[locale]/user/[userId]/collection/editor/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
+import WishesSearch from '@/components/layouts/WishesSearch';
 import CreateWishAndCollection from '@/components/layouts/CreateWishAndCollection';
 import UiLoading from '@/components/ui/UiLoading';
 import UiInput from '@/components/ui/UiInput';
@@ -224,6 +225,10 @@ const WishList: FC<IProps> = ({ userId }) => {
                         {allPagesT('filters')}
                     </span>
                 </UiButton>
+            </div>
+
+            <div className="mt-5">
+                <WishesSearch wishListRefCurrent={wishListRef.current} />
             </div>
 
             <form

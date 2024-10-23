@@ -44,14 +44,11 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
         (state) => state.getCollectionWishes
     );
 
-    const collections = useCollectionsStore((state) => state.list);
-
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
     );
 
     const { setSelectedWishesInEditCollection } = UseInitialCollection();
-    const screenWidth = UseScreenWidth();
 
     let wishesSortText = allPagesT('sort.title');
     sort === 'sortByLikes:desc' &&
@@ -152,9 +149,8 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                 </UiButton>
 
                 <UiPopup
-                    classes={`${screenWidth < 1024 || collections.length > 0 ? 'pb-10' : 'pt-10'} pr-4`}
+                    classes="pt-10 pr-4"
                     show={showPopup}
-                    showPopupUp={screenWidth < 1024 || collections.length > 0}
                     hide={() => setShowPopup(false)}
                 >
                     <div className="flex flex-col p-2">
