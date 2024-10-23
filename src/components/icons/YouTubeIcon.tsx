@@ -1,9 +1,13 @@
 import { FC } from 'react';
 
-const YouTubeIcon: FC = () => {
+interface IProps {
+    classes?: string;
+}
+
+const YouTubeIcon: FC<IProps> = ({ classes = 'h-6 w-6' }) => {
     return (
         <svg
-            className="h-6 w-6 transition-all duration-300 ease-in-out"
+            className={`${classes} transition-all duration-300 ease-in-out`}
             viewBox="0 0 16 16"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

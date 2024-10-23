@@ -30,7 +30,7 @@ import LogoLightIcon from '@/components/icons/LogoLightIcon';
 import PersonIcon from '@/components/icons/PersonIcon';
 import SettingIcon from '@/components/icons/SettingIcon';
 import MainIcon from '@/components/icons/MainIcon';
-// import YouTubeIcon from '@/components/icons/YouTubeIcon';
+import YouTubeIcon from '@/components/icons/YouTubeIcon';
 
 interface IProps {
     isMainPage?: boolean;
@@ -263,15 +263,15 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                 </div>
 
                 <div className="flex flex-col items-stretch gap-1 border-t border-zinc-500 px-4 py-2 dark:border-zinc-600 mobile-xs:gap-2">
-                    {/*<UiButton*/}
-                    {/*    href={`instruction${utmParams ? `?${utmParams}` : ''}`}*/}
-                    {/*    variant="text"*/}
-                    {/*>*/}
-                    {/*    <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">*/}
-                    {/*        <YouTubeIcon />*/}
-                    {/*        {mainPageT('instruction')}*/}
-                    {/*    </span>*/}
-                    {/*</UiButton>*/}
+                    <UiButton
+                        href={`instruction${utmParams ? `?${utmParams}` : ''}`}
+                        variant="text"
+                    >
+                        <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                            <YouTubeIcon />
+                            {mainPageT('instruction')}
+                        </span>
+                    </UiButton>
 
                     <UiButton
                         href={`about${utmParams ? `?${utmParams}` : ''}`}

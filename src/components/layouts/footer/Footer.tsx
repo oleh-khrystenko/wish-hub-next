@@ -25,6 +25,10 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
             title: allPagesT('main'),
         },
         {
+            href: `instruction${utmParams ? `?${utmParams}` : ''}`,
+            title: allPagesT('instruction'),
+        },
+        {
             href: `about${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('about'),
         },

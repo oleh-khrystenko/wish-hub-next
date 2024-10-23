@@ -68,6 +68,25 @@
             "description": "Wish Hub will help you change the password for your account. Enter the new password to keep your account secure."
         }
     },
+    "instruction-page": {
+        "head": {
+            "title": "Wish Hub - Video Instructions",
+            "description": "Wish Hub provides video tutorials to help you use the platform with ease."
+        },
+        "title_before": "",
+        "title_after": " Video Instructions",
+        "subtitle": "Welcome to the Instructions section of the Wish Hub!",
+        "here_you_find": "Here you'll find all the videos you need to help you get started quickly and efficiently on our platform. Learn how to create wishes, organize them into collections, set up privacy, and interact with other users.",
+        "list_title": "\uD83C\uDF1F What awaits you:",
+        "tips_and_tricks": "Tips and tricks for creating wishes and collections.",
+        "instructions_for_setting": "Instructions for setting the privacy level.",
+        "tips_for_making": "Tips for making friends and interacting with other users.",
+        "unlock": "Unlock all the features of your profile.",
+        "dont_miss": "Don't miss a single video and learn how to use Wish Hub to its fullest potential!",
+        "subscribe": "Subscribe to stay up to date with new instructions and updates. \uD83C\uDFA5✨",
+        "overview": "Quick Overview of Features and Functionality",
+        "how_easy": "How easy it is to create a wish in Wish Hub: Step-by-step video guide"
+    },
     "main-page": {
         "head": {
             "title": "Online Wish List service from Wish Hub - Wish Lists for special moments✨",
@@ -712,6 +731,7 @@
         "collection_editor": "Collection Editor",
         "wish": "Wish",
         "wish_editor": "Wish Editor",
+        "instruction": "Instruction",
         "filters": "Filters",
         "broken_image": "Failed to load image",
         "sort": {

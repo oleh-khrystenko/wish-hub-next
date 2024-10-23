@@ -47,7 +47,7 @@ const UiLoading: FC<IProps> = ({
 
     return (
         <div
-            className={`${isLocal ? 'absolute h-full' : 'fixed h-svh'} ${bg} inset-0 z-50 flex w-full flex-col items-center justify-center gap-5`}
+            className={`${isLocal ? 'absolute z-10 h-full' : 'fixed z-50 h-svh'} ${bg} inset-0 flex w-full flex-col items-center justify-center gap-5`}
         >
             <div className={`${size} relative inline-block`}>
                 <div className="absolute left-[82.5%] top-[46.25%] h-[7.5%] w-[7.5%] animate-spinner-1 rounded-full bg-cyan-500 dark:bg-cyan-300"></div>
