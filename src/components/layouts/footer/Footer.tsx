@@ -43,7 +43,7 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
             <Divider />
 
             <div className="bg-zinc-300 px-4 pt-4 dark:bg-zinc-800">
-                <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
+                <div className="mx-auto flex w-full max-w-7xl flex-col gap-3">
                     <div className="grid gap-6 tablet-lg:grid-cols-2 desktop-xs:grid-cols-3">
                         <div>
                             <div className="-ml-4">
@@ -77,11 +77,11 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
                                     wish.hub.net@gmail.com
                                 </a>
                             </p>
-                        </div>
-                    </div>
 
-                    <div className="flex items-center justify-center gap-4 desktop-xs:mt-4">
-                        <SocialNetworks />
+                            <div className="flex items-center gap-4 desktop-xs:mt-4">
+                                <SocialNetworks />
+                            </div>
+                        </div>
                     </div>
 
                     <p className="w-full border-t border-solid border-zinc-400 p-2 text-center text-sm font-bold text-zinc-400 dark:border-zinc-500 dark:text-zinc-500">

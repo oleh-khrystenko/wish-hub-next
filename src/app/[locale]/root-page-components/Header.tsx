@@ -8,7 +8,7 @@ import UiBrand from '@/components/ui/UiBrand';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 
 const Header: FC = () => {
-    const screenWidth = UseScreenWidth();
+    const { screenWidth } = UseScreenWidth();
 
     return (
         <header className="absolute -left-4 right-0 top-0 flex items-center justify-between gap-4 py-4 tablet-md:px-0 tablet-md:py-6">

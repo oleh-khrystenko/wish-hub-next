@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, RefObject, useEffect, useRef, useState } from 'react';
 import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
@@ -7,6 +7,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
+import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import { COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -18,10 +19,18 @@ import BasketIcon from '@/components/icons/BasketIcon';
 import SortIcon from '@/components/icons/SortIcon';
 
 interface IProps {
+    slidePanelRef: RefObject<HTMLDivElement>;
+    filtersRef: RefObject<HTMLDivElement>;
     handleDeleteCollection: (currentCollection: ICollection) => void;
 }
 
-const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
+const Collections: FC<IProps> = ({
+    slidePanelRef,
+    filtersRef,
+    handleDeleteCollection,
+}) => {
+    const [collectionListMaxHeight, setCollectionListMaxHeight] =
+        useState<number>(300);
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
@@ -61,6 +70,8 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
     );
+
+    const { screenWidth, screenHeight } = UseScreenWidth();
 
     const collectionId = searchParams.get('collectionId');
 
@@ -153,6 +164,79 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
         fetchWishes().finally();
     }, [inView]);
 
+    useEffect(() => {
+        if (!slidePanelRef.current || !filtersRef.current) return;
+
+        const slidePanelHeight = slidePanelRef.current.clientHeight;
+
+        const topPaddingOfHeader = 4;
+        const heightOfHeader = 72;
+        const topSpaceOfSlidePanel = 4;
+        const bottomSpaceOfSlidePanel = 4;
+        const topPaddingOfSlidePanel = 24;
+        const bottomPaddingOfSlidePanel = 40;
+        const gapOfSlidePanel = 24;
+        const heightOfSlidePanelTitle = 28;
+        const topPaddingOfWishWrapper = 12;
+        const bottomPaddingOfWishWrapper = 4;
+        const heightOfWishHead = 40;
+        const filtersHeight = filtersRef.current.clientHeight;
+        const topMarginOfCollectionWrapper = 16;
+        const topBorderOfCollectionWrapper = 1;
+        const topPaddingOfCollectionWrapper = 12;
+        const gapOfCollectionWrapper = 4;
+        const heightOfCollectionHead = 40;
+        const topPaddingOfCollectionInnerWrapper = 24;
+        const bottomPaddingOfCollectionInnerWrapper = 8;
+        const heightOfCollectionSearch = 48;
+
+        const totalHeight =
+            topPaddingOfSlidePanel +
+            bottomPaddingOfSlidePanel +
+            gapOfSlidePanel +
+            heightOfSlidePanelTitle +
+            topPaddingOfWishWrapper +
+            bottomPaddingOfWishWrapper +
+            heightOfWishHead +
+            filtersHeight +
+            topMarginOfCollectionWrapper +
+            topBorderOfCollectionWrapper +
+            topPaddingOfCollectionWrapper +
+            gapOfCollectionWrapper +
+            heightOfCollectionHead +
+            topPaddingOfCollectionInnerWrapper +
+            bottomPaddingOfCollectionInnerWrapper +
+            heightOfCollectionSearch;
+
+        const coefficient = screenWidth < 360 ? 0.85 : 0.7;
+
+        const outerHeight =
+            topPaddingOfHeader +
+            heightOfHeader +
+            topSpaceOfSlidePanel +
+            bottomSpaceOfSlidePanel;
+
+        const maxFreeSpace = screenHeight - outerHeight;
+
+        if (screenWidth < 1024) {
+            setCollectionListMaxHeight(
+                screenHeight - screenHeight * coefficient
+            );
+        } else {
+            if (slidePanelHeight < maxFreeSpace) {
+                setCollectionListMaxHeight(slidePanelHeight - totalHeight);
+            } else {
+                setCollectionListMaxHeight(
+                    screenHeight - totalHeight - outerHeight
+                );
+            }
+        }
+    }, [
+        screenHeight,
+        slidePanelRef.current?.clientHeight,
+        filtersRef.current?.clientHeight,
+    ]);
+
     return (
         <div className="mt-4 flex flex-col gap-1 border-t border-zinc-400 pt-3 dark:border-zinc-700">
             <div className="flex items-center justify-between gap-2">
@@ -240,7 +324,8 @@ const Collections: FC<IProps> = ({ handleDeleteCollection }) => {
                 {/* List */}
                 {collections.length > 0 ? (
                     <ul
-                        className="flex max-h-[calc(100svh_-_340px)] flex-col gap-1 overflow-y-auto overflow-x-hidden pl-3 pr-1 mobile-xs:max-h-[calc(100svh_-_500px)] mobile-md:max-h-[calc(100svh_-_550px)] tablet-lg:max-h-[calc(100svh_-_493px)]"
+                        style={{ maxHeight: `${collectionListMaxHeight}px` }}
+                        className={`flex flex-col gap-1 overflow-y-auto overflow-x-hidden pl-3 pr-1`}
                         ref={collectionListRef}
                     >
                         {collectionId && (

@@ -33,7 +33,7 @@ const Body: FC = () => {
     const wishesCreator = useWishesStore((state) => state.creator);
 
     const { getFullName } = UseFullName();
-    const screenWidth = UseScreenWidth();
+    const { screenWidth } = UseScreenWidth();
 
     const collectionId = searchParams.get('collectionId');
 

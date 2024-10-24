@@ -55,6 +55,7 @@ const WishList: FC<IProps> = ({ userId }) => {
 
     const wishes = useWishesStore((state) => state.list);
     const status = useWishesStore((state) => state.status);
+    const privacy = useWishesStore((state) => state.privacy);
     const page = useWishesStore((state) => state.page);
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
@@ -171,6 +172,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                     myId: myUser?.id,
                     userId,
                     status,
+                    privacy,
                     page,
                     limit: WISHES_PAGINATION_LIMIT,
                     search,

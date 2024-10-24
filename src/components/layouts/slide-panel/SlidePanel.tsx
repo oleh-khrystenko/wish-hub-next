@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { ECollectionSort, ICollection } from '@/models/Collection';
@@ -24,6 +24,9 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     const [collection, setCollection] = useState<ICollection | null>(null);
     const [showConfirmDeleteCollection, setShowConfirmDeleteCollection] =
         useState<boolean>(false);
+
+    const slidePanelRef = useRef<HTMLDivElement>(null);
+    const filtersRef = useRef<HTMLDivElement>(null);
 
     const { userId } = useParams<{ userId: string }>();
 
@@ -92,10 +95,22 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
         };
     }, [currentUserId]);
 
+    useEffect(() => {
+        if (showSlidePanel) {
+            window.scrollTo({
+                behavior: 'smooth',
+                top: 0,
+            });
+            document.body.classList.add('overflow-hidden');
+        } else {
+            document.body.classList.remove('overflow-hidden');
+        }
+    }, [showSlidePanel]);
+
     return (
         <>
             <div
-                className={`${showSlidePanel ? 'scale-y-100 tablet-lg:scale-x-100' : 'scale-y-0 tablet-lg:scale-x-0 tablet-lg:scale-y-100'} ${isMainPage ? 'fixed' : 'fixed -mr-1 tablet-lg:absolute'} inset-0 z-40 flex origin-bottom flex-col justify-end transition-all duration-300 ease-in-out mobile-xs:z-30 tablet-lg:origin-right tablet-lg:pb-1 tablet-lg:pr-1 tablet-lg:pt-20`}
+                className={`${showSlidePanel ? 'scale-y-100 tablet-lg:scale-x-100' : 'scale-y-0 tablet-lg:scale-x-0 tablet-lg:scale-y-100'} ${isMainPage ? 'fixed' : 'fixed -mr-1 tablet-lg:absolute'} inset-0 z-40 flex origin-bottom flex-col justify-end transition-all duration-300 ease-in-out mobile-xs:z-30 tablet-lg:origin-right tablet-lg:justify-start tablet-lg:pb-1 tablet-lg:pr-1 tablet-lg:pt-20`}
             >
                 <div
                     className="absolute inset-0 -z-10 h-svh w-full"
@@ -103,7 +118,8 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
                 ></div>
 
                 <div
-                    className={`${isMainPage ? 'desktop-xl:w-1/4' : ''} flex flex-col gap-4 border-t border-zinc-200 bg-zinc-300 px-2 pb-6 pt-4 drop-shadow-2xl dark:border-zinc-900 dark:bg-zinc-800 mobile-xs:rounded-t-2xl mobile-lg:gap-6 mobile-lg:px-4 mobile-lg:pb-10 mobile-lg:pt-6 tablet-lg:ml-auto tablet-lg:h-full tablet-lg:w-1/2 tablet-lg:rounded-lg tablet-lg:border-t-0 tablet-xl:w-2/5 desktop-sm:w-1/3`}
+                    className={`${isMainPage ? 'desktop-xl:w-1/4' : ''} flex max-h-[calc(100svh_-_84px)] flex-col gap-4 rounded-t-2xl border-t border-zinc-200 bg-zinc-300 px-2 pb-6 pt-4 drop-shadow-2xl dark:border-zinc-900 dark:bg-zinc-800 mobile-lg:gap-6 mobile-lg:px-4 mobile-lg:pb-10 mobile-lg:pt-6 tablet-lg:ml-auto tablet-lg:h-full tablet-lg:w-1/2 tablet-lg:rounded-lg tablet-lg:border-t-0 tablet-xl:w-2/5 desktop-sm:w-1/3`}
+                    ref={slidePanelRef}
                 >
                     <div className="relative">
                         <p className="px-2 text-zinc-600 dark:text-zinc-300 mobile-lg:text-lg">
@@ -124,13 +140,17 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
                             wishListRefCurrent={wishListRefCurrent}
                         />
 
-                        <WishListFilters
-                            wishListRefCurrent={wishListRefCurrent}
-                        />
+                        <div className="flex flex-col gap-2" ref={filtersRef}>
+                            <WishListFilters
+                                wishListRefCurrent={wishListRefCurrent}
+                            />
+                        </div>
 
                         {(collections.length > 0 || search.length > 0) && (
                             <Collections
                                 handleDeleteCollection={handleDeleteCollection}
+                                slidePanelRef={slidePanelRef}
+                                filtersRef={filtersRef}
                             />
                         )}
                     </div>

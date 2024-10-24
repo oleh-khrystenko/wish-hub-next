@@ -127,7 +127,7 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
     };
 
     return (
-        <div className="flex flex-col gap-2 mobile-xs:gap-3">
+        <>
             <UiSelect
                 label={mainPageT('wishes_status')}
                 hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
@@ -143,7 +143,7 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
                 value={privacy}
                 onChange={handleChangeWishPrivacy}
             />
-        </div>
+        </>
     );
 };
 

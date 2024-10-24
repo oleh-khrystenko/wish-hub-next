@@ -26,7 +26,7 @@ const WishSwiper: FC<IProps> = ({ wish }) => {
 
     const mainPageT = useTranslations('main-page');
 
-    const screenWidth = UseScreenWidth();
+    const { screenWidth } = UseScreenWidth();
 
     let slidesPerView = 3;
     screenWidth >= 390 && (slidesPerView = 4);

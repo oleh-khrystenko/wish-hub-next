@@ -27,7 +27,7 @@ const DetailProfile: FC = () => {
     const user = useUsersStore((state) => state.user);
 
     const { getFullName } = UseFullName();
-    const screenWidth = UseScreenWidth();
+    const { screenWidth } = UseScreenWidth();
     const { getMonthWithDate } = UseLocaleFormats();
 
     // Avatar

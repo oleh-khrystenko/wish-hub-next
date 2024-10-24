@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const UiTooltip: FC<IProps> = ({ id }) => {
-    const screenWidth = UseScreenWidth();
+    const { screenWidth } = UseScreenWidth();
 
     return (
         <Tooltip
