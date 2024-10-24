@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { TWishSort, EWishStatus, IWish } from '@/models/Wish';
+import { EWishPrivacy, EWishStatus, IWish, TWishSort } from '@/models/Wish';
 import { IUser } from '@/models/User';
 import { ICollection } from '@/models/Collection';
 import { useWishesStore } from '@/stores/wishes';
@@ -48,6 +48,7 @@ const UseInitialWishes = () => {
                 myId,
                 userId,
                 status: EWishStatus.ALL,
+                privacy: EWishPrivacy.ALL,
                 page: 1,
                 limit: WISHES_PAGINATION_LIMIT,
                 search: '',
@@ -76,6 +77,7 @@ const UseInitialWishes = () => {
                 myId,
                 userId,
                 status: EWishStatus.ALL,
+                privacy: EWishPrivacy.ALL,
                 page: 1,
                 limit: WISHES_PAGINATION_LIMIT,
                 search: '',

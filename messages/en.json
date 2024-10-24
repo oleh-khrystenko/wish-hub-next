@@ -126,11 +126,8 @@
         "delete-user_s": "Delete user's friend request",
         "delete-request": "",
         "remove-friend": "Remove friend",
-        "at-user": "User",
-        "does_not_have_all": "doesn't have any wishes available for viewing.",
-        "does_not_have_fulfilled": "doesn't have any fulfilled wishes available for viewing.",
-        "does_not_have_unfulfilled": "doesn't have any unfulfilled wishes available for viewing.",
-        "no_wishes_found": "According to the specified parameters, no wishes were found.",
+        "at_user": "User",
+        "does_not_have": "doesn't have any wishes available for viewing.",
         "wish-example": {
             "first": "Your gifts",
             "second": "Your wishes",
@@ -138,11 +135,15 @@
             "fourth": "Your dreams"
         },
         "create-wish": "Create Wish",
+        "booked": "Booked",
         "unfulfilled": "Unfulfilled",
         "fulfilled": {
             "single": "Fulfilled",
             "plural": "Fulfilled"
         },
+        "public": "Public",
+        "for_friends": "For Friends",
+        "private": "Private",
         "reserved": "In progress",
         "reserved_by_your": "Reserved by You",
         "my_wishes": "My Wishes",
@@ -224,6 +225,7 @@
         "create_collection": "Create collection",
         "collections": "Collections",
         "wishes_status": "Wishes status",
+        "wishes_privacy": "Wishes privacy",
         "collection_block": "Add to Collection",
         "none_collection": "Do not add to a collection",
         "create_for_wish": "Create a collection for this wish",

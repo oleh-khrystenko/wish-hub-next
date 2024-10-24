@@ -12,6 +12,7 @@ const WishesSearch: FC<IProps> = ({ wishListRefCurrent }) => {
     const mainPageT = useTranslations('main-page');
 
     const status = useWishesStore((state) => state.status);
+    const privacy = useWishesStore((state) => state.privacy);
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const setWishesSearch = useWishesStore((state) => state.setWishesSearch);
@@ -21,7 +22,13 @@ const WishesSearch: FC<IProps> = ({ wishListRefCurrent }) => {
     const handleChangeSearchBar = async (value: string) => {
         setWishesSearch(value);
 
-        await handleChangeWishes(status, value, sort, wishListRefCurrent);
+        await handleChangeWishes(
+            status,
+            privacy,
+            value,
+            sort,
+            wishListRefCurrent
+        );
     };
 
     return (

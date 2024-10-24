@@ -46,6 +46,7 @@ const WishList: FC = () => {
     const wishes = useWishesStore((state) => state.list);
     const page = useWishesStore((state) => state.page);
     const status = useWishesStore((state) => state.status);
+    const privacy = useWishesStore((state) => state.privacy);
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
@@ -90,28 +91,6 @@ const WishList: FC = () => {
         },
     ];
 
-    let doesNotHave;
-    status === EWishStatus.ALL &&
-        (doesNotHave = mainPageT('does_not_have_all'));
-    status === EWishStatus.FULFILLED &&
-        (doesNotHave = mainPageT('does_not_have_fulfilled'));
-    status === EWishStatus.UNFULFILLED &&
-        (doesNotHave = mainPageT('does_not_have_unfulfilled'));
-
-    let emptyText;
-    myUser?.id !== selectedUserId &&
-        (emptyText = (
-            <>
-                <span>{mainPageT('at-user')}</span>
-                <span className="max-w-full truncate px-0.5 text-center text-xl italic text-zinc-700 dark:text-zinc-300">
-                    {selectedUserFullName}
-                </span>
-                <span>{doesNotHave}</span>
-            </>
-        ));
-    !selectedUserId &&
-        (emptyText = <span>{mainPageT('no_wishes_found')}</span>);
-
     useEffect(() => {
         const fetchWishes = async () => {
             if (firstLoad) {
@@ -131,6 +110,7 @@ const WishList: FC = () => {
                             myId: myUser?.id,
                             userId: selectedUserId,
                             status,
+                            privacy,
                             page,
                             limit: WISHES_PAGINATION_LIMIT,
                             search,
@@ -144,6 +124,7 @@ const WishList: FC = () => {
                             myId: myUser?.id,
                             userId: selectedUserId,
                             status,
+                            privacy,
                             page,
                             limit: WISHES_PAGINATION_LIMIT,
                             search,
@@ -249,7 +230,7 @@ const WishList: FC = () => {
                 )}
             </div>
 
-            <div className="mt-5">
+            <div className="mt-5 pl-2.5">
                 <WishesSearch wishListRefCurrent={wishListRef.current} />
             </div>
 
@@ -328,7 +309,11 @@ const WishList: FC = () => {
             ) : (
                 <div className="flex h-full w-full items-center justify-center">
                     <p className="flex w-full flex-col items-center text-center text-xl text-zinc-700 dark:text-zinc-300">
-                        {emptyText}
+                        {mainPageT('at_user')}
+                        <span className="max-w-full truncate px-0.5 text-center text-xl italic text-zinc-700 dark:text-zinc-300">
+                            {selectedUserFullName}
+                        </span>
+                        {mainPageT('does_not_have')}
                     </p>
                 </div>
             )}

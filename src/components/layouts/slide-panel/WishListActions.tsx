@@ -21,6 +21,7 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const allPagesT = useTranslations('all-pages');
 
     const status = useWishesStore((state) => state.status);
+    const privacy = useWishesStore((state) => state.privacy);
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const setWishesSort = useWishesStore((state) => state.setWishesSort);
@@ -46,7 +47,13 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const handleSortBy = async (value: TWishSort) => {
         setWishesSort(value);
 
-        await handleChangeWishes(status, search, value, wishListRefCurrent);
+        await handleChangeWishes(
+            status,
+            privacy,
+            search,
+            value,
+            wishListRefCurrent
+        );
 
         setShowSlidePanel(false);
         setShowPopup(false);

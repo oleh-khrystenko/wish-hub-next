@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
-import { EWishStatus } from '@/models/Wish';
+import { EWishPrivacy, EWishStatus } from '@/models/Wish';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
@@ -16,15 +16,17 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
     const mainPageT = useTranslations('main-page');
 
     const status = useWishesStore((state) => state.status);
+    const privacy = useWishesStore((state) => state.privacy);
     const search = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const setWishesStatus = useWishesStore((state) => state.setWishesStatus);
+    const setWishesPrivacy = useWishesStore((state) => state.setWishesPrivacy);
 
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
     );
 
-    const selectOptions: IOption[] = [
+    const selectStatusOptions: IOption[] = [
         {
             label: (
                 <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
@@ -32,6 +34,14 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
                 </span>
             ),
             value: EWishStatus.ALL,
+        },
+        {
+            label: (
+                <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
+                    {mainPageT('booked')}
+                </span>
+            ),
+            value: EWishStatus.BOOKED,
         },
         {
             label: (
@@ -51,6 +61,41 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
         },
     ];
 
+    const selectPrivacyOptions: IOption[] = [
+        {
+            label: (
+                <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
+                    {mainPageT('all')}
+                </span>
+            ),
+            value: EWishPrivacy.ALL,
+        },
+        {
+            label: (
+                <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
+                    {mainPageT('public')}
+                </span>
+            ),
+            value: EWishPrivacy.PUBLIC,
+        },
+        {
+            label: (
+                <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
+                    {mainPageT('for_friends')}
+                </span>
+            ),
+            value: EWishPrivacy.FRIENDS,
+        },
+        {
+            label: (
+                <span className="whitespace-nowrap pr-6 text-xs font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-sm">
+                    {mainPageT('private')}
+                </span>
+            ),
+            value: EWishPrivacy.PRIVACY,
+        },
+    ];
+
     const { handleChangeWishes } = UseChangeWishes();
 
     const handleChangeWishStatus = async (value: IOption['value']) => {
@@ -58,6 +103,21 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
 
         await handleChangeWishes(
             value as EWishStatus,
+            privacy,
+            search,
+            sort,
+            wishListRefCurrent
+        );
+
+        setShowSlidePanel(false);
+    };
+
+    const handleChangeWishPrivacy = async (value: IOption['value']) => {
+        setWishesPrivacy(value as EWishPrivacy);
+
+        await handleChangeWishes(
+            status,
+            value as EWishPrivacy,
             search,
             sort,
             wishListRefCurrent
@@ -67,13 +127,21 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
     };
 
     return (
-        <div className="flex flex-col gap-5 mobile-xs:gap-8">
+        <div className="flex flex-col gap-2 mobile-xs:gap-3">
             <UiSelect
                 label={mainPageT('wishes_status')}
                 hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
-                options={selectOptions}
+                options={selectStatusOptions}
                 value={status}
                 onChange={handleChangeWishStatus}
+            />
+
+            <UiSelect
+                label={mainPageT('wishes_privacy')}
+                hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
+                options={selectPrivacyOptions}
+                value={privacy}
+                onChange={handleChangeWishPrivacy}
             />
         </div>
     );

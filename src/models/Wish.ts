@@ -31,8 +31,16 @@ interface ILike {
 
 export enum EWishStatus {
     ALL = 'all',
+    BOOKED = 'booked',
     UNFULFILLED = 'unfulfilled',
     FULFILLED = 'fulfilled',
+}
+
+export enum EWishPrivacy {
+    ALL = 'all',
+    PUBLIC = 'public',
+    FRIENDS = 'friends',
+    PRIVACY = 'privacy',
 }
 
 export type TWishSort =

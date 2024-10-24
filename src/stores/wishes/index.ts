@@ -1,6 +1,12 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
-import { TWishSort, EWishStatus, IWish, IWishCandidate } from '@/models/Wish';
+import {
+    TWishSort,
+    EWishStatus,
+    IWish,
+    IWishCandidate,
+    EWishPrivacy,
+} from '@/models/Wish';
 import { IUser } from '@/models/User';
 import { IQuote } from '@/models/Quote';
 import {
@@ -50,11 +56,13 @@ interface IWishesStore {
     wishCandidate: IWishCandidate | null;
     creator: IUser | null;
     status: EWishStatus;
+    privacy: EWishPrivacy;
     search: string;
     sort: TWishSort;
     page: number;
     stopRequests: boolean;
     setWishesStatus: (value: EWishStatus) => void;
+    setWishesPrivacy: (value: EWishPrivacy) => void;
     setWishesSearch: (value: string) => void;
     setWishesSort: (value: TWishSort) => void;
     setSelectedWish: (id: IWish['id']) => void;
@@ -128,6 +136,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     wishCandidate: null,
     creator: null,
     status: EWishStatus.ALL,
+    privacy: EWishPrivacy.ALL,
     search: '',
     sort: 'sortByLikes:desc',
     page: 1,
@@ -136,6 +145,12 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         set((state) => ({
             ...state,
             status: value,
+        }));
+    },
+    setWishesPrivacy: (value) => {
+        set((state) => ({
+            ...state,
+            privacy: value,
         }));
     },
     setWishesSearch: (value) => {

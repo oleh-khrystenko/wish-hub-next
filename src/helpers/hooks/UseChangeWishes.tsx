@@ -1,6 +1,6 @@
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { TWishSort, EWishStatus } from '@/models/Wish';
+import { TWishSort, EWishStatus, EWishPrivacy } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useUsersStore } from '@/stores/users';
@@ -30,6 +30,7 @@ const UseChangeWishes = () => {
 
     const handleChangeWishes = async (
         status: EWishStatus,
+        privacy: EWishPrivacy,
         search: string,
         sort: TWishSort,
         wishListRefCurrent: HTMLDivElement | null
@@ -46,6 +47,7 @@ const UseChangeWishes = () => {
                         myId: myUser?.id,
                         userId: selectedUserId,
                         status,
+                        privacy,
                         page: 1,
                         limit: WISHES_PAGINATION_LIMIT,
                         search,
@@ -59,6 +61,7 @@ const UseChangeWishes = () => {
                         myId: myUser?.id,
                         userId: selectedUserId,
                         status,
+                        privacy,
                         page: 1,
                         limit: WISHES_PAGINATION_LIMIT,
                         search,
