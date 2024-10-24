@@ -21,13 +21,13 @@ import SortIcon from '@/components/icons/SortIcon';
 interface IProps {
     slidePanelRef: RefObject<HTMLDivElement>;
     filtersRef: RefObject<HTMLDivElement>;
-    handleDeleteCollection: (currentCollection: ICollection) => void;
+    deleteCollection: (currentCollection: ICollection) => void;
 }
 
 const Collections: FC<IProps> = ({
     slidePanelRef,
     filtersRef,
-    handleDeleteCollection,
+    deleteCollection,
 }) => {
     const [collectionListMaxHeight, setCollectionListMaxHeight] =
         useState<number>(300);
@@ -376,9 +376,7 @@ const Collections: FC<IProps> = ({
                                             variant="text-only"
                                             classesWrap="rounded-md p-2 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-2.5"
                                             onBtnClick={() =>
-                                                handleDeleteCollection(
-                                                    collection
-                                                )
+                                                deleteCollection(collection)
                                             }
                                         >
                                             <BasketIcon />

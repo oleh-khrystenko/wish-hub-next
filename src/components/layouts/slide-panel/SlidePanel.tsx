@@ -1,7 +1,12 @@
 'use client';
 
 import { FC, useEffect, useRef, useState } from 'react';
-import { useParams } from 'next/navigation';
+import {
+    useParams,
+    usePathname,
+    useRouter,
+    useSearchParams,
+} from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { ECollectionSort, ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
@@ -28,7 +33,10 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     const slidePanelRef = useRef<HTMLDivElement>(null);
     const filtersRef = useRef<HTMLDivElement>(null);
 
+    const router = useRouter();
+    const pathname = usePathname();
     const { userId } = useParams<{ userId: string }>();
+    const searchParams = useSearchParams();
 
     const allPagesT = useTranslations('all-pages');
 
@@ -71,7 +79,14 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
             })
         );
 
+        const collectionId = searchParams.get('collectionId');
+        if (collectionId === collection.id) {
+            const updatedPath = pathname.split('?')[0];
+            router.replace(updatedPath);
+        }
+
         setShowConfirmDeleteCollection(false);
+        setShowSlidePanel(false);
     };
 
     useEffect(() => {
@@ -148,7 +163,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
 
                         {(collections.length > 0 || search.length > 0) && (
                             <Collections
-                                handleDeleteCollection={handleDeleteCollection}
+                                deleteCollection={handleDeleteCollection}
                                 slidePanelRef={slidePanelRef}
                                 filtersRef={filtersRef}
                             />

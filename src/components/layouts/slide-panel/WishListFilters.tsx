@@ -3,6 +3,7 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { EWishPrivacy, EWishStatus } from '@/models/Wish';
+import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
@@ -14,6 +15,8 @@ interface IProps {
 
 const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
     const mainPageT = useTranslations('main-page');
+
+    const myUser = useMyUserStore((state) => state.myUser);
 
     const status = useWishesStore((state) => state.status);
     const privacy = useWishesStore((state) => state.privacy);
@@ -136,13 +139,15 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
                 onChange={handleChangeWishStatus}
             />
 
-            <UiSelect
-                label={mainPageT('wishes_privacy')}
-                hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
-                options={selectPrivacyOptions}
-                value={privacy}
-                onChange={handleChangeWishPrivacy}
-            />
+            {myUser && (
+                <UiSelect
+                    label={mainPageT('wishes_privacy')}
+                    hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
+                    options={selectPrivacyOptions}
+                    value={privacy}
+                    onChange={handleChangeWishPrivacy}
+                />
+            )}
         </>
     );
 };
