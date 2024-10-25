@@ -1,5 +1,6 @@
 import { ECollectionSort, ICollection } from '@/models/Collection';
 import { IUser } from '@/models/User';
+import { IWish } from '@/models/Wish';
 
 export interface ISendCreateCollection {
     userId: IUser['id'];
@@ -22,6 +23,12 @@ export interface ISendGetCollections {
     limit: number;
     search: string;
     sort: ECollectionSort;
+}
+
+export interface ISendGetWishCollections {
+    wishId: IWish['id'];
+    page: number;
+    limit: number;
 }
 
 export interface IGetCollections {

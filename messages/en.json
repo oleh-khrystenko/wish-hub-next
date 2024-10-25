@@ -507,7 +507,8 @@
         "edit_wish": "Edit wish",
         "cancel": "Cancel",
         "empty": "We were unable to display this preference. It may be hidden due to privacy settings, or it may no longer exist.",
-        "to_main": "To Main"
+        "to_main": "To Main",
+        "this_wish_collections": "Collections of this wish"
     },
     "collection-page": {
         "head": {

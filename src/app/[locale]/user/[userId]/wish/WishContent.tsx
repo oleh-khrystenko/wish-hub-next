@@ -1,12 +1,20 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useInView } from 'react-intersection-observer';
 import { ECurrency, IWish } from '@/models/Wish';
 import { IUser } from '@/models/User';
 import { EPrivacy } from '@/models/Settings';
+import { useCollectionsStore } from '@/stores/collection';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
+import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
+import { WISH_COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishSwiper from '@/app/[locale]/user/[userId]/wish/WishSwiper';
 import ShareButton from '@/components/layouts/ShareButton';
+import UiButton from '@/components/ui/UiButton';
+import UiPopup from '@/components/ui/UiPopup';
+import UiLoading from '@/components/ui/UiLoading';
+import EditIcon from '@/components/icons/EditIcon';
 
 interface IProps {
     wish: IWish;
@@ -14,7 +22,34 @@ interface IProps {
 }
 
 const WishContent: FC<IProps> = ({ wish, myUser }) => {
+    const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [firstLoad, setFirstLoad] = useState<boolean>(true);
+    const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
+
     const wishPageT = useTranslations('wish-page');
+    const allPagesT = useTranslations('all-pages');
+
+    const { ref, inView } = useInView({
+        threshold: 0,
+    });
+
+    const wishCollections = useCollectionsStore(
+        (state) => state.wishCollections
+    );
+    const pageWishCollections = useCollectionsStore(
+        (state) => state.pageWishCollections
+    );
+    const stopRequestsWishCollections = useCollectionsStore(
+        (state) => state.stopRequestsWishCollections
+    );
+    const getWishCollections = useCollectionsStore(
+        (state) => state.getWishCollections
+    );
+    const addWishCollections = useCollectionsStore(
+        (state) => state.addWishCollections
+    );
+
+    const { screenWidth } = UseScreenWidth();
 
     let show = (
         <>
@@ -55,9 +90,125 @@ const WishContent: FC<IProps> = ({ wish, myUser }) => {
         }
     };
 
+    const handleShowPopup = () => {
+        setShowPopup(true);
+    };
+
+    useEffect(() => {
+        const fetchWishCollections = async () => {
+            if (firstLoad) {
+                setFirstLoad(false);
+                return;
+            }
+
+            if (!inView || stopRequestsWishCollections) return;
+
+            setIsLoadingAdd(true);
+
+            await addWishCollections(
+                {
+                    wishId: wish.id,
+                    page: pageWishCollections,
+                    limit: WISH_COLLECTION_PAGINATION_LIMIT,
+                },
+                allPagesT('collections.get-collections.error')
+            );
+
+            setIsLoadingAdd(false);
+        };
+
+        fetchWishCollections().finally();
+    }, [inView]);
+
+    useEffect(() => {
+        const fetchWishCollections = async () => {
+            await getWishCollections(
+                {
+                    wishId: wish.id,
+                    page: 1,
+                    limit: WISH_COLLECTION_PAGINATION_LIMIT,
+                },
+                allPagesT('collections.get-collections.error')
+            );
+        };
+
+        fetchWishCollections().finally();
+    }, []);
+
     return (
         <>
-            <div className="mt-6 flex flex-col gap-2 tablet-md:flex-row-reverse tablet-md:items-start tablet-md:justify-between tablet-md:gap-3">
+            <h1 className="mt-6 text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-4xl">
+                {unencryptedData(wish.name, wish.show)}
+            </h1>
+
+            <div className="mt-3 flex flex-col items-end gap-1 tablet-md:flex-row tablet-md:items-center tablet-md:justify-between tablet-md:gap-3">
+                {wishCollections.length > 0 && (
+                    <div className="relative">
+                        <UiButton
+                            variant="text-btn"
+                            classesWrap="-mr-4 tablet-md:mr-0 tablet-md:-ml-4"
+                            onBtnClick={handleShowPopup}
+                        >
+                            {wishPageT('this_wish_collections')}
+                        </UiButton>
+
+                        <UiPopup
+                            classes="pt-10"
+                            show={showPopup}
+                            showPopupRight={screenWidth >= 768}
+                            hide={() => setShowPopup(false)}
+                        >
+                            <div className="py-2 pr-1">
+                                <ul className="flex max-h-60 flex-col overflow-y-auto px-2">
+                                    {wishCollections.map((collection) => (
+                                        <li
+                                            key={collection.id}
+                                            className="flex items-center justify-between"
+                                        >
+                                            <UiButton
+                                                variant="clear-styles"
+                                                classesWrap="flex w-full items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                                            >
+                                                {collection.name}
+                                            </UiButton>
+
+                                            {wish.userId === myUser?.id && (
+                                                <UiButton
+                                                    href={`user/${myUser?.id}/collection/editor?collectionId=${collection.id}`}
+                                                    variant="text-only"
+                                                >
+                                                    <span className="rounded-md p-2.5 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-3">
+                                                        <EditIcon classes="w-4 h-4 fill-zinc-800 dark:fill-zinc-300" />
+                                                    </span>
+                                                </UiButton>
+                                            )}
+                                        </li>
+                                    ))}
+
+                                    <li
+                                        className="h-px w-full"
+                                        style={{
+                                            display: stopRequestsWishCollections
+                                                ? 'none'
+                                                : 'block',
+                                        }}
+                                        ref={ref}
+                                    ></li>
+
+                                    {isLoadingAdd && (
+                                        <li className="relative h-10 w-full">
+                                            <UiLoading
+                                                isLocal
+                                                size="h-10 min-h-10 w-10 min-w-10"
+                                                bg="bg-transparent"
+                                            />
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
+                        </UiPopup>
+                    </div>
+                )}
                 {myUser?.id === wish.userId && (
                     <ShareButton
                         link={`/user/${wish.userId}/wish?anyWishId=${wish.id}${myUser ? `&utm_source=user&utm_medium=share&utm_campaign=user_${myUser.id}` : ''}`}
@@ -69,10 +220,6 @@ const WishContent: FC<IProps> = ({ wish, myUser }) => {
                         </span>
                     </ShareButton>
                 )}
-
-                <h1 className="text-2xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-4xl">
-                    {unencryptedData(wish.name, wish.show)}
-                </h1>
             </div>
 
             <div

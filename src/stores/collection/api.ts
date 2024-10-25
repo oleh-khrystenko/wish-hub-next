@@ -7,6 +7,7 @@ import {
     ISendCreateCollection,
     ISendDeleteCollection,
     ISendGetCollections,
+    ISendGetWishCollections,
     ISendUpdateCollection,
 } from '@/stores/collection/types';
 import api from '@/helpers/utils/api';
@@ -35,18 +36,25 @@ const getCollections = async (
     return await api.get('/collections', { params });
 };
 
+const getWishCollections = async (
+    params: ISendGetWishCollections
+): Promise<AxiosResponse<IGetCollections>> => {
+    return await api.get('/wish-collections', { params });
+};
+
 const deleteCollection = async (
     params: ISendDeleteCollection
 ): Promise<AxiosResponse<IDeleteCollection>> => {
     return await api.delete('/collection', { params });
 };
 
-const myUserApi = {
+const collectionApi = {
     createCollection,
     updateCollection,
     getCollection,
     getCollections,
+    getWishCollections,
     deleteCollection,
 };
 
-export default myUserApi;
+export default collectionApi;

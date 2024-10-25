@@ -7,6 +7,7 @@ interface IProps {
     classes: string;
     showPopupUp?: boolean;
     showPopupCenter?: boolean;
+    showPopupRight?: boolean;
     show: boolean;
     hide: () => void;
     children: ReactNode;
@@ -16,6 +17,7 @@ const UiPopup: FC<IProps> = ({
     classes,
     showPopupUp = false,
     showPopupCenter = false,
+    showPopupRight = false,
     show,
     hide,
     children,
@@ -25,7 +27,7 @@ const UiPopup: FC<IProps> = ({
     return (
         show && (
             <div
-                className={`${classes} ${showPopupUp ? 'bottom-0' : 'top-0'} ${showPopupCenter ? 'left-1/2 -translate-x-1/2' : 'right-0'} absolute z-40 max-h-svh max-w-72 mobile-xs:max-w-xs`}
+                className={`${classes} ${showPopupUp ? 'bottom-0' : 'top-0'} ${showPopupCenter ? 'left-1/2 -translate-x-1/2' : 'right-0'} ${showPopupRight ? 'left-0' : 'right-0'} absolute z-40 max-h-svh max-w-72 mobile-xs:max-w-xs`}
                 ref={wrapRef}
             >
                 <OutsideClickHandler
@@ -33,7 +35,7 @@ const UiPopup: FC<IProps> = ({
                     wrapRefCurrent={wrapRef.current}
                     hide={hide}
                 >
-                    <div className="flex flex-col rounded-xl border border-zinc-300 bg-zinc-100 dark:border-zinc-950 dark:bg-zinc-700">
+                    <div className="flex w-fit flex-col rounded-xl border border-zinc-300 bg-zinc-100 dark:border-zinc-950 dark:bg-zinc-700">
                         {children}
                     </div>
                 </OutsideClickHandler>

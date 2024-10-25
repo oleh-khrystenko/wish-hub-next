@@ -7,11 +7,15 @@ import {
     ISendCreateCollection,
     ISendDeleteCollection,
     ISendGetCollections,
+    ISendGetWishCollections,
     ISendUpdateCollection,
 } from '@/stores/collection/types';
 import collectionApi from '@/stores/collection/api';
 import { useSettingsStore } from '@/stores/settings';
-import { COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
+import {
+    COLLECTION_PAGINATION_LIMIT,
+    WISH_COLLECTION_PAGINATION_LIMIT,
+} from '@/helpers/utils/constants';
 
 const { setShowGlobalLoading } = useSettingsStore.getState();
 
@@ -21,6 +25,9 @@ interface ICollectionsStore {
     sort: ECollectionSort;
     page: number;
     stopRequests: boolean;
+    wishCollections: ICollection[];
+    pageWishCollections: number;
+    stopRequestsWishCollections: boolean;
     showAddToCollection: EAddToCollection;
     addToCollectionError: string;
     setAddToCollectionError: (value: string) => void;
@@ -49,6 +56,14 @@ interface ICollectionsStore {
         errorT: string,
         wishId?: IWish['id']
     ) => Promise<ICollection[] | void>;
+    getWishCollections: (
+        params: ISendGetWishCollections,
+        errorT: string
+    ) => Promise<void>;
+    addWishCollections: (
+        params: ISendGetWishCollections,
+        errorT: string
+    ) => Promise<void>;
     deleteCollection: (
         params: ISendDeleteCollection,
         errorT: string
@@ -61,6 +76,9 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
     sort: ECollectionSort.CREATED_DESC,
     page: 1,
     stopRequests: false,
+    wishCollections: [],
+    pageWishCollections: 1,
+    stopRequestsWishCollections: false,
     showAddToCollection: EAddToCollection.NONE,
     addToCollectionError: '',
     setAddToCollectionError: (value) => {
@@ -171,8 +189,6 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
 
             const selectedCollections = wishId
                 ? response.data.collections.map((collection) => {
-                      // console.log('wishId: ', wishId);
-                      // console.log('collection: ', collection);
                       if (collection.wishIdList.includes(wishId)) {
                           return {
                               ...collection,
@@ -237,6 +253,65 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
             set((state) => ({
                 ...state,
                 stopRequests: false,
+            }));
+
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        }
+    },
+    getWishCollections: async (params, errorT) => {
+        setShowGlobalLoading(true);
+
+        set((state) => ({
+            ...state,
+            stopRequestsWishCollections: true,
+        }));
+
+        try {
+            const response = await collectionApi.getWishCollections(params);
+
+            set((state) => ({
+                ...state,
+                wishCollections: response.data.collections,
+                pageWishCollections: 2,
+                stopRequestsWishCollections:
+                    response.data.collections.length !==
+                    WISH_COLLECTION_PAGINATION_LIMIT,
+            }));
+        } catch (error: any) {
+            set((state) => ({
+                ...state,
+                stopRequestsWishCollections: false,
+            }));
+
+            toast(error.response?.data?.message || errorT, { type: 'error' });
+        } finally {
+            setShowGlobalLoading(false);
+        }
+    },
+    addWishCollections: async (params, errorT) => {
+        set((state) => ({
+            ...state,
+            stopRequestsWishCollections: true,
+        }));
+
+        try {
+            const response = await collectionApi.getWishCollections(params);
+
+            set((state) => ({
+                ...state,
+                wishCollections: [
+                    ...state.wishCollections,
+                    ...response.data.collections,
+                ],
+                pageWishCollections: state.pageWishCollections + 1,
+                stopRequestsWishCollections:
+                    response.data.collections.length !==
+                    WISH_COLLECTION_PAGINATION_LIMIT,
+            }));
+        } catch (error: any) {
+            set((state) => ({
+                ...state,
+                stopRequestsWishCollections: false,
             }));
 
             toast(error.response?.data?.message || errorT, { type: 'error' });
