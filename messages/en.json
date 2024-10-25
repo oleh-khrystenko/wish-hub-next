@@ -753,7 +753,6 @@
         "collections_search": "Collections Search",
         "wishes": "Wishes",
         "all_wishes": "All wishes",
-        "delete": "Delete",
         "are_you_sure": "Are You sure you want to delete the wish \"{name}\"?",
         "sure_collection": "Deleting the collection will not remove any wishes. Are you sure you want to delete the collection \"{name}\"?",
         "leave_with_changes": {
@@ -771,7 +770,10 @@
         "slogan": "Makes your dreams come true!",
         "phone": "Phone:",
         "email": "Email address:",
-        "guest": "Guest"
+        "guest": "Guest",
+        "edit": "Edit",
+        "delete": "Delete",
+        "action_collection": "collection"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

@@ -1,10 +1,17 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import {
+    useParams,
+    usePathname,
+    useRouter,
+    useSearchParams,
+} from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { IGuestWish } from '@/models/Wish';
+import { ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
+import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
@@ -15,12 +22,15 @@ import WishItem from '@/components/layouts/wish-list/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import WishesSearch from '@/components/layouts/WishesSearch';
 import CreateWishAndCollection from '@/components/layouts/CreateWishAndCollection';
+import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
 import UiModal from '@/components/ui/modal/UiModal';
 import LogoIcon from '@/components/icons/LogoIcon';
 import SliderIcon from '@/components/icons/SliderIcon';
 import ShareIcon from '@/components/icons/ShareIcon';
+import EditIcon from '@/components/icons/EditIcon';
+import BasketIcon from '@/components/icons/BasketIcon';
 
 interface IProps {
     userId: string;
@@ -28,6 +38,11 @@ interface IProps {
 
 const WishList: FC<IProps> = ({ userId }) => {
     const [guestWishes, setGuestWishes] = useState<IGuestWish[]>([]);
+    const [deletingCollection, setDeletingCollection] = useState<
+        ICollection | undefined
+    >(undefined);
+    const [showConfirmDeleteCollection, setShowConfirmDeleteCollection] =
+        useState<boolean>(false);
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
     const [showAttention, setShowAttention] = useState<boolean>(false);
@@ -35,6 +50,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     const wishListRef = useRef<HTMLDivElement>(null);
 
     const router = useRouter();
+    const pathname = usePathname();
     const { userId: routeUserId } = useParams<{ userId: string }>();
     const searchParams = useSearchParams();
 
@@ -61,6 +77,11 @@ const WishList: FC<IProps> = ({ userId }) => {
         (state) => state.addCollectionWishes
     );
 
+    const collections = useCollectionsStore((state) => state.list);
+    const deleteCollection = useCollectionsStore(
+        (state) => state.deleteCollection
+    );
+
     const setShowSlidePanel = useSettingsStore(
         (state) => state.setShowSlidePanel
     );
@@ -85,6 +106,28 @@ const WishList: FC<IProps> = ({ userId }) => {
             name: mainPageT('wish-example.fourth'),
         },
     ];
+
+    const confirmDeleteCollection = async () => {
+        if (!myUser?.id || !deletingCollection) return;
+
+        await deleteCollection(
+            {
+                userId: myUser.id,
+                collectionId: deletingCollection.id,
+            },
+            allPagesT('collections.delete-collection.error', {
+                name: deletingCollection.name,
+            })
+        );
+
+        const collectionId = searchParams.get('collectionId');
+        if (collectionId === deletingCollection.id) {
+            const updatedPath = pathname.split('?')[0];
+            router.replace(updatedPath);
+        }
+
+        setShowConfirmDeleteCollection(false);
+    };
 
     useEffect(() => {
         if (firstLoad) {
@@ -161,8 +204,66 @@ const WishList: FC<IProps> = ({ userId }) => {
         fetchCollection().finally();
     }, [userId, collectionId, routeUserId]);
 
+    useEffect(() => {
+        setDeletingCollection(
+            collections.find((collection) => collection.id === collectionId)
+        );
+    }, [collections, collectionId]);
+
     return (
         <>
+            {collectionId &&
+                deletingCollection &&
+                myUser?.id === deletingCollection.userId && (
+                    <div className="mt-2 flex items-center justify-between">
+                        <UiButton
+                            href={`user/${myUser?.id}/collection/editor?collectionId=${collectionId}`}
+                            variant="clear-styles"
+                            classesWrap="rounded-md p-2.5 tablet-md:p-2 -ml-2.5 tablet-md:-ml-2 flex items-center text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base font-bold transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600"
+                        >
+                            <div className="mr-2">
+                                <EditIcon classes="w-4 h-4 fill-zinc-800 dark:fill-zinc-300" />
+                            </div>
+
+                            {allPagesT('edit')}
+                            <span className="ml-1.5 hidden mobile-sm:block">
+                                {allPagesT('action_collection')}
+                            </span>
+                        </UiButton>
+
+                        <UiButton
+                            variant="clear-styles"
+                            classesWrap="rounded-md p-2.5 tablet-md:p-2 -mr-2.5 tablet-md:-ml-2 flex items-center text-sm text-rose-500 tablet-md:text-base font-bold transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600"
+                            onBtnClick={() =>
+                                setShowConfirmDeleteCollection(true)
+                            }
+                        >
+                            {allPagesT('delete')}
+                            <span className="ml-1.5 hidden mobile-sm:block">
+                                {allPagesT('action_collection')}
+                            </span>
+
+                            <div className="ml-2">
+                                <BasketIcon />
+                            </div>
+                        </UiButton>
+
+                        <ConfirmModal
+                            show={showConfirmDeleteCollection}
+                            confirm={confirmDeleteCollection}
+                            hide={() => setShowConfirmDeleteCollection(false)}
+                            confirmModalT={allPagesT('delete')}
+                            closeModalT={allPagesT('leave_with_changes.close')}
+                        >
+                            <span className="text-zinc-700 dark:text-zinc-300">
+                                {allPagesT('sure_collection', {
+                                    name: deletingCollection?.name,
+                                })}
+                            </span>
+                        </ConfirmModal>
+                    </div>
+                )}
+
             <div className="flex flex-col mobile-sm:flex-row mobile-sm:items-center mobile-sm:justify-between mobile-sm:gap-2">
                 {!routeUserId.includes('guest') && (
                     <div className="mr-auto">

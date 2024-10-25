@@ -26,7 +26,8 @@ interface IProps {
 }
 
 const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
-    const [collection, setCollection] = useState<ICollection | null>(null);
+    const [deletingCollection, setDeletingCollection] =
+        useState<ICollection | null>(null);
     const [showConfirmDeleteCollection, setShowConfirmDeleteCollection] =
         useState<boolean>(false);
 
@@ -62,25 +63,25 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     const currentUserId = selectedUserId || userId;
 
     const handleDeleteCollection = (currentCollection: ICollection) => {
-        setCollection(currentCollection);
+        setDeletingCollection(currentCollection);
         setShowConfirmDeleteCollection(true);
     };
 
     const confirmDeleteCollection = async () => {
-        if (!myUser?.id || !collection) return;
+        if (!myUser?.id || !deletingCollection) return;
 
         await deleteCollection(
             {
                 userId: myUser.id,
-                collectionId: collection.id,
+                collectionId: deletingCollection.id,
             },
             allPagesT('collections.delete-collection.error', {
-                name: collection.name,
+                name: deletingCollection.name,
             })
         );
 
         const collectionId = searchParams.get('collectionId');
-        if (collectionId === collection.id) {
+        if (collectionId === deletingCollection.id) {
             const updatedPath = pathname.split('?')[0];
             router.replace(updatedPath);
         }
@@ -180,7 +181,9 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
                 closeModalT={allPagesT('leave_with_changes.close')}
             >
                 <span className="text-zinc-700 dark:text-zinc-300">
-                    {allPagesT('sure_collection', { name: collection?.name })}
+                    {allPagesT('sure_collection', {
+                        name: deletingCollection?.name,
+                    })}
                 </span>
             </ConfirmModal>
         </>

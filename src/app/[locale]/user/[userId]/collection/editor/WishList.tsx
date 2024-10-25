@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
@@ -17,11 +17,13 @@ import WishItem from '@/app/[locale]/user/[userId]/collection/editor/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import WishesSearch from '@/components/layouts/WishesSearch';
 import CreateWishAndCollection from '@/components/layouts/CreateWishAndCollection';
+import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiLoading from '@/components/ui/UiLoading';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/UiButton';
 import SliderIcon from '@/components/icons/SliderIcon';
 import LogoIcon from '@/components/icons/LogoIcon';
+import BasketIcon from '@/components/icons/BasketIcon';
 
 type TInputs = {
     collectionName: ICollection['name'];
@@ -32,6 +34,11 @@ interface IProps {
 }
 
 const WishList: FC<IProps> = ({ userId }) => {
+    const [deletingCollection, setDeletingCollection] = useState<
+        ICollection | undefined
+    >(undefined);
+    const [showConfirmDeleteCollection, setShowConfirmDeleteCollection] =
+        useState<boolean>(false);
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
@@ -39,6 +46,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     const wishListRef = useRef<HTMLDivElement>(null);
 
     const router = useRouter();
+    const pathname = usePathname();
     const searchParams = useSearchParams();
 
     const activeLocale = useLocale();
@@ -68,6 +76,9 @@ const WishList: FC<IProps> = ({ userId }) => {
     );
     const updateCollection = useCollectionsStore(
         (state) => state.updateCollection
+    );
+    const deleteCollection = useCollectionsStore(
+        (state) => state.deleteCollection
     );
 
     const setShowSlidePanel = useSettingsStore(
@@ -156,6 +167,28 @@ const WishList: FC<IProps> = ({ userId }) => {
         );
     };
 
+    const confirmDeleteCollection = async () => {
+        if (!myUser?.id || !deletingCollection) return;
+
+        await deleteCollection(
+            {
+                userId: myUser.id,
+                collectionId: deletingCollection.id,
+            },
+            allPagesT('collections.delete-collection.error', {
+                name: deletingCollection.name,
+            })
+        );
+
+        const collectionId = searchParams.get('collectionId');
+        if (collectionId === deletingCollection.id) {
+            const updatedPath = pathname.split('?')[0];
+            router.replace(updatedPath);
+        }
+
+        setShowConfirmDeleteCollection(false);
+    };
+
     useEffect(() => {
         if (firstLoad) {
             setFirstLoad(false);
@@ -191,15 +224,6 @@ const WishList: FC<IProps> = ({ userId }) => {
 
     useEffect(() => {
         const fetchWishes = async () => {
-            const editingCollection = collections.find(
-                (collection) => collection.id === collectionId
-            );
-            if (editingCollection) {
-                setValue('collectionName', editingCollection.name);
-            } else {
-                setValue('collectionName', '');
-            }
-
             const responseWishes = await getInitialWishList(
                 myUser?.id,
                 userId,
@@ -214,9 +238,23 @@ const WishList: FC<IProps> = ({ userId }) => {
         fetchWishes().finally();
     }, [searchParams, userId, collections.length]);
 
+    useEffect(() => {
+        const currentCollection = collections.find(
+            (collection) => collection.id === collectionId
+        );
+
+        if (currentCollection) {
+            setValue('collectionName', currentCollection.name);
+        } else {
+            setValue('collectionName', '');
+        }
+
+        setDeletingCollection(currentCollection);
+    }, [collections, collectionId]);
+
     return (
         <>
-            <div>
+            <div className="flex items-center justify-between gap-3">
                 <UiButton
                     variant="text"
                     onBtnClick={() => setShowSlidePanel(true)}
@@ -227,6 +265,41 @@ const WishList: FC<IProps> = ({ userId }) => {
                         {allPagesT('filters')}
                     </span>
                 </UiButton>
+
+                {collectionId && deletingCollection && (
+                    <>
+                        <UiButton
+                            variant="clear-styles"
+                            classesWrap="rounded-md p-2.5 -mr-2.5 flex items-center text-sm text-rose-500 tablet-md:text-base font-bold transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600"
+                            onBtnClick={() =>
+                                setShowConfirmDeleteCollection(true)
+                            }
+                        >
+                            {allPagesT('delete')}
+                            <span className="ml-1.5">
+                                {allPagesT('action_collection')}
+                            </span>
+
+                            <div className="ml-2">
+                                <BasketIcon />
+                            </div>
+                        </UiButton>
+
+                        <ConfirmModal
+                            show={showConfirmDeleteCollection}
+                            confirm={confirmDeleteCollection}
+                            hide={() => setShowConfirmDeleteCollection(false)}
+                            confirmModalT={allPagesT('delete')}
+                            closeModalT={allPagesT('leave_with_changes.close')}
+                        >
+                            <span className="text-zinc-700 dark:text-zinc-300">
+                                {allPagesT('sure_collection', {
+                                    name: deletingCollection?.name,
+                                })}
+                            </span>
+                        </ConfirmModal>
+                    </>
+                )}
             </div>
 
             <div className="mt-5">
