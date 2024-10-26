@@ -101,7 +101,7 @@ const Body: FC = () => {
                         <VideoItem title={instructionPageT('overview')}>
                             <iframe
                                 className="absolute left-0 top-0 h-full w-full"
-                                src="https://www.youtube.com/embed/9cd-dLjOTzc?si=CGFBlX4rJ1GhYNLs"
+                                src="https://www.youtube.com/embed/qoXExsTePfU?si=951iarIH7OGW-HWc"
                                 title="YouTube video player"
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -113,7 +113,7 @@ const Body: FC = () => {
                         <VideoItem title={instructionPageT('how_easy')}>
                             <iframe
                                 className="absolute left-0 top-0 h-full w-full"
-                                src="https://www.youtube.com/embed/fC62r-afbd4?si=OB6lagZszs9iVryn"
+                                src="https://www.youtube.com/embed/8ugqFf3x2FU?si=vhXrZw9fztS8rcJ1"
                                 title="YouTube video player"
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

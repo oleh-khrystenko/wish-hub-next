@@ -20,7 +20,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
-import { decryptedData, encryptedData } from '@/helpers/utils/encryption-data';
+import { encryptedData } from '@/helpers/utils/encryption-data';
 import { removingWhiteSpaces } from '@/helpers/utils/formating-number';
 import {
     COLLECTION_NAME_MAX_LENGTH,
@@ -64,7 +64,6 @@ const CreateWish: FC = () => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const wishes = useWishesStore((state) => state.list);
     const wishCandidate = useWishesStore((state) => state.wishCandidate);
     const resetWishCandidate = useWishesStore(
         (state) => state.resetWishCandidate
@@ -283,8 +282,9 @@ const CreateWish: FC = () => {
                 route.push(
                     `/${activeLocale}/user/${myUser.id}/wish?wishId=${response?.wish.id}`
                 );
+            } else {
+                setIsLoading(false);
             }
-            setIsLoading(false);
         } else {
             const guestWishes: string =
                 localStorage.getItem('guestWishes') || '';
