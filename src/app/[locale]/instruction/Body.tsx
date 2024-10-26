@@ -98,29 +98,35 @@ const Body: FC = () => {
                     </div>
 
                     <ul className="mt-8 grid gap-6 tablet-md:grid-cols-2 tablet-md:gap-8 tablet-lg:mt-12">
-                        <VideoItem title={instructionPageT('overview')}>
-                            <iframe
-                                className="absolute left-0 top-0 h-full w-full"
-                                src="https://www.youtube.com/embed/qoXExsTePfU?si=951iarIH7OGW-HWc"
-                                title="YouTube video player"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerPolicy="strict-origin-when-cross-origin"
-                                allowFullScreen
-                            ></iframe>
-                        </VideoItem>
+                        <VideoItem
+                            src="https://www.youtube.com/embed/np-Wlo-hAB0?si=tqJooHwjEq6qzRd8"
+                            title={instructionPageT('install_ios')}
+                        />
 
-                        <VideoItem title={instructionPageT('how_easy')}>
-                            <iframe
-                                className="absolute left-0 top-0 h-full w-full"
-                                src="https://www.youtube.com/embed/8ugqFf3x2FU?si=vhXrZw9fztS8rcJ1"
-                                title="YouTube video player"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerPolicy="strict-origin-when-cross-origin"
-                                allowFullScreen
-                            ></iframe>
-                        </VideoItem>
+                        <VideoItem
+                            src="https://www.youtube.com/embed/tGMhyBbbtPk?si=7nCBwFT_WPwbHte_"
+                            title={instructionPageT('install_android')}
+                        />
+
+                        <VideoItem
+                            src="https://www.youtube.com/embed/qoXExsTePfU?si=951iarIH7OGW-HWc"
+                            title={instructionPageT('overview')}
+                        />
+
+                        <VideoItem
+                            src="https://www.youtube.com/embed/8ugqFf3x2FU?si=vhXrZw9fztS8rcJ1"
+                            title={instructionPageT('create_wish')}
+                        />
+
+                        <VideoItem
+                            src="https://www.youtube.com/embed/vPrpXvbf0pc?si=GInBzR5kN9X5OBCb"
+                            title={instructionPageT('create_collection')}
+                        />
+
+                        <VideoItem
+                            src="https://www.youtube.com/embed/LSgOJs7kM3A?si=bikjJXjL63oXMJQ3"
+                            title={instructionPageT('book_wish')}
+                        />
                     </ul>
                 </section>
             </div>

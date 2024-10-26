@@ -84,8 +84,12 @@
         "unlock": "Unlock all the features of your profile.",
         "dont_miss": "Don't miss a single video and learn how to use Wish Hub to its fullest potential!",
         "subscribe": "Subscribe to stay up to date with new instructions and updates. \uD83C\uDFA5✨",
+        "install_android": "How to install Wish Hub on Android",
+        "install_ios": "How to install Wish Hub on iPhone (IOS)",
         "overview": "Quick Overview of Features and Functionality",
-        "how_easy": "How easy it is to create a wish in Wish Hub: Step-by-step video guide"
+        "create_wish": "How easy it is to create a wish in Wish Hub: Step-by-step video guide",
+        "create_collection": "Create and manage collections in Wish Hub: Step-by-step instructions",
+        "book_wish": "How to book a wish in Wish Hub: Step-by-step video guide"
     },
     "main-page": {
         "head": {
