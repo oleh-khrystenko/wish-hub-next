@@ -8,9 +8,11 @@ import {
     useSearchParams,
 } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { EWishPrivacy, EWishStatus } from '@/models/Wish';
 import { ECollectionSort, ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
+import { useWishesStore } from '@/stores/wishes';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import { COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
@@ -26,6 +28,7 @@ interface IProps {
 }
 
 const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
+    const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [deletingCollection, setDeletingCollection] =
         useState<ICollection | null>(null);
     const [showConfirmDeleteCollection, setShowConfirmDeleteCollection] =
@@ -43,10 +46,15 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
+    const wishes = useWishesStore((state) => state.list);
+    const wishesStatus = useWishesStore((state) => state.status);
+    const wishesPrivacy = useWishesStore((state) => state.privacy);
+    const wishesSearch = useWishesStore((state) => state.search);
+
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
     const collections = useCollectionsStore((state) => state.list);
-    const search = useCollectionsStore((state) => state.search);
+    const collectionsSearch = useCollectionsStore((state) => state.search);
     const getCollections = useCollectionsStore((state) => state.getCollections);
     const deleteCollection = useCollectionsStore(
         (state) => state.deleteCollection
@@ -61,6 +69,15 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     );
 
     const currentUserId = selectedUserId || userId;
+
+    const showWishes =
+        wishes.length > 5 ||
+        wishesStatus !== EWishStatus.ALL ||
+        wishesPrivacy !== EWishPrivacy.ALL ||
+        wishesSearch.length > 0;
+
+    const showCollections =
+        collections.length > 0 || collectionsSearch.length > 0;
 
     const handleDeleteCollection = (currentCollection: ICollection) => {
         setDeletingCollection(currentCollection);
@@ -91,6 +108,11 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     };
 
     useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
         if (!currentUserId || currentUserId.includes('guest')) return;
 
         getCollections(
@@ -109,7 +131,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
             setResetCollections();
             setShowSlidePanel(false);
         };
-    }, [currentUserId]);
+    }, [firstLoad, currentUserId]);
 
     useEffect(() => {
         if (showSlidePanel) {
@@ -152,17 +174,28 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
                     </div>
 
                     <div className="rounded-xl bg-zinc-200 px-2 pb-2 pt-3 dark:bg-zinc-900 mobile-lg:px-4 mobile-lg:pb-6 tablet-lg:h-full">
-                        <WishListActions
-                            wishListRefCurrent={wishListRefCurrent}
-                        />
+                        {showWishes && (
+                            <>
+                                <WishListActions
+                                    wishListRefCurrent={wishListRefCurrent}
+                                />
 
-                        <div className="flex flex-col gap-2" ref={filtersRef}>
-                            <WishListFilters
-                                wishListRefCurrent={wishListRefCurrent}
-                            />
-                        </div>
+                                <div
+                                    className="flex flex-col gap-2"
+                                    ref={filtersRef}
+                                >
+                                    <WishListFilters
+                                        wishListRefCurrent={wishListRefCurrent}
+                                    />
+                                </div>
+                            </>
+                        )}
 
-                        {(collections.length > 0 || search.length > 0) && (
+                        {showWishes && showCollections && (
+                            <div className="mb-3 mt-4 h-px w-full bg-zinc-400 dark:bg-zinc-700"></div>
+                        )}
+
+                        {showCollections && (
                             <Collections
                                 deleteCollection={handleDeleteCollection}
                                 slidePanelRef={slidePanelRef}

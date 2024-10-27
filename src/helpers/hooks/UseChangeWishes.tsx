@@ -4,7 +4,6 @@ import { TWishSort, EWishStatus, EWishPrivacy } from '@/models/Wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useUsersStore } from '@/stores/users';
-import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 
 const UseChangeWishes = () => {
@@ -25,8 +24,6 @@ const UseChangeWishes = () => {
     );
 
     const collectionId = searchParams.get('collectionId');
-
-    const { setSelectedWishesInEditCollection } = UseInitialCollection();
 
     const handleChangeWishes = async (
         status: EWishStatus,
@@ -71,7 +68,6 @@ const UseChangeWishes = () => {
                 );
 
                 if (!wishes) return;
-                setSelectedWishesInEditCollection(wishes);
             }
         } else {
             await getAllWishes(

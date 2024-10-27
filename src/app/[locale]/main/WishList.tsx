@@ -2,6 +2,7 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
+import { EWishPrivacy, EWishStatus } from '@/models/Wish';
 import { ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
@@ -55,9 +56,9 @@ const WishList: FC = () => {
 
     const wishes = useWishesStore((state) => state.list);
     const page = useWishesStore((state) => state.page);
-    const status = useWishesStore((state) => state.status);
-    const privacy = useWishesStore((state) => state.privacy);
-    const search = useWishesStore((state) => state.search);
+    const wishesStatus = useWishesStore((state) => state.status);
+    const wishesPrivacy = useWishesStore((state) => state.privacy);
+    const wishesSearch = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
     const resetWishList = useWishesStore((state) => state.resetWishList);
@@ -68,6 +69,7 @@ const WishList: FC = () => {
     );
 
     const collections = useCollectionsStore((state) => state.list);
+    const collectionsSearch = useCollectionsStore((state) => state.search);
     const deleteCollection = useCollectionsStore(
         (state) => state.deleteCollection
     );
@@ -85,6 +87,17 @@ const WishList: FC = () => {
     const { getFullName } = UseFullName();
 
     const collectionId = searchParams.get('collectionId');
+
+    const showWishes =
+        wishes.length > 5 ||
+        wishesStatus !== EWishStatus.ALL ||
+        wishesPrivacy !== EWishPrivacy.ALL ||
+        wishesSearch.length > 0;
+
+    const showCollections =
+        collections.length > 0 || collectionsSearch.length > 0;
+
+    const showFilters = showWishes || showCollections;
 
     const selectedUserFullName = useMemo(() => {
         const selectedUser = users.find((user) => user.id === selectedUserId);
@@ -146,11 +159,11 @@ const WishList: FC = () => {
                             collectionId,
                             myId: myUser?.id,
                             userId: selectedUserId,
-                            status,
-                            privacy,
+                            status: wishesStatus,
+                            privacy: wishesPrivacy,
                             page,
                             limit: WISHES_PAGINATION_LIMIT,
-                            search,
+                            search: wishesSearch,
                             sort,
                         },
                         allPagesT('wishes-api.get-collection-wishes.error')
@@ -160,11 +173,11 @@ const WishList: FC = () => {
                         {
                             myId: myUser?.id,
                             userId: selectedUserId,
-                            status,
-                            privacy,
+                            status: wishesStatus,
+                            privacy: wishesPrivacy,
                             page,
                             limit: WISHES_PAGINATION_LIMIT,
-                            search,
+                            search: wishesSearch,
                             sort,
                         },
                         allPagesT('wishes-api.get-wish-list.error')
@@ -175,8 +188,8 @@ const WishList: FC = () => {
                     {
                         page,
                         limit: WISHES_PAGINATION_LIMIT,
-                        status,
-                        search,
+                        status: wishesStatus,
+                        search: wishesSearch,
                         sort,
                     },
                     allPagesT('wishes-api.get-all-wishes.error')
@@ -307,27 +320,31 @@ const WishList: FC = () => {
                 )}
 
             <div className="flex flex-col items-center justify-between pl-2.5 mobile-sm:flex-row mobile-sm:gap-2">
-                <div className="mr-auto">
-                    <UiButton
-                        variant="text"
-                        onBtnClick={() => setShowSlidePanel(true)}
-                    >
-                        <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
+                {showFilters && (
+                    <div className="mr-auto">
+                        <UiButton
+                            variant="text"
+                            onBtnClick={() => setShowSlidePanel(true)}
+                        >
+                            <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
-                        <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
-                            {allPagesT('filters')}
-                        </span>
-                    </UiButton>
-                </div>
+                            <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
+                                {allPagesT('filters')}
+                            </span>
+                        </UiButton>
+                    </div>
+                )}
 
                 {myUser?.id === selectedUserId && wishes.length > 0 && (
                     <ShareCollection myUserId={myUser.id} />
                 )}
             </div>
 
-            <div className="mt-5 pl-2.5">
-                <WishesSearch wishListRefCurrent={wishListRef.current} />
-            </div>
+            {showWishes && (
+                <div className="mt-5 pl-2.5">
+                    <WishesSearch wishListRefCurrent={wishListRef.current} />
+                </div>
+            )}
 
             {myUser?.id === selectedUserId || wishes.length > 0 ? (
                 <div

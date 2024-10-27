@@ -7,7 +7,7 @@ import {
 } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
-import { IGuestWish } from '@/models/Wish';
+import { EWishPrivacy, EWishStatus, IGuestWish } from '@/models/Wish';
 import { ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
@@ -66,10 +66,10 @@ const WishList: FC<IProps> = ({ userId }) => {
     const myUser = useMyUserStore((state) => state.myUser);
 
     const wishes = useWishesStore((state) => state.list);
-    const status = useWishesStore((state) => state.status);
-    const privacy = useWishesStore((state) => state.privacy);
+    const wishesStatus = useWishesStore((state) => state.status);
+    const wishesPrivacy = useWishesStore((state) => state.privacy);
     const page = useWishesStore((state) => state.page);
-    const search = useWishesStore((state) => state.search);
+    const wishesSearch = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
     const addWishList = useWishesStore((state) => state.addWishList);
@@ -78,6 +78,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     );
 
     const collections = useCollectionsStore((state) => state.list);
+    const collectionsSearch = useCollectionsStore((state) => state.search);
     const deleteCollection = useCollectionsStore(
         (state) => state.deleteCollection
     );
@@ -91,6 +92,18 @@ const WishList: FC<IProps> = ({ userId }) => {
         UseInitialWishes();
 
     const collectionId = searchParams.get('collectionId');
+
+    const showWishes =
+        wishes.length > 5 ||
+        wishesStatus !== EWishStatus.ALL ||
+        wishesPrivacy !== EWishPrivacy.ALL ||
+        wishesSearch.length > 0;
+
+    const showCollections =
+        collections.length > 0 || collectionsSearch.length > 0;
+
+    const showFilters =
+        (showWishes || showCollections) && !routeUserId.includes('guest');
 
     const wishesExample = [
         {
@@ -146,11 +159,11 @@ const WishList: FC<IProps> = ({ userId }) => {
                         collectionId,
                         myId: myUser?.id,
                         userId,
-                        status,
-                        privacy,
+                        status: wishesStatus,
+                        privacy: wishesPrivacy,
                         page,
                         limit: WISHES_PAGINATION_LIMIT,
-                        search,
+                        search: wishesSearch,
                         sort,
                     },
                     allPagesT('wishes-api.get-collection-wishes.error')
@@ -160,11 +173,11 @@ const WishList: FC<IProps> = ({ userId }) => {
                     {
                         myId: myUser?.id,
                         userId,
-                        status,
-                        privacy,
+                        status: wishesStatus,
+                        privacy: wishesPrivacy,
                         page,
                         limit: WISHES_PAGINATION_LIMIT,
-                        search,
+                        search: wishesSearch,
                         sort,
                     },
                     allPagesT('wishes-api.get-wish-list.error')
@@ -265,7 +278,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                 )}
 
             <div className="flex flex-col mobile-sm:flex-row mobile-sm:items-center mobile-sm:justify-between mobile-sm:gap-2">
-                {!routeUserId.includes('guest') && (
+                {showFilters && (
                     <div className="mr-auto">
                         <UiButton
                             variant="text"
@@ -296,9 +309,11 @@ const WishList: FC<IProps> = ({ userId }) => {
                 )}
             </div>
 
-            <div className="mt-5">
-                <WishesSearch wishListRefCurrent={wishListRef.current} />
-            </div>
+            {showWishes && (
+                <div className="mt-5">
+                    <WishesSearch wishListRefCurrent={wishListRef.current} />
+                </div>
+            )}
 
             {myUser?.id === routeUserId ||
             wishes.length > 0 ||

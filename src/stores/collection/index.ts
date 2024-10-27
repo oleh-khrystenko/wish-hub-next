@@ -185,7 +185,9 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
         }));
 
         try {
-            const response = await collectionApi.getCollections(params);
+            const response = await collectionApi.getCollections(
+                wishId ? { ...params, wishId } : params
+            );
 
             const selectedCollections = wishId
                 ? response.data.collections.map((collection) => {

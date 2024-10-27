@@ -23,8 +23,8 @@ const ShareCollection: FC<IProps> = ({ myUserId }) => {
 
     const wishes = useWishesStore((state) => state.list);
 
-    const wishListIncludesShowAllWish = useMemo(
-        () => wishes.some((wish) => wish.show === EPrivacy.ALL),
+    const allWishesPrivate = useMemo(
+        () => wishes.every((wish) => wish.show === EPrivacy.NOBODY),
         [wishes]
     );
 
@@ -44,9 +44,9 @@ const ShareCollection: FC<IProps> = ({ myUserId }) => {
                 className="cursor-pointer"
                 data-tooltip-id="share-wishes"
                 data-tooltip-content={
-                    wishListIncludesShowAllWish
-                        ? mainPageT('can-see.share-tooltip')
-                        : mainPageT('can-see.inactive-share-tooltip')
+                    allWishesPrivate
+                        ? mainPageT('can-see.inactive_share_tooltip')
+                        : mainPageT('can-see.share-tooltip')
                 }
             >
                 <InfoIcon />
@@ -55,9 +55,9 @@ const ShareCollection: FC<IProps> = ({ myUserId }) => {
 
             <div
                 className={
-                    wishListIncludesShowAllWish
-                        ? 'ml-1'
-                        : 'pointer-events-none ml-1 opacity-20'
+                    allWishesPrivate
+                        ? 'pointer-events-none ml-1 opacity-20'
+                        : 'ml-1'
                 }
             >
                 <ShareButton

@@ -181,9 +181,9 @@ const Collections: FC<IProps> = ({
         const bottomPaddingOfWishWrapper = 4;
         const heightOfWishHead = 40;
         const filtersHeight = filtersRef.current.clientHeight;
-        const topMarginOfCollectionWrapper = 16;
-        const topBorderOfCollectionWrapper = 1;
-        const topPaddingOfCollectionWrapper = 12;
+        const topMarginOfDivider = 16;
+        const heightOfDivider = 1;
+        const bottomMarginOfDivider = 12;
         const gapOfCollectionWrapper = 4;
         const heightOfCollectionHead = 40;
         const topPaddingOfCollectionInnerWrapper = 24;
@@ -199,9 +199,9 @@ const Collections: FC<IProps> = ({
             bottomPaddingOfWishWrapper +
             heightOfWishHead +
             filtersHeight +
-            topMarginOfCollectionWrapper +
-            topBorderOfCollectionWrapper +
-            topPaddingOfCollectionWrapper +
+            topMarginOfDivider +
+            heightOfDivider +
+            bottomMarginOfDivider +
             gapOfCollectionWrapper +
             heightOfCollectionHead +
             topPaddingOfCollectionInnerWrapper +
@@ -238,7 +238,7 @@ const Collections: FC<IProps> = ({
     ]);
 
     return (
-        <div className="mt-4 flex flex-col gap-1 border-t border-zinc-400 pt-3 dark:border-zinc-700">
+        <div className="flex flex-col gap-1">
             <div className="flex items-center justify-between gap-2">
                 {/* Title */}
                 <p className="mr-auto flex items-center gap-2 pl-2 text-sm font-bold text-zinc-500 dark:text-zinc-400 mobile-lg:text-base">

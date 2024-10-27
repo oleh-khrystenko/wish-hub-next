@@ -42,8 +42,8 @@ const UseInitialWishes = () => {
         myId: IUser['id'] | undefined,
         userId: IUser['id'],
         sort: TWishSort = 'sortByLikes:desc'
-    ): Promise<IWish[] | void> => {
-        const wishes = await getWishList(
+    ) => {
+        await getWishList(
             {
                 myId,
                 userId,
@@ -61,8 +61,6 @@ const UseInitialWishes = () => {
         setWishesSort(sort);
         setSelectedUserId(userId);
         localStorage.setItem('selectedUserId', userId);
-
-        return wishes;
     };
 
     const getInitialCollectionWishes = async (

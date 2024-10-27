@@ -4,14 +4,15 @@ import { useLocale, useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
+import { EWishPrivacy, EWishStatus } from '@/models/Wish';
 import { ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
 import { useCollectionsStore } from '@/stores/collection';
+import collectionApi from '@/stores/collection/api';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseValidations from '@/helpers/hooks/UseValidations';
-import UseInitialCollection from '@/helpers/hooks/UseInitialCollection';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishItem from '@/app/[locale]/user/[userId]/collection/editor/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
@@ -34,7 +35,7 @@ interface IProps {
 }
 
 const WishList: FC<IProps> = ({ userId }) => {
-    const [deletingCollection, setDeletingCollection] = useState<
+    const [currentCollection, setCurrentCollection] = useState<
         ICollection | undefined
     >(undefined);
     const [showConfirmDeleteCollection, setShowConfirmDeleteCollection] =
@@ -62,15 +63,19 @@ const WishList: FC<IProps> = ({ userId }) => {
     const myUser = useMyUserStore((state) => state.myUser);
 
     const wishes = useWishesStore((state) => state.list);
-    const status = useWishesStore((state) => state.status);
-    const privacy = useWishesStore((state) => state.privacy);
+    const wishesStatus = useWishesStore((state) => state.status);
+    const wishesPrivacy = useWishesStore((state) => state.privacy);
     const page = useWishesStore((state) => state.page);
-    const search = useWishesStore((state) => state.search);
+    const wishesSearch = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
+    const setSelectedWishes = useWishesStore(
+        (state) => state.setSelectedWishes
+    );
     const addWishList = useWishesStore((state) => state.addWishList);
 
     const collections = useCollectionsStore((state) => state.list);
+    const collectionsSearch = useCollectionsStore((state) => state.search);
     const createCollection = useCollectionsStore(
         (state) => state.createCollection
     );
@@ -95,9 +100,19 @@ const WishList: FC<IProps> = ({ userId }) => {
     const { collectionNameValidation } = UseValidations();
 
     const { getInitialWishList } = UseInitialWishes();
-    const { setSelectedWishesInEditCollection } = UseInitialCollection();
 
     const collectionId = searchParams.get('collectionId');
+
+    const showWishes =
+        wishes.length > 5 ||
+        wishesStatus !== EWishStatus.ALL ||
+        wishesPrivacy !== EWishPrivacy.ALL ||
+        wishesSearch.length > 0;
+
+    const showCollections =
+        collections.length > 0 || collectionsSearch.length > 0;
+
+    const showFilters = showWishes || showCollections;
 
     const wishesExample = [
         {
@@ -168,20 +183,20 @@ const WishList: FC<IProps> = ({ userId }) => {
     };
 
     const confirmDeleteCollection = async () => {
-        if (!myUser?.id || !deletingCollection) return;
+        if (!myUser?.id || !currentCollection) return;
 
         await deleteCollection(
             {
                 userId: myUser.id,
-                collectionId: deletingCollection.id,
+                collectionId: currentCollection.id,
             },
             allPagesT('collections.delete-collection.error', {
-                name: deletingCollection.name,
+                name: currentCollection.name,
             })
         );
 
         const collectionId = searchParams.get('collectionId');
-        if (collectionId === deletingCollection.id) {
+        if (collectionId === currentCollection.id) {
             const updatedPath = pathname.split('?')[0];
             router.replace(updatedPath);
         }
@@ -195,78 +210,103 @@ const WishList: FC<IProps> = ({ userId }) => {
             return;
         }
 
-        if (!inView || stopRequests) return;
+        if (!inView || stopRequests || wishes.length === 0) return;
 
         const fetchWishList = async () => {
             setIsLoadingAdd(true);
 
-            const responseWishes = await addWishList(
+            await addWishList(
                 {
                     myId: myUser?.id,
                     userId,
-                    status,
-                    privacy,
+                    status: wishesStatus,
+                    privacy: wishesPrivacy,
                     page,
                     limit: WISHES_PAGINATION_LIMIT,
-                    search,
+                    search: wishesSearch,
                     sort,
                 },
                 allPagesT('wishes-api.get-wish-list.error')
             );
 
-            if (!responseWishes) return;
-            setSelectedWishesInEditCollection(responseWishes);
-
             setIsLoadingAdd(false);
         };
         fetchWishList().finally();
-    }, [inView]);
+    }, [inView, wishes.length]);
 
     useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
+        if (
+            wishes.length > 0 ||
+            wishesStatus !== EWishStatus.ALL ||
+            wishesPrivacy !== EWishPrivacy.ALL ||
+            wishesSearch.length > 0
+        )
+            return;
+
         const fetchWishes = async () => {
-            const responseWishes = await getInitialWishList(
+            await getInitialWishList(
                 myUser?.id,
                 userId,
                 collectionId
                     ? `collectionId:${collectionId}`
                     : 'sortByLikes:desc'
             );
-
-            if (!responseWishes) return;
-            setSelectedWishesInEditCollection(responseWishes);
         };
         fetchWishes().finally();
-    }, [searchParams, userId, collections.length]);
+    }, [searchParams, userId, collections.length, wishes.length]);
 
     useEffect(() => {
-        const currentCollection = collections.find(
-            (collection) => collection.id === collectionId
-        );
-
-        if (currentCollection) {
-            setValue('collectionName', currentCollection.name);
-        } else {
-            setValue('collectionName', '');
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
         }
 
-        setDeletingCollection(currentCollection);
-    }, [collections, collectionId]);
+        if (!collectionId) return;
+
+        const fetchCollection = async () => {
+            const response = await collectionApi.getCollection({
+                collectionId,
+            });
+
+            if (response.data) {
+                setValue('collectionName', response.data.name);
+                setCurrentCollection(response.data);
+            } else {
+                setValue('collectionName', '');
+            }
+        };
+
+        fetchCollection().finally();
+    }, [firstLoad, collectionId]);
+
+    useEffect(() => {
+        if (!currentCollection || wishes.length === 0) return;
+
+        setSelectedWishes(currentCollection.wishIdList);
+    }, [currentCollection, wishes.length]);
 
     return (
         <>
             <div className="flex items-center justify-between gap-3">
-                <UiButton
-                    variant="text"
-                    onBtnClick={() => setShowSlidePanel(true)}
-                >
-                    <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
+                {showFilters && (
+                    <UiButton
+                        variant="text"
+                        onBtnClick={() => setShowSlidePanel(true)}
+                    >
+                        <SliderIcon classes="w-6 h-6 stroke-cyan-400 dark:stroke-cyan-300" />
 
-                    <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
-                        {allPagesT('filters')}
-                    </span>
-                </UiButton>
+                        <span className="py-3 text-sm text-zinc-500 dark:text-zinc-400 tablet-md:text-base">
+                            {allPagesT('filters')}
+                        </span>
+                    </UiButton>
+                )}
 
-                {collectionId && deletingCollection && (
+                {collectionId && currentCollection && (
                     <>
                         <UiButton
                             variant="clear-styles"
@@ -294,7 +334,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                         >
                             <span className="text-zinc-700 dark:text-zinc-300">
                                 {allPagesT('sure_collection', {
-                                    name: deletingCollection?.name,
+                                    name: currentCollection?.name,
                                 })}
                             </span>
                         </ConfirmModal>
@@ -302,9 +342,11 @@ const WishList: FC<IProps> = ({ userId }) => {
                 )}
             </div>
 
-            <div className="mt-5">
-                <WishesSearch wishListRefCurrent={wishListRef.current} />
-            </div>
+            {showWishes && (
+                <div className="mt-5">
+                    <WishesSearch wishListRefCurrent={wishListRef.current} />
+                </div>
+            )}
 
             <form
                 className="sticky top-[66px] z-20 my-6 flex items-start gap-8 rounded-md bg-zinc-300 px-2 pb-2 pt-6 dark:bg-zinc-800 tablet-md:top-[74px]"

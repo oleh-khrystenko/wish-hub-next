@@ -175,7 +175,7 @@
             "nobody": "Private",
             "wish-nobody-tooltip": "Wishes with the \"Private\" and \"Friends Only\" privacy levels are encrypted. All data in these privacy levels is transmitted and stored in an encrypted form. This means that even site administrators cannot view this data.",
             "share-tooltip": "In this list, wishes will be displayed according to their privacy level.",
-            "inactive-share-tooltip": "In this list, wishes will be displayed according to their privacy level. The \"Share\" button is inactive because you don't have any wishes with the \"Public\" privacy level.",
+            "inactive_share_tooltip": "In this list, wishes will be displayed according to their privacy level. The \"Share\" button is not active, since all wishes in this collection have a privacy level of \"Private\".",
             "email-all-tooltip": "Your email will be available for viewing by all users and visitors of the Wish Hub platform.",
             "email-friends-tooltip": "Your email will be visible only to users with whom you have mutually added each other as friends.",
             "email-nobody-tooltip": "Your email will not be visible to anyone.",

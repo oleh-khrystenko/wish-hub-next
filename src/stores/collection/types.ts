@@ -19,6 +19,7 @@ export interface ISendUpdateCollection
 export interface ISendGetCollections {
     myId?: IUser['id'];
     userId: IUser['id'];
+    wishId?: IWish['id'];
     page: number;
     limit: number;
     search: string;
