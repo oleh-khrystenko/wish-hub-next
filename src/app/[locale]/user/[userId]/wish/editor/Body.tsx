@@ -19,6 +19,7 @@ import CollectionIcon from '@/components/icons/CollectionIcon';
 import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
 
 const Body: FC = () => {
+    const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [guestWish, setGuestWish] = useState<IGuestWish | undefined>(
         undefined
     );
@@ -106,6 +107,11 @@ const Body: FC = () => {
     };
 
     useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
         if (userId.includes('guest')) {
             if (myUser) return;
 
@@ -131,7 +137,7 @@ const Body: FC = () => {
                 allPagesT('wishes-api.get-wish.error')
             ).finally();
         }
-    }, [myUser, userId, searchParams]);
+    }, [firstLoad, myUser, userId, searchParams]);
 
     return (
         <main className="flex grow flex-col pt-3">

@@ -142,12 +142,12 @@ const WishList: FC = () => {
     };
 
     useEffect(() => {
-        const fetchWishes = async () => {
-            if (firstLoad) {
-                setFirstLoad(false);
-                return;
-            }
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
 
+        const fetchWishes = async () => {
             if (!inView || stopRequests) return;
 
             setIsLoadingAdd(true);

@@ -134,6 +134,11 @@ const AddToCollection: FC<IProps> = ({
     }, [inView, myUser, userId]);
 
     useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
         if (!myUser || userId !== myUser?.id) return;
 
         const fetchCollections = async () => {
@@ -152,7 +157,7 @@ const AddToCollection: FC<IProps> = ({
         };
 
         fetchCollections().finally();
-    }, [userId, wishId, myUser]);
+    }, [firstLoad, userId, wishId, myUser]);
 
     useEffect(() => {
         return () => {
