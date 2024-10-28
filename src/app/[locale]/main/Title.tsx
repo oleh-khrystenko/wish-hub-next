@@ -11,6 +11,7 @@ interface IProps {
 }
 
 const Title: FC<IProps> = ({ selectedUserFullName }) => {
+    const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [collectionName, setCollectionName] =
         useState<ICollection['name']>('');
 
@@ -25,6 +26,11 @@ const Title: FC<IProps> = ({ selectedUserFullName }) => {
     const collectionId = searchParams.get('collectionId');
 
     useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
         if (!collectionId) return;
 
         const fetchCollection = async () => {
@@ -36,7 +42,7 @@ const Title: FC<IProps> = ({ selectedUserFullName }) => {
         };
 
         fetchCollection().finally();
-    }, [collectionId]);
+    }, [firstLoad, collectionId]);
 
     return (
         <div className="my-2 pl-2.5">

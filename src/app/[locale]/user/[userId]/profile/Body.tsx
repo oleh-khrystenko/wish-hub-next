@@ -18,6 +18,7 @@ import PersonIcon from '@/components/icons/PersonIcon';
 import MainIcon from '@/components/icons/MainIcon';
 
 const Body: FC = () => {
+    const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [showEdit, setShowEdit] = useState<boolean>(false);
     const [showConfirmDeleteMyUser, setShowConfirmDeleteMyUser] =
         useState<boolean>(false);
@@ -49,13 +50,18 @@ const Body: FC = () => {
     ];
 
     useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
         if (!myUser) return;
 
         getUser(
             { userId, myUserId: myUser.id },
             allPagesT('users-api.get-user.error')
         ).finally();
-    }, [userId]);
+    }, [firstLoad, userId]);
 
     return (
         <main className="mx-auto w-full max-w-7xl pt-3">

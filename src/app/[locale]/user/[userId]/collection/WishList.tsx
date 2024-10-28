@@ -190,6 +190,11 @@ const WishList: FC<IProps> = ({ userId }) => {
     }, [inView]);
 
     useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
         const fetchCollection = async () => {
             if (routeUserId.includes('guest')) {
                 const localGuestWishes: string =
@@ -215,7 +220,7 @@ const WishList: FC<IProps> = ({ userId }) => {
         };
 
         fetchCollection().finally();
-    }, [userId, collectionId, routeUserId]);
+    }, [firstLoad, userId, collectionId, routeUserId]);
 
     useEffect(() => {
         setDeletingCollection(

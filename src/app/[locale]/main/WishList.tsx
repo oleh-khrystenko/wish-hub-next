@@ -203,6 +203,11 @@ const WishList: FC = () => {
     }, [inView]);
 
     useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
         const fetchWishes = async () => {
             setShowSidebar(false);
 
@@ -249,7 +254,7 @@ const WishList: FC = () => {
         };
 
         fetchWishes().finally();
-    }, [collectionId]);
+    }, [firstLoad, collectionId]);
 
     useEffect(() => {
         setDeletingCollection(

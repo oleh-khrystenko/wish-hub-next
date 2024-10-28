@@ -240,15 +240,7 @@ const WishList: FC<IProps> = ({ userId }) => {
             return;
         }
 
-        if (
-            wishes.length > 0 ||
-            wishesStatus !== EWishStatus.ALL ||
-            wishesPrivacy !== EWishPrivacy.ALL ||
-            wishesSearch.length > 0
-        )
-            return;
-
-        const fetchWishes = async () => {
+        const initialFetchWishes = async () => {
             await getInitialWishList(
                 myUser?.id,
                 userId,
@@ -256,19 +248,9 @@ const WishList: FC<IProps> = ({ userId }) => {
                     ? `collectionId:${collectionId}`
                     : 'sortByLikes:desc'
             );
-        };
-        fetchWishes().finally();
-    }, [searchParams, userId, collections.length, wishes.length]);
 
-    useEffect(() => {
-        if (firstLoad) {
-            setFirstLoad(false);
-            return;
-        }
+            if (!collectionId) return;
 
-        if (!collectionId) return;
-
-        const fetchCollection = async () => {
             const response = await collectionApi.getCollection({
                 collectionId,
             });
@@ -276,19 +258,13 @@ const WishList: FC<IProps> = ({ userId }) => {
             if (response.data) {
                 setValue('collectionName', response.data.name);
                 setCurrentCollection(response.data);
+                setSelectedWishes(response.data.wishIdList);
             } else {
                 setValue('collectionName', '');
             }
         };
-
-        fetchCollection().finally();
-    }, [firstLoad, collectionId]);
-
-    useEffect(() => {
-        if (!currentCollection || wishes.length === 0) return;
-
-        setSelectedWishes(currentCollection.wishIdList);
-    }, [currentCollection, wishes.length]);
+        initialFetchWishes().finally();
+    }, [firstLoad, searchParams, userId, collectionId]);
 
     return (
         <>

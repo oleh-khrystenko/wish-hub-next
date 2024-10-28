@@ -18,6 +18,7 @@ import CollectionIcon from '@/components/icons/CollectionIcon';
 import MainIcon from '@/components/icons/MainIcon';
 
 const Body: FC = () => {
+    const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [collectionName, setCollectionName] =
         useState<ICollection['name']>('');
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
@@ -59,6 +60,11 @@ const Body: FC = () => {
     };
 
     useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
         if (!collectionId) return;
 
         const fetchCollection = async () => {
@@ -70,7 +76,7 @@ const Body: FC = () => {
         };
 
         fetchCollection().finally();
-    }, [collectionId]);
+    }, [firstLoad, collectionId]);
 
     return (
         <main className="flex grow flex-col pt-3">
