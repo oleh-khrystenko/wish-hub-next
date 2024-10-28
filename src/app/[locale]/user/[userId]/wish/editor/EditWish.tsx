@@ -65,7 +65,6 @@ const EditWish: FC<IProps> = ({ wish }) => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const wishes = useWishesStore((state) => state.list);
     const updateWish = useWishesStore((state) => state.updateWish);
     const deleteWish = useWishesStore((state) => state.deleteWish);
 
@@ -73,8 +72,8 @@ const EditWish: FC<IProps> = ({ wish }) => {
     const showAddToCollection = useCollectionsStore(
         (state) => state.showAddToCollection
     );
-    const setAddToCollectionError = useCollectionsStore(
-        (state) => state.setAddToCollectionError
+    const wishDeletedFromAllCollections = useCollectionsStore(
+        (state) => state.wishDeletedFromAllCollections
     );
 
     const isDirtyForm = useSettingsStore((state) => state.isDirtyForm);
@@ -82,11 +81,7 @@ const EditWish: FC<IProps> = ({ wish }) => {
 
     const onSubmit: SubmitHandler<TWishFormInputs> = async (data) => {
         if (myUser) {
-            const hasSelectedCollection = collections.some(
-                (collection) => collection.selected
-            );
-            // Collection Errors
-            // create
+            // Collection Errors - create
             if (showAddToCollection === EAddToCollection.CREATE) {
                 if (data.collectionName.length === 0) {
                     setError(
@@ -128,18 +123,6 @@ const EditWish: FC<IProps> = ({ wish }) => {
                     );
                     return;
                 }
-            }
-            // add
-            if (
-                showAddToCollection === EAddToCollection.ADD &&
-                !hasSelectedCollection
-            ) {
-                setAddToCollectionError(
-                    validationsT('add-to-collection.required')
-                );
-                return;
-            } else {
-                setAddToCollectionError('');
             }
 
             if (show === null || !process.env.NEXT_PUBLIC_CRYPTO_JS_SECRET)
@@ -226,16 +209,18 @@ const EditWish: FC<IProps> = ({ wish }) => {
                 return encryptedImage;
             });
 
-            // Collections
+            // COLLECTIONS
+            // name
             const isSendCollectionName =
                 showAddToCollection === EAddToCollection.CREATE &&
                 data.collectionName;
             const collectionName = isSendCollectionName
                 ? data.collectionName.trim()
                 : undefined;
+            // list
             const isSendCollectionIdList =
                 showAddToCollection === EAddToCollection.ADD &&
-                hasSelectedCollection;
+                !wishDeletedFromAllCollections;
             const collectionIdList = isSendCollectionIdList
                 ? collections.map((collection) => ({
                       id: collection.id,
@@ -255,6 +240,7 @@ const EditWish: FC<IProps> = ({ wish }) => {
                     dataDescription.length > 0 ? sendingDescription : undefined,
                 collectionName,
                 collectionIdList,
+                wishDeletedFromAllCollections,
                 images: show === EPrivacy.ALL ? images : encryptedImages,
             };
 

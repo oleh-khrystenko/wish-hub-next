@@ -39,6 +39,8 @@ const AddToCollection: FC<IProps> = ({
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
     const [showAttention, setShowAttention] = useState<boolean>(false);
+    const [hasSelectedCollection, setHasSelectedCollection] =
+        useState<boolean>(false);
 
     const { userId } = useParams<{ userId: string }>();
     const searchParams = useSearchParams();
@@ -61,6 +63,9 @@ const AddToCollection: FC<IProps> = ({
     const showAddToCollection = useCollectionsStore(
         (state) => state.showAddToCollection
     );
+    const wishDeletedFromAllCollections = useCollectionsStore(
+        (state) => state.wishDeletedFromAllCollections
+    );
     const setShowAddToCollection = useCollectionsStore(
         (state) => state.setShowAddToCollection
     );
@@ -69,6 +74,9 @@ const AddToCollection: FC<IProps> = ({
     );
     const setSelectedCollection = useCollectionsStore(
         (state) => state.setSelectedCollection
+    );
+    const setWishDeletedFromAllCollections = useCollectionsStore(
+        (state) => state.setWishDeletedFromAllCollections
     );
     const getCollections = useCollectionsStore((state) => state.getCollections);
     const addCollections = useCollectionsStore((state) => state.addCollections);
@@ -94,6 +102,12 @@ const AddToCollection: FC<IProps> = ({
 
     const handleCollectionClick = (id: ICollection['id']) => {
         setSelectedCollection(id);
+        setAddToCollectionError('');
+        setIsDirtyForm(true);
+    };
+
+    const handleDeleteWishFromAllCollections = () => {
+        setWishDeletedFromAllCollections(!wishDeletedFromAllCollections);
         setAddToCollectionError('');
         setIsDirtyForm(true);
     };
@@ -142,7 +156,7 @@ const AddToCollection: FC<IProps> = ({
         if (!myUser || userId !== myUser?.id) return;
 
         const fetchCollections = async () => {
-            await getCollections(
+            const response = await getCollections(
                 {
                     myId: myUser.id,
                     userId: myUser.id,
@@ -154,6 +168,15 @@ const AddToCollection: FC<IProps> = ({
                 allPagesT('collections.get-collections.error'),
                 wishId || undefined
             );
+
+            if (!response) return;
+            const responseHasSelectedCollection = response.some(
+                (collection) => collection.selected
+            );
+            setHasSelectedCollection(responseHasSelectedCollection);
+
+            if (!responseHasSelectedCollection) return;
+            setShowAddToCollection(EAddToCollection.ADD);
         };
 
         fetchCollections().finally();
@@ -162,6 +185,7 @@ const AddToCollection: FC<IProps> = ({
     useEffect(() => {
         return () => {
             setShowAddToCollection(EAddToCollection.NONE);
+            setWishDeletedFromAllCollections(false);
             setAddToCollectionError('');
         };
     }, []);
@@ -173,14 +197,16 @@ const AddToCollection: FC<IProps> = ({
             </div>
 
             {/* NONE */}
-            <UiRadio
-                id="none-collection"
-                label={mainPageT('none_collection')}
-                name="collection"
-                checked={showAddToCollection === EAddToCollection.NONE}
-                value={EAddToCollection.NONE}
-                onChange={handleChangeShow}
-            />
+            {!hasSelectedCollection && (
+                <UiRadio
+                    id="none-collection"
+                    label={mainPageT('none_collection')}
+                    name="collection"
+                    checked={showAddToCollection === EAddToCollection.NONE}
+                    value={EAddToCollection.NONE}
+                    onChange={handleChangeShow}
+                />
+            )}
 
             {/* CREATE */}
             <div className="mt-4">
@@ -235,6 +261,24 @@ const AddToCollection: FC<IProps> = ({
                         className={`${showAddToCollection === EAddToCollection.ADD ? 'mt-4 max-h-80 py-3' : 'mt-0 max-h-0 py-0'} overflow-hidden rounded-md bg-zinc-300 px-2 transition-all duration-300 ease-in-out dark:bg-zinc-800`}
                     >
                         <ul className="flex max-h-72 flex-col gap-1 overflow-y-auto overflow-x-hidden pr-1">
+                            {hasSelectedCollection && (
+                                <li>
+                                    <button
+                                        className="relative flex w-full items-center justify-between gap-4 truncate rounded-md py-1.5 pl-8 pr-3 text-left text-sm font-bold text-rose-500 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
+                                        type="button"
+                                        onClick={
+                                            handleDeleteWishFromAllCollections
+                                        }
+                                    >
+                                        {mainPageT('remove_all')}
+
+                                        <div
+                                            className={`${wishDeletedFromAllCollections ? 'before:w-4 before:shadow-checked-outline-light before:delay-100 after:h-2 dark:before:shadow-checked-outline-dark tablet-md:before:shadow-checked-outline-light-tablet tablet-md:dark:before:shadow-checked-outline-dark-tablet' : 'after:delay-100'} absolute left-2 top-1/2 z-10 inline-block h-4 w-4 -translate-y-1/2 rounded-sm border-2 border-rose-500 bg-transparent transition-all duration-300 ease-in-out before:absolute before:left-1.5 before:top-2 before:inline-block before:h-0.75 before:w-0 before:origin-top-left before:-rotate-45 before:rounded-full before:bg-rose-500 before:transition-all before:duration-150 before:ease-in-out after:absolute after:left-0.5 after:top-1 after:inline-block after:h-0 after:w-0.75 after:origin-top-left after:-rotate-45 after:rounded-full after:bg-rose-500 after:transition-all after:duration-150 after:ease-in-out`}
+                                        ></div>
+                                    </button>
+                                </li>
+                            )}
+
                             {collections.map((collection) => (
                                 <li key={collection.id}>
                                     <button
@@ -247,7 +291,7 @@ const AddToCollection: FC<IProps> = ({
                                         {collection.name}
 
                                         <div
-                                            className={`${collection.selected ? 'border-cyan-300 before:w-4 before:shadow-checked-outline-light before:delay-100 after:h-2 dark:before:shadow-checked-outline-dark tablet-md:before:shadow-checked-outline-light-tablet tablet-md:dark:before:shadow-checked-outline-dark-tablet' : 'border-zinc-800 after:delay-100 dark:border-zinc-300'} absolute left-2 top-1/2 z-10 inline-block h-4 w-4 -translate-y-1/2 rounded-sm border-2 bg-transparent transition-all duration-300 ease-in-out before:absolute before:left-1.5 before:top-2 before:inline-block before:h-0.75 before:w-0 before:origin-top-left before:-rotate-45 before:rounded-full before:bg-cyan-300 before:transition-all before:duration-150 before:ease-in-out after:absolute after:left-0.5 after:top-1 after:inline-block after:h-0 after:w-0.75 after:origin-top-left after:-rotate-45 after:rounded-full after:bg-cyan-300 after:transition-all after:duration-150 after:ease-in-out`}
+                                            className={`${collection.selected && !wishDeletedFromAllCollections ? 'border-cyan-300 before:w-4 before:shadow-checked-outline-light before:delay-100 after:h-2 dark:before:shadow-checked-outline-dark tablet-md:before:shadow-checked-outline-light-tablet tablet-md:dark:before:shadow-checked-outline-dark-tablet' : 'border-zinc-800 after:delay-100 dark:border-zinc-300'} absolute left-2 top-1/2 z-10 inline-block h-4 w-4 -translate-y-1/2 rounded-sm border-2 bg-transparent transition-all duration-300 ease-in-out before:absolute before:left-1.5 before:top-2 before:inline-block before:h-0.75 before:w-0 before:origin-top-left before:-rotate-45 before:rounded-full before:bg-cyan-300 before:transition-all before:duration-150 before:ease-in-out after:absolute after:left-0.5 after:top-1 after:inline-block after:h-0 after:w-0.75 after:origin-top-left after:-rotate-45 after:rounded-full after:bg-cyan-300 after:transition-all after:duration-150 after:ease-in-out`}
                                         ></div>
                                     </button>
                                 </li>

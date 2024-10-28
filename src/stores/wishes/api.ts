@@ -101,6 +101,11 @@ const createWish = async (
 const updateWish = async (data: IUpdateWish): Promise<AxiosResponse<IWish>> => {
     const formData = new FormData();
     formData.append('id', data.id);
+    data.wishDeletedFromAllCollections !== undefined &&
+        formData.append(
+            'wishDeletedFromAllCollections',
+            data.wishDeletedFromAllCollections.toString()
+        );
 
     return await api.put('/wish', addDataToFormData(formData, data), {
         headers: {

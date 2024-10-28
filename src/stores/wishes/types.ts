@@ -32,6 +32,7 @@ export interface IUpdateWish extends IEditorWish {
         id: ICollection['id'];
         selected: boolean;
     }[];
+    wishDeletedFromAllCollections?: boolean;
 }
 
 export interface IWishWithQuote {

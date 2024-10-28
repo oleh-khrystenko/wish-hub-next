@@ -30,11 +30,13 @@ interface ICollectionsStore {
     stopRequestsWishCollections: boolean;
     showAddToCollection: EAddToCollection;
     addToCollectionError: string;
+    wishDeletedFromAllCollections: boolean;
     setAddToCollectionError: (value: string) => void;
     setCollectionsSearch: (value: string) => void;
     setCollectionsSort: (value: ECollectionSort) => void;
     setSelectedCollection: (id: ICollection['id']) => void;
     setShowAddToCollection: (value: EAddToCollection) => void;
+    setWishDeletedFromAllCollections: (value: boolean) => void;
     setResetCollections: () => void;
     createCollection: (
         data: ISendCreateCollection,
@@ -55,7 +57,7 @@ interface ICollectionsStore {
         params: ISendGetCollections,
         errorT: string,
         wishId?: IWish['id']
-    ) => Promise<ICollection[] | void>;
+    ) => Promise<void>;
     getWishCollections: (
         params: ISendGetWishCollections,
         errorT: string
@@ -81,6 +83,7 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
     stopRequestsWishCollections: false,
     showAddToCollection: EAddToCollection.NONE,
     addToCollectionError: '',
+    wishDeletedFromAllCollections: false,
     setAddToCollectionError: (value) => {
         set((state) => ({
             ...state,
@@ -118,6 +121,12 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
         set((state) => ({
             ...state,
             showAddToCollection: value,
+        }));
+    },
+    setWishDeletedFromAllCollections: (value) => {
+        set((state) => ({
+            ...state,
+            wishDeletedFromAllCollections: value,
         }));
     },
     setResetCollections: () => {
@@ -210,6 +219,8 @@ export const useCollectionsStore = create<ICollectionsStore>((set) => ({
                     response.data.collections.length !==
                     COLLECTION_PAGINATION_LIMIT,
             }));
+
+            return selectedCollections;
         } catch (error: any) {
             set((state) => ({
                 ...state,

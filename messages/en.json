@@ -232,6 +232,7 @@
         "wishes_privacy": "Filter by privacy",
         "collection_block": "Add to Collection",
         "none_collection": "Do not add to a collection",
+        "remove_all": "Remove from all collections",
         "create_for_wish": "Create a collection for this wish",
         "add_to_collection": "Add to an existing collection",
         "max_address_limit": "The maximum number of addresses has been reached. You can add up to {count} addresses.",
