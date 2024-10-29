@@ -425,9 +425,9 @@ const WishList: FC = () => {
                 </div>
             ) : (
                 <div className="flex h-full w-full items-center justify-center">
-                    <p className="flex w-full flex-col items-center text-center text-xl text-zinc-700 dark:text-zinc-300">
+                    <p className="flex w-full flex-col items-center text-center text-xl text-zinc-600 dark:text-zinc-400">
                         {mainPageT('at_user')}
-                        <span className="max-w-full truncate px-0.5 text-center text-xl italic text-zinc-700 dark:text-zinc-300">
+                        <span className="max-w-full truncate px-0.5 text-center text-xl font-bold text-zinc-950 dark:text-zinc-100">
                             {selectedUserFullName}
                         </span>
                         {mainPageT('does_not_have')}

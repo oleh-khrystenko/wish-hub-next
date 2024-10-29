@@ -50,7 +50,7 @@ const Title: FC<IProps> = ({ selectedUserFullName }) => {
                 <>
                     {myUser?.id === selectedUserId ? (
                         <h1 className="flex max-w-full flex-wrap items-center">
-                            <span className="whitespace-nowrap text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-lg:text-3xl">
+                            <span className="whitespace-nowrap text-2xl font-bold text-zinc-600 dark:text-zinc-400 tablet-lg:text-3xl">
                                 {mainPageT(
                                     collectionId ? 'my_collection' : 'my_wishes'
                                 )}
@@ -59,7 +59,7 @@ const Title: FC<IProps> = ({ selectedUserFullName }) => {
                                 <>
                                     &nbsp;
                                     <span
-                                        className="min-h-7 max-w-full truncate pr-1 text-2xl font-bold italic text-zinc-950 dark:text-zinc-100 tablet-md:text-3xl"
+                                        className="min-h-7 max-w-full truncate pr-1 text-2xl font-bold text-zinc-950 dark:text-zinc-100 tablet-md:text-3xl"
                                         title={collectionName}
                                     >
                                         &quot;{collectionName}&quot;
@@ -71,27 +71,27 @@ const Title: FC<IProps> = ({ selectedUserFullName }) => {
                         <h1 className="flex max-w-full flex-wrap items-center">
                             {collectionId ? (
                                 <>
-                                    <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
+                                    <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-600 dark:text-zinc-400 tablet-md:text-3xl">
                                         {mainPageT('collection')}
                                     </span>
                                     <span
-                                        className="min-h-7 max-w-full truncate pr-1 text-2xl font-bold italic text-zinc-950 dark:text-zinc-100 tablet-md:text-3xl"
+                                        className="min-h-7 max-w-full truncate pr-1 text-2xl font-bold text-zinc-950 dark:text-zinc-100 tablet-md:text-3xl"
                                         title={collectionName}
                                     >
                                         &quot;{collectionName}&quot;
                                     </span>
                                     &nbsp;
-                                    <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
+                                    <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-600 dark:text-zinc-400 tablet-md:text-3xl">
                                         {mainPageT('of_user')}
                                     </span>
                                 </>
                             ) : (
-                                <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
+                                <span className="mr-1 min-h-7 whitespace-nowrap text-2xl font-bold text-zinc-600 dark:text-zinc-400 tablet-md:text-3xl">
                                     {mainPageT('wishes_of_user')}
                                 </span>
                             )}
                             <span
-                                className="min-h-7 max-w-full truncate pr-1 text-2xl font-bold italic text-zinc-950 dark:text-zinc-100 tablet-md:text-3xl"
+                                className="min-h-7 max-w-full truncate pr-1 text-2xl font-bold text-zinc-950 dark:text-zinc-100 tablet-md:text-3xl"
                                 title={selectedUserFullName}
                             >
                                 &quot;{selectedUserFullName}&quot;
@@ -100,7 +100,7 @@ const Title: FC<IProps> = ({ selectedUserFullName }) => {
                     )}
                 </>
             ) : (
-                <h1 className="text-2xl font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-3xl">
+                <h1 className="text-2xl font-bold text-zinc-600 dark:text-zinc-400 tablet-md:text-3xl">
                     {mainPageT('wishes_of_users')}
                 </h1>
             )}

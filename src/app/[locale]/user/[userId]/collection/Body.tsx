@@ -86,7 +86,7 @@ const Body: FC = () => {
             />
 
             <div className="mt-3 flex grow flex-col px-3 pb-5 desktop-sm:px-0">
-                <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
+                <h1 className="text-xl font-bold text-zinc-600 dark:text-zinc-400 mobile-xs:text-2xl">
                     {collectionPageT(
                         myUser?.id === userId ? 'my_collection' : 'collection'
                     )}
@@ -94,7 +94,7 @@ const Body: FC = () => {
                     {collectionId && (
                         <>
                             &nbsp;
-                            <span className="italic text-zinc-900 dark:text-zinc-100">
+                            <span className="text-zinc-950 dark:text-zinc-100">
                                 &quot;
                                 {collectionName}
                                 &quot;
@@ -129,7 +129,7 @@ const Body: FC = () => {
                         />
 
                         <p
-                            className="max-w-32 truncate text-2xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:max-w-40 mobile-sm:max-w-48 mobile-md:max-w-56 mobile-lg:max-w-60 mobile-xl:max-w-72 tablet-sm:max-w-96 tablet-md:max-w-lg tablet-md:text-3xl tablet-lg:max-w-3xl desktop-xs:max-w-5xl"
+                            className="max-w-32 truncate text-2xl font-bold text-zinc-950 dark:text-zinc-100 mobile-xs:max-w-40 mobile-sm:max-w-48 mobile-md:max-w-56 mobile-lg:max-w-60 mobile-xl:max-w-72 tablet-sm:max-w-96 tablet-md:max-w-lg tablet-md:text-3xl tablet-lg:max-w-3xl desktop-xs:max-w-5xl"
                             title={
                                 userId.includes('guest')
                                     ? allPagesT('guest')
