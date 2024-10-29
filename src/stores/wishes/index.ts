@@ -61,12 +61,12 @@ interface IWishesStore {
     sort: TWishSort;
     page: number;
     stopRequests: boolean;
+    selectedWishIdList: IWish['id'][];
     setWishesStatus: (value: EWishStatus) => void;
     setWishesPrivacy: (value: EWishPrivacy) => void;
     setWishesSearch: (value: string) => void;
     setWishesSort: (value: TWishSort) => void;
     setSelectedWish: (id: IWish['id']) => void;
-    setSelectedWishes: (wishIdList: IWish['id'][]) => void;
     resetWishCandidate: () => void;
     resetWishList: () => void;
     fetchWishDataFromLink: (
@@ -112,11 +112,13 @@ interface IWishesStore {
     ) => Promise<void>;
     getWishList: (
         data: ISendWishList,
-        errorT: string
+        errorT: string,
+        wishIdListForCollection?: IWish['id'][]
     ) => Promise<IWish[] | void>;
     addWishList: (
         data: ISendWishList,
-        errorT: string
+        errorT: string,
+        wishIdListForCollection?: IWish['id'][]
     ) => Promise<IWish[] | void>;
     getAllWishes: (data: ISendAllWishes, errorT: string) => Promise<void>;
     addAllWishes: (data: ISendAllWishes, errorT: string) => Promise<void>;
@@ -141,6 +143,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
     sort: 'sortByLikes:desc',
     page: 1,
     stopRequests: false,
+    selectedWishIdList: [],
     setWishesStatus: (value) => {
         set((state) => ({
             ...state,
@@ -178,21 +181,9 @@ export const useWishesStore = create<IWishesStore>((set) => ({
 
                 return wish;
             }),
-        }));
-    },
-    setSelectedWishes: (wishIdList) => {
-        set((state) => ({
-            ...state,
-            list: state.list.map((wish) => {
-                if (wishIdList.includes(wish.id)) {
-                    return {
-                        ...wish,
-                        selected: true,
-                    };
-                }
-
-                return wish;
-            }),
+            selectedWishIdList: state.selectedWishIdList.includes(id)
+                ? state.selectedWishIdList.filter((wishId) => wishId !== id)
+                : [...state.selectedWishIdList, id],
         }));
     },
     resetWishCandidate: () => {
@@ -422,7 +413,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             setShowGlobalLoading(false);
         }
     },
-    getWishList: async (data, errorT) => {
+    getWishList: async (data, errorT, wishIdListForCollection) => {
         setShowGlobalLoading(true);
 
         set((state) => ({
@@ -433,16 +424,30 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         try {
             const response = await wishesApi.getWishList(data);
 
+            const selectedWises = wishIdListForCollection
+                ? response.data.wishes.map((wish) => {
+                      if (wishIdListForCollection.includes(wish.id)) {
+                          return {
+                              ...wish,
+                              selected: true,
+                          };
+                      }
+
+                      return wish;
+                  })
+                : response.data.wishes;
+
             set((state) => ({
                 ...state,
-                list: response.data.wishes,
+                list: selectedWises,
+                selectedWishIdList: wishIdListForCollection || [],
                 creator: response.data.creator,
                 page: 2,
                 stopRequests:
                     response.data.wishes.length !== WISHES_PAGINATION_LIMIT,
             }));
 
-            return response.data.wishes;
+            return selectedWises;
         } catch (error: any) {
             set((state) => ({
                 ...state,
@@ -454,7 +459,7 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             setShowGlobalLoading(false);
         }
     },
-    addWishList: async (data, errorT) => {
+    addWishList: async (data, errorT, wishIdListForCollection) => {
         set((state) => ({
             ...state,
             stopRequests: true,
@@ -463,15 +468,29 @@ export const useWishesStore = create<IWishesStore>((set) => ({
         try {
             const response = await wishesApi.getWishList(data);
 
+            const selectedWises = wishIdListForCollection
+                ? response.data.wishes.map((wish) => {
+                      if (wishIdListForCollection.includes(wish.id)) {
+                          return {
+                              ...wish,
+                              selected: true,
+                          };
+                      }
+
+                      return wish;
+                  })
+                : response.data.wishes;
+
             set((state) => ({
                 ...state,
-                list: [...state.list, ...response.data.wishes],
+                list: [...state.list, ...selectedWises],
+                selectedWishIdList: wishIdListForCollection || [],
                 page: state.page + 1,
                 stopRequests:
                     response.data.wishes.length !== WISHES_PAGINATION_LIMIT,
             }));
 
-            return response.data.wishes;
+            return selectedWises;
         } catch (error: any) {
             set((state) => ({
                 ...state,

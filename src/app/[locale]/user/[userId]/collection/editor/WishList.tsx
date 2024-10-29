@@ -69,8 +69,8 @@ const WishList: FC<IProps> = ({ userId }) => {
     const wishesSearch = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
-    const setSelectedWishes = useWishesStore(
-        (state) => state.setSelectedWishes
+    const selectedWishIdList = useWishesStore(
+        (state) => state.selectedWishIdList
     );
     const addWishList = useWishesStore((state) => state.addWishList);
 
@@ -134,16 +134,12 @@ const WishList: FC<IProps> = ({ userId }) => {
 
         setIsLoading(true);
 
-        const wishIdList = wishes
-            .filter((wish) => wish.selected)
-            .map((wish) => wish.id);
-
         const collection = collectionId
             ? await updateCollection(
                   {
                       collectionId,
                       userId,
-                      wishIdList,
+                      wishIdList: selectedWishIdList,
                       name: data.collectionName.trim(),
                   },
                   allPagesT('collections.update-collection.success', {
@@ -154,7 +150,7 @@ const WishList: FC<IProps> = ({ userId }) => {
             : await createCollection(
                   {
                       userId,
-                      wishIdList,
+                      wishIdList: selectedWishIdList,
                       name: data.collectionName.trim(),
                   },
                   allPagesT('collections.create-collection.success', {
@@ -226,7 +222,8 @@ const WishList: FC<IProps> = ({ userId }) => {
                     search: wishesSearch,
                     sort,
                 },
-                allPagesT('wishes-api.get-wish-list.error')
+                allPagesT('wishes-api.get-wish-list.error'),
+                currentCollection?.wishIdList
             );
 
             setIsLoadingAdd(false);
@@ -241,14 +238,6 @@ const WishList: FC<IProps> = ({ userId }) => {
         }
 
         const initialFetchWishes = async () => {
-            await getInitialWishList(
-                myUser?.id,
-                userId,
-                collectionId
-                    ? `collectionId:${collectionId}`
-                    : 'sortByLikes:desc'
-            );
-
             if (!collectionId) return;
 
             const response = await collectionApi.getCollection({
@@ -258,10 +247,18 @@ const WishList: FC<IProps> = ({ userId }) => {
             if (response.data) {
                 setValue('collectionName', response.data.name);
                 setCurrentCollection(response.data);
-                setSelectedWishes(response.data.wishIdList);
             } else {
                 setValue('collectionName', '');
             }
+
+            await getInitialWishList(
+                myUser?.id,
+                userId,
+                collectionId
+                    ? `collectionId:${collectionId}`
+                    : 'sortByLikes:desc',
+                response.data.wishIdList
+            );
         };
         initialFetchWishes().finally();
     }, [firstLoad, searchParams, userId, collectionId]);

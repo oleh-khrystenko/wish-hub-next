@@ -17,6 +17,9 @@ const UseChangeWishes = () => {
 
     const selectedUserId = useUsersStore((state) => state.selectedUserId);
 
+    const selectedWishIdList = useWishesStore(
+        (state) => state.selectedWishIdList
+    );
     const getAllWishes = useWishesStore((state) => state.getAllWishes);
     const getWishList = useWishesStore((state) => state.getWishList);
     const getCollectionWishes = useWishesStore(
@@ -64,7 +67,8 @@ const UseChangeWishes = () => {
                         search,
                         sort,
                     },
-                    allPagesT('wishes-api.get-wish-list.error')
+                    allPagesT('wishes-api.get-wish-list.error'),
+                    selectedWishIdList
                 );
 
                 if (!wishes) return;

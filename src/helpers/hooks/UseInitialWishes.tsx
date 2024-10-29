@@ -41,7 +41,8 @@ const UseInitialWishes = () => {
     const getInitialWishList = async (
         myId: IUser['id'] | undefined,
         userId: IUser['id'],
-        sort: TWishSort = 'sortByLikes:desc'
+        sort: TWishSort = 'sortByLikes:desc',
+        wishIdListForCollection: IWish['id'][] = []
     ) => {
         await getWishList(
             {
@@ -54,7 +55,8 @@ const UseInitialWishes = () => {
                 search: '',
                 sort,
             },
-            allPagesT('wishes-api.get-wish-list.error')
+            allPagesT('wishes-api.get-wish-list.error'),
+            wishIdListForCollection
         );
         setWishesStatus(EWishStatus.ALL);
         setWishesSearch('');
