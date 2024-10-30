@@ -95,12 +95,12 @@ const WishContent: FC<IProps> = ({ wish, myUser }) => {
     };
 
     useEffect(() => {
-        const fetchWishCollections = async () => {
-            if (firstLoad) {
-                setFirstLoad(false);
-                return;
-            }
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
 
+        const fetchWishCollections = async () => {
             if (!inView || stopRequestsWishCollections) return;
 
             setIsLoadingAdd(true);
@@ -121,6 +121,11 @@ const WishContent: FC<IProps> = ({ wish, myUser }) => {
     }, [inView]);
 
     useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
         const fetchWishCollections = async () => {
             await getWishCollections(
                 {
@@ -133,7 +138,7 @@ const WishContent: FC<IProps> = ({ wish, myUser }) => {
         };
 
         fetchWishCollections().finally();
-    }, []);
+    }, [firstLoad]);
 
     return (
         <>

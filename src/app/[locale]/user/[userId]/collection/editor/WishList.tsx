@@ -238,17 +238,18 @@ const WishList: FC<IProps> = ({ userId }) => {
         }
 
         const initialFetchWishes = async () => {
-            if (!collectionId) return;
+            let response;
+            if (collectionId) {
+                response = await collectionApi.getCollection({
+                    collectionId,
+                });
 
-            const response = await collectionApi.getCollection({
-                collectionId,
-            });
-
-            if (response.data) {
-                setValue('collectionName', response.data.name);
-                setCurrentCollection(response.data);
-            } else {
-                setValue('collectionName', '');
+                if (response.data) {
+                    setValue('collectionName', response.data.name);
+                    setCurrentCollection(response.data);
+                } else {
+                    setValue('collectionName', '');
+                }
             }
 
             await getInitialWishList(
@@ -257,7 +258,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                 collectionId
                     ? `collectionId:${collectionId}`
                     : 'sortByLikes:desc',
-                response.data.wishIdList
+                response?.data.wishIdList
             );
         };
         initialFetchWishes().finally();
