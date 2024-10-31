@@ -1,16 +1,15 @@
 'use client';
 
 import { FC, useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
+import { IDEI_PODARUNKIV, IDEI_PODARUNKIV_ID } from '@/helpers/utils/constants';
 import DetailProfile from '@/app/[locale]/user/[userId]/profile/DetailProfile';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import UiButton from '@/components/ui/UiButton';
 import PersonIcon from '@/components/icons/PersonIcon';
 import MainIcon from '@/components/icons/MainIcon';
-import { IDEI_PODARUNKIV, IDEI_PODARUNKIV_ID } from '@/helpers/utils/constants';
 
 const Body: FC = () => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
@@ -72,7 +71,7 @@ const Body: FC = () => {
                 <DetailProfile />
 
                 <div className="mt-6 w-fit">
-                    <UiButton href={`user/${IDEI_PODARUNKIV}/collection`}>
+                    <UiButton href={`${IDEI_PODARUNKIV}/collection`}>
                         {profilePageT('user_collection')}
                     </UiButton>
                 </div>

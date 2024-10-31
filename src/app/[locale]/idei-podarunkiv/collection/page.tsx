@@ -3,10 +3,9 @@ import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
 import { IPageParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
-import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import { IDEI_PODARUNKIV } from '@/helpers/utils/constants';
-import Body from '@/app/[locale]/idei-podarunkiv/Body';
+import Body from '@/app/[locale]/idei-podarunkiv/collection/Body';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
@@ -14,32 +13,36 @@ import GlobalLoading from '@/components/layouts/GlobalLoading';
 export async function generateMetadata({
     params,
 }: IPageParams): Promise<Metadata> {
-    return await fetchMetadata(params.locale, 'profile', IDEI_PODARUNKIV);
+    return await fetchMetadata(
+        params.locale,
+        'collection',
+        `${IDEI_PODARUNKIV}/collection`
+    );
 }
 
-export default function Profile() {
+export default function Wish() {
     const messages = useMessages();
 
     return (
-        <div className="flex min-h-screen flex-col">
+        <div className="flex min-h-screen flex-col justify-between">
             <NextIntlClientProvider
                 messages={pick(messages, [
-                    'profile-page',
+                    'collection-page',
                     'main-page',
+                    'profile-page',
                     'wish-page',
                     'share-button',
                     'all-pages',
                     'validations',
-                    'inactivated',
                 ])}
             >
-                <UserSessionRefresher>
-                    <RoutesGuard>
+                <div className="relative mx-auto flex w-full max-w-7xl grow flex-col">
+                    <UserSessionRefresher>
                         <Header />
 
                         <Body />
-                    </RoutesGuard>
-                </UserSessionRefresher>
+                    </UserSessionRefresher>
+                </div>
 
                 <Footer />
 
