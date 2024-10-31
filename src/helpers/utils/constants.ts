@@ -49,3 +49,7 @@ export const WISH_COLLECTION_PAGINATION_LIMIT = 10;
 export const COLLECTION_NAME_MIN_LENGTH = 2;
 
 export const COLLECTION_NAME_MAX_LENGTH = 80;
+
+export const IDEI_PODARUNKIV = 'idei-podarunkiv';
+
+export const IDEI_PODARUNKIV_ID = '660840efccbe41253667c6be';
