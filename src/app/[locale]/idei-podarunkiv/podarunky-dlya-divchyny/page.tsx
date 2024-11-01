@@ -5,9 +5,9 @@ import { IPageParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import {
-    IDEI_PODARUNKIV,
+    IDEI_PODARUNKIV_SLUG,
     IDEI_PODARUNKIV_ID,
-    PODARUNKY_DLYA_DIVCHYNY,
+    PODARUNKY_DLYA_DIVCHYNY_SLUG,
     PODARUNKY_DLYA_DIVCHYNY_ID,
 } from '@/helpers/utils/constants';
 import Body from '@/app/[locale]/idei-podarunkiv/components/Body';
@@ -21,7 +21,7 @@ export async function generateMetadata({
     return await fetchMetadata(
         params.locale,
         'collection',
-        `${IDEI_PODARUNKIV}/${PODARUNKY_DLYA_DIVCHYNY}`
+        `${IDEI_PODARUNKIV_SLUG}/${PODARUNKY_DLYA_DIVCHYNY_SLUG}`
     );
 }
 
@@ -46,9 +46,9 @@ export default function Wish() {
                         <Header />
 
                         <Body
-                            userNameSlug={IDEI_PODARUNKIV}
+                            userNameSlug={IDEI_PODARUNKIV_SLUG}
                             userId={IDEI_PODARUNKIV_ID}
-                            collectionNameSlug={PODARUNKY_DLYA_DIVCHYNY}
+                            collectionNameSlug={PODARUNKY_DLYA_DIVCHYNY_SLUG}
                             collectionId={PODARUNKY_DLYA_DIVCHYNY_ID}
                         />
                     </UserSessionRefresher>

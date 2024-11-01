@@ -4,7 +4,10 @@ import { FC, useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
-import { IDEI_PODARUNKIV, IDEI_PODARUNKIV_ID } from '@/helpers/utils/constants';
+import {
+    IDEI_PODARUNKIV_SLUG,
+    IDEI_PODARUNKIV_ID,
+} from '@/helpers/utils/constants';
 import DetailProfile from '@/app/[locale]/user/[userId]/profile/DetailProfile';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import UiButton from '@/components/ui/UiButton';
@@ -30,7 +33,7 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: `user/${IDEI_PODARUNKIV}/profile`,
+            href: `user/${IDEI_PODARUNKIV_SLUG}/profile`,
             icon: (
                 <PersonIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
             ),
@@ -71,7 +74,7 @@ const Body: FC = () => {
                 <DetailProfile />
 
                 <div className="mt-6 w-fit">
-                    <UiButton href={`${IDEI_PODARUNKIV}/collection`}>
+                    <UiButton href={`${IDEI_PODARUNKIV_SLUG}/collection`}>
                         {profilePageT('user_collection')}
                     </UiButton>
                 </div>

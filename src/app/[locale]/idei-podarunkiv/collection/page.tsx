@@ -4,7 +4,10 @@ import pick from 'lodash.pick';
 import { IPageParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
-import { IDEI_PODARUNKIV, IDEI_PODARUNKIV_ID } from '@/helpers/utils/constants';
+import {
+    IDEI_PODARUNKIV_SLUG,
+    IDEI_PODARUNKIV_ID,
+} from '@/helpers/utils/constants';
 import Body from '@/app/[locale]/idei-podarunkiv/components/Body';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
@@ -16,7 +19,7 @@ export async function generateMetadata({
     return await fetchMetadata(
         params.locale,
         'collection',
-        `${IDEI_PODARUNKIV}/collection`
+        `${IDEI_PODARUNKIV_SLUG}/collection`
     );
 }
 
@@ -41,7 +44,7 @@ export default function Wish() {
                         <Header />
 
                         <Body
-                            userNameSlug={IDEI_PODARUNKIV}
+                            userNameSlug={IDEI_PODARUNKIV_SLUG}
                             userId={IDEI_PODARUNKIV_ID}
                             collectionNameSlug="components"
                         />
