@@ -8,10 +8,7 @@ import { useWishesStore } from '@/stores/wishes';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
-import {
-    PODARUNKY_DLYA_DIVCHYNY_ID,
-    WISHES_PAGINATION_LIMIT,
-} from '@/helpers/utils/constants';
+import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishItem from '@/app/[locale]/idei-podarunkiv/components/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import WishesSearch from '@/components/layouts/WishesSearch';
@@ -22,10 +19,16 @@ import SliderIcon from '@/components/icons/SliderIcon';
 interface IProps {
     userId: string;
     userNameSlug: string;
-    isAll?: boolean;
+    collectionNameSlug?: string;
+    collectionId?: string;
 }
 
-const WishList: FC<IProps> = ({ userId, userNameSlug, isAll }) => {
+const WishList: FC<IProps> = ({
+    userId,
+    userNameSlug,
+    collectionNameSlug,
+    collectionId,
+}) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
@@ -86,7 +89,22 @@ const WishList: FC<IProps> = ({ userId, userNameSlug, isAll }) => {
         const fetchWishes = async () => {
             setIsLoadingAdd(true);
 
-            if (isAll) {
+            if (collectionId) {
+                await addCollectionWishes(
+                    {
+                        collectionId,
+                        myId: myUser?.id,
+                        userId,
+                        status: wishesStatus,
+                        privacy: wishesPrivacy,
+                        page,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search: wishesSearch,
+                        sort,
+                    },
+                    allPagesT('wishes-api.get-collection-wishes.error')
+                );
+            } else {
                 await addWishList(
                     {
                         myId: myUser?.id,
@@ -99,21 +117,6 @@ const WishList: FC<IProps> = ({ userId, userNameSlug, isAll }) => {
                         sort,
                     },
                     allPagesT('wishes-api.get-wish-list.error')
-                );
-            } else {
-                await addCollectionWishes(
-                    {
-                        collectionId: PODARUNKY_DLYA_DIVCHYNY_ID,
-                        myId: myUser?.id,
-                        userId,
-                        status: wishesStatus,
-                        privacy: wishesPrivacy,
-                        page,
-                        limit: WISHES_PAGINATION_LIMIT,
-                        search: wishesSearch,
-                        sort,
-                    },
-                    allPagesT('wishes-api.get-collection-wishes.error')
                 );
             }
 
@@ -130,15 +133,15 @@ const WishList: FC<IProps> = ({ userId, userNameSlug, isAll }) => {
         }
 
         const fetchWishes = async () => {
-            if (isAll) {
-                await getInitialWishList(myUser?.id, userId);
-            } else {
+            if (collectionId) {
                 await getInitialCollectionWishes(
-                    PODARUNKY_DLYA_DIVCHYNY_ID,
+                    collectionId,
                     myUser?.id,
                     userId,
                     'createdAt:desc'
                 );
+            } else {
+                await getInitialWishList(myUser?.id, userId);
             }
         };
 
@@ -206,7 +209,11 @@ const WishList: FC<IProps> = ({ userId, userNameSlug, isAll }) => {
                 </div>
             )}
 
-            <SlidePanel wishListRefCurrent={wishListRef.current} />
+            <SlidePanel
+                wishListRefCurrent={wishListRef.current}
+                userNameSlug={userNameSlug}
+                collectionNameSlug={collectionNameSlug}
+            />
         </>
     );
 };

@@ -33,6 +33,8 @@ const Body: FC<IProps> = ({
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
     const [collectionName, setCollectionName] =
         useState<ICollection['name']>('');
+    const [currentCollectionNameSlug, setCurrentCollectionNameSlug] =
+        useState<ICollection['nameSlug']>('');
 
     const collectionPageT = useTranslations('collection-page');
     const allPagesT = useTranslations('all-pages');
@@ -79,6 +81,7 @@ const Body: FC<IProps> = ({
             });
 
             setCollectionName(response.data.name);
+            setCurrentCollectionNameSlug(response.data.nameSlug);
         };
 
         fetchCollection().finally();
@@ -139,7 +142,12 @@ const Body: FC<IProps> = ({
                     </div>
                 )}
 
-                <WishList userId={userId} userNameSlug={userNameSlug} />
+                <WishList
+                    userId={userId}
+                    userNameSlug={userNameSlug}
+                    collectionNameSlug={currentCollectionNameSlug}
+                    collectionId={collectionId}
+                />
             </div>
 
             {!!imageData && (

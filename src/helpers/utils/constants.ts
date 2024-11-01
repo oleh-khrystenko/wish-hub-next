@@ -53,7 +53,3 @@ export const COLLECTION_NAME_MAX_LENGTH = 80;
 export const IDEI_PODARUNKIV_SLUG = 'idei-podarunkiv';
 
 export const IDEI_PODARUNKIV_ID = '660840efccbe41253667c6be';
-
-export const PODARUNKY_DLYA_DIVCHYNY_SLUG = 'podarunky-dlya-divchyny';
-
-export const PODARUNKY_DLYA_DIVCHYNY_ID = '670975eab329d4ec53c55c8a';

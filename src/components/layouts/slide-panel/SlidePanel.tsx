@@ -25,9 +25,16 @@ import CrossIcon from '@/components/icons/CrossIcon';
 interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
     isMainPage?: boolean;
+    userNameSlug?: string;
+    collectionNameSlug?: string;
 }
 
-const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
+const SlidePanel: FC<IProps> = ({
+    wishListRefCurrent,
+    isMainPage,
+    userNameSlug,
+    collectionNameSlug,
+}) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [deletingCollection, setDeletingCollection] =
         useState<ICollection | null>(null);
@@ -200,6 +207,8 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
                                 deleteCollection={handleDeleteCollection}
                                 slidePanelRef={slidePanelRef}
                                 filtersRef={filtersRef}
+                                userNameSlug={userNameSlug}
+                                collectionNameSlug={collectionNameSlug}
                             />
                         )}
                     </div>

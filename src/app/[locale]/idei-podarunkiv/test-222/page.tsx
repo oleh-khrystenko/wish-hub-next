@@ -13,8 +13,8 @@ import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
 
-const COLLECTION_NAME_SLUG = 'podarunky-dlya-divchyny';
-const COLLECTION_ID = '670975eab329d4ec53c55c8a';
+const COLLECTION_NAME_SLUG = 'test-222';
+const COLLECTION_ID = '6723dcf5cff002c6fd2e8eb7';
 
 export async function generateMetadata({
     params,

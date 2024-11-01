@@ -22,12 +22,16 @@ interface IProps {
     slidePanelRef: RefObject<HTMLDivElement>;
     filtersRef: RefObject<HTMLDivElement>;
     deleteCollection: (currentCollection: ICollection) => void;
+    userNameSlug?: string;
+    collectionNameSlug?: string;
 }
 
 const Collections: FC<IProps> = ({
     slidePanelRef,
     filtersRef,
     deleteCollection,
+    userNameSlug,
+    collectionNameSlug,
 }) => {
     const [collectionListMaxHeight, setCollectionListMaxHeight] =
         useState<number>(300);
@@ -331,10 +335,14 @@ const Collections: FC<IProps> = ({
                         {collectionId && (
                             <li className="flex">
                                 <UiButton
-                                    href={pathname.replace(
-                                        `/${activeLocale}/`,
-                                        ''
-                                    )}
+                                    href={
+                                        userNameSlug
+                                            ? `/${userNameSlug}collection`
+                                            : pathname.replace(
+                                                  `/${activeLocale}/`,
+                                                  ''
+                                              )
+                                    }
                                     variant="clear-styles"
                                     classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
                                     onLinkClick={() => setShowSlidePanel(false)}
@@ -347,10 +355,14 @@ const Collections: FC<IProps> = ({
                         {collections.map((collection) => (
                             <li
                                 key={collection.id}
-                                className={`${collection.id === collectionId ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
+                                className={`${collection.id === collectionId || collection.nameSlug === collectionNameSlug ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
                             >
                                 <UiButton
-                                    href={`${pathname.replace(`/${activeLocale}/`, '').replace('/editor', '')}?collectionId=${collection.id}`}
+                                    href={
+                                        userNameSlug
+                                            ? `${userNameSlug}/${collection.nameSlug}`
+                                            : `${pathname.replace(`/${activeLocale}/`, '').replace('/editor', '')}?collectionId=${collection.id}`
+                                    }
                                     variant="clear-styles"
                                     classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
                                     onLinkClick={() => setShowSlidePanel(false)}
