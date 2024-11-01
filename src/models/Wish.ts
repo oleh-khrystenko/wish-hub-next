@@ -76,6 +76,7 @@ export interface IWish extends IGuestWish {
     likes: ILike[];
     dislikes: ILike[];
     selected?: boolean;
+    nameSlug?: string;
 }
 
 export interface IWishCandidate {

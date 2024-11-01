@@ -9,20 +9,26 @@ import { useWishesStore } from '@/stores/wishes';
 import collectionApi from '@/stores/collection/api';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
-import {
-    IDEI_PODARUNKIV,
-    IDEI_PODARUNKIV_ID,
-    PODARUNKY_DLYA_DIVCHYNY,
-    PODARUNKY_DLYA_DIVCHYNY_ID,
-} from '@/helpers/utils/constants';
-import WishList from '@/app/[locale]/idei-podarunkiv/podarunky-dlya-divchyny/WishList';
+import WishList from '@/app/[locale]/idei-podarunkiv/components/WishList';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 import UiAvatar from '@/components/ui/UiAvatar';
 import CollectionIcon from '@/components/icons/CollectionIcon';
 import MainIcon from '@/components/icons/MainIcon';
 
-const Body: FC = () => {
+interface IProps {
+    userNameSlug: string;
+    userId: string;
+    collectionNameSlug: string;
+    collectionId?: string;
+}
+
+const Body: FC<IProps> = ({
+    userNameSlug,
+    userId,
+    collectionNameSlug,
+    collectionId,
+}) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
     const [collectionName, setCollectionName] =
@@ -47,7 +53,7 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: `${IDEI_PODARUNKIV}/${PODARUNKY_DLYA_DIVCHYNY}`,
+            href: `${userNameSlug}/${collectionNameSlug}`,
             icon: (
                 <CollectionIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
             ),
@@ -60,6 +66,8 @@ const Body: FC = () => {
     };
 
     useEffect(() => {
+        if (!collectionId) return;
+
         if (firstLoad) {
             setFirstLoad(false);
             return;
@@ -67,7 +75,7 @@ const Body: FC = () => {
 
         const fetchCollection = async () => {
             const response = await collectionApi.getCollection({
-                collectionId: PODARUNKY_DLYA_DIVCHYNY_ID,
+                collectionId,
             });
 
             setCollectionName(response.data.name);
@@ -86,22 +94,26 @@ const Body: FC = () => {
             <div className="mt-3 flex grow flex-col px-3 pb-5 desktop-sm:px-0">
                 <h1 className="text-xl font-bold text-zinc-600 dark:text-zinc-400 mobile-xs:text-2xl">
                     {collectionPageT(
-                        myUser?.id === IDEI_PODARUNKIV_ID
-                            ? 'my_collection'
-                            : 'collection'
+                        myUser?.id === userId ? 'my_collection' : 'collection'
                     )}
-                    &nbsp;
-                    <span className="text-zinc-950 dark:text-zinc-100">
-                        &quot;
-                        {collectionName}
-                        &quot;
-                    </span>
-                    {myUser?.id !== IDEI_PODARUNKIV_ID && (
+
+                    {collectionId && (
+                        <>
+                            &nbsp;
+                            <span className="text-zinc-950 dark:text-zinc-100">
+                                &quot;
+                                {collectionName}
+                                &quot;
+                            </span>
+                        </>
+                    )}
+
+                    {myUser?.id !== userId && (
                         <>&nbsp;{collectionPageT('of_user')}:</>
                     )}
                 </h1>
 
-                {myUser?.id !== IDEI_PODARUNKIV_ID && (
+                {myUser?.id !== userId && (
                     <div className="mt-6 flex items-center gap-3 tablet-sm:gap-4">
                         <UiAvatar
                             avatar={wishesCreator?.avatar}
@@ -127,7 +139,7 @@ const Body: FC = () => {
                     </div>
                 )}
 
-                <WishList userId={IDEI_PODARUNKIV_ID} />
+                <WishList userId={userId} userNameSlug={userNameSlug} />
             </div>
 
             {!!imageData && (

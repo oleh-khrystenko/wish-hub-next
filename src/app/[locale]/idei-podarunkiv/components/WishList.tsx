@@ -12,7 +12,7 @@ import {
     PODARUNKY_DLYA_DIVCHYNY_ID,
     WISHES_PAGINATION_LIMIT,
 } from '@/helpers/utils/constants';
-import WishItem from '@/components/layouts/wish-list/WishItem';
+import WishItem from '@/app/[locale]/idei-podarunkiv/components/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import WishesSearch from '@/components/layouts/WishesSearch';
 import UiButton from '@/components/ui/UiButton';
@@ -21,9 +21,11 @@ import SliderIcon from '@/components/icons/SliderIcon';
 
 interface IProps {
     userId: string;
+    userNameSlug: string;
+    isAll?: boolean;
 }
 
-const WishList: FC<IProps> = ({ userId }) => {
+const WishList: FC<IProps> = ({ userId, userNameSlug, isAll }) => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
@@ -47,6 +49,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     const wishesSearch = useWishesStore((state) => state.search);
     const sort = useWishesStore((state) => state.sort);
     const stopRequests = useWishesStore((state) => state.stopRequests);
+    const addWishList = useWishesStore((state) => state.addWishList);
     const addCollectionWishes = useWishesStore(
         (state) => state.addCollectionWishes
     );
@@ -58,7 +61,8 @@ const WishList: FC<IProps> = ({ userId }) => {
         (state) => state.setShowSlidePanel
     );
 
-    const { getInitialCollectionWishes } = UseInitialWishes();
+    const { getInitialWishList, getInitialCollectionWishes } =
+        UseInitialWishes();
 
     const showWishes =
         wishes.length > 5 ||
@@ -79,27 +83,44 @@ const WishList: FC<IProps> = ({ userId }) => {
 
         if (!inView || stopRequests) return;
 
-        const fetchWishList = async () => {
+        const fetchWishes = async () => {
             setIsLoadingAdd(true);
 
-            await addCollectionWishes(
-                {
-                    collectionId: PODARUNKY_DLYA_DIVCHYNY_ID,
-                    myId: myUser?.id,
-                    userId,
-                    status: wishesStatus,
-                    privacy: wishesPrivacy,
-                    page,
-                    limit: WISHES_PAGINATION_LIMIT,
-                    search: wishesSearch,
-                    sort,
-                },
-                allPagesT('wishes-api.get-collection-wishes.error')
-            );
+            if (isAll) {
+                await addWishList(
+                    {
+                        myId: myUser?.id,
+                        userId,
+                        status: wishesStatus,
+                        privacy: wishesPrivacy,
+                        page,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search: wishesSearch,
+                        sort,
+                    },
+                    allPagesT('wishes-api.get-wish-list.error')
+                );
+            } else {
+                await addCollectionWishes(
+                    {
+                        collectionId: PODARUNKY_DLYA_DIVCHYNY_ID,
+                        myId: myUser?.id,
+                        userId,
+                        status: wishesStatus,
+                        privacy: wishesPrivacy,
+                        page,
+                        limit: WISHES_PAGINATION_LIMIT,
+                        search: wishesSearch,
+                        sort,
+                    },
+                    allPagesT('wishes-api.get-collection-wishes.error')
+                );
+            }
 
             setIsLoadingAdd(false);
         };
-        fetchWishList().finally();
+
+        fetchWishes().finally();
     }, [inView]);
 
     useEffect(() => {
@@ -108,12 +129,20 @@ const WishList: FC<IProps> = ({ userId }) => {
             return;
         }
 
-        getInitialCollectionWishes(
-            PODARUNKY_DLYA_DIVCHYNY_ID,
-            myUser?.id,
-            userId,
-            'createdAt:desc'
-        ).finally();
+        const fetchWishes = async () => {
+            if (isAll) {
+                await getInitialWishList(myUser?.id, userId);
+            } else {
+                await getInitialCollectionWishes(
+                    PODARUNKY_DLYA_DIVCHYNY_ID,
+                    myUser?.id,
+                    userId,
+                    'createdAt:desc'
+                );
+            }
+        };
+
+        fetchWishes().finally();
     }, [firstLoad, userId, routeUserId]);
 
     return (
@@ -150,7 +179,7 @@ const WishList: FC<IProps> = ({ userId }) => {
                                     key={wish.id + idx}
                                     wish={wish}
                                     idx={idx}
-                                    currentPage="collection"
+                                    userNameSlug={userNameSlug}
                                 />
                             ))}
 

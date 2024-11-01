@@ -6,9 +6,11 @@ import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import {
     IDEI_PODARUNKIV,
+    IDEI_PODARUNKIV_ID,
     PODARUNKY_DLYA_DIVCHYNY,
+    PODARUNKY_DLYA_DIVCHYNY_ID,
 } from '@/helpers/utils/constants';
-import Body from '@/app/[locale]/idei-podarunkiv/podarunky-dlya-divchyny/Body';
+import Body from '@/app/[locale]/idei-podarunkiv/components/Body';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
@@ -43,7 +45,12 @@ export default function Wish() {
                     <UserSessionRefresher>
                         <Header />
 
-                        <Body />
+                        <Body
+                            userNameSlug={IDEI_PODARUNKIV}
+                            userId={IDEI_PODARUNKIV_ID}
+                            collectionNameSlug={PODARUNKY_DLYA_DIVCHYNY}
+                            collectionId={PODARUNKY_DLYA_DIVCHYNY_ID}
+                        />
                     </UserSessionRefresher>
                 </div>
 
