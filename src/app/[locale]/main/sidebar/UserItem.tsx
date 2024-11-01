@@ -16,6 +16,10 @@ import { useSettingsStore } from '@/stores/settings';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
+import {
+    IDEI_PODARUNKIV_ID,
+    IDEI_PODARUNKIV_SLUG,
+} from '@/helpers/utils/constants';
 import UiAvatar from '@/components/ui/UiAvatar';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -140,18 +144,26 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const handleGoToProfilePage = () => {
         setShowGlobalLoading(true);
 
-        if (myUser) {
-            router.push(`/${activeLocale}/user/${user.id}/profile`);
-        } else {
-            router.push(`/${activeLocale}/auth`);
+        if (IDEI_PODARUNKIV_ID === user.id) {
+            return router.push(`/${activeLocale}/${IDEI_PODARUNKIV_SLUG}`);
         }
+
+        if (myUser) {
+            return router.push(`/${activeLocale}/user/${user.id}/profile`);
+        }
+
+        router.push(`/${activeLocale}/auth`);
     };
 
-    const handleSelectWish = async () => {
-        await getInitialWishList(myUser?.id, user.id);
-        setShowSidebar(false);
+    const handleSelectWishList = async () => {
+        if (IDEI_PODARUNKIV_ID === user.id) {
+            router.push(`/${activeLocale}/${IDEI_PODARUNKIV_SLUG}/collection`);
+        } else {
+            await getInitialWishList(myUser?.id, user.id);
+            setShowSidebar(false);
 
-        router.push(`/${activeLocale}/main`);
+            router.push(`/${activeLocale}/main`);
+        }
     };
 
     const handleAddFriend = async () => {
@@ -259,7 +271,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
             <button
                 type="button"
                 className="flex grow flex-col gap-0.5 rounded-md px-3 py-1 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-700"
-                onClick={handleSelectWish}
+                onClick={handleSelectWishList}
             >
                 <span
                     className="truncate text-left text-sm text-zinc-800 dark:text-zinc-300"
@@ -284,7 +296,11 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                 >
                     <div className="flex flex-col p-2">
                         <UiButton
-                            href={`/user/${user.id}/collection`}
+                            href={
+                                IDEI_PODARUNKIV_ID === user.id
+                                    ? `/${IDEI_PODARUNKIV_SLUG}/collection`
+                                    : `/user/${user.id}/collection`
+                            }
                             variant="clear-styles"
                             classesWrap="relative flex w-full items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                         >
