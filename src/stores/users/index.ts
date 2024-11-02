@@ -81,8 +81,11 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                 list: response.data.users,
                 followFromCount: response.data.followFromCount,
                 page: 2,
+                // віднімаємо одного користувача,
+                // бо на першій сторінці в нас завжди буде приходити на одного більше.
+                // це рекламний користувач
                 stopRequests:
-                    response.data.users.length !== USERS_PAGINATION_LIMIT,
+                    response.data.users.length - 1 !== USERS_PAGINATION_LIMIT,
             }));
         } catch (error: any) {
             set((state) => ({
@@ -140,8 +143,11 @@ export const useUsersStore = create<IUsersStore>((set) => ({
                     ...state,
                     list: response.data,
                     page: 2,
+                    // віднімаємо одного користувача,
+                    // бо на першій сторінці в нас завжди буде приходити на одного більше.
+                    // це рекламний користувач
                     stopRequests:
-                        response.data.length !== USERS_PAGINATION_LIMIT,
+                        response.data.length - 1 !== USERS_PAGINATION_LIMIT,
                 };
             });
         } catch (error: any) {
