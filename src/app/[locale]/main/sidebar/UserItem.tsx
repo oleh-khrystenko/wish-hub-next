@@ -1,14 +1,14 @@
 'use client';
 
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/ru';
 import { IUser } from '@/models/User';
-import { EPrivacy, ETheme } from '@/models/Settings';
+import { EPrivacy, ETheme, IPageParams } from '@/models/Settings';
 import { EWhereRemove, IRemoveFriend } from '@/stores/my-user/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
@@ -16,10 +16,7 @@ import { useSettingsStore } from '@/stores/settings';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
-import {
-    IDEI_PODARUNKIV_ID,
-    IDEI_PODARUNKIV_SLUG,
-} from '@/helpers/utils/constants';
+import { USER_SLUG_TO_ID_MAP } from '@/helpers/utils/constants';
 import UiAvatar from '@/components/ui/UiAvatar';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -47,6 +44,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const containerRef = useRef<HTMLLIElement>(null);
 
     const router = useRouter();
+    const { userSlug } = useParams<IPageParams['params']>();
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -144,8 +142,8 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const handleGoToProfilePage = () => {
         setShowGlobalLoading(true);
 
-        if (IDEI_PODARUNKIV_ID === user.id) {
-            return router.push(`/${activeLocale}/${IDEI_PODARUNKIV_SLUG}`);
+        if (userSlug && USER_SLUG_TO_ID_MAP[userSlug] === user.id) {
+            return router.push(`/${activeLocale}/${userSlug}`);
         }
 
         if (myUser) {
@@ -156,8 +154,8 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     };
 
     const handleSelectWishList = async () => {
-        if (IDEI_PODARUNKIV_ID === user.id) {
-            router.push(`/${activeLocale}/${IDEI_PODARUNKIV_SLUG}/collection`);
+        if (userSlug && USER_SLUG_TO_ID_MAP[userSlug] === user.id) {
+            router.push(`/${activeLocale}/${userSlug}/collection`);
         } else {
             await getInitialWishList(myUser?.id, user.id);
             setShowSidebar(false);
@@ -297,8 +295,9 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                     <div className="flex flex-col p-2">
                         <UiButton
                             href={
-                                IDEI_PODARUNKIV_ID === user.id
-                                    ? `/${IDEI_PODARUNKIV_SLUG}/collection`
+                                userSlug &&
+                                USER_SLUG_TO_ID_MAP[userSlug] === user.id
+                                    ? `/${userSlug}/collection`
                                     : `/user/${user.id}/collection`
                             }
                             variant="clear-styles"

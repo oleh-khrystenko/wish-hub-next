@@ -9,7 +9,7 @@ import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
-import WishItem from '@/app/[locale]/idei-podarunkiv/components/WishItem';
+import WishItem from '@/app/[locale]/[userSlug]/components/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import WishesSearch from '@/components/layouts/WishesSearch';
 import UiButton from '@/components/ui/UiButton';

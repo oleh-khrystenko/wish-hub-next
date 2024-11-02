@@ -1,40 +1,40 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { IUser } from '@/models/User';
 import { ICollection } from '@/models/Collection';
-import { IZoomedImage } from '@/models/Settings';
+import { IPageParams, IZoomedImage } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import collectionApi from '@/stores/collection/api';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
-import WishList from '@/app/[locale]/idei-podarunkiv/components/WishList';
+import {
+    COLLECTION_SLUG_TO_ID_MAP,
+    USER_SLUG_TO_ID_MAP,
+} from '@/helpers/utils/constants';
+import WishList from '@/app/[locale]/[userSlug]/components/WishList';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 import UiAvatar from '@/components/ui/UiAvatar';
 import CollectionIcon from '@/components/icons/CollectionIcon';
 import MainIcon from '@/components/icons/MainIcon';
 
-interface IProps {
-    userNameSlug: string;
-    userId: string;
-    collectionNameSlug: string;
-    collectionId?: string;
-}
-
-const Body: FC<IProps> = ({
-    userNameSlug,
-    userId,
-    collectionNameSlug,
-    collectionId,
-}) => {
+const Body: FC = () => {
+    const [userId, setUserId] = useState<IUser['id'] | null>(null);
+    const [collectionId, setCollectionId] = useState<ICollection['id'] | null>(
+        null
+    );
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
     const [collectionName, setCollectionName] =
         useState<ICollection['name']>('');
     const [currentCollectionNameSlug, setCurrentCollectionNameSlug] =
         useState<ICollection['nameSlug']>('');
+
+    const { userSlug, collectionSlug } = useParams<IPageParams['params']>();
 
     const collectionPageT = useTranslations('collection-page');
     const allPagesT = useTranslations('all-pages');
@@ -55,7 +55,7 @@ const Body: FC<IProps> = ({
             name: allPagesT('main'),
         },
         {
-            href: `${userNameSlug}/${collectionNameSlug}`,
+            href: `${userSlug}/${collectionSlug}`,
             icon: (
                 <CollectionIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
             ),
@@ -85,7 +85,17 @@ const Body: FC<IProps> = ({
         };
 
         fetchCollection().finally();
-    }, [firstLoad]);
+    }, [firstLoad, collectionId]);
+
+    useEffect(() => {
+        if (userSlug) {
+            setUserId(USER_SLUG_TO_ID_MAP[userSlug]);
+        }
+
+        if (collectionSlug) {
+            setCollectionId(COLLECTION_SLUG_TO_ID_MAP[collectionSlug]);
+        }
+    }, [userSlug, collectionSlug]);
 
     return (
         <main className="flex grow flex-col pt-3">
@@ -142,12 +152,14 @@ const Body: FC<IProps> = ({
                     </div>
                 )}
 
-                <WishList
-                    userId={userId}
-                    userNameSlug={userNameSlug}
-                    collectionNameSlug={currentCollectionNameSlug}
-                    collectionId={collectionId}
-                />
+                {userId && userSlug && collectionId && (
+                    <WishList
+                        userId={userId}
+                        userNameSlug={userSlug}
+                        collectionNameSlug={currentCollectionNameSlug}
+                        collectionId={collectionId}
+                    />
+                )}
             </div>
 
             {!!imageData && (

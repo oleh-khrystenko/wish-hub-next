@@ -4,8 +4,7 @@ import pick from 'lodash.pick';
 import { IPageParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
-import { IDEI_PODARUNKIV_SLUG } from '@/helpers/utils/constants';
-import Body from '@/app/[locale]/idei-podarunkiv/collection/[wishSlug]/Body';
+import Body from '@/app/[locale]/[userSlug]/collection/[wishSlug]/Body';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
@@ -16,7 +15,7 @@ export async function generateMetadata({
     return await fetchMetadata(
         params.locale,
         'wish',
-        `${IDEI_PODARUNKIV_SLUG}/collection/${params.wishSlug}`
+        `${params.userSlug}/collection/${params.wishSlug}`
     );
 }
 

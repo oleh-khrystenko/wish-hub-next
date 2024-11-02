@@ -1,13 +1,12 @@
 'use client';
 
 import { FC, useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { IPageParams } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
-import {
-    IDEI_PODARUNKIV_SLUG,
-    IDEI_PODARUNKIV_ID,
-} from '@/helpers/utils/constants';
+import { USER_SLUG_TO_ID_MAP } from '@/helpers/utils/constants';
 import DetailProfile from '@/app/[locale]/user/[userId]/profile/DetailProfile';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import UiButton from '@/components/ui/UiButton';
@@ -16,6 +15,8 @@ import MainIcon from '@/components/icons/MainIcon';
 
 const Body: FC = () => {
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
+
+    const { userSlug } = useParams<IPageParams['params']>();
 
     const profilePageT = useTranslations('profile-page');
     const allPagesT = useTranslations('all-pages');
@@ -33,7 +34,7 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: `user/${IDEI_PODARUNKIV_SLUG}/profile`,
+            href: `user/${userSlug}/profile`,
             icon: (
                 <PersonIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
             ),
@@ -47,10 +48,10 @@ const Body: FC = () => {
             return;
         }
 
-        if (!myUser) return;
+        if (!myUser || !userSlug) return;
 
         getUser(
-            { userId: IDEI_PODARUNKIV_ID, myUserId: myUser.id },
+            { userId: USER_SLUG_TO_ID_MAP[userSlug], myUserId: myUser.id },
             allPagesT('users-api.get-user.error')
         ).finally();
     }, [firstLoad]);
@@ -65,7 +66,7 @@ const Body: FC = () => {
             <div className="mt-3 px-3 pb-5 desktop-sm:px-0">
                 <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-300 mobile-xs:text-2xl">
                     {profilePageT(
-                        IDEI_PODARUNKIV_ID === myUser?.id
+                        userSlug && USER_SLUG_TO_ID_MAP[userSlug] === myUser?.id
                             ? 'my-profile'
                             : 'user_profile'
                     )}
@@ -74,7 +75,7 @@ const Body: FC = () => {
                 <DetailProfile />
 
                 <div className="mt-6 w-fit">
-                    <UiButton href={`${IDEI_PODARUNKIV_SLUG}/collection`}>
+                    <UiButton href={`${userSlug}/collection`}>
                         {profilePageT('user_collection')}
                     </UiButton>
                 </div>

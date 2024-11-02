@@ -35,6 +35,8 @@ export interface IPageParams {
     params: {
         locale: ELang;
         userId?: string;
+        userSlug?: string;
+        collectionSlug?: string;
         wishSlug?: string;
     };
 }

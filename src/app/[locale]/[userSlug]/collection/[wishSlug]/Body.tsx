@@ -3,23 +3,21 @@
 import { FC, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { IPageParams } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
-import Wish from '@/app/[locale]/idei-podarunkiv/collection/[wishSlug]/Wish';
+import { WISH_SLUG_TO_ID_MAP } from '@/helpers/utils/constants';
+import Wish from '@/app/[locale]/[userSlug]/collection/[wishSlug]/Wish';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import UiButton from '@/components/ui/UiButton';
 import LogoIcon from '@/components/icons/LogoIcon';
 import MainIcon from '@/components/icons/MainIcon';
 import CollectionIcon from '@/components/icons/CollectionIcon';
-import {
-    IDEI_PODARUNKIV_SLUG,
-    WISH_SLUG_TO_ID_MAP,
-} from '@/helpers/utils/constants';
 
 const Body: FC = () => {
     const gotWish = useRef(false);
 
-    const { wishSlug } = useParams<{ wishSlug: string }>();
+    const { userSlug, wishSlug } = useParams<IPageParams['params']>();
 
     const wishPageT = useTranslations('wish-page');
     const allPagesT = useTranslations('all-pages');
@@ -35,7 +33,7 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: `${IDEI_PODARUNKIV_SLUG}/${wishSlug}`,
+            href: `${userSlug}/${wishSlug}`,
             name: allPagesT('wish'),
         },
     ];
@@ -49,14 +47,14 @@ const Body: FC = () => {
             name: allPagesT('main'),
         },
         {
-            href: `${IDEI_PODARUNKIV_SLUG}/collection`,
+            href: `${userSlug}/collection`,
             icon: (
                 <CollectionIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
             ),
             name: allPagesT('collection'),
         },
         {
-            href: `${IDEI_PODARUNKIV_SLUG}/collection/${wishSlug}`,
+            href: `${userSlug}/collection/${wishSlug}`,
             icon: <LogoIcon classes="w-4 h-4" />,
             name: allPagesT('wish'),
         },

@@ -5,16 +5,16 @@ import { IPageParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';
-import { IDEI_PODARUNKIV_SLUG } from '@/helpers/utils/constants';
-import Body from '@/app/[locale]/idei-podarunkiv/Body';
+import Body from '@/app/[locale]/[userSlug]/Body';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
 
 export async function generateMetadata({
     params,
-}: IPageParams): Promise<Metadata> {
-    return await fetchMetadata(params.locale, 'profile', IDEI_PODARUNKIV_SLUG);
+}: IPageParams): Promise<Metadata | void> {
+    if (!params.userSlug) return;
+    return await fetchMetadata(params.locale, 'profile', params.userSlug);
 }
 
 export default function Profile() {
