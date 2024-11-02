@@ -3,6 +3,7 @@ import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { ECollectionSort, ICollection } from '@/models/Collection';
+import { IPageParams } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useCollectionsStore } from '@/stores/collection';
@@ -22,16 +23,12 @@ interface IProps {
     slidePanelRef: RefObject<HTMLDivElement>;
     filtersRef: RefObject<HTMLDivElement>;
     deleteCollection: (currentCollection: ICollection) => void;
-    userNameSlug?: string;
-    collectionNameSlug?: string;
 }
 
 const Collections: FC<IProps> = ({
     slidePanelRef,
     filtersRef,
     deleteCollection,
-    userNameSlug,
-    collectionNameSlug,
 }) => {
     const [collectionListMaxHeight, setCollectionListMaxHeight] =
         useState<number>(300);
@@ -41,7 +38,8 @@ const Collections: FC<IProps> = ({
 
     const collectionListRef = useRef<HTMLUListElement>(null);
 
-    const { userId } = useParams<{ userId: string }>();
+    const { userId, userSlug, collectionSlug } =
+        useParams<IPageParams['params']>();
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
@@ -336,8 +334,8 @@ const Collections: FC<IProps> = ({
                             <li className="flex">
                                 <UiButton
                                     href={
-                                        userNameSlug
-                                            ? `/${userNameSlug}collection`
+                                        userSlug
+                                            ? `/${userSlug}collection`
                                             : pathname.replace(
                                                   `/${activeLocale}/`,
                                                   ''
@@ -355,12 +353,12 @@ const Collections: FC<IProps> = ({
                         {collections.map((collection) => (
                             <li
                                 key={collection.id}
-                                className={`${collection.id === collectionId || collection.nameSlug === collectionNameSlug ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
+                                className={`${collection.id === collectionId || collection.nameSlug === collectionSlug ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
                             >
                                 <UiButton
                                     href={
-                                        userNameSlug
-                                            ? `${userNameSlug}/${collection.nameSlug}`
+                                        userSlug
+                                            ? `${userSlug}/${collection.nameSlug}`
                                             : `${pathname.replace(`/${activeLocale}/`, '').replace('/editor', '')}?collectionId=${collection.id}`
                                     }
                                     variant="clear-styles"

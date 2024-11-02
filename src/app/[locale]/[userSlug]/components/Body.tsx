@@ -152,14 +152,7 @@ const Body: FC = () => {
                     </div>
                 )}
 
-                {userId && userSlug && collectionId && (
-                    <WishList
-                        userId={userId}
-                        userNameSlug={userSlug}
-                        collectionNameSlug={currentCollectionNameSlug}
-                        collectionId={collectionId}
-                    />
-                )}
+                <WishList />
             </div>
 
             {!!imageData && (

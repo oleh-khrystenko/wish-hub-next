@@ -44,7 +44,6 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const containerRef = useRef<HTMLLIElement>(null);
 
     const router = useRouter();
-    const { userSlug } = useParams<IPageParams['params']>();
 
     const activeLocale = useLocale();
     const mainPageT = useTranslations('main-page');
@@ -142,8 +141,10 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const handleGoToProfilePage = () => {
         setShowGlobalLoading(true);
 
-        if (userSlug && USER_SLUG_TO_ID_MAP[userSlug] === user.id) {
-            return router.push(`/${activeLocale}/${userSlug}`);
+        for (const key in USER_SLUG_TO_ID_MAP) {
+            if (USER_SLUG_TO_ID_MAP[key] === user.id) {
+                return router.push(`/${activeLocale}/${key}`);
+            }
         }
 
         if (myUser) {
@@ -154,14 +155,26 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     };
 
     const handleSelectWishList = async () => {
-        if (userSlug && USER_SLUG_TO_ID_MAP[userSlug] === user.id) {
-            router.push(`/${activeLocale}/${userSlug}/collection`);
-        } else {
-            await getInitialWishList(myUser?.id, user.id);
-            setShowSidebar(false);
-
-            router.push(`/${activeLocale}/main`);
+        for (const key in USER_SLUG_TO_ID_MAP) {
+            if (USER_SLUG_TO_ID_MAP[key] === user.id) {
+                return router.push(`/${activeLocale}/${key}/collection`);
+            }
         }
+
+        await getInitialWishList(myUser?.id, user.id);
+        setShowSidebar(false);
+
+        router.push(`/${activeLocale}/main`);
+    };
+
+    const handleGoToCollectionPage = async () => {
+        for (const key in USER_SLUG_TO_ID_MAP) {
+            if (USER_SLUG_TO_ID_MAP[key] === user.id) {
+                return router.push(`/${activeLocale}/${key}/collection`);
+            }
+        }
+
+        router.push(`/user/${user.id}/collection`);
     };
 
     const handleAddFriend = async () => {
@@ -294,12 +307,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                 >
                     <div className="flex flex-col p-2">
                         <UiButton
-                            href={
-                                userSlug &&
-                                USER_SLUG_TO_ID_MAP[userSlug] === user.id
-                                    ? `/${userSlug}/collection`
-                                    : `/user/${user.id}/collection`
-                            }
+                            onBtnClick={handleGoToCollectionPage}
                             variant="clear-styles"
                             classesWrap="relative flex w-full items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
                         >

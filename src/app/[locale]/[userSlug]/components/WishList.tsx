@@ -2,13 +2,20 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
+import { IUser } from '@/models/User';
 import { EWishPrivacy, EWishStatus } from '@/models/Wish';
+import { ICollection } from '@/models/Collection';
+import { IPageParams } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
-import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
+import {
+    COLLECTION_SLUG_TO_ID_MAP,
+    USER_SLUG_TO_ID_MAP,
+    WISHES_PAGINATION_LIMIT,
+} from '@/helpers/utils/constants';
 import WishItem from '@/app/[locale]/[userSlug]/components/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import WishesSearch from '@/components/layouts/WishesSearch';
@@ -16,25 +23,17 @@ import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
 import SliderIcon from '@/components/icons/SliderIcon';
 
-interface IProps {
-    userId: string;
-    userNameSlug: string;
-    collectionNameSlug?: string;
-    collectionId?: string;
-}
-
-const WishList: FC<IProps> = ({
-    userId,
-    userNameSlug,
-    collectionNameSlug,
-    collectionId,
-}) => {
+const WishList: FC = () => {
+    const [userId, setUserId] = useState<IUser['id'] | null>(null);
+    const [collectionId, setCollectionId] = useState<ICollection['id'] | null>(
+        null
+    );
     const [firstLoad, setFirstLoad] = useState<boolean>(true);
     const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
     const wishListRef = useRef<HTMLDivElement>(null);
 
-    const { userId: routeUserId } = useParams<{ userId: string }>();
+    const { userSlug, collectionSlug } = useParams<IPageParams['params']>();
 
     const profilePageT = useTranslations('profile-page');
     const allPagesT = useTranslations('all-pages');
@@ -84,7 +83,7 @@ const WishList: FC<IProps> = ({
             return;
         }
 
-        if (!inView || stopRequests) return;
+        if (!inView || stopRequests || !userId) return;
 
         const fetchWishes = async () => {
             setIsLoadingAdd(true);
@@ -132,6 +131,8 @@ const WishList: FC<IProps> = ({
             return;
         }
 
+        if (!userId) return;
+
         const fetchWishes = async () => {
             if (collectionId) {
                 await getInitialCollectionWishes(
@@ -146,7 +147,17 @@ const WishList: FC<IProps> = ({
         };
 
         fetchWishes().finally();
-    }, [firstLoad, userId, routeUserId]);
+    }, [firstLoad, userId]);
+
+    useEffect(() => {
+        if (userSlug) {
+            setUserId(USER_SLUG_TO_ID_MAP[userSlug]);
+        }
+
+        if (collectionSlug) {
+            setCollectionId(COLLECTION_SLUG_TO_ID_MAP[collectionSlug]);
+        }
+    }, [userSlug, collectionSlug]);
 
     return (
         <>
@@ -173,7 +184,7 @@ const WishList: FC<IProps> = ({
                 </div>
             )}
 
-            {myUser?.id === routeUserId || wishes.length > 0 ? (
+            {wishes.length > 0 && userSlug ? (
                 <div className="mt-4" ref={wishListRef}>
                     <ul className="grid grid-cols-2 gap-1.5 tablet-md:grid-cols-3 tablet-lg:grid-cols-4 tablet-xl:grid-cols-5 tablet-xl:gap-4 desktop-sm:grid-cols-6">
                         {wishes.length > 0 &&
@@ -182,7 +193,7 @@ const WishList: FC<IProps> = ({
                                     key={wish.id + idx}
                                     wish={wish}
                                     idx={idx}
-                                    userNameSlug={userNameSlug}
+                                    userNameSlug={userSlug}
                                 />
                             ))}
 
@@ -209,11 +220,7 @@ const WishList: FC<IProps> = ({
                 </div>
             )}
 
-            <SlidePanel
-                wishListRefCurrent={wishListRef.current}
-                userNameSlug={userNameSlug}
-                collectionNameSlug={collectionNameSlug}
-            />
+            <SlidePanel wishListRefCurrent={wishListRef.current} />
         </>
     );
 };
