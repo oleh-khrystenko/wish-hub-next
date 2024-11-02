@@ -76,7 +76,10 @@ const WishItem: FC<IProps> = ({ wish, idx, currentPage }) => {
                 </div>
 
                 <div className="mt-1 flex w-full flex-col items-center justify-evenly">
-                    <div className="w-full truncate text-center text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-lg">
+                    <div
+                        className="w-full truncate text-center text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-lg"
+                        title={name}
+                    >
                         {name}
                     </div>
 

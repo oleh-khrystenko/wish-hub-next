@@ -53,3 +53,15 @@ export const COLLECTION_NAME_MAX_LENGTH = 80;
 export const IDEI_PODARUNKIV_SLUG = 'idei-podarunkiv';
 
 export const IDEI_PODARUNKIV_ID = '660840efccbe41253667c6be';
+
+export const USER_SLUG_TO_ID_MAP: Record<string, string> = {
+    'idei-podarunkiv': '660840efccbe41253667c6be',
+};
+
+export const COLLECTION_SLUG_TO_ID_MAP: Record<string, string> = {
+    'zhinocha-sumochka': '670a75e6068e42ccdb4e472c',
+};
+
+export const WISH_SLUG_TO_ID_MAP: Record<string, string> = {
+    'zhinocha-sumochka': '670a75e6068e42ccdb4e472c',
+};

@@ -65,7 +65,10 @@ const WishItem: FC<IProps> = ({ wish, idx }) => {
             </div>
 
             <div className="flex w-full flex-col items-center justify-evenly gap-3">
-                <div className="w-full truncate text-center text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-lg">
+                <div
+                    className="w-full truncate text-center text-base font-bold text-zinc-800 dark:text-zinc-300 tablet-md:text-lg"
+                    title={name}
+                >
                     {name}
                 </div>
 

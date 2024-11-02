@@ -32,5 +32,9 @@ export interface INavItem {
 }
 
 export interface IPageParams {
-    params: { locale: ELang; userId?: string };
+    params: {
+        locale: ELang;
+        userId?: string;
+        wishSlug?: string;
+    };
 }
