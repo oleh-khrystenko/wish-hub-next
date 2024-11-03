@@ -62,6 +62,13 @@
         "new_password": "New password*",
         "repeat_new_password": "Repeat new password*"
     },
+    "blog-page": {
+        "head": {
+            "title": "fffffffff",
+            "description": "fffffffff"
+        },
+        "title": "Blog"
+    },
     "change-forgotten-password-page": {
         "head": {
             "title": "Wish Hub - Change password",
@@ -743,6 +750,7 @@
         "wish": "Wish",
         "wish_editor": "Wish Editor",
         "instruction": "Instruction",
+        "blog": "Blog",
         "filters": "Filters",
         "broken_image": "Failed to load image",
         "sort": {

@@ -31,6 +31,7 @@ import PersonIcon from '@/components/icons/PersonIcon';
 import SettingIcon from '@/components/icons/SettingIcon';
 import MainIcon from '@/components/icons/MainIcon';
 import YouTubeIcon from '@/components/icons/YouTubeIcon';
+import BlogIcon from '@/components/icons/BlogIcon';
 
 interface IProps {
     isMainPage?: boolean;
@@ -280,6 +281,16 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <InfoIcon classes="h-6 w-6 stroke-zinc-700 dark:stroke-zinc-300" />
                             {mainPageT('about_us')}
+                        </span>
+                    </UiButton>
+
+                    <UiButton
+                        href={`blog${utmParams ? `?${utmParams}` : ''}`}
+                        variant="text"
+                    >
+                        <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                            <BlogIcon classes="h-6 w-6 fill-zinc-700 dark:fill-zinc-300" />
+                            {allPagesT('blog')} Wish Hub
                         </span>
                     </UiButton>
 

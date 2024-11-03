@@ -20,7 +20,7 @@ export async function generateMetadata({
     );
 }
 
-export default function Wish() {
+export default function CollectionEditor() {
     const messages = useMessages();
 
     return (

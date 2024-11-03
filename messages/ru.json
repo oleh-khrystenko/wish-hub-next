@@ -62,6 +62,13 @@
         "new_password": "Новый пароль*",
         "repeat_new_password": "Повторите новый пароль*"
     },
+    "blog-page": {
+        "head": {
+            "title": "fffffffff",
+            "description": "fffffffff"
+        },
+        "title": "Блог"
+    },
     "change-forgotten-password-page": {
         "head": {
             "title": "Wish Hub - Изменение пароля",
@@ -743,6 +750,7 @@
         "wish": "Желание",
         "wish_editor": "Редактор желания",
         "instruction": "Инструкция",
+        "blog": "Блог",
         "filters": "Фильтры",
         "broken_image": "Не удалось загрузить изображение",
         "sort": {
