@@ -193,7 +193,7 @@ const WishList: FC = () => {
                                     key={wish.id + idx}
                                     wish={wish}
                                     idx={idx}
-                                    userNameSlug={userSlug}
+                                    userSlug={userSlug}
                                 />
                             ))}
 

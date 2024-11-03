@@ -17,10 +17,10 @@ import LogoIcon from '@/components/icons/LogoIcon';
 interface IProps {
     wish: IWish;
     idx: number;
-    userNameSlug: string;
+    userSlug: string;
 }
 
-const WishItem: FC<IProps> = ({ wish, idx, userNameSlug }) => {
+const WishItem: FC<IProps> = ({ wish, idx, userSlug }) => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -49,7 +49,7 @@ const WishItem: FC<IProps> = ({ wish, idx, userNameSlug }) => {
             className={`${isBookingExpired(wish, myUser?.id) ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
         >
             <UiButton
-                href={`/${userNameSlug}/collection/${wish.nameSlug}`}
+                href={`/${userSlug}/collection/${wish.slug}`}
                 variant="clear-styles"
                 classesWrap={`${wish.executed ? '-rotate-3 border-cyan-500 bg-wish-bg dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
                 onLinkClick={() => setShowGlobalLoading(true)}

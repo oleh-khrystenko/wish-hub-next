@@ -353,12 +353,12 @@ const Collections: FC<IProps> = ({
                         {collections.map((collection) => (
                             <li
                                 key={collection.id}
-                                className={`${collection.id === collectionId || collection.nameSlug === collectionSlug ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
+                                className={`${collection.id === collectionId || collection.slug === collectionSlug ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
                             >
                                 <UiButton
                                     href={
                                         userSlug
-                                            ? `${userSlug}/${collection.nameSlug}`
+                                            ? `${userSlug}/${collection.slug}`
                                             : `${pathname.replace(`/${activeLocale}/`, '').replace('/editor', '')}?collectionId=${collection.id}`
                                     }
                                     variant="clear-styles"

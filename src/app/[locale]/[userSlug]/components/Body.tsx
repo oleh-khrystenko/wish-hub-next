@@ -31,8 +31,6 @@ const Body: FC = () => {
     const [imageData, setImageData] = useState<IZoomedImage | null>(null);
     const [collectionName, setCollectionName] =
         useState<ICollection['name']>('');
-    const [currentCollectionNameSlug, setCurrentCollectionNameSlug] =
-        useState<ICollection['nameSlug']>('');
 
     const { userSlug, collectionSlug } = useParams<IPageParams['params']>();
 
@@ -81,7 +79,6 @@ const Body: FC = () => {
             });
 
             setCollectionName(response.data.name);
-            setCurrentCollectionNameSlug(response.data.nameSlug);
         };
 
         fetchCollection().finally();
