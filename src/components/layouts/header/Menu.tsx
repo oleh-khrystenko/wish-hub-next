@@ -284,15 +284,15 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                         </span>
                     </UiButton>
 
-                    <UiButton
-                        href={`blog${utmParams ? `?${utmParams}` : ''}`}
-                        variant="text"
-                    >
-                        <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
-                            <BlogIcon classes="h-6 w-6 fill-zinc-700 dark:fill-zinc-300" />
-                            {allPagesT('blog')} Wish Hub
-                        </span>
-                    </UiButton>
+                    {/*<UiButton*/}
+                    {/*    href={`blog${utmParams ? `?${utmParams}` : ''}`}*/}
+                    {/*    variant="text"*/}
+                    {/*>*/}
+                    {/*    <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">*/}
+                    {/*        <BlogIcon classes="h-6 w-6 fill-zinc-700 dark:fill-zinc-300" />*/}
+                    {/*        {allPagesT('blog')} Wish Hub*/}
+                    {/*    </span>*/}
+                    {/*</UiButton>*/}
 
                     <ShareButton
                         link={shareButtonLink}
