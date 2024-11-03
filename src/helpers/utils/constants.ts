@@ -56,6 +56,7 @@ export const USER_SLUG_TO_ID_MAP: Record<string, string> = {
 
 export const COLLECTION_SLUG_TO_ID_MAP: Record<string, string> = {
     'podarunky-dlya-divchyny': '670975eab329d4ec53c55c8a',
+    'podarunky-dlya-ditey': '67265aec3454b93cc8203ca2',
 };
 
 export const WISH_SLUG_TO_ID_MAP: Record<string, string> = {
@@ -76,8 +77,23 @@ export const WISH_SLUG_TO_ID_MAP: Record<string, string> = {
     'navushnyky-bezdrotovi': '670a7acb068e42ccdb4e4868',
     // ***************** podarunky-dlya-divchyny *****************
     // ===========================================================
-    // ***************** name *****************
-    // ***************** name *****************
+    // ***************** podarunky-dlya-ditey *****************
+    'interaktyvna-knyzhka': '67265aeb3454b93cc8203c94',
+    'rozvyvayuchyi-kilymok': '67265c103454b93cc8203d4f',
+    'dytiachyi-velosyped': '6726833c3454b93cc8203f11',
+    'igrovyi-nabir-likar': '67268b513454b93cc8204074',
+    'konstruktor-lego': '67268dce3454b93cc8204134',
+    'radiokerovanyi-avtomobil': '672724203454b93cc820459f',
+    'nastilna-gra': '6727283f3454b93cc820468e',
+    'myaka-igrashka-nichnyk': '67272bab3454b93cc8204794',
+    'dytiachyi-nabir-tvorchosti': '67272cf93454b93cc8204890',
+    'interaktyvnyi-globus': '67272f5b3454b93cc820499f',
+    'dytiachyi-namet-palatka': '672752b03454b93cc82050f9',
+    'dytiacha-mini-kuhnya': '672731a73454b93cc8204b0e',
+    'nabir-doslidy': '672733033454b93cc8204c51',
+    'muzychnyi-instrument': '6727342b3454b93cc8204d6f',
+    'magnitna-doshka-malyuvannya': '672751293454b93cc8204f8c',
+    // ***************** podarunky-dlya-ditey *****************
     // ===========================================================
     // ***************** name *****************
     // ***************** name *****************
