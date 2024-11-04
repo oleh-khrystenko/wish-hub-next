@@ -10,7 +10,6 @@ import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import { isBookingExpired } from '@/helpers/utils/date-validators';
 import WishContent from '@/app/[locale]/user/[userId]/wish/WishContent';
 import LikeAction from '@/components/layouts/LikeAction';
-import WishMark from '@/components/layouts/WishMark';
 import UiButton from '@/components/ui/UiButton';
 import UiAvatar from '@/components/ui/UiAvatar';
 import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
@@ -76,14 +75,6 @@ const Wish: FC = () => {
                         )}
                         :
                     </p>
-
-                    {wish && (
-                        <WishMark
-                            wish={wish}
-                            myUserId={myUser?.id}
-                            classes="absolute right-0 top-3/4 mobile-sm:top-1/2 mobile-lg:-translate-y-1/2 -rotate-12 tablet-md:right-1 desctop-sm:right-2 tablet-md:-rotate-6"
-                        />
-                    )}
                 </div>
 
                 {myUser?.id !== wish?.userId && (

@@ -108,7 +108,7 @@ const Breadcrumbs: FC<IProps> = ({ visualPages, seoPages, isMainPage }) => {
                 ) : (
                     <UiButton
                         key={page.href}
-                        href={`/${page.href}${utmParams ? `?${utmParams}` : ''}`}
+                        href={`${page.href}${utmParams ? `?${utmParams}` : ''}`}
                         variant="clear-styles"
                         classesWrap="group relative flex items-center justify-center bg-zinc-300 px-4 py-1 transition-all duration-300 ease-in-out before:absolute before:left-0 before:top-1/2 before:h-4 before:w-4 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-45 before:bg-zinc-200 after:absolute after:right-0 after:top-1/2 after:z-10 after:h-4 after:w-4 after:-translate-y-1/2 after:translate-x-1/2 after:rotate-45 after:bg-zinc-300 after:transition-all after:duration-300 after:ease-in-out hover:bg-cyan-400 hover:after:bg-cyan-400 dark:bg-zinc-800 before:dark:bg-zinc-900 after:dark:bg-zinc-800 hover:dark:bg-cyan-300 hover:after:dark:bg-cyan-300"
                         onLinkClick={() => setShowGlobalLoading(true)}

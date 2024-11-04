@@ -7,6 +7,7 @@ import { EWishPrivacy, EWishStatus } from '@/models/Wish';
 import { ICollection } from '@/models/Collection';
 import { IPageParams } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
+import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
@@ -43,6 +44,8 @@ const WishList: FC = () => {
     });
 
     const myUser = useMyUserStore((state) => state.myUser);
+
+    const setSelectedUserId = useUsersStore((state) => state.setSelectedUserId);
 
     const wishes = useWishesStore((state) => state.list);
     const wishesStatus = useWishesStore((state) => state.status);
@@ -144,6 +147,9 @@ const WishList: FC = () => {
             } else {
                 await getInitialWishList(myUser?.id, userId);
             }
+
+            setSelectedUserId(null);
+            localStorage.removeItem('selectedUserId');
         };
 
         fetchWishes().finally();

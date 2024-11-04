@@ -7,8 +7,6 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
-import { isBookingExpired } from '@/helpers/utils/date-validators';
-import WishMark from '@/components/layouts/WishMark';
 import LikeAction from '@/components/layouts/LikeAction';
 import UiImage from '@/components/ui/UiImage';
 import UiButton from '@/components/ui/UiButton';
@@ -45,13 +43,11 @@ const WishItem: FC<IProps> = ({ wish, idx, userSlug }) => {
     );
 
     return (
-        <li
-            className={`${isBookingExpired(wish, myUser?.id) ? 'border-rose-400' : 'border-zinc-300 dark:border-zinc-700'} relative flex w-full cursor-pointer rounded-md border-2 border-dashed`}
-        >
+        <li className="flex w-full cursor-pointer rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
             <UiButton
-                href={`/${userSlug}/collection/${wish.slug}`}
+                href={`${userSlug}/collection/${wish.slug}`}
                 variant="clear-styles"
-                classesWrap={`${wish.executed ? '-rotate-3 border-cyan-500 bg-wish-bg dark:border-cyan-300' : 'border-transparent'} flex h-full w-full flex-col items-center rounded-md border-2 border-dashed bg-cover bg-center bg-no-repeat px-4 pb-3 pt-4`}
+                classesWrap="flex h-full w-full flex-col items-center px-4 pb-3 pt-4"
                 onLinkClick={() => setShowGlobalLoading(true)}
             >
                 <div className="relative w-full pt-[100%]">
@@ -70,8 +66,6 @@ const WishItem: FC<IProps> = ({ wish, idx, userSlug }) => {
                             id={idx.toString()}
                         />
                     )}
-
-                    <WishMark wish={wish} myUserId={myUser?.id} />
                 </div>
 
                 <div className="mt-1 flex w-full flex-col items-center justify-evenly">
