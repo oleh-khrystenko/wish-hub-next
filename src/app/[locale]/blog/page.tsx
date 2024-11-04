@@ -26,13 +26,15 @@ export default function Blog() {
                 'all-pages',
             ])}
         >
-            <UserSessionRefresher>
-                <Header />
-            </UserSessionRefresher>
+            <div className="flex min-h-screen flex-col">
+                <UserSessionRefresher>
+                    <Header />
+                </UserSessionRefresher>
 
-            <Body />
+                <Body />
 
-            <Footer remove="about" />
+                <Footer remove="about" />
+            </div>
 
             <GlobalLoading />
         </NextIntlClientProvider>

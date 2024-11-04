@@ -26,7 +26,7 @@ const Body: FC = () => {
     ];
 
     return (
-        <main className="mx-auto mt-3 max-w-7xl">
+        <main className="mx-auto mt-3 w-full max-w-7xl">
             <Breadcrumbs
                 seoPages={breadcrumbsPages}
                 visualPages={breadcrumbsPages}

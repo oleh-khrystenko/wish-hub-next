@@ -5,9 +5,11 @@
             "description": "Wish Hub tells you about its history and mission. Learn more about how we help make your dreams come true."
         },
         "title": "About us",
-        "hello": "Hello! My name is Oleg. I am the founder of Wish Hub. This web-application is created just for you.",
-        "wish_hub_is": "Wish Hub is a unique platform that helps you learn about the wishes of your friends and loved ones. Our service makes gift selection easy and enjoyable by providing the ability to create wish lists, view them, and reserve items to avoid duplicate gifts.",
-        "our_mission": "Our mission is to build a community where people can share their dreams and receive exactly what they wish for.",
+        "greetings": "Greetings! My name is Oleg, and I'm the founder of Wish Hub. This web application was created especially for you to make gift exchanges convenient and filled with sincere emotions.",
+        "wish_hub_is": "Wish Hub is an innovative platform that helps you easily discover the wishes of your friends and loved ones. Our service simplifies gift selection by allowing you to create personal wish lists, share them, and reserve gifts to avoid duplicates.",
+        "the_idea": "The idea of creating Wish Hub arose from the desire to make the process of giving more meaningful. We know how important it is to choose the perfect gift that brings joy and is remembered for a long time. That's why we created an easy-to-use tool that helps people share dreams and make them come true.",
+        "our_mission": "Our mission is to unite people into a community where everyone can openly share their desires and receive exactly what they dream of. We believe that happy moments are born from attention to detail and understanding each other's needs.",
+        "join": "Join Wish Hub and become part of a community that values sincerity, care, and the joy of making dreams come true.",
         "sub-title": "Wishes",
         "do_you_have": "Do you have desires? I'm sure you do. Are all your desires fulfilled? Probably not. How can we increase the likelihood of fulfilling our desires? Do other people's desires always come true? And how exactly do they come to fruition?",
         "it_likely": "It's likely that in wealthier individuals, desires are fulfilled more frequently than in those with fewer financial resources. Do you believe this is directly linked to having money? Well, of course! If you have plenty of funds and you desire, let's say, a car, you can simply go to the dealership and make the purchase. It's straightforward. However, for those financially disadvantaged, acquiring such luxuries is out of the question. The economically challenged face a different reality and set of priorities. They must decide between buying necessities like groceries or saving for the future.",
@@ -64,8 +66,8 @@
     },
     "blog-page": {
         "head": {
-            "title": "fffffffff",
-            "description": "fffffffff"
+            "title": "Gift Ideas and Articles - Wish Hub 🎁",
+            "description": "Welcome to the Wish Hub blog! Here you'll find inspiration for perfect gifts, helpful tips, and interesting articles about holiday gifts. ✨"
         },
         "title": "Blog"
     },

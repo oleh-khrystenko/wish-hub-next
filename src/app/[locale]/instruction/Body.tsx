@@ -92,22 +92,11 @@ const Body: FC = () => {
                             <UiImage
                                 src="/images/instruction.svg"
                                 alt={allPagesT('instruction')}
-                                classes=""
                             />
                         </div>
                     </div>
 
                     <ul className="mt-8 grid gap-6 tablet-md:grid-cols-2 tablet-md:gap-8 tablet-lg:mt-12">
-                        <VideoItem
-                            src="https://www.youtube.com/embed/np-Wlo-hAB0?si=tqJooHwjEq6qzRd8"
-                            title={instructionPageT('install_ios')}
-                        />
-
-                        <VideoItem
-                            src="https://www.youtube.com/embed/tGMhyBbbtPk?si=7nCBwFT_WPwbHte_"
-                            title={instructionPageT('install_android')}
-                        />
-
                         <VideoItem
                             src="https://www.youtube.com/embed/qoXExsTePfU?si=951iarIH7OGW-HWc"
                             title={instructionPageT('overview')}
@@ -126,6 +115,16 @@ const Body: FC = () => {
                         <VideoItem
                             src="https://www.youtube.com/embed/LSgOJs7kM3A?si=bikjJXjL63oXMJQ3"
                             title={instructionPageT('book_wish')}
+                        />
+
+                        <VideoItem
+                            src="https://www.youtube.com/embed/np-Wlo-hAB0?si=tqJooHwjEq6qzRd8"
+                            title={instructionPageT('install_ios')}
+                        />
+
+                        <VideoItem
+                            src="https://www.youtube.com/embed/tGMhyBbbtPk?si=7nCBwFT_WPwbHte_"
+                            title={instructionPageT('install_android')}
                         />
                     </ul>
                 </section>
