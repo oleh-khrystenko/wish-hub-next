@@ -76,24 +76,24 @@ export default function Welcome() {
                                     signUpT={welcomePageT('sign-up')}
                                 />
 
-                                <div className="absolute bottom-3.5 right-6 h-20 w-20 tablet-md:bottom-2 tablet-md:right-5 tablet-md:h-28 tablet-md:w-28">
-                                    <Image
-                                        src="/images/gift-middle.webp"
-                                        alt={welcomePageT('alts.middle_gift')}
-                                        title={welcomePageT('alts.middle_gift')}
-                                        fill
-                                        sizes={'100%'}
-                                        className="object-contain"
-                                    />
-                                </div>
-
-                                <div className="absolute -right-1 bottom-28 h-10 w-10 tablet-md:-right-2 tablet-md:bottom-40 tablet-md:h-16 tablet-md:w-16">
+                                <div className="absolute -right-2 bottom-24 h-12 w-12 rotate-45 tablet-md:-right-3 tablet-md:bottom-36 tablet-md:h-16 tablet-md:w-16">
                                     <Image
                                         src="/images/gift-small.webp"
                                         alt={welcomePageT('alts.smaller_gift')}
                                         title={welcomePageT(
                                             'alts.smaller_gift'
                                         )}
+                                        fill
+                                        sizes={'100%'}
+                                        className="object-contain"
+                                    />
+                                </div>
+
+                                <div className="absolute bottom-3.5 right-4 h-20 w-20 -rotate-12 tablet-md:bottom-4 tablet-md:right-5 tablet-md:h-28 tablet-md:w-28">
+                                    <Image
+                                        src="/images/gift-middle.webp"
+                                        alt={welcomePageT('alts.middle_gift')}
+                                        title={welcomePageT('alts.middle_gift')}
                                         fill
                                         sizes={'100%'}
                                         className="object-contain"

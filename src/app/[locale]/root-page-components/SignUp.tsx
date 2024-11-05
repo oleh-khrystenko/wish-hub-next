@@ -95,18 +95,7 @@ const SignUp: FC = () => {
                 )}
             </div>
 
-            <div className="absolute -right-3 -top-3 h-[70px] w-[70px] tablet-md:h-[90px] tablet-md:w-[90px] desktop-sm:top-2 desktop-sm:h-24 desktop-sm:w-24">
-                <Image
-                    src="/images/love-emoji.webp"
-                    alt={welcomePageT('alts.love_emoji')}
-                    title={welcomePageT('alts.love_emoji')}
-                    fill
-                    sizes={'100%'}
-                    className="object-contain"
-                />
-            </div>
-
-            <div className="absolute -top-6 right-14 h-[70px] w-[70px] tablet-md:right-20 tablet-md:h-20 tablet-md:w-20 desktop-sm:h-[90px] desktop-sm:w-[90px]">
+            <div className="absolute -top-4 right-20 h-14 w-14 -rotate-12 tablet-md:h-16 tablet-md:w-20">
                 <Image
                     src="/images/festive-emoji.webp"
                     alt={welcomePageT('alts.festive_emoji')}
@@ -117,22 +106,33 @@ const SignUp: FC = () => {
                 />
             </div>
 
-            <div className="absolute right-1 top-20 h-8 w-8 tablet-md:right-3 tablet-md:top-24 tablet-md:h-10 tablet-md:w-10 desktop-sm:top-28 desktop-sm:h-11 desktop-sm:w-11">
+            <div className="absolute -right-3 -top-3 h-16 w-16 rotate-[30deg] tablet-md:h-20 tablet-md:w-20 desktop-sm:top-2">
                 <Image
-                    src="/images/festive-smile.webp"
-                    alt={welcomePageT('alts.festive_smile')}
-                    title={welcomePageT('alts.festive_smile')}
+                    src="/images/love-emoji.webp"
+                    alt={welcomePageT('alts.love_emoji')}
+                    title={welcomePageT('alts.love_emoji')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
                 />
             </div>
 
-            <div className="absolute right-16 top-12 h-8 w-8 tablet-md:right-20 tablet-md:top-16 tablet-md:h-10 tablet-md:w-10 desktop-sm:right-[88px] desktop-sm:h-11 desktop-sm:w-11">
+            <div className="absolute right-14 top-12 h-10 w-10 rotate-12 tablet-md:right-20 tablet-md:top-16 tablet-md:h-10 tablet-md:w-10 desktop-sm:right-[88px] desktop-sm:h-11 desktop-sm:w-11">
                 <Image
                     src="/images/star-smile.webp"
                     alt={welcomePageT('alts.star_smile')}
                     title={welcomePageT('alts.star_smile')}
+                    fill
+                    sizes={'100%'}
+                    className="object-contain"
+                />
+            </div>
+
+            <div className="absolute right-1 top-20 h-10 w-10 tablet-md:right-3 tablet-md:top-24 tablet-md:h-10 tablet-md:w-10 desktop-sm:top-28 desktop-sm:h-11 desktop-sm:w-11">
+                <Image
+                    src="/images/festive-smile.webp"
+                    alt={welcomePageT('alts.festive_smile')}
+                    title={welcomePageT('alts.festive_smile')}
                     fill
                     sizes={'100%'}
                     className="object-contain"

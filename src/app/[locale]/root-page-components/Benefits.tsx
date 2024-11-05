@@ -41,18 +41,18 @@ const Benefits: FC = () => {
                 </p>
             </div>
 
-            <div className="absolute -bottom-2 -right-3.5 h-24 w-24 tablet-md:h-32 tablet-md:w-32">
+            <div className="absolute -right-1 bottom-52 h-10 w-10 rotate-45 mobile-lg:-right-2 tablet-md:h-12 tablet-md:w-12">
                 <Image
-                    src="/images/gift-big.webp"
-                    alt={welcomePageT('alts.bigger_gift')}
-                    title={welcomePageT('alts.bigger_gift')}
+                    src="/images/gift-small.webp"
+                    alt={welcomePageT('alts.smaller_gift')}
+                    title={welcomePageT('alts.smaller_gift')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
                 />
             </div>
 
-            <div className="absolute bottom-32 right-3.5 h-16 w-16 tablet-md:right-6 tablet-md:h-20 tablet-md:w-20">
+            <div className="absolute bottom-28 right-3.5 h-16 w-16 -rotate-12 tablet-md:right-6 tablet-md:h-20 tablet-md:w-20">
                 <Image
                     src="/images/gift-middle.webp"
                     alt={welcomePageT('alts.middle_gift')}
@@ -63,11 +63,11 @@ const Benefits: FC = () => {
                 />
             </div>
 
-            <div className="absolute bottom-52 right-0.5 h-7 w-7 mobile-lg:-right-1 tablet-md:h-8 tablet-md:w-8">
+            <div className="absolute -bottom-2 -right-3.5 h-24 w-24 rotate-12 tablet-md:-bottom-5 tablet-md:h-32 tablet-md:w-32">
                 <Image
-                    src="/images/gift-small.webp"
-                    alt={welcomePageT('alts.smaller_gift')}
-                    title={welcomePageT('alts.smaller_gift')}
+                    src="/images/gift-big.webp"
+                    alt={welcomePageT('alts.bigger_gift')}
+                    title={welcomePageT('alts.bigger_gift')}
                     fill
                     sizes={'100%'}
                     className="object-contain"
