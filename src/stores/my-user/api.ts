@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import api from '@/helpers/api/api';
+import api from '@/helpers/api/settings';
 import {
     IRegistration,
     IGoogleAuth,
