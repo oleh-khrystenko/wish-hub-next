@@ -77,6 +77,16 @@
             "description": "Wish Hub will help you change the password for your account. Enter the new password to keep your account secure."
         }
     },
+    "contact-page": {
+        "head": {
+            "title": "Contact Us | Wish Hub",
+            "description": "Have questions or suggestions? Reach out to our team through a convenient contact form, and we’ll assist with all your inquiries."
+        },
+        "title": "Contact Us",
+        "address": "Ukraine, Poltava, Nebesnoi Sotni St., 13, office 408",
+        "social-networks": "Social networks:",
+        "contact-us": "If you have any questions or suggestions, please contact us."
+    },
     "instruction-page": {
         "head": {
             "title": "Wish Hub - Video Instructions",
@@ -123,7 +133,6 @@
         "interface_language": "Interface language",
         "about_us": "About us",
         "instruction": "Instruction",
-        "contacts": "Contacts",
         "users": "Users",
         "update": "Update",
         "all": "All",
@@ -212,8 +221,6 @@
         "new-password": "New password*",
         "repeat-new-password": "Repeat new password*",
         "repeat-password-error": "New passwords do not match.",
-        "social-networks": "Social networks:",
-        "contact-us": "If you have any questions or suggestions, please contact us.",
         "sadness": "Our sadness knows no bounds... We hope that you will give us another chance and to stay. If you have decided to leave us, please confirm your intention by entering the appropriate data.",
         "delete-my-account": "Delete my account",
         "stay": "Stay",
@@ -753,6 +760,7 @@
         "wish_editor": "Wish Editor",
         "instruction": "Instruction",
         "blog": "Blog",
+        "contact": "Contact",
         "filters": "Filters",
         "broken_image": "Failed to load image",
         "sort": {

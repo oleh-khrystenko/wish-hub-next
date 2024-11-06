@@ -18,7 +18,6 @@ import ShareButton from '@/components/layouts/ShareButton';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import UiAvatar from '@/components/ui/UiAvatar';
-import UiModal from '@/components/ui/modal/UiModal';
 import LangIcon from '@/components/icons/LangIcon';
 import LightDarkThemeIcon from '@/components/icons/LightDarkThemeIcon';
 import InfoIcon from '@/components/icons/InfoIcon';
@@ -42,7 +41,6 @@ interface IProps {
 const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
     const [userId, setUserId] = useState('');
     const [showPopup, setShowPopup] = useState<boolean>(false);
-    const [showContacts, setShowContacts] = useState<boolean>(false);
 
     const router = useRouter();
     const pathname = usePathname();
@@ -87,11 +85,6 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
         setTimeout(() => {
             setShowPopup(false);
         }, 300);
-    };
-
-    const handleShowContacts = () => {
-        setShowContacts(true);
-        handleHidePopup();
     };
 
     const handleLogout = async () => {
@@ -303,10 +296,13 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                         </span>
                     </ShareButton>
 
-                    <UiButton variant="text" onBtnClick={handleShowContacts}>
+                    <UiButton
+                        href={`contact${utmParams ? `?${utmParams}` : ''}`}
+                        variant="text"
+                    >
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <ForumIcon />
-                            {mainPageT('contacts')}
+                            {allPagesT('contact')}
                         </span>
                     </UiButton>
                 </div>
@@ -338,51 +334,6 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     </div>
                 </div>
             </UiPopup>
-
-            {/* Contacts */}
-            <UiModal
-                rounded="rounded-2xl"
-                show={showContacts}
-                hide={() => setShowContacts(false)}
-            >
-                <p className="text-center text-2xl font-bold text-zinc-700 dark:text-zinc-300">
-                    {mainPageT('contacts')}:
-                </p>
-
-                <p className="mt-6 text-zinc-600 dark:text-zinc-400">
-                    {allPagesT('phone')}{' '}
-                    <a
-                        href="tel:+380508899268"
-                        className="text-cyan-400 dark:text-cyan-300"
-                    >
-                        +38 050 88 99 268
-                    </a>
-                </p>
-
-                <p className="mt-4 text-zinc-600 dark:text-zinc-400">
-                    {allPagesT('email')}{' '}
-                    <a
-                        href="mailto:wish.hub.net@gmail.com"
-                        className="text-cyan-400 dark:text-cyan-300"
-                    >
-                        wish.hub.net@gmail.com
-                    </a>
-                </p>
-
-                <div className="mt-4 flex items-center gap-4">
-                    <p className="text-zinc-600 dark:text-zinc-400">
-                        {mainPageT('social-networks')}
-                    </p>
-
-                    <div className="flex items-center justify-evenly gap-4">
-                        <SocialNetworks />
-                    </div>
-                </div>
-
-                <p className="mt-4 text-sm text-zinc-500">
-                    {mainPageT('contact-us')}
-                </p>
-            </UiModal>
         </div>
     );
 };

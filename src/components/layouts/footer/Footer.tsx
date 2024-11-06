@@ -32,9 +32,17 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
             href: `about${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('about'),
         },
+        // {
+        //     href: `blog${utmParams ? `?${utmParams}` : ''}`,
+        //     title: allPagesT('blog'),
+        // },
         {
             href: `privacy-policy${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('privacy_policy'),
+        },
+        {
+            href: `contact${utmParams ? `?${utmParams}` : ''}`,
+            title: allPagesT('contact'),
         },
     ];
 

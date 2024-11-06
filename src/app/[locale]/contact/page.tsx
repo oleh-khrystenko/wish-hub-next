@@ -4,7 +4,7 @@ import pick from 'lodash.pick';
 import { IPageParams } from '@/models/Settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
-import Body from '@/app/[locale]/blog/Body';
+import Body from '@/app/[locale]/contact/Body';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
@@ -12,10 +12,10 @@ import GlobalLoading from '@/components/layouts/GlobalLoading';
 export async function generateMetadata({
     params,
 }: IPageParams): Promise<Metadata> {
-    return await fetchMetadata(params.locale, 'blog', 'blog');
+    return await fetchMetadata(params.locale, 'contact', 'contact');
 }
 
-export default function Blog() {
+export default function Contact() {
     const messages = useMessages();
 
     return (
@@ -33,7 +33,7 @@ export default function Blog() {
 
                 <Body />
 
-                <Footer remove="blog" />
+                <Footer remove="contact" />
             </div>
 
             <GlobalLoading />
