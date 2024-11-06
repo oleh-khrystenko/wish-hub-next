@@ -61,7 +61,7 @@ const UiInput: FC<IProps> = forwardRef<
                     >
                         {type === 'multiline' ? (
                             <textarea
-                                className="input textarea-scrollbar relative z-20 min-h-20 w-full resize-y appearance-none rounded-md border-0 bg-transparent px-2.5 py-2 text-base text-zinc-900 outline-none transition-all duration-300 ease-in-out placeholder:text-transparent dark:text-zinc-800"
+                                className="input textarea-scrollbar relative z-20 min-h-40 w-full resize-y appearance-none rounded-md border-0 bg-transparent px-2.5 py-2 text-base text-zinc-900 outline-none transition-all duration-300 ease-in-out placeholder:text-transparent dark:text-zinc-800"
                                 ref={ref as Ref<HTMLTextAreaElement>}
                                 id={id}
                                 name={name}

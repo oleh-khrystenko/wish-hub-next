@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
+import ContactForm from '@/app/[locale]/contact/ContactForm';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
 import MainIcon from '@/components/icons/MainIcon';
@@ -38,34 +39,42 @@ const Body: FC = () => {
                     {contactPageT('title')}
                 </h1>
 
-                <p className="mt-4 text-zinc-600 dark:text-zinc-400">
-                    {allPagesT('email')}{' '}
-                    <a
-                        href="mailto:wish.hub.net@gmail.com"
-                        className="text-cyan-400 dark:text-cyan-300"
-                    >
-                        wish.hub.net@gmail.com
-                    </a>
-                </p>
+                <div className="flex w-full flex-col gap-7 tablet-md:flex-row">
+                    <div className="flex w-max flex-col gap-5">
+                        <p className="flex flex-col text-zinc-600 dark:text-zinc-400 mobile-sm:flex-row mobile-sm:gap-1.5">
+                            <span className="whitespace-nowrap">
+                                {allPagesT('email')}
+                            </span>
+                            <a
+                                href="mailto:wish.hub.net@gmail.com"
+                                className="text-cyan-400 dark:text-cyan-300"
+                            >
+                                wish.hub.net@gmail.com
+                            </a>
+                        </p>
 
-                <p className="mt-6 text-zinc-600 dark:text-zinc-400">
-                    {allPagesT('phone')}{' '}
-                    <a
-                        href="tel:+380508899268"
-                        className="text-cyan-400 dark:text-cyan-300"
-                    >
-                        +38 050 88 99 268
-                    </a>
-                </p>
+                        <p className="text-zinc-600 dark:text-zinc-400">
+                            {allPagesT('phone')}{' '}
+                            <a
+                                href="tel:+380508899268"
+                                className="text-cyan-400 dark:text-cyan-300"
+                            >
+                                +38 050 88 99 268
+                            </a>
+                        </p>
 
-                <div className="mt-4 flex items-center gap-4">
-                    <p className="text-zinc-600 dark:text-zinc-400">
-                        {contactPageT('social-networks')}
-                    </p>
+                        <div className="flex flex-col gap-4">
+                            <p className="text-zinc-600 dark:text-zinc-400">
+                                {contactPageT('social-networks')}
+                            </p>
 
-                    <div className="flex items-center justify-evenly gap-4">
-                        <SocialNetworks />
+                            <div className="flex items-center justify-evenly gap-4">
+                                <SocialNetworks />
+                            </div>
+                        </div>
                     </div>
+
+                    <ContactForm />
                 </div>
 
                 <p className="mt-4 text-zinc-600 dark:text-zinc-400">

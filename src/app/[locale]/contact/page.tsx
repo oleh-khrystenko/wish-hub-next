@@ -21,9 +21,11 @@ export default function Contact() {
     return (
         <NextIntlClientProvider
             messages={pick(messages, [
+                'contact-page',
                 'main-page',
                 'share-button',
                 'all-pages',
+                'validations',
             ])}
         >
             <div className="flex min-h-screen flex-col">

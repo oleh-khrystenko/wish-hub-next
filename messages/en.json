@@ -83,6 +83,11 @@
             "description": "Have questions or suggestions? Reach out to our team through a convenient contact form, and we’ll assist with all your inquiries."
         },
         "title": "Contact Us",
+        "contact_form": "Contact form",
+        "name": "Name*",
+        "email": "Email*",
+        "message": "Message*",
+        "send": "Send",
         "address": "Ukraine, Poltava, Nebesnoi Sotni St., 13, office 408",
         "social-networks": "Social networks:",
         "contact-us": "If you have any questions or suggestions, please contact us."

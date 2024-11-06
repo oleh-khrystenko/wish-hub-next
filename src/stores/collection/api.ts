@@ -10,7 +10,7 @@ import {
     ISendGetWishCollections,
     ISendUpdateCollection,
 } from '@/stores/collection/types';
-import api from '@/helpers/utils/api';
+import api from '@/helpers/api/api';
 
 const createCollection = async (
     data: ISendCreateCollection
