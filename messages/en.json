@@ -748,6 +748,12 @@
                 "error": "Failed to delete the “{name}” collection."
             }
         },
+        "contacts-api": {
+            "create-contact": {
+                "success": "The message has been sent successfully.",
+                "error": "The message could not be sent."
+            }
+        },
         "loading": {
             "first": "We're already working on it. Don't worry, everything is under control!",
             "second": "Something's taking longer than expected... It might be due to slow internet. Try refreshing the page.",
