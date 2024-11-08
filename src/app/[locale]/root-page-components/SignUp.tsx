@@ -56,7 +56,9 @@ const SignUp: FC = () => {
     return (
         <div className="tablet-md:before:-rotate-5 relative rounded-3xl bg-zinc-400 bg-[url('/images/sing-up-bg.webp')] bg-cover bg-center bg-no-repeat p-6 before:absolute before:inset-0 before:-rotate-3 before:rounded-3xl before:border before:border-dashed before:border-zinc-400 dark:bg-zinc-800 before:dark:border-zinc-600 tablet-md:px-10 tablet-md:py-8 desktop-sm:w-4/5">
             <p className="w-4/5 text-2xl font-bold text-zinc-800 dark:text-zinc-200 tablet-md:w-3/4 tablet-md:text-3xl tablet-lg:w-3/5 tablet-xl:w-4/6 desktop-sm:w-4/5">
-                {welcomePageT('join_today')}
+                {welcomePageT('join')}{' '}
+                <span className="whitespace-nowrap">Wish Hub</span>{' '}
+                {welcomePageT('today')}
             </p>
 
             <p className="mt-2 w-4/5 text-sm text-zinc-600 dark:text-zinc-400 tablet-md:mt-6 tablet-md:text-base">
