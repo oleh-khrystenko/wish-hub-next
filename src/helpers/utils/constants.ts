@@ -107,3 +107,7 @@ export const WISH_SLUG_TO_ID_MAP: Record<string, string> = {
     // ***************** name *****************
     // ***************** name *****************
 };
+
+export const ARTICLE_SLUG_TO_ID_MAP: Record<string, string> = {
+    wishes: '672f84db47017ba5704bc374',
+};

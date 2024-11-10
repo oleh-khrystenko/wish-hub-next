@@ -622,6 +622,10 @@
         "to_main": "To Main"
     },
     "all-pages": {
+        "error": {
+            "title": "Something went wrong",
+            "text": "Please reload the page. If this doesn’t help, contact us at:"
+        },
         "my-user-api": {
             "registration": {
                 "error": "registration: Failed to register."

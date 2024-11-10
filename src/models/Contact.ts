@@ -4,6 +4,6 @@ export type TSendContact = {
     message: string;
 };
 
-export interface TContact extends TSendContact {
+export interface IContact extends TSendContact {
     id: string;
 }

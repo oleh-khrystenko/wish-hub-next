@@ -1,10 +1,10 @@
 import { AxiosResponse } from 'axios';
-import { TContact, TSendContact } from '@/models/Contact';
+import { IContact, TSendContact } from '@/models/Contact';
 import api from '@/helpers/api/settings';
 
 const createContact = async (
     data: TSendContact
-): Promise<AxiosResponse<TContact>> => {
+): Promise<AxiosResponse<IContact>> => {
     return await api.post('/contact', data);
 };
 
