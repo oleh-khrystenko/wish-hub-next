@@ -350,51 +350,62 @@ const Collections: FC<IProps> = ({
                             </li>
                         )}
 
-                        {collections.map((collection) => (
-                            <li
-                                key={collection.id}
-                                className={`${collection.id === collectionId || collection.slug === collectionSlug ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
-                            >
-                                <UiButton
-                                    href={
-                                        userSlug
-                                            ? `${userSlug}/${collection.slug}`
-                                            : `${pathname.replace(`/${activeLocale}/`, '').replace('/editor', '')}?collectionId=${collection.id}`
-                                    }
-                                    variant="clear-styles"
-                                    classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
-                                    onLinkClick={() => setShowSlidePanel(false)}
+                        {collections.map((collection) => {
+                            let isActiveCollection = false;
+                            isActiveCollection = collection.id === collectionId;
+                            if (collection.slug && collectionSlug) {
+                                isActiveCollection =
+                                    collection.slug === collectionSlug;
+                            }
+
+                            return (
+                                <li
+                                    key={collection.id}
+                                    className={`${isActiveCollection ? 'border-cyan-400 dark:border-cyan-300' : 'border-transparent'} flex items-center rounded-md border border-dashed`}
                                 >
-                                    {collection.name}
-                                </UiButton>
+                                    <UiButton
+                                        href={
+                                            userSlug
+                                                ? `${userSlug}/${collection.slug}`
+                                                : `${pathname.replace(`/${activeLocale}/`, '').replace('/editor', '')}?collectionId=${collection.id}`
+                                        }
+                                        variant="clear-styles"
+                                        classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
+                                        onLinkClick={() =>
+                                            setShowSlidePanel(false)
+                                        }
+                                    >
+                                        {collection.name}
+                                    </UiButton>
 
-                                {collection.userId === myUser?.id && (
-                                    <>
-                                        <UiButton
-                                            href={`user/${myUser?.id}/collection/editor?collectionId=${collection.id}`}
-                                            variant="text-only"
-                                            onLinkClick={() =>
-                                                setShowSlidePanel(false)
-                                            }
-                                        >
-                                            <span className="rounded-md p-2.5 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-3">
-                                                <EditIcon classes="w-4 h-4 fill-zinc-800 dark:fill-zinc-300" />
-                                            </span>
-                                        </UiButton>
+                                    {collection.userId === myUser?.id && (
+                                        <>
+                                            <UiButton
+                                                href={`user/${myUser?.id}/collection/editor?collectionId=${collection.id}`}
+                                                variant="text-only"
+                                                onLinkClick={() =>
+                                                    setShowSlidePanel(false)
+                                                }
+                                            >
+                                                <span className="rounded-md p-2.5 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-3">
+                                                    <EditIcon classes="w-4 h-4 fill-zinc-800 dark:fill-zinc-300" />
+                                                </span>
+                                            </UiButton>
 
-                                        <UiButton
-                                            variant="text-only"
-                                            classesWrap="rounded-md p-2 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-2.5"
-                                            onBtnClick={() =>
-                                                deleteCollection(collection)
-                                            }
-                                        >
-                                            <BasketIcon />
-                                        </UiButton>
-                                    </>
-                                )}
-                            </li>
-                        ))}
+                                            <UiButton
+                                                variant="text-only"
+                                                classesWrap="rounded-md p-2 transition-all duration-300 ease-in-out hover:bg-zinc-200 hover:dark:bg-zinc-600 mobile-xs:p-2.5"
+                                                onBtnClick={() =>
+                                                    deleteCollection(collection)
+                                                }
+                                            >
+                                                <BasketIcon />
+                                            </UiButton>
+                                        </>
+                                    )}
+                                </li>
+                            );
+                        })}
 
                         <li
                             className="h-px w-full"
