@@ -484,7 +484,6 @@ export const useWishesStore = create<IWishesStore>((set) => ({
             set((state) => ({
                 ...state,
                 list: [...state.list, ...selectedWises],
-                selectedWishIdList: wishIdListForCollection || [],
                 page: state.page + 1,
                 stopRequests:
                     response.data.wishes.length !== WISHES_PAGINATION_LIMIT,
