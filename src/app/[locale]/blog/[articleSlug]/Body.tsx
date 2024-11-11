@@ -49,17 +49,6 @@ const Body: FC<IProps> = ({ data }) => {
                     {data.title}
                 </h1>
 
-                <div className="absolute -left-full -top-full hidden opacity-0">
-                    <div className="flex flex-col gap-5"></div>
-                    <div className="grid gap-5 tablet-lg:grid-cols-5 tablet-lg:items-center tablet-lg:gap-6"></div>
-                    <div className="flex flex-col gap-2 tablet-lg:col-span-3"></div>
-                    <div className="text-xl font-bold text-zinc-700 dark:text-zinc-300 desktop-xs:text-2xl"></div>
-                    <div className="text-zinc-700 dark:text-zinc-300 desktop-xs:text-lg"></div>
-                    <div className="relative w-full overflow-hidden rounded-lg pt-[45%] tablet-lg:col-span-2"></div>
-                    <div className="absolute inset-0 h-full w-full object-cover"></div>
-                    <div className="order-1 flex flex-col gap-2 tablet-lg:col-span-3"></div>
-                </div>
-
                 <div dangerouslySetInnerHTML={{ __html: data.content }} />
             </div>
         </div>
