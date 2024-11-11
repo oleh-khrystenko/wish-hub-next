@@ -10,7 +10,7 @@ const VideoItem: FC<IProps> = ({ src, title }) => {
         <li className="flex flex-col gap-2 rounded-lg border border-dashed border-zinc-600 p-2 dark:border-zinc-400 tablet-lg:gap-3">
             <div className="relative h-0 w-full overflow-hidden rounded-lg pt-[56.25%]">
                 <iframe
-                    className="absolute left-0 top-0 h-full w-full"
+                    className="absolute inset-0 h-full w-full"
                     src={src}
                     title="YouTube video player"
                     frameBorder="0"
