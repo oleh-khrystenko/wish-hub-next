@@ -34,7 +34,7 @@ const config: Config = {
         'pt-[45%]',
         'pt-[56.25%]',
         'object-cover',
-        'order-1',
+        'tablet-lg:order-1',
     ],
     theme: {
         extend: {
