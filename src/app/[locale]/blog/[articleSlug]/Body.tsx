@@ -44,7 +44,7 @@ const Body: FC<IProps> = ({ data }) => {
                 visualPages={breadcrumbsPages}
             />
 
-            <div className="mt-6 flex flex-col gap-5 px-4 pb-6 desktop-sm:px-0 desktop-sm:pb-10">
+            <div className="mt-6 flex flex-col gap-5 px-4 pb-10 desktop-sm:px-0 desktop-sm:pb-14">
                 <h1 className="text-3xl font-bold text-zinc-700 dark:text-zinc-300 tablet-lg:text-4xl">
                     {data.title}
                 </h1>
