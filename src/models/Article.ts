@@ -14,3 +14,14 @@ export interface IArticle {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface ISendArticle {
+    articleId: string;
+    lang: string;
+}
+
+export interface ISendArticles {
+    lang: string;
+    page: number;
+    limit: number;
+}

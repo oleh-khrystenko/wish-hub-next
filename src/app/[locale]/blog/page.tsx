@@ -1,47 +1,13 @@
 import { Metadata } from 'next';
-import axios, { AxiosResponse } from 'axios';
-import { IArticle } from '@/models/Article';
-import { ELang } from '@/models/Settings';
+import { IPageParams } from '@/models/Settings';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import PageContent from '@/app/[locale]/blog/PageContent';
 import ErrorContent from '@/app/[locale]/blog/[articleSlug]/ErrorContent';
-
-const api = axios.create({
-    withCredentials: true,
-    baseURL:
-        process.env.NODE_ENV === 'development'
-            ? process.env.NEXT_PUBLIC_DEV_API_URL
-            : process.env.NEXT_PUBLIC_API_URL,
-});
-
-const getArticles = async (params: {
-    lang: string;
-    page: number;
-    limit: number;
-}): Promise<AxiosResponse<IArticle[]> | null> => {
-    try {
-        return await api.get('/articles', { params });
-    } catch (error) {
-        if (axios.isAxiosError(error)) {
-            if (error.response && error.response.status === 400) {
-                console.error('400 Error: Bad Request', error.response.data);
-                return null;
-            }
-        }
-
-        throw error;
-    }
-};
-
-interface IPageParams {
-    params: {
-        locale: ELang;
-    };
-}
+import articleApi from '@/helpers/api/article';
 
 // Функція для отримання даних з сервера
 const getData = async (lang: string) => {
-    const res = await getArticles({
+    const res = await articleApi.getArticles({
         lang,
         page: 1,
         limit: 24,

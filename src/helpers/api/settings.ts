@@ -2,14 +2,20 @@ import axios from 'axios';
 import myUserApi from '@/stores/my-user/api';
 import { getLangFromUrl } from '@/helpers/utils/get-lang-from-url';
 
-// Створення екземпляра axios з базовими налаштуваннями
-const api = axios.create({
+// Базові налаштування для axios
+const baseConfig = {
     withCredentials: true,
     baseURL:
         process.env.NODE_ENV === 'development'
             ? process.env.NEXT_PUBLIC_DEV_API_URL
             : process.env.NEXT_PUBLIC_API_URL,
-});
+};
+
+// Створення базового екземпляра axios без interceptors
+export const baseApi = axios.create(baseConfig);
+
+// Створення екземпляра з interceptors
+const api = axios.create(baseConfig);
 
 // Додавання токену і мови до заголовків кожного запиту
 api.interceptors.request.use((config) => {
