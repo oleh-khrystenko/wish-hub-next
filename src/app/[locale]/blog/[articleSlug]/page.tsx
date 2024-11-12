@@ -5,7 +5,6 @@ import { ELang } from '@/models/Settings';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import { ARTICLE_SLUG_TO_ID_MAP } from '@/helpers/utils/constants';
 import PageContent from '@/app/[locale]/blog/[articleSlug]/PageContent';
-
 import ErrorContent from '@/app/[locale]/blog/[articleSlug]/ErrorContent';
 
 const api = axios.create({
@@ -29,6 +28,7 @@ const getArticle = async (params: {
                 return null;
             }
         }
+
         throw error;
     }
 };
@@ -59,6 +59,7 @@ export async function generateMetadata({
     params,
 }: IPageParams): Promise<Metadata> {
     const data = await getData(params.articleSlug, params.locale);
+
     return await fetchMetadata(
         params.locale,
         null,
@@ -70,9 +71,11 @@ export async function generateMetadata({
 const Article = async ({ params }: IPageParams) => {
     try {
         const data = await getData(params.articleSlug, params.locale);
+
         return <PageContent data={data} />;
     } catch (error) {
         console.error('Error: ', error);
+
         return <ErrorContent />;
     }
 };
