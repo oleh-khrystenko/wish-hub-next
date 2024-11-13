@@ -51,7 +51,7 @@ const ArticleItem: FC<IProps> = ({ article }) => {
                     {article.title}
                 </p>
 
-                <div className="mt-2 flex w-full items-center justify-between gap-3">
+                <div className="mt-auto flex w-full items-center justify-between gap-3 pt-2">
                     <p className="text-xs text-zinc-600 dark:text-zinc-400 tablet-md:text-sm">
                         {dayjs(article.updatedAt)
                             .locale(activeLocale === 'ua' ? 'uk' : activeLocale)
