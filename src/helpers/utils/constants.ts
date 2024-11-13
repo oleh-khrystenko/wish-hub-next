@@ -110,4 +110,5 @@ export const WISH_SLUG_TO_ID_MAP: Record<string, string> = {
 
 export const ARTICLE_SLUG_TO_ID_MAP: Record<string, string> = {
     wishes: '672f84db47017ba5704bc374',
+    'nevdali-podarunky': '67347856e333ad4061e7b9ad',
 };
