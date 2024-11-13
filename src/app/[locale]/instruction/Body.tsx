@@ -83,7 +83,7 @@ const Body: FC = () => {
                                 {instructionPageT('dont_miss')}
                             </p>
 
-                            <p className="mt-1 whitespace-nowrap text-sm font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-justify tablet-md:text-base tablet-xl:whitespace-normal">
+                            <p className="mt-1 text-sm font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-justify tablet-md:text-base">
                                 {instructionPageT('subscribe')}
                             </p>
                         </div>
