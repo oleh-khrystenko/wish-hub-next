@@ -53,7 +53,9 @@
             "title": "Gift Ideas and Articles - Wish Hub 🎁",
             "description": "Welcome to the Wish Hub blog! Here you'll find inspiration for perfect gifts, helpful tips, and interesting articles about holiday gifts. ✨"
         },
-        "title": "Blog"
+        "title": "Blog",
+        "reading_time": "reading time",
+        "minutes": "min"
     },
     "change-forgotten-password-page": {
         "head": {

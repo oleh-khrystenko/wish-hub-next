@@ -1,9 +1,9 @@
 import { FC, useMemo, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/ru';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { EPrivacy, IZoomedImage } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
@@ -78,7 +78,7 @@ const DetailProfile: FC = () => {
         if (myUser?.id === user?.id) {
             if (myUser?.birthday) {
                 return dayjs(myUser?.birthday)
-                    .locale(activeLocale)
+                    .locale(activeLocale === 'ua' ? 'uk' : activeLocale)
                     .format(getMonthWithDate());
             } else {
                 return profilePageT('unknown');
@@ -86,7 +86,7 @@ const DetailProfile: FC = () => {
         } else {
             if (showBirthday) {
                 return dayjs(user?.birthday)
-                    .locale(activeLocale)
+                    .locale(activeLocale === 'ua' ? 'uk' : activeLocale)
                     .format(getMonthWithDate());
             } else {
                 return profilePageT('unknown');

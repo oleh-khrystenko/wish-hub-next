@@ -1,8 +1,9 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { INavItem } from '@/models/Settings';
+import { ETheme, INavItem } from '@/models/Settings';
+import { useSettingsStore } from '@/stores/settings';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import Divider from '@/components/layouts/Divider';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
@@ -19,6 +20,8 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
 
     const utmParams = UseUTMParams();
 
+    const setTheme = useSettingsStore((state) => state.setTheme);
+
     const navList: INavItem[] = [
         {
             href: `main${utmParams ? `?${utmParams}` : ''}`,
@@ -32,10 +35,10 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
             href: `about${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('about'),
         },
-        // {
-        //     href: `blog${utmParams ? `?${utmParams}` : ''}`,
-        //     title: allPagesT('blog'),
-        // },
+        {
+            href: `blog${utmParams ? `?${utmParams}` : ''}`,
+            title: allPagesT('blog'),
+        },
         {
             href: `privacy-policy${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('privacy_policy'),
@@ -45,6 +48,23 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
             title: allPagesT('contact'),
         },
     ];
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme as ETheme);
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.documentElement.classList.add(savedTheme);
+        } else {
+            const prefersDark = window.matchMedia(
+                '(prefers-color-scheme: dark)'
+            ).matches;
+            const defaultTheme = prefersDark ? ETheme.DARK : ETheme.LIGHT;
+            setTheme(defaultTheme);
+            document.documentElement.setAttribute('data-theme', defaultTheme);
+            document.documentElement.classList.add(defaultTheme);
+        }
+    }, []);
 
     return (
         <footer className="mt-auto">

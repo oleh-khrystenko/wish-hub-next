@@ -2,6 +2,8 @@ import { FC, ChangeEvent, useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
+import 'dayjs/locale/uk';
+import 'dayjs/locale/ru';
 import { TCurrentAvatar, IUser } from '@/models/User';
 import { EPrivacy } from '@/models/Settings';
 import { IUpdateMyUser } from '@/stores/my-user/types';

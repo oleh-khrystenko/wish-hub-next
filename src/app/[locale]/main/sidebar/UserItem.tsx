@@ -4,9 +4,9 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/ru';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { IUser } from '@/models/User';
 import { EPrivacy, ETheme, IPageParams } from '@/models/Settings';
 import { EWhereRemove, IRemoveFriend } from '@/stores/my-user/types';
@@ -94,7 +94,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                 >
                     {mainPageT('bd', {
                         birthday: dayjs(user.birthday)
-                            .locale(activeLocale)
+                            .locale(activeLocale === 'ua' ? 'uk' : activeLocale)
                             .format(getMonthWithDate()),
                     })}
                 </span>

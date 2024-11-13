@@ -24,14 +24,14 @@ const Body: FC<IProps> = ({ data }) => {
         {
             href: 'blog',
             icon: (
-                <BlogIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
+                <BlogIcon classes="w-4 h-4 fill-zinc-500 dark:fill-zinc-400 group-hover:dark:fill-zinc-600" />
             ),
             name: allPagesT('blog'),
         },
         {
             href: `blog/${data.slug}`,
             icon: (
-                <ArticleIcon classes="w-4 h-4 fill-zinc-200 dark:fill-zinc-400" />
+                <ArticleIcon classes="w-4 h-4 fill-zinc-500 dark:fill-zinc-400 group-hover:dark:fill-zinc-600" />
             ),
             name: data.title,
         },

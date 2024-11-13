@@ -18,6 +18,7 @@ const PageContent: FC<IProps> = ({ articles }) => {
     return (
         <NextIntlClientProvider
             messages={pick(messages, [
+                'blog-page',
                 'main-page',
                 'share-button',
                 'all-pages',

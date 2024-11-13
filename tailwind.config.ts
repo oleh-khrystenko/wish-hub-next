@@ -27,6 +27,7 @@ const config: Config = {
         'text-cyan-400',
         'dark:text-cyan-300',
         'hover:underline',
+        'text-justify',
         'relative',
         'absolute',
         'inset-0',

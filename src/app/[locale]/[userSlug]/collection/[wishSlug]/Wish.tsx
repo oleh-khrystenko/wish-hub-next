@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
+import 'dayjs/locale/uk';
+import 'dayjs/locale/ru';
 import { EPrivacy } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
@@ -138,7 +140,11 @@ const Wish: FC = () => {
                                         </span>
                                         <span className="font-bold">
                                             {dayjs(wish.booking?.end)
-                                                .locale(activeLocale)
+                                                .locale(
+                                                    activeLocale === 'ua'
+                                                        ? 'uk'
+                                                        : activeLocale
+                                                )
                                                 .format(getFullDate())}
                                         </span>
                                     </>

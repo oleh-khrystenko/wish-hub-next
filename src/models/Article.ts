@@ -10,6 +10,7 @@ export interface IArticle {
     title: string;
     description: string;
     preview: string;
+    readingTime: string;
     content: string;
     createdAt: string;
     updatedAt: string;
