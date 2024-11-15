@@ -1,15 +1,13 @@
 import { Metadata } from 'next';
 import { IPageParams } from '@/models/Settings';
 import { fetchMetadata } from '@/helpers/utils/metadata';
-import PageContent from '@/app/[locale]/blog/PageContent';
+import PageContent from '@/app/[locale]/reviews/PageContent';
 import ErrorContent from '@/app/[locale]/blog/[articleSlug]/ErrorContent';
-import articleApi from '@/helpers/api/article';
-
-// TODO: moved ErrorContent to universal folder
+import reviewApi from '@/helpers/api/review';
 
 // Функція для отримання даних з сервера
 const getData = async (lang: string) => {
-    const res = await articleApi.getArticles({
+    const res = await reviewApi.getReviews({
         lang,
         page: 1,
         limit: 24,
@@ -26,14 +24,14 @@ const getData = async (lang: string) => {
 export async function generateMetadata({
     params,
 }: IPageParams): Promise<Metadata> {
-    return await fetchMetadata(params.locale, 'blog', 'blog');
+    return await fetchMetadata(params.locale, 'reviews', 'reviews');
 }
 
-const Blog = async ({ params }: IPageParams) => {
+const Reviews = async ({ params }: IPageParams) => {
     try {
-        const articles = await getData(params.locale);
+        const review = await getData(params.locale);
 
-        return <PageContent articles={articles} />;
+        // return <PageContent articles={articles} />;
     } catch (error) {
         console.error('Error: ', error);
 
@@ -41,4 +39,4 @@ const Blog = async ({ params }: IPageParams) => {
     }
 };
 
-export default Blog;
+export default Reviews;

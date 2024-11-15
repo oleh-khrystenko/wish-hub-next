@@ -462,6 +462,13 @@
         "follow_from": "Following you",
         "friends": "Your friend"
     },
+    "reviews-page": {
+        "head": {
+            "title": "User reviews about Wish Hub - Rate our service",
+            "description": "Find out what our users have to say about Wish Hub. Read reviews and ratings of the service created for easy gift exchange. Leave your review and help others choose Wish Hub!"
+        },
+        "title": "Reviews"
+    },
     "wish-page": {
         "head": {
             "title": "Wish Hub - Wish",

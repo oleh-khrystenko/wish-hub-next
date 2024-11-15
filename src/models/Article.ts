@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 export interface IMeta {
     title: string;
     description: string;
@@ -12,8 +14,8 @@ export interface IArticle {
     preview: string;
     readingTime: string;
     content: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Dayjs;
+    updatedAt: Dayjs;
 }
 
 export interface ISendArticle {
