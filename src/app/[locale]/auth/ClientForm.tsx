@@ -163,7 +163,7 @@ const ClientForm: FC = () => {
 
         await googleAuthorization(
             {
-                email: decodedUserData.email,
+                email: decodedUserData.email.toLowerCase(),
                 lang: activeLocale as ELang,
                 isActivated: decodedUserData.email_verified,
                 firstName: decodedUserData.given_name,
@@ -186,7 +186,7 @@ const ClientForm: FC = () => {
         if (isForgotPassword) {
             return myUserApi
                 .forgotPassword({
-                    email: data.email.trim(),
+                    email: data.email.trim().toLowerCase(),
                     lang: activeLocale as ELang,
                 })
                 .then(() => {
@@ -237,7 +237,7 @@ const ClientForm: FC = () => {
             return registration(
                 {
                     firstName: data.firstName.trim(),
-                    email: data.email.trim(),
+                    email: data.email.trim().toLowerCase(),
                     password: data.password,
                     lang: activeLocale as ELang,
                     guestWishes: getGuestWishes(),
@@ -254,7 +254,7 @@ const ClientForm: FC = () => {
         if (checkedPrivacyPolicy) {
             return login(
                 {
-                    email: data.email.trim(),
+                    email: data.email.trim().toLowerCase(),
                     password: data.signInPassword,
                     lang: activeLocale as ELang,
                 },
