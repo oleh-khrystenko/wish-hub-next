@@ -31,7 +31,7 @@ const PageContent: FC<IProps> = ({ articles }) => {
 
                 <Body articles={articles} />
 
-                <Footer />
+                <Footer remove="blog" />
             </div>
 
             <GlobalLoading />

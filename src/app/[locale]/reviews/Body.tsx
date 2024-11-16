@@ -1,17 +1,16 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
-import { IArticle } from '@/models/Article';
-import ArticleItem from '@/app/[locale]/blog/ArticleItem';
+import { IReview } from '@/models/Review';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import MainIcon from '@/components/icons/MainIcon';
-import BlogIcon from '@/components/icons/BlogIcon';
+import ReviewIcon from '@/components/icons/ReviewIcon';
 
 interface IProps {
-    articles: IArticle[];
+    reviews: IReview[];
 }
 
-const Body: FC<IProps> = ({ articles }) => {
-    const blogPageT = useTranslations('blog-page');
+const Body: FC<IProps> = ({ reviews }) => {
+    const reviewsPageT = useTranslations('reviews-page');
     const allPagesT = useTranslations('all-pages');
 
     const breadcrumbsPages = [
@@ -23,11 +22,11 @@ const Body: FC<IProps> = ({ articles }) => {
             name: allPagesT('main'),
         },
         {
-            href: 'blog',
+            href: 'reviews',
             icon: (
-                <BlogIcon classes="w-4 h-4 fill-zinc-500 dark:fill-zinc-400 group-hover:dark:fill-zinc-600" />
+                <ReviewIcon classes="w-4 h-4 fill-zinc-500 dark:fill-zinc-400 group-hover:dark:fill-zinc-600" />
             ),
-            name: allPagesT('blog'),
+            name: allPagesT('reviews'),
         },
     ];
 
@@ -40,12 +39,12 @@ const Body: FC<IProps> = ({ articles }) => {
 
             <section className="mt-6 flex flex-col gap-5 px-4 pb-6 desktop-sm:px-0 desktop-sm:pb-10">
                 <h1 className="text-4xl font-bold text-zinc-700 dark:text-zinc-300">
-                    {blogPageT('title')}
+                    {reviewsPageT('title')}
                 </h1>
 
                 <ul className="grid grid-cols-2 gap-1.5 tablet-md:grid-cols-3 tablet-lg:grid-cols-4 tablet-lg:gap-4">
-                    {articles.map((article) => (
-                        <ArticleItem key={article.id} article={article} />
+                    {reviews.map((review) => (
+                        <li key={review.id}>{review.fullName}</li>
                     ))}
                 </ul>
             </section>

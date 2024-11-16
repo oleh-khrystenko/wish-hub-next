@@ -2,10 +2,8 @@ import { Metadata } from 'next';
 import { IPageParams } from '@/models/Settings';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import PageContent from '@/app/[locale]/blog/PageContent';
-import ErrorContent from '@/app/[locale]/blog/[articleSlug]/ErrorContent';
+import ErrorPage from '@/components/layouts/ErrorPage';
 import articleApi from '@/helpers/api/article';
-
-// TODO: moved ErrorContent to universal folder
 
 // Функція для отримання даних з сервера
 const getData = async (lang: string) => {
@@ -37,7 +35,7 @@ const Blog = async ({ params }: IPageParams) => {
     } catch (error) {
         console.error('Error: ', error);
 
-        return <ErrorContent />;
+        return <ErrorPage />;
     }
 };
 

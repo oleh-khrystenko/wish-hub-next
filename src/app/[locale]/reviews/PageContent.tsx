@@ -1,18 +1,18 @@
 import { FC } from 'react';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
-import { IArticle } from '@/models/Article';
+import { IReview } from '@/models/Review';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
-import Body from '@/app/[locale]/blog/Body';
+import Body from '@/app/[locale]/reviews/Body';
 import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
 
 interface IProps {
-    articles: IArticle[];
+    reviews: IReview[];
 }
 
-const PageContent: FC<IProps> = ({ articles }) => {
+const PageContent: FC<IProps> = ({ reviews }) => {
     const messages = useMessages();
 
     return (
@@ -29,9 +29,9 @@ const PageContent: FC<IProps> = ({ articles }) => {
                     <Header />
                 </UserSessionRefresher>
 
-                <Body articles={articles} />
+                <Body reviews={reviews} />
 
-                <Footer />
+                <Footer remove="reviews" />
             </div>
 
             <GlobalLoading />

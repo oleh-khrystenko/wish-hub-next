@@ -4,7 +4,7 @@ import articleApi from '@/helpers/api/article';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import { ARTICLE_SLUG_TO_ID_MAP } from '@/helpers/utils/constants';
 import PageContent from '@/app/[locale]/blog/[articleSlug]/PageContent';
-import ErrorContent from '@/app/[locale]/blog/[articleSlug]/ErrorContent';
+import ErrorPage from '@/components/layouts/ErrorPage';
 
 interface IPageParams {
     params: {
@@ -49,7 +49,7 @@ const Article = async ({ params }: IPageParams) => {
     } catch (error) {
         console.error('Error: ', error);
 
-        return <ErrorContent />;
+        return <ErrorPage />;
     }
 };
 

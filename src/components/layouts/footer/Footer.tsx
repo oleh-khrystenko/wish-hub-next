@@ -40,6 +40,10 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
             title: allPagesT('blog'),
         },
         {
+            href: `reviews${utmParams ? `?${utmParams}` : ''}`,
+            title: allPagesT('reviews'),
+        },
+        {
             href: `privacy-policy${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('privacy_policy'),
         },

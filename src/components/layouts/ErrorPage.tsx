@@ -10,7 +10,7 @@ import Header from '@/components/layouts/header/Header';
 import Footer from '@/components/layouts/footer/Footer';
 import GlobalLoading from '@/components/layouts/GlobalLoading';
 
-const ErrorContent: FC = () => {
+const ErrorPage: FC = () => {
     const messages = useMessages();
     const allPagesT = useTranslations('all-pages');
 
@@ -51,4 +51,4 @@ const ErrorContent: FC = () => {
     );
 };
 
-export default ErrorContent;
+export default ErrorPage;

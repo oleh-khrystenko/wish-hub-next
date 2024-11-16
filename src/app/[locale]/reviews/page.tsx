@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import { IPageParams } from '@/models/Settings';
 import { fetchMetadata } from '@/helpers/utils/metadata';
-import PageContent from '@/app/[locale]/reviews/PageContent';
-import ErrorContent from '@/app/[locale]/blog/[articleSlug]/ErrorContent';
 import reviewApi from '@/helpers/api/review';
+import PageContent from '@/app/[locale]/reviews/PageContent';
+import ErrorPage from '@/components/layouts/ErrorPage';
 
 // Функція для отримання даних з сервера
 const getData = async (lang: string) => {
@@ -29,13 +29,13 @@ export async function generateMetadata({
 
 const Reviews = async ({ params }: IPageParams) => {
     try {
-        const review = await getData(params.locale);
+        const reviews = await getData(params.locale);
 
-        // return <PageContent articles={articles} />;
+        return <PageContent reviews={reviews} />;
     } catch (error) {
         console.error('Error: ', error);
 
-        return <ErrorContent />;
+        return <ErrorPage />;
     }
 };
 
