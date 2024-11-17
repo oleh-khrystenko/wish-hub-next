@@ -312,6 +312,17 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                             {allPagesT('contact')}
                         </span>
                     </UiButton>
+                </div>
+
+                <div className="flex flex-col items-stretch gap-1 border-t border-zinc-500 px-4 pb-4 pt-2 dark:border-zinc-600 mobile-xs:gap-2">
+                    {myUser && (
+                        <UiButton variant="text" onBtnClick={handleLogout}>
+                            <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                                <LogoutIcon />
+                                {mainPageT('logout')}
+                            </span>
+                        </UiButton>
+                    )}
 
                     <ShareButton
                         link={shareButtonLink}
@@ -321,17 +332,6 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                             {mainPageT('share')} Wish Hub
                         </span>
                     </ShareButton>
-                </div>
-
-                <div className="flex flex-col items-stretch gap-1 border-t border-zinc-500 p-4 dark:border-zinc-600 mobile-xs:gap-2">
-                    {myUser && (
-                        <UiButton variant="text" onBtnClick={handleLogout}>
-                            <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
-                                <LogoutIcon />
-                                {mainPageT('logout')}
-                            </span>
-                        </UiButton>
-                    )}
 
                     <div className="flex w-full flex-col items-center gap-4 rounded-lg bg-zinc-300 p-2 dark:bg-zinc-800">
                         <div className="flex items-center justify-evenly gap-4">
