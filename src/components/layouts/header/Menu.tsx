@@ -261,6 +261,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     <UiButton
                         href={`instruction${utmParams ? `?${utmParams}` : ''}`}
                         variant="text"
+                        disabled={pathname === `/${activeLocale}/instruction`}
                     >
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <YouTubeIcon />
@@ -271,6 +272,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     <UiButton
                         href={`about${utmParams ? `?${utmParams}` : ''}`}
                         variant="text"
+                        disabled={pathname === `/${activeLocale}/about`}
                     >
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <InfoIcon classes="h-6 w-6 stroke-zinc-700 dark:stroke-zinc-300" />
@@ -281,6 +283,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     <UiButton
                         href={`blog${utmParams ? `?${utmParams}` : ''}`}
                         variant="text"
+                        disabled={pathname === `/${activeLocale}/blog`}
                     >
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <BlogIcon classes="h-6 w-6 fill-zinc-700 dark:fill-zinc-300" />
@@ -291,10 +294,22 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     <UiButton
                         href={`reviews${utmParams ? `?${utmParams}` : ''}`}
                         variant="text"
+                        disabled={pathname === `/${activeLocale}/reviews`}
                     >
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <ReviewIcon classes="h-6 w-6 fill-zinc-700 dark:fill-zinc-300" />
                             {allPagesT('reviews')}
+                        </span>
+                    </UiButton>
+
+                    <UiButton
+                        href={`contact${utmParams ? `?${utmParams}` : ''}`}
+                        variant="text"
+                        disabled={pathname === `/${activeLocale}/contact`}
+                    >
+                        <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                            <ForumIcon />
+                            {allPagesT('contact')}
                         </span>
                     </UiButton>
 
@@ -306,16 +321,6 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                             {mainPageT('share')} Wish Hub
                         </span>
                     </ShareButton>
-
-                    <UiButton
-                        href={`contact${utmParams ? `?${utmParams}` : ''}`}
-                        variant="text"
-                    >
-                        <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
-                            <ForumIcon />
-                            {allPagesT('contact')}
-                        </span>
-                    </UiButton>
                 </div>
 
                 <div className="flex flex-col items-stretch gap-1 border-t border-zinc-500 p-4 dark:border-zinc-600 mobile-xs:gap-2">
