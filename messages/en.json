@@ -468,7 +468,9 @@
             "description": "Find out what our users have to say about Wish Hub. Read reviews and ratings of the service created for easy gift exchange. Leave your review and help others choose Wish Hub!"
         },
         "title": "Reviews",
-        "blogger_review": "Review from a blogger"
+        "review_from_blogger": "Review from a blogger",
+        "blogger_reviews": "Blogger reviews",
+        "user_reviews": "User reviews"
     },
     "wish-page": {
         "head": {

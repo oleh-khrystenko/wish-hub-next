@@ -23,6 +23,10 @@ interface IProps {
         | 'clear-styles';
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
+    role?: string;
+    id?: string;
+    ariaControls?: string;
+    ariaSelected?: string;
     onLinkClick?: () => void;
     onBtnClick?: (event: any) => void;
     children: ReactNode;
@@ -36,6 +40,10 @@ const UiButton: FC<IProps> = ({
     variant = 'solid',
     disabled,
     type = 'button',
+    role,
+    id,
+    ariaControls,
+    ariaSelected,
     onLinkClick,
     onBtnClick,
     children,
@@ -112,6 +120,22 @@ const UiButton: FC<IProps> = ({
         className: `${disabled ? 'opacity-50 pointer-events-none ' : ''}${classes} ${classesWrap}`,
         tabIndex,
     };
+
+    if (role) {
+        tagProps.role = role;
+    }
+
+    if (id) {
+        tagProps.id = id;
+    }
+
+    if (ariaControls) {
+        tagProps['aria-controls'] = ariaControls;
+    }
+
+    if (ariaSelected) {
+        tagProps['aria-selected'] = ariaSelected;
+    }
 
     const linkProps: Record<string, any> = {
         ...tagProps,
