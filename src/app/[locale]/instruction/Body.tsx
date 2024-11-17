@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
-import VideoItem from '@/app/[locale]/instruction/VideoItem';
+import VideoItem from '@/components/layouts/VideoItem';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import UiImage from '@/components/ui/UiImage';
 import MainIcon from '@/components/icons/MainIcon';

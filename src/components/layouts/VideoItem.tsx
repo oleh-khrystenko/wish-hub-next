@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 interface IProps {
     src: string;
-    title: string;
+    title: ReactNode;
 }
 
 const VideoItem: FC<IProps> = ({ src, title }) => {

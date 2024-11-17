@@ -18,7 +18,7 @@ const PageContent: FC<IProps> = ({ reviews }) => {
     return (
         <NextIntlClientProvider
             messages={pick(messages, [
-                'blog-page',
+                'reviews-page',
                 'main-page',
                 'share-button',
                 'all-pages',
