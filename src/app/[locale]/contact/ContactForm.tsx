@@ -14,7 +14,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import UseFullName from '@/helpers/hooks/UseFullName';
 
 interface IShouldTriggerValidation {
-    type: keyof TSendContact | null;
+    type: 'message' | null;
     value: boolean;
 }
 
@@ -46,7 +46,7 @@ const ContactForm: FC = () => {
     const {
         accountFirstNameValidation,
         emailValidation,
-        wishDescriptionValidation,
+        multilineTextValidation,
     } = UseValidations();
     const { getFullName } = UseFullName();
 
@@ -138,7 +138,7 @@ const ContactForm: FC = () => {
                 <UiInput
                     {...register(
                         'message',
-                        wishDescriptionValidation(messageLength)
+                        multilineTextValidation(messageLength)
                     )}
                     id="message"
                     name="message"

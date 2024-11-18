@@ -98,11 +98,8 @@ const FormContent: FC<IProps> = ({
     const isDirtyForm = useSettingsStore((state) => state.isDirtyForm);
     const setIsDirtyForm = useSettingsStore((state) => state.setIsDirtyForm);
 
-    const {
-        wishNameValidation,
-        wishPriceValidation,
-        wishDescriptionValidation,
-    } = UseValidations();
+    const { wishNameValidation, wishPriceValidation, multilineTextValidation } =
+        UseValidations();
 
     const selectOptions: IOption[] = [
         {
@@ -349,7 +346,7 @@ const FormContent: FC<IProps> = ({
                 <UiInput
                     {...register(
                         'description',
-                        wishDescriptionValidation(descriptionLength)
+                        multilineTextValidation(descriptionLength)
                     )}
                     id="description"
                     name="description"

@@ -470,7 +470,9 @@
         "title": "Reviews",
         "review_from_blogger": "Review from a blogger",
         "blogger_reviews": "Blogger reviews",
-        "user_reviews": "User reviews"
+        "user_reviews": "User reviews",
+        "your_review": "Your review",
+        "leave_review": "Leave a Review"
     },
     "wish-page": {
         "head": {
@@ -860,9 +862,9 @@
             "min": "Why such a short address? Please enter an address longer than {min} characters.",
             "max": "Your address has {current} characters. Let's try to fit within {max} characters."
         },
-        "wish-description": {
-            "min": "What is this short wish description? Please come up with a description that is longer than {min} character.",
-            "max": "The name of Your wish contains: {current} characters. Let's try to fit it into {max} characters."
+        "multiline-text": {
+            "min": "The text in the field must be longer than {min} characters. Please add more.",
+            "max": "The text in the field contains {current} characters. The maximum allowed is {max} characters. Please shorten the text."
         },
         "email": {
             "required": "This field is required so that we can identify You.",

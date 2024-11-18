@@ -22,6 +22,7 @@ const PageContent: FC<IProps> = ({ reviews }) => {
                 'main-page',
                 'share-button',
                 'all-pages',
+                'validations',
             ])}
         >
             <div className="flex min-h-screen flex-col">

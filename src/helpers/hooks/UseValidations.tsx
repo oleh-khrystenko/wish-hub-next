@@ -9,8 +9,9 @@ import {
     WISH_PRICE_MAX_LENGTH,
     WISH_ADDRESS_MIN_LENGTH,
     WISH_ADDRESS_MAX_LENGTH,
-    WISH_DESCRIPTION_MIN_LENGTH,
-    WISH_DESCRIPTION_MAX_LENGTH,
+    MULTILINE_TEXT_MIN_LENGTH,
+    MULTILINE_TEXT_MAX_LENGTH,
+    REVIEW_TEXT_MAX_LENGTH,
     DELIVERY_ADDRESS_MIN_LENGTH,
     DELIVERY_ADDRESS_MAX_LENGTH,
     COLLECTION_NAME_MIN_LENGTH,
@@ -94,21 +95,35 @@ const UseValidations = () => {
         };
     };
 
-    // Wish description
-    const wishDescriptionValidation = (descriptionLength: number) => {
+    // Multiline text
+    const multilineTextValidation = (textLength: number) => {
         return {
             ...onlyWhitespaceValidation,
             minLength: {
-                value: WISH_DESCRIPTION_MIN_LENGTH,
-                message: validationsT('wish-description.min', {
-                    min: WISH_DESCRIPTION_MIN_LENGTH - 1,
+                value: MULTILINE_TEXT_MIN_LENGTH,
+                message: validationsT('multiline-text.min', {
+                    min: MULTILINE_TEXT_MIN_LENGTH - 1,
                 }),
             },
             maxLength: {
-                value: WISH_DESCRIPTION_MAX_LENGTH,
-                message: validationsT('wish-description.max', {
-                    current: descriptionLength,
-                    max: WISH_DESCRIPTION_MAX_LENGTH,
+                value: MULTILINE_TEXT_MAX_LENGTH,
+                message: validationsT('multiline-text.max', {
+                    current: textLength,
+                    max: MULTILINE_TEXT_MAX_LENGTH,
+                }),
+            },
+        };
+    };
+
+    // Review text
+    const reviewTextValidation = (textLength: number) => {
+        return {
+            ...onlyWhitespaceValidation,
+            maxLength: {
+                value: REVIEW_TEXT_MAX_LENGTH,
+                message: validationsT('multiline-text.max', {
+                    current: textLength,
+                    max: REVIEW_TEXT_MAX_LENGTH,
                 }),
             },
         };
@@ -275,7 +290,8 @@ const UseValidations = () => {
         wishNameValidation,
         wishPriceValidation,
         wishAddressValidation,
-        wishDescriptionValidation,
+        multilineTextValidation,
+        reviewTextValidation,
         emailValidation,
         passwordValidation,
         signInPasswordValidation,
