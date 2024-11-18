@@ -17,10 +17,6 @@ const BloggerList: FC<IProps> = ({ isBloggerActive }) => {
             aria-labelledby="tab-bloggers"
             hidden={!isBloggerActive}
         >
-            <h2 className="text-xl font-bold text-zinc-700 dark:text-zinc-300">
-                {reviewsPageT('blogger_reviews')}
-            </h2>
-
             <ul className="mt-8 grid gap-6 tablet-md:grid-cols-2 tablet-md:gap-8 tablet-lg:mt-12">
                 {/* victoria_zaritska_ */}
                 <VideoItem
