@@ -471,7 +471,9 @@
         "review_from_blogger": "Review from a blogger",
         "blogger_reviews": "Blogger reviews",
         "user_reviews": "User reviews",
-        "your_review": "Your review",
+        "your_feedback": "Your feedback about Wish Hub",
+        "your_rating": "How would you rate us?",
+        "your_review": "Share your impressions",
         "leave_review": "Leave a Review"
     },
     "wish-page": {

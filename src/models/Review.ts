@@ -6,7 +6,7 @@ export interface IReview {
     email: string;
     avatar: string;
     text: string;
-    rate: string;
+    rating: 0 | 1 | 2 | 3 | 4 | 5;
     timestamp: Dayjs;
 }
 
@@ -15,7 +15,7 @@ export interface ISendReview {
     email: string;
     avatar: string;
     text: string;
-    rate: string;
+    rating: 0 | 1 | 2 | 3 | 4 | 5;
 }
 
 export interface ISendReviews {

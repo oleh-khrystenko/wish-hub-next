@@ -1,5 +1,5 @@
 import { FC, Fragment } from 'react';
-import StarIcon from '@/components/icons/StarIcon';
+import SnowflakeIcon from '@/components/icons/SnowflakeIcon';
 
 const Divider: FC = () => {
     return (
@@ -10,7 +10,7 @@ const Divider: FC = () => {
                         Wish Hub
                     </span>
 
-                    <StarIcon />
+                    <SnowflakeIcon />
                 </Fragment>
             ))}
         </div>

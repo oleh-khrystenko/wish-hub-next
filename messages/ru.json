@@ -471,7 +471,9 @@
         "review_from_blogger": "Отзыв от блогера",
         "blogger_reviews": "Отзывы блогеров",
         "user_reviews": "Отзывы пользователей",
-        "your_review": "Ваш отзыв",
+        "your_feedback": "Ваш отзыв о Wish Hub",
+        "your_rating": "Как вы нас оцениваете?",
+        "your_review": "Поделитесь своими впечатлениями",
         "leave_review": "Оставить отзыв"
     },
     "wish-page": {

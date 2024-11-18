@@ -20,7 +20,7 @@ const VideoItem: FC<IProps> = ({ src, title }) => {
                 ></iframe>
             </div>
 
-            <p className="text-center font-bold leading-tight text-zinc-900 dark:text-zinc-100 tablet-md:text-lg tablet-md:leading-tight tablet-lg:text-xl tablet-xl:text-2xl">
+            <p className="text-center font-bold leading-tight text-zinc-900 dark:text-zinc-100 tablet-md:text-lg tablet-md:leading-tight">
                 {title}
             </p>
         </li>
