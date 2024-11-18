@@ -1,8 +1,9 @@
 'use client';
 
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useInView } from 'react-intersection-observer';
 import { IReview } from '@/models/Review';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import BloggerList from '@/app/[locale]/reviews/BloggerList';
@@ -31,6 +32,8 @@ const Tabs: FC<IProps> = ({ reviews }) => {
             value: false,
         });
 
+    const formRef = useRef<HTMLFormElement>(null);
+
     const reviewsPageT = useTranslations('reviews-page');
 
     const {
@@ -41,9 +44,24 @@ const Tabs: FC<IProps> = ({ reviews }) => {
         formState: { errors },
     } = useForm<TInput>();
 
+    const { ref, inView } = useInView({
+        threshold: 0,
+    });
+
     const { reviewTextValidation } = UseValidations();
 
-    const handleGoToForm = () => {};
+    const handleGoToForm = () => {
+        if (formRef.current) {
+            const formPosition =
+                formRef.current.getBoundingClientRect().top + window.scrollY;
+            const offset = 80;
+
+            window.scrollTo({
+                top: formPosition - offset,
+                behavior: 'smooth',
+            });
+        }
+    };
 
     const onSubmit: SubmitHandler<TInput> = async (data) => {
         console.log('data: ', data);
@@ -133,7 +151,11 @@ const Tabs: FC<IProps> = ({ reviews }) => {
                 )}
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="mt-8"
+                ref={formRef}
+            >
                 <UiInput
                     {...register('text', reviewTextValidation(textLength))}
                     id="review-text"
@@ -144,21 +166,25 @@ const Tabs: FC<IProps> = ({ reviews }) => {
                     onChange={handleReactHookFormMessageChange}
                 />
 
-                <UiButton classesWrap="mt-4 ml-auto" type="submit">
-                    {reviewsPageT('leave_review')}
-                </UiButton>
+                <div ref={ref}>
+                    <UiButton classesWrap="mt-4 ml-auto" type="submit">
+                        {reviewsPageT('leave_review')}
+                    </UiButton>
+                </div>
             </form>
 
-            <div
-                style={{
-                    filter: 'drop-shadow(0 10px 20px rgba(9, 9, 11, 1)) drop-shadow(0 0 80px rgba(9, 9, 11, 0.9))',
-                }}
-                className={`sticky bottom-4 ml-auto w-fit`}
-            >
-                <UiButton onBtnClick={handleGoToForm}>
-                    {reviewsPageT('leave_review')}
-                </UiButton>
-            </div>
+            {!inView && (
+                <div
+                    style={{
+                        filter: 'drop-shadow(0 10px 20px rgba(9, 9, 11, 1)) drop-shadow(0 0 80px rgba(9, 9, 11, 0.9))',
+                    }}
+                    className="sticky bottom-4 z-20 ml-auto w-fit"
+                >
+                    <UiButton onBtnClick={handleGoToForm}>
+                        {reviewsPageT('leave_review')}
+                    </UiButton>
+                </div>
+            )}
         </>
     );
 };
