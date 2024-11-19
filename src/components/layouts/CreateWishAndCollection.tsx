@@ -106,11 +106,16 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
 
             {/* Collection */}
             <UiModal
+                rounded="rounded-2xl"
                 show={showAttentionCollection}
                 hide={() => setShowAttentionCollection(false)}
             >
-                <p className="text-center text-2xl font-bold text-amber-400">
-                    ⚠️ {mainPageT('only_registered_users')} ⚠️
+                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-amber-400">
+                    ⚠️{' '}
+                    <span className="text-center">
+                        {mainPageT('only_registered_users')}
+                    </span>{' '}
+                    ⚠️
                 </p>
 
                 <p className="mt-4 text-zinc-700 dark:text-zinc-300">
@@ -138,16 +143,19 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
 
             {/* Wish */}
             <UiModal
+                rounded="rounded-2xl"
                 show={showAttentionWish.length > 0}
                 hide={() => setShowAttentionWish('')}
             >
-                <p className="text-center text-2xl font-bold text-amber-400">
+                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-amber-400">
                     ✨{' '}
-                    {mainPageT(
-                        showAttentionWish === 'temp'
-                            ? 'create_temporary_wish'
-                            : 'wish_limit'
-                    )}{' '}
+                    <span className="text-center">
+                        {mainPageT(
+                            showAttentionWish === 'temp'
+                                ? 'create_temporary_wish'
+                                : 'wish_limit'
+                        )}
+                    </span>{' '}
                     ✨
                 </p>
 
@@ -162,7 +170,7 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
                     {mainPageT('registration_only')}
                 </p>
 
-                <div className="mt-6 flex items-center justify-end gap-5">
+                <div className="mt-6 flex flex-col items-end justify-end gap-2 tablet-md:flex-row tablet-md:items-center tablet-md:gap-5">
                     {showAttentionWish === 'temp' ? (
                         <UiButton
                             href={`/user/guest-${uuidv4()}/wish/editor?fromPage=${currentPage}`}

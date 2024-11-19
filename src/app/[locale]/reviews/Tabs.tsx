@@ -5,8 +5,13 @@ import { useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
 import { IReview } from '@/models/Review';
+import { useMyUserStore } from '@/stores/my-user';
+import reviewApi from '@/helpers/api/review';
+import UseFullName from '@/helpers/hooks/UseFullName';
+import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import BloggerList from '@/app/[locale]/reviews/BloggerList';
+import UiModal from '@/components/ui/modal/UiModal';
 import UiButton from '@/components/ui/UiButton';
 import UiInput from '@/components/ui/UiInput';
 import StarIcon from '@/components/icons/StarIcon';
@@ -33,10 +38,15 @@ const Tabs: FC<IProps> = ({ reviews }) => {
             type: null,
             value: false,
         });
+    const [showAttentionAuth, setShowAttentionAuth] = useState<boolean>(false);
+    const [showAttention, setShowAttention] = useState<
+        'activated' | 'rating' | ''
+    >('');
 
     const formRef = useRef<HTMLFormElement>(null);
 
     const reviewsPageT = useTranslations('reviews-page');
+    const mainPageT = useTranslations('main-page');
 
     const {
         register,
@@ -50,13 +60,27 @@ const Tabs: FC<IProps> = ({ reviews }) => {
         threshold: 0,
     });
 
+    const myUser = useMyUserStore((state) => state.myUser);
+
+    const utmParams = UseUTMParams();
+    const { getFullName } = UseFullName();
     const { reviewTextValidation } = UseValidations();
 
     const handleRating = (value: IReview['rating']) => {
         setRating(value);
+
+        if (!myUser) {
+            return setShowAttentionAuth(true);
+        }
+
+        if (!myUser?.isActivated) {
+            setShowAttention('activated');
+        }
     };
 
     const handleGoToForm = () => {
+        setIsBloggerActive(true);
+
         if (formRef.current) {
             const formPosition =
                 formRef.current.getBoundingClientRect().top + window.scrollY;
@@ -67,10 +91,39 @@ const Tabs: FC<IProps> = ({ reviews }) => {
                 behavior: 'smooth',
             });
         }
+
+        if (!myUser) {
+            return setShowAttentionAuth(true);
+        }
+
+        if (!myUser?.isActivated) {
+            setShowAttention('activated');
+        }
     };
 
     const onSubmit: SubmitHandler<TInput> = async (data) => {
-        console.log('data: ', data);
+        if (!myUser) {
+            return setShowAttentionAuth(true);
+        }
+
+        if (!myUser.isActivated) {
+            return setShowAttention('activated');
+        }
+
+        if (rating === 0) {
+            return setShowAttention('rating');
+        }
+
+        const review = await reviewApi.createReview({
+            userId: myUser.id,
+            fullName: getFullName(myUser),
+            email: myUser.email,
+            avatar: myUser.avatar,
+            rating,
+            text: data.text,
+        });
+
+        setIsBloggerActive(false);
     };
 
     const handleReactHookFormMessageChange = async (
@@ -86,6 +139,14 @@ const Tabs: FC<IProps> = ({ reviews }) => {
             type: 'text',
             value: true,
         });
+
+        if (!myUser) {
+            return setShowAttentionAuth(true);
+        }
+
+        if (!myUser?.isActivated) {
+            setShowAttention('activated');
+        }
     };
 
     useEffect(() => {
@@ -213,6 +274,97 @@ const Tabs: FC<IProps> = ({ reviews }) => {
                     </UiButton>
                 </div>
             )}
+
+            {/* Auth */}
+            <UiModal
+                rounded="rounded-2xl"
+                show={showAttentionAuth}
+                hide={() => setShowAttentionAuth(false)}
+            >
+                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-amber-400">
+                    ⚠️{' '}
+                    <span className="text-center">
+                        {mainPageT('only_registered_users')}
+                    </span>{' '}
+                    ⚠️
+                </p>
+
+                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
+                    {reviewsPageT('to_leave_review')}
+                    <br />
+                    <br />
+                    {reviewsPageT('share_your_impressions')}
+                </p>
+
+                <div className="mt-6 flex items-center justify-end gap-5">
+                    <UiButton
+                        href={`/auth${utmParams ? `?${utmParams}` : ''}`}
+                        variant="outline"
+                    >
+                        {mainPageT('sign-in')}
+                    </UiButton>
+
+                    <UiButton
+                        href={`/auth?register${utmParams ? `&${utmParams}` : ''}`}
+                    >
+                        {mainPageT('sign-up')}
+                    </UiButton>
+                </div>
+            </UiModal>
+
+            {/* Rating */}
+            <UiModal
+                rounded="rounded-2xl"
+                show={showAttention.length > 0}
+                hide={() => setShowAttention('')}
+            >
+                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-amber-400">
+                    ⚠️{' '}
+                    <span className="text-center">
+                        {reviewsPageT(
+                            showAttention === 'rating'
+                                ? 'rating_not_provided'
+                                : 'account_not_activated'
+                        )}
+                    </span>{' '}
+                    ⚠️
+                </p>
+
+                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
+                    {reviewsPageT(
+                        showAttention === 'rating'
+                            ? 'to_submit'
+                            : 'must_be_activated'
+                    )}
+                    <br />
+                    <br />
+                    {reviewsPageT(
+                        showAttention === 'rating'
+                            ? 'this_will_help'
+                            : 'to_resend'
+                    )}{' '}
+                    {showAttention === 'activated' && (
+                        <UiButton
+                            href={`main${utmParams ? `?${utmParams}` : ''}`}
+                            variant="text-only"
+                        >
+                            {reviewsPageT('main')}
+                        </UiButton>
+                    )}{' '}
+                    {showAttention === 'activated' &&
+                        reviewsPageT('and_follow')}
+                    <br />
+                    {showAttention === 'activated' &&
+                        reviewsPageT('once_activated')}
+                </p>
+
+                <UiButton
+                    classesWrap="mt-6 ml-auto"
+                    onBtnClick={() => setShowAttention('')}
+                >
+                    {mainPageT('i_see')}
+                </UiButton>
+            </UiModal>
         </>
     );
 };

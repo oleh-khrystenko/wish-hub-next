@@ -259,7 +259,7 @@
         "as_guest_user": "As a guest user, you can create up to 3 wishes. To unlock unlimited access to all features, save more wishes, and access them from any device, please register.",
         "registration_only": "Registration only takes a few seconds via Google or email.",
         "temporary_action": "Create Temporary Wish",
-        "i_see": "I See",
+        "i_see": "Got it",
         "you_trying_profile": "You're trying to access your profile... But, oops, it seems like you don’t have one yet! \uD83D\uDE05 Create it in just a few seconds, and then we’ll see what’s inside.",
         "trying_share_wish": "To share a wish, first save it. Register or log in to your profile to save your wish forever!",
         "you_trying_like": "You're trying to like a temporary wish, but this feature is only available to registered users.",
@@ -474,7 +474,18 @@
         "your_feedback": "Your feedback about Wish Hub",
         "your_rating": "How would you rate us?",
         "your_review": "Share your impressions",
-        "leave_review": "Leave a Review"
+        "leave_review": "Leave a Review",
+        "to_leave_review": "To leave a review about Wish Hub, you need to log in to your account.",
+        "share_your_impressions": "Sign up or log in to share your impressions and rate the platform!",
+        "account_not_activated": "Your account is not activated",
+        "must_be_activated": "To leave reviews, your account must be activated.",
+        "to_resend": "To resend the email with the activation link, go to the",
+        "main": "Main page",
+        "and_follow": "and follow the instructions in the red box.",
+        "once_activated": "Once activated, you will be able to use all features of Wish Hub.",
+        "rating_not_provided": "Rating not provided",
+        "to_submit": "To submit a review, please provide a rating.",
+        "this_will_help": "This will help us understand your impressions and make Wish Hub better!"
     },
     "wish-page": {
         "head": {

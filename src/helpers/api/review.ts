@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 import { IReview, ISendReview, ISendReviews } from '@/models/Review';
-import { baseApi } from '@/helpers/api/settings';
+import api, { baseApi } from '@/helpers/api/settings';
 
 const createReview = async (
     data: ISendReview
 ): Promise<AxiosResponse<IReview> | null> => {
     try {
-        return await baseApi.post('/review', data);
+        return await api.post('/review', data);
     } catch (error) {
         if (axios.isAxiosError(error)) {
             if (error.response && error.response.status === 400) {
