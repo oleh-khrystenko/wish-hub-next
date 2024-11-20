@@ -98,32 +98,32 @@ const Body: FC = () => {
 
                     <ul className="mt-8 grid gap-6 tablet-md:grid-cols-2 tablet-md:gap-8 tablet-lg:mt-12">
                         <VideoItem
-                            src="https://www.youtube.com/embed/qoXExsTePfU?si=951iarIH7OGW-HWc"
+                            src="https://www.youtube.com/embed/Kpp4cVX9hAk?si=-vqjlSy1muDdWc5p"
                             title={instructionPageT('overview')}
                         />
 
                         <VideoItem
-                            src="https://www.youtube.com/embed/8ugqFf3x2FU?si=vhXrZw9fztS8rcJ1"
+                            src="https://www.youtube.com/embed/dcB6G9u1CzI?si=Oigoujz3AjTYSmwb"
                             title={instructionPageT('create_wish')}
                         />
 
                         <VideoItem
-                            src="https://www.youtube.com/embed/vPrpXvbf0pc?si=GInBzR5kN9X5OBCb"
+                            src="https://www.youtube.com/embed/_XiMVoMufUg?si=rFOTakdph0NTjzgS"
                             title={instructionPageT('create_collection')}
                         />
 
                         <VideoItem
-                            src="https://www.youtube.com/embed/LSgOJs7kM3A?si=bikjJXjL63oXMJQ3"
+                            src="https://www.youtube.com/embed/DswAfrw47dw?si=u6GwXAo5qvccJBG6"
                             title={instructionPageT('book_wish')}
                         />
 
                         <VideoItem
-                            src="https://www.youtube.com/embed/np-Wlo-hAB0?si=tqJooHwjEq6qzRd8"
+                            src="https://www.youtube.com/embed/RprNSADQzQA?si=eZAjRAnmpKQ3q6vI"
                             title={instructionPageT('install_ios')}
                         />
 
                         <VideoItem
-                            src="https://www.youtube.com/embed/tGMhyBbbtPk?si=7nCBwFT_WPwbHte_"
+                            src="https://www.youtube.com/embed/_BqeXkZkzyc?si=hGGy-gM5VkGri-98"
                             title={instructionPageT('install_android')}
                         />
                     </ul>
