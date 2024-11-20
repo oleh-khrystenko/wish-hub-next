@@ -184,6 +184,7 @@ const Tabs: FC = () => {
     }, [shouldTriggerValidation.value, trigger]);
 
     useEffect(() => {
+        // TODO: ПАГІНАЦІЯ
         const fetchReviews = async () => {
             const response = await reviewApi.getReviews({
                 page: 1,
@@ -308,7 +309,7 @@ const Tabs: FC = () => {
                 show={showAttentionAuth}
                 hide={() => setShowAttentionAuth(false)}
             >
-                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-amber-500 dark:text-amber-400">
+                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-orange-600 dark:text-amber-400">
                     ⚠️{' '}
                     <span className="text-center">
                         {mainPageT('only_registered_users')}
@@ -345,7 +346,7 @@ const Tabs: FC = () => {
                 show={showAttention.length > 0}
                 hide={() => setShowAttention('')}
             >
-                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-amber-500 dark:text-amber-400">
+                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-orange-600 dark:text-amber-400">
                     ⚠️{' '}
                     <span className="text-center">
                         {reviewsPageT(

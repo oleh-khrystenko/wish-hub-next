@@ -108,7 +108,7 @@ const GuestWishItem: FC<IProps> = ({ wish, idx, currentPage }) => {
                 show={showAttention.length > 0}
                 hide={() => setShowAttention('')}
             >
-                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-amber-500 dark:text-amber-400">
+                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-orange-600 dark:text-amber-400">
                     ⚠️{' '}
                     <span className="text-center">
                         {mainPageT('only_registered_users')}

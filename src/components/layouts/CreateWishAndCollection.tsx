@@ -110,7 +110,7 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
                 show={showAttentionCollection}
                 hide={() => setShowAttentionCollection(false)}
             >
-                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-amber-500 dark:text-amber-400">
+                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-orange-600 dark:text-amber-400">
                     ⚠️{' '}
                     <span className="text-center">
                         {mainPageT('only_registered_users')}
@@ -147,7 +147,7 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
                 show={showAttentionWish.length > 0}
                 hide={() => setShowAttentionWish('')}
             >
-                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-amber-500 dark:text-amber-400">
+                <p className="mx-auto mt-3 flex w-11/12 items-center justify-center text-xl font-bold text-orange-600 dark:text-amber-400">
                     ✨{' '}
                     <span className="text-center">
                         {mainPageT(
