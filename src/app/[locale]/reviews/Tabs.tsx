@@ -131,10 +131,7 @@ const Tabs: FC = () => {
                 type: 'success',
             });
 
-            setReviews((prevState) => {
-                prevState.unshift(response.data);
-                return prevState;
-            });
+            setReviews((prevState) => [response.data, ...prevState]);
         } catch (error: any) {
             toast(
                 error.response?.data?.message ||
@@ -194,7 +191,7 @@ const Tabs: FC = () => {
                 userId: myUser?.id,
             });
 
-            setReviews(response.data);
+            setReviews([response.data.userReview, ...response.data.reviews]);
         };
 
         fetchReviews().finally();

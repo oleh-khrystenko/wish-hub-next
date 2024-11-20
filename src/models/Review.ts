@@ -11,6 +11,11 @@ export interface IReview {
     updatedAt: Dayjs;
 }
 
+export interface IReviews {
+    reviews: IReview[];
+    userReview: IReview;
+}
+
 export interface ISendReview {
     userId: IUser['id'];
     text?: IReview['text'];

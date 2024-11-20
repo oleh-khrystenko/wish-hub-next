@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { IReview, ISendReview, ISendReviews } from '@/models/Review';
+import { IReview, IReviews, ISendReview, ISendReviews } from '@/models/Review';
 import api from '@/helpers/api/settings';
 
 const createReview = async (
@@ -16,7 +16,7 @@ const updateReview = async (
 
 const getReviews = async (
     params: ISendReviews
-): Promise<AxiosResponse<IReview[]>> => {
+): Promise<AxiosResponse<IReviews>> => {
     return await api.get('/reviews', { params });
 };
 
