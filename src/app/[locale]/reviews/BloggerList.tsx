@@ -17,7 +17,7 @@ const BloggerList: FC<IProps> = ({ isBloggerActive }) => {
             aria-labelledby="tab-bloggers"
             hidden={!isBloggerActive}
         >
-            <ul className="mt-8 grid gap-6 tablet-md:grid-cols-2 tablet-md:gap-8 tablet-lg:mt-12">
+            <ul className="mt-8 grid gap-6 tablet-md:grid-cols-2 tablet-md:gap-4 tablet-lg:mt-12 tablet-lg:grid-cols-3">
                 {/* victoria_zaritska_ */}
                 <VideoItem
                     src="https://www.youtube.com/embed/HOQHwBJyn1o?si=9huBXWRw-okfyeT5"

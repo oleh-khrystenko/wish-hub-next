@@ -4,19 +4,15 @@ import { IUser } from '@/models/User';
 export interface IReview {
     id: string;
     userId: IUser['id'];
-    fullName: string;
-    email: string;
-    avatar?: string;
+    authorFullName: string;
+    authorAvatar?: string;
     text?: string;
     rating: 0 | 1 | 2 | 3 | 4 | 5;
-    timestamp: Dayjs;
+    updatedAt: Dayjs;
 }
 
 export interface ISendReview {
     userId: IUser['id'];
-    fullName: string;
-    email: string;
-    avatar?: string;
     text?: string;
     rating: 0 | 1 | 2 | 3 | 4 | 5;
 }

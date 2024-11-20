@@ -4,19 +4,14 @@ import api, { baseApi } from '@/helpers/api/settings';
 
 const createReview = async (
     data: ISendReview
-): Promise<AxiosResponse<IReview> | null> => {
-    try {
-        return await api.post('/review', data);
-    } catch (error) {
-        if (axios.isAxiosError(error)) {
-            if (error.response && error.response.status === 400) {
-                console.error('400 Error: Bad Request', error.response.data);
-                return null;
-            }
-        }
+): Promise<AxiosResponse<IReview>> => {
+    return await api.post('/review', data);
+};
 
-        throw error;
-    }
+const updateReview = async (
+    data: ISendReview
+): Promise<AxiosResponse<IReview>> => {
+    return await api.put('/review', data);
 };
 
 const getReviews = async (

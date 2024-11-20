@@ -770,6 +770,12 @@
                 "error": "The message could not be sent."
             }
         },
+        "reviews-api": {
+            "create-review": {
+                "success": "Your review has been successfully submitted! Thank you for sharing your feedback 😊",
+                "error": "Unfortunately, something went wrong. Please try again later or contact support 🙏"
+            }
+        },
         "loading": {
             "first": "We're already working on it. Don't worry, everything is under control!",
             "second": "Something's taking longer than expected... It might be due to slow internet. Try refreshing the page.",
