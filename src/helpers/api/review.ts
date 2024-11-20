@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { IReview, ISendReview, ISendReviews } from '@/models/Review';
-import api, { baseApi } from '@/helpers/api/settings';
+import api from '@/helpers/api/settings';
 
 const createReview = async (
     data: ISendReview
@@ -16,21 +16,10 @@ const updateReview = async (
 
 const getReviews = async (
     params: ISendReviews
-): Promise<AxiosResponse<IReview[]> | null> => {
-    try {
-        return await baseApi.get('/reviews', { params });
-    } catch (error) {
-        if (axios.isAxiosError(error)) {
-            if (error.response && error.response.status === 400) {
-                console.error('400 Error: Bad Request', error.response.data);
-                return null;
-            }
-        }
-
-        throw error;
-    }
+): Promise<AxiosResponse<IReview[]>> => {
+    return await api.get('/reviews', { params });
 };
 
-const reviewApi = { createReview, getReviews };
+const reviewApi = { createReview, updateReview, getReviews };
 
 export default reviewApi;

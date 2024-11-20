@@ -9,7 +9,7 @@ import { IReview } from '@/models/Review';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import reviewApi from '@/helpers/api/review';
-import UseFullName from '@/helpers/hooks/UseFullName';
+import { REVIEW_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import BloggerList from '@/app/[locale]/reviews/BloggerList';
@@ -28,12 +28,8 @@ type TInput = {
     text: string;
 };
 
-interface IProps {
-    reviews: IReview[];
-}
-
-const Tabs: FC<IProps> = ({ reviews }) => {
-    const [currentReviews, setCurrentReviews] = useState<IReview[]>(reviews);
+const Tabs: FC = () => {
+    const [reviews, setReviews] = useState<IReview[]>([]);
     const [isBloggerActive, setIsBloggerActive] = useState<boolean>(true);
     const [rating, setRating] = useState<IReview['rating']>(0);
     const [textLength, setTextLength] = useState<number>(0);
@@ -72,7 +68,6 @@ const Tabs: FC<IProps> = ({ reviews }) => {
     );
 
     const utmParams = UseUTMParams();
-    const { getFullName } = UseFullName();
     const { reviewTextValidation } = UseValidations();
 
     const handleRating = (value: IReview['rating']) => {
@@ -136,7 +131,7 @@ const Tabs: FC<IProps> = ({ reviews }) => {
                 type: 'success',
             });
 
-            setCurrentReviews((prevState) => {
+            setReviews((prevState) => {
                 prevState.unshift(response.data);
                 return prevState;
             });
@@ -191,6 +186,20 @@ const Tabs: FC<IProps> = ({ reviews }) => {
         }
     }, [shouldTriggerValidation.value, trigger]);
 
+    useEffect(() => {
+        const fetchReviews = async () => {
+            const response = await reviewApi.getReviews({
+                page: 1,
+                limit: REVIEW_PAGINATION_LIMIT,
+                userId: myUser?.id,
+            });
+
+            setReviews(response.data);
+        };
+
+        fetchReviews().finally();
+    }, []);
+
     return (
         <>
             <div
@@ -232,9 +241,7 @@ const Tabs: FC<IProps> = ({ reviews }) => {
                 aria-labelledby="tab-users"
                 hidden={isBloggerActive}
             >
-                {currentReviews.length > 0 && (
-                    <ReviewList reviews={currentReviews} />
-                )}
+                {reviews.length > 0 && <ReviewList reviews={reviews} />}
             </div>
 
             <form

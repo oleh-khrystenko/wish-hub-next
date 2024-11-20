@@ -13,12 +13,12 @@ export interface IReview {
 
 export interface ISendReview {
     userId: IUser['id'];
-    text?: string;
-    rating: 0 | 1 | 2 | 3 | 4 | 5;
+    text?: IReview['text'];
+    rating: IReview['rating'];
 }
 
 export interface ISendReviews {
-    lang: string;
     page: number;
     limit: number;
+    userId?: IUser['id'];
 }

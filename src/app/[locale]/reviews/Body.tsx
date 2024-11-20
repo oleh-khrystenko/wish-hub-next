@@ -1,16 +1,11 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
-import { IReview } from '@/models/Review';
 import Tabs from '@/app/[locale]/reviews/Tabs';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import MainIcon from '@/components/icons/MainIcon';
 import ReviewIcon from '@/components/icons/ReviewIcon';
 
-interface IProps {
-    reviews: IReview[];
-}
-
-const Body: FC<IProps> = ({ reviews }) => {
+const Body: FC = () => {
     const reviewsPageT = useTranslations('reviews-page');
     const allPagesT = useTranslations('all-pages');
 
@@ -43,7 +38,7 @@ const Body: FC<IProps> = ({ reviews }) => {
                     {reviewsPageT('title')}
                 </h1>
 
-                <Tabs reviews={reviews} />
+                <Tabs />
             </section>
         </main>
     );
