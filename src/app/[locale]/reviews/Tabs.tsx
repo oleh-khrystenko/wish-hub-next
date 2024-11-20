@@ -4,20 +4,20 @@ import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
+import { toast } from 'react-toastify';
 import { IReview } from '@/models/Review';
 import { useMyUserStore } from '@/stores/my-user';
+import { useSettingsStore } from '@/stores/settings';
 import reviewApi from '@/helpers/api/review';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import BloggerList from '@/app/[locale]/reviews/BloggerList';
+import ReviewList from '@/app/[locale]/reviews/ReviewList';
 import UiModal from '@/components/ui/modal/UiModal';
 import UiButton from '@/components/ui/UiButton';
 import UiInput from '@/components/ui/UiInput';
 import StarIcon from '@/components/icons/StarIcon';
-import UiAvatar from '@/components/ui/UiAvatar';
-import { useSettingsStore } from '@/stores/settings';
-import { toast } from 'react-toastify';
 
 interface IShouldTriggerValidation {
     type: 'text' | null;
@@ -233,51 +233,7 @@ const Tabs: FC<IProps> = ({ reviews }) => {
                 hidden={isBloggerActive}
             >
                 {currentReviews.length > 0 && (
-                    <ul className="grid gap-3 tablet-md:grid-cols-2 tablet-lg:grid-cols-4 tablet-lg:gap-4">
-                        {currentReviews.map((review) => (
-                            <li
-                                key={review.id}
-                                className="relative ml-5 rounded-xl bg-zinc-300 px-4 py-6 dark:bg-zinc-800"
-                            >
-                                <div className="absolute -left-4 -top-4 rounded-full bg-zinc-200 p-1 dark:bg-zinc-900">
-                                    <UiAvatar
-                                        avatar={review.authorAvatar}
-                                        alt={review.authorFullName}
-                                        priority
-                                        size={64}
-                                        sizeTailwind="w-16 min-w-16 h-16 min-h-16"
-                                        sizeIcon="w-12 h-12"
-                                    />
-                                </div>
-
-                                <p className="text-center text-lg font-bold text-zinc-800 dark:text-zinc-200">
-                                    {review.authorFullName}
-                                </p>
-
-                                <p className="mt-4 text-zinc-700 dark:text-zinc-300">
-                                    {review.text}
-                                </p>
-
-                                <div className="mt-4 flex items-center justify-end">
-                                    {[1, 2, 3, 4, 5].map((value) => (
-                                        <UiButton
-                                            key={value}
-                                            variant="clear-styles"
-                                            onBtnClick={() =>
-                                                handleRating(
-                                                    value as IReview['rating']
-                                                )
-                                            }
-                                        >
-                                            <StarIcon
-                                                classes={`${value <= review.rating ? 'fill-amber-500 dark:fill-amber-400' : 'fill-transparent'} w-6 h-6 stroke-amber-500 dark:stroke-amber-400`}
-                                            />
-                                        </UiButton>
-                                    ))}
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                    <ReviewList reviews={currentReviews} />
                 )}
             </div>
 
