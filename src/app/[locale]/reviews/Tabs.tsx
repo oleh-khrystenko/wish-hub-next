@@ -9,14 +9,15 @@ import { IReview } from '@/models/Review';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import reviewApi from '@/helpers/api/review';
-import { REVIEW_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UseValidations from '@/helpers/hooks/UseValidations';
+import { REVIEW_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import BloggerList from '@/app/[locale]/reviews/BloggerList';
-import ReviewList from '@/app/[locale]/reviews/ReviewList';
+import ReviewItem from '@/app/[locale]/reviews/ReviewItem';
 import UiModal from '@/components/ui/modal/UiModal';
 import UiButton from '@/components/ui/UiButton';
 import UiInput from '@/components/ui/UiInput';
+import UiLoading from '@/components/ui/UiLoading';
 import StarIcon from '@/components/icons/StarIcon';
 
 interface IShouldTriggerValidation {
@@ -30,6 +31,8 @@ type TInput = {
 
 const Tabs: FC = () => {
     const [reviews, setReviews] = useState<IReview[]>([]);
+    const [page, setPage] = useState<number>(1);
+    const [stopRequests, setStopRequests] = useState<boolean>(false);
     const [isBloggerActive, setIsBloggerActive] = useState<boolean>(true);
     const [rating, setRating] = useState<IReview['rating']>(0);
     const [textLength, setTextLength] = useState<number>(0);
@@ -42,6 +45,8 @@ const Tabs: FC = () => {
     const [showAttention, setShowAttention] = useState<
         'activated' | 'rating' | ''
     >('');
+    const [firstLoad, setFirstLoad] = useState<boolean>(true);
+    const [isLoadingAdd, setIsLoadingAdd] = useState<boolean>(false);
 
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -57,7 +62,11 @@ const Tabs: FC = () => {
         formState: { errors },
     } = useForm<TInput>();
 
-    const { ref, inView } = useInView({
+    const { ref: reviewRef, inView: reviewInView } = useInView({
+        threshold: 0,
+    });
+
+    const { ref: reviewActionRef, inView: reviewActionInView } = useInView({
         threshold: 0,
     });
 
@@ -120,24 +129,55 @@ const Tabs: FC = () => {
 
         setShowGlobalLoading(true);
 
-        try {
-            const response = await reviewApi.createReview({
-                userId: myUser.id,
-                rating,
-                text: data.text,
-            });
+        if (reviews[0]?.userId === myUser?.id) {
+            try {
+                const response = await reviewApi.updateReview({
+                    reviewId: reviews[0].id,
+                    userId: myUser.id,
+                    rating,
+                    text: data.text,
+                });
 
-            toast(allPagesT('reviews-api.create-review.success'), {
-                type: 'success',
-            });
+                toast(allPagesT('reviews-api.update-review.success'), {
+                    type: 'success',
+                });
 
-            setReviews((prevState) => [response.data, ...prevState]);
-        } catch (error: any) {
-            toast(
-                error.response?.data?.message ||
-                    allPagesT('reviews-api.create-review.error'),
-                { type: 'error' }
-            );
+                setReviews((prevState) =>
+                    prevState.map((review) => {
+                        if (review.id === response.data.id) {
+                            return response.data;
+                        }
+
+                        return review;
+                    })
+                );
+            } catch (error: any) {
+                toast(
+                    error.response?.data?.message ||
+                        allPagesT('reviews-api.update-review.error'),
+                    { type: 'error' }
+                );
+            }
+        } else {
+            try {
+                const response = await reviewApi.createReview({
+                    userId: myUser.id,
+                    rating,
+                    text: data.text,
+                });
+
+                toast(allPagesT('reviews-api.create-review.success'), {
+                    type: 'success',
+                });
+
+                setReviews((prevState) => [response.data, ...prevState]);
+            } catch (error: any) {
+                toast(
+                    error.response?.data?.message ||
+                        allPagesT('reviews-api.create-review.error'),
+                    { type: 'error' }
+                );
+            }
         }
 
         setIsBloggerActive(false);
@@ -184,19 +224,70 @@ const Tabs: FC = () => {
     }, [shouldTriggerValidation.value, trigger]);
 
     useEffect(() => {
-        // TODO: ПАГІНАЦІЯ
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
+        if (!reviewInView || stopRequests) return;
+
         const fetchReviews = async () => {
+            setIsLoadingAdd(true);
+
             const response = await reviewApi.getReviews({
-                page: 1,
+                page,
                 limit: REVIEW_PAGINATION_LIMIT,
                 userId: myUser?.id,
             });
 
-            setReviews([response.data.userReview, ...response.data.reviews]);
+            setReviews((prevState) => [...prevState, ...response.data.reviews]);
+
+            setPage((prevState) => prevState + 1);
+
+            setStopRequests(
+                response.data.reviews.length !== REVIEW_PAGINATION_LIMIT
+            );
+
+            setIsLoadingAdd(false);
         };
 
         fetchReviews().finally();
-    }, []);
+    }, [reviewInView]);
+
+    useEffect(() => {
+        if (firstLoad) {
+            setFirstLoad(false);
+            return;
+        }
+
+        const fetchReviews = async () => {
+            const response = await reviewApi.getReviews({
+                page,
+                limit: REVIEW_PAGINATION_LIMIT,
+                userId: myUser?.id,
+            });
+
+            if (response.data.userReview) {
+                setReviews([
+                    response.data.userReview,
+                    ...response.data.reviews,
+                ]);
+
+                setRating(response.data.userReview.rating);
+                setValue('text', response.data.userReview.text || '');
+            } else {
+                setReviews(response.data.reviews);
+            }
+
+            setPage(2);
+
+            setStopRequests(
+                response.data.reviews.length !== REVIEW_PAGINATION_LIMIT
+            );
+        };
+
+        fetchReviews().finally();
+    }, [firstLoad]);
 
     return (
         <>
@@ -239,7 +330,27 @@ const Tabs: FC = () => {
                 aria-labelledby="tab-users"
                 hidden={isBloggerActive}
             >
-                {reviews.length > 0 && <ReviewList reviews={reviews} />}
+                {reviews.length > 0 && (
+                    <ul className="grid gap-x-2 gap-y-6 tablet-md:grid-cols-2 tablet-lg:grid-cols-4">
+                        {reviews.map((review) => (
+                            <ReviewItem key={review.id} review={review} />
+                        ))}
+
+                        <li
+                            className="h-px w-full"
+                            style={{
+                                display: stopRequests ? 'none' : 'block',
+                            }}
+                            ref={reviewRef}
+                        ></li>
+                    </ul>
+                )}
+
+                {isLoadingAdd && (
+                    <div className="relative mt-5 h-20 w-full">
+                        <UiLoading isLocal bg="bg-transparent" />
+                    </div>
+                )}
             </div>
 
             <form
@@ -248,7 +359,11 @@ const Tabs: FC = () => {
                 ref={formRef}
             >
                 <h2 className="text-xl font-bold text-zinc-700 dark:text-zinc-300">
-                    {reviewsPageT('your_feedback')}
+                    {reviewsPageT(
+                        reviews[0]?.userId === myUser?.id
+                            ? 'edit_feedback'
+                            : 'your_feedback'
+                    )}
                 </h2>
 
                 <div className="mb-5 mt-3 flex flex-col gap-2 mobile-md:flex-row mobile-md:items-center mobile-md:gap-4">
@@ -283,14 +398,18 @@ const Tabs: FC = () => {
                     onChange={handleReactHookFormMessageChange}
                 />
 
-                <div ref={ref}>
+                <div ref={reviewActionRef}>
                     <UiButton classesWrap="mt-4 ml-auto" type="submit">
-                        {reviewsPageT('leave_review')}
+                        {reviewsPageT(
+                            reviews[0]?.userId === myUser?.id
+                                ? 'update_review'
+                                : 'leave_review'
+                        )}
                     </UiButton>
                 </div>
             </form>
 
-            {!inView && (
+            {!reviewActionInView && (
                 <div
                     style={{
                         filter: 'drop-shadow(0 10px 20px rgba(9, 9, 11, 1)) drop-shadow(0 0 80px rgba(9, 9, 11, 0.9))',

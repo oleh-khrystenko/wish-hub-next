@@ -471,10 +471,12 @@
         "review_from_blogger": "Review from a blogger",
         "blogger_reviews": "Blogger reviews",
         "user_reviews": "User reviews",
-        "your_feedback": "Your feedback about Wish Hub",
+        "your_feedback": "Your review about Wish Hub",
+        "edit_feedback": "Edit your review of Wish Hub",
         "your_rating": "How would you rate us?",
         "your_review": "Share your impressions",
-        "leave_review": "Leave a Review",
+        "leave_review": "Leave Review",
+        "update_review": "Update Review",
         "to_leave_review": "To leave a review about Wish Hub, you need to log in to your account.",
         "share_your_impressions": "Sign up or log in to share your impressions and rate the platform!",
         "account_not_activated": "Your account is not activated",
@@ -772,8 +774,12 @@
         },
         "reviews-api": {
             "create-review": {
-                "success": "Your review has been successfully submitted! Thank you for sharing your feedback 😊",
-                "error": "Unfortunately, something went wrong. Please try again later or contact support 🙏"
+                "success": "Your review has been successfully submitted! Thank you for your impressions 😊",
+                "error": "Unfortunately, we couldn't submit your review. Please try again later or contact support 🙏"
+            },
+            "update-review": {
+                "success": "Your review has been successfully updated! Thank you for sharing your impressions 😊",
+                "error": "Unfortunately, we couldn't update your review. Please try again later or contact support 🙏"
             }
         },
         "loading": {

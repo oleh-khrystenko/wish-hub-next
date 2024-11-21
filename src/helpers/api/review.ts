@@ -1,17 +1,29 @@
 import { AxiosResponse } from 'axios';
-import { IReview, IReviews, ISendReview, ISendReviews } from '@/models/Review';
+import {
+    IReview,
+    IReviews,
+    ICreateReview,
+    ISendReviews,
+    IReviewId,
+} from '@/models/Review';
 import api from '@/helpers/api/settings';
 
 const createReview = async (
-    data: ISendReview
+    data: ICreateReview
 ): Promise<AxiosResponse<IReview>> => {
     return await api.post('/review', data);
 };
 
 const updateReview = async (
-    data: ISendReview
+    data: IReviewId & ICreateReview
 ): Promise<AxiosResponse<IReview>> => {
     return await api.put('/review', data);
+};
+
+const deleteReview = async (
+    params: IReviewId
+): Promise<AxiosResponse<IReview['id']>> => {
+    return await api.delete('/review', { params });
 };
 
 const getReviews = async (
@@ -20,6 +32,6 @@ const getReviews = async (
     return await api.get('/reviews', { params });
 };
 
-const reviewApi = { createReview, updateReview, getReviews };
+const reviewApi = { createReview, updateReview, deleteReview, getReviews };
 
 export default reviewApi;

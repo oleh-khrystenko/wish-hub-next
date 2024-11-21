@@ -16,10 +16,14 @@ export interface IReviews {
     userReview: IReview;
 }
 
-export interface ISendReview {
+export interface ICreateReview {
     userId: IUser['id'];
     text?: IReview['text'];
     rating: IReview['rating'];
+}
+
+export interface IReviewId {
+    reviewId: IReview['id'];
 }
 
 export interface ISendReviews {
