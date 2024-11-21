@@ -66,7 +66,7 @@ const Tabs: FC = () => {
         threshold: 0,
     });
 
-    const { ref: reviewActionRef, inView: reviewActionInView } = useInView({
+    const { ref: reviewTextRef, inView: reviewTextInView } = useInView({
         threshold: 0,
     });
 
@@ -183,6 +183,15 @@ const Tabs: FC = () => {
         setIsBloggerActive(false);
 
         setShowGlobalLoading(false);
+    };
+
+    const deleteReview = (id: IReview['id']) => {
+        setReviews((prevState) =>
+            prevState.filter((review) => review.id !== id)
+        );
+
+        setRating(0);
+        setValue('text', '');
     };
 
     const handleReactHookFormMessageChange = async (
@@ -333,7 +342,11 @@ const Tabs: FC = () => {
                 {reviews.length > 0 && (
                     <ul className="grid gap-x-2 gap-y-6 tablet-md:grid-cols-2 tablet-lg:grid-cols-4">
                         {reviews.map((review) => (
-                            <ReviewItem key={review.id} review={review} />
+                            <ReviewItem
+                                key={review.id}
+                                review={review}
+                                deleteReview={deleteReview}
+                            />
                         ))}
 
                         <li
@@ -388,28 +401,28 @@ const Tabs: FC = () => {
                     </div>
                 </div>
 
-                <UiInput
-                    {...register('text', reviewTextValidation(textLength))}
-                    id="review-text"
-                    name="review-text"
-                    type="multiline"
-                    label={reviewsPageT('your_review')}
-                    error={errors?.text?.message}
-                    onChange={handleReactHookFormMessageChange}
-                />
-
-                <div ref={reviewActionRef}>
-                    <UiButton classesWrap="mt-4 ml-auto" type="submit">
-                        {reviewsPageT(
-                            reviews[0]?.userId === myUser?.id
-                                ? 'update_review'
-                                : 'leave_review'
-                        )}
-                    </UiButton>
+                <div ref={reviewTextRef}>
+                    <UiInput
+                        {...register('text', reviewTextValidation(textLength))}
+                        id="review-text"
+                        name="review-text"
+                        type="multiline"
+                        label={reviewsPageT('your_review')}
+                        error={errors?.text?.message}
+                        onChange={handleReactHookFormMessageChange}
+                    />
                 </div>
+
+                <UiButton classesWrap="mt-4 ml-auto" type="submit">
+                    {reviewsPageT(
+                        reviews[0]?.userId === myUser?.id
+                            ? 'update_review'
+                            : 'leave_review'
+                    )}
+                </UiButton>
             </form>
 
-            {!reviewActionInView && (
+            {!reviewTextInView && (
                 <div
                     style={{
                         filter: 'drop-shadow(0 10px 20px rgba(9, 9, 11, 1)) drop-shadow(0 0 80px rgba(9, 9, 11, 0.9))',
@@ -417,7 +430,11 @@ const Tabs: FC = () => {
                     className="sticky bottom-4 z-30 ml-auto w-fit"
                 >
                     <UiButton onBtnClick={handleGoToForm}>
-                        {reviewsPageT('leave_review')}
+                        {reviewsPageT(
+                            reviews[0]?.userId === myUser?.id
+                                ? 'update_review'
+                                : 'leave_review'
+                        )}
                     </UiButton>
                 </div>
             )}

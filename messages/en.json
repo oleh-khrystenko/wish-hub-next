@@ -780,6 +780,10 @@
             "update-review": {
                 "success": "Your review has been successfully updated! Thank you for sharing your impressions 😊",
                 "error": "Unfortunately, we couldn't update your review. Please try again later or contact support 🙏"
+            },
+            "delete-review": {
+                "success": "Your review has been successfully deleted! We will be happy if you leave a new one in the future 😊",
+                "error": "Unfortunately, we couldn't delete your review. Please try again later or contact support 🙏"
             }
         },
         "loading": {
@@ -836,7 +840,8 @@
         "guest": "Guest",
         "edit": "Edit",
         "delete": "Delete",
-        "action_collection": "collection"
+        "action_collection": "collection",
+        "sure_review": "Before deleting your review, consider if you might want to edit it instead?"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",
