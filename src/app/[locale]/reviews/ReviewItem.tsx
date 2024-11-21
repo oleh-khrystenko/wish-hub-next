@@ -55,7 +55,7 @@ const ReviewItem: FC<IProps> = ({ review, deleteReview }) => {
     };
 
     return (
-        <li className="relative ml-5 rounded-xl bg-zinc-300 py-6 pl-4 pr-2 dark:bg-zinc-800">
+        <li className="relative ml-5 flex flex-col rounded-xl bg-zinc-300 py-6 pl-4 pr-2 dark:bg-zinc-800">
             <div className="absolute -left-4 -top-4 rounded-full">
                 <UiAvatar
                     avatar={review.authorAvatar}
@@ -111,7 +111,7 @@ const ReviewItem: FC<IProps> = ({ review, deleteReview }) => {
                 {review.text}
             </p>
 
-            <p className="ml-auto mt-4 pr-2 text-right text-xs text-zinc-600 dark:text-zinc-400">
+            <p className="ml-auto mt-auto pr-2 pt-4 text-right text-xs text-zinc-600 dark:text-zinc-400">
                 {dayjs(review.updatedAt).format(getFullShortDate())}
             </p>
         </li>
