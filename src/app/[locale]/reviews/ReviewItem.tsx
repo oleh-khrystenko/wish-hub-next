@@ -15,7 +15,10 @@ import BasketIcon from '@/components/icons/BasketIcon';
 
 interface IProps {
     review: IReview;
-    deleteReview: (id: IReview['id']) => void;
+    deleteReview: (
+        id: IReview['id'],
+        averageRating: IReview['averageRating']
+    ) => void;
 }
 
 const ReviewItem: FC<IProps> = ({ review, deleteReview }) => {
@@ -35,9 +38,11 @@ const ReviewItem: FC<IProps> = ({ review, deleteReview }) => {
         setShowGlobalLoading(true);
 
         try {
-            await reviewApi.deleteReview({ reviewId: review.id });
+            const response = await reviewApi.deleteReview({
+                reviewId: review.id,
+            });
 
-            deleteReview(review.id);
+            deleteReview(review.id, response.data);
 
             toast(allPagesT('reviews-api.delete-review.success'), {
                 type: 'success',

@@ -143,6 +143,8 @@ const Tabs: FC = () => {
                     type: 'success',
                 });
 
+                setAverageRating(response.data.averageRating);
+
                 setReviews((prevState) =>
                     prevState.map((review) => {
                         if (review.id === response.data.id) {
@@ -171,6 +173,8 @@ const Tabs: FC = () => {
                     type: 'success',
                 });
 
+                setAverageRating(response.data.averageRating);
+
                 setReviews((prevState) => [response.data, ...prevState]);
             } catch (error: any) {
                 toast(
@@ -186,10 +190,15 @@ const Tabs: FC = () => {
         setShowGlobalLoading(false);
     };
 
-    const deleteReview = (id: IReview['id']) => {
+    const deleteReview = (
+        id: IReview['id'],
+        averageRating: IReview['averageRating']
+    ) => {
         setReviews((prevState) =>
             prevState.filter((review) => review.id !== id)
         );
+
+        setAverageRating(averageRating);
 
         setRating(0);
         setValue('text', '');

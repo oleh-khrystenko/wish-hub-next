@@ -22,7 +22,7 @@ const updateReview = async (
 
 const deleteReview = async (
     params: IReviewId
-): Promise<AxiosResponse<IReview['id']>> => {
+): Promise<AxiosResponse<IReview['averageRating']>> => {
     return await api.delete('/review', { params });
 };
 

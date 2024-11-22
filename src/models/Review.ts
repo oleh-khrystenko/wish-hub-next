@@ -6,6 +6,7 @@ export interface IReview {
     userId: IUser['id'];
     authorFullName: string;
     authorAvatar?: string;
+    averageRating: number;
     text?: string;
     rating: 0 | 1 | 2 | 3 | 4 | 5;
     updatedAt: Dayjs;
