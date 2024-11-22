@@ -95,7 +95,8 @@ const ReviewItem: FC<IProps> = ({ review, deleteReview }) => {
                 {[1, 2, 3, 4, 5].map((value) => (
                     <StarIcon
                         key={value}
-                        classes={`${value <= review.rating ? 'fill-amber-500 dark:fill-amber-400' : 'fill-transparent'} w-6 h-6 stroke-amber-500 dark:stroke-amber-400`}
+                        id={`rating-${review.id}_${value}`}
+                        offset={value <= review.rating ? 100 : 0}
                     />
                 ))}
             </div>

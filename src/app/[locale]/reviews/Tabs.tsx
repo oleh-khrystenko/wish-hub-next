@@ -307,6 +307,32 @@ const Tabs: FC = () => {
                 <h1 className="text-3xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-4xl">
                     {reviewsPageT('title')}
                 </h1>
+
+                <div className="flex w-fit items-center gap-1">
+                    <p className="text-xs font-bold text-amber-500 mobile-sm:text-sm tablet-md:text-base">
+                        {averageRating.toFixed(1)}
+                    </p>
+
+                    <div className="flex w-fit items-center">
+                        {[1, 2, 3, 4, 5].map((value) => {
+                            // Розрахунок заповнення для кожної зірки
+                            const fillPercentage =
+                                Math.min(
+                                    Math.max(averageRating - value + 1, 0), // Залишок для поточної зірки
+                                    1
+                                ) * 100;
+
+                            return (
+                                <StarIcon
+                                    key={value}
+                                    classes="w-6 h-6 mobile-sm:w-7 mobile-sm:h-7 tablet-md:w-8 tablet-md:h-8"
+                                    id={`average-rating_${value}`}
+                                    offset={fillPercentage} // Передаємо відсоток заповнення
+                                />
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
 
             <div
@@ -403,7 +429,9 @@ const Tabs: FC = () => {
                                 }
                             >
                                 <StarIcon
-                                    classes={`${value <= rating ? 'fill-amber-500 dark:fill-amber-400' : 'fill-transparent'} w-10 h-10 stroke-amber-500 dark:stroke-amber-400`}
+                                    classes="w-10 h-10"
+                                    id={`form-rating_${value}`}
+                                    offset={value <= rating ? 100 : 0}
                                 />
                             </UiButton>
                         ))}
