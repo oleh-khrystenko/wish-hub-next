@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useRef, useState, useEffect } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { EUserType, ISendUsersParams } from '@/stores/users/types';
@@ -205,17 +205,21 @@ const UserList: FC = () => {
                         page: 1,
                         limit: USERS_PAGINATION_LIMIT,
                         myUserId: myUser.id,
-                        userType,
-                        search,
+                        userType: EUserType.ALL,
+                        search: '',
                     },
                     allPagesT('users-api.get-users.error')
                 );
+
+                setUserType(EUserType.ALL);
             } else {
                 await getAllUsers(
-                    { page: 1, limit: USERS_PAGINATION_LIMIT, search },
+                    { page: 1, limit: USERS_PAGINATION_LIMIT, search: '' },
                     allPagesT('users-api.get-all-users.error')
                 );
             }
+
+            setSearch('');
 
             setFirstLoaded(true);
         };
