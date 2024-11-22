@@ -34,10 +34,6 @@ const Body: FC = () => {
             />
 
             <section className="mt-6 flex flex-col px-4 pb-6 desktop-sm:px-0 desktop-sm:pb-10">
-                <h1 className="text-4xl font-bold text-zinc-700 dark:text-zinc-300">
-                    {reviewsPageT('title')}
-                </h1>
-
                 <Tabs />
             </section>
         </main>

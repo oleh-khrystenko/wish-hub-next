@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { TWishSort } from '@/models/Wish';
 import { useWishesStore } from '@/stores/wishes';
@@ -17,6 +17,9 @@ interface IProps {
 
 const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [showPopupUp, setShowPopupUp] = useState<boolean>(false);
+
+    const popupActionRef = useRef<HTMLDivElement>(null);
 
     const allPagesT = useTranslations('all-pages');
 
@@ -44,6 +47,23 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
     sort === 'createdAt:asc' &&
         (wishesSortText = allPagesT('sort.by-created-down'));
 
+    const handleShowPopup = () => {
+        if (popupActionRef.current) {
+            const windowHeight = window.innerHeight;
+            const threshold = windowHeight * (2 / 3);
+            const popupActionTop =
+                popupActionRef.current.getBoundingClientRect().top;
+
+            if (popupActionTop > threshold) {
+                setShowPopupUp(true);
+            } else {
+                setShowPopupUp(false);
+            }
+        }
+
+        setShowPopup(true);
+    };
+
     const handleSortBy = async (value: TWishSort) => {
         setWishesSort(value);
 
@@ -69,11 +89,8 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                 </span>
             </div>
 
-            <div className="relative ml-auto">
-                <UiButton
-                    variant="text-btn"
-                    onBtnClick={() => setShowPopup(true)}
-                >
+            <div className="relative ml-auto" ref={popupActionRef}>
+                <UiButton variant="text-btn" onBtnClick={handleShowPopup}>
                     <span className="whitespace-nowrap text-xs text-zinc-500 dark:text-zinc-400 mobile-xl:text-base">
                         {wishesSortText}
                     </span>
@@ -82,8 +99,9 @@ const WishListActions: FC<IProps> = ({ wishListRefCurrent }) => {
                 </UiButton>
 
                 <UiPopup
-                    classes="pt-10 pr-4"
+                    classes={`${showPopupUp ? 'pb-10' : 'pt-10'} pr-4`}
                     show={showPopup}
+                    showPopupUp={showPopupUp}
                     hide={() => setShowPopup(false)}
                 >
                     <div className="flex flex-col p-2">

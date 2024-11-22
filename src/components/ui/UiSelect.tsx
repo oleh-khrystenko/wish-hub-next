@@ -76,7 +76,12 @@ const UiSelect: FC<IProps> = ({
 
                             {!withoutIcon && (
                                 <ArrowChevronIcon
-                                    classes={`${show ? 'rotate-180' : ''} h-3 w-3 fill-zinc-800 dark:fill-zinc-300`}
+                                    classes={`${
+                                        (expandTop && !show) ||
+                                        (!expandTop && show)
+                                            ? 'rotate-180'
+                                            : ''
+                                    } h-3 w-3 fill-zinc-800 dark:fill-zinc-300`}
                                 />
                             )}
                         </span>

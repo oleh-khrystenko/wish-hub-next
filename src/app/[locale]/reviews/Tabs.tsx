@@ -35,6 +35,7 @@ const Tabs: FC = () => {
     const [stopRequests, setStopRequests] = useState<boolean>(false);
     const [isBloggerActive, setIsBloggerActive] = useState<boolean>(true);
     const [rating, setRating] = useState<IReview['rating']>(0);
+    const [averageRating, setAverageRating] = useState<number>(0);
     const [textLength, setTextLength] = useState<number>(0);
     const [shouldTriggerValidation, setShouldTriggerValidation] =
         useState<IShouldTriggerValidation>({
@@ -288,6 +289,8 @@ const Tabs: FC = () => {
                 setReviews(response.data.reviews);
             }
 
+            setAverageRating(response.data.averageRating);
+
             setPage(2);
 
             setStopRequests(
@@ -300,6 +303,34 @@ const Tabs: FC = () => {
 
     return (
         <>
+            <div className="flex items-center justify-between gap-3">
+                <h1 className="text-3xl font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-4xl">
+                    {reviewsPageT('title')}
+                </h1>
+
+                {/*<div className="flex w-fit items-center gap-1">*/}
+                {/*    <p className="text-xs font-bold text-amber-500 dark:text-amber-400 mobile-sm:text-sm tablet-md:text-base">*/}
+                {/*        {Number(averageRating.toFixed(1))}*/}
+                {/*    </p>*/}
+
+                {/*    <div className="flex w-fit items-center">*/}
+                {/*        {[1, 2, 3, 4, 5].map((value) => (*/}
+                {/*            <StarIcon*/}
+                {/*                key={value}*/}
+                {/*                filledPercentage={*/}
+                {/*                    value <= Math.floor(averageRating)*/}
+                {/*                        ? 100*/}
+                {/*                        : value === Math.ceil(averageRating)*/}
+                {/*                          ? (averageRating % 1) * 100*/}
+                {/*                          : 0*/}
+                {/*                }*/}
+                {/*                classes="w-6 h-6 mobile-sm:w-7 mobile-sm:h-7 tablet-md:w-8 tablet-md:h-8 stroke-amber-500 dark:stroke-amber-400"*/}
+                {/*            />*/}
+                {/*        ))}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+            </div>
+
             <div
                 className="mt-4 flex items-center transition-all duration-300 ease-in-out"
                 role="tablist"

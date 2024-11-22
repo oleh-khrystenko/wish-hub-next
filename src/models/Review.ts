@@ -14,6 +14,7 @@ export interface IReview {
 export interface IReviews {
     reviews: IReview[];
     userReview: IReview;
+    averageRating: number;
 }
 
 export interface ICreateReview {

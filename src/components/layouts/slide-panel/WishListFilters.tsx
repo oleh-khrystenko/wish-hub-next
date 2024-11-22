@@ -11,9 +11,10 @@ import UseChangeWishes from '@/helpers/hooks/UseChangeWishes';
 
 interface IProps {
     wishListRefCurrent: HTMLDivElement | null;
+    expandTop?: boolean;
 }
 
-const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
+const WishListFilters: FC<IProps> = ({ wishListRefCurrent, expandTop }) => {
     const mainPageT = useTranslations('main-page');
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -134,6 +135,7 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
             <UiSelect
                 label={mainPageT('wishes_status')}
                 hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
+                expandTop={expandTop}
                 options={selectStatusOptions}
                 value={status}
                 onChange={handleChangeWishStatus}
@@ -143,6 +145,7 @@ const WishListFilters: FC<IProps> = ({ wishListRefCurrent }) => {
                 <UiSelect
                     label={mainPageT('wishes_privacy')}
                     hoverItemBg="hover:bg-zinc-300 hover:dark:bg-zinc-800"
+                    expandTop={expandTop}
                     options={selectPrivacyOptions}
                     value={privacy}
                     onChange={handleChangeWishPrivacy}

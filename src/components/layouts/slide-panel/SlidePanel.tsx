@@ -15,6 +15,7 @@ import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
+import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import { COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import Collections from '@/components/layouts/slide-panel/Collections';
 import WishListActions from '@/components/layouts/slide-panel/WishListActions';
@@ -62,6 +63,8 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
     const setResetCollections = useCollectionsStore(
         (state) => state.setResetCollections
     );
+
+    const { screenWidth } = UseScreenWidth();
 
     const showSlidePanel = useSettingsStore((state) => state.showSlidePanel);
     const setShowSlidePanel = useSettingsStore(
@@ -186,6 +189,10 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
                                 >
                                     <WishListFilters
                                         wishListRefCurrent={wishListRefCurrent}
+                                        expandTop={
+                                            !showCollections &&
+                                            screenWidth < 1024
+                                        }
                                     />
                                 </div>
                             </>
