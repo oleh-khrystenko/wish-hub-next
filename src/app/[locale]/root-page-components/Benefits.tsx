@@ -63,7 +63,7 @@ const Benefits: FC = () => {
                 />
             </div>
 
-            <div className="absolute -bottom-2 -right-3.5 h-24 w-24 rotate-12 tablet-md:-bottom-5 tablet-md:h-32 tablet-md:w-32">
+            <div className="absolute -bottom-2 -right-1.5 h-24 w-24 rotate-12 tablet-md:-bottom-5 tablet-md:h-32 tablet-md:w-32">
                 <Image
                     src="/images/gift-big.webp"
                     alt={welcomePageT('alts.bigger_gift')}

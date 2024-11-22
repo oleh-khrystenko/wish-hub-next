@@ -108,7 +108,7 @@ const SignUp: FC = () => {
                 />
             </div>
 
-            <div className="absolute -right-3 -top-3 h-16 w-16 rotate-[30deg] tablet-md:h-20 tablet-md:w-20 desktop-sm:top-2">
+            <div className="absolute -right-1 -top-3 h-16 w-16 rotate-[30deg] tablet-md:h-20 tablet-md:w-20 desktop-sm:top-2">
                 <Image
                     src="/images/love-emoji.webp"
                     alt={welcomePageT('alts.love_emoji')}

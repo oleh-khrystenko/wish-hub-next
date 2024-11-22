@@ -76,7 +76,7 @@ export default function Welcome() {
                                     signUpT={welcomePageT('sign-up')}
                                 />
 
-                                <div className="absolute -right-2 bottom-24 h-12 w-12 rotate-45 tablet-md:-right-3 tablet-md:bottom-36 tablet-md:h-16 tablet-md:w-16">
+                                <div className="absolute -right-1.5 bottom-24 h-12 w-12 rotate-45 tablet-md:-right-3 tablet-md:bottom-36 tablet-md:h-16 tablet-md:w-16">
                                     <Image
                                         src="/images/gift-small.webp"
                                         alt={welcomePageT('alts.smaller_gift')}

@@ -110,7 +110,7 @@ const CoverFigure: FC = () => {
             </div>
 
             {/* emoji-5 */}
-            <div className="absolute -bottom-1.5 right-0 h-14 w-14 translate-x-full rotate-[20deg] animate-appear-8 opacity-0 mobile-md:-bottom-3 mobile-md:right-0 mobile-md:h-[72px] mobile-md:w-[72px] tablet-md:-bottom-6 tablet-md:h-32 tablet-md:w-32">
+            <div className="absolute -bottom-1.5 right-0 h-14 w-14 translate-x-full rotate-[20deg] animate-appear-8 opacity-0 mobile-md:-bottom-3 mobile-md:right-1 mobile-md:h-[66px] mobile-md:w-[66px] tablet-md:-bottom-6 tablet-md:h-32 tablet-md:w-32">
                 <Image
                     src="/images/great-emoji.webp"
                     alt={welcomePageT('alts.great_emoji')}
