@@ -62,9 +62,9 @@ const ShareCollection: FC<IProps> = ({ myUserId }) => {
             >
                 <ShareButton
                     link={`/user/${myUserId}/collection${additionalParams}`}
-                    actionClasses="flex-row-reverse"
+                    actionClasses="flex items-center flex-row-reverse gap-1.5"
                 >
-                    <span className="mr-1.5 whitespace-nowrap py-2.5 text-sm text-zinc-700 dark:text-zinc-400">
+                    <span className="whitespace-nowrap py-2.5 text-sm text-zinc-700 dark:text-zinc-400">
                         {mainPageT(
                             collectionId ? 'share_collection' : 'share_wishes'
                         )}

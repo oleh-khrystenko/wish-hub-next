@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react';
 interface IProps {
     icon?: ReactNode;
     title: string;
-    text: string;
+    text: ReactNode;
 }
 
 const AlgorithmBox: FC<IProps> = ({ icon, title, text }) => {

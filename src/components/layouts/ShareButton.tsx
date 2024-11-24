@@ -6,9 +6,11 @@ import { toast } from 'react-toastify';
 import { EPrivacy } from '@/models/Settings';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import ShareIcon from '@/components/icons/ShareIcon';
+import UiButton, { TUiButtonVariant } from '@/components/ui/UiButton';
 
 interface IProps {
     actionClasses?: string;
+    variant?: TUiButtonVariant;
     iconClasses?: string;
     link?: string;
     wishShow?: EPrivacy;
@@ -16,7 +18,8 @@ interface IProps {
 }
 
 const ShareButton: FC<IProps> = ({
-    actionClasses = 'gap-2',
+    actionClasses = 'flex items-center gap-2',
+    variant = 'clear-styles',
     iconClasses,
     link = '',
     wishShow,
@@ -76,14 +79,14 @@ const ShareButton: FC<IProps> = ({
 
     return (
         <>
-            <button
-                className={`${actionClasses} flex items-center`}
-                type="button"
-                onClick={handleClick}
+            <UiButton
+                classesWrap={actionClasses}
+                variant={variant}
+                onBtnClick={handleClick}
             >
                 <ShareIcon iconClasses={iconClasses} />
                 {children}
-            </button>
+            </UiButton>
 
             <ConfirmModal
                 show={show}

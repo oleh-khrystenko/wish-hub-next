@@ -18,6 +18,7 @@ import ShareButton from '@/components/layouts/ShareButton';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
 import UiAvatar from '@/components/ui/UiAvatar';
+import UiImage from '@/components/ui/UiImage';
 import LangIcon from '@/components/icons/LangIcon';
 import LightDarkThemeIcon from '@/components/icons/LightDarkThemeIcon';
 import InfoIcon from '@/components/icons/InfoIcon';
@@ -326,12 +327,30 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
 
                     <ShareButton
                         link={shareButtonLink}
-                        iconClasses="h-6 w-6 fill-zinc-800 dark:fill-zinc-300"
+                        iconClasses="h-6 w-6 fill-cyan-400 dark:fill-cyan-300"
                     >
                         <span className="flex items-center gap-2 py-1.5 text-lg font-bold text-zinc-800 dark:text-zinc-300">
                             {mainPageT('share')} Wish Hub
                         </span>
                     </ShareButton>
+
+                    <UiButton
+                        href={`rozigrash-bazhan${utmParams ? `?${utmParams}` : ''}`}
+                        variant="text"
+                        disabled={
+                            pathname === `/${activeLocale}/rozigrash-bazhan`
+                        }
+                    >
+                        <span className="flex items-center gap-1.5 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                            <div className="relative -ml-0.5 h-7 w-7">
+                                <UiImage
+                                    src="/icons/gift-box-3D.webp"
+                                    alt={allPagesT('rozigrash-bazhan')}
+                                />
+                            </div>
+                            {allPagesT('rozigrash-bazhan')}
+                        </span>
+                    </UiButton>
 
                     <div className="flex w-full flex-col items-center gap-4 rounded-lg bg-zinc-300 p-2 dark:bg-zinc-800">
                         <div className="flex items-center justify-evenly gap-4">

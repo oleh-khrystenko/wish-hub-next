@@ -489,6 +489,40 @@
         "to_submit": "To submit a review, please provide a rating.",
         "this_will_help": "This will help us understand your impressions and make Wish Hub better!"
     },
+    "rozigrash-bazhan-page": {
+        "head": {
+            "title": "Wish Giveaway | Wish Hub — Bringing Your Dreams to Life \uD83C\uDF81",
+            "description": "Invite friends to Wish Hub, \uD83C\uDF89 join the giveaway, and win one of your wishes worth up to 1000 UAH! ✨ Participation is free."
+        },
+        "title": "Wish Giveaway",
+        "invite_your_friends": "Invite your friends to Wish Hub and get a chance to have your wish fulfilled!",
+        "wish_hub_gives": "Wish Hub gives you the chance to make your wishes come true! Invite friends who register using your link, and automatically become a participant in the giveaway.",
+        "participation_is_free.": "Participation is free.",
+        "no_hidden_costs": "No hidden costs — just your participation!",
+        "chance_to_win": "The chance to win a gift worth up to 1000 UAH.",
+        "we_will_fulfill": "We will fulfill your wish worth up to 1000 UAH, which you choose yourself!",
+        "fair_random": "Fair random selection of the winner.",
+        "winner_is_chosen": "The winner is chosen fairly and openly during a live stream.",
+        "share_and_participate": "Share and participate",
+        "sign_up_or": "Sign up or log in to your account.",
+        "without_account": "Without an account, you won’t be able to participate in the giveaway. Create your profile in just a few seconds!",
+        "share_your_referral": "Share your referral link with friends.",
+        "look_for_link": "Look for the link icon on the website",
+        "and_share_your": "and share your wishes, collections, or the entire app — and you’ll automatically become a participant in the giveaway.",
+        "invite_friends": "Invite friends to sign up using your link.",
+        "every_registration": "Every registration through your link increases your chances of winning.",
+        "make_sure_you": "Make sure you have a wish worth between 500 and 1000 UAH and a specified delivery address.",
+        "this_is_important": "This is important so we can fulfill your wish in case you win.",
+        "you_need_account": "You need an account to participate in the giveaway",
+        "to_share_links": "To share links and participate in the giveaway, you need to log in or sign up. It only takes a few seconds!",
+        "your_account_is": "Your account is needed so we know who to send the gift to \uD83D\uDE0A.",
+        "giveaway_has_ended": "The giveaway has ended",
+        "time_left": "Time left until the giveaway ends:",
+        "dddddddddd": "ddddddd",
+        "dddddddddd": "ddddddd",
+        "dddddddddd": "ddddddd",
+        "dddddddddd": "ddddddd"
+    },
     "wish-page": {
         "head": {
             "title": "Wish Hub - Wish",
@@ -804,6 +838,7 @@
         "instruction": "Instruction",
         "blog": "Blog",
         "reviews": "Reviews",
+        "rozigrash-bazhan": "Wish Giveaway",
         "contact": "Contact",
         "filters": "Filters",
         "broken_image": "Failed to load image",
@@ -841,7 +876,11 @@
         "edit": "Edit",
         "delete": "Delete",
         "action_collection": "collection",
-        "sure_review": "Before deleting your review, consider if you might want to edit it instead?"
+        "sure_review": "Before deleting your review, consider if you might want to edit it instead?",
+        "days": "days",
+        "hours": "hours",
+        "minutes": "minutes",
+        "seconds": "seconds"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

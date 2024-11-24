@@ -7,20 +7,22 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useSettingsStore } from '@/stores/settings';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 
+export type TUiButtonVariant =
+    | 'text'
+    | 'text-only'
+    | 'text-btn'
+    | 'text-attention'
+    | 'solid'
+    | 'solid-gray'
+    | 'outline'
+    | 'clear-styles';
+
 interface IProps {
     href?: string;
     classesWrap?: string;
     target?: '_blank';
     tabIndex?: number;
-    variant?:
-        | 'text'
-        | 'text-only'
-        | 'text-btn'
-        | 'text-attention'
-        | 'solid'
-        | 'solid-gray'
-        | 'outline'
-        | 'clear-styles';
+    variant?: TUiButtonVariant;
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
     role?: string;
