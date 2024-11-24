@@ -99,7 +99,13 @@
         "overview": "Quick Overview of Features and Functionality",
         "create_wish": "How easy it is to create a wish in Wish Hub: Step-by-step video guide",
         "create_collection": "Create and manage collections in Wish Hub: Step-by-step instructions",
-        "book_wish": "How to book a wish in Wish Hub: Step-by-step video guide"
+        "book_wish": "How to book a wish in Wish Hub: Step-by-step video guide",
+        "instructions": "Instructions",
+        "features": "Features",
+        "how_wish_hub": "How Wish Hub Helps You Get Your Desired Gifts \uD83C\uDF81",
+        "keep_all_your": "Keep All Your Wishes in One Place with Wish Hub \uD83D\uDCF1",
+        "wish_hub_business": "Wish Hub for Business: Gifts That Unite Teams \uD83C\uDF81",
+        "secret_santa": "Wish Hub for the 'Secret Santa' Game: Intrigue and Gifts \uD83C\uDF85"
     },
     "main-page": {
         "head": {

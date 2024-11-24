@@ -21,6 +21,7 @@ export default function Instruction() {
     return (
         <NextIntlClientProvider
             messages={pick(messages, [
+                'instruction-page',
                 'main-page',
                 'share-button',
                 'all-pages',

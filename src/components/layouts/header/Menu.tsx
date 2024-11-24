@@ -334,6 +334,24 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                         </span>
                     </ShareButton>
 
+                    <UiButton
+                        href={`rozigrash-bazhan${utmParams ? `?${utmParams}` : ''}`}
+                        variant="text"
+                        disabled={
+                            pathname === `/${activeLocale}/rozigrash-bazhan`
+                        }
+                    >
+                        <span className="flex items-center gap-1.5 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                            <div className="relative -ml-0.5 h-7 w-7">
+                                <UiImage
+                                    src="/icons/gift-box-3D.webp"
+                                    alt={allPagesT('rozigrash-bazhan')}
+                                />
+                            </div>
+                            {allPagesT('rozigrash-bazhan')}
+                        </span>
+                    </UiButton>
+
                     <div className="flex w-full flex-col items-center gap-4 rounded-lg bg-zinc-300 p-2 dark:bg-zinc-800">
                         <div className="flex items-center justify-evenly gap-4">
                             <SocialNetworks />

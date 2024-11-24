@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
-import VideoItem from '@/components/layouts/VideoItem';
+import Tabs from '@/app/[locale]/instruction/Tabs';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import UiImage from '@/components/ui/UiImage';
 import MainIcon from '@/components/icons/MainIcon';
@@ -96,37 +96,7 @@ const Body: FC = () => {
                         </div>
                     </div>
 
-                    <ul className="mt-8 grid gap-6 tablet-md:grid-cols-2 tablet-md:gap-8 tablet-lg:mt-12">
-                        <VideoItem
-                            src="https://www.youtube.com/embed/Kpp4cVX9hAk?si=-vqjlSy1muDdWc5p"
-                            title={instructionPageT('overview')}
-                        />
-
-                        <VideoItem
-                            src="https://www.youtube.com/embed/dcB6G9u1CzI?si=Oigoujz3AjTYSmwb"
-                            title={instructionPageT('create_wish')}
-                        />
-
-                        <VideoItem
-                            src="https://www.youtube.com/embed/_XiMVoMufUg?si=rFOTakdph0NTjzgS"
-                            title={instructionPageT('create_collection')}
-                        />
-
-                        <VideoItem
-                            src="https://www.youtube.com/embed/DswAfrw47dw?si=u6GwXAo5qvccJBG6"
-                            title={instructionPageT('book_wish')}
-                        />
-
-                        <VideoItem
-                            src="https://www.youtube.com/embed/RprNSADQzQA?si=eZAjRAnmpKQ3q6vI"
-                            title={instructionPageT('install_ios')}
-                        />
-
-                        <VideoItem
-                            src="https://www.youtube.com/embed/_BqeXkZkzyc?si=hGGy-gM5VkGri-98"
-                            title={instructionPageT('install_android')}
-                        />
-                    </ul>
+                    <Tabs />
                 </section>
             </div>
         </main>
