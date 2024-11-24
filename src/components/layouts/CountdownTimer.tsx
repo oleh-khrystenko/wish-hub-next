@@ -55,10 +55,11 @@ const CountdownTimer: FC<IProps> = ({ promotionTime, labelEnd, label }) => {
     }
 
     return (
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-2">
             <p className="text-xl font-bold text-cyan-500 dark:text-cyan-300">
                 {label}
             </p>
+
             <div className="flex items-center justify-center gap-0.5">
                 <div className="flex flex-col items-center gap-2">
                     <span className="text-zinc-700 dark:text-zinc-300">

@@ -146,7 +146,7 @@ const Body: FC = () => {
                         </div>
                     </div>
 
-                    <div className="mt-8 flex flex-col items-center gap-6">
+                    <div className="mt-6 flex flex-col items-center gap-5">
                         <CountdownTimer
                             promotionTime="2024-12-01T12:00:00+02:00"
                             labelEnd={rozigrashBazhanPageT(
