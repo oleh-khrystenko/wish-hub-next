@@ -266,7 +266,7 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                     >
                         <span className="flex items-center gap-2 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
                             <YouTubeIcon />
-                            {mainPageT('instruction')}
+                            {allPagesT('instruction')}
                         </span>
                     </UiButton>
 
