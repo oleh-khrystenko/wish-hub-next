@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { GIFT_PRICE } from '@/helpers/utils/constants';
 import Cta from '@/app/[locale]/rozigrash-bazhan/Cta';
 import AlgorithmBox from '@/app/[locale]/root-page-components/AlgorithmBox';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
@@ -92,12 +93,16 @@ const Body: FC = () => {
 
                         <div className="w-4/5">
                             <p className="relative text-base font-bold text-zinc-800 dark:text-zinc-200 tablet-md:text-lg">
-                                {rozigrashBazhanPageT('chance_to_win')}
+                                {rozigrashBazhanPageT('chance_to_win', {
+                                    price: GIFT_PRICE,
+                                })}
                                 <CheckedIcon classes="absolute w-5 h-5 -left-2 top-1/2 -translate-x-full -translate-y-1/2 tablet-md:-left-2.5 tablet-md:w-7 tablet-md:h-7" />
                             </p>
 
                             <p className="mt-2 text-sm font-bold text-zinc-600 dark:text-zinc-400">
-                                {rozigrashBazhanPageT('we_will_fulfill')}
+                                {rozigrashBazhanPageT('we_will_fulfill', {
+                                    price: GIFT_PRICE,
+                                })}
                             </p>
                         </div>
 
@@ -201,7 +206,9 @@ const Body: FC = () => {
                         icon={
                             <LogoIcon classes="w-5 h-5 tablet-md:w-7 tablet-md:h-7" />
                         }
-                        title={rozigrashBazhanPageT('make_sure_you')}
+                        title={rozigrashBazhanPageT('make_sure_you', {
+                            price: GIFT_PRICE,
+                        })}
                         text={rozigrashBazhanPageT('this_is_important')}
                     />
                 </div>

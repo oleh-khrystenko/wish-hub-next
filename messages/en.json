@@ -502,15 +502,15 @@
     "rozigrash-bazhan-page": {
         "head": {
             "title": "Wish Giveaway | Wish Hub — Bringing Your Dreams to Life \uD83C\uDF81",
-            "description": "Invite friends to Wish Hub, \uD83C\uDF89 join the giveaway, and win one of your wishes worth up to 1000 UAH! ✨ Participation is free."
+            "description": "Invite friends to Wish Hub, \uD83C\uDF89 join the giveaway, and win one of your wishes! ✨ Participation is free."
         },
         "title": "Wish Giveaway",
         "invite_your_friends": "Invite your friends to Wish Hub and get a chance to have your wish fulfilled!",
         "wish_hub_gives": "Wish Hub gives you the chance to make your wishes come true! Invite friends who register using your link, and automatically become a participant in the giveaway.",
         "participation_is_free.": "Participation is free.",
         "no_hidden_costs": "No hidden costs — just your participation!",
-        "chance_to_win": "The chance to win a gift worth up to 1000 UAH.",
-        "we_will_fulfill": "We will fulfill your wish worth up to 1000 UAH, which you choose yourself!",
+        "chance_to_win": "The chance to win a gift worth up to {price} UAH.",
+        "we_will_fulfill": "We will fulfill your wish worth up to {price} UAH, which you choose yourself!",
         "fair_random": "Fair random selection of the winner.",
         "winner_is_chosen": "The winner is chosen fairly and openly during a live stream.",
         "share_and_participate": "Share and participate",
@@ -521,7 +521,7 @@
         "and_share_your": " and share your wishes, collections, or the entire app. If someone registers using your link, you’ll automatically become a participant in the giveaway!",
         "invite_friends": "Invite friends to sign up using your link.",
         "every_registration": "Every registration through your link increases your chances of winning.",
-        "make_sure_you": "Make sure you have a wish worth between 500 and 1000 UAH and a specified delivery address.",
+        "make_sure_you": "Make sure you have a wish for up to {price} UAH and a specified delivery address.",
         "this_is_important": "This is important so we can fulfill your wish in case you win.",
         "you_need_account": "You need an account to participate in the giveaway",
         "to_share_links": "To share links and participate in the giveaway, you need to log in or sign up. It only takes a few seconds!",
