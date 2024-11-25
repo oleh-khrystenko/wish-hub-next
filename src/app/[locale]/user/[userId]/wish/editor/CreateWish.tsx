@@ -361,7 +361,6 @@ const CreateWish: FC = () => {
         if (
             wishCandidate?.name ||
             (myUser && wishCandidate?.image) ||
-            wishCandidate?.price ||
             wishCandidate?.url ||
             wishCandidate?.description
         ) {
@@ -375,8 +374,6 @@ const CreateWish: FC = () => {
                     },
                 ]);
             }
-
-            wishCandidate?.price && setValue('price', wishCandidate.price);
 
             wishCandidate?.url &&
                 setValue('addresses', [

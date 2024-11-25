@@ -83,7 +83,6 @@ export interface IWishCandidate {
     name: IWish['name'];
     image: string;
     url: string;
-    price: IWish['price'];
     description: IWish['description'];
 }
 
