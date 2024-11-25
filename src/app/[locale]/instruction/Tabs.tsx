@@ -1,15 +1,23 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import VideoItem from '@/components/layouts/VideoItem';
 import UiButton from '@/components/ui/UiButton';
+import { useSearchParams } from 'next/navigation';
 
 const Tabs: FC = () => {
     const [isInstructionActive, setIsInstructionActive] =
         useState<boolean>(true);
 
+    const searchParams = useSearchParams();
+
     const instructionPageT = useTranslations('instruction-page');
+
+    useEffect(() => {
+        const features = searchParams.get('features');
+        setIsInstructionActive(features === null);
+    }, [searchParams]);
 
     return (
         <>
