@@ -80,15 +80,11 @@ const Body: FC = () => {
                             </ul>
 
                             <p className="mt-6 text-sm font-bold text-zinc-700 dark:text-zinc-300 tablet-md:mt-8 tablet-md:text-justify tablet-md:text-base">
-                                {instructionPageT('dont_miss')}
-                            </p>
-
-                            <p className="mt-1 text-sm font-bold text-zinc-700 dark:text-zinc-300 tablet-md:text-justify tablet-md:text-base">
                                 {instructionPageT('subscribe')}
                             </p>
                         </div>
 
-                        <div className="relative hidden h-0 w-full pt-[33%] tablet-lg:block">
+                        <div className="relative hidden h-0 w-1/2 pt-[33%] tablet-lg:block">
                             <UiImage
                                 src="/images/instruction.svg"
                                 alt={allPagesT('instruction')}

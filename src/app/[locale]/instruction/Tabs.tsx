@@ -14,7 +14,7 @@ const Tabs: FC = () => {
     return (
         <>
             <div
-                className="mt-4 flex items-center transition-all duration-300 ease-in-out"
+                className="mt-6 flex items-center transition-all duration-300 ease-in-out"
                 role="tablist"
                 aria-label={`${instructionPageT('title_before')} Wish Hub ${instructionPageT('title_after')}`}
             >
@@ -44,13 +44,13 @@ const Tabs: FC = () => {
             </div>
 
             <div
-                className="mt-4"
+                className="mt-6"
                 role="tabpanel"
                 id="panel-instructions"
                 aria-labelledby="tab-instructions"
                 hidden={!isInstructionActive}
             >
-                <ul className="mt-8 grid gap-6 tablet-md:grid-cols-2 tablet-md:gap-8 tablet-lg:mt-12">
+                <ul className="grid gap-6 tablet-md:grid-cols-2 tablet-md:gap-8">
                     <VideoItem
                         src="https://www.youtube.com/embed/Kpp4cVX9hAk?si=-vqjlSy1muDdWc5p"
                         title={instructionPageT('overview')}
@@ -84,13 +84,13 @@ const Tabs: FC = () => {
             </div>
 
             <div
-                className="mt-8"
+                className="mt-6"
                 role="tabpanel"
                 id="panel-features"
                 aria-labelledby="tab-features"
                 hidden={isInstructionActive}
             >
-                <ul className="mt-8 grid gap-6 tablet-md:grid-cols-2 tablet-md:gap-8 tablet-lg:mt-12">
+                <ul className="grid gap-6 tablet-md:grid-cols-2 tablet-md:gap-8">
                     <VideoItem
                         src="https://www.youtube.com/embed/VTXq1_CaIu0?si=2gqJY4EMRCGPwCxM"
                         title={instructionPageT('how_wish_hub')}
