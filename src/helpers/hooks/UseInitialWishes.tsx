@@ -41,7 +41,7 @@ const UseInitialWishes = () => {
     const getInitialWishList = async (
         myId: IUser['id'] | undefined,
         userId: IUser['id'],
-        sort: TWishSort = 'sortByLikes:desc',
+        sort: TWishSort = 'createdAt:desc',
         wishIdListForCollection: IWish['id'][] = []
     ) => {
         await getWishList(
@@ -69,7 +69,7 @@ const UseInitialWishes = () => {
         collectionId: ICollection['id'],
         myId: IUser['id'] | undefined,
         userId: IUser['id'],
-        sort: TWishSort = 'sortByLikes:desc'
+        sort: TWishSort = 'createdAt:desc'
     ) => {
         await getCollectionWishes(
             {
