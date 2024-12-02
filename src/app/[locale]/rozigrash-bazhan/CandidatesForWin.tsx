@@ -91,6 +91,7 @@ const CandidatesForWin: FC = () => {
                                         alt={candidate.invitedPerson.firstName}
                                         size={24}
                                         sizeTailwind="w-6 min-w-6 h-6 min-h-6"
+                                        sizeIcon="w-4 h-4"
                                         handleClick={() =>
                                             handleGoToProfilePage(
                                                 candidate.invitedPerson.id
