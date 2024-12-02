@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { GIFT_PRICE } from '@/helpers/utils/constants';
-import AlgorithmBox from '@/app/[locale]/welcome-page-components/AlgorithmBox';
+import AlgorithmBox from '@/components/layouts/AlgorithmBox';
 import LogInIcon from '@/components/icons/LogInIcon';
 import ChainIcon from '@/components/icons/ChainIcon';
 import ShareIcon from '@/components/icons/ShareIcon';
