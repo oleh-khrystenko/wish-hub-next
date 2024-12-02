@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { GIFT_PRICE } from '@/helpers/utils/constants';
 import Cta from '@/app/[locale]/rozigrash-bazhan/Cta';
+import CandidatesForWin from '@/app/[locale]/rozigrash-bazhan/CandidatesForWin';
 import AlgorithmBox from '@/app/[locale]/root-page-components/AlgorithmBox';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import CountdownTimer from '@/components/layouts/CountdownTimer';
@@ -42,8 +43,10 @@ const Body: FC = () => {
         },
     ];
 
+    const promotionTime = '2024-12-15T12:00:00+02:00';
+
     return (
-        <main className="mx-auto mt-3 max-w-7xl">
+        <main className="mx-auto mt-3 max-w-7xl pb-10 tablet-md:pb-16">
             <Breadcrumbs
                 seoPages={breadcrumbsPages}
                 visualPages={breadcrumbsPages}
@@ -62,7 +65,7 @@ const Body: FC = () => {
                 website or contact our support team for up-to-date information.
             </div>
 
-            <section className="mt-6 grid gap-6 px-4 pb-6 tablet-md:gap-8 desktop-xs:grid-cols-11 desktop-sm:px-0 desktop-sm:pb-10">
+            <section className="mt-6 grid gap-6 px-4 tablet-md:gap-8 desktop-xs:grid-cols-11 desktop-sm:px-0">
                 <div className="desktop-xs:col-span-6">
                     {/* title */}
                     <h1 className="text-2xl font-bold text-zinc-800 dark:text-zinc-200 mobile-xl:text-center tablet-md:text-left tablet-md:text-4xl">
@@ -153,7 +156,7 @@ const Body: FC = () => {
 
                     <div className="mt-6 flex flex-col items-center gap-5">
                         <CountdownTimer
-                            promotionTime="2024-12-01T12:00:00+02:00"
+                            promotionTime={promotionTime}
                             labelEnd={rozigrashBazhanPageT(
                                 'giveaway_has_ended'
                             )}
@@ -213,6 +216,8 @@ const Body: FC = () => {
                     />
                 </div>
             </section>
+
+            <CandidatesForWin />
         </main>
     );
 };

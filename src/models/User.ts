@@ -43,3 +43,19 @@ export interface IAuth {
     user: IUser;
     wishes: IGuestWish[];
 }
+
+export interface IInvitedPerson {
+    id: IUser['id'];
+    firstName: IUser['firstName'];
+    lastName: IUser['lastName'];
+    avatar: IUser['avatar'];
+}
+
+export interface ICandidateForWin {
+    id: IUser['id'];
+    serialNumber: number;
+    firstName: IUser['firstName'];
+    lastName: IUser['lastName'];
+    avatar: IUser['avatar'];
+    invitedPerson: IInvitedPerson;
+}
