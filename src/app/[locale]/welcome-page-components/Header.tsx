@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import Actions from '@/app/[locale]/root-page-components/Actions';
+import Actions from '@/app/[locale]/welcome-page-components/Actions';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
 import LangSelect from '@/components/layouts/LangSelect';
 import UiBrand from '@/components/ui/UiBrand';
