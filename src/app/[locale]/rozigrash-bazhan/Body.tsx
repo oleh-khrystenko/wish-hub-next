@@ -11,8 +11,8 @@ import Description from '@/app/[locale]/rozigrash-bazhan/Description';
 import TempItem from '@/app/[locale]/rozigrash-bazhan/TempItem';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import CountdownTimer from '@/components/layouts/CountdownTimer';
-import NotRelevantInfo from '@/components/layouts/NotRelevantInfo';
 import Divider from '@/components/layouts/Divider';
+import SocialNetworks from '@/components/layouts/SocialNetworks';
 import UiImage from '@/components/ui/UiImage';
 import MainIcon from '@/components/icons/MainIcon';
 import ShareIcon from '@/components/icons/ShareIcon';
@@ -23,7 +23,7 @@ const Body: FC = () => {
 
     const activeLocale = useLocale();
 
-    const { getFullDate } = UseLocaleFormats();
+    const { getFullDate, getTime } = UseLocaleFormats();
 
     const breadcrumbsPages = [
         {
@@ -47,7 +47,7 @@ const Body: FC = () => {
         },
     ];
 
-    const promotionTime = '2024-12-15T12:00:00+02:00';
+    const promotionTime = '2024-12-15T18:00:00+02:00';
     const formatedPromotionTime = dayjs(promotionTime)
         .locale(activeLocale === 'ua' ? 'uk' : activeLocale)
         .format(getFullDate());
@@ -59,8 +59,6 @@ const Body: FC = () => {
                     seoPages={breadcrumbsPages}
                     visualPages={breadcrumbsPages}
                 />
-
-                <NotRelevantInfo />
             </div>
 
             <section className="mx-auto mt-6 grid max-w-7xl gap-6 px-4 pb-10 tablet-md:gap-8 tablet-md:pb-16 desktop-xs:grid-cols-11 desktop-xs:px-0">
@@ -70,7 +68,13 @@ const Body: FC = () => {
                     </h1>
 
                     <p className="mt-2 text-base text-zinc-600 dark:text-zinc-400 mobile-xl:text-center tablet-md:mt-6 tablet-md:text-left tablet-md:text-lg">
-                        {rozigrashBazhanPageT('invite_your_friends')}
+                        {rozigrashBazhanPageT('invite_your_friends', {
+                            date: formatedPromotionTime,
+                        })}
+                        {rozigrashBazhanPageT('at', {
+                            time: dayjs(promotionTime).format(getTime()),
+                        })}
+                        {rozigrashBazhanPageT('live')}
                     </p>
 
                     <Description />
@@ -99,7 +103,7 @@ const Body: FC = () => {
                         {rozigrashBazhanPageT('terms')}
                     </h2>
 
-                    <p className="mt-4 text-base text-zinc-600 dark:text-zinc-400 mobile-xl:text-center tablet-md:mt-6 tablet-md:text-left tablet-md:text-lg">
+                    <p className="mt-4 text-base text-zinc-600 dark:text-zinc-400 tablet-md:mt-6 tablet-md:text-lg">
                         {rozigrashBazhanPageT('sub_terms')}
                     </p>
                 </div>
@@ -170,12 +174,37 @@ const Body: FC = () => {
                                 {rozigrashBazhanPageT('to_catch', {
                                     date: formatedPromotionTime,
                                 })}
+                                {rozigrashBazhanPageT('at', {
+                                    time: dayjs(promotionTime).format(
+                                        getTime()
+                                    ),
+                                })}
                             </>
                         }
                     />
                 </ul>
 
                 <CandidatesForWin />
+
+                <div className="mt-8 flex items-end justify-between gap-5">
+                    <div className="">
+                        <p className="text-lg font-bold text-zinc-800 dark:text-zinc-200 tablet-md:text-xl">
+                            {rozigrashBazhanPageT('social_networks')}
+                        </p>
+
+                        <div className="mt-4 flex items-center gap-6">
+                            <SocialNetworks />
+                        </div>
+                    </div>
+
+                    <CountdownTimer
+                        promotionTime={promotionTime}
+                        labelEnd={rozigrashBazhanPageT('giveaway_has_ended')}
+                        label={rozigrashBazhanPageT('time_left')}
+                    />
+
+                    <Cta />
+                </div>
             </section>
         </main>
     );

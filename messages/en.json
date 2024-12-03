@@ -505,7 +505,9 @@
             "description": "Invite friends to Wish Hub, \uD83C\uDF89 join the giveaway, and win one of your wishes! ✨ Participation is free."
         },
         "title": "Wish Giveaway",
-        "invite_your_friends": "Invite your friends to Wish Hub and get a chance to have your wish fulfilled!",
+        "invite_your_friends": "Invite your friends to Wish Hub and get a chance to have your wish fulfilled! The giveaway will take place on {date}",
+        "at": ", at {time}",
+        "live": " live!",
         "wish_hub_gives": "Wish Hub gives you the chance to make your wishes come true! Invite friends who register using your link, and automatically become a participant in the giveaway.",
         "participation_is_free": "Participation is free.",
         "no_hidden_costs": "No hidden costs — just your participation!",
@@ -544,7 +546,8 @@
         "your_profile_must": "Your profile must include a \"Public\" delivery address so we can fulfill your wish in case you win.",
         "follow_us_on": "Follow us on",
         "stay_tuned": "Stay tuned to our",
-        "to_catch": " to catch the live giveaway stream on {date}"
+        "to_catch": " to catch the live giveaway stream on {date}",
+        "social_networks": "We are on social networks"
     },
     "wish-page": {
         "head": {

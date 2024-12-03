@@ -17,12 +17,13 @@ const NavList: FC<IProps> = ({ navList, remove }) => {
     return (
         <nav>
             <ul className="flex flex-col gap-2">
-                {navList.map(({ href, title }, idx) => {
+                {navList.map(({ href, title, isNew }, idx) => {
                     if (href === remove) {
                         return (
                             <li key={href + idx}>
                                 <UiButton
-                                    variant="text-only"
+                                    variant="clear-styles"
+                                    classesWrap="flex items-center gap-8"
                                     onBtnClick={() =>
                                         window.scrollTo({
                                             top: 0,
@@ -33,16 +34,32 @@ const NavList: FC<IProps> = ({ navList, remove }) => {
                                     <span className="font-bold text-zinc-700 dark:text-zinc-400">
                                         {title}
                                     </span>
+
+                                    {isNew && (
+                                        <span className="-my-1 rounded-md border border-rose-500 px-2 font-bold text-rose-500">
+                                            NEW
+                                        </span>
+                                    )}
                                 </UiButton>
                             </li>
                         );
                     }
                     return (
                         <li key={href + idx}>
-                            <UiButton href={href} variant="text-only">
+                            <UiButton
+                                href={href}
+                                variant="clear-styles"
+                                classesWrap="flex items-center gap-8"
+                            >
                                 <span className="font-bold text-zinc-700 dark:text-zinc-400">
                                     {title}
                                 </span>
+
+                                {isNew && (
+                                    <span className="-my-1 rounded-md border border-rose-500 px-2 font-bold text-rose-500">
+                                        NEW
+                                    </span>
+                                )}
                             </UiButton>
                         </li>
                     );

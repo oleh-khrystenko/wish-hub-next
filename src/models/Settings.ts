@@ -29,6 +29,7 @@ export interface IZoomedImage {
 export interface INavItem {
     title: string;
     href: string;
+    isNew?: boolean;
 }
 
 export interface IPageParams {
