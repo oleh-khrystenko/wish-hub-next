@@ -44,17 +44,17 @@ const CandidatesForWin: FC = () => {
     }, []);
 
     return (
-        <div className="mt-10 w-full">
+        <div className="mx-auto mt-10 w-full tablet-md:w-3/4 desktop-xs:mx-0 desktop-xs:w-full">
             <p className="text-xl font-bold text-zinc-800 dark:text-zinc-200 tablet-md:text-2xl">
                 {rozigrashBazhanPageT('candidates')}:
             </p>
 
             {candidates.length > 0 && (
-                <ul className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-6">
+                <ul className="mt-5 flex max-h-96 flex-wrap items-center gap-x-4 gap-y-6 overflow-y-auto overflow-x-hidden pb-4 pr-3">
                     {candidates.map((candidate) => (
                         <li
                             key={candidate.invitedPerson.id}
-                            className="rounded-md border border-dashed border-zinc-500 dark:border-zinc-600 tablet-md:rounded-xl"
+                            className="w-full rounded-md border border-dashed border-zinc-500 dark:border-zinc-600 tablet-md:w-fit tablet-md:rounded-xl"
                         >
                             <div className="relative flex h-full items-center gap-4 rounded-md border border-dashed border-transparent px-6 py-2 before:absolute before:inset-0 before:h-full before:w-full before:rounded-md before:bg-wish-bg before:bg-cover before:bg-center before:bg-no-repeat before:opacity-0 tablet-md:rounded-xl tablet-md:before:rounded-xl">
                                 <span className="text-xl font-bold text-cyan-500 dark:text-cyan-300">
@@ -73,19 +73,12 @@ const CandidatesForWin: FC = () => {
 
                                 <p className="max-w-xs truncate whitespace-nowrap text-zinc-800 dark:text-zinc-200 tablet-md:text-lg">
                                     {candidate.firstName}
-                                    {candidate.serialNumber === 2 && (
-                                        <>
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipisicing elit. Eos,
-                                            similique!
-                                        </>
-                                    )}
                                     {candidate.lastName && (
                                         <> {candidate.lastName.charAt(0)}.</>
                                     )}
                                 </p>
 
-                                <div className="absolute bottom-0 right-1 flex max-w-[80%] translate-y-1/2 items-center gap-3 rounded-md bg-zinc-300 px-2 py-1 dark:bg-zinc-700">
+                                <div className="absolute bottom-0 right-1 flex max-w-[80%] translate-y-1/2 items-center gap-3 rounded-md bg-zinc-300 px-2 py-1 dark:bg-zinc-800">
                                     <UiAvatar
                                         avatar={candidate.invitedPerson.avatar}
                                         alt={candidate.invitedPerson.firstName}

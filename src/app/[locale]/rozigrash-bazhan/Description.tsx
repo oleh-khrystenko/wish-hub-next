@@ -9,7 +9,7 @@ const Description: FC = () => {
     const welcomePageT = useTranslations('welcome-page');
 
     return (
-        <div className="tablet-md:before:rotate-5 relative mx-auto mt-10 flex max-w-lg flex-col gap-4 rounded-3xl bg-zinc-400 bg-[url('/images/benefits-bg.webp')] bg-cover bg-center bg-no-repeat pb-6 pl-10 pr-5 pt-5 before:absolute before:inset-0 before:rotate-3 before:rounded-3xl before:border before:border-dashed before:border-zinc-400 dark:bg-zinc-800 before:dark:border-zinc-600 tablet-md:gap-6 tablet-md:py-10 tablet-md:pl-20 tablet-md:pr-16 desktop-xs:max-w-full">
+        <div className="tablet-md:before:rotate-5 relative mt-10 flex w-full flex-col gap-4 rounded-3xl bg-zinc-400 bg-[url('/images/benefits-bg.webp')] bg-cover bg-center bg-no-repeat pb-6 pl-10 pr-5 pt-5 before:absolute before:inset-0 before:rotate-3 before:rounded-3xl before:border before:border-dashed before:border-zinc-400 dark:bg-zinc-800 before:dark:border-zinc-600 tablet-md:gap-6 tablet-md:py-10 tablet-md:pl-20 tablet-md:pr-16">
             <p className="-ml-6 mt-2 text-base text-zinc-600 dark:text-zinc-400 tablet-md:text-lg">
                 {rozigrashBazhanPageT('wish_hub_gives')}
             </p>

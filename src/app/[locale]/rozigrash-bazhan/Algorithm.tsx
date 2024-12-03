@@ -12,7 +12,7 @@ const Algorithm: FC = () => {
     const rozigrashBazhanPageT = useTranslations('rozigrash-bazhan-page');
 
     return (
-        <div className="mx-auto flex max-w-lg flex-col items-center desktop-xs:col-span-5 desktop-xs:mx-0 desktop-xs:mt-16 desktop-xs:max-w-full">
+        <div className="mx-auto flex flex-col items-center tablet-md:w-3/4 desktop-xs:col-span-5 desktop-xs:mx-0 desktop-xs:mt-16 desktop-xs:w-full">
             <AlgorithmBox
                 icon={
                     <LogInIcon classes="w-5 h-5 tablet-md:w-7 tablet-md:h-7 stroke-cyan-500 dark:stroke-cyan-300" />
