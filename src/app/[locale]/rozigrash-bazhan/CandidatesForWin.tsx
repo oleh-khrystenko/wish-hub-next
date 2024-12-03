@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { ICandidateForWin, IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
-import { useSettingsStore } from '@/stores/settings';
+import { INSTRUKTOR_WISH_HUB } from '@/helpers/utils/constants';
 import candidatesForWinApi from '@/helpers/api/candidates-for-win';
 import UiAvatar from '@/components/ui/UiAvatar';
 
@@ -20,18 +20,10 @@ const CandidatesForWin: FC = () => {
 
     const myUser = useMyUserStore((state) => state.myUser);
 
-    const setShowGlobalLoading = useSettingsStore(
-        (state) => state.setShowGlobalLoading
-    );
-
     const handleGoToProfilePage = (userId: IUser['id']) => {
-        setShowGlobalLoading(true);
-
-        if (myUser) {
+        if (myUser?.id === INSTRUKTOR_WISH_HUB) {
             return router.push(`/${activeLocale}/user/${userId}/profile`);
         }
-
-        router.push(`/${activeLocale}/auth`);
     };
 
     useEffect(() => {
@@ -55,6 +47,7 @@ const CandidatesForWin: FC = () => {
                         <li
                             key={candidate.invitedPerson.id}
                             className="w-full rounded-md border border-dashed border-zinc-500 dark:border-zinc-600 tablet-md:w-fit tablet-md:rounded-xl"
+                            onClick={() => handleGoToProfilePage(candidate.id)}
                         >
                             <div className="relative flex h-full items-center gap-4 rounded-md border border-dashed border-transparent px-6 py-2 before:absolute before:inset-0 before:h-full before:w-full before:rounded-md before:bg-wish-bg before:bg-cover before:bg-center before:bg-no-repeat before:opacity-0 tablet-md:rounded-xl tablet-md:before:rounded-xl">
                                 <span className="text-xl font-bold text-cyan-500 dark:text-cyan-300">
@@ -66,9 +59,6 @@ const CandidatesForWin: FC = () => {
                                     alt={candidate.firstName}
                                     size={40}
                                     sizeTailwind="w-10 min-w-10 h-10 min-h-10"
-                                    handleClick={() =>
-                                        handleGoToProfilePage(candidate.id)
-                                    }
                                 />
 
                                 <p className="max-w-xs truncate whitespace-nowrap text-zinc-800 dark:text-zinc-200 tablet-md:text-lg">
@@ -85,11 +75,6 @@ const CandidatesForWin: FC = () => {
                                         size={24}
                                         sizeTailwind="w-6 min-w-6 h-6 min-h-6"
                                         sizeIcon="w-4 h-4"
-                                        handleClick={() =>
-                                            handleGoToProfilePage(
-                                                candidate.invitedPerson.id
-                                            )
-                                        }
                                     />
 
                                     <p className="truncate whitespace-nowrap text-xs text-zinc-800 dark:text-zinc-200 tablet-md:text-sm">

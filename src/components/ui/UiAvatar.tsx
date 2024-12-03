@@ -48,7 +48,7 @@ const UiAvatar: FC<IProps> = ({
 
     return (
         <div
-            className={`${sizeTailwind} relative flex cursor-pointer items-center justify-center overflow-hidden rounded-full bg-zinc-400 dark:bg-zinc-600`}
+            className={`${sizeTailwind} ${handleClick && 'cursor-pointer'} relative flex items-center justify-center overflow-hidden rounded-full bg-zinc-400 dark:bg-zinc-600`}
             onClick={handleClick}
         >
             {avatar ? (

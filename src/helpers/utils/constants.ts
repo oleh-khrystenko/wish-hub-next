@@ -56,6 +56,8 @@ export const COLLECTION_NAME_MAX_LENGTH = 80;
 
 export const GIFT_PRICE = 500;
 
+export const INSTRUKTOR_WISH_HUB = '66866f6b711bb81655dd35c0';
+
 export const USER_SLUG_TO_ID_MAP: Record<string, string> = {
     'idei-podarunkiv': '660840efccbe41253667c6be',
 };
