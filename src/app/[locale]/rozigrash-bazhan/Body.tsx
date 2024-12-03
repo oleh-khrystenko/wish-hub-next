@@ -1,5 +1,9 @@
 import { FC } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import dayjs from 'dayjs';
+import 'dayjs/locale/uk';
+import 'dayjs/locale/ru';
+import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import Cta from '@/app/[locale]/rozigrash-bazhan/Cta';
 import CandidatesForWin from '@/app/[locale]/rozigrash-bazhan/CandidatesForWin';
 import Algorithm from '@/app/[locale]/rozigrash-bazhan/Algorithm';
@@ -11,10 +15,15 @@ import NotRelevantInfo from '@/components/layouts/NotRelevantInfo';
 import Divider from '@/components/layouts/Divider';
 import UiImage from '@/components/ui/UiImage';
 import MainIcon from '@/components/icons/MainIcon';
+import ShareIcon from '@/components/icons/ShareIcon';
 
 const Body: FC = () => {
     const rozigrashBazhanPageT = useTranslations('rozigrash-bazhan-page');
     const allPagesT = useTranslations('all-pages');
+
+    const activeLocale = useLocale();
+
+    const { getFullDate } = UseLocaleFormats();
 
     const breadcrumbsPages = [
         {
@@ -39,6 +48,9 @@ const Body: FC = () => {
     ];
 
     const promotionTime = '2024-12-15T12:00:00+02:00';
+    const formatedPromotionTime = dayjs(promotionTime)
+        .locale(activeLocale === 'ua' ? 'uk' : activeLocale)
+        .format(getFullDate());
 
     return (
         <main className="mt-3 pb-10 tablet-md:pb-16">
@@ -88,33 +100,78 @@ const Body: FC = () => {
                     </h2>
 
                     <p className="mt-4 text-base text-zinc-600 dark:text-zinc-400 mobile-xl:text-center tablet-md:mt-6 tablet-md:text-left tablet-md:text-lg">
-                        {rozigrashBazhanPageT('invite_your_friends')}
+                        {rozigrashBazhanPageT('sub_terms')}
                     </p>
                 </div>
 
                 <ul className="mx-auto mt-10 grid gap-6 tablet-md:w-3/4 desktop-xs:mx-0 desktop-xs:w-full desktop-xs:grid-cols-2">
                     <TempItem
                         count={1}
-                        title={rozigrashBazhanPageT('Lorem')}
-                        text={rozigrashBazhanPageT('ipsum')}
+                        title={rozigrashBazhanPageT('you_must_have')}
+                        text={rozigrashBazhanPageT('auth_and_activate')}
                     />
 
                     <TempItem
                         count={2}
-                        title={rozigrashBazhanPageT('Lorem')}
-                        text={rozigrashBazhanPageT('ipsum')}
+                        title={rozigrashBazhanPageT('share_your_link')}
+                        text={
+                            <>
+                                {rozigrashBazhanPageT('locate_the_link')}
+                                <ShareIcon iconClasses="inline mx-0.5 w-4 h-4 fill-cyan-500 dark:fill-cyan-300" />
+                                {rozigrashBazhanPageT('on_the_website')}
+                            </>
+                        }
                     />
 
                     <TempItem
                         count={3}
-                        title={rozigrashBazhanPageT('Lorem')}
-                        text={rozigrashBazhanPageT('ipsum')}
+                        title={rozigrashBazhanPageT('invite_using_link')}
+                        text={rozigrashBazhanPageT('each_friend')}
                     />
 
                     <TempItem
                         count={4}
-                        title={rozigrashBazhanPageT('Lorem')}
-                        text={rozigrashBazhanPageT('ipsum')}
+                        title={rozigrashBazhanPageT('create_at_least')}
+                        text={rozigrashBazhanPageT('we_can_only')}
+                    />
+
+                    <TempItem
+                        count={5}
+                        title={rozigrashBazhanPageT('provide_delivery_address')}
+                        text={rozigrashBazhanPageT('your_profile_must')}
+                    />
+
+                    <TempItem
+                        count={6}
+                        title={
+                            <>
+                                {rozigrashBazhanPageT('follow_us_on')}{' '}
+                                <a
+                                    className="text-cyan-400 dark:text-cyan-300"
+                                    href="https://www.instagram.com/wish_hub_net"
+                                    target="_blank"
+                                    rel="noopener noreferrer external nofollow"
+                                >
+                                    Instagram
+                                </a>
+                            </>
+                        }
+                        text={
+                            <>
+                                {rozigrashBazhanPageT('stay_tuned')}{' '}
+                                <a
+                                    className="text-cyan-400 dark:text-cyan-300"
+                                    href="https://www.instagram.com/wish_hub_net"
+                                    target="_blank"
+                                    rel="noopener noreferrer external nofollow"
+                                >
+                                    Instagram
+                                </a>
+                                {rozigrashBazhanPageT('to_catch', {
+                                    date: formatedPromotionTime,
+                                })}
+                            </>
+                        }
                     />
                 </ul>
 
