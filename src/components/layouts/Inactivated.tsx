@@ -79,6 +79,8 @@ const Inactivated: FC = () => {
         return () => clearInterval(timer);
     }, []);
 
+    if (!myUser || myUser.isActivated) return null;
+
     return (
         <div className="fixed inset-x-0 bottom-0 z-50 w-full bg-rose-600 p-4 tablet-md:px-5">
             <p className="text-center text-sm text-zinc-800 tablet-md:text-base">

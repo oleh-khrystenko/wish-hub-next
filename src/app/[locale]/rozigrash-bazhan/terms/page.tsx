@@ -25,9 +25,11 @@ export default function PrivacyPolicy() {
     return (
         <NextIntlClientProvider
             messages={pick(messages, [
+                'rozigrash-bazhan-terms-page',
                 'main-page',
                 'share-button',
                 'all-pages',
+                'inactivated',
             ])}
         >
             <UserSessionRefresher>

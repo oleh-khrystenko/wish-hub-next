@@ -30,6 +30,7 @@ export default function Instruction() {
                 'main-page',
                 'share-button',
                 'all-pages',
+                'inactivated',
             ])}
         >
             <UserSessionRefresher>

@@ -3,20 +3,16 @@
 import { FC, useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
-
-type ISO8601String = string;
-// ISO 8601 format: "YYYY-MM-DDTHH:mm:ss±hh:mm"
-// example: "2024-12-25T12:00:00+02:00" = December 25, 2024 at 12 pm Kyiv time
+import { GIVEAWAY_DATE_AND_TIME_END } from '@/helpers/utils/constants';
 
 interface IProps {
-    promotionTime: ISO8601String;
     labelEnd: string;
     label: string;
 }
 
-const CountdownTimer: FC<IProps> = ({ promotionTime, labelEnd, label }) => {
+const CountdownTimer: FC<IProps> = ({ labelEnd, label }) => {
     const calculateTimeLeft = () => {
-        const endDate = dayjs(promotionTime);
+        const endDate = dayjs(GIVEAWAY_DATE_AND_TIME_END);
         const now = dayjs();
         const difference = endDate.diff(now);
 
@@ -43,7 +39,7 @@ const CountdownTimer: FC<IProps> = ({ promotionTime, labelEnd, label }) => {
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [promotionTime]);
+    }, []);
 
     if (!mounted) {
         // Показуємо порожній div або початковий стан на сервері

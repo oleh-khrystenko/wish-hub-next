@@ -56,6 +56,16 @@ export const COLLECTION_NAME_MAX_LENGTH = 80;
 
 export const GIFT_PRICE = 500;
 
+type ISO8601String = string;
+// ISO 8601 format: "YYYY-MM-DDTHH:mm:ss±hh:mm"
+// example: "2024-12-25T12:00:00+02:00" = December 25, 2024 at 12 pm Kyiv time
+
+export const GIVEAWAY_DATE_AND_TIME_START: ISO8601String =
+    '2024-12-05T12:00:00+02:00';
+
+export const GIVEAWAY_DATE_AND_TIME_END: ISO8601String =
+    '2024-12-15T18:00:00+02:00';
+
 export const INSTRUKTOR_WISH_HUB = '66866f6b711bb81655dd35c0';
 
 export const USER_SLUG_TO_ID_MAP: Record<string, string> = {

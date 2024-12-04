@@ -4,6 +4,10 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/ru';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
+import {
+    GIFT_PRICE,
+    GIVEAWAY_DATE_AND_TIME_END,
+} from '@/helpers/utils/constants';
 import Cta from '@/app/[locale]/rozigrash-bazhan/Cta';
 import CandidatesForWin from '@/app/[locale]/rozigrash-bazhan/CandidatesForWin';
 import Algorithm from '@/app/[locale]/rozigrash-bazhan/Algorithm';
@@ -13,10 +17,11 @@ import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import CountdownTimer from '@/components/layouts/CountdownTimer';
 import Divider from '@/components/layouts/Divider';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
+import Inactivated from '@/components/layouts/Inactivated';
 import UiImage from '@/components/ui/UiImage';
+import UiButton from '@/components/ui/UiButton';
 import MainIcon from '@/components/icons/MainIcon';
 import ShareIcon from '@/components/icons/ShareIcon';
-import UiButton from '@/components/ui/UiButton';
 
 const Body: FC = () => {
     const rozigrashBazhanPageT = useTranslations('rozigrash-bazhan-page');
@@ -48,10 +53,12 @@ const Body: FC = () => {
         },
     ];
 
-    const promotionTime = '2024-12-15T18:00:00+02:00';
-    const formatedPromotionTime = dayjs(promotionTime)
+    const formatedPromotionDate = dayjs(GIVEAWAY_DATE_AND_TIME_END)
         .locale(activeLocale === 'ua' ? 'uk' : activeLocale)
         .format(getFullDate());
+    const formatedPromotionTime = dayjs(GIVEAWAY_DATE_AND_TIME_END)
+        .locale(activeLocale === 'ua' ? 'uk' : activeLocale)
+        .format(getTime());
 
     return (
         <main className="mt-3 pb-10 tablet-md:pb-16">
@@ -70,10 +77,10 @@ const Body: FC = () => {
 
                     <p className="mt-2 text-base text-zinc-600 dark:text-zinc-400 mobile-xl:text-center tablet-md:mt-6 tablet-md:text-left tablet-md:text-lg">
                         {rozigrashBazhanPageT('invite_your_friends', {
-                            date: formatedPromotionTime,
+                            date: formatedPromotionDate,
                         })}
                         {rozigrashBazhanPageT('at', {
-                            time: dayjs(promotionTime).format(getTime()),
+                            time: formatedPromotionTime,
                         })}
                         {rozigrashBazhanPageT('live')}
                     </p>
@@ -82,7 +89,6 @@ const Body: FC = () => {
 
                     <div className="mt-6 flex flex-col items-center gap-5">
                         <CountdownTimer
-                            promotionTime={promotionTime}
                             labelEnd={rozigrashBazhanPageT(
                                 'giveaway_has_ended'
                             )}
@@ -136,8 +142,12 @@ const Body: FC = () => {
 
                     <TempItem
                         count={4}
-                        title={rozigrashBazhanPageT('create_at_least')}
-                        text={rozigrashBazhanPageT('we_can_only')}
+                        title={rozigrashBazhanPageT('create_at_least', {
+                            price: GIFT_PRICE,
+                        })}
+                        text={rozigrashBazhanPageT('we_can_only', {
+                            price: GIFT_PRICE,
+                        })}
                     />
 
                     <TempItem
@@ -173,23 +183,21 @@ const Body: FC = () => {
                                     Instagram
                                 </a>
                                 {rozigrashBazhanPageT('to_catch', {
-                                    date: formatedPromotionTime,
+                                    date: formatedPromotionDate,
                                 })}
                                 {rozigrashBazhanPageT('at', {
-                                    time: dayjs(promotionTime).format(
-                                        getTime()
-                                    ),
+                                    time: formatedPromotionTime,
                                 })}
                             </>
                         }
                     />
                 </ul>
 
-                {/*<div className="mx-auto mt-6 flex justify-end tablet-md:w-3/4 desktop-xs:mx-0 desktop-xs:w-full">*/}
-                {/*    <UiButton href="rozigrash-bazhan/terms" variant="text-btn">*/}
-                {/*        {rozigrashBazhanPageT('detailed_terms')}*/}
-                {/*    </UiButton>*/}
-                {/*</div>*/}
+                <div className="mx-auto mt-6 flex justify-end tablet-md:w-3/4 desktop-xs:mx-0 desktop-xs:w-full">
+                    <UiButton href="rozigrash-bazhan/terms" variant="text-btn">
+                        {rozigrashBazhanPageT('detailed_terms')}
+                    </UiButton>
+                </div>
 
                 <CandidatesForWin />
 
@@ -205,7 +213,6 @@ const Body: FC = () => {
                     </div>
 
                     <CountdownTimer
-                        promotionTime={promotionTime}
                         labelEnd={rozigrashBazhanPageT('giveaway_has_ended')}
                         label={rozigrashBazhanPageT('time_left')}
                     />
@@ -213,6 +220,8 @@ const Body: FC = () => {
                     <Cta />
                 </div>
             </section>
+
+            <Inactivated />
         </main>
     );
 };

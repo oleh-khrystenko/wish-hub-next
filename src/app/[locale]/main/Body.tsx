@@ -2,7 +2,6 @@
 
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
-import { useMyUserStore } from '@/stores/my-user';
 import UseInstallPWA from '@/helpers/hooks/UseInstallPWA';
 import WishList from '@/app/[locale]/main/WishList';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
@@ -16,8 +15,6 @@ import MainIcon from '@/components/icons/MainIcon';
 const Body: FC = () => {
     const mainPageT = useTranslations('main-page');
     const allPagesT = useTranslations('all-pages');
-
-    const myUser = useMyUserStore((state) => state.myUser);
 
     const {
         installPWAPrompt,
@@ -81,7 +78,7 @@ const Body: FC = () => {
                 </div>
             </UiModal>
 
-            {myUser && !myUser.isActivated && <Inactivated />}
+            <Inactivated />
         </>
     );
 };
