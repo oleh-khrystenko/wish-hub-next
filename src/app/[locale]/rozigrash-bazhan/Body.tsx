@@ -1,18 +1,12 @@
 import { FC } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
-import dayjs from 'dayjs';
-import 'dayjs/locale/uk';
-import 'dayjs/locale/ru';
-import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
-import {
-    GIFT_PRICE,
-    GIVEAWAY_DATE_AND_TIME_END,
-} from '@/helpers/utils/constants';
+import { useTranslations } from 'next-intl';
+import { GIFT_PRICE } from '@/helpers/utils/constants';
 import Cta from '@/app/[locale]/rozigrash-bazhan/Cta';
 import CandidatesForWin from '@/app/[locale]/rozigrash-bazhan/CandidatesForWin';
 import Algorithm from '@/app/[locale]/rozigrash-bazhan/Algorithm';
 import Description from '@/app/[locale]/rozigrash-bazhan/Description';
 import TempItem from '@/app/[locale]/rozigrash-bazhan/TempItem';
+import FormatedTime from '@/app/[locale]/rozigrash-bazhan/FormatedTime';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import CountdownTimer from '@/components/layouts/CountdownTimer';
 import Divider from '@/components/layouts/Divider';
@@ -26,10 +20,6 @@ import ShareIcon from '@/components/icons/ShareIcon';
 const Body: FC = () => {
     const rozigrashBazhanPageT = useTranslations('rozigrash-bazhan-page');
     const allPagesT = useTranslations('all-pages');
-
-    const activeLocale = useLocale();
-
-    const { getFullDate, getTime } = UseLocaleFormats();
 
     const breadcrumbsPages = [
         {
@@ -53,13 +43,6 @@ const Body: FC = () => {
         },
     ];
 
-    const formatedPromotionDate = dayjs(GIVEAWAY_DATE_AND_TIME_END)
-        .locale(activeLocale === 'ua' ? 'uk' : activeLocale)
-        .format(getFullDate());
-    const formatedPromotionTime = dayjs(GIVEAWAY_DATE_AND_TIME_END)
-        .locale(activeLocale === 'ua' ? 'uk' : activeLocale)
-        .format(getTime());
-
     return (
         <main className="mt-3 pb-10 tablet-md:pb-16">
             <div className="mx-auto max-w-7xl">
@@ -76,12 +59,8 @@ const Body: FC = () => {
                     </h1>
 
                     <p className="mt-2 text-base text-zinc-600 dark:text-zinc-400 mobile-xl:text-center tablet-md:mt-6 tablet-md:text-left tablet-md:text-lg">
-                        {rozigrashBazhanPageT('invite_your_friends', {
-                            date: formatedPromotionDate,
-                        })}
-                        {rozigrashBazhanPageT('at', {
-                            time: formatedPromotionTime,
-                        })}
+                        {rozigrashBazhanPageT('invite_your_friends')}
+                        <FormatedTime />
                         {rozigrashBazhanPageT('live')}
                     </p>
 
@@ -182,12 +161,8 @@ const Body: FC = () => {
                                 >
                                     Instagram
                                 </a>
-                                {rozigrashBazhanPageT('to_catch', {
-                                    date: formatedPromotionDate,
-                                })}
-                                {rozigrashBazhanPageT('at', {
-                                    time: formatedPromotionTime,
-                                })}
+                                {rozigrashBazhanPageT('to_catch')}
+                                <FormatedTime />
                             </>
                         }
                     />
