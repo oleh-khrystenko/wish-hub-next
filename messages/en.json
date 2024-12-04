@@ -547,7 +547,8 @@
         "follow_us_on": "Follow us on",
         "stay_tuned": "Stay tuned to our",
         "to_catch": " to catch the live giveaway stream on {date}",
-        "social_networks": "We are on social networks"
+        "social_networks": "We are on social networks",
+        "detailed_terms": "Detailed participation terms"
     },
     "wish-page": {
         "head": {

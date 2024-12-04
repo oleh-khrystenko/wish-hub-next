@@ -16,6 +16,7 @@ import SocialNetworks from '@/components/layouts/SocialNetworks';
 import UiImage from '@/components/ui/UiImage';
 import MainIcon from '@/components/icons/MainIcon';
 import ShareIcon from '@/components/icons/ShareIcon';
+import UiButton from '@/components/ui/UiButton';
 
 const Body: FC = () => {
     const rozigrashBazhanPageT = useTranslations('rozigrash-bazhan-page');
@@ -184,9 +185,15 @@ const Body: FC = () => {
                     />
                 </ul>
 
+                {/*<div className="mx-auto mt-6 flex justify-end tablet-md:w-3/4 desktop-xs:mx-0 desktop-xs:w-full">*/}
+                {/*    <UiButton href="rozigrash-bazhan/terms" variant="text-btn">*/}
+                {/*        {rozigrashBazhanPageT('detailed_terms')}*/}
+                {/*    </UiButton>*/}
+                {/*</div>*/}
+
                 <CandidatesForWin />
 
-                <div className="mt-8 flex items-end justify-between gap-5">
+                <div className="mt-8 flex flex-col items-center justify-between gap-10 desktop-xs:flex-row desktop-xs:items-end">
                     <div className="">
                         <p className="text-lg font-bold text-zinc-800 dark:text-zinc-200 tablet-md:text-xl">
                             {rozigrashBazhanPageT('social_networks')}
