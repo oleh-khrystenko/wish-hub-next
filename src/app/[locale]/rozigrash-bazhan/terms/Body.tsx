@@ -209,6 +209,23 @@ const Body: FC = () => {
                         {rozigrashBazhanTermsPageT('page')}
                     </p>
 
+                    <p className="text-justify font-bold text-rose-500">
+                        {rozigrashBazhanTermsPageT('attention')}
+                    </p>
+
+                    <ul className="-mt-2 list-outside list-disc pl-6 marker:text-zinc-700 marker:dark:text-zinc-300">
+                        <li>
+                            <p className="text-justify text-zinc-700 dark:text-zinc-300">
+                                {rozigrashBazhanTermsPageT('if_invited')}
+                            </p>
+                        </li>
+                        <li>
+                            <p className="text-justify text-zinc-700 dark:text-zinc-300">
+                                {rozigrashBazhanTermsPageT('must_be_activated')}
+                            </p>
+                        </li>
+                    </ul>
+
                     <p className="text-justify text-zinc-700 dark:text-zinc-300">
                         {rozigrashBazhanTermsPageT('more_friends')}
                     </p>
