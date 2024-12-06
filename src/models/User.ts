@@ -49,6 +49,7 @@ export interface IInvitedPerson {
     firstName: IUser['firstName'];
     lastName: IUser['lastName'];
     avatar: IUser['avatar'];
+    isActivated: IUser['isActivated'];
 }
 
 export interface ICandidateForWin {
@@ -57,5 +58,6 @@ export interface ICandidateForWin {
     firstName: IUser['firstName'];
     lastName: IUser['lastName'];
     avatar: IUser['avatar'];
+    isActivated: IUser['isActivated'];
     invitedPerson: IInvitedPerson;
 }

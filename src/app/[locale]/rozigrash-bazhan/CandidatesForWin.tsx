@@ -46,48 +46,79 @@ const CandidatesForWin: FC = () => {
                     {candidates.map((candidate) => (
                         <li
                             key={candidate.invitedPerson.id}
-                            className="w-full rounded-md border border-dashed border-zinc-500 dark:border-zinc-600 tablet-md:w-fit tablet-md:rounded-xl"
+                            className={`${candidate.isActivated ? 'border-zinc-500 dark:border-zinc-600' : 'border-rose-500'} w-full rounded-md border border-dashed tablet-md:w-fit tablet-md:rounded-xl`}
                             onClick={() => handleGoToProfilePage(candidate.id)}
                         >
-                            <div className="relative flex h-full items-center gap-4 rounded-md border border-dashed border-transparent px-6 py-2 before:absolute before:inset-0 before:h-full before:w-full before:rounded-md before:bg-wish-bg before:bg-cover before:bg-center before:bg-no-repeat before:opacity-0 tablet-md:rounded-xl tablet-md:before:rounded-xl">
-                                <span className="text-xl font-bold text-cyan-500 dark:text-cyan-300">
-                                    {candidate.serialNumber}
-                                </span>
+                            <div className="relative h-full px-6 py-2">
+                                <div
+                                    className={`${!candidate.isActivated && 'animate-blink'} flex items-center gap-4`}
+                                >
+                                    <span className="text-xl font-bold text-cyan-500 dark:text-cyan-300">
+                                        {candidate.serialNumber}
+                                    </span>
 
-                                <UiAvatar
-                                    avatar={candidate.avatar}
-                                    alt={candidate.firstName}
-                                    size={40}
-                                    sizeTailwind="w-10 min-w-10 h-10 min-h-10"
-                                />
-
-                                <p className="max-w-xs truncate whitespace-nowrap text-zinc-800 dark:text-zinc-200 tablet-md:text-lg">
-                                    {candidate.firstName}
-                                    {candidate.lastName && (
-                                        <> {candidate.lastName.charAt(0)}.</>
-                                    )}
-                                </p>
-
-                                <div className="absolute bottom-0 right-1 flex max-w-[80%] translate-y-1/2 items-center gap-3 rounded-md bg-zinc-300 px-2 py-1 dark:bg-zinc-800">
                                     <UiAvatar
-                                        avatar={candidate.invitedPerson.avatar}
-                                        alt={candidate.invitedPerson.firstName}
-                                        size={24}
-                                        sizeTailwind="w-6 min-w-6 h-6 min-h-6"
-                                        sizeIcon="w-4 h-4"
+                                        avatar={candidate.avatar}
+                                        alt={candidate.firstName}
+                                        size={40}
+                                        sizeTailwind="w-10 min-w-10 h-10 min-h-10"
                                     />
 
-                                    <p className="truncate whitespace-nowrap text-xs text-zinc-800 dark:text-zinc-200 tablet-md:text-sm">
-                                        {candidate.invitedPerson.firstName}
-                                        {candidate.invitedPerson.lastName && (
+                                    <p className="max-w-xs truncate whitespace-nowrap text-zinc-800 dark:text-zinc-200 tablet-md:text-lg">
+                                        {candidate.firstName}
+                                        {candidate.lastName && (
                                             <>
                                                 {' '}
-                                                {candidate.invitedPerson.lastName.charAt(
-                                                    0
-                                                )}
-                                                .
+                                                {candidate.lastName.charAt(0)}.
                                             </>
                                         )}
+                                    </p>
+                                </div>
+
+                                <p
+                                    className={`${candidate.isActivated ? 'opacity-0' : 'animate-blink-duration'} absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-lg font-bold text-rose-500`}
+                                >
+                                    {rozigrashBazhanPageT('not_activated')}
+                                </p>
+
+                                <div
+                                    className={`${candidate.invitedPerson.isActivated ? 'border-transparent' : 'border-rose-500'} absolute bottom-0 right-1 max-w-[80%] translate-y-1/2 rounded-md border border-dashed bg-zinc-300 px-3 py-1 dark:bg-zinc-800`}
+                                >
+                                    <div
+                                        className={`${!candidate.invitedPerson.isActivated && 'animate-blink'} flex items-center gap-3`}
+                                    >
+                                        <UiAvatar
+                                            avatar={
+                                                candidate.invitedPerson.avatar
+                                            }
+                                            alt={
+                                                candidate.invitedPerson
+                                                    .firstName
+                                            }
+                                            size={24}
+                                            sizeTailwind="w-6 min-w-6 h-6 min-h-6"
+                                            sizeIcon="w-4 h-4"
+                                        />
+
+                                        <p className="truncate whitespace-nowrap text-xs text-zinc-800 dark:text-zinc-200 tablet-md:text-sm">
+                                            {candidate.invitedPerson.firstName}
+                                            {candidate.invitedPerson
+                                                .lastName && (
+                                                <>
+                                                    {' '}
+                                                    {candidate.invitedPerson.lastName.charAt(
+                                                        0
+                                                    )}
+                                                    .
+                                                </>
+                                            )}
+                                        </p>
+                                    </div>
+
+                                    <p
+                                        className={`${candidate.invitedPerson.isActivated ? 'opacity-0' : 'animate-blink-duration'} absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-xs font-bold leading-3 text-rose-500`}
+                                    >
+                                        {rozigrashBazhanPageT('not_activated')}
                                     </p>
                                 </div>
                             </div>

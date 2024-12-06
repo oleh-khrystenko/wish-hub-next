@@ -80,6 +80,10 @@ const config: Config = {
                 fulfilled: {
                     to: { transform: 'rotate(3deg)', borderColor: '#67e8f9' },
                 },
+                blink: {
+                    '0%, 100%': { opacity: '1' },
+                    '50%': { opacity: '0' },
+                },
             },
             animation: {
                 'spinner-1': 'spinner 1.2s ease-in-out infinite 0s',
@@ -118,6 +122,8 @@ const config: Config = {
                 'appear-22': 'appear 0.2s forwards ease-in-out 3.2s',
                 'fulfilled-1': '-fulfilled 0.2s forwards ease-in-out 2.2s',
                 'fulfilled-2': 'fulfilled 0.2s forwards ease-in-out 3s',
+                blink: 'blink 3s infinite',
+                'blink-duration': 'blink 3s infinite 1.5s',
             },
         },
         screens: {
