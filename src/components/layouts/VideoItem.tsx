@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, ReactNode, RefObject, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useMyUserStore } from '@/stores/my-user';
@@ -8,11 +10,19 @@ interface IProps {
     src: string;
     title: ReactNode;
     videoRef?: RefObject<HTMLLIElement>;
+    videoClasses?: string;
     tab?: string;
     video?: string;
 }
 
-const VideoItem: FC<IProps> = ({ src, title, videoRef, tab, video }) => {
+const VideoItem: FC<IProps> = ({
+    src,
+    title,
+    videoRef,
+    videoClasses = 'pt-[56.25%]',
+    tab,
+    video,
+}) => {
     const [pulse, setPulse] = useState<boolean>(false);
 
     const myUser = useMyUserStore((state) => state.myUser);
@@ -31,7 +41,9 @@ const VideoItem: FC<IProps> = ({ src, title, videoRef, tab, video }) => {
             className={`${pulse && !showGlobalLoading && 'animate-pulse'} flex flex-col gap-2 rounded-lg border border-dashed border-zinc-600 p-2 dark:border-zinc-400 tablet-lg:gap-3`}
             ref={videoRef}
         >
-            <div className="relative h-0 w-full overflow-hidden rounded-lg pt-[56.25%]">
+            <div
+                className={`${videoClasses} relative h-0 w-full overflow-hidden rounded-lg`}
+            >
                 <iframe
                     className="absolute inset-0 h-full w-full"
                     src={src}

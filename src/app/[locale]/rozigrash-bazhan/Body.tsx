@@ -12,6 +12,7 @@ import CountdownTimer from '@/components/layouts/CountdownTimer';
 import Divider from '@/components/layouts/Divider';
 import SocialNetworks from '@/components/layouts/SocialNetworks';
 import Inactivated from '@/components/layouts/Inactivated';
+import VideoItem from '@/components/layouts/VideoItem';
 import UiImage from '@/components/ui/UiImage';
 import UiButton from '@/components/ui/UiButton';
 import MainIcon from '@/components/icons/MainIcon';
@@ -94,84 +95,105 @@ const Body: FC = () => {
                     </p>
                 </div>
 
-                <ul className="mx-auto mt-10 grid gap-6 tablet-md:w-3/4 desktop-xs:mx-0 desktop-xs:w-full desktop-xs:grid-cols-2">
-                    <TempItem
-                        count={1}
-                        title={rozigrashBazhanPageT('you_must_have')}
-                        text={rozigrashBazhanPageT('auth_and_activate')}
-                    />
+                <div className="mx-auto flex flex-col gap-8 tablet-md:w-3/4 desktop-xs:mx-0 desktop-xs:w-full desktop-xs:flex-row desktop-xs:items-center">
+                    <div>
+                        <ul className="mt-10 grid gap-6 desktop-xs:grid-cols-2">
+                            <TempItem
+                                count={1}
+                                title={rozigrashBazhanPageT('you_must_have')}
+                                text={rozigrashBazhanPageT('auth_and_activate')}
+                            />
 
-                    <TempItem
-                        count={2}
-                        title={rozigrashBazhanPageT('share_your_link')}
-                        text={
-                            <>
-                                {rozigrashBazhanPageT('locate_the_link')}
-                                <ShareIcon iconClasses="inline mx-0.5 w-4 h-4 fill-cyan-500 dark:fill-cyan-300" />
-                                {rozigrashBazhanPageT('on_the_website')}
-                            </>
-                        }
-                    />
+                            <TempItem
+                                count={2}
+                                title={rozigrashBazhanPageT('share_your_link')}
+                                text={
+                                    <>
+                                        {rozigrashBazhanPageT(
+                                            'locate_the_link'
+                                        )}
+                                        <ShareIcon iconClasses="inline mx-0.5 w-4 h-4 fill-cyan-500 dark:fill-cyan-300" />
+                                        {rozigrashBazhanPageT('on_the_website')}
+                                    </>
+                                }
+                            />
 
-                    <TempItem
-                        count={3}
-                        title={rozigrashBazhanPageT('invite_using_link')}
-                        text={rozigrashBazhanPageT('each_friend')}
-                    />
+                            <TempItem
+                                count={3}
+                                title={rozigrashBazhanPageT(
+                                    'invite_using_link'
+                                )}
+                                text={rozigrashBazhanPageT('each_friend')}
+                            />
 
-                    <TempItem
-                        count={4}
-                        title={rozigrashBazhanPageT('create_at_least', {
-                            price: GIFT_PRICE,
-                        })}
-                        text={rozigrashBazhanPageT('we_can_only', {
-                            price: GIFT_PRICE,
-                        })}
-                    />
+                            <TempItem
+                                count={4}
+                                title={rozigrashBazhanPageT('create_at_least', {
+                                    price: GIFT_PRICE,
+                                })}
+                                text={rozigrashBazhanPageT('we_can_only', {
+                                    price: GIFT_PRICE,
+                                })}
+                            />
 
-                    <TempItem
-                        count={5}
-                        title={rozigrashBazhanPageT('provide_delivery_address')}
-                        text={rozigrashBazhanPageT('your_profile_must')}
-                    />
+                            <TempItem
+                                count={5}
+                                title={rozigrashBazhanPageT(
+                                    'provide_delivery_address'
+                                )}
+                                text={rozigrashBazhanPageT('your_profile_must')}
+                            />
 
-                    <TempItem
-                        count={6}
-                        title={
-                            <>
-                                {rozigrashBazhanPageT('follow_us_on')}{' '}
-                                <a
-                                    className="text-cyan-400 dark:text-cyan-300"
-                                    href="https://www.instagram.com/wish_hub_net"
-                                    target="_blank"
-                                    rel="noopener noreferrer external nofollow"
-                                >
-                                    Instagram
-                                </a>
-                            </>
-                        }
-                        text={
-                            <>
-                                {rozigrashBazhanPageT('stay_tuned')}{' '}
-                                <a
-                                    className="text-cyan-400 dark:text-cyan-300"
-                                    href="https://www.instagram.com/wish_hub_net"
-                                    target="_blank"
-                                    rel="noopener noreferrer external nofollow"
-                                >
-                                    Instagram
-                                </a>
-                                {rozigrashBazhanPageT('to_catch')}
-                                <FormatedTime />
-                            </>
-                        }
-                    />
-                </ul>
+                            <TempItem
+                                count={6}
+                                title={
+                                    <>
+                                        {rozigrashBazhanPageT('follow_us_on')}{' '}
+                                        <a
+                                            className="text-cyan-400 dark:text-cyan-300"
+                                            href="https://www.instagram.com/wish_hub_net"
+                                            target="_blank"
+                                            rel="noopener noreferrer external nofollow"
+                                        >
+                                            Instagram
+                                        </a>
+                                    </>
+                                }
+                                text={
+                                    <>
+                                        {rozigrashBazhanPageT('stay_tuned')}{' '}
+                                        <a
+                                            className="text-cyan-400 dark:text-cyan-300"
+                                            href="https://www.instagram.com/wish_hub_net"
+                                            target="_blank"
+                                            rel="noopener noreferrer external nofollow"
+                                        >
+                                            Instagram
+                                        </a>
+                                        {rozigrashBazhanPageT('to_catch')}
+                                        <FormatedTime />
+                                    </>
+                                }
+                            />
+                        </ul>
 
-                <div className="mx-auto mt-6 flex justify-end tablet-md:w-3/4 desktop-xs:mx-0 desktop-xs:w-full">
-                    <UiButton href="rozigrash-bazhan/terms" variant="text-btn">
-                        {rozigrashBazhanPageT('detailed_terms')}
-                    </UiButton>
+                        <div className="mx-auto mt-6 flex justify-end tablet-md:w-3/4 desktop-xs:mx-0 desktop-xs:w-full">
+                            <UiButton
+                                href="rozigrash-bazhan/terms"
+                                variant="text-btn"
+                            >
+                                {rozigrashBazhanPageT('detailed_terms')}
+                            </UiButton>
+                        </div>
+                    </div>
+
+                    <div className="desktop-xs:min-w-80">
+                        <VideoItem
+                            src="https://www.youtube.com/embed/-X22AEWHMo0?si=HEQYqBxpMu0QUXWq"
+                            title={rozigrashBazhanPageT('referral_links')}
+                            videoClasses="pt-[177%]"
+                        />
+                    </div>
                 </div>
 
                 <CandidatesForWin />
