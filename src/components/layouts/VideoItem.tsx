@@ -1,13 +1,23 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, RefObject } from 'react';
+import ShareButton from '@/components/layouts/ShareButton';
+import { useMyUserStore } from '@/stores/my-user';
 
 interface IProps {
     src: string;
     title: ReactNode;
+    videoRef?: RefObject<HTMLLIElement>;
+    tab?: string;
+    video?: string;
 }
 
-const VideoItem: FC<IProps> = ({ src, title }) => {
+const VideoItem: FC<IProps> = ({ src, title, videoRef, tab, video }) => {
+    const myUser = useMyUserStore((state) => state.myUser);
+
     return (
-        <li className="flex flex-col gap-2 rounded-lg border border-dashed border-zinc-600 p-2 dark:border-zinc-400 tablet-lg:gap-3">
+        <li
+            className="flex flex-col gap-2 rounded-lg border border-dashed border-zinc-600 p-2 dark:border-zinc-400 tablet-lg:gap-3"
+            ref={videoRef}
+        >
             <div className="relative h-0 w-full overflow-hidden rounded-lg pt-[56.25%]">
                 <iframe
                     className="absolute inset-0 h-full w-full"
@@ -20,9 +30,22 @@ const VideoItem: FC<IProps> = ({ src, title }) => {
                 ></iframe>
             </div>
 
-            <p className="text-center font-bold leading-tight text-zinc-900 dark:text-zinc-100 tablet-md:text-lg tablet-md:leading-tight">
-                {title}
-            </p>
+            <div className="relative my-auto px-8">
+                <p className="text-center font-bold leading-tight text-zinc-900 dark:text-zinc-100 tablet-md:text-lg tablet-md:leading-tight">
+                    {title}
+                </p>
+
+                {video && (
+                    <ShareButton
+                        link={
+                            myUser
+                                ? `/instruction?utm_source=user&utm_medium=share&utm_campaign=user_${myUser.id}&tab=${tab}&video=${video}`
+                                : `/instruction?tab=${tab}&video=${video}`
+                        }
+                        actionClasses="absolute top-1/2 right-0 p-1 -translate-y-1/2"
+                    />
+                )}
+            </div>
         </li>
     );
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import VideoItem from '@/components/layouts/VideoItem';
@@ -10,16 +10,55 @@ import UiImage from '@/components/ui/UiImage';
 const Tabs: FC = () => {
     const [isInstructionActive, setIsInstructionActive] =
         useState<boolean>(true);
+    const [changedTab, setChangedTab] = useState<boolean>(false);
+
+    // Рефи для відео
+    const videoRefs = {
+        overview: useRef<HTMLLIElement>(null),
+        wish: useRef<HTMLLIElement>(null),
+        collection: useRef<HTMLLIElement>(null),
+        book: useRef<HTMLLIElement>(null),
+        ios: useRef<HTMLLIElement>(null),
+        android: useRef<HTMLLIElement>(null),
+        helps: useRef<HTMLLIElement>(null),
+        keep: useRef<HTMLLIElement>(null),
+        business: useRef<HTMLLIElement>(null),
+        santa: useRef<HTMLLIElement>(null),
+    };
 
     const searchParams = useSearchParams();
 
     const instructionPageT = useTranslations('instruction-page');
     const allPagesT = useTranslations('all-pages');
 
+    const handleChangeTab = (value: boolean) => {
+        setIsInstructionActive(value);
+        setChangedTab(true);
+    };
+
     useEffect(() => {
-        const features = searchParams.get('features');
-        setIsInstructionActive(features === null);
-    }, [searchParams]);
+        if (changedTab) return;
+        const tab = searchParams.get('tab');
+        if (tab && tab === 'features') {
+            setIsInstructionActive(false);
+        }
+
+        type VideoKeys = keyof typeof videoRefs;
+        const video = searchParams.get('video') as VideoKeys;
+        if (video && videoRefs[video]?.current) {
+            const element = videoRefs[video].current;
+            const headerHeight = 80;
+            const top =
+                element.getBoundingClientRect().top +
+                window.scrollY -
+                headerHeight;
+
+            window.scrollTo({
+                top: top,
+                behavior: 'smooth',
+            });
+        }
+    }, [searchParams, videoRefs]);
 
     return (
         <>
@@ -35,7 +74,7 @@ const Tabs: FC = () => {
                     id="tab-instructions"
                     ariaControls="panel-instructions"
                     ariaSelected="true"
-                    onBtnClick={() => setIsInstructionActive(true)}
+                    onBtnClick={() => handleChangeTab(true)}
                 >
                     {instructionPageT('instructions')}
                 </UiButton>
@@ -47,7 +86,7 @@ const Tabs: FC = () => {
                     id="tab-features"
                     ariaControls="panel-features"
                     ariaSelected="false"
-                    onBtnClick={() => setIsInstructionActive(false)}
+                    onBtnClick={() => handleChangeTab(false)}
                 >
                     {instructionPageT('features')}
                 </UiButton>
@@ -117,31 +156,49 @@ const Tabs: FC = () => {
                     <VideoItem
                         src="https://www.youtube.com/embed/Kpp4cVX9hAk?si=-vqjlSy1muDdWc5p"
                         title={instructionPageT('overview')}
+                        tab="instructions"
+                        video="overview"
+                        videoRef={videoRefs.overview}
                     />
 
                     <VideoItem
                         src="https://www.youtube.com/embed/dcB6G9u1CzI?si=Oigoujz3AjTYSmwb"
                         title={instructionPageT('create_wish')}
+                        tab="instructions"
+                        video="wish"
+                        videoRef={videoRefs.wish}
                     />
 
                     <VideoItem
                         src="https://www.youtube.com/embed/_XiMVoMufUg?si=rFOTakdph0NTjzgS"
                         title={instructionPageT('create_collection')}
+                        tab="instructions"
+                        video="collection"
+                        videoRef={videoRefs.collection}
                     />
 
                     <VideoItem
                         src="https://www.youtube.com/embed/DswAfrw47dw?si=u6GwXAo5qvccJBG6"
                         title={instructionPageT('book_wish')}
+                        tab="instructions"
+                        video="book"
+                        videoRef={videoRefs.book}
                     />
 
                     <VideoItem
                         src="https://www.youtube.com/embed/RprNSADQzQA?si=eZAjRAnmpKQ3q6vI"
                         title={instructionPageT('install_ios')}
+                        tab="instructions"
+                        video="ios"
+                        videoRef={videoRefs.ios}
                     />
 
                     <VideoItem
                         src="https://www.youtube.com/embed/_BqeXkZkzyc?si=hGGy-gM5VkGri-98"
                         title={instructionPageT('install_android')}
+                        tab="instructions"
+                        video="android"
+                        videoRef={videoRefs.android}
                     />
                 </ul>
             </div>
@@ -208,21 +265,33 @@ const Tabs: FC = () => {
                     <VideoItem
                         src="https://www.youtube.com/embed/VTXq1_CaIu0?si=2gqJY4EMRCGPwCxM"
                         title={instructionPageT('how_wish_hub')}
+                        tab="features"
+                        video="helps"
+                        videoRef={videoRefs.helps}
                     />
 
                     <VideoItem
                         src="https://www.youtube.com/embed/9gJoAS2FyLE?si=M_vabhSwS6w0qW-f"
                         title={instructionPageT('keep_all_your')}
+                        tab="features"
+                        video="keep"
+                        videoRef={videoRefs.keep}
                     />
 
                     <VideoItem
                         src="https://www.youtube.com/embed/ztMC4ezBq3c?si=cM8QyCnIORppGSic"
                         title={instructionPageT('wish_hub_business')}
+                        tab="features"
+                        video="business"
+                        videoRef={videoRefs.business}
                     />
 
                     <VideoItem
                         src="https://www.youtube.com/embed/k3KC1mTtnp0?si=04RCtvPjwB7dV_hr"
                         title={instructionPageT('secret_santa')}
+                        tab="features"
+                        video="santa"
+                        videoRef={videoRefs.santa}
                     />
                 </ul>
             </div>

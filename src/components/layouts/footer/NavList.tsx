@@ -18,7 +18,7 @@ const NavList: FC<IProps> = ({ navList, remove }) => {
         <nav>
             <ul className="flex flex-col gap-2">
                 {navList.map(({ href, title, isNew }, idx) => {
-                    if (href === remove) {
+                    if (remove && href.includes(remove)) {
                         return (
                             <li key={href + idx}>
                                 <UiButton
