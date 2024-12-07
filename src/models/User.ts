@@ -37,11 +37,20 @@ export interface IUser {
 
 export type TCurrentAvatar = File | 'delete' | string;
 
+export interface IAdminData {
+    usersCount: number;
+    notActivatedUsersCount: number;
+    wishesCount: number;
+    executedWishesCount: number;
+    bookedWishesCount: number;
+}
+
 export interface IAuth {
     accessToken: string;
     refreshToken: string;
     user: IUser;
     wishes: IGuestWish[];
+    adminData: IAdminData;
 }
 
 export interface IInvitedPerson {

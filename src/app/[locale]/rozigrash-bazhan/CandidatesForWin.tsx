@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { ICandidateForWin, IUser } from '@/models/User';
 import { useMyUserStore } from '@/stores/my-user';
-import { INSTRUKTOR_WISH_HUB } from '@/helpers/utils/constants';
+import { ADMIN_IDS } from '@/helpers/utils/constants';
 import candidatesForWinApi from '@/helpers/api/candidates-for-win';
 import UiAvatar from '@/components/ui/UiAvatar';
 
@@ -21,7 +21,7 @@ const CandidatesForWin: FC = () => {
     const myUser = useMyUserStore((state) => state.myUser);
 
     const handleGoToProfilePage = (userId: IUser['id']) => {
-        if (myUser?.id === INSTRUKTOR_WISH_HUB) {
+        if (myUser && ADMIN_IDS.includes(myUser.id)) {
             return router.push(`/${activeLocale}/user/${userId}/profile`);
         }
     };

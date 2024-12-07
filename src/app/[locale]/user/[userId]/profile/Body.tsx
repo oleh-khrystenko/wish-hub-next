@@ -6,6 +6,8 @@ import { useTranslations } from 'next-intl';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
+import { useSettingsStore } from '@/stores/settings';
+import { ADMIN_IDS } from '@/helpers/utils/constants';
 import EditProfile from '@/app/[locale]/user/[userId]/profile/EditProfile';
 import ChangePassword from '@/app/[locale]/user/[userId]/profile/ChangePassword';
 import DetailProfile from '@/app/[locale]/user/[userId]/profile/DetailProfile';
@@ -31,6 +33,8 @@ const Body: FC = () => {
     const myUser = useMyUserStore((state) => state.myUser);
 
     const getUser = useUsersStore((state) => state.getUser);
+
+    const adminData = useSettingsStore((state) => state.adminData);
 
     const breadcrumbsPages = [
         {
@@ -119,6 +123,29 @@ const Body: FC = () => {
                         <UiButton href={`user/${userId}/collection`}>
                             {profilePageT('user_collection')}
                         </UiButton>
+                    </div>
+                )}
+
+                {userId === myUser?.id && ADMIN_IDS.includes(myUser.id) && (
+                    <div className="mt-8 flex flex-col gap-4">
+                        <p className="text-zinc-400 dark:text-zinc-500">
+                            кількість користувачів: {adminData?.usersCount}
+                        </p>
+                        <p className="text-zinc-400 dark:text-zinc-500">
+                            кількість не активованих користувачів:{' '}
+                            {adminData?.notActivatedUsersCount}
+                        </p>
+                        <p className="text-zinc-400 dark:text-zinc-500">
+                            кількість бажань: {adminData?.wishesCount}
+                        </p>
+                        <p className="text-zinc-400 dark:text-zinc-500">
+                            кількість виконаних бажань:{' '}
+                            {adminData?.executedWishesCount}
+                        </p>
+                        <p className="text-zinc-400 dark:text-zinc-500">
+                            кількість заброньованих бажань:{' '}
+                            {adminData?.bookedWishesCount}
+                        </p>
                     </div>
                 )}
 

@@ -18,11 +18,12 @@ import { useSettingsStore } from '@/stores/settings';
 
 const { setSelectedUserId } = useUsersStore.getState();
 const { setShowGlobalLoading } = useSettingsStore.getState();
+const { setAdminData } = useSettingsStore.getState();
 
 interface IMyUserStore {
     myUser: IUser | null;
-    candidate: ICandidate | null;
     isLoading: boolean;
+    candidate: ICandidate | null;
     setCandidate: (data: ICandidate) => void;
     registration: (data: IRegistration, errorT: string) => Promise<void>;
     googleAuthorization: (data: IGoogleAuth, errorT: string) => Promise<void>;
@@ -39,8 +40,8 @@ interface IMyUserStore {
 
 export const useMyUserStore = create<IMyUserStore>((set) => ({
     myUser: null,
-    candidate: null,
     isLoading: false,
+    candidate: null,
     setCandidate: (data) => {
         set((state) => ({
             ...state,
@@ -170,6 +171,8 @@ export const useMyUserStore = create<IMyUserStore>((set) => ({
                 ...state,
                 myUser: response.data.user,
             }));
+
+            setAdminData(response.data.adminData);
 
             return response.data.user;
         } catch (error: any) {

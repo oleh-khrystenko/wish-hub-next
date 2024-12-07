@@ -1,3 +1,5 @@
+import { IUser } from '@/models/User';
+
 export const ALLOWED_FILE_EXTENSIONS: { [key: string]: string } = {
     jpg: 'image/jpeg',
     jpeg: 'image/jpeg',
@@ -66,7 +68,18 @@ export const GIVEAWAY_DATE_AND_TIME_START: ISO8601String =
 export const GIVEAWAY_DATE_AND_TIME_END: ISO8601String =
     '2024-12-15T18:00:00+02:00';
 
-export const INSTRUKTOR_WISH_HUB = '66866f6b711bb81655dd35c0';
+const OLEH_KHRYSTENKO = '66070a443872b1f2acbda515';
+const TETIANA_KHRYSTENKO = '66086710ccbe41253667c7ff';
+const IRYNA_RUDKIVSKA = '660ee18712ed09732d4c7456';
+const WISH_HUB = '660840efccbe41253667c6be';
+const INSTRUKTOR_WISH_HUB = '66866f6b711bb81655dd35c0';
+export const ADMIN_IDS: IUser['id'][] = [
+    OLEH_KHRYSTENKO,
+    TETIANA_KHRYSTENKO,
+    IRYNA_RUDKIVSKA,
+    WISH_HUB,
+    INSTRUKTOR_WISH_HUB,
+];
 
 export const USER_SLUG_TO_ID_MAP: Record<string, string> = {
     'idei-podarunkiv': '660840efccbe41253667c6be',
