@@ -84,6 +84,10 @@ const config: Config = {
                     '0%, 100%': { opacity: '1' },
                     '50%': { opacity: '0' },
                 },
+                pulse: {
+                    '0%, 50%, 100%': { transform: 'scale(1)' },
+                    '25%, 75%': { transform: 'scale(1.05)' },
+                },
             },
             animation: {
                 'spinner-1': 'spinner 1.2s ease-in-out infinite 0s',
@@ -124,6 +128,7 @@ const config: Config = {
                 'fulfilled-2': 'fulfilled 0.2s forwards ease-in-out 3s',
                 blink: 'blink 3s infinite',
                 'blink-duration': 'blink 3s infinite 1.5s',
+                pulse: 'pulse 2s ease-in-out 2s',
             },
         },
         screens: {

@@ -1,6 +1,8 @@
-import { FC, ReactNode, RefObject } from 'react';
-import ShareButton from '@/components/layouts/ShareButton';
+import { FC, ReactNode, RefObject, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useMyUserStore } from '@/stores/my-user';
+import { useSettingsStore } from '@/stores/settings';
+import ShareButton from '@/components/layouts/ShareButton';
 
 interface IProps {
     src: string;
@@ -11,11 +13,22 @@ interface IProps {
 }
 
 const VideoItem: FC<IProps> = ({ src, title, videoRef, tab, video }) => {
+    const [pulse, setPulse] = useState<boolean>(false);
+
     const myUser = useMyUserStore((state) => state.myUser);
+    const showGlobalLoading = useSettingsStore(
+        (state) => state.showGlobalLoading
+    );
+
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        setPulse(searchParams.get('video') === video);
+    }, [searchParams]);
 
     return (
         <li
-            className="flex flex-col gap-2 rounded-lg border border-dashed border-zinc-600 p-2 dark:border-zinc-400 tablet-lg:gap-3"
+            className={`${pulse && !showGlobalLoading && 'animate-pulse'} flex flex-col gap-2 rounded-lg border border-dashed border-zinc-600 p-2 dark:border-zinc-400 tablet-lg:gap-3`}
             ref={videoRef}
         >
             <div className="relative h-0 w-full overflow-hidden rounded-lg pt-[56.25%]">
