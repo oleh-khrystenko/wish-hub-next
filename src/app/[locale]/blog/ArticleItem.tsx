@@ -28,7 +28,7 @@ const ArticleItem: FC<IProps> = ({ article }) => {
     return (
         <li>
             <UiButton
-                href={`/blog/${article.slug}`}
+                href={`blog/${article.slug}`}
                 variant="clear-styles"
                 classesWrap="group flex h-full w-full flex-col items-center rounded-lg border-2 border-dashed border-zinc-300 dark:border-zinc-700 px-2 pb-3 pt-2"
                 onLinkClick={() => setShowGlobalLoading(true)}
