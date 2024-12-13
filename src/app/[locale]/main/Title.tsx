@@ -5,6 +5,7 @@ import { ICollection } from '@/models/Collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import collectionApi from '@/stores/collection/api';
+import UiButton from '@/components/ui/UiButton';
 
 interface IProps {
     selectedUserFullName: string;
@@ -90,12 +91,17 @@ const Title: FC<IProps> = ({ selectedUserFullName }) => {
                                     {mainPageT('wishes_of_user')}
                                 </span>
                             )}
-                            <span
-                                className="min-h-7 max-w-full truncate pr-1 text-2xl font-bold text-zinc-950 dark:text-zinc-100 tablet-md:text-3xl"
-                                title={selectedUserFullName}
+                            <UiButton
+                                href={`user/${selectedUserId}/collection`}
+                                variant="clear-styles"
                             >
-                                &quot;{selectedUserFullName}&quot;
-                            </span>
+                                <span
+                                    className="min-h-7 max-w-full truncate pr-1 text-2xl font-bold text-zinc-950 dark:text-zinc-100 tablet-md:text-3xl"
+                                    title={selectedUserFullName}
+                                >
+                                    &quot;{selectedUserFullName}&quot;
+                                </span>
+                            </UiButton>
                         </h1>
                     )}
                 </>
