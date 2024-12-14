@@ -1014,7 +1014,8 @@
         "hours": "hours",
         "minutes": "minutes",
         "seconds": "seconds",
-        "Collection": "Collection"
+        "Collection": "Collection",
+        "all_collections": "All Collections"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",

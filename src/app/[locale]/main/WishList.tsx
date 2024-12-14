@@ -11,6 +11,7 @@ import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
+import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import Title from '@/app/[locale]/main/Title';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
@@ -86,6 +87,7 @@ const WishList: FC = () => {
         getInitialCollectionWishes,
     } = UseInitialWishes();
     const { getFullName } = UseFullName();
+    const { screenWidth } = UseScreenWidth();
 
     const collectionId = searchParams.get('collectionId');
 
@@ -99,6 +101,20 @@ const WishList: FC = () => {
         collections.length > 0 || collectionsSearch.length > 0;
 
     const showFilters = showWishes || showCollections;
+
+    const showCreateActions =
+        myUser?.id === selectedUserId || (!myUser && !selectedUserId);
+
+    let visibleCollectionsCount = 5;
+    showCreateActions && (visibleCollectionsCount = 4);
+    screenWidth >= 1180 && (visibleCollectionsCount = 7);
+    screenWidth >= 1180 && showCreateActions && (visibleCollectionsCount = 6);
+    screenWidth >= 1366 && (visibleCollectionsCount = 9);
+    screenWidth >= 1366 && showCreateActions && (visibleCollectionsCount = 8);
+    screenWidth >= 1920 && (visibleCollectionsCount = 11);
+    screenWidth >= 1920 && showCreateActions && (visibleCollectionsCount = 10);
+    screenWidth >= 2560 && (visibleCollectionsCount = 15);
+    screenWidth >= 2560 && showCreateActions && (visibleCollectionsCount = 14);
 
     const selectedUserFullName = useMemo(() => {
         const selectedUser = users.find((user) => user.id === selectedUserId);
@@ -358,14 +374,14 @@ const WishList: FC = () => {
                     ref={wishListRef}
                 >
                     <ul className="grid grid-cols-2 gap-1.5 tablet-lg:grid-cols-3 tablet-xl:grid-cols-4 tablet-xl:gap-4 desktop-sm:grid-cols-5 desktop-xl:grid-cols-6 desktop-2xl:grid-cols-8">
-                        {(myUser?.id === selectedUserId ||
-                            (!myUser && !selectedUserId)) && (
+                        {showCreateActions && (
                             <CreateWishAndCollection currentPage="main" />
                         )}
 
-                        {collections.length > 0 && (
-                            <CollectionBlock backLink="main" />
-                        )}
+                        <CollectionBlock
+                            backLink="main"
+                            visibleCollectionsCount={visibleCollectionsCount}
+                        />
 
                         {wishes.length > 0 &&
                             wishes.map((wish, idx) => (

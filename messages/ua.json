@@ -1014,7 +1014,8 @@
         "hours": "годин",
         "minutes": "хвилин",
         "seconds": "секунд",
-        "Collection": "Колекція"
+        "Collection": "Колекція",
+        "all_collections": "Всі колекції"
     },
     "inactivated": {
         "aim": "Ми прагнемо, щоб всі користувачі були справжніми.",

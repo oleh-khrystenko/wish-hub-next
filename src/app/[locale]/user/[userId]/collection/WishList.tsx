@@ -15,6 +15,7 @@ import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
+import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import GuestWishItem from '@/app/[locale]/user/[userId]/collection/GuestWishItem';
 import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
@@ -91,6 +92,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     const utmParams = UseUTMParams();
     const { getInitialWishList, getInitialCollectionWishes } =
         UseInitialWishes();
+    const { screenWidth } = UseScreenWidth();
 
     const collectionId = searchParams.get('collectionId');
 
@@ -105,6 +107,18 @@ const WishList: FC<IProps> = ({ userId }) => {
 
     const showFilters =
         (showWishes || showCollections) && !routeUserId.includes('guest');
+
+    const showCreateActions =
+        myUser?.id === routeUserId || routeUserId.includes('guest');
+
+    let visibleCollectionsCount = 5;
+    showCreateActions && (visibleCollectionsCount = 4);
+    screenWidth >= 1024 && (visibleCollectionsCount = 7);
+    screenWidth >= 1024 && showCreateActions && (visibleCollectionsCount = 6);
+    screenWidth >= 1180 && (visibleCollectionsCount = 9);
+    screenWidth >= 1180 && showCreateActions && (visibleCollectionsCount = 8);
+    screenWidth >= 1366 && (visibleCollectionsCount = 11);
+    screenWidth >= 1366 && showCreateActions && (visibleCollectionsCount = 10);
 
     const wishesExample = [
         {
@@ -326,16 +340,14 @@ const WishList: FC<IProps> = ({ userId }) => {
             guestWishes.length > 0 ? (
                 <div className="mt-4" ref={wishListRef}>
                     <ul className="grid grid-cols-2 gap-1.5 tablet-md:grid-cols-3 tablet-lg:grid-cols-4 tablet-xl:grid-cols-5 tablet-xl:gap-4 desktop-sm:grid-cols-6">
-                        {(myUser?.id === routeUserId ||
-                            routeUserId.includes('guest')) && (
+                        {showCreateActions && (
                             <CreateWishAndCollection currentPage="collection" />
                         )}
 
-                        {collections.length > 0 && (
-                            <CollectionBlock
-                                backLink={`user/${routeUserId}/collection`}
-                            />
-                        )}
+                        <CollectionBlock
+                            backLink={`user/${routeUserId}/collection`}
+                            visibleCollectionsCount={visibleCollectionsCount}
+                        />
 
                         {wishes.length > 0 &&
                             wishes.map((wish, idx) => (
