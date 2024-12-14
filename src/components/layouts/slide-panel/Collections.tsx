@@ -18,6 +18,7 @@ import CollectionIcon from '@/components/icons/CollectionIcon';
 import EditIcon from '@/components/icons/EditIcon';
 import BasketIcon from '@/components/icons/BasketIcon';
 import SortIcon from '@/components/icons/SortIcon';
+import ArrowBackIcon from '@/components/icons/ArrowBackIcon';
 
 interface IProps {
     slidePanelRef: RefObject<HTMLDivElement>;
@@ -342,9 +343,10 @@ const Collections: FC<IProps> = ({
                                               )
                                     }
                                     variant="clear-styles"
-                                    classesWrap="w-full truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
+                                    classesWrap="w-full flex items-center gap-3 truncate rounded-md px-3 py-1.5 text-left text-sm font-bold text-zinc-600 transition-all duration-300 ease-in-out hover:bg-zinc-200 dark:text-zinc-300 hover:dark:bg-zinc-600 mobile-lg:py-2 mobile-lg:text-base"
                                     onLinkClick={() => setShowSlidePanel(false)}
                                 >
+                                    <ArrowBackIcon classes="w-4 h-4 fill-zinc-600 dark:fill-zinc-200" />
                                     {allPagesT('all_wishes')}
                                 </UiButton>
                             </li>

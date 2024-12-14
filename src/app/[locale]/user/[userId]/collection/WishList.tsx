@@ -22,6 +22,7 @@ import WishItem from '@/components/layouts/wish-list/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import WishesSearch from '@/components/layouts/WishesSearch';
 import CreateWishAndCollection from '@/components/layouts/CreateWishAndCollection';
+import CollectionBlock from '@/components/layouts/wish-list/CollectionBlock';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
@@ -328,6 +329,12 @@ const WishList: FC<IProps> = ({ userId }) => {
                         {(myUser?.id === routeUserId ||
                             routeUserId.includes('guest')) && (
                             <CreateWishAndCollection currentPage="collection" />
+                        )}
+
+                        {collections.length > 0 && (
+                            <CollectionBlock
+                                backLink={`user/${routeUserId}/collection`}
+                            />
                         )}
 
                         {wishes.length > 0 &&

@@ -18,6 +18,7 @@ import WishItem from '@/components/layouts/wish-list/WishItem';
 import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
 import WishesSearch from '@/components/layouts/WishesSearch';
 import CreateWishAndCollection from '@/components/layouts/CreateWishAndCollection';
+import CollectionBlock from '@/components/layouts/wish-list/CollectionBlock';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
@@ -360,6 +361,10 @@ const WishList: FC = () => {
                         {(myUser?.id === selectedUserId ||
                             (!myUser && !selectedUserId)) && (
                             <CreateWishAndCollection currentPage="main" />
+                        )}
+
+                        {collections.length > 0 && (
+                            <CollectionBlock backLink="main" />
                         )}
 
                         {wishes.length > 0 &&

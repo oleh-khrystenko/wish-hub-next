@@ -73,10 +73,10 @@ const CreateWishAndCollection: FC<IProps> = ({ currentPage }) => {
             <li className="flex flex-col gap-2">
                 {/* Collection */}
                 {!pathname.includes('/collection/editor') && (
-                    <div className="relative flex h-2/3 items-center justify-center rounded-md border-2 border-dashed border-zinc-300 dark:border-zinc-700">
+                    <div className="relative flex h-2/3 items-center justify-center rounded-md border-2 border-zinc-300 dark:border-zinc-700">
                         <UiButton
                             variant="clear-styles"
-                            classesWrap="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-1 rounded-md border-2 border-dashed border-transparent p-2 transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
+                            classesWrap="group absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-1 rounded-md border-2 border-transparent p-2 transition-all duration-300 ease-in-out hover:-rotate-3 hover:border-cyan-500 hover:dark:border-cyan-300"
                             onBtnClick={handleCreateCollection}
                         >
                             <CrossIcon classes="w-28 h-28 -rotate-45 group-hover:stroke-cyan-500 group-hover:dark:stroke-cyan-300 stroke-zinc-700 dark:stroke-zinc-400" />

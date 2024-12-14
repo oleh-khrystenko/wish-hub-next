@@ -1013,7 +1013,8 @@
         "days": "days",
         "hours": "hours",
         "minutes": "minutes",
-        "seconds": "seconds"
+        "seconds": "seconds",
+        "Collection": "Collection"
     },
     "inactivated": {
         "aim": "We aim for all users to be real.",
