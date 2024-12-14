@@ -10,7 +10,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import collectionApi from '@/stores/collection/api';
 import UseFullName from '@/helpers/hooks/UseFullName';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
+import UseScreenSize from '@/helpers/hooks/UseScreenSize';
 import {
     COLLECTION_SLUG_TO_ID_MAP,
     USER_SLUG_TO_ID_MAP,
@@ -42,7 +42,7 @@ const Body: FC = () => {
     const wishesCreator = useWishesStore((state) => state.creator);
 
     const { getFullName } = UseFullName();
-    const { screenWidth } = UseScreenWidth();
+    const { screenWidth } = UseScreenSize();
 
     const breadcrumbsPages = [
         {

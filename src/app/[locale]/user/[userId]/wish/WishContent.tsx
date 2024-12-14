@@ -7,7 +7,7 @@ import { EPrivacy } from '@/models/Settings';
 import { useCollectionsStore } from '@/stores/collection';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
+import UseScreenSize from '@/helpers/hooks/UseScreenSize';
 import { WISH_COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import WishSwiper from '@/app/[locale]/user/[userId]/wish/WishSwiper';
 import ShareButton from '@/components/layouts/ShareButton';
@@ -49,7 +49,7 @@ const WishContent: FC<IProps> = ({ wish, myUser }) => {
         (state) => state.addWishCollections
     );
 
-    const { screenWidth } = UseScreenWidth();
+    const { screenWidth } = UseScreenSize();
 
     let show = (
         <>

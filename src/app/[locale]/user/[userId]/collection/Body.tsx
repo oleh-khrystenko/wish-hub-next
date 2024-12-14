@@ -9,7 +9,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import collectionApi from '@/stores/collection/api';
 import UseFullName from '@/helpers/hooks/UseFullName';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
+import UseScreenSize from '@/helpers/hooks/UseScreenSize';
 import WishList from '@/app/[locale]/user/[userId]/collection/WishList';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
@@ -34,7 +34,7 @@ const Body: FC = () => {
     const wishesCreator = useWishesStore((state) => state.creator);
 
     const { getFullName } = UseFullName();
-    const { screenWidth } = UseScreenWidth();
+    const { screenWidth } = UseScreenSize();
 
     const collectionId = searchParams.get('collectionId');
 

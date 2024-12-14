@@ -15,7 +15,7 @@ import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
+import UseScreenSize from '@/helpers/hooks/UseScreenSize';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import GuestWishItem from '@/app/[locale]/user/[userId]/collection/GuestWishItem';
 import ShareCollection from '@/components/layouts/wish-list/ShareCollection';
@@ -92,7 +92,7 @@ const WishList: FC<IProps> = ({ userId }) => {
     const utmParams = UseUTMParams();
     const { getInitialWishList, getInitialCollectionWishes } =
         UseInitialWishes();
-    const { screenWidth } = UseScreenWidth();
+    const { screenWidth } = UseScreenSize();
 
     const collectionId = searchParams.get('collectionId');
 

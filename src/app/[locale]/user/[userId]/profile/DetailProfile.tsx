@@ -8,7 +8,7 @@ import { EPrivacy, IZoomedImage } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import UseFullName from '@/helpers/hooks/UseFullName';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
+import UseScreenSize from '@/helpers/hooks/UseScreenSize';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import FriendAction from '@/app/[locale]/user/[userId]/profile/FriendAction';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
@@ -27,7 +27,7 @@ const DetailProfile: FC = () => {
     const user = useUsersStore((state) => state.user);
 
     const { getFullName } = UseFullName();
-    const { screenWidth } = UseScreenWidth();
+    const { screenWidth } = UseScreenSize();
     const { getMonthWithDate } = UseLocaleFormats();
 
     // Avatar

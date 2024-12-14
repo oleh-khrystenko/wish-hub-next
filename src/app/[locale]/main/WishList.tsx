@@ -11,7 +11,7 @@ import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
 import UseFullName from '@/helpers/hooks/UseFullName';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
+import UseScreenSize from '@/helpers/hooks/UseScreenSize';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import Title from '@/app/[locale]/main/Title';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
@@ -87,7 +87,7 @@ const WishList: FC = () => {
         getInitialCollectionWishes,
     } = UseInitialWishes();
     const { getFullName } = UseFullName();
-    const { screenWidth } = UseScreenWidth();
+    const { screenWidth } = UseScreenSize();
 
     const collectionId = searchParams.get('collectionId');
 

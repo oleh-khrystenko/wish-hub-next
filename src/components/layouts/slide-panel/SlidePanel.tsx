@@ -15,7 +15,7 @@ import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
+import UseScreenSize from '@/helpers/hooks/UseScreenSize';
 import { COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import Collections from '@/components/layouts/slide-panel/Collections';
 import WishListActions from '@/components/layouts/slide-panel/WishListActions';
@@ -64,7 +64,7 @@ const SlidePanel: FC<IProps> = ({ wishListRefCurrent, isMainPage }) => {
         (state) => state.setResetCollections
     );
 
-    const { screenWidth } = UseScreenWidth();
+    const { screenWidth } = UseScreenSize();
 
     const showSlidePanel = useSettingsStore((state) => state.showSlidePanel);
     const setShowSlidePanel = useSettingsStore(

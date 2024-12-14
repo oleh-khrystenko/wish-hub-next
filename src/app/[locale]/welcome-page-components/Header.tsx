@@ -1,14 +1,14 @@
 'use client';
 
 import { FC } from 'react';
+import UseScreenSize from '@/helpers/hooks/UseScreenSize';
 import Actions from '@/app/[locale]/welcome-page-components/Actions';
 import ThemeSwitcher from '@/components/layouts/ThemeSwitcher';
 import LangSelect from '@/components/layouts/LangSelect';
 import UiBrand from '@/components/ui/UiBrand';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
 
 const Header: FC = () => {
-    const { screenWidth } = UseScreenWidth();
+    const { screenWidth } = UseScreenSize();
 
     return (
         <header className="absolute -left-4 right-0 top-0 flex items-center justify-between gap-4 py-4 tablet-md:px-0 tablet-md:py-6">

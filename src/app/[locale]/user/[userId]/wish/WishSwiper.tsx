@@ -11,7 +11,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { IWish } from '@/models/Wish';
 import { IZoomedImage } from '@/models/Settings';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
+import UseScreenSize from '@/helpers/hooks/UseScreenSize';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import ZoomedImageModal from '@/components/layouts/ZoomedImageModal';
 import UiImage from '@/components/ui/UiImage';
@@ -26,7 +26,7 @@ const WishSwiper: FC<IProps> = ({ wish }) => {
 
     const mainPageT = useTranslations('main-page');
 
-    const { screenWidth } = UseScreenWidth();
+    const { screenWidth } = UseScreenSize();
 
     let slidesPerView = 3;
     screenWidth >= 390 && (slidesPerView = 4);

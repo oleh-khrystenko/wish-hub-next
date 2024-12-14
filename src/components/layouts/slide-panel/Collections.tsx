@@ -8,7 +8,7 @@ import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
-import UseScreenWidth from '@/helpers/hooks/UseScreenWidth';
+import UseScreenSize from '@/helpers/hooks/UseScreenSize';
 import { COLLECTION_PAGINATION_LIMIT } from '@/helpers/utils/constants';
 import UiButton from '@/components/ui/UiButton';
 import UiPopup from '@/components/ui/UiPopup';
@@ -74,7 +74,7 @@ const Collections: FC<IProps> = ({
         (state) => state.setShowSlidePanel
     );
 
-    const { screenWidth, screenHeight } = UseScreenWidth();
+    const { screenWidth, screenHeight } = UseScreenSize();
 
     const collectionId = searchParams.get('collectionId');
 
