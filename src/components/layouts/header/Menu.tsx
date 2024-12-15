@@ -351,9 +351,10 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
 
                             {allPagesT('rozigrash-bazhan')}
 
-                            <span className="-my-1 ml-auto rounded-md border border-rose-500 px-2 font-bold text-rose-500">
-                                NEW
-                            </span>
+                            {/* eslint-disable-next-line max-len */}
+                            {/*<span className="-my-1 ml-auto rounded-md border border-rose-500 px-2 font-bold text-rose-500">*/}
+                            {/*    NEW*/}
+                            {/*</span>*/}
                         </div>
                     </UiButton>
 

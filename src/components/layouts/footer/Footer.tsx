@@ -46,7 +46,7 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
         {
             href: `rozigrash-bazhan${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('rozigrash-bazhan'),
-            isNew: true,
+            // isNew: true,
         },
         {
             href: `privacy-policy${utmParams ? `?${utmParams}` : ''}`,
