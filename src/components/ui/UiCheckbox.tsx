@@ -11,7 +11,7 @@ interface IProps {
     children: ReactNode;
 }
 
-const Checkbox: FC<IProps> = ({
+const UiCheckbox: FC<IProps> = ({
     id,
     name,
     checked,
@@ -46,7 +46,7 @@ const Checkbox: FC<IProps> = ({
             />
 
             <label
-                className="relative z-10 cursor-pointer pl-6 text-zinc-800 dark:text-zinc-300"
+                className="relative z-10 block cursor-pointer pl-8 text-zinc-800 dark:text-zinc-300"
                 htmlFor={id}
             >
                 {children}
@@ -55,4 +55,4 @@ const Checkbox: FC<IProps> = ({
     );
 };
 
-export default Checkbox;
+export default UiCheckbox;
