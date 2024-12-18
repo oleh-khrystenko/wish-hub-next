@@ -7,9 +7,11 @@ import 'dayjs/locale/ru';
 import { EPrivacy } from '@/models/Settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
+import { useSettingsStore } from '@/stores/settings';
 import UseFullName from '@/helpers/hooks/UseFullName';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import { isBookingExpired } from '@/helpers/utils/date-validators';
+import { USER_SLUG_TO_ID_MAP } from '@/helpers/utils/constants';
 import WishContent from '@/app/[locale]/user/[userId]/wish/WishContent';
 import LikeAction from '@/components/layouts/LikeAction';
 import UiButton from '@/components/ui/UiButton';
@@ -26,6 +28,10 @@ const Wish: FC = () => {
 
     const wish = useWishesStore((state) => state.wish);
     const creator = useWishesStore((state) => state.creator);
+
+    const setShowGlobalLoading = useSettingsStore(
+        (state) => state.setShowGlobalLoading
+    );
 
     const { getFullName } = UseFullName();
     const { getFullDate } = UseLocaleFormats();
@@ -57,6 +63,22 @@ const Wish: FC = () => {
     const myUserBookedOrCreatedWish =
         myUser?.id === wish?.booking?.userId || myUser?.id === wish?.userId;
 
+    const handleGoToProfilePage = () => {
+        setShowGlobalLoading(true);
+
+        for (const key in USER_SLUG_TO_ID_MAP) {
+            if (USER_SLUG_TO_ID_MAP[key] === creator?.id) {
+                return router.push(`/${activeLocale}/${key}`);
+            }
+        }
+
+        if (myUser) {
+            return router.push(`/${activeLocale}/user/${creator?.id}/profile`);
+        }
+
+        router.push(`/${activeLocale}/auth`);
+    };
+
     return (
         <div className="mt-8 flex grow flex-col px-4 pb-5 desktop-sm:px-0">
             <div className="flex flex-col gap-6">
@@ -81,9 +103,9 @@ const Wish: FC = () => {
 
                 {myUser?.id !== wish?.userId && (
                     <UiButton
-                        href={myUser ? `/user/${creator?.id}/profile` : `/auth`}
                         variant="clear-styles"
                         classesWrap="flex items-center gap-3 tablet-sm:gap-4"
+                        onBtnClick={handleGoToProfilePage}
                     >
                         <UiAvatar
                             avatar={creator?.avatar}
