@@ -12,6 +12,7 @@ import { useWishesStore } from '@/stores/wishes';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UseInitialWishes from '@/helpers/hooks/UseInitialWishes';
+import UseScreenSize from '@/helpers/hooks/UseScreenSize';
 import {
     COLLECTION_SLUG_TO_ID_MAP,
     USER_SLUG_TO_ID_MAP,
@@ -20,6 +21,7 @@ import {
 import WishItem from '@/app/[locale]/[userSlug]/components/WishItem';
 import SlidePanel from '@/components/layouts/slide-panel/SlidePanel';
 import WishesSearch from '@/components/layouts/WishesSearch';
+import CollectionBlock from '@/components/layouts/wish-list/CollectionBlock';
 import UiButton from '@/components/ui/UiButton';
 import UiLoading from '@/components/ui/UiLoading';
 import SliderIcon from '@/components/icons/SliderIcon';
@@ -68,6 +70,7 @@ const WishList: FC = () => {
 
     const { getInitialWishList, getInitialCollectionWishes } =
         UseInitialWishes();
+    const { screenWidth } = UseScreenSize();
 
     const showWishes =
         wishes.length > 5 ||
@@ -79,6 +82,11 @@ const WishList: FC = () => {
         collections.length > 0 || collectionsSearch.length > 0;
 
     const showFilters = showWishes || showCollections;
+
+    let visibleCollectionsCount = 5;
+    screenWidth >= 1024 && (visibleCollectionsCount = 7);
+    screenWidth >= 1180 && (visibleCollectionsCount = 9);
+    screenWidth >= 1366 && (visibleCollectionsCount = 11);
 
     useEffect(() => {
         if (firstLoad) {
@@ -193,6 +201,11 @@ const WishList: FC = () => {
             {wishes.length > 0 && userSlug ? (
                 <div className="mt-4" ref={wishListRef}>
                     <ul className="grid grid-cols-2 gap-1.5 tablet-md:grid-cols-3 tablet-lg:grid-cols-4 tablet-xl:grid-cols-5 tablet-xl:gap-4 desktop-sm:grid-cols-6">
+                        <CollectionBlock
+                            backLink={userSlug}
+                            visibleCollectionsCount={visibleCollectionsCount}
+                        />
+
                         {wishes.length > 0 &&
                             wishes.map((wish, idx) => (
                                 <WishItem

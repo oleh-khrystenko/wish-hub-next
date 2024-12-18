@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { IPageParams } from '@/models/Settings';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UiButton from '@/components/ui/UiButton';
@@ -23,12 +24,13 @@ const CollectionBlock: FC<IProps> = ({ backLink, visibleCollectionsCount }) => {
     );
 
     const collectionId = searchParams.get('collectionId');
+    const { collectionSlug } = useParams<IPageParams['params']>();
 
-    if (collectionId) {
+    if (collectionId || collectionSlug) {
         return (
             <li>
                 <UiButton
-                    href={backLink}
+                    href={collectionSlug ? `${backLink}/collection` : backLink}
                     variant="clear-styles"
                     classesWrap="flex items-center justify-center gap-2 h-full w-full min-h-56 p-3 text-zinc-600 dark:text-zinc-400 rounded-md border-2 border-zinc-300 p-4 dark:border-zinc-700"
                 >
@@ -68,7 +70,7 @@ const CollectionBlock: FC<IProps> = ({ backLink, visibleCollectionsCount }) => {
                             className="h-full min-h-56 w-full"
                         >
                             <UiButton
-                                href={`${backLink}?collectionId=${collection.id}`}
+                                href={`${backLink}${collection.slug ? `/${collection.slug}` : `?collectionId=${collection.id}`}`}
                                 variant="clear-styles"
                                 classesWrap="flex flex-col items-center justify-center gap-1 h-full w-full rounded-md border-2 border-zinc-300 p-4 dark:border-zinc-700"
                             >
