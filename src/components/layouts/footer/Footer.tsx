@@ -43,11 +43,11 @@ const Footer: FC<IProps> = ({ remove, isWelcome }) => {
             href: `reviews${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('reviews'),
         },
-        {
-            href: `rozigrash-bazhan${utmParams ? `?${utmParams}` : ''}`,
-            title: allPagesT('rozigrash-bazhan'),
-            // isNew: true,
-        },
+        // {
+        //     href: `rozigrash-bazhan${utmParams ? `?${utmParams}` : ''}`,
+        //     title: allPagesT('rozigrash-bazhan'),
+        //     isNew: true,
+        // },
         {
             href: `privacy-policy${utmParams ? `?${utmParams}` : ''}`,
             title: allPagesT('privacy_policy'),

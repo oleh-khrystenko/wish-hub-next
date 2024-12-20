@@ -33,6 +33,7 @@ import MainIcon from '@/components/icons/MainIcon';
 import YouTubeIcon from '@/components/icons/YouTubeIcon';
 import BlogIcon from '@/components/icons/BlogIcon';
 import ReviewIcon from '@/components/icons/ReviewIcon';
+import { ADMIN_IDS } from '@/helpers/utils/constants';
 
 interface IProps {
     isMainPage?: boolean;
@@ -334,29 +335,31 @@ const Menu: FC<IProps> = ({ isMainPage, showPopupUp, logoIconId }) => {
                         </span>
                     </ShareButton>
 
-                    <UiButton
-                        href={`rozigrash-bazhan${utmParams ? `?${utmParams}` : ''}`}
-                        variant="clear-styles"
-                        disabled={
-                            pathname === `/${activeLocale}/rozigrash-bazhan`
-                        }
-                    >
-                        <div className="flex items-center gap-1.5 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
-                            <div className="relative -ml-0.5 h-7 w-7">
-                                <UiImage
-                                    src="/icons/gift-box-3D.webp"
-                                    alt={allPagesT('rozigrash-bazhan')}
-                                />
+                    {myUser && ADMIN_IDS.includes(myUser.id) && (
+                        <UiButton
+                            href={`rozigrash-bazhan${utmParams ? `?${utmParams}` : ''}`}
+                            variant="clear-styles"
+                            disabled={
+                                pathname === `/${activeLocale}/rozigrash-bazhan`
+                            }
+                        >
+                            <div className="flex items-center gap-1.5 py-1.5 text-lg text-zinc-800 dark:text-zinc-300">
+                                <div className="relative -ml-0.5 h-7 w-7">
+                                    <UiImage
+                                        src="/icons/gift-box-3D.webp"
+                                        alt={allPagesT('rozigrash-bazhan')}
+                                    />
+                                </div>
+
+                                {allPagesT('rozigrash-bazhan')}
+
+                                {/* eslint-disable-next-line max-len */}
+                                {/*<span className="-my-1 ml-auto rounded-md border border-rose-500 px-2 font-bold text-rose-500">*/}
+                                {/*    NEW*/}
+                                {/*</span>*/}
                             </div>
-
-                            {allPagesT('rozigrash-bazhan')}
-
-                            {/* eslint-disable-next-line max-len */}
-                            {/*<span className="-my-1 ml-auto rounded-md border border-rose-500 px-2 font-bold text-rose-500">*/}
-                            {/*    NEW*/}
-                            {/*</span>*/}
-                        </div>
-                    </UiButton>
+                        </UiButton>
+                    )}
 
                     <div className="flex w-full flex-col items-center gap-4 rounded-lg bg-zinc-300 p-2 dark:bg-zinc-800">
                         <div className="flex items-center justify-evenly gap-4">
