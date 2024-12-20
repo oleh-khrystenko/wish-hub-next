@@ -39,6 +39,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [showPopupUp, setShowPopupUp] = useState<boolean>(false);
     const [textWidth, setTextWidth] = useState<number>(0);
+    const [sawPopup, setSawPopup] = useState<boolean>(false);
 
     const popupActionRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLLIElement>(null);
@@ -66,26 +67,23 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
     const { getInitialWishList } = UseInitialWishes();
     const { getFullName } = UseFullName();
 
-    let friendColor = '';
-    myUser?.followTo.includes(user.id) &&
-        (friendColor = 'fill-zinc-400 dark:fill-zinc-500');
-    myUser?.followFrom.includes(user.id) &&
-        (friendColor = 'fill-zinc-600 dark:fill-zinc-200');
-    myUser?.friends.includes(user.id) &&
-        (friendColor = 'fill-cyan-400 dark:fill-cyan-300');
+    const isFollowTo = myUser?.followTo.includes(user.id);
+    const isFollowFrom = myUser?.followFrom.includes(user.id);
+    const isFriend = myUser?.friends.includes(user.id);
 
-    const showAddFriend =
-        myUser?.followFrom.includes(user.id) ||
-        (!myUser?.friends.includes(user.id) &&
-            !myUser?.followTo.includes(user.id));
+    let friendColor = '';
+    isFollowTo && (friendColor = 'fill-zinc-400 dark:fill-zinc-500');
+    isFollowFrom && (friendColor = 'fill-zinc-600 dark:fill-zinc-200');
+    isFriend && (friendColor = 'fill-cyan-400 dark:fill-cyan-300');
+
+    const showAddFriend = isFollowFrom || (!isFriend && !isFollowTo);
 
     const params = useMemo(() => {
         const showBirthday =
             user?.birthday &&
             (user?.id === myUser?.id ||
                 user?.showBirthday === EPrivacy.ALL ||
-                (user?.showBirthday === EPrivacy.FRIENDS &&
-                    myUser?.friends.includes(user.id)));
+                (user?.showBirthday === EPrivacy.FRIENDS && isFriend));
         if (showBirthday) {
             return (
                 <span
@@ -105,8 +103,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
             user?.deliveryAddress &&
             (user?.id === myUser?.id ||
                 user?.showDeliveryAddress === EPrivacy.ALL ||
-                (user?.showDeliveryAddress === EPrivacy.FRIENDS &&
-                    myUser?.friends.includes(user.id)));
+                (user?.showDeliveryAddress === EPrivacy.FRIENDS && isFriend));
         if (showDeliveryAddress) {
             return (
                 <span
@@ -122,8 +119,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
             user?.email &&
             (user?.id === myUser?.id ||
                 user?.showEmail === EPrivacy.ALL ||
-                (user?.showEmail === EPrivacy.FRIENDS &&
-                    myUser?.friends.includes(user.id)));
+                (user?.showEmail === EPrivacy.FRIENDS && isFriend));
         if (showEmail) {
             return (
                 <span
@@ -232,9 +228,19 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
         }
 
         setShowPopup(true);
+
+        if (isFollowFrom) {
+            setSawPopup(true);
+            localStorage.setItem(`${user.id}_saw-popup`, 'true');
+        }
     };
 
     useEffect(() => {
+        if (isFollowFrom) {
+            const userIdSawPopup = localStorage.getItem(`${user.id}_saw-popup`);
+            setSawPopup(!!userIdSawPopup);
+        }
+
         if (containerRef.current) {
             const handleResize = () => {
                 const containerWidth: number =
@@ -295,7 +301,13 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
             </button>
 
             <div className="relative" ref={popupActionRef}>
-                <UiButton variant="text" onBtnClick={handleShowPopup}>
+                <UiButton
+                    variant="text"
+                    classesWrap={
+                        isFollowFrom && !sawPopup ? 'animate-blink' : ''
+                    }
+                    onBtnClick={handleShowPopup}
+                >
                     <ThreeDotsIcon classes="m-2 w-6 h-6 stroke-zinc-800 dark:stroke-zinc-300" />
                 </UiButton>
 
@@ -338,18 +350,18 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                         {showAddFriend && (
                             <UiButton
                                 variant="clear-styles"
-                                classesWrap="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
+                                classesWrap={`${isFollowFrom && 'animate-pulse'} relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800`}
                                 onBtnClick={handleAddFriend}
                             >
                                 <PersonAddIcon classes="w-5 min-w-5 h-5 fill-zinc-500 dark:fill-zinc-300" />
 
-                                {myUser?.followFrom.includes(user.id)
+                                {isFollowFrom
                                     ? mainPageT('confirm-friendship')
                                     : mainPageT('add-friend')}
                             </UiButton>
                         )}
 
-                        {myUser?.followTo.includes(user.id) && (
+                        {isFollowTo && (
                             <UiButton
                                 variant="clear-styles"
                                 classesWrap="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
@@ -363,7 +375,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                             </UiButton>
                         )}
 
-                        {myUser?.followFrom.includes(user.id) && (
+                        {isFollowFrom && (
                             <UiButton
                                 variant="clear-styles"
                                 classesWrap="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
@@ -377,7 +389,7 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
                             </UiButton>
                         )}
 
-                        {myUser?.friends.includes(user.id) && (
+                        {isFriend && (
                             <UiButton
                                 variant="clear-styles"
                                 classesWrap="relative flex items-center gap-2 whitespace-nowrap rounded-md px-2 py-2.5 text-left text-sm font-bold text-zinc-500 transition-all duration-300 ease-in-out hover:bg-zinc-300 dark:text-zinc-300 hover:dark:bg-zinc-800"
