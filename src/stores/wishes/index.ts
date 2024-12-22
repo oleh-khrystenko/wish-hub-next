@@ -6,9 +6,9 @@ import {
     IWish,
     IWishCandidate,
     EWishPrivacy,
-} from '@/models/Wish';
-import { IUser } from '@/models/User';
-import { IQuote } from '@/models/Quote';
+} from '@/models/wish';
+import { IUser } from '@/models/user';
+import { IQuote } from '@/models/quote';
 import {
     IActionWish,
     IBookWish,

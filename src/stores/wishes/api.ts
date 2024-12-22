@@ -14,8 +14,8 @@ import {
     IGetWishList,
     ISendCollectionWishes,
 } from '@/stores/wishes/types';
-import { IUser } from '@/models/User';
-import { TCurrentImage, IWish, IWishCandidate } from '@/models/Wish';
+import { IUser } from '@/models/user';
+import { TCurrentImage, IWish, IWishCandidate } from '@/models/wish';
 
 const processCommonFields = (
     formData: FormData,

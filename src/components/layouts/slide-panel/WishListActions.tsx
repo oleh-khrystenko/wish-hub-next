@@ -2,7 +2,7 @@
 
 import { FC, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { TWishSort } from '@/models/Wish';
+import { TWishSort } from '@/models/wish';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';
 import UiButton from '@/components/ui/UiButton';

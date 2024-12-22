@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import { IUser } from '@/models/User';
+import { IUser } from '@/models/user';
 
 export interface IReview {
     id: string;

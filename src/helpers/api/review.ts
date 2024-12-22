@@ -5,7 +5,7 @@ import {
     ICreateReview,
     ISendReviews,
     IReviewId,
-} from '@/models/Review';
+} from '@/models/review';
 import api from '@/helpers/api/settings';
 
 const createReview = async (

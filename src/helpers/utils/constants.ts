@@ -1,4 +1,4 @@
-import { IUser } from '@/models/User';
+import { IUser } from '@/models/user';
 
 export const ALLOWED_FILE_EXTENSIONS: { [key: string]: string } = {
     jpg: 'image/jpeg',

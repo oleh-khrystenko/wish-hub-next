@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { useMessages, NextIntlClientProvider } from 'next-intl';
 import pick from 'lodash.pick';
-import { IPageParams } from '@/models/Settings';
+import { IPageParams } from '@/models/settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import RoutesGuard from '@/helpers/hocs/RoutesGuard';
 import { fetchMetadata } from '@/helpers/utils/metadata';

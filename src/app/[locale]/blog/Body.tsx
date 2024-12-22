@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
-import { IArticle } from '@/models/Article';
+import { IArticle } from '@/models/article';
 import ArticleItem from '@/app/[locale]/blog/ArticleItem';
 import Breadcrumbs from '@/components/layouts/Breadcrumbs';
 import MainIcon from '@/components/icons/MainIcon';

@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
-import { ELang } from '@/models/Settings';
+import { ELang } from '@/models/settings';
 
 const intlMiddleware = createMiddleware({
     locales: Object.values(ELang), // Використовуємо всі значення з перерахування

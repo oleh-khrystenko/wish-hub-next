@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
-import { IWish } from '@/models/Wish';
-import { ECollectionSort, ICollection } from '@/models/Collection';
-import { EAddToCollection } from '@/models/Settings';
+import { IWish } from '@/models/wish';
+import { ECollectionSort, ICollection } from '@/models/collection';
+import { EAddToCollection } from '@/models/settings';
 import {
     ISendCreateCollection,
     ISendDeleteCollection,

@@ -1,6 +1,6 @@
 'use client';
 
-import { IUser } from '@/models/User';
+import { IUser } from '@/models/user';
 import { useTranslations } from 'next-intl';
 
 const UseFullName = () => {

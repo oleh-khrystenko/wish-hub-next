@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js';
-import { IWish } from '@/models/Wish';
-import { EPrivacy } from '@/models/Settings';
+import { IWish } from '@/models/wish';
+import { EPrivacy } from '@/models/settings';
 
 export const encryptedData = (data: string, secret: string): string =>
     CryptoJS.AES.encrypt(data, secret).toString();

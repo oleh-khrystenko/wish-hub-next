@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { IContact, TSendContact } from '@/models/Contact';
+import { IContact, TSendContact } from '@/models/contact';
 import api from '@/helpers/api/settings';
 
 const createContact = async (

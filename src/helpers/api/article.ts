@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IArticle, ISendArticle, ISendArticles } from '@/models/Article';
+import { IArticle, ISendArticle, ISendArticles } from '@/models/article';
 import { baseApi } from '@/helpers/api/settings';
 
 const getArticle = async (

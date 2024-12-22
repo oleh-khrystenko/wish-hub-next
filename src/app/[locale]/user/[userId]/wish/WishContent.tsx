@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
-import { ECurrency, IWish } from '@/models/Wish';
-import { IUser } from '@/models/User';
-import { EPrivacy } from '@/models/Settings';
+import { ECurrency, IWish } from '@/models/wish';
+import { IUser } from '@/models/user';
+import { EPrivacy } from '@/models/settings';
 import { useCollectionsStore } from '@/stores/collection';
 import { unencryptedData } from '@/helpers/utils/encryption-data';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
-import { EWishPrivacy, EWishStatus, IWish, TWishSort } from '@/models/Wish';
-import { IUser } from '@/models/User';
-import { ICollection } from '@/models/Collection';
+import { EWishPrivacy, EWishStatus, IWish, TWishSort } from '@/models/wish';
+import { IUser } from '@/models/user';
+import { ICollection } from '@/models/collection';
 import { useWishesStore } from '@/stores/wishes';
 import { useUsersStore } from '@/stores/users';
 import { WISHES_PAGINATION_LIMIT } from '@/helpers/utils/constants';

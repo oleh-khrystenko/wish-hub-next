@@ -15,7 +15,7 @@ import {
     IRemoveFriend,
     IDeleteMyUser,
 } from '@/stores/my-user/types';
-import { IUser, IAuth } from '@/models/User';
+import { IUser, IAuth } from '@/models/user';
 import { encryptedData } from '@/helpers/utils/encryption-data';
 import { getLangFromUrl } from '@/helpers/utils/get-lang-from-url';
 

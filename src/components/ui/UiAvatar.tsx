@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { IUser } from '@/models/User';
+import { IUser } from '@/models/user';
 import UiLoading from '@/components/ui/UiLoading';
 import PersonIcon from '@/components/icons/PersonIcon';
 

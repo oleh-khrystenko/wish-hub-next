@@ -3,7 +3,7 @@
 import { FC, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { EPrivacy } from '@/models/Settings';
+import { EPrivacy } from '@/models/settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import ShareButton from '@/components/layouts/ShareButton';

@@ -3,7 +3,7 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { TSendContact } from '@/models/Contact';
+import { TSendContact } from '@/models/contact';
 import contactApi from '@/helpers/api/contact';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import UiInput from '@/components/ui/UiInput';

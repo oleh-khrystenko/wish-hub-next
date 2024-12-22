@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
-import { EWishPrivacy, EWishStatus } from '@/models/Wish';
+import { EWishPrivacy, EWishStatus } from '@/models/wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';

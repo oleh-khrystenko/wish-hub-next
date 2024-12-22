@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
-import { IWish } from '@/models/Wish';
-import { IUser } from '@/models/User';
+import { IWish } from '@/models/wish';
+import { IUser } from '@/models/user';
 import UiButton from '@/components/ui/UiButton';
 import { useTranslations } from 'next-intl';
 import { useWishesStore } from '@/stores/wishes';

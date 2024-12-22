@@ -3,7 +3,7 @@
 import { FC, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { IPageParams } from '@/models/Settings';
+import { IPageParams } from '@/models/settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { WISH_SLUG_TO_ID_MAP } from '@/helpers/utils/constants';

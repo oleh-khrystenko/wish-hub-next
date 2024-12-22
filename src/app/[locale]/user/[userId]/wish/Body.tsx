@@ -3,7 +3,7 @@
 import { FC, useEffect, useState, useRef } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { IGuestWish } from '@/models/Wish';
+import { IGuestWish } from '@/models/wish';
 import { IActionWish, IGetAnyWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';

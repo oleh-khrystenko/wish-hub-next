@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslations } from 'next-intl';
-import { TCurrentAvatar } from '@/models/User';
+import { TCurrentAvatar } from '@/models/user';
 import {
     ALLOWED_FILE_EXTENSIONS,
     ALLOWED_MAX_FILE_SIZE_IN_MB,

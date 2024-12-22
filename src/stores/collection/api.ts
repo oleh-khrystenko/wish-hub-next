@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { ICollection } from '@/models/Collection';
+import { ICollection } from '@/models/collection';
 import {
     ICollectionId,
     IDeleteCollection,

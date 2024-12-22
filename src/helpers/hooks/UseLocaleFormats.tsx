@@ -1,5 +1,5 @@
 import { useLocale } from 'next-intl';
-import { ELang } from '@/models/Settings';
+import { ELang } from '@/models/settings';
 
 const UseLocaleFormats = () => {
     const activeLocale = useLocale();

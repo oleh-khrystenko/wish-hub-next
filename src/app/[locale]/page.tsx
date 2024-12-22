@@ -5,7 +5,7 @@ import {
     useTranslations,
 } from 'next-intl';
 import pick from 'lodash.pick';
-import { IPageParams } from '@/models/Settings';
+import { IPageParams } from '@/models/settings';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import Header from '@/app/[locale]/welcome-page-components/Header';

@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { EPrivacy } from '@/models/Settings';
+import { EPrivacy } from '@/models/settings';
 import { useMyUserStore } from '@/stores/my-user';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UiTooltip from '@/components/ui/UiTooltip';

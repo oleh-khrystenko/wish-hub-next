@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
-import { EPrivacy, ELang } from '@/models/Settings';
-import { IGuestWish } from '@/models/Wish';
+import { EPrivacy, ELang } from '@/models/settings';
+import { IGuestWish } from '@/models/wish';
 
 export interface ICandidate {
     email?: string;

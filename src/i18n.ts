@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
-import { ELang } from '@/models/Settings';
+import { ELang } from '@/models/settings';
 
 // Can be imported from a shared config
 const locales = [ELang.UK, ELang.EN, ELang.RU];

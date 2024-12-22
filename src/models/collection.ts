@@ -1,5 +1,5 @@
-import { IUser } from '@/models/User';
-import { IWish } from '@/models/Wish';
+import { IUser } from '@/models/user';
+import { IWish } from '@/models/wish';
 
 export interface ICollection {
     id: string;

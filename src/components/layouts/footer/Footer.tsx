@@ -2,7 +2,7 @@
 
 import { FC, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { ETheme, INavItem } from '@/models/Settings';
+import { ETheme, INavItem } from '@/models/settings';
 import { useSettingsStore } from '@/stores/settings';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import Divider from '@/components/layouts/Divider';

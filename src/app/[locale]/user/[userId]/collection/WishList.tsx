@@ -7,8 +7,8 @@ import {
 } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
-import { EWishPrivacy, EWishStatus, IGuestWish } from '@/models/Wish';
-import { ICollection } from '@/models/Collection';
+import { EWishPrivacy, EWishStatus, IGuestWish } from '@/models/wish';
+import { ICollection } from '@/models/collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useCollectionsStore } from '@/stores/collection';

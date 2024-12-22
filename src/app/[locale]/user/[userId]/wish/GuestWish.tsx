@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { ECurrency, IGuestWish } from '@/models/Wish';
+import { ECurrency, IGuestWish } from '@/models/wish';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import UiButton from '@/components/ui/UiButton';
 import UiAvatar from '@/components/ui/UiAvatar';

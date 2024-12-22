@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useEffect } from 'react';
-import { ETheme } from '@/models/Settings';
+import { ETheme } from '@/models/settings';
 import { useSettingsStore } from '@/stores/settings';
 import UiSwitch from '@/components/ui/UiSwitch';
 import SunIcon from '@/components/icons/SunIcon';

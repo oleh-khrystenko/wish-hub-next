@@ -3,8 +3,8 @@
 import { FC, MouseEvent, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { IUser } from '@/models/User';
-import { IWish } from '@/models/Wish';
+import { IUser } from '@/models/user';
+import { IWish } from '@/models/wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';

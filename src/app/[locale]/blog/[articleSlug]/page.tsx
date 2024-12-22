@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ELang } from '@/models/Settings';
+import { ELang } from '@/models/settings';
 import articleApi from '@/helpers/api/article';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import { ARTICLE_SLUG_TO_ID_MAP } from '@/helpers/utils/constants';

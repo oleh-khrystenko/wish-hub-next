@@ -3,7 +3,7 @@
 import { FC, useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { ETheme } from '@/models/Settings';
+import { ETheme } from '@/models/settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useCollectionsStore } from '@/stores/collection';

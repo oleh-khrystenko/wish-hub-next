@@ -19,8 +19,8 @@ import {
     IWish,
     TCurrentImage,
     TWishFormInputs,
-} from '@/models/Wish';
-import { EPrivacy } from '@/models/Settings';
+} from '@/models/wish';
+import { EPrivacy } from '@/models/settings';
 import { ICreateWish } from '@/stores/wishes/types';
 import { useSettingsStore } from '@/stores/settings';
 import UseValidations from '@/helpers/hooks/UseValidations';

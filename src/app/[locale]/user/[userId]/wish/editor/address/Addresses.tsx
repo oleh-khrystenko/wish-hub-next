@@ -9,7 +9,7 @@ import {
     UseFormTrigger,
 } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
-import { TWishFormInputs } from '@/models/Wish';
+import { TWishFormInputs } from '@/models/wish';
 import { ICreateWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';

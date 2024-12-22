@@ -1,6 +1,6 @@
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { TWishSort, EWishStatus, EWishPrivacy } from '@/models/Wish';
+import { TWishSort, EWishStatus, EWishPrivacy } from '@/models/wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useUsersStore } from '@/stores/users';

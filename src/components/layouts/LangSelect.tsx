@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { UA, US } from 'country-flag-icons/react/3x2';
-import { ELang } from '@/models/Settings';
+import { ELang } from '@/models/settings';
 import { useMyUserStore } from '@/stores/my-user';
 import UiSelect, { IOption } from '@/components/ui/UiSelect';
 

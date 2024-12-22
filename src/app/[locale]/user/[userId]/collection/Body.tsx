@@ -3,8 +3,8 @@
 import { FC, useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { ICollection } from '@/models/Collection';
-import { IZoomedImage } from '@/models/Settings';
+import { ICollection } from '@/models/collection';
+import { IZoomedImage } from '@/models/settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import collectionApi from '@/stores/collection/api';

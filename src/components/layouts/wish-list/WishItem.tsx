@@ -2,7 +2,7 @@
 
 import { FC, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { ECurrency, IWish } from '@/models/Wish';
+import { ECurrency, IWish } from '@/models/wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import { unencryptedData } from '@/helpers/utils/encryption-data';

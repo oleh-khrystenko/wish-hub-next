@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { IUser } from '@/models/User';
+import { IUser } from '@/models/user';
 import { EWhereRemove, IRemoveFriend } from '@/stores/my-user/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';

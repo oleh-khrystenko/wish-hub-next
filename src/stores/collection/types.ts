@@ -1,6 +1,6 @@
-import { ECollectionSort, ICollection } from '@/models/Collection';
-import { IUser } from '@/models/User';
-import { IWish } from '@/models/Wish';
+import { ECollectionSort, ICollection } from '@/models/collection';
+import { IUser } from '@/models/user';
+import { IWish } from '@/models/wish';
 
 export interface ISendCreateCollection {
     userId: IUser['id'];

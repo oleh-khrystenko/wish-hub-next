@@ -1,7 +1,7 @@
 import { Dayjs } from 'dayjs';
-import { IUser } from '@/models/User';
-import { EPrivacy } from '@/models/Settings';
-import { ICollection } from '@/models/Collection';
+import { IUser } from '@/models/user';
+import { EPrivacy } from '@/models/settings';
+import { ICollection } from '@/models/collection';
 
 export interface IImage {
     id?: string;

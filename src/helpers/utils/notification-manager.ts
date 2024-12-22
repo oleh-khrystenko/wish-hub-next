@@ -1,5 +1,5 @@
 import myUserApi from '@/stores/my-user/api';
-import { IUser } from '@/models/User';
+import { IUser } from '@/models/user';
 
 export const checkNotificationSubscription = async (userId: IUser['id']) => {
     try {

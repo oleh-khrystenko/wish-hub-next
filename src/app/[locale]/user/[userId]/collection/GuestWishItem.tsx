@@ -3,7 +3,7 @@
 import { FC, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { ECurrency, IGuestWish } from '@/models/Wish';
+import { ECurrency, IGuestWish } from '@/models/wish';
 import { useSettingsStore } from '@/stores/settings';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import { addingWhiteSpaces } from '@/helpers/utils/formating-number';

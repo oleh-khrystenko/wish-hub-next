@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { v4 as uuidv4 } from 'uuid';
-import { IGuestWish } from '@/models/Wish';
+import { IGuestWish } from '@/models/wish';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';

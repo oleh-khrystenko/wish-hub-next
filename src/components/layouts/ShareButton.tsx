@@ -3,7 +3,7 @@
 import { FC, ReactNode, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
-import { EPrivacy } from '@/models/Settings';
+import { EPrivacy } from '@/models/settings';
 import ConfirmModal from '@/components/layouts/ConfirmModal';
 import ShareIcon from '@/components/icons/ShareIcon';
 import UiButton, { TUiButtonVariant } from '@/components/ui/UiButton';

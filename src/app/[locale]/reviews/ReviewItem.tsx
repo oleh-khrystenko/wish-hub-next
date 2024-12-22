@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
-import { IReview } from '@/models/Review';
+import { IReview } from '@/models/review';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import reviewApi from '@/helpers/api/review';

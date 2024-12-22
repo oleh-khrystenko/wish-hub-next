@@ -1,7 +1,7 @@
 import { FC, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { useDrag, useDrop } from 'react-dnd';
-import { TCurrentImage } from '@/models/Wish';
+import { TCurrentImage } from '@/models/wish';
 import UiImage from '@/components/ui/UiImage';
 import CrossIcon from '@/components/icons/CrossIcon';
 

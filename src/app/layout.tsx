@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Script from 'next/script';
 import { Mulish } from 'next/font/google';
-import { IPageParams } from '@/models/Settings';
+import { IPageParams } from '@/models/settings';
 import ServiceWorkerRegistrar from '@/helpers/hocs/ServiceWorkerRegistrar';
 import ReactToastify from '@/components/layouts/ReactToastify';
 import '@/app/globals.css';

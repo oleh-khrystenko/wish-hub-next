@@ -1,6 +1,6 @@
 'use client';
 
-import { IGuestWish } from '@/models/Wish';
+import { IGuestWish } from '@/models/wish';
 import { encryptedData } from '@/helpers/utils/encryption-data';
 
 const UseGuestWishes = () => {

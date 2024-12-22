@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { IPageParams } from '@/models/Settings';
+import { IPageParams } from '@/models/settings';
 import { fetchMetadata } from '@/helpers/utils/metadata';
 import PageContent from '@/app/[locale]/blog/PageContent';
 import ErrorPage from '@/components/layouts/ErrorPage';

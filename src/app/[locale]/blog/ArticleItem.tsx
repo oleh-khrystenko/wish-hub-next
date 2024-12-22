@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/ru';
-import { IArticle } from '@/models/Article';
+import { IArticle } from '@/models/article';
 import { useSettingsStore } from '@/stores/settings';
 import UseLocaleFormats from '@/helpers/hooks/UseLocaleFormats';
 import UiButton from '@/components/ui/UiButton';

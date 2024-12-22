@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
-import { ICandidate, IUser } from '@/models/User';
+import { ICandidate, IUser } from '@/models/user';
 import {
     IAddFriend,
     IChangeLang,

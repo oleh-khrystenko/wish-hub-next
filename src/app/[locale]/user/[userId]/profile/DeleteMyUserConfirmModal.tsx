@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useGoogleLogin } from '@react-oauth/google';
-import { IUser } from '@/models/User';
+import { IUser } from '@/models/user';
 import { useMyUserStore } from '@/stores/my-user';
 import UseValidations from '@/helpers/hooks/UseValidations';
 import UiModal from '@/components/ui/modal/UiModal';

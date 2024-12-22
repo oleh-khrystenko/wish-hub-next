@@ -2,7 +2,7 @@ import { FC, ChangeEvent, useCallback, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useDrop, useDrag } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
-import { TCurrentImage } from '@/models/Wish';
+import { TCurrentImage } from '@/models/wish';
 import { useMyUserStore } from '@/stores/my-user';
 import UseUTMParams from '@/helpers/hooks/UseUTMParams';
 import {

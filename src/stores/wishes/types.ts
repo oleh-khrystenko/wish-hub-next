@@ -4,10 +4,10 @@ import {
     EWishStatus,
     TWishSort,
     EWishPrivacy,
-} from '@/models/Wish';
-import { IUser } from '@/models/User';
-import { IQuote } from '@/models/Quote';
-import { ICollection } from '@/models/Collection';
+} from '@/models/wish';
+import { IUser } from '@/models/user';
+import { IQuote } from '@/models/quote';
+import { ICollection } from '@/models/collection';
 
 export interface IEditorWish {
     userId: IUser['id'];

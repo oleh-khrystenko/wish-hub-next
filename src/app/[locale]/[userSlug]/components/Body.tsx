@@ -3,9 +3,9 @@
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { IUser } from '@/models/User';
-import { ICollection } from '@/models/Collection';
-import { IPageParams, IZoomedImage } from '@/models/Settings';
+import { IUser } from '@/models/user';
+import { ICollection } from '@/models/collection';
+import { IPageParams, IZoomedImage } from '@/models/settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import collectionApi from '@/stores/collection/api';

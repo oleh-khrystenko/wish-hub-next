@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { IPageParams } from '@/models/Settings';
+import { IPageParams } from '@/models/settings';
 import { useCollectionsStore } from '@/stores/collection';
 import { useSettingsStore } from '@/stores/settings';
 import UiButton from '@/components/ui/UiButton';

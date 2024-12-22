@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import api from '@/helpers/api/settings';
-import { ICandidateForWin } from '@/models/User';
+import { ICandidateForWin } from '@/models/user';
 
 const getCandidatesForWin = async (): Promise<
     AxiosResponse<ICandidateForWin[]>

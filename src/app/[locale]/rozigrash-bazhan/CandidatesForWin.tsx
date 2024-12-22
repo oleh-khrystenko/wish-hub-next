@@ -3,7 +3,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { ICandidateForWin, IUser } from '@/models/User';
+import { ICandidateForWin, IUser } from '@/models/user';
 import { useMyUserStore } from '@/stores/my-user';
 import { ADMIN_IDS } from '@/helpers/utils/constants';
 import candidatesForWinApi from '@/helpers/api/candidates-for-win';

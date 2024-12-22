@@ -5,7 +5,7 @@ import { uk } from 'date-fns/locale/uk';
 import { enUS } from 'date-fns/locale/en-US';
 import { ru } from 'date-fns/locale/ru';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ELang } from '@/models/Settings';
+import { ELang } from '@/models/settings';
 
 registerLocale(ELang.UK, uk);
 registerLocale(ELang.EN, enUS);

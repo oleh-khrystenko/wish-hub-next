@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
-import { IWish } from '@/models/Wish';
-import { IUser } from '@/models/User';
+import { IWish } from '@/models/wish';
+import { IUser } from '@/models/user';
 
 interface IProps {
     wish: IWish;

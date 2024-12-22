@@ -11,8 +11,8 @@ import {
     IWish,
     TCurrentImage,
     TWishFormInputs,
-} from '@/models/Wish';
-import { EAddToCollection, EPrivacy } from '@/models/Settings';
+} from '@/models/wish';
+import { EAddToCollection, EPrivacy } from '@/models/settings';
 import { ICreateWish } from '@/stores/wishes/types';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';

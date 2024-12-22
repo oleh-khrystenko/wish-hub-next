@@ -8,8 +8,8 @@ import {
     useSearchParams,
 } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { EWishPrivacy, EWishStatus } from '@/models/Wish';
-import { ECollectionSort, ICollection } from '@/models/Collection';
+import { EWishPrivacy, EWishStatus } from '@/models/wish';
+import { ECollectionSort, ICollection } from '@/models/collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import { useWishesStore } from '@/stores/wishes';

@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { INavItem } from '@/models/Settings';
+import { INavItem } from '@/models/settings';
 import UiButton from '@/components/ui/UiButton';
 
 interface IProps {

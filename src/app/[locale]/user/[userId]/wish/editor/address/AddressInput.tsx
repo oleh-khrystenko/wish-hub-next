@@ -6,7 +6,7 @@ import {
     UseFormSetValue,
     UseFormTrigger,
 } from 'react-hook-form';
-import { TWishFormInputs } from '@/models/Wish';
+import { TWishFormInputs } from '@/models/wish';
 import { ICreateWish } from '@/stores/wishes/types';
 import { useSettingsStore } from '@/stores/settings';
 import UseValidations from '@/helpers/hooks/UseValidations';

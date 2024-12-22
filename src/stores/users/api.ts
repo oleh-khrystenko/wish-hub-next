@@ -6,7 +6,7 @@ import {
     ISendUserParams,
     ISendUsersParams,
 } from '@/stores/users/types';
-import { IUser } from '@/models/User';
+import { IUser } from '@/models/user';
 
 const getUser = async (
     params: ISendUserParams

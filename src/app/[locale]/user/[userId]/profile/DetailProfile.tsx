@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/ru';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
-import { EPrivacy, IZoomedImage } from '@/models/Settings';
+import { EPrivacy, IZoomedImage } from '@/models/settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import UseFullName from '@/helpers/hooks/UseFullName';

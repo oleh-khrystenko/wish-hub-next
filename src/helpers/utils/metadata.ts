@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { IMeta } from '@/models/Article';
+import { IMeta } from '@/models/article';
 
 export async function fetchMetadata(
     locale: string,

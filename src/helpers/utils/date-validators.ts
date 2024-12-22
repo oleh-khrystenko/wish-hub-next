@@ -1,8 +1,8 @@
 import dayjs, { Dayjs } from 'dayjs';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
-import { IWish } from '@/models/Wish';
-import { IUser } from '@/models/User';
+import { IWish } from '@/models/wish';
+import { IUser } from '@/models/user';
 
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);

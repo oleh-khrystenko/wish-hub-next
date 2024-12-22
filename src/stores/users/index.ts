@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
-import { IUser } from '@/models/User';
+import { IUser } from '@/models/user';
 import usersApi from '@/stores/users/api';
 import {
     ISendAllUsersParams,

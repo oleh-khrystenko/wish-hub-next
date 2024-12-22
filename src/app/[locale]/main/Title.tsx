@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { ICollection } from '@/models/Collection';
+import { ICollection } from '@/models/collection';
 import { useMyUserStore } from '@/stores/my-user';
 import { useUsersStore } from '@/stores/users';
 import collectionApi from '@/stores/collection/api';

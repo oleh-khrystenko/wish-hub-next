@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
-import { IReview } from '@/models/Review';
+import { IReview } from '@/models/review';
 import { useMyUserStore } from '@/stores/my-user';
 import { useSettingsStore } from '@/stores/settings';
 import reviewApi from '@/helpers/api/review';

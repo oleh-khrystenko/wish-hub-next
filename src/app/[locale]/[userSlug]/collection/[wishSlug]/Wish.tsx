@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/ru';
-import { EPrivacy } from '@/models/Settings';
+import { EPrivacy } from '@/models/settings';
 import { useMyUserStore } from '@/stores/my-user';
 import { useWishesStore } from '@/stores/wishes';
 import { useSettingsStore } from '@/stores/settings';

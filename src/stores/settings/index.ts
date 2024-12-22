@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { ETheme } from '@/models/Settings';
-import { IAdminData } from '@/models/User';
+import { ETheme } from '@/models/settings';
+import { IAdminData } from '@/models/user';
 
 interface ISettingsStore {
     theme: ETheme;

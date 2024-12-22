@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import pick from 'lodash.pick';
-import { IArticle } from '@/models/Article';
+import { IArticle } from '@/models/article';
 import UserSessionRefresher from '@/helpers/hocs/UserSessionRefresher';
 import Body from '@/app/[locale]/blog/[articleSlug]/Body';
 import Header from '@/components/layouts/header/Header';

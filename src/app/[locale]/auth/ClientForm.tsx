@@ -11,8 +11,8 @@ import {
 } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import { toast } from 'react-toastify';
-import { ELang } from '@/models/Settings';
-import { IUser } from '@/models/User';
+import { ELang } from '@/models/settings';
+import { IUser } from '@/models/user';
 import { useMyUserStore } from '@/stores/my-user';
 import myUserApi from '@/stores/my-user/api';
 import UseValidations from '@/helpers/hooks/UseValidations';
