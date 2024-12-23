@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Wish Hub Client
 
-## Getting Started
+Wish Hub Client — це клієнтська частина проєкту Wish Hub, побудована на Next.js із використанням TypeScript, React.js та
+інших сучасних бібліотек для створення інтерфейсу користувача.
 
-First, run the development server:
+## Встановлення
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Клонуйте репозиторій:
+   ```bash
+   git clone https://github.com/Kh-Ol-An/wish-hub-next.git
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Перейдіть у папку проекту:
+   ```bash
+   cd wish-hub-next
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Встановіть залежності:
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. Створіть файл `.env` на основі `.env.example` та заповніть необхідні змінні середовища.
 
-## Learn More
+## Скрипти
 
-To learn more about Next.js, take a look at the following resources:
+- **Запуск у режимі розробки:**
+  ```bash
+  npm run dev
+  ```
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Збірка проекту:**
+  ```bash
+  npm run build
+  ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Запуск у продакшн:**
+  ```bash
+  npm start
+  ```
 
-## Deploy on Vercel
+- **Перевірка коду ESLint:**
+  ```bash
+  npm run lint
+  ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Форматування коду Prettier:**
+  ```bash
+  npm run format
+  ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Технології
+
+Проект використовує такі основні технології та бібліотеки:
+
+### Фреймворк
+
+- **Next.js (версія 14.2.5)**
+
+### UI та управління станом
+
+- **React.js (версія 18.3.1)**
+- **Zustand** для управління станом
+- **React Hook Form** для управління формами
+- **React DND** для drag-and-drop
+- **Swiper** для створення слайдерів
+- **React Toastify** для сповіщень
+- **React Tooltip** для підказок
+
+### Дата та час
+
+- **Day.js** для роботи з датами
+
+### Запити до API
+
+- **Axios**
+
+### Локалізація
+
+- **next-intl** для підтримки мультимовності
+
+### Стілі
+
+- **Tailwind CSS** для стилізації
+- **Prettier Plugin TailwindCSS** для автоматичного впорядкування класів
+
+## Структура проекту
+
+- **public/**: Статичні файли (іконки, зображення, favicon тощо)
+- **src/**: Вихідний код проекту
+    - **app/**: Папка з маршрутизацією та сторінками
+        - **[locale]/**: Локалізовані сторінки
+            - **auth/**: Авторизація та реєстрація
+            - **main/**: Основна сторінка платформи
+            - **blog/**: Блог платформи
+            - **about/**: Сторінка "Про нас"
+            - **contact/**: Сторінка "Контакти"
+            - **instruction/**: Сторінка "Відеогід"
+            - **reviews/**: Сторінка відгуків
+            - **privacy-policy/**: Сторінка "Політика конфіденційності"
+    - **components/**: UI-компоненти
+        - **icons/**: Іконки
+        - **layouts/**: Шаблони сторінок
+        - **ui/**: Базові UI-компоненти
+    - **helpers/**: Утиліти
+        - **api/**: Функції для роботи з API
+        - **hocs/**: Вищі компоненти (Higher-Order Components)
+        - **hooks/**: Хуки
+        - **utils/**: Допоміжні функції
+    - **models/**: Типи та інтерфейси TypeScript
+    - **stores/**: Управління станом (Zustand)
+- **i18n.ts**: Ініціалізація мультимовної підтримки
+- **middleware.ts**:  Проміжний обробник
+
+## Залежності
+
+Перелік основних залежностей наведено у файлі `package.json`. У проекті використовуються як продакшн, так і
+дев-залежності, включаючи ESLint, Prettier та Tailwind CSS.
+
+## Ліцензія
+
+Цей проект ліцензовано на умовах ISC License. Деталі дивіться у файлі `LICENSE`.
+
+## Зворотний зв'язок
+
+Якщо у вас є питання або пропозиції, будь ласка, створіть issue у
+репозиторії: [GitHub Issues](https://github.com/Kh-Ol-An/wish-hub-next/issues).
+
