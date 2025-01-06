@@ -62,7 +62,8 @@ Wish Hub Client — це клієнтська частина проєкту Wish
 - **React.js (версія 18.3.1)**
 - **Zustand** для управління станом
 - **React Hook Form** для управління формами
-- **React DND** для drag-and-drop
+- **React DND** для перетягування елементів
+- **React Datepicker** для вибору дат
 - **Swiper** для створення слайдерів
 - **React Toastify** для сповіщень
 - **React Tooltip** для підказок
