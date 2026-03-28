@@ -1,129 +1,37 @@
-# Wish Hub Client
+# Wish Hub 🎁
 
-Wish Hub Client — це клієнтська частина проєкту Wish Hub, побудована на Next.js із використанням TypeScript, React.js та
-інших сучасних бібліотек для створення інтерфейсу користувача.
+A production-ready SaaS application designed for managing personal wishlists, sharing them with friends, and coordinating gift reservations. This repository serves as a battle-tested frontend foundation demonstrating modular architecture, internationalization (i18n), and responsive UX.
 
-## Встановлення
+## 🚀 Business Value
+- **Seamless User Flow:** Intuitive wish creation with drag-and-drop image uploads, price parsing, and interactive collections.
+- **Global Reach:** Deeply integrated internationalization (Next-Intl) supporting multiple languages seamlessly across the platform.
+- **Smart Booking System:** Complex UI logic for gift reservations, ensuring privacy controls and preventing duplicate gifting among friends.
 
-1. Клонуйте репозиторій:
-   ```bash
-   git clone https://github.com/Kh-Ol-An/wish-hub-next.git
-   ```
+## 🏗 Architecture & Tech Stack
+Built entirely on modern React ecosystem principles, focusing on strict typing, performance, and modular state management.
 
-2. Перейдіть у папку проекту:
-   ```bash
-   cd wish-hub-next
-   ```
+### Core Stack
+- **Framework:** Next.js (App Router), React, TypeScript.
+- **State Management:** Zustand (Modular stores for User, Wishes, Settings, etc.).
+- **Styling & UI:** TailwindCSS, Headless UI patterns, Swiper for media galleries.
+- **Forms & Validation:** React Hook Form with strict, custom validation pipelines.
 
-3. Встановіть залежності:
-   ```bash
-   npm install
-   ```
+## 📁 Repository Structure
 
-4. Створіть файл `.env` на основі `.env.example` та заповніть необхідні змінні середовища.
+    wish-hub-next/
+    ├── src/
+    │   ├── app/          # Next.js App Router, i18n routing, and page components
+    │   ├── components/   # Reusable UI components, icons, and layouts
+    │   ├── helpers/      # API integrations (Axios), custom hooks, and utilities
+    │   ├── models/       # TypeScript interfaces and domain models
+    │   └── stores/       # Zustand modular state management
+    ├── messages/         # i18n translation dictionaries (EN, UA, RU)
+    └── public/           # Static assets, PWA manifest, and media
 
-## Скрипти
+## 🛡 Engineering Principles
+1. **Modular State Management:** Global state is strictly separated into independent Zustand stores (e.g., `my-user`, `wishes`, `settings`) to prevent unnecessary re-renders and isolate business logic.
+2. **Localization First:** i18n is baked directly into the routing and components, ensuring that routing, SEO metadata, and UI elements are fully localized out of the box.
+3. **Robust API Handling:** Centralized Axios instances with built-in interceptors for automatic JWT token refreshing, error handling, and language header synchronization.
 
-- **Запуск у режимі розробки:**
-  ```bash
-  npm run dev
-  ```
-
-- **Збірка проекту:**
-  ```bash
-  npm run build
-  ```
-
-- **Запуск у продакшн:**
-  ```bash
-  npm start
-  ```
-
-- **Перевірка коду ESLint:**
-  ```bash
-  npm run lint
-  ```
-
-- **Форматування коду Prettier:**
-  ```bash
-  npm run format
-  ```
-
-## Технології
-
-Проект використовує такі основні технології та бібліотеки:
-
-### Фреймворк
-
-- **Next.js (версія 14.2.5)**
-
-### UI та управління станом
-
-- **React.js (версія 18.3.1)**
-- **Zustand** для управління станом
-- **React Hook Form** для управління формами
-- **React DND** для перетягування елементів
-- **React Datepicker** для вибору дат
-- **Swiper** для створення слайдерів
-- **React Toastify** для сповіщень
-- **React Tooltip** для підказок
-
-### Дата та час
-
-- **Day.js** для роботи з датами
-
-### Запити до API
-
-- **Axios**
-
-### Локалізація
-
-- **next-intl** для підтримки мультимовності
-
-### Стілі
-
-- **Tailwind CSS** для стилізації
-- **Prettier Plugin TailwindCSS** для автоматичного впорядкування класів
-
-## Структура проекту
-
-- **public/**: Статичні файли (іконки, зображення, favicon тощо)
-- **src/**: Вихідний код проекту
-    - **app/**: Папка з маршрутизацією та сторінками
-        - **[locale]/**: Локалізовані сторінки
-            - **auth/**: Авторизація та реєстрація
-            - **main/**: Основна сторінка платформи
-            - **blog/**: Блог платформи
-            - **about/**: Сторінка "Про нас"
-            - **contact/**: Сторінка "Контакти"
-            - **instruction/**: Сторінка "Відеогід"
-            - **reviews/**: Сторінка відгуків
-            - **privacy-policy/**: Сторінка "Політика конфіденційності"
-    - **components/**: UI-компоненти
-        - **icons/**: Іконки
-        - **layouts/**: Шаблони сторінок
-        - **ui/**: Базові UI-компоненти
-    - **helpers/**: Утиліти
-        - **api/**: Функції для роботи з API
-        - **hocs/**: Вищі компоненти (Higher-Order Components)
-        - **hooks/**: Хуки
-        - **utils/**: Допоміжні функції
-    - **models/**: Типи та інтерфейси TypeScript
-    - **stores/**: Управління станом (Zustand)
-- **i18n.ts**: Ініціалізація мультимовної підтримки
-- **middleware.ts**:  Проміжний обробник
-
-## Залежності
-
-Перелік основних залежностей наведено у файлі `package.json`. У проекті використовуються як продакшн, так і
-дев-залежності, включаючи ESLint, Prettier та Tailwind CSS.
-
-## Ліцензія
-
-Цей проект ліцензовано на умовах ISC License. Деталі дивіться у файлі `LICENSE`.
-
-## Зворотний зв'язок
-
-Якщо у вас є питання або пропозиції, будь ласка, створіть issue у
-репозиторії: [GitHub Issues](https://github.com/Kh-Ol-An/wish-hub-next/issues).
-
+---
+*Built by [CyanShip](https://cyanship.com) — Launch your B2B platform faster.*
