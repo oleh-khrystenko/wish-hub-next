@@ -4,7 +4,7 @@ import { ELang } from '@/models/settings';
 
 const intlMiddleware = createMiddleware({
     locales: Object.values(ELang), // Використовуємо всі значення з перерахування
-    defaultLocale: ELang.UK,
+    defaultLocale: ELang.EN,
 });
 
 export default function middleware(request: NextRequest) {
@@ -13,7 +13,7 @@ export default function middleware(request: NextRequest) {
     // Перевіряємо, чи це маршрут /welcome
     if (pathname === '/welcome') {
         // Редіректимо до /ua і зупиняємо подальший обробіток
-        return NextResponse.redirect(new URL(`/${ELang.UK}`, request.url));
+        return NextResponse.redirect(new URL(`/${ELang.EN}`, request.url));
     }
 
     // Редірект зі сторінки /ua/uk/main на /ua/main
@@ -34,7 +34,7 @@ export default function middleware(request: NextRequest) {
 
     // Якщо маршрут не локалізований, редіректимо на локалізовану версію
     return NextResponse.redirect(
-        new URL(`/${ELang.UK}${pathname}`, request.url)
+        new URL(`/${ELang.EN}${pathname}`, request.url)
     );
 }
 
