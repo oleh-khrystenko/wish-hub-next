@@ -115,22 +115,6 @@ const UserItem: FC<IProps> = ({ user, updateUsers }) => {
             );
         }
 
-        const showEmail =
-            user?.email &&
-            (user?.id === myUser?.id ||
-                user?.showEmail === EPrivacy.ALL ||
-                (user?.showEmail === EPrivacy.FRIENDS && isFriend));
-        if (showEmail) {
-            return (
-                <span
-                    className="truncate text-left text-xs text-zinc-700 dark:text-zinc-400"
-                    style={{ width: `${textWidth}px` }}
-                >
-                    {user.email}
-                </span>
-            );
-        }
-
         return null;
     }, [user, myUser, textWidth]);
 
